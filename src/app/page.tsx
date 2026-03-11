@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { auth } from "@/lib/auth";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
@@ -130,12 +131,13 @@ function categoryLabel(cat: string) {
   return labels[cat] || cat;
 }
 
-export default function LandingPage() {
+export default async function LandingPage() {
+  const session = await auth();
   const totalPledged = 2_400_000;
 
   return (
     <div className="min-h-screen bg-white">
-      <Navbar />
+      <Navbar session={session} />
 
       {/* HERO */}
       <section className="relative overflow-hidden bg-gradient-to-br from-emerald-950 via-emerald-900 to-teal-800 text-white">

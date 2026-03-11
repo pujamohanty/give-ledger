@@ -27,7 +27,7 @@ export default function LoginPage() {
             </p>
 
             <Button
-              onClick={() => signIn("google", { callbackUrl: "/donor/dashboard" })}
+              onClick={() => signIn("google", { callbackUrl: "/auth/redirect" })}
               variant="outline"
               className="w-full h-12 flex items-center justify-center gap-3 border-gray-200 hover:bg-gray-50 mb-4"
             >

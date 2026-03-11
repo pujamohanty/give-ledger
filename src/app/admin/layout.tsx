@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
+import { auth } from "@/lib/auth";
 import {
   Leaf,
   LayoutDashboard,
@@ -18,7 +20,11 @@ const navItems = [
   { href: "/admin/settings", label: "Platform Settings", icon: Settings },
 ];
 
-export default function AdminLayout({ children }: { children: React.ReactNode }) {
+export default async function AdminLayout({ children }: { children: React.ReactNode }) {
+  const session = await auth();
+  if (!session) redirect("/login");
+  if (session.user.role !== "ADMIN") redirect("/auth/redirect");
+
   return (
     <div className="min-h-screen bg-gray-50 flex">
       <aside className="hidden lg:flex w-64 flex-col bg-gray-900 text-white fixed h-full">
