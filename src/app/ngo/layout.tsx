@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
+import { auth } from "@/lib/auth";
 import { Leaf, LayoutDashboard, FolderOpen, DollarSign, Settings, LogOut, FileText } from "lucide-react";
 
 const navItems = [
@@ -9,7 +11,12 @@ const navItems = [
   { href: "/ngo/settings", label: "Settings", icon: Settings },
 ];
 
-export default function NgoLayout({ children }: { children: React.ReactNode }) {
+export default async function NgoLayout({ children }: { children: React.ReactNode }) {
+  const session = await auth();
+  if (!session) redirect("/login");
+  if (session.user.role === "DONOR") redirect("/donor/dashboard");
+  if (session.user.role === "ADMIN") redirect("/admin/dashboard");
+
   return (
     <div className="min-h-screen bg-gray-50 flex">
       <aside className="hidden lg:flex w-64 flex-col bg-white border-r border-gray-100 fixed h-full">

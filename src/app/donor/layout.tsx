@@ -1,15 +1,22 @@
 import Link from "next/link";
-import { Leaf, LayoutDashboard, Heart, TrendingUp, Settings, LogOut } from "lucide-react";
+import { redirect } from "next/navigation";
+import { auth } from "@/lib/auth";
+import { Leaf, LayoutDashboard, Heart, TrendingUp, Settings, LogOut, Search } from "lucide-react";
 
 const navItems = [
   { href: "/donor/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/donor/donations", label: "My Donations", icon: Heart },
   { href: "/donor/impact", label: "Impact", icon: TrendingUp },
-  { href: "/projects", label: "Browse Projects", icon: TrendingUp },
+  { href: "/projects", label: "Browse Projects", icon: Search },
   { href: "/donor/settings", label: "Settings", icon: Settings },
 ];
 
-export default function DonorLayout({ children }: { children: React.ReactNode }) {
+export default async function DonorLayout({ children }: { children: React.ReactNode }) {
+  const session = await auth();
+  if (!session) redirect("/login");
+  if (session.user.role === "NGO") redirect("/ngo/dashboard");
+  if (session.user.role === "ADMIN") redirect("/admin/dashboard");
+
   return (
     <div className="min-h-screen bg-gray-50 flex">
       {/* Sidebar */}
