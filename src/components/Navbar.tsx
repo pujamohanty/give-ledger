@@ -37,6 +37,12 @@ export default function Navbar({ session }: NavbarProps) {
             <Link href="/projects" className="text-sm text-gray-600 hover:text-emerald-700 transition-colors">
               Projects
             </Link>
+            <Link href="/campaigns" className="text-sm text-gray-600 hover:text-emerald-700 transition-colors">
+              Campaigns
+            </Link>
+            <Link href="/impact" className="text-sm text-gray-600 hover:text-emerald-700 transition-colors">
+              Impact
+            </Link>
             <Link href="/#for-ngos" className="text-sm text-gray-600 hover:text-emerald-700 transition-colors">
               For NGOs
             </Link>
@@ -45,11 +51,9 @@ export default function Navbar({ session }: NavbarProps) {
           {/* Auth buttons */}
           <div className="hidden md:flex items-center gap-3">
             {session ? (
-              <>
-                <Link href={getDashboardLink()}>
-                  <Button variant="outline" size="sm">Dashboard</Button>
-                </Link>
-              </>
+              <Link href={getDashboardLink()}>
+                <Button variant="outline" size="sm">Dashboard</Button>
+              </Link>
             ) : (
               <>
                 <Link href="/login">
@@ -77,7 +81,10 @@ export default function Navbar({ session }: NavbarProps) {
         <div className="md:hidden border-t border-gray-100 bg-white px-4 py-4 space-y-3">
           <Link href="/#how-it-works" className="block text-sm text-gray-700 py-2">How It Works</Link>
           <Link href="/projects" className="block text-sm text-gray-700 py-2">Projects</Link>
+          <Link href="/campaigns" className="block text-sm text-gray-700 py-2">Campaigns</Link>
+          <Link href="/impact" className="block text-sm text-gray-700 py-2">Impact</Link>
           <Link href="/#for-ngos" className="block text-sm text-gray-700 py-2">For NGOs</Link>
+          <Link href="/suggest-ngo" className="block text-sm text-gray-700 py-2">Suggest an NGO</Link>
           {session ? (
             <Link href={getDashboardLink()}>
               <Button className="w-full" size="sm">Dashboard</Button>

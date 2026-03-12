@@ -155,6 +155,7 @@ exports.Prisma.UserScalarFieldEnum = {
   name: 'name',
   image: 'image',
   role: 'role',
+  referralCode: 'referralCode',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -190,6 +191,7 @@ exports.Prisma.ProjectScalarFieldEnum = {
   startDate: 'startDate',
   endDate: 'endDate',
   featured: 'featured',
+  spotlightVoteCount: 'spotlightVoteCount',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -299,6 +301,80 @@ exports.Prisma.PlatformSettingScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.NotificationScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  type: 'type',
+  title: 'title',
+  message: 'message',
+  linkUrl: 'linkUrl',
+  read: 'read',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.SpotlightVoteScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  projectId: 'projectId',
+  month: 'month',
+  year: 'year',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.CampaignScalarFieldEnum = {
+  id: 'id',
+  creatorId: 'creatorId',
+  projectId: 'projectId',
+  title: 'title',
+  description: 'description',
+  goalAmount: 'goalAmount',
+  raisedAmount: 'raisedAmount',
+  endsAt: 'endsAt',
+  active: 'active',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CampaignContributorScalarFieldEnum = {
+  id: 'id',
+  campaignId: 'campaignId',
+  userId: 'userId',
+  amount: 'amount',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.NgoSuggestionScalarFieldEnum = {
+  id: 'id',
+  submittedBy: 'submittedBy',
+  orgName: 'orgName',
+  website: 'website',
+  country: 'country',
+  reason: 'reason',
+  status: 'status',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.ReferralScalarFieldEnum = {
+  id: 'id',
+  referrerId: 'referrerId',
+  referredId: 'referredId',
+  converted: 'converted',
+  convertedAt: 'convertedAt',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.ActivityEventScalarFieldEnum = {
+  id: 'id',
+  type: 'type',
+  projectId: 'projectId',
+  ngoName: 'ngoName',
+  projectTitle: 'projectTitle',
+  actorName: 'actorName',
+  description: 'description',
+  metadata: 'metadata',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -379,7 +455,14 @@ exports.Prisma.ModelName = {
   Expense: 'Expense',
   BlockchainRecord: 'BlockchainRecord',
   Rating: 'Rating',
-  PlatformSetting: 'PlatformSetting'
+  PlatformSetting: 'PlatformSetting',
+  Notification: 'Notification',
+  SpotlightVote: 'SpotlightVote',
+  Campaign: 'Campaign',
+  CampaignContributor: 'CampaignContributor',
+  NgoSuggestion: 'NgoSuggestion',
+  Referral: 'Referral',
+  ActivityEvent: 'ActivityEvent'
 };
 
 /**
