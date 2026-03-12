@@ -100,7 +100,7 @@ function SignupContent() {
               <Button
                 onClick={() =>
                   signIn("google", {
-                    callbackUrl: "/auth/redirect",
+                    callbackUrl: role === "ngo" ? "/auth/redirect?role=NGO" : "/auth/redirect",
                   })
                 }
                 variant="outline"
