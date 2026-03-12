@@ -173,13 +173,13 @@ export default function NgoDashboard() {
                   )}
 
                   <div className="mt-3 pt-3 border-t border-gray-50 flex gap-2">
-                    <Link href={`/ngo/projects/${project.id}`} className="flex-1">
+                    <Link href="/ngo/projects" className="flex-1">
                       <Button variant="outline" size="sm" className="w-full text-xs">
                         Manage Project
                       </Button>
                     </Link>
                     {project.pendingDisbursement > 0 && (
-                      <Link href={`/ngo/projects/${project.id}/disbursement`} className="flex-1">
+                      <Link href={`/ngo/submit-milestone?project=${project.id}`} className="flex-1">
                         <Button size="sm" className="w-full text-xs">
                           Request Funds
                         </Button>

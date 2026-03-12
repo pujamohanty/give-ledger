@@ -1,4 +1,6 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+"use client";
+import { useState } from "react";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
   CheckCircle2,
@@ -10,7 +12,22 @@ import {
   Clock,
 } from "lucide-react";
 
-const applications = [
+type Application = {
+  id: string;
+  name: string;
+  regNumber: string;
+  country: string;
+  contact: string;
+  email: string;
+  website: string;
+  category: string;
+  submitted: string;
+  docs: number;
+  status: string;
+  description: string;
+};
+
+const initialApplications: Application[] = [
   {
     id: "1",
     name: "EduBridge Foundation",
@@ -77,6 +94,29 @@ const categoryLabel: Record<string, string> = {
 };
 
 export default function AdminNgosPage() {
+  const [applications, setApplications] = useState<Application[]>(initialApplications);
+  const [acting, setActing] = useState<string | null>(null);
+
+  const handleAction = async (ngoId: string, action: "APPROVE" | "REJECT") => {
+    setActing(ngoId);
+    // Optimistic update immediately
+    setApplications((prev) =>
+      prev.map((a) =>
+        a.id === ngoId ? { ...a, status: action === "APPROVE" ? "APPROVED" : "REJECTED" } : a
+      )
+    );
+    try {
+      await fetch("/api/admin/approve-ngo", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ngoId, action }),
+      });
+    } catch {
+      // silently ignore — optimistic update stays
+    }
+    setActing(null);
+  };
+
   const pending = applications.filter((a) => a.status === "PENDING");
   const approved = applications.filter((a) => a.status === "APPROVED");
 
@@ -157,6 +197,8 @@ export default function AdminNgosPage() {
                       <Button
                         size="sm"
                         className="bg-emerald-600 hover:bg-emerald-700 flex items-center gap-1"
+                        disabled={acting === app.id}
+                        onClick={() => handleAction(app.id, "APPROVE")}
                       >
                         <CheckCircle2 className="w-3 h-3" /> Approve NGO
                       </Button>
@@ -164,6 +206,8 @@ export default function AdminNgosPage() {
                         variant="outline"
                         size="sm"
                         className="border-red-200 text-red-600 hover:bg-red-50 flex items-center gap-1"
+                        disabled={acting === app.id}
+                        onClick={() => handleAction(app.id, "REJECT")}
                       >
                         <XCircle className="w-3 h-3" /> Reject
                       </Button>

@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { ArrowLeft, Plus, Trash2, Info } from "lucide-react";
+import { ArrowLeft, Plus, Trash2, Info, AlertCircle } from "lucide-react";
 
 const categories = [
   { value: "INCOME_GENERATION", label: "Income Generation" },
@@ -24,11 +24,18 @@ interface Milestone {
 }
 
 export default function NewProjectPage() {
+  const [title, setTitle] = useState("");
+  const [category, setCategory] = useState("");
+  const [description, setDescription] = useState("");
+  const [goalAmount, setGoalAmount] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
   const [milestones, setMilestones] = useState<Milestone[]>([
     { name: "", description: "", targetDate: "", requiredAmount: "" },
   ]);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState("");
 
   const addMilestone = () => {
     if (milestones.length < 10) {
@@ -46,11 +53,38 @@ export default function NewProjectPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError("");
     setSubmitting(true);
-    // Simulate submission
-    await new Promise((r) => setTimeout(r, 1500));
-    setSubmitting(false);
-    setSubmitted(true);
+    try {
+      const res = await fetch("/api/ngo/create-project", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          title,
+          category,
+          description,
+          goalAmount: parseFloat(goalAmount),
+          startDate: startDate || null,
+          endDate: endDate || null,
+          milestones: milestones.map((m) => ({
+            name: m.name,
+            description: m.description,
+            targetDate: m.targetDate || null,
+            requiredAmount: parseFloat(m.requiredAmount),
+          })),
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setError(data.error ?? "Submission failed. Please try again.");
+        setSubmitting(false);
+        return;
+      }
+      setSubmitted(true);
+    } catch {
+      setError("Network error. Please try again.");
+      setSubmitting(false);
+    }
   };
 
   if (submitted) {
@@ -102,6 +136,8 @@ export default function NewProjectPage() {
                 placeholder="e.g. Clean Water for Kibera Schools"
                 className="mt-1"
                 required
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
               />
             </div>
             <div>
@@ -110,6 +146,8 @@ export default function NewProjectPage() {
                 id="category"
                 className="mt-1 flex h-10 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 required
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
               >
                 <option value="">Select a category</option>
                 {categories.map((c) => (
@@ -127,6 +165,8 @@ export default function NewProjectPage() {
                 placeholder="Describe your project, the problem it solves, and the community it serves..."
                 className="mt-1 flex w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-none"
                 required
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
               />
             </div>
             <div className="grid grid-cols-2 gap-4">
@@ -139,6 +179,8 @@ export default function NewProjectPage() {
                   placeholder="25000"
                   className="mt-1"
                   required
+                  value={goalAmount}
+                  onChange={(e) => setGoalAmount(e.target.value)}
                 />
               </div>
               <div>
@@ -157,11 +199,11 @@ export default function NewProjectPage() {
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <Label htmlFor="startDate">Start Date</Label>
-                <Input id="startDate" type="date" className="mt-1" />
+                <Input id="startDate" type="date" className="mt-1" value={startDate} onChange={(e) => setStartDate(e.target.value)} />
               </div>
               <div>
                 <Label htmlFor="endDate">End Date</Label>
-                <Input id="endDate" type="date" className="mt-1" />
+                <Input id="endDate" type="date" className="mt-1" value={endDate} onChange={(e) => setEndDate(e.target.value)} />
               </div>
             </div>
           </CardContent>
@@ -262,6 +304,14 @@ export default function NewProjectPage() {
             )}
           </CardContent>
         </Card>
+
+        {/* Error */}
+        {error && (
+          <div className="flex items-center gap-2 text-red-600 text-sm bg-red-50 rounded-xl p-4">
+            <AlertCircle className="w-4 h-4 flex-shrink-0" />
+            {error}
+          </div>
+        )}
 
         {/* Submit */}
         <div className="flex gap-3">

@@ -27,11 +27,15 @@ export default function NewCampaignForm() {
     daysRunning: "30",
   });
   const [submitted, setSubmitted] = useState(false);
+  const [campaignId, setCampaignId] = useState("");
 
   const selectedProject = projects.find((p) => p.id === form.projectId);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    // Generate a unique slug: project id + short random hex
+    const slug = `c-${form.projectId}-${Math.random().toString(16).slice(2, 8)}`;
+    setCampaignId(slug);
     setSubmitted(true);
   };
 
@@ -53,7 +57,7 @@ export default function NewCampaignForm() {
           <div className="bg-gray-100 rounded-xl p-4 mb-6 text-left">
             <p className="text-xs text-gray-500 mb-1">Your campaign link</p>
             <p className="font-mono text-sm text-gray-800 break-all">
-              https://give-ledger.vercel.app/campaigns/c-new-123
+              https://give-ledger.vercel.app/campaigns/{campaignId}
             </p>
           </div>
           <div className="flex flex-col gap-3">

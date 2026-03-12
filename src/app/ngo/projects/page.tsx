@@ -147,13 +147,17 @@ export default function NgoProjectsPage() {
                 </div>
 
                 <div className="flex gap-2 pt-3 border-t border-gray-100">
-                  <Button variant="outline" size="sm" className="flex items-center gap-1 text-xs">
-                    Manage <ArrowRight className="w-3 h-3" />
-                  </Button>
-                  {project.pendingDisbursement > 0 && (
-                    <Button size="sm" className="text-xs">
-                      Request Disbursement
+                  <Link href={`/ngo/submit-milestone?project=${project.id}`}>
+                    <Button variant="outline" size="sm" className="flex items-center gap-1 text-xs">
+                      Manage <ArrowRight className="w-3 h-3" />
                     </Button>
+                  </Link>
+                  {project.pendingDisbursement > 0 && (
+                    <Link href={`/ngo/submit-milestone?project=${project.id}`}>
+                      <Button size="sm" className="text-xs">
+                        Request Disbursement
+                      </Button>
+                    </Link>
                   )}
                 </div>
               </CardContent>

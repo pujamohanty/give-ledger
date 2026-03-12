@@ -1,4 +1,6 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+"use client";
+import { useState } from "react";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
   CheckCircle2,
@@ -10,7 +12,21 @@ import {
   DollarSign,
 } from "lucide-react";
 
-const disbursements = [
+type Disbursement = {
+  id: string;
+  ngo: string;
+  project: string;
+  milestone: string;
+  amount: number;
+  requested: string;
+  evidence: string[];
+  narrative: string;
+  outputMetrics: string[];
+  status: string;
+  txHash: string | null;
+};
+
+const initialDisbursements: Disbursement[] = [
   {
     id: "d1",
     ngo: "WaterBridge Kenya",
@@ -66,6 +82,34 @@ const disbursements = [
 ];
 
 export default function AdminDisbursementsPage() {
+  const [disbursements, setDisbursements] = useState<Disbursement[]>(initialDisbursements);
+  const [acting, setActing] = useState<string | null>(null);
+
+  const handleAction = async (disbursementId: string, action: "APPROVE" | "REJECT") => {
+    setActing(disbursementId);
+    const mockTxHash = action === "APPROVE"
+      ? `0x${Math.random().toString(16).slice(2, 10)}${Math.random().toString(16).slice(2, 10)}...`
+      : null;
+    // Optimistic update
+    setDisbursements((prev) =>
+      prev.map((d) =>
+        d.id === disbursementId
+          ? { ...d, status: action === "APPROVE" ? "APPROVED" : "REJECTED", txHash: mockTxHash }
+          : d
+      )
+    );
+    try {
+      await fetch("/api/admin/approve-disbursement", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ disbursementId, action }),
+      });
+    } catch {
+      // silently ignore — optimistic update stays
+    }
+    setActing(null);
+  };
+
   const pending = disbursements.filter((d) => d.status === "PENDING");
   const approved = disbursements.filter((d) => d.status === "APPROVED");
 
@@ -156,13 +200,19 @@ export default function AdminDisbursementsPage() {
                 </div>
 
                 <div className="border-t border-gray-100 pt-4 flex gap-3">
-                  <Button className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700">
+                  <Button
+                    className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700"
+                    disabled={acting === d.id}
+                    onClick={() => handleAction(d.id, "APPROVE")}
+                  >
                     <CheckCircle2 className="w-4 h-4" />
-                    Approve & Release Funds
+                    {acting === d.id ? "Processing..." : "Approve & Release Funds"}
                   </Button>
                   <Button
                     variant="outline"
                     className="flex items-center gap-2 border-red-200 text-red-600 hover:bg-red-50"
+                    disabled={acting === d.id}
+                    onClick={() => handleAction(d.id, "REJECT")}
                   >
                     <XCircle className="w-4 h-4" />
                     Reject

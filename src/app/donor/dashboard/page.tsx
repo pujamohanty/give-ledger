@@ -192,9 +192,27 @@ function MilestoneIcon({ status }: { status: string }) {
   return <Circle className="w-4 h-4 text-gray-300" />;
 }
 
-export default function DonorDashboard() {
+export default function DonorDashboard({
+  searchParams,
+}: {
+  searchParams: { donated?: string };
+}) {
+  const justDonated = searchParams?.donated === "true";
   return (
     <div className="p-6 lg:p-8">
+      {/* Post-donation confirmation banner */}
+      {justDonated && (
+        <div className="mb-6 bg-emerald-50 border border-emerald-200 rounded-xl px-5 py-4 flex items-center gap-3">
+          <CheckCircle2 className="w-5 h-5 text-emerald-600 flex-shrink-0" />
+          <div>
+            <p className="text-sm font-semibold text-emerald-800">Donation received — thank you!</p>
+            <p className="text-xs text-emerald-600 mt-0.5">
+              Your funds are held in escrow and will be released when the next milestone is verified and approved.
+            </p>
+          </div>
+        </div>
+      )}
+
       {/* Header */}
       <div className="flex items-center justify-between mb-8">
         <div>
