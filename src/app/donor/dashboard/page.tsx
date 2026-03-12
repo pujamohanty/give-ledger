@@ -202,16 +202,18 @@ export default function DonorDashboard() {
           <p className="text-gray-500 text-sm mt-1">Every donation tracked. Every milestone verified.</p>
         </div>
         <div className="flex items-center gap-3">
-          <Link href="/donor/notifications" className="relative">
-            <Button variant="outline" size="sm" className="gap-2">
-              <Bell className="w-4 h-4" />
-              {unreadCount > 0 && (
-                <span className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">
-                  {unreadCount}
-                </span>
-              )}
-            </Button>
-          </Link>
+          <div className="relative">
+            <Link href="/donor/notifications">
+              <Button variant="outline" size="sm" className="gap-2">
+                <Bell className="w-4 h-4" />
+              </Button>
+            </Link>
+            {unreadCount > 0 && (
+              <span className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white text-xs rounded-full flex items-center justify-center pointer-events-none">
+                {unreadCount}
+              </span>
+            )}
+          </div>
           <Link href="/projects">
             <Button className="flex items-center gap-2">Donate Again <ArrowRight className="w-4 h-4" /></Button>
           </Link>
@@ -244,7 +246,7 @@ export default function DonorDashboard() {
             </div>
           </div>
         </Link>
-        <Link href="/projects?vote=1" className="group">
+        <Link href="/projects" className="group">
           <div className="flex items-center gap-3 p-4 bg-amber-50 rounded-xl border border-amber-100 hover:border-amber-300 transition-colors">
             <Star className="w-5 h-5 text-amber-600" />
             <div>

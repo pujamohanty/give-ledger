@@ -36,11 +36,90 @@ const campaigns = {
     ],
     category: "Child Care",
   },
+  "c2": {
+    id: "c2",
+    title: "Complete Cohort 2 vocational training in Bihar",
+    creator: "Anjali P.",
+    creatorInitial: "AP",
+    project: "Livelihood Training - Rural Bihar",
+    projectId: "2",
+    ngo: "Pragati Foundation",
+    goal: 12000,
+    raised: 8400,
+    contributors: 41,
+    daysLeft: 18,
+    description: "I grew up in rural Bihar. I know what unemployment does to families — especially women. Then I discovered Pragati Foundation and saw what they've built.\n\nCohort 1 was remarkable. 45 women trained, certified, and each given a starter kit. Seven of them have already started businesses within 30 days. That's not a statistic — that's a family transformed.\n\nCohort 2 needs $12,000 to run the same programme for the next 45 women. The money is milestone-locked — Pragati only receives it once attendance, certifications, and starter kit distribution are verified and recorded on-chain.\n\nI'm asking my network to help finish what Cohort 1 started.",
+    completedMilestones: [
+      { name: "Training centre setup", metric: "Training facility set up across 3 villages", milestoneId: "m3", txHash: "0x2c1d3e4f..." },
+      { name: "Cohort 1 — 45 women trained", metric: "45 women certified, 7 businesses started within 30 days", milestoneId: "m2", txHash: "0x9a8b7c6d..." },
+    ],
+    contributors_list: [
+      { name: "Priya S.", amount: 1000, time: "1h ago" },
+      { name: "Anonymous", amount: 250, time: "4h ago" },
+      { name: "Vikram S.", amount: 500, time: "1d ago" },
+      { name: "Fatima A.", amount: 200, time: "2d ago" },
+      { name: "Anonymous", amount: 150, time: "3d ago" },
+    ],
+    category: "Income Generation",
+  },
+  "c3": {
+    id: "c3",
+    title: "50 seniors deserve a proper home — help finish the build",
+    creator: "David L.",
+    creatorInitial: "DL",
+    project: "Elderly Care Home - Mysore",
+    projectId: "3",
+    ngo: "SilverYears Trust",
+    goal: 18000,
+    raised: 11200,
+    contributors: 78,
+    daysLeft: 8,
+    description: "I visited a government shelter home in Mysore two years ago. What I saw broke me. Forty elders in a room built for fifteen, no medical care, no dignity.\n\nThen I found SilverYears Trust. Dr. Meera Nair has been fighting for these elders for 12 years. The land is acquired. The foundation is poured. The walls are up. 60% of a proper 50-bed facility is already structurally complete.\n\nNow they're stuck at the roof, electrical, and plumbing phase — $18,000 away from a facility that can open its doors to 50 seniors who have nowhere else to go.\n\nThis campaign closes in 8 days. Every single rupee is milestone-locked on the blockchain. SilverYears doesn't get the money until a licensed architect certifies each phase is complete. Help me get this over the line.",
+    completedMilestones: [
+      { name: "Land acquisition & permits", metric: "Land acquired, all permits obtained from BBMP", milestoneId: "m4", txHash: "0x5b4c3d2e..." },
+      { name: "Foundation & ground floor structure", metric: "60% of 50-bed facility now structurally complete", milestoneId: "m5", txHash: "0x1a2b3c4d..." },
+    ],
+    contributors_list: [
+      { name: "Meena R.", amount: 2000, time: "3h ago" },
+      { name: "Anonymous", amount: 500, time: "5h ago" },
+      { name: "Rahul M.", amount: 300, time: "1d ago" },
+      { name: "Anjali P.", amount: 1000, time: "1d ago" },
+      { name: "Anonymous", amount: 250, time: "2d ago" },
+    ],
+    category: "Elderly Care",
+  },
+  "c4": {
+    id: "c4",
+    title: "Solar power for 3 more Ugandan schools",
+    creator: "Marcus T.",
+    creatorInitial: "MT",
+    project: "Solar Microgrids for Rural Schools",
+    projectId: "6",
+    ngo: "SunPower Africa",
+    goal: 15000,
+    raised: 4100,
+    contributors: 19,
+    daysLeft: 25,
+    description: "I run a small energy consultancy and when I saw what SunPower Africa built in Uganda, I had to get involved.\n\nPhase 1 is done — 3 schools, 860 students, evening study hours restored, $1,200 per month in diesel costs eliminated. The evidence is all on-chain. Electrical engineer sign-off, power readings, photos. It's verifiable.\n\nPhase 2 covers the remaining 3 schools. Same methodology. Same transparency. 15,000 dollars to give another ~860 students the same outcome.\n\nI've contributed personally. Now I'm asking my network to help me close this out. Every contribution goes to a milestone-locked fund — SunPower Africa gets nothing until the installations are certified complete.",
+    completedMilestones: [
+      { name: "Equipment procurement & shipping", metric: "Solar panels and batteries shipped and customs-cleared", milestoneId: "m7", txHash: "0x3e4f5a6b..." },
+      { name: "Installation — Schools 1–3", metric: "860 students have evening study hours, monthly savings $600", milestoneId: "m8", txHash: "0xf1e2d3c4..." },
+    ],
+    contributors_list: [
+      { name: "Aisha B.", amount: 500, time: "2h ago" },
+      { name: "Anonymous", amount: 100, time: "6h ago" },
+      { name: "James O.", amount: 300, time: "1d ago" },
+      { name: "Priya S.", amount: 200, time: "2d ago" },
+      { name: "Anonymous", amount: 150, time: "3d ago" },
+    ],
+    category: "Education",
+  },
 };
 
 export function generateStaticParams() {
   return Object.keys(campaigns).map((id) => ({ id }));
 }
+
 
 export default async function CampaignDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
