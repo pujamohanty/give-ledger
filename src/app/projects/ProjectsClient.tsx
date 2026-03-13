@@ -6,6 +6,18 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Search, SlidersHorizontal } from "lucide-react";
 
+export type ProjectSummary = {
+  id: string;
+  title: string;
+  ngoName: string;
+  category: string;
+  description: string;
+  raisedAmount: number;
+  goalAmount: number;
+  donorCount: number;
+  daysLeft: number;
+};
+
 const categories = [
   { id: "ALL", label: "All Projects" },
   { id: "INCOME_GENERATION", label: "Income Generation" },
@@ -13,15 +25,7 @@ const categories = [
   { id: "ELDERLY_CARE", label: "Elderly Care" },
   { id: "PHYSICALLY_DISABLED", label: "Accessibility" },
   { id: "PET_CARE", label: "Animal Welfare" },
-];
-
-const allProjects = [
-  { id: "1", title: "Clean Water for Kibera Schools", ngo: "WaterBridge Kenya", category: "CHILD_CARE", desc: "Installing water filtration systems in 12 schools across Kibera, providing safe drinking water to 6,000+ students.", raised: 18400, goal: 25000, image: "💧", backers: 142, daysLeft: 22 },
-  { id: "2", title: "Livelihood Training - Rural Bihar", ngo: "Pragati Foundation", category: "INCOME_GENERATION", desc: "Vocational training in tailoring, electronics repair, and mobile servicing for 200 rural women in Bihar.", raised: 31200, goal: 40000, image: "🧵", backers: 89, daysLeft: 35 },
-  { id: "3", title: "Elderly Care Home - Mysore", ngo: "SilverYears Trust", category: "ELDERLY_CARE", desc: "Building a dignified care facility for 50 elderly residents with medical support and recreational activities.", raised: 62000, goal: 80000, image: "🏠", backers: 317, daysLeft: 14 },
-  { id: "4", title: "Wheelchair Access - Mumbai Slums", ngo: "AccessAbility India", category: "PHYSICALLY_DISABLED", desc: "Installing ramps and accessible pathways in 8 community buildings to enable mobility for 120 wheelchair users.", raised: 8900, goal: 15000, image: "♿", backers: 67, daysLeft: 45 },
-  { id: "5", title: "Animal Rescue & Rehabilitation", ngo: "PawsNairobi", category: "PET_CARE", desc: "Building a veterinary care facility for abandoned animals and training 50 community volunteers in animal welfare.", raised: 5200, goal: 12000, image: "🐾", backers: 44, daysLeft: 60 },
-  { id: "6", title: "Solar Microgrids for Rural Schools", ngo: "SunPower Africa", category: "INCOME_GENERATION", desc: "Installing solar energy systems in 6 off-grid schools, enabling evening study and reducing generator fuel costs.", raised: 42000, goal: 55000, image: "☀️", backers: 201, daysLeft: 28 },
+  { id: "OTHER", label: "Other" },
 ];
 
 const categoryLabel: Record<string, string> = {
@@ -30,27 +34,43 @@ const categoryLabel: Record<string, string> = {
   ELDERLY_CARE: "Elderly Care",
   PHYSICALLY_DISABLED: "Accessibility",
   PET_CARE: "Animal Welfare",
+  OTHER: "Other",
+};
+
+const categoryEmoji: Record<string, string> = {
+  INCOME_GENERATION: "🧵",
+  CHILD_CARE: "💧",
+  ELDERLY_CARE: "🏠",
+  PHYSICALLY_DISABLED: "♿",
+  PET_CARE: "🐾",
+  OTHER: "🌱",
 };
 
 type SortOption = "newest" | "most-funded" | "ending-soon";
 
-export default function ProjectsClient() {
+export default function ProjectsClient({ projects }: { projects: ProjectSummary[] }) {
   const [activeCategory, setActiveCategory] = useState("ALL");
   const [query, setQuery] = useState("");
   const [sort, setSort] = useState<SortOption>("most-funded");
   const [sortOpen, setSortOpen] = useState(false);
 
   const filtered = useMemo(() => {
-    let list = allProjects;
+    let list = projects;
     if (activeCategory !== "ALL") list = list.filter((p) => p.category === activeCategory);
     if (query.trim()) {
       const q = query.toLowerCase();
-      list = list.filter((p) => p.title.toLowerCase().includes(q) || p.ngo.toLowerCase().includes(q));
+      list = list.filter(
+        (p) => p.title.toLowerCase().includes(q) || p.ngoName.toLowerCase().includes(q)
+      );
     }
-    if (sort === "most-funded") list = [...list].sort((a, b) => (b.raised / b.goal) - (a.raised / a.goal));
-    if (sort === "ending-soon") list = [...list].sort((a, b) => a.daysLeft - b.daysLeft);
+    if (sort === "most-funded")
+      list = [...list].sort((a, b) => b.raisedAmount / b.goalAmount - a.raisedAmount / a.goalAmount);
+    if (sort === "ending-soon")
+      list = [...list].sort((a, b) => a.daysLeft - b.daysLeft);
+    if (sort === "newest")
+      list = [...list]; // already ordered by createdAt desc from server
     return list;
-  }, [activeCategory, query, sort]);
+  }, [projects, activeCategory, query, sort]);
 
   return (
     <>
@@ -71,7 +91,11 @@ export default function ProjectsClient() {
               />
             </div>
             <div className="relative">
-              <Button variant="outline" className="flex items-center gap-2" onClick={() => setSortOpen(!sortOpen)}>
+              <Button
+                variant="outline"
+                className="flex items-center gap-2"
+                onClick={() => setSortOpen(!sortOpen)}
+              >
                 <SlidersHorizontal className="w-4 h-4" />
                 {sort === "most-funded" ? "Most Funded" : sort === "ending-soon" ? "Ending Soon" : "Newest"}
               </Button>
@@ -118,36 +142,45 @@ export default function ProjectsClient() {
         {filtered.length === 0 ? (
           <div className="text-center py-16">
             <p className="text-gray-400 text-lg">No projects match your search.</p>
-            <button onClick={() => { setQuery(""); setActiveCategory("ALL"); }} className="mt-3 text-emerald-600 text-sm hover:underline">
+            <button
+              onClick={() => { setQuery(""); setActiveCategory("ALL"); }}
+              className="mt-3 text-emerald-600 text-sm hover:underline"
+            >
               Clear filters
             </button>
           </div>
         ) : (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {filtered.map((project) => {
-              const pct = Math.round((project.raised / project.goal) * 100);
+              const pct = project.goalAmount > 0
+                ? Math.round((project.raisedAmount / project.goalAmount) * 100)
+                : 0;
               return (
                 <Card key={project.id} className="hover:shadow-md transition-shadow group">
                   <div className="h-44 bg-gradient-to-br from-emerald-100 to-teal-50 flex items-center justify-center rounded-t-xl text-5xl group-hover:scale-105 transition-transform duration-300 overflow-hidden">
-                    {project.image}
+                    {categoryEmoji[project.category] ?? "🌱"}
                   </div>
                   <CardContent className="p-5">
                     <div className="flex items-center justify-between mb-2">
                       <span className="inline-flex items-center rounded-full bg-gray-100 text-gray-700 px-2.5 py-0.5 text-xs font-semibold">
-                        {categoryLabel[project.category]}
+                        {categoryLabel[project.category] ?? project.category}
                       </span>
-                      <span className="text-xs text-gray-400">{project.daysLeft} days left</span>
+                      <span className="text-xs text-gray-400">
+                        {project.daysLeft > 0 ? `${project.daysLeft} days left` : "Ending soon"}
+                      </span>
                     </div>
                     <h3 className="font-semibold text-gray-900 mb-1 text-sm leading-snug">{project.title}</h3>
-                    <p className="text-xs text-emerald-700 font-medium mb-3">{project.ngo}</p>
-                    <p className="text-sm text-gray-500 mb-4 line-clamp-2">{project.desc}</p>
+                    <p className="text-xs text-emerald-700 font-medium mb-3">{project.ngoName}</p>
+                    <p className="text-sm text-gray-500 mb-4 line-clamp-2">{project.description}</p>
                     <Progress value={pct} className="mb-2" />
                     <div className="flex justify-between text-xs text-gray-500 mb-4">
-                      <span className="font-semibold text-gray-900">${project.raised.toLocaleString()} raised</span>
+                      <span className="font-semibold text-gray-900">
+                        ${project.raisedAmount.toLocaleString()} raised
+                      </span>
                       <span>{pct}% funded</span>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-xs text-gray-400">{project.backers} backers</span>
+                      <span className="text-xs text-gray-400">{project.donorCount} backers</span>
                       <div className="flex gap-2">
                         <Link href={`/projects/${project.id}`}>
                           <Button variant="outline" size="sm" className="text-xs">Details</Button>

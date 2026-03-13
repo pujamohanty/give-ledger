@@ -1,190 +1,18 @@
+import { redirect } from "next/navigation";
 import Link from "next/link";
+import { auth } from "@/lib/auth";
+import { prisma } from "@/lib/prisma";
+import { formatCurrency, formatDate, calcFundingPercent } from "@/lib/utils";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import {
-  DollarSign,
-  FolderOpen,
-  Clock,
-  Users,
-  ExternalLink,
-  CheckCircle2,
-  Circle,
-  ArrowRight,
-  Share2,
-  Zap,
-  Bell,
-  TrendingUp,
-  Activity,
-  Star,
-  Gift,
-} from "lucide-react";
 import ShareMilestoneCard from "@/components/ShareMilestoneCard";
 import ImpactSimulator from "@/components/ImpactSimulator";
-
-const kpis = [
-  { label: "Total Donated", value: "$1,250", icon: DollarSign, color: "text-emerald-600", bg: "bg-emerald-50" },
-  { label: "Projects Funded", value: "4", icon: FolderOpen, color: "text-blue-600", bg: "bg-blue-50" },
-  { label: "Milestones Unlocked", value: "5", icon: CheckCircle2, color: "text-amber-600", bg: "bg-amber-50" },
-  { label: "Lives Impacted", value: "~340", icon: Users, color: "text-purple-600", bg: "bg-purple-50" },
-];
-
-// Timeline of all events across projects this donor is involved in
-const impactTimeline = [
-  {
-    id: "t1",
-    type: "MILESTONE_COMPLETE",
-    date: "Feb 3, 2026",
-    project: "Clean Water for Kibera Schools",
-    ngo: "WaterBridge Kenya",
-    event: "Installation — Schools 1–6",
-    metric: "2,400 children now have access to clean water",
-    txHash: "0x7d6e5f4c...",
-    milestoneId: "m1",
-    shareable: true,
-  },
-  {
-    id: "t2",
-    type: "DONATION",
-    date: "Mar 1, 2026",
-    project: "Clean Water for Kibera Schools",
-    ngo: "WaterBridge Kenya",
-    event: "You donated $150",
-    metric: null,
-    txHash: "0x4a3b2c1d...",
-    milestoneId: null,
-    shareable: false,
-  },
-  {
-    id: "t3",
-    type: "MILESTONE_COMPLETE",
-    date: "Jan 28, 2026",
-    project: "Livelihood Training - Rural Bihar",
-    ngo: "Pragati Foundation",
-    event: "Cohort 1 — 45 Women Trained & Certified",
-    metric: "45 women certified, 7 businesses already started",
-    txHash: "0x9a8b7c6d...",
-    milestoneId: "m2",
-    shareable: true,
-  },
-  {
-    id: "t4",
-    type: "DONATION",
-    date: "Feb 14, 2026",
-    project: "Livelihood Training - Rural Bihar",
-    ngo: "Pragati Foundation",
-    event: "You donated $500",
-    metric: null,
-    txHash: "0x8f7e6d5c...",
-    milestoneId: null,
-    shareable: false,
-  },
-  {
-    id: "t5",
-    type: "MILESTONE_UNDER_REVIEW",
-    date: "Mar 20, 2026 (expected)",
-    project: "Clean Water for Kibera Schools",
-    ngo: "WaterBridge Kenya",
-    event: "Installation — Schools 7–12",
-    metric: "Evidence under admin review",
-    txHash: null,
-    milestoneId: null,
-    shareable: false,
-  },
-];
-
-const myProjects = [
-  {
-    id: "1",
-    title: "Clean Water for Kibera Schools",
-    ngo: "WaterBridge Kenya",
-    donated: 150,
-    raised: 18400,
-    goal: 25000,
-    milestones: [
-      { name: "Equipment procurement", status: "COMPLETED", date: "Jan 15" },
-      { name: "Installation Phase 1", status: "COMPLETED", date: "Feb 3" },
-      { name: "Installation Phase 2", status: "UNDER_REVIEW", date: "Mar 20" },
-      { name: "Community training", status: "PENDING", date: "Apr 10" },
-    ],
-    txHash: "0x4a3b2c1d...",
-  },
-  {
-    id: "2",
-    title: "Livelihood Training - Rural Bihar",
-    ngo: "Pragati Foundation",
-    donated: 500,
-    raised: 31200,
-    goal: 40000,
-    milestones: [
-      { name: "Training centre setup", status: "COMPLETED", date: "Dec 10" },
-      { name: "Cohort 1 training", status: "COMPLETED", date: "Jan 28" },
-      { name: "Cohort 2 training", status: "PENDING", date: "Mar 15" },
-    ],
-    txHash: "0x8f7e6d5c...",
-  },
-];
-
-// Platform activity feed
-const activityFeed = [
-  {
-    id: "a1",
-    type: "MILESTONE_COMPLETE",
-    icon: CheckCircle2,
-    iconColor: "text-emerald-600",
-    iconBg: "bg-emerald-50",
-    text: "SilverYears Trust completed milestone: Foundation & ground floor structure",
-    sub: "Elderly Care Home - Mysore",
-    time: "2h ago",
-  },
-  {
-    id: "a2",
-    type: "PROJECT_LAUNCH",
-    icon: Zap,
-    iconColor: "text-blue-600",
-    iconBg: "bg-blue-50",
-    text: "New project launched: Wheelchair Ramps - Govandi",
-    sub: "AccessAbility India · Goal: $15,000",
-    time: "1d ago",
-  },
-  {
-    id: "a3",
-    type: "CAMPAIGN",
-    icon: Gift,
-    iconColor: "text-purple-600",
-    iconBg: "bg-purple-50",
-    text: "Sarah K. started a fundraising campaign for Kibera Water",
-    sub: "\"Help fund the final school installations\" · $3,200 raised",
-    time: "2d ago",
-  },
-  {
-    id: "a4",
-    type: "MILESTONE_COMPLETE",
-    icon: CheckCircle2,
-    iconColor: "text-emerald-600",
-    iconBg: "bg-emerald-50",
-    text: "Pragati Foundation completed: Training centre setup",
-    sub: "Livelihood Training - Rural Bihar · 45 women trained",
-    time: "3d ago",
-  },
-  {
-    id: "a5",
-    type: "SPOTLIGHT",
-    icon: Star,
-    iconColor: "text-amber-600",
-    iconBg: "bg-amber-50",
-    text: "Monthly spotlight: Clean Water for Kibera Schools is this month's most-voted project",
-    sub: "Cast your vote for next month →",
-    time: "5d ago",
-  },
-];
-
-const notifications = [
-  { text: "Milestone verified on Kibera Water project", time: "2h ago", read: false },
-  { text: "Your campaign raised $200 this week", time: "1d ago", read: false },
-  { text: "New project by WaterBridge Kenya — check it out", time: "3d ago", read: true },
-];
-const unreadCount = notifications.filter((n) => !n.read).length;
+import {
+  DollarSign, FolderOpen, CheckCircle2, Users, ExternalLink,
+  Circle, ArrowRight, Share2, Zap, Bell, TrendingUp, Activity,
+  Star, Gift, Clock,
+} from "lucide-react";
 
 function MilestoneIcon({ status }: { status: string }) {
   if (status === "COMPLETED") return <CheckCircle2 className="w-4 h-4 text-emerald-600" />;
@@ -192,15 +20,158 @@ function MilestoneIcon({ status }: { status: string }) {
   return <Circle className="w-4 h-4 text-gray-300" />;
 }
 
-export default function DonorDashboard({
+export default async function DonorDashboard({
   searchParams,
 }: {
-  searchParams: { donated?: string };
+  searchParams: Promise<{ donated?: string }>;
 }) {
-  const justDonated = searchParams?.donated === "true";
+  const session = await auth();
+  if (!session?.user?.id) redirect("/login");
+
+  const params = await searchParams;
+  const justDonated = params?.donated === "true";
+  const userId = session.user.id;
+
+  // Fetch all donations with project and NGO info
+  const donations = await prisma.donation.findMany({
+    where: { userId },
+    include: {
+      project: {
+        include: {
+          ngo: true,
+          milestones: { orderBy: { orderIndex: "asc" } },
+        },
+      },
+      blockchainRecord: true,
+    },
+    orderBy: { createdAt: "desc" },
+  });
+
+  // KPI calculations
+  const totalDonated = donations.reduce((sum, d) => sum + d.amount, 0);
+  const uniqueProjectIds = [...new Set(donations.map((d) => d.projectId))];
+  const projectCount = uniqueProjectIds.length;
+
+  // Milestones for all projects this donor has funded
+  const allMilestones = await prisma.milestone.findMany({
+    where: { projectId: { in: uniqueProjectIds } },
+    include: { outputMarkers: true, project: { include: { ngo: true } }, disbursement: true },
+    orderBy: { completedAt: "desc" },
+  });
+
+  const completedMilestones = allMilestones.filter((m) => m.status === "COMPLETED");
+  const milestonesUnlocked = completedMilestones.length;
+
+  // Lives impacted — sum numeric output marker values
+  let livesImpacted = 0;
+  completedMilestones.forEach((m) => {
+    m.outputMarkers.forEach((om) => {
+      const num = parseFloat(om.value);
+      if (!isNaN(num) && num > 0 && num < 100000) livesImpacted += num;
+    });
+  });
+
+  // Notifications
+  const notifications = await prisma.notification.findMany({
+    where: { userId },
+    orderBy: { createdAt: "desc" },
+    take: 5,
+  });
+  const unreadCount = notifications.filter((n) => !n.read).length;
+
+  // Activity feed
+  const activityEvents = await prisma.activityEvent.findMany({
+    orderBy: { createdAt: "desc" },
+    take: 5,
+  });
+
+  // Build impact timeline: merge completed milestones + donations, sorted by date
+  type TimelineItem = {
+    id: string;
+    type: "MILESTONE_COMPLETE" | "MILESTONE_UNDER_REVIEW" | "DONATION";
+    date: string;
+    project: string;
+    ngo: string;
+    event: string;
+    metric: string | null;
+    txHash: string | null;
+    milestoneId: string | null;
+    shareable: boolean;
+  };
+
+  const timelineItems: TimelineItem[] = [];
+
+  allMilestones.slice(0, 6).forEach((m) => {
+    const metric = m.outputMarkers.length > 0
+      ? `${m.outputMarkers[0].value} ${m.outputMarkers[0].unit ?? ""} ${m.outputMarkers[0].label}`.trim()
+      : null;
+    timelineItems.push({
+      id: m.id,
+      type: m.status === "COMPLETED" ? "MILESTONE_COMPLETE" : "MILESTONE_UNDER_REVIEW",
+      date: m.completedAt ? formatDate(m.completedAt) : "In progress",
+      project: m.project.title,
+      ngo: m.project.ngo.orgName,
+      event: m.name,
+      metric,
+      txHash: m.disbursement?.txHash ?? null,
+      milestoneId: m.id,
+      shareable: m.status === "COMPLETED" && !!metric,
+    });
+  });
+
+  donations.slice(0, 4).forEach((d) => {
+    timelineItems.push({
+      id: `don-${d.id}`,
+      type: "DONATION",
+      date: formatDate(d.createdAt),
+      project: d.project.title,
+      ngo: d.project.ngo.orgName,
+      event: `You donated ${formatCurrency(d.amount)}`,
+      metric: null,
+      txHash: d.txHash ?? null,
+      milestoneId: null,
+      shareable: false,
+    });
+  });
+
+  timelineItems.sort((a, b) => {
+    const da = new Date(a.date === "In progress" ? 0 : a.date).getTime();
+    const db = new Date(b.date === "In progress" ? 0 : b.date).getTime();
+    return db - da;
+  });
+
+  const kpis = [
+    { label: "Total Donated", value: formatCurrency(totalDonated), icon: DollarSign, color: "text-emerald-600", bg: "bg-emerald-50" },
+    { label: "Projects Funded", value: String(projectCount), icon: FolderOpen, color: "text-blue-600", bg: "bg-blue-50" },
+    { label: "Milestones Unlocked", value: String(milestonesUnlocked), icon: CheckCircle2, color: "text-amber-600", bg: "bg-amber-50" },
+    { label: "Lives Impacted", value: livesImpacted > 0 ? `~${livesImpacted.toLocaleString()}` : "—", icon: Users, color: "text-purple-600", bg: "bg-purple-50" },
+  ];
+
+  // Unique projects with milestone data for the projects section
+  const projectsWithData = uniqueProjectIds.slice(0, 4).map((pid) => {
+    const d = donations.find((don) => don.projectId === pid)!;
+    const donated = donations
+      .filter((don) => don.projectId === pid)
+      .reduce((sum, don) => sum + don.amount, 0);
+    const milestones = allMilestones.filter((m) => m.projectId === pid);
+    return {
+      id: pid,
+      title: d.project.title,
+      ngo: d.project.ngo.orgName,
+      donated,
+      raised: d.project.raisedAmount,
+      goal: d.project.goalAmount,
+      txHash: donations.find((don) => don.projectId === pid && don.txHash)?.txHash ?? null,
+      milestones: milestones.map((m) => ({
+        name: m.name,
+        status: m.status,
+        date: m.targetDate ? formatDate(m.targetDate) : "—",
+      })),
+    };
+  });
+
   return (
     <div className="p-6 lg:p-8">
-      {/* Post-donation confirmation banner */}
       {justDonated && (
         <div className="mb-6 bg-emerald-50 border border-emerald-200 rounded-xl px-5 py-4 flex items-center gap-3">
           <CheckCircle2 className="w-5 h-5 text-emerald-600 flex-shrink-0" />
@@ -213,7 +184,6 @@ export default function DonorDashboard({
         </div>
       )}
 
-      {/* Header */}
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-2xl font-bold text-gray-900">Your Impact Dashboard</h1>
@@ -253,7 +223,7 @@ export default function DonorDashboard({
         ))}
       </div>
 
-      {/* Quick action banner */}
+      {/* Quick actions */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-8">
         <Link href="/campaigns/new" className="group">
           <div className="flex items-center gap-3 p-4 bg-purple-50 rounded-xl border border-purple-100 hover:border-purple-300 transition-colors">
@@ -285,7 +255,7 @@ export default function DonorDashboard({
       </div>
 
       <div className="grid lg:grid-cols-3 gap-6 mb-8">
-        {/* Impact Timeline — Feature 2 */}
+        {/* Impact Timeline */}
         <div className="lg:col-span-2">
           <div className="flex items-center justify-between mb-4">
             <h2 className="font-semibold text-gray-900 flex items-center gap-2">
@@ -299,84 +269,87 @@ export default function DonorDashboard({
             </Link>
           </div>
 
-          <div className="space-y-3">
-            {impactTimeline.map((event, i) => (
-              <div key={event.id} className="relative flex gap-4">
-                {/* Timeline line */}
-                {i < impactTimeline.length - 1 && (
-                  <div className="absolute left-5 top-10 bottom-0 w-px bg-gray-200" />
-                )}
-
-                {/* Icon */}
-                <div className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 z-10 ${
-                  event.type === "MILESTONE_COMPLETE" ? "bg-emerald-100" :
-                  event.type === "MILESTONE_UNDER_REVIEW" ? "bg-amber-100" :
-                  "bg-gray-100"
-                }`}>
-                  {event.type === "MILESTONE_COMPLETE" ? (
-                    <CheckCircle2 className="w-5 h-5 text-emerald-600" />
-                  ) : event.type === "MILESTONE_UNDER_REVIEW" ? (
-                    <Clock className="w-5 h-5 text-amber-600" />
-                  ) : (
-                    <DollarSign className="w-5 h-5 text-gray-500" />
+          {timelineItems.length === 0 ? (
+            <div className="text-center py-12 text-gray-400">
+              <TrendingUp className="w-10 h-10 mx-auto mb-3 opacity-30" />
+              <p className="text-sm">No activity yet — make your first donation to start your impact timeline.</p>
+              <Link href="/projects" className="mt-4 inline-block">
+                <Button size="sm">Browse Projects</Button>
+              </Link>
+            </div>
+          ) : (
+            <div className="space-y-3">
+              {timelineItems.slice(0, 6).map((event, i) => (
+                <div key={event.id} className="relative flex gap-4">
+                  {i < Math.min(timelineItems.length, 6) - 1 && (
+                    <div className="absolute left-5 top-10 bottom-0 w-px bg-gray-200" />
                   )}
-                </div>
-
-                {/* Content */}
-                <div className="flex-1 bg-white border border-gray-200 rounded-xl p-4 mb-2">
-                  <div className="flex items-start justify-between gap-2">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2 flex-wrap">
-                        <span className="text-xs text-gray-400">{event.date}</span>
-                        {event.type === "MILESTONE_COMPLETE" && (
-                          <span className="text-xs font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full">
-                            Milestone Verified
-                          </span>
-                        )}
-                        {event.type === "MILESTONE_UNDER_REVIEW" && (
-                          <span className="text-xs font-semibold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full">
-                            Under Review
-                          </span>
-                        )}
-                      </div>
-                      <p className="font-semibold text-gray-900 text-sm mt-1">{event.event}</p>
-                      <p className="text-xs text-emerald-700 mt-0.5">{event.ngo} · {event.project}</p>
-                      {event.metric && (
-                        <p className="text-sm text-gray-600 mt-2 font-medium">{event.metric}</p>
-                      )}
-                      {event.txHash && (
-                        <a
-                          href={`https://polygonscan.com/tx/${event.txHash}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 text-xs text-gray-400 hover:text-emerald-600 mt-2"
-                        >
-                          <span className="font-mono">{event.txHash}</span>
-                          <ExternalLink className="w-3 h-3" />
-                        </a>
-                      )}
-                    </div>
-
-                    {event.shareable && event.milestoneId && event.metric && (
-                      <ShareMilestoneCard
-                        milestoneId={event.milestoneId}
-                        milestoneName={event.event}
-                        projectTitle={event.project}
-                        ngoName={event.ngo}
-                        metric={event.metric}
-                        txHash={event.txHash ?? undefined}
-                      />
+                  <div className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 z-10 ${
+                    event.type === "MILESTONE_COMPLETE" ? "bg-emerald-100" :
+                    event.type === "MILESTONE_UNDER_REVIEW" ? "bg-amber-100" : "bg-gray-100"
+                  }`}>
+                    {event.type === "MILESTONE_COMPLETE" ? (
+                      <CheckCircle2 className="w-5 h-5 text-emerald-600" />
+                    ) : event.type === "MILESTONE_UNDER_REVIEW" ? (
+                      <Clock className="w-5 h-5 text-amber-600" />
+                    ) : (
+                      <DollarSign className="w-5 h-5 text-gray-500" />
                     )}
                   </div>
+                  <div className="flex-1 bg-white border border-gray-200 rounded-xl p-4 mb-2">
+                    <div className="flex items-start justify-between gap-2">
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <span className="text-xs text-gray-400">{event.date}</span>
+                          {event.type === "MILESTONE_COMPLETE" && (
+                            <span className="text-xs font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full">
+                              Milestone Verified
+                            </span>
+                          )}
+                          {event.type === "MILESTONE_UNDER_REVIEW" && (
+                            <span className="text-xs font-semibold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full">
+                              Under Review
+                            </span>
+                          )}
+                        </div>
+                        <p className="font-semibold text-gray-900 text-sm mt-1">{event.event}</p>
+                        <p className="text-xs text-emerald-700 mt-0.5">{event.ngo} · {event.project}</p>
+                        {event.metric && (
+                          <p className="text-sm text-gray-600 mt-2 font-medium">{event.metric}</p>
+                        )}
+                        {event.txHash && (
+                          <a
+                            href={`https://polygonscan.com/tx/${event.txHash}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1 text-xs text-gray-400 hover:text-emerald-600 mt-2"
+                          >
+                            <span className="font-mono">{event.txHash.slice(0, 18)}...</span>
+                            <ExternalLink className="w-3 h-3" />
+                          </a>
+                        )}
+                      </div>
+                      {event.shareable && event.milestoneId && event.metric && (
+                        <ShareMilestoneCard
+                          milestoneId={event.milestoneId}
+                          milestoneName={event.event}
+                          projectTitle={event.project}
+                          ngoName={event.ngo}
+                          metric={event.metric}
+                          txHash={event.txHash ?? undefined}
+                        />
+                      )}
+                    </div>
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Right column */}
         <div className="space-y-5">
-          {/* Activity Feed — Feature 8 */}
+          {/* Activity Feed */}
           <Card>
             <CardHeader className="pb-3">
               <CardTitle className="text-base flex items-center gap-2">
@@ -385,20 +358,35 @@ export default function DonorDashboard({
               </CardTitle>
             </CardHeader>
             <CardContent className="p-0">
-              <div className="divide-y divide-gray-50">
-                {activityFeed.map((item) => (
-                  <div key={item.id} className="flex items-start gap-3 px-5 py-3">
-                    <div className={`w-8 h-8 ${item.iconBg} rounded-full flex items-center justify-center flex-shrink-0 mt-0.5`}>
-                      <item.icon className={`w-4 h-4 ${item.iconColor}`} />
+              {activityEvents.length === 0 ? (
+                <div className="px-5 py-6 text-center text-gray-400 text-xs">No recent activity</div>
+              ) : (
+                <div className="divide-y divide-gray-50">
+                  {activityEvents.map((item) => (
+                    <div key={item.id} className="flex items-start gap-3 px-5 py-3">
+                      <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 ${
+                        item.type === "MILESTONE_COMPLETE" ? "bg-emerald-50" :
+                        item.type === "PROJECT_LAUNCH" ? "bg-blue-50" : "bg-purple-50"
+                      }`}>
+                        {item.type === "MILESTONE_COMPLETE" ? (
+                          <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                        ) : item.type === "PROJECT_LAUNCH" ? (
+                          <Zap className="w-4 h-4 text-blue-600" />
+                        ) : (
+                          <Gift className="w-4 h-4 text-purple-600" />
+                        )}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-xs text-gray-800 leading-snug">{item.description}</p>
+                        {item.projectTitle && (
+                          <p className="text-xs text-gray-400 mt-0.5">{item.projectTitle}</p>
+                        )}
+                        <p className="text-xs text-gray-300 mt-1">{formatDate(item.createdAt)}</p>
+                      </div>
                     </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-xs text-gray-800 leading-snug">{item.text}</p>
-                      <p className="text-xs text-gray-400 mt-0.5">{item.sub}</p>
-                      <p className="text-xs text-gray-300 mt-1">{item.time}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              )}
             </CardContent>
           </Card>
 
@@ -406,18 +394,20 @@ export default function DonorDashboard({
           <Card className="bg-emerald-50 border-emerald-100">
             <CardContent className="p-5">
               <h3 className="font-semibold text-emerald-900 mb-3">Your Impact</h3>
-              <div className="space-y-2">
-                {[
-                  { label: "Students with clean water", value: "2,400" },
-                  { label: "Women trained & certified", value: "45" },
-                  { label: "Elderly residents in care", value: "8" },
-                ].map((impact) => (
-                  <div key={impact.label} className="flex justify-between">
-                    <span className="text-sm text-emerald-800">{impact.label}</span>
-                    <span className="font-bold text-emerald-900">{impact.value}</span>
-                  </div>
-                ))}
-              </div>
+              {completedMilestones.length === 0 ? (
+                <p className="text-sm text-emerald-700">Complete your first donation to see your impact here.</p>
+              ) : (
+                <div className="space-y-2">
+                  {completedMilestones.slice(0, 4).flatMap((m) =>
+                    m.outputMarkers.slice(0, 1).map((om) => (
+                      <div key={om.id} className="flex justify-between">
+                        <span className="text-sm text-emerald-800">{om.label}</span>
+                        <span className="font-bold text-emerald-900">{om.value} {om.unit ?? ""}</span>
+                      </div>
+                    ))
+                  )}
+                </div>
+              )}
               <div className="mt-4 pt-3 border-t border-emerald-200">
                 <Link href="/impact">
                   <Button size="sm" variant="outline" className="w-full border-emerald-300 text-emerald-800 hover:bg-emerald-100">
@@ -430,82 +420,82 @@ export default function DonorDashboard({
         </div>
       </div>
 
-      {/* Projects section */}
-      <div className="mb-8">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="font-semibold text-gray-900">Projects You Fund</h2>
-          <Link href="/projects">
-            <Button variant="ghost" size="sm" className="text-emerald-700 gap-1">
-              Browse more <ArrowRight className="w-3 h-3" />
-            </Button>
-          </Link>
-        </div>
-        <div className="grid lg:grid-cols-2 gap-4">
-          {myProjects.map((project) => {
-            const pct = Math.round((project.raised / project.goal) * 100);
-            const completed = project.milestones.filter((m) => m.status === "COMPLETED").length;
-            return (
-              <Card key={project.id}>
-                <CardContent className="p-5">
-                  <div className="flex items-start justify-between mb-2">
-                    <div>
-                      <h3 className="font-semibold text-gray-900 text-sm">{project.title}</h3>
-                      <p className="text-xs text-emerald-700">{project.ngo}</p>
-                    </div>
-                    <span className="text-xs font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full">
-                      You donated ${project.donated}
-                    </span>
-                  </div>
-
-                  <div className="mt-3 mb-3">
-                    <div className="flex justify-between text-xs text-gray-500 mb-1">
-                      <span>Overall funding</span>
-                      <span>{pct}%</span>
-                    </div>
-                    <Progress value={pct} />
-                  </div>
-
-                  <div className="space-y-2 mt-4">
-                    <p className="text-xs font-medium text-gray-500 uppercase tracking-wide">
-                      Milestones ({completed}/{project.milestones.length})
-                    </p>
-                    {project.milestones.map((m) => (
-                      <div key={m.name} className="flex items-center gap-2">
-                        <MilestoneIcon status={m.status} />
-                        <span className={`text-xs flex-1 ${
-                          m.status === "COMPLETED" ? "text-gray-600 line-through" :
-                          m.status === "UNDER_REVIEW" ? "text-amber-700 font-medium" : "text-gray-400"
-                        }`}>{m.name}</span>
-                        <span className="text-xs text-gray-400">{m.date}</span>
+      {/* Projects You Fund */}
+      {projectsWithData.length > 0 && (
+        <div className="mb-8">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="font-semibold text-gray-900">Projects You Fund</h2>
+            <Link href="/projects">
+              <Button variant="ghost" size="sm" className="text-emerald-700 gap-1">
+                Browse more <ArrowRight className="w-3 h-3" />
+              </Button>
+            </Link>
+          </div>
+          <div className="grid lg:grid-cols-2 gap-4">
+            {projectsWithData.map((project) => {
+              const pct = calcFundingPercent(project.raised, project.goal);
+              const completed = project.milestones.filter((m) => m.status === "COMPLETED").length;
+              return (
+                <Card key={project.id}>
+                  <CardContent className="p-5">
+                    <div className="flex items-start justify-between mb-2">
+                      <div>
+                        <h3 className="font-semibold text-gray-900 text-sm">{project.title}</h3>
+                        <p className="text-xs text-emerald-700">{project.ngo}</p>
                       </div>
-                    ))}
-                  </div>
-
-                  <div className="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between">
-                    <a
-                      href={`https://polygonscan.com/tx/${project.txHash}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-1 text-xs text-emerald-700 hover:underline"
-                    >
-                      <span className="font-mono">{project.txHash}</span>
-                      <ExternalLink className="w-3 h-3" />
-                    </a>
-                    <Link href={`/campaigns/new?project=${project.id}`}>
-                      <Button variant="outline" size="sm" className="gap-1.5 text-xs">
-                        <Gift className="w-3 h-3" />
-                        Start Campaign
-                      </Button>
-                    </Link>
-                  </div>
-                </CardContent>
-              </Card>
-            );
-          })}
+                      <span className="text-xs font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full">
+                        You donated {formatCurrency(project.donated)}
+                      </span>
+                    </div>
+                    <div className="mt-3 mb-3">
+                      <div className="flex justify-between text-xs text-gray-500 mb-1">
+                        <span>Overall funding</span>
+                        <span>{pct}%</span>
+                      </div>
+                      <Progress value={pct} />
+                    </div>
+                    <div className="space-y-2 mt-4">
+                      <p className="text-xs font-medium text-gray-500 uppercase tracking-wide">
+                        Milestones ({completed}/{project.milestones.length})
+                      </p>
+                      {project.milestones.map((m) => (
+                        <div key={m.name} className="flex items-center gap-2">
+                          <MilestoneIcon status={m.status} />
+                          <span className={`text-xs flex-1 ${
+                            m.status === "COMPLETED" ? "text-gray-600 line-through" :
+                            m.status === "UNDER_REVIEW" ? "text-amber-700 font-medium" : "text-gray-400"
+                          }`}>{m.name}</span>
+                          <span className="text-xs text-gray-400">{m.date}</span>
+                        </div>
+                      ))}
+                    </div>
+                    {project.txHash && (
+                      <div className="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between">
+                        <a
+                          href={`https://polygonscan.com/tx/${project.txHash}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-1 text-xs text-emerald-700 hover:underline"
+                        >
+                          <span className="font-mono">{project.txHash.slice(0, 18)}...</span>
+                          <ExternalLink className="w-3 h-3" />
+                        </a>
+                        <Link href={`/campaigns/new?project=${project.id}`}>
+                          <Button variant="outline" size="sm" className="gap-1.5 text-xs">
+                            <Gift className="w-3 h-3" />
+                            Start Campaign
+                          </Button>
+                        </Link>
+                      </div>
+                    )}
+                  </CardContent>
+                </Card>
+              );
+            })}
+          </div>
         </div>
-      </div>
+      )}
 
-      {/* Impact Simulator — Feature 9 */}
       <ImpactSimulator />
     </div>
   );

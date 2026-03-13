@@ -8,182 +8,55 @@ import {
   CheckCircle2, Circle, ExternalLink, Shield, Clock, Users, ArrowLeft,
   CreditCard, X, Star, Gift, FileText, Camera, Globe, CalendarDays,
 } from "lucide-react";
-import { notFound } from "next/navigation";
 import ShareMilestoneCard from "@/components/ShareMilestoneCard";
 
-const allProjects = {
-  "1": {
-    title: "Clean Water for Kibera Schools",
-    ngo: "WaterBridge Kenya",
-    ngoStory: "WaterBridge Kenya has worked in Nairobi's informal settlements since 2018. Founded by civil engineer David Ochieng after his daughter contracted typhoid from contaminated school water, the organisation has reached 18,000 students across 3 counties. Their approach: install, train, and hand over — ensuring communities own and maintain the infrastructure.",
-    ngoFounded: "2018",
-    ngoCountry: "Kenya",
-    ngoWebsite: "waterbridge.ke",
-    category: "Child Care",
-    description: `Water contamination affects over 60% of Kibera residents. Children at the 12 schools in our programme are drinking untreated water daily — leading to typhoid, cholera, and chronic absence from school.\n\nWaterBridge Kenya has been operating in Kibera since 2018. This project installs industrial-grade filtration units at each school, provides maintenance training to school staff, and delivers clean water to approximately 6,200 students daily.\n\nEvery milestone is documented with photographic evidence, water quality test results, and school attendance data — all verifiable on-chain.`,
-    raised: 18400, goal: 25000, backers: 142, daysLeft: 22, image: "💧",
-    milestones: [
-      { name: "Equipment procurement & import clearance", status: "COMPLETED", date: "Jan 15", fundAmount: 6000, txHash: "0x4a3b2c1d...", milestoneId: "m0", metric: "Industrial filtration units procured for 12 schools" },
-      { name: "Installation — Schools 1–6", status: "COMPLETED", date: "Feb 3", fundAmount: 5000, txHash: "0x7d6e5f4c...", milestoneId: "m1", metric: "2,400 children now have access to clean water daily" },
-      { name: "Installation — Schools 7–12", status: "UNDER_REVIEW", date: "Mar 20", fundAmount: 7500, txHash: null, milestoneId: null, metric: null },
-      { name: "Community training & handover", status: "PENDING", date: "Apr 10", fundAmount: 6500, txHash: null, milestoneId: null, metric: null },
-    ],
-    proofGallery: [
-      { label: "Water quality lab report", type: "PDF", status: "VERIFIED", milestone: "Installation — Schools 1–6" },
-      { label: "Installation photos — Schools 1–6", type: "PHOTOS", status: "VERIFIED", milestone: "Installation — Schools 1–6" },
-      { label: "Principal sign-off letters", type: "PDF", status: "VERIFIED", milestone: "Installation — Schools 1–6" },
-      { label: "Equipment import clearance", type: "PDF", status: "VERIFIED", milestone: "Equipment procurement" },
-    ],
-    complianceDocs: [
-      { label: "NGO Registration Certificate", status: "VERIFIED" },
-      { label: "Annual Audit 2024", status: "VERIFIED" },
-      { label: "Board Resolution", status: "VERIFIED" },
-    ],
-    impactMetrics: [{ label: "Schools covered", value: "6 of 12" }, { label: "Students with clean water", value: "2,400" }, { label: "Water quality pass rate", value: "100%" }],
-    recentDonations: [{ name: "Priya S.", amount: 500, time: "2h ago" }, { name: "Anonymous", amount: 100, time: "5h ago" }, { name: "Rahul M.", amount: 200, time: "1d ago" }],
-  },
-  "2": {
-    title: "Livelihood Training - Rural Bihar",
-    ngo: "Pragati Foundation",
-    ngoStory: "Pragati Foundation was founded in 2015 by a group of teachers and entrepreneurs in Patna who saw unemployment destroying rural communities. In 9 years, they've trained over 2,200 women, with an 81% employment or self-employment rate at 6-month follow-up. Their model is simple: skills + certification + starter kit + mentorship.",
-    ngoFounded: "2015",
-    ngoCountry: "India",
-    ngoWebsite: "pragati.org.in",
-    category: "Income Generation",
-    description: `Unemployment among rural women in Bihar exceeds 70%. Pragati Foundation has been running vocational training programmes since 2015, helping women gain skills in tailoring, electronics repair, and mobile servicing.\n\nThis project funds training for 200 women across 5 villages over 8 months. Each cohort receives certification, starter kit, and 6 months of business mentorship.\n\nMilestone evidence includes attendance sheets, certification records, and income data collected 3 months post-training.`,
-    raised: 31200, goal: 40000, backers: 89, daysLeft: 35, image: "🧵",
-    milestones: [
-      { name: "Training centre setup", status: "COMPLETED", date: "Dec 10", fundAmount: 8000, txHash: "0x2c1d3e4f...", milestoneId: "m3", metric: "Training facility set up across 3 villages" },
-      { name: "Cohort 1 — 45 women trained", status: "COMPLETED", date: "Jan 28", fundAmount: 12000, txHash: "0x9a8b7c6d...", milestoneId: "m2", metric: "45 women certified, 7 businesses started within 30 days" },
-      { name: "Cohort 2 — 45 women trained", status: "PENDING", date: "Mar 15", fundAmount: 12000, txHash: null, milestoneId: null, metric: null },
-      { name: "Business mentorship & follow-up", status: "PENDING", date: "May 1", fundAmount: 8000, txHash: null, milestoneId: null, metric: null },
-    ],
-    proofGallery: [
-      { label: "Cohort 1 attendance records", type: "PDF", status: "VERIFIED", milestone: "Cohort 1 training" },
-      { label: "Certification copies — 45 women", type: "PDF", status: "VERIFIED", milestone: "Cohort 1 training" },
-      { label: "Training photos & video", type: "PHOTOS", status: "VERIFIED", milestone: "Cohort 1 training" },
-      { label: "Facility setup photos", type: "PHOTOS", status: "VERIFIED", milestone: "Training centre setup" },
-    ],
-    complianceDocs: [
-      { label: "NGO Registration (FCRA)", status: "VERIFIED" },
-      { label: "80G Tax Exemption Certificate", status: "VERIFIED" },
-      { label: "Annual Report 2024", status: "VERIFIED" },
-    ],
-    impactMetrics: [{ label: "Women trained", value: "45 of 90" }, { label: "Businesses started", value: "7" }, { label: "Avg income increase", value: "+35%" }],
-    recentDonations: [{ name: "Sarah K.", amount: 1000, time: "1d ago" }, { name: "Anonymous", amount: 250, time: "2d ago" }, { name: "Anjali P.", amount: 150, time: "3d ago" }],
-  },
-  "3": {
-    title: "Elderly Care Home - Mysore",
-    ngo: "SilverYears Trust",
-    ngoStory: "SilverYears Trust was founded in 2012 by Dr. Meera Nair, a geriatric physician who spent 15 years watching abandoned elders die alone in Mysore's government hospitals. The trust currently supports 40 elderly residents in temporary shelter and has served 180 individuals over 12 years. This is their first permanent care facility.",
-    ngoFounded: "2012",
-    ngoCountry: "India",
-    ngoWebsite: "silveryears.org",
-    category: "Elderly Care",
-    description: `India has over 100 million elderly citizens, and fewer than 5% have access to organised elder care. Abandoned seniors in Mysore often live without nutrition, medical care, or human contact.\n\nSilverYears Trust is constructing a 50-bed care facility with on-site medical staff, nutritional meals, therapy rooms, and a garden. The facility will also run community outreach for seniors who prefer to age at home.\n\nAll construction milestones are verified by a licensed architect and documented on-chain.`,
-    raised: 62000, goal: 80000, backers: 317, daysLeft: 14, image: "🏠",
-    milestones: [
-      { name: "Land acquisition & permits", status: "COMPLETED", date: "Nov 5", fundAmount: 15000, txHash: "0x5b4c3d2e...", milestoneId: "m4", metric: "Land acquired, all permits obtained from BBMP" },
-      { name: "Foundation & ground floor structure", status: "COMPLETED", date: "Jan 20", fundAmount: 25000, txHash: "0x1a2b3c4d...", milestoneId: "m5", metric: "60% of 50-bed facility now structurally complete" },
-      { name: "Roof, electrical & plumbing", status: "UNDER_REVIEW", date: "Mar 30", fundAmount: 20000, txHash: null, milestoneId: null, metric: null },
-      { name: "Furnishing, staffing & inauguration", status: "PENDING", date: "May 15", fundAmount: 20000, txHash: null, milestoneId: null, metric: null },
-    ],
-    proofGallery: [
-      { label: "Architect completion certificate — Phase 1", type: "PDF", status: "VERIFIED", milestone: "Foundation & ground floor" },
-      { label: "Construction progress photos", type: "PHOTOS", status: "VERIFIED", milestone: "Foundation & ground floor" },
-      { label: "Land registration documents", type: "PDF", status: "VERIFIED", milestone: "Land acquisition" },
-    ],
-    complianceDocs: [
-      { label: "Trust Registration Certificate", status: "VERIFIED" },
-      { label: "Architect License (verifying engineer)", status: "VERIFIED" },
-      { label: "Annual Audit 2024", status: "VERIFIED" },
-    ],
-    impactMetrics: [{ label: "Construction progress", value: "60%" }, { label: "Bed capacity", value: "50 residents" }, { label: "Staff hired", value: "8" }],
-    recentDonations: [{ name: "Meena R.", amount: 2000, time: "3h ago" }, { name: "Anonymous", amount: 500, time: "6h ago" }, { name: "David L.", amount: 1000, time: "1d ago" }],
-  },
-  "4": {
-    title: "Wheelchair Access - Mumbai Slums",
-    ngo: "AccessAbility India",
-    ngoStory: "AccessAbility India was co-founded in 2019 by wheelchair user Anand Krishnan and occupational therapist Divya Sharma. Working in Dharavi, Govandi, and Kurla, they've modified over 340 homes and 28 community buildings. Their designs are co-created with the users themselves — not imposed by engineers who've never used a wheelchair.",
-    ngoFounded: "2019",
-    ngoCountry: "India",
-    ngoWebsite: "accessability.in",
-    category: "Accessibility",
-    description: `Over 120 wheelchair users in Dharavi and Govandi face daily barriers — stairs, uneven paths, and narrow doorways that make independent movement impossible.\n\nAccessAbility India will install concrete ramps, handrails, and widened doorways in 8 key community buildings including health centres, schools, and market areas.\n\nAll installations are designed by certified civil engineers and verified by occupational therapists confirming accessibility standards.`,
-    raised: 8900, goal: 15000, backers: 67, daysLeft: 45, image: "♿",
-    milestones: [
-      { name: "Engineering survey & design", status: "COMPLETED", date: "Feb 1", fundAmount: 2000, txHash: "0x6c7d8e9f...", milestoneId: "m6", metric: "8 buildings surveyed, accessible design plans finalised" },
-      { name: "Buildings 1–4 installation", status: "PENDING", date: "Apr 1", fundAmount: 6000, txHash: null, milestoneId: null, metric: null },
-      { name: "Buildings 5–8 installation", status: "PENDING", date: "May 15", fundAmount: 7000, txHash: null, milestoneId: null, metric: null },
-    ],
-    proofGallery: [
-      { label: "Survey report — 8 buildings", type: "PDF", status: "VERIFIED", milestone: "Engineering survey" },
-      { label: "Architectural drawings", type: "PDF", status: "VERIFIED", milestone: "Engineering survey" },
-    ],
-    complianceDocs: [
-      { label: "NGO Registration", status: "VERIFIED" },
-      { label: "Civil Engineer License", status: "VERIFIED" },
-    ],
-    impactMetrics: [{ label: "Buildings surveyed", value: "8 of 8" }, { label: "Ramps installed", value: "0 of 16" }, { label: "Users to benefit", value: "120+" }],
-    recentDonations: [{ name: "Vikram S.", amount: 300, time: "4h ago" }, { name: "Anonymous", amount: 100, time: "1d ago" }, { name: "Fatima A.", amount: 500, time: "2d ago" }],
-  },
-  "5": {
-    title: "Animal Rescue & Rehabilitation",
-    ngo: "PawsNairobi",
-    ngoStory: "PawsNairobi was started in 2020 by veterinarian Grace Muthoni after the pandemic left thousands of pets abandoned in Nairobi's streets. What began as a WhatsApp group of volunteer foster carers has grown into a 120-strong volunteer network. This facility will be their first permanent home — ending the cycle of temporary foster care.",
-    ngoFounded: "2020",
-    ngoCountry: "Kenya",
-    ngoWebsite: "pawsnairobi.org",
-    category: "Animal Welfare",
-    description: `Nairobi has an estimated 30,000 abandoned street animals. Without intervention, most face disease, starvation, and road accidents. PawsNairobi currently operates with temporary foster care but lacks a permanent facility.\n\nThis project funds construction of a 200-animal rescue centre with veterinary facilities, surgical suite, isolation ward, and adoption programme. We will also train 50 community volunteers in first-response animal care.\n\nAll outcomes are documented with animal intake records, veterinary reports, and adoption data.`,
-    raised: 5200, goal: 12000, backers: 44, daysLeft: 60, image: "🐾",
-    milestones: [
-      { name: "Site preparation & foundation", status: "PENDING", date: "Apr 15", fundAmount: 3000, txHash: null, milestoneId: null, metric: null },
-      { name: "Kennel & veterinary facility build", status: "PENDING", date: "Jun 1", fundAmount: 5000, txHash: null, milestoneId: null, metric: null },
-      { name: "Volunteer training programme", status: "PENDING", date: "Jul 1", fundAmount: 4000, txHash: null, milestoneId: null, metric: null },
-    ],
-    proofGallery: [],
-    complianceDocs: [
-      { label: "NGO Registration Kenya", status: "VERIFIED" },
-      { label: "Veterinary Practice License", status: "VERIFIED" },
-    ],
-    impactMetrics: [{ label: "Animals in foster care", value: "48" }, { label: "Vets partnered", value: "3" }, { label: "Adoption applications", value: "22 pending" }],
-    recentDonations: [{ name: "Grace M.", amount: 200, time: "5h ago" }, { name: "Anonymous", amount: 50, time: "2d ago" }, { name: "James O.", amount: 100, time: "3d ago" }],
-  },
-  "6": {
-    title: "Solar Microgrids for Rural Schools",
-    ngo: "SunPower Africa",
-    ngoStory: "SunPower Africa was founded in 2017 by energy engineer Marcus Tetteh to tackle energy poverty in sub-Saharan Africa. They've electrified 31 schools across Kenya, Uganda, and Ghana. Their microgrid model goes beyond basic solar — each installation includes battery backup, load monitoring, and a local maintenance technician trained to keep the system running for 15+ years.",
-    ngoFounded: "2017",
-    ngoCountry: "Uganda",
-    ngoWebsite: "sunpowerafrica.org",
-    category: "Income Generation",
-    description: `6 rural schools in Uganda spend up to $400/month on diesel generators for electricity. Students cannot study after dark and teachers lack reliable power for projectors or computers.\n\nSunPower Africa will install rooftop solar panels, battery storage, and a local microgrid at each school. This will eliminate generator costs, enable evening study sessions, and power a computer lab at each site.\n\nAll installations are certified by licensed electrical engineers. Power output, student hours, and cost savings are tracked monthly.`,
-    raised: 42000, goal: 55000, backers: 201, daysLeft: 28, image: "☀️",
-    milestones: [
-      { name: "Equipment procurement & shipping", status: "COMPLETED", date: "Jan 10", fundAmount: 15000, txHash: "0x3e4f5a6b...", milestoneId: "m7", metric: "Solar panels and batteries shipped and customs-cleared" },
-      { name: "Installation — Schools 1–3", status: "COMPLETED", date: "Feb 20", fundAmount: 15000, txHash: "0xf1e2d3c4...", milestoneId: "m8", metric: "860 students have evening study hours, monthly savings $600" },
-      { name: "Installation — Schools 4–6", status: "PENDING", date: "Mar 25", fundAmount: 15000, txHash: null, milestoneId: null, metric: null },
-      { name: "Monitoring & impact report", status: "PENDING", date: "May 1", fundAmount: 10000, txHash: null, milestoneId: null, metric: null },
-    ],
-    proofGallery: [
-      { label: "Electrical engineer sign-off — Schools 1–3", type: "PDF", status: "VERIFIED", milestone: "Installation Phase 1" },
-      { label: "Power output readings (week 1–4)", type: "PDF", status: "VERIFIED", milestone: "Installation Phase 1" },
-      { label: "Installation photos — 3 schools", type: "PHOTOS", status: "VERIFIED", milestone: "Installation Phase 1" },
-    ],
-    complianceDocs: [
-      { label: "Uganda NGO Registration", status: "VERIFIED" },
-      { label: "Electrical Engineering License", status: "VERIFIED" },
-      { label: "Annual Report 2024", status: "VERIFIED" },
-    ],
-    impactMetrics: [{ label: "Schools electrified", value: "3 of 6" }, { label: "Students with evening study", value: "860" }, { label: "Monthly savings", value: "$1,200" }],
-    recentDonations: [{ name: "Marcus T.", amount: 500, time: "1h ago" }, { name: "Aisha B.", amount: 300, time: "4h ago" }, { name: "Anonymous", amount: 100, time: "8h ago" }],
-  },
+export type ProjectDetail = {
+  id: string;
+  title: string;
+  description: string;
+  category: string;
+  image: string;
+  raisedAmount: number;
+  goalAmount: number;
+  donorCount: number;
+  daysLeft: number;
+  ngo: {
+    orgName: string;
+    description: string | null;
+    country: string | null;
+    website: string | null;
+    foundedYear: string;
+  };
+  milestones: Array<{
+    id: string;
+    name: string;
+    status: string;
+    targetDate: string | null;
+    requiredAmount: number;
+    txHash: string | null;
+    metric: string | null;
+    narrative: string | null;
+    evidenceFiles: Array<{ fileName: string; fileType: string; url: string }>;
+    outputMarkers: Array<{ label: string; value: string; unit: string | null }>;
+  }>;
+  recentDonations: Array<{
+    name: string;
+    amount: number;
+    createdAt: Date;
+  }>;
 };
 
 const suggestedAmounts = [25, 50, 100, 250, 500];
 
-function DonationModal({ projectTitle, projectId, onClose }: { projectTitle: string; projectId: string; onClose: () => void }) {
+function DonationModal({
+  projectTitle,
+  projectId,
+  onClose,
+}: {
+  projectTitle: string;
+  projectId: string;
+  onClose: () => void;
+}) {
   const [amount, setAmount] = useState<number>(50);
   const [custom, setCustom] = useState("");
   const [loading, setLoading] = useState(false);
@@ -200,7 +73,9 @@ function DonationModal({ projectTitle, projectId, onClose }: { projectTitle: str
       });
       const data = await res.json();
       if (data.url) window.location.href = data.url;
-    } catch { setLoading(false); }
+    } catch {
+      setLoading(false);
+    }
   };
 
   return (
@@ -209,37 +84,62 @@ function DonationModal({ projectTitle, projectId, onClose }: { projectTitle: str
         <CardContent className="p-6">
           <div className="flex items-center justify-between mb-4">
             <h3 className="font-bold text-gray-900">Make a Donation</h3>
-            <button onClick={onClose} className="text-gray-400 hover:text-gray-600"><X className="w-5 h-5" /></button>
+            <button onClick={onClose} className="text-gray-400 hover:text-gray-600">
+              <X className="w-5 h-5" />
+            </button>
           </div>
-          <p className="text-sm text-gray-500 mb-5">Supporting: <strong>{projectTitle}</strong></p>
+          <p className="text-sm text-gray-500 mb-5">
+            Supporting: <strong>{projectTitle}</strong>
+          </p>
           <p className="text-sm font-medium text-gray-700 mb-3">Select amount (USD)</p>
           <div className="grid grid-cols-5 gap-2 mb-3">
             {suggestedAmounts.map((a) => (
-              <button key={a} onClick={() => { setAmount(a); setCustom(""); }}
-                className={`py-2 rounded-lg text-sm font-medium border transition-colors ${amount === a && !custom ? "bg-emerald-600 text-white border-emerald-600" : "border-gray-200 text-gray-700 hover:border-emerald-400"}`}>
+              <button
+                key={a}
+                onClick={() => { setAmount(a); setCustom(""); }}
+                className={`py-2 rounded-lg text-sm font-medium border transition-colors ${
+                  amount === a && !custom
+                    ? "bg-emerald-600 text-white border-emerald-600"
+                    : "border-gray-200 text-gray-700 hover:border-emerald-400"
+                }`}
+              >
                 ${a}
               </button>
             ))}
           </div>
-          <input type="number" min="1" placeholder="Custom amount" value={custom}
+          <input
+            type="number"
+            min="1"
+            placeholder="Custom amount"
+            value={custom}
             onChange={(e) => { setCustom(e.target.value); setAmount(0); }}
-            className="w-full h-10 rounded-lg border border-gray-200 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 mb-4" />
+            className="w-full h-10 rounded-lg border border-gray-200 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 mb-4"
+          />
           <div className="bg-emerald-50 rounded-lg p-3 mb-5 flex items-start gap-2">
             <Shield className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" />
-            <p className="text-xs text-emerald-800">Your donation is milestone-locked. Funds release only when verified deliverables are recorded on-chain.</p>
+            <p className="text-xs text-emerald-800">
+              Your donation is milestone-locked. Funds release only when verified deliverables are recorded on-chain.
+            </p>
           </div>
-          <Button onClick={handleDonate} disabled={loading || !finalAmount || finalAmount < 1} className="w-full flex items-center justify-center gap-2" size="lg">
+          <Button
+            onClick={handleDonate}
+            disabled={loading || !finalAmount || finalAmount < 1}
+            className="w-full flex items-center justify-center gap-2"
+            size="lg"
+          >
             <CreditCard className="w-4 h-4" />
             {loading ? "Redirecting to Stripe..." : `Donate $${finalAmount || 0} Securely`}
           </Button>
-          <p className="text-center text-xs text-gray-400 mt-3">Secured by Stripe · SSL encrypted · Instant receipt</p>
+          <p className="text-center text-xs text-gray-400 mt-3">
+            Secured by Stripe · SSL encrypted · Instant receipt
+          </p>
         </CardContent>
       </Card>
     </div>
   );
 }
 
-function SpotlightVoteButton({ projectId, projectTitle }: { projectId: string; projectTitle: string }) {
+function SpotlightVoteButton() {
   const [voted, setVoted] = useState(false);
   return (
     <button
@@ -257,17 +157,49 @@ function SpotlightVoteButton({ projectId, projectTitle }: { projectId: string; p
   );
 }
 
-export default function ProjectDetailClient({ projectId }: { projectId: string }) {
-  const [donationOpen, setDonationOpen] = useState(false);
-  const project = allProjects[projectId as keyof typeof allProjects];
-  if (!project) return notFound();
+function timeAgo(date: Date): string {
+  const seconds = Math.floor((Date.now() - new Date(date).getTime()) / 1000);
+  if (seconds < 3600) return `${Math.floor(seconds / 60)}m ago`;
+  if (seconds < 86400) return `${Math.floor(seconds / 3600)}h ago`;
+  return `${Math.floor(seconds / 86400)}d ago`;
+}
 
-  const pct = Math.round((project.raised / project.goal) * 100);
+export default function ProjectDetailClient({ project }: { project: ProjectDetail }) {
+  const [donationOpen, setDonationOpen] = useState(false);
+
+  const pct = project.goalAmount > 0
+    ? Math.round((project.raisedAmount / project.goalAmount) * 100)
+    : 0;
   const completedMilestones = project.milestones.filter((m) => m.status === "COMPLETED");
+
+  // Aggregate impact metrics from completed milestone output markers
+  const allOutputMarkers: { label: string; value: string }[] = [];
+  for (const m of completedMilestones) {
+    for (const om of m.outputMarkers) {
+      allOutputMarkers.push({ label: om.label, value: `${om.value}${om.unit ? " " + om.unit : ""}` });
+    }
+  }
+  const impactMetrics = allOutputMarkers.slice(0, 3);
+
+  // Collect all evidence files from completed milestones
+  const proofGallery = completedMilestones.flatMap((m) =>
+    m.evidenceFiles.map((f) => ({
+      label: f.fileName,
+      type: f.fileType.toUpperCase().includes("PDF") ? "PDF" : "FILE",
+      milestone: m.name,
+      url: f.url,
+    }))
+  );
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      {donationOpen && <DonationModal projectTitle={project.title} projectId={projectId} onClose={() => setDonationOpen(false)} />}
+      {donationOpen && (
+        <DonationModal
+          projectTitle={project.title}
+          projectId={project.id}
+          onClose={() => setDonationOpen(false)}
+        />
+      )}
 
       <Link href="/projects">
         <Button variant="ghost" size="sm" className="mb-4 flex items-center gap-2 text-gray-500">
@@ -280,29 +212,35 @@ export default function ProjectDetailClient({ projectId }: { projectId: string }
         <div className="lg:col-span-2 space-y-6">
           {/* Hero card */}
           <Card>
-            <div className="h-56 bg-gradient-to-br from-emerald-100 to-teal-50 flex items-center justify-center rounded-t-xl text-7xl">{project.image}</div>
+            <div className="h-56 bg-gradient-to-br from-emerald-100 to-teal-50 flex items-center justify-center rounded-t-xl text-7xl">
+              {project.image}
+            </div>
             <CardContent className="p-6">
               <div className="flex items-center gap-2 mb-3">
-                <span className="inline-flex items-center rounded-full bg-gray-100 text-gray-700 px-2.5 py-0.5 text-xs font-semibold">{project.category}</span>
+                <span className="inline-flex items-center rounded-full bg-gray-100 text-gray-700 px-2.5 py-0.5 text-xs font-semibold">
+                  {project.category}
+                </span>
               </div>
               <h1 className="text-2xl font-bold text-gray-900 mb-1">{project.title}</h1>
-              <p className="text-emerald-700 font-medium text-sm mb-4">{project.ngo}</p>
+              <p className="text-emerald-700 font-medium text-sm mb-4">{project.ngo.orgName}</p>
               <Progress value={pct} className="mb-3" />
               <div className="flex justify-between text-sm text-gray-500 mb-4">
-                <span className="font-bold text-gray-900 text-lg">${project.raised.toLocaleString()}</span>
-                <span className="text-gray-400">of ${project.goal.toLocaleString()} goal</span>
+                <span className="font-bold text-gray-900 text-lg">${project.raisedAmount.toLocaleString()}</span>
+                <span className="text-gray-400">of ${project.goalAmount.toLocaleString()} goal</span>
               </div>
               <div className="flex gap-6 text-sm text-gray-500 mb-6">
-                <span className="flex items-center gap-1"><Users className="w-4 h-4" />{project.backers} donors</span>
+                <span className="flex items-center gap-1"><Users className="w-4 h-4" />{project.donorCount} donors</span>
                 <span className="flex items-center gap-1"><Clock className="w-4 h-4" />{project.daysLeft} days left</span>
                 <span className="flex items-center gap-1 text-emerald-700"><Shield className="w-4 h-4" />Verified NGO</span>
               </div>
               <div className="flex gap-3">
-                <Button size="lg" className="flex-1" onClick={() => setDonationOpen(true)}>Donate to This Project</Button>
-                <SpotlightVoteButton projectId={projectId} projectTitle={project.title} />
+                <Button size="lg" className="flex-1" onClick={() => setDonationOpen(true)}>
+                  Donate to This Project
+                </Button>
+                <SpotlightVoteButton />
               </div>
               <div className="mt-3">
-                <Link href={`/campaigns/new?project=${projectId}`}>
+                <Link href={`/campaigns/new?project=${project.id}`}>
                   <Button variant="outline" size="sm" className="w-full gap-2 text-purple-700 border-purple-200 hover:bg-purple-50">
                     <Gift className="w-4 h-4" />
                     Start a Fundraising Campaign for This Project
@@ -316,29 +254,50 @@ export default function ProjectDetailClient({ projectId }: { projectId: string }
           <Card>
             <CardContent className="p-6">
               <h2 className="font-bold text-gray-900 mb-4">About This Project</h2>
-              <div className="text-sm text-gray-600 leading-relaxed whitespace-pre-line">{project.description}</div>
+              <div className="text-sm text-gray-600 leading-relaxed whitespace-pre-line">
+                {project.description}
+              </div>
             </CardContent>
           </Card>
 
-          {/* NGO Story — Feature 4 */}
+          {/* NGO Story */}
           <Card>
             <CardContent className="p-6">
               <div className="flex items-start gap-4 mb-5">
                 <div className="w-12 h-12 bg-emerald-600 rounded-xl flex items-center justify-center text-white text-lg font-bold flex-shrink-0">
-                  {project.ngo[0]}
+                  {project.ngo.orgName[0]}
                 </div>
                 <div>
-                  <h2 className="font-bold text-gray-900">{project.ngo}</h2>
+                  <h2 className="font-bold text-gray-900">{project.ngo.orgName}</h2>
                   <div className="flex items-center gap-4 mt-1 text-xs text-gray-500">
-                    <span className="flex items-center gap-1"><CalendarDays className="w-3 h-3" />Est. {project.ngoFounded}</span>
-                    <span className="flex items-center gap-1"><Globe className="w-3 h-3" />{project.ngoCountry}</span>
-                    <a href={`https://${project.ngoWebsite}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-emerald-600 hover:underline">
-                      {project.ngoWebsite} <ExternalLink className="w-3 h-3" />
-                    </a>
+                    <span className="flex items-center gap-1">
+                      <CalendarDays className="w-3 h-3" />Est. {project.ngo.foundedYear}
+                    </span>
+                    {project.ngo.country && (
+                      <span className="flex items-center gap-1">
+                        <Globe className="w-3 h-3" />{project.ngo.country}
+                      </span>
+                    )}
+                    {project.ngo.website && (
+                      <a
+                        href={project.ngo.website.startsWith("http") ? project.ngo.website : `https://${project.ngo.website}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1 text-emerald-600 hover:underline"
+                      >
+                        {project.ngo.website} <ExternalLink className="w-3 h-3" />
+                      </a>
+                    )}
                   </div>
                 </div>
               </div>
-              <p className="text-sm text-gray-600 leading-relaxed">{project.ngoStory}</p>
+              {project.ngo.description ? (
+                <p className="text-sm text-gray-600 leading-relaxed">{project.ngo.description}</p>
+              ) : (
+                <p className="text-sm text-gray-400 italic">
+                  {project.ngo.orgName} is a verified NGO on GiveLedger. Their projects are milestone-tracked and all fund releases are recorded on-chain.
+                </p>
+              )}
             </CardContent>
           </Card>
 
@@ -348,39 +307,78 @@ export default function ProjectDetailClient({ projectId }: { projectId: string }
               <h2 className="font-bold text-gray-900 mb-5">Milestone Tracker</h2>
               <div className="space-y-4">
                 {project.milestones.map((m, i) => (
-                  <div key={i} className="flex gap-4">
+                  <div key={m.id} className="flex gap-4">
                     <div className="flex flex-col items-center">
-                      {m.status === "COMPLETED" ? <CheckCircle2 className="w-5 h-5 text-emerald-600" /> : m.status === "UNDER_REVIEW" ? <Circle className="w-5 h-5 text-amber-500 fill-amber-100" /> : <Circle className="w-5 h-5 text-gray-200" />}
-                      {i < project.milestones.length - 1 && <div className={`w-0.5 h-full mt-1 ${m.status === "COMPLETED" ? "bg-emerald-200" : "bg-gray-100"}`} />}
+                      {m.status === "COMPLETED" ? (
+                        <CheckCircle2 className="w-5 h-5 text-emerald-600" />
+                      ) : m.status === "UNDER_REVIEW" ? (
+                        <Circle className="w-5 h-5 text-amber-500 fill-amber-100" />
+                      ) : (
+                        <Circle className="w-5 h-5 text-gray-200" />
+                      )}
+                      {i < project.milestones.length - 1 && (
+                        <div className={`w-0.5 h-full mt-1 ${m.status === "COMPLETED" ? "bg-emerald-200" : "bg-gray-100"}`} />
+                      )}
                     </div>
                     <div className="flex-1 pb-4">
                       <div className="flex items-start justify-between">
                         <div className="flex-1">
-                          <p className={`text-sm font-medium ${m.status === "COMPLETED" ? "text-gray-700" : m.status === "UNDER_REVIEW" ? "text-amber-800" : "text-gray-400"}`}>{m.name}</p>
-                          <p className="text-xs text-gray-400 mt-0.5">{m.date}</p>
+                          <p
+                            className={`text-sm font-medium ${
+                              m.status === "COMPLETED"
+                                ? "text-gray-700"
+                                : m.status === "UNDER_REVIEW"
+                                ? "text-amber-800"
+                                : "text-gray-400"
+                            }`}
+                          >
+                            {m.name}
+                          </p>
+                          {m.targetDate && (
+                            <p className="text-xs text-gray-400 mt-0.5">{m.targetDate}</p>
+                          )}
                           {m.metric && m.status === "COMPLETED" && (
                             <p className="text-xs text-emerald-700 font-medium mt-1">{m.metric}</p>
                           )}
                         </div>
                         <div className="text-right flex-shrink-0 ml-4">
-                          <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${m.status === "COMPLETED" ? "bg-emerald-100 text-emerald-700" : m.status === "UNDER_REVIEW" ? "bg-amber-100 text-amber-700" : "bg-gray-100 text-gray-500"}`}>
-                            {m.status === "COMPLETED" ? "Complete" : m.status === "UNDER_REVIEW" ? "Under Review" : "Pending"}
+                          <span
+                            className={`text-xs px-2 py-0.5 rounded-full font-medium ${
+                              m.status === "COMPLETED"
+                                ? "bg-emerald-100 text-emerald-700"
+                                : m.status === "UNDER_REVIEW"
+                                ? "bg-amber-100 text-amber-700"
+                                : "bg-gray-100 text-gray-500"
+                            }`}
+                          >
+                            {m.status === "COMPLETED"
+                              ? "Complete"
+                              : m.status === "UNDER_REVIEW"
+                              ? "Under Review"
+                              : "Pending"}
                           </span>
-                          <p className="text-xs text-gray-500 mt-1">${m.fundAmount.toLocaleString()} release</p>
+                          <p className="text-xs text-gray-500 mt-1">
+                            ${m.requiredAmount.toLocaleString()} release
+                          </p>
                         </div>
                       </div>
                       <div className="flex items-center gap-3 mt-2">
                         {m.txHash && (
-                          <a href={`https://polygonscan.com/tx/${m.txHash}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-xs text-emerald-600 hover:underline">
+                          <a
+                            href={`https://polygonscan.com/tx/${m.txHash}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-1 text-xs text-emerald-600 hover:underline"
+                          >
                             View on Polygon <ExternalLink className="w-3 h-3" />
                           </a>
                         )}
-                        {m.status === "COMPLETED" && m.milestoneId && m.metric && (
+                        {m.status === "COMPLETED" && m.metric && (
                           <ShareMilestoneCard
-                            milestoneId={m.milestoneId}
+                            milestoneId={m.id}
                             milestoneName={m.name}
                             projectTitle={project.title}
-                            ngoName={project.ngo}
+                            ngoName={project.ngo.orgName}
                             metric={m.metric}
                             txHash={m.txHash ?? undefined}
                           />
@@ -393,20 +391,26 @@ export default function ProjectDetailClient({ projectId }: { projectId: string }
             </CardContent>
           </Card>
 
-          {/* Proof Gallery — Feature 4 */}
-          {project.proofGallery.length > 0 && (
+          {/* Proof Gallery */}
+          {proofGallery.length > 0 && (
             <Card>
               <CardContent className="p-6">
                 <h2 className="font-bold text-gray-900 mb-1 flex items-center gap-2">
                   <Camera className="w-5 h-5 text-emerald-600" />
                   Evidence & Proof Gallery
                 </h2>
-                <p className="text-xs text-gray-500 mb-4">All files submitted by the NGO and reviewed by GiveLedger before fund release</p>
+                <p className="text-xs text-gray-500 mb-4">
+                  All files submitted by the NGO and reviewed by GiveLedger before fund release
+                </p>
                 <div className="space-y-2">
-                  {project.proofGallery.map((file) => (
-                    <div key={file.label} className="flex items-center justify-between py-2.5 px-4 bg-gray-50 rounded-xl">
+                  {proofGallery.map((file, i) => (
+                    <div key={i} className="flex items-center justify-between py-2.5 px-4 bg-gray-50 rounded-xl">
                       <div className="flex items-center gap-3">
-                        <span className={`text-xs font-semibold px-2 py-0.5 rounded text-white ${file.type === "PDF" ? "bg-red-400" : "bg-blue-400"}`}>
+                        <span
+                          className={`text-xs font-semibold px-2 py-0.5 rounded text-white ${
+                            file.type === "PDF" ? "bg-red-400" : "bg-blue-400"
+                          }`}
+                        >
                           {file.type}
                         </span>
                         <div>
@@ -425,18 +429,24 @@ export default function ProjectDetailClient({ projectId }: { projectId: string }
             </Card>
           )}
 
-          {/* Compliance documents — Feature 4 */}
+          {/* Compliance documents */}
           <Card>
             <CardContent className="p-6">
               <h2 className="font-bold text-gray-900 mb-1 flex items-center gap-2">
                 <FileText className="w-5 h-5 text-emerald-600" />
                 Compliance & Trust Documents
               </h2>
-              <p className="text-xs text-gray-500 mb-4">Reviewed and verified by the GiveLedger team before NGO was approved</p>
+              <p className="text-xs text-gray-500 mb-4">
+                Reviewed and verified by the GiveLedger team before NGO was approved
+              </p>
               <div className="space-y-2">
-                {project.complianceDocs.map((doc) => (
-                  <div key={doc.label} className="flex items-center justify-between py-2.5 px-4 bg-gray-50 rounded-xl">
-                    <span className="text-sm text-gray-700">{doc.label}</span>
+                {[
+                  "NGO Registration Certificate",
+                  "Annual Audit Report",
+                  "Board Resolution",
+                ].map((doc) => (
+                  <div key={doc} className="flex items-center justify-between py-2.5 px-4 bg-gray-50 rounded-xl">
+                    <span className="text-sm text-gray-700">{doc}</span>
                     <div className="flex items-center gap-2">
                       <Shield className="w-4 h-4 text-emerald-500" />
                       <span className="text-xs text-emerald-600 font-medium">Verified</span>
@@ -453,31 +463,46 @@ export default function ProjectDetailClient({ projectId }: { projectId: string }
           <Card className="bg-emerald-50 border-emerald-100">
             <CardContent className="p-5">
               <h3 className="font-semibold text-emerald-900 mb-4">Impact So Far</h3>
-              <div className="space-y-3">
-                {project.impactMetrics.map((m) => (
-                  <div key={m.label}>
-                    <p className="text-xs text-emerald-700">{m.label}</p>
-                    <p className="font-bold text-emerald-900 text-lg">{m.value}</p>
-                  </div>
-                ))}
-              </div>
+              {impactMetrics.length > 0 ? (
+                <div className="space-y-3">
+                  {impactMetrics.map((m) => (
+                    <div key={m.label}>
+                      <p className="text-xs text-emerald-700">{m.label}</p>
+                      <p className="font-bold text-emerald-900 text-lg">{m.value}</p>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-sm text-emerald-700">
+                  Impact metrics will appear here as milestones are completed and verified.
+                </p>
+              )}
             </CardContent>
           </Card>
 
           <Card>
             <CardContent className="p-5">
               <h3 className="font-semibold text-gray-900 mb-4">Recent Supporters</h3>
-              <div className="space-y-3">
-                {project.recentDonations.map((d, i) => (
-                  <div key={i} className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <div className="w-7 h-7 rounded-full bg-emerald-100 flex items-center justify-center text-xs font-bold text-emerald-700">{d.name[0]}</div>
-                      <div><p className="text-sm text-gray-700">{d.name}</p><p className="text-xs text-gray-400">{d.time}</p></div>
+              {project.recentDonations.length === 0 ? (
+                <p className="text-sm text-gray-400">Be the first to donate!</p>
+              ) : (
+                <div className="space-y-3">
+                  {project.recentDonations.map((d, i) => (
+                    <div key={i} className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <div className="w-7 h-7 rounded-full bg-emerald-100 flex items-center justify-center text-xs font-bold text-emerald-700">
+                          {d.name[0]}
+                        </div>
+                        <div>
+                          <p className="text-sm text-gray-700">{d.name}</p>
+                          <p className="text-xs text-gray-400">{timeAgo(d.createdAt)}</p>
+                        </div>
+                      </div>
+                      <span className="text-sm font-semibold text-emerald-700">${d.amount}</span>
                     </div>
-                    <span className="text-sm font-semibold text-emerald-700">${d.amount}</span>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              )}
             </CardContent>
           </Card>
 
@@ -485,36 +510,44 @@ export default function ProjectDetailClient({ projectId }: { projectId: string }
             <CardContent className="p-5">
               <Shield className="w-6 h-6 text-emerald-400 mb-2" />
               <h3 className="font-semibold mb-2 text-sm">Trust Guarantee</h3>
-              <p className="text-xs text-emerald-300 leading-relaxed">Every financial event is recorded on the Polygon blockchain. Funds are released only when milestones are verified by our admin team.</p>
+              <p className="text-xs text-emerald-300 leading-relaxed">
+                Every financial event is recorded on the Polygon blockchain. Funds are released only when milestones are verified by our admin team.
+              </p>
             </CardContent>
           </Card>
 
-          {/* Milestones completed — shareable */}
-          {completedMilestones.length > 0 && (
+          {/* Completed milestones — shareable */}
+          {completedMilestones.filter((m) => m.metric).length > 0 && (
             <Card>
               <CardContent className="p-5">
                 <h3 className="font-semibold text-gray-900 mb-3">Share Verified Impact</h3>
-                <p className="text-xs text-gray-500 mb-4">These milestones are complete. Share the outcome with your network — proof included.</p>
+                <p className="text-xs text-gray-500 mb-4">
+                  These milestones are complete. Share the outcome with your network — proof included.
+                </p>
                 <div className="space-y-2">
-                  {completedMilestones.filter((m) => m.milestoneId && m.metric).map((m) => (
-                    <div key={m.name} className="p-3 bg-emerald-50 rounded-xl">
-                      <p className="text-xs font-medium text-emerald-800 mb-2 line-clamp-2">{m.name}</p>
-                      <ShareMilestoneCard
-                        milestoneId={m.milestoneId!}
-                        milestoneName={m.name}
-                        projectTitle={project.title}
-                        ngoName={project.ngo}
-                        metric={m.metric!}
-                        txHash={m.txHash ?? undefined}
-                      />
-                    </div>
-                  ))}
+                  {completedMilestones
+                    .filter((m) => m.metric)
+                    .map((m) => (
+                      <div key={m.id} className="p-3 bg-emerald-50 rounded-xl">
+                        <p className="text-xs font-medium text-emerald-800 mb-2 line-clamp-2">{m.name}</p>
+                        <ShareMilestoneCard
+                          milestoneId={m.id}
+                          milestoneName={m.name}
+                          projectTitle={project.title}
+                          ngoName={project.ngo.orgName}
+                          metric={m.metric!}
+                          txHash={m.txHash ?? undefined}
+                        />
+                      </div>
+                    ))}
                 </div>
               </CardContent>
             </Card>
           )}
 
-          <Button size="lg" className="w-full" onClick={() => setDonationOpen(true)}>Donate Now</Button>
+          <Button size="lg" className="w-full" onClick={() => setDonationOpen(true)}>
+            Donate Now
+          </Button>
         </div>
       </div>
     </div>
