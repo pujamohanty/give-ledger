@@ -14,6 +14,7 @@ const navItems = [
   { href: "/donor/skills", label: "Skill Contributions", icon: Briefcase },
   { href: "/donor/standing", label: "NGO Standing", icon: Award },
   { href: "/donor/post-builder", label: "Post Builder", icon: Linkedin },
+  { href: "/donor/credential", label: "My Credential", icon: Award },
   { href: "/projects", label: "Browse Projects", icon: Search },
   { href: "/campaigns", label: "Campaigns", icon: Gift },
   { href: "/donor/notifications", label: "Notifications", icon: Bell },
