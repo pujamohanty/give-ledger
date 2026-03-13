@@ -1,16 +1,32 @@
+import { redirect } from "next/navigation";
+import { auth } from "@/lib/auth";
+import { prisma } from "@/lib/prisma";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Building2, Bell, Shield, FileText } from "lucide-react";
+import { Bell, Shield, FileText } from "lucide-react";
+import BoardMembersClient from "./BoardMembersClient";
 
-export default function NgoSettingsPage() {
+export default async function NgoSettingsPage() {
+  const session = await auth();
+  if (!session?.user?.id) redirect("/login");
+
+  const ngo = await prisma.ngo.findUnique({
+    where: { userId: session.user.id },
+    include: {
+      boardMembers: { orderBy: { orderIndex: "asc" } },
+    },
+  });
+
+  if (!ngo) redirect("/login");
+
   return (
     <div className="p-6 lg:p-8">
       <div className="mb-8">
         <h1 className="text-2xl font-bold text-gray-900">Settings</h1>
         <p className="text-gray-500 text-sm mt-1">
-          Manage your NGO profile, documents, and notification preferences.
+          Manage your NGO profile, board, documents, and notification preferences.
         </p>
       </div>
 
@@ -19,34 +35,35 @@ export default function NgoSettingsPage() {
         <Card>
           <CardHeader>
             <CardTitle className="text-base flex items-center gap-2">
-              <Building2 className="w-4 h-4 text-emerald-600" />
+              <span className="w-4 h-4 text-emerald-600 font-bold text-sm">🏢</span>
               NGO Profile
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-1.5">
               <Label htmlFor="ngoName">Organisation name</Label>
-              <Input id="ngoName" placeholder="WaterBridge Kenya" />
+              <Input id="ngoName" defaultValue={ngo.orgName} />
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-1.5">
                 <Label htmlFor="regNumber">Registration number</Label>
-                <Input id="regNumber" placeholder="NGO/2023/00123" />
+                <Input id="regNumber" defaultValue={ngo.regNumber ?? ""} placeholder="NGO/2023/00123" />
               </div>
               <div className="space-y-1.5">
                 <Label htmlFor="country">Country</Label>
-                <Input id="country" placeholder="Kenya" />
+                <Input id="country" defaultValue={ngo.country ?? ""} placeholder="Kenya" />
               </div>
             </div>
             <div className="space-y-1.5">
               <Label htmlFor="website">Website</Label>
-              <Input id="website" type="url" placeholder="https://waterbridgekenya.org" />
+              <Input id="website" type="url" defaultValue={ngo.website ?? ""} placeholder="https://yourorg.org" />
             </div>
             <div className="space-y-1.5">
               <Label htmlFor="description">Short description</Label>
               <textarea
                 id="description"
                 rows={3}
+                defaultValue={ngo.description ?? ""}
                 className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-none"
                 placeholder="Describe your NGO's mission and work..."
               />
@@ -54,6 +71,19 @@ export default function NgoSettingsPage() {
             <Button>Save Changes</Button>
           </CardContent>
         </Card>
+
+        {/* Board Members — interactive client component */}
+        <BoardMembersClient
+          initialMembers={ngo.boardMembers.map((m) => ({
+            id: m.id,
+            name: m.name,
+            role: m.role,
+            bio: m.bio,
+            linkedinUrl: m.linkedinUrl,
+            photoUrl: m.photoUrl,
+            orderIndex: m.orderIndex,
+          }))}
+        />
 
         {/* Documents */}
         <Card>
@@ -118,7 +148,7 @@ export default function NgoSettingsPage() {
           <CardHeader>
             <CardTitle className="text-base flex items-center gap-2">
               <Shield className="w-4 h-4 text-emerald-600" />
-              Account & Security
+              Account &amp; Security
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">

@@ -6,9 +6,18 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import {
   CheckCircle2, Circle, ExternalLink, Shield, Clock, Users, ArrowLeft,
-  CreditCard, X, Star, Gift, FileText, Camera, Globe, CalendarDays,
+  CreditCard, X, Star, Gift, FileText, Camera, Globe, CalendarDays, Linkedin,
 } from "lucide-react";
 import ShareMilestoneCard from "@/components/ShareMilestoneCard";
+
+export type BoardMemberPreview = {
+  id: string;
+  name: string;
+  role: string;
+  bio: string | null;
+  linkedinUrl: string | null;
+  photoUrl: string | null;
+};
 
 export type ProjectDetail = {
   id: string;
@@ -21,11 +30,13 @@ export type ProjectDetail = {
   donorCount: number;
   daysLeft: number;
   ngo: {
+    id: string;
     orgName: string;
     description: string | null;
     country: string | null;
     website: string | null;
     foundedYear: string;
+    boardMembers: BoardMemberPreview[];
   };
   milestones: Array<{
     id: string;
@@ -300,6 +311,63 @@ export default function ProjectDetailClient({ project }: { project: ProjectDetai
               )}
             </CardContent>
           </Card>
+
+          {/* Board Members */}
+          {project.ngo.boardMembers.length > 0 && (
+            <Card>
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <h2 className="font-bold text-gray-900 flex items-center gap-2">
+                    <Users className="w-5 h-5 text-emerald-600" />
+                    Board &amp; Leadership
+                  </h2>
+                  <a
+                    href={`/ngo/${project.ngo.id}`}
+                    className="text-xs text-emerald-600 hover:underline flex items-center gap-1"
+                  >
+                    View NGO profile <ExternalLink className="w-3 h-3" />
+                  </a>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {project.ngo.boardMembers.map((m) => (
+                    <div key={m.id} className="flex items-start gap-3 p-3 rounded-lg bg-gray-50">
+                      {m.photoUrl ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img
+                          src={m.photoUrl}
+                          alt={m.name}
+                          className="w-10 h-10 rounded-full object-cover shrink-0 bg-gray-200"
+                        />
+                      ) : (
+                        <div className="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center shrink-0">
+                          <span className="text-sm font-bold text-emerald-700">
+                            {m.name.charAt(0).toUpperCase()}
+                          </span>
+                        </div>
+                      )}
+                      <div className="min-w-0">
+                        <p className="text-sm font-semibold text-gray-900">{m.name}</p>
+                        <p className="text-xs font-medium text-emerald-700">{m.role}</p>
+                        {m.bio && (
+                          <p className="text-xs text-gray-500 mt-0.5 line-clamp-2">{m.bio}</p>
+                        )}
+                        {m.linkedinUrl && (
+                          <a
+                            href={m.linkedinUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1 text-xs text-blue-600 hover:underline mt-0.5"
+                          >
+                            <Linkedin className="w-3 h-3" /> LinkedIn
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          )}
 
           {/* Milestone tracker */}
           <Card>

@@ -33,7 +33,9 @@ export default async function ProjectDetailPage({
   const project = await prisma.project.findUnique({
     where: { id },
     include: {
-      ngo: true,
+      ngo: {
+        include: { boardMembers: { orderBy: { orderIndex: "asc" } } },
+      },
       milestones: {
         include: {
           outputMarkers: true,
@@ -72,6 +74,7 @@ export default async function ProjectDetailPage({
     donorCount,
     daysLeft,
     ngo: {
+      id: project.ngo.id,
       orgName: project.ngo.orgName,
       description: project.ngo.description,
       country: project.ngo.country,
@@ -79,6 +82,14 @@ export default async function ProjectDetailPage({
       foundedYear: project.ngo.approvedAt
         ? new Date(project.ngo.approvedAt).getFullYear().toString()
         : new Date(project.ngo.createdAt).getFullYear().toString(),
+      boardMembers: project.ngo.boardMembers.map((m) => ({
+        id: m.id,
+        name: m.name,
+        role: m.role,
+        bio: m.bio,
+        linkedinUrl: m.linkedinUrl,
+        photoUrl: m.photoUrl,
+      })),
     },
     milestones: project.milestones.map((m) => {
       const txHash = m.disbursement?.blockchainRecord?.txHash ?? m.disbursement?.txHash ?? null;
