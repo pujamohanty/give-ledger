@@ -26,7 +26,7 @@ const donations = [
   {
     id: "3",
     project: "Elderly Care Home - Mysore",
-    ngo: "Dignity Foundation",
+    ngo: "SilverYears Trust",
     amount: 300,
     date: "Jan 5, 2026",
     status: "Confirmed",
@@ -36,7 +36,7 @@ const donations = [
   {
     id: "4",
     project: "Elderly Care Home - Mysore",
-    ngo: "Dignity Foundation",
+    ngo: "SilverYears Trust",
     amount: 300,
     date: "Dec 5, 2025",
     status: "Confirmed",

@@ -2,7 +2,8 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { Leaf, LayoutDashboard, FolderOpen, DollarSign, Settings, LogOut, FileText, Upload, Clock, XCircle } from "lucide-react";
+import { Leaf, LayoutDashboard, FolderOpen, DollarSign, Settings, FileText, Upload, Clock, XCircle } from "lucide-react";
+import SignOutButton from "@/components/SignOutButton";
 
 const navItems = [
   { href: "/ngo/dashboard", label: "Dashboard", icon: LayoutDashboard },
@@ -55,9 +56,7 @@ export default async function NgoLayout({ children }: { children: React.ReactNod
               <li>Once approved, you can create projects and submit milestones</li>
             </ol>
           </div>
-          <Link href="/api/auth/signout" className="text-sm text-gray-400 hover:text-gray-600">
-            Sign out
-          </Link>
+          <SignOutButton />
         </div>
       </div>
     );
@@ -83,9 +82,7 @@ export default async function NgoLayout({ children }: { children: React.ReactNod
           <p className="text-sm text-gray-400 mb-6">
             If you believe this is an error, please contact us at support@giveledger.com.
           </p>
-          <Link href="/api/auth/signout" className="text-sm text-gray-400 hover:text-gray-600">
-            Sign out
-          </Link>
+          <SignOutButton />
         </div>
       </div>
     );
@@ -114,13 +111,7 @@ export default async function NgoLayout({ children }: { children: React.ReactNod
           ))}
         </nav>
         <div className="p-4 border-t border-gray-100">
-          <Link
-            href="/api/auth/signout"
-            className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-gray-500 hover:bg-red-50 hover:text-red-600 transition-colors"
-          >
-            <LogOut className="w-4 h-4" />
-            Sign Out
-          </Link>
+          <SignOutButton />
         </div>
       </aside>
       <main className="flex-1 lg:ml-64 min-h-screen">{children}</main>

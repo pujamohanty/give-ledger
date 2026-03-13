@@ -2,9 +2,10 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 import {
-  Leaf, LayoutDashboard, Heart, TrendingUp, Settings, LogOut,
+  Leaf, LayoutDashboard, Heart, TrendingUp, Settings,
   Search, Bell, Share2, Gift, Star, Globe,
 } from "lucide-react";
+import SignOutButton from "@/components/SignOutButton";
 
 const navItems = [
   { href: "/donor/dashboard", label: "Dashboard", icon: LayoutDashboard },
@@ -55,13 +56,7 @@ export default async function DonorLayout({ children }: { children: React.ReactN
             <Star className="w-4 h-4" />
             Suggest an NGO
           </Link>
-          <Link
-            href="/api/auth/signout"
-            className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-gray-500 hover:bg-red-50 hover:text-red-600 transition-colors"
-          >
-            <LogOut className="w-4 h-4" />
-            Sign Out
-          </Link>
+          <SignOutButton />
         </div>
       </aside>
       <main className="flex-1 lg:ml-64 min-h-screen">

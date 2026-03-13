@@ -6,9 +6,10 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import {
-  ArrowLeft, Users, Clock, Share2, ExternalLink, CheckCircle2, Gift, Target,
+  ArrowLeft, Users, Clock, ExternalLink, CheckCircle2, Target,
 } from "lucide-react";
 import ShareMilestoneCard from "@/components/ShareMilestoneCard";
+import ShareCampaignButton from "./ShareCampaignButton";
 
 const campaigns = {
   "c1": {
@@ -263,10 +264,7 @@ export default async function CampaignDetailPage({ params }: { params: Promise<{
                 <Link href={`/projects/${campaign.projectId}`}>
                   <Button size="lg" className="w-full mb-3">Contribute to This Campaign</Button>
                 </Link>
-                <Button variant="outline" size="sm" className="w-full gap-2">
-                  <Share2 className="w-4 h-4" />
-                  Share This Campaign
-                </Button>
+                <ShareCampaignButton campaignId={campaign.id} title={campaign.title} />
 
                 <div className="mt-5 pt-4 border-t border-gray-100">
                   <p className="text-xs text-gray-500 text-center">

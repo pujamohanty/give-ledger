@@ -36,7 +36,7 @@ const projects = [
   },
   {
     title: "Elderly Care Home - Mysore",
-    ngo: "Dignity Foundation",
+    ngo: "SilverYears Trust",
     donated: 600,
     outcomes: [
       { label: "Elderly residents supported", value: 8, target: 12 },
