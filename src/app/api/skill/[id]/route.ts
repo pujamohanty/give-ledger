@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { generateMockTxHash } from "@/lib/utils";
+import { recordSkillContribution } from "@/lib/blockchain";
 
 // PATCH /api/skill/[id] — NGO approves or rejects a skill contribution
 export async function PATCH(
@@ -37,8 +37,12 @@ export async function PATCH(
   }
 
   if (action === "APPROVE") {
-    // Generate a mock on-chain tx hash (Phase 8 will replace with real Polygon write)
-    const txHash = generateMockTxHash();
+    // Write to Polygon (real if env vars set, mock otherwise)
+    const { txHash } = await recordSkillContribution(
+      id,
+      contribution.ngoId,
+      monetaryValue ?? 0
+    );
 
     const updated = await prisma.skillContribution.update({
       where: { id },

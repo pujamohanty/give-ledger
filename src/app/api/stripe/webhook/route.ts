@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe";
 import { prisma } from "@/lib/prisma";
-import { generateMockTxHash } from "@/lib/utils";
+import { recordDonation } from "@/lib/blockchain";
 
 export async function POST(req: NextRequest) {
   const body = await req.text();
@@ -40,7 +40,6 @@ export async function POST(req: NextRequest) {
     };
 
     const amountPaid = (sessionObj.amount_total ?? 0) / 100;
-    const txHash = generateMockTxHash();
 
     const donation = await prisma.donation.create({
       data: {
@@ -53,6 +52,20 @@ export async function POST(req: NextRequest) {
         status: "COMPLETED",
       },
     });
+
+    // Fetch NGO ID for the project (needed for on-chain record)
+    const project = await prisma.project.findUnique({
+      where: { id: projectId },
+      select: { ngoId: true },
+    });
+
+    // Write to Polygon (real if env vars set, mock otherwise)
+    const { txHash } = await recordDonation(
+      donation.id,
+      project?.ngoId ?? "",
+      projectId,
+      amountPaid
+    );
 
     await prisma.blockchainRecord.create({
       data: {

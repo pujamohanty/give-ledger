@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { generateMockTxHash } from "@/lib/utils";
+import { recordDisbursement } from "@/lib/blockchain";
 
 export async function POST(req: NextRequest) {
   const session = await auth();
@@ -17,7 +17,19 @@ export async function POST(req: NextRequest) {
 
   try {
     if (action === "APPROVE") {
-      const txHash = generateMockTxHash();
+      // Fetch disbursement to get NGO + project IDs for on-chain record
+      const disbursementRaw = await prisma.disbursement.findUnique({
+        where: { id: disbursementId },
+        include: { milestone: { include: { project: true } } },
+      });
+
+      // Write to Polygon (real if env vars set, mock otherwise)
+      const { txHash } = await recordDisbursement(
+        disbursementId,
+        disbursementRaw?.milestone.project.ngoId ?? "",
+        disbursementRaw?.milestone.projectId ?? "",
+        disbursementRaw?.requestedAmount ?? 0
+      );
 
       const disbursement = await prisma.disbursement.update({
         where: { id: disbursementId },
