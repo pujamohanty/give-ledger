@@ -123,6 +123,26 @@ export type Referral = $Result.DefaultSelection<Prisma.$ReferralPayload>
  * 
  */
 export type ActivityEvent = $Result.DefaultSelection<Prisma.$ActivityEventPayload>
+/**
+ * Model BoardMember
+ * 
+ */
+export type BoardMember = $Result.DefaultSelection<Prisma.$BoardMemberPayload>
+/**
+ * Model SkillContribution
+ * 
+ */
+export type SkillContribution = $Result.DefaultSelection<Prisma.$SkillContributionPayload>
+/**
+ * Model SkillBlockchainRecord
+ * 
+ */
+export type SkillBlockchainRecord = $Result.DefaultSelection<Prisma.$SkillBlockchainRecordPayload>
+/**
+ * Model DonorEndorsement
+ * 
+ */
+export type DonorEndorsement = $Result.DefaultSelection<Prisma.$DonorEndorsementPayload>
 
 /**
  * Enums
@@ -569,6 +589,46 @@ export class PrismaClient<
     * ```
     */
   get activityEvent(): Prisma.ActivityEventDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.boardMember`: Exposes CRUD operations for the **BoardMember** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more BoardMembers
+    * const boardMembers = await prisma.boardMember.findMany()
+    * ```
+    */
+  get boardMember(): Prisma.BoardMemberDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.skillContribution`: Exposes CRUD operations for the **SkillContribution** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SkillContributions
+    * const skillContributions = await prisma.skillContribution.findMany()
+    * ```
+    */
+  get skillContribution(): Prisma.SkillContributionDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.skillBlockchainRecord`: Exposes CRUD operations for the **SkillBlockchainRecord** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SkillBlockchainRecords
+    * const skillBlockchainRecords = await prisma.skillBlockchainRecord.findMany()
+    * ```
+    */
+  get skillBlockchainRecord(): Prisma.SkillBlockchainRecordDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.donorEndorsement`: Exposes CRUD operations for the **DonorEndorsement** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more DonorEndorsements
+    * const donorEndorsements = await prisma.donorEndorsement.findMany()
+    * ```
+    */
+  get donorEndorsement(): Prisma.DonorEndorsementDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -1024,7 +1084,11 @@ export namespace Prisma {
     CampaignContributor: 'CampaignContributor',
     NgoSuggestion: 'NgoSuggestion',
     Referral: 'Referral',
-    ActivityEvent: 'ActivityEvent'
+    ActivityEvent: 'ActivityEvent',
+    BoardMember: 'BoardMember',
+    SkillContribution: 'SkillContribution',
+    SkillBlockchainRecord: 'SkillBlockchainRecord',
+    DonorEndorsement: 'DonorEndorsement'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1040,7 +1104,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "account" | "session" | "verificationToken" | "user" | "ngo" | "project" | "milestone" | "evidenceFile" | "outputMarker" | "donation" | "disbursement" | "expense" | "blockchainRecord" | "rating" | "platformSetting" | "notification" | "spotlightVote" | "campaign" | "campaignContributor" | "ngoSuggestion" | "referral" | "activityEvent"
+      modelProps: "account" | "session" | "verificationToken" | "user" | "ngo" | "project" | "milestone" | "evidenceFile" | "outputMarker" | "donation" | "disbursement" | "expense" | "blockchainRecord" | "rating" | "platformSetting" | "notification" | "spotlightVote" | "campaign" | "campaignContributor" | "ngoSuggestion" | "referral" | "activityEvent" | "boardMember" | "skillContribution" | "skillBlockchainRecord" | "donorEndorsement"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2672,6 +2736,302 @@ export namespace Prisma {
           }
         }
       }
+      BoardMember: {
+        payload: Prisma.$BoardMemberPayload<ExtArgs>
+        fields: Prisma.BoardMemberFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.BoardMemberFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BoardMemberPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.BoardMemberFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BoardMemberPayload>
+          }
+          findFirst: {
+            args: Prisma.BoardMemberFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BoardMemberPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.BoardMemberFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BoardMemberPayload>
+          }
+          findMany: {
+            args: Prisma.BoardMemberFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BoardMemberPayload>[]
+          }
+          create: {
+            args: Prisma.BoardMemberCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BoardMemberPayload>
+          }
+          createMany: {
+            args: Prisma.BoardMemberCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.BoardMemberCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BoardMemberPayload>[]
+          }
+          delete: {
+            args: Prisma.BoardMemberDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BoardMemberPayload>
+          }
+          update: {
+            args: Prisma.BoardMemberUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BoardMemberPayload>
+          }
+          deleteMany: {
+            args: Prisma.BoardMemberDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.BoardMemberUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.BoardMemberUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BoardMemberPayload>[]
+          }
+          upsert: {
+            args: Prisma.BoardMemberUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BoardMemberPayload>
+          }
+          aggregate: {
+            args: Prisma.BoardMemberAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateBoardMember>
+          }
+          groupBy: {
+            args: Prisma.BoardMemberGroupByArgs<ExtArgs>
+            result: $Utils.Optional<BoardMemberGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.BoardMemberCountArgs<ExtArgs>
+            result: $Utils.Optional<BoardMemberCountAggregateOutputType> | number
+          }
+        }
+      }
+      SkillContribution: {
+        payload: Prisma.$SkillContributionPayload<ExtArgs>
+        fields: Prisma.SkillContributionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SkillContributionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillContributionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SkillContributionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillContributionPayload>
+          }
+          findFirst: {
+            args: Prisma.SkillContributionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillContributionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SkillContributionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillContributionPayload>
+          }
+          findMany: {
+            args: Prisma.SkillContributionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillContributionPayload>[]
+          }
+          create: {
+            args: Prisma.SkillContributionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillContributionPayload>
+          }
+          createMany: {
+            args: Prisma.SkillContributionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SkillContributionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillContributionPayload>[]
+          }
+          delete: {
+            args: Prisma.SkillContributionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillContributionPayload>
+          }
+          update: {
+            args: Prisma.SkillContributionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillContributionPayload>
+          }
+          deleteMany: {
+            args: Prisma.SkillContributionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SkillContributionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SkillContributionUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillContributionPayload>[]
+          }
+          upsert: {
+            args: Prisma.SkillContributionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillContributionPayload>
+          }
+          aggregate: {
+            args: Prisma.SkillContributionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSkillContribution>
+          }
+          groupBy: {
+            args: Prisma.SkillContributionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SkillContributionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SkillContributionCountArgs<ExtArgs>
+            result: $Utils.Optional<SkillContributionCountAggregateOutputType> | number
+          }
+        }
+      }
+      SkillBlockchainRecord: {
+        payload: Prisma.$SkillBlockchainRecordPayload<ExtArgs>
+        fields: Prisma.SkillBlockchainRecordFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SkillBlockchainRecordFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillBlockchainRecordPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SkillBlockchainRecordFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillBlockchainRecordPayload>
+          }
+          findFirst: {
+            args: Prisma.SkillBlockchainRecordFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillBlockchainRecordPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SkillBlockchainRecordFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillBlockchainRecordPayload>
+          }
+          findMany: {
+            args: Prisma.SkillBlockchainRecordFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillBlockchainRecordPayload>[]
+          }
+          create: {
+            args: Prisma.SkillBlockchainRecordCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillBlockchainRecordPayload>
+          }
+          createMany: {
+            args: Prisma.SkillBlockchainRecordCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SkillBlockchainRecordCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillBlockchainRecordPayload>[]
+          }
+          delete: {
+            args: Prisma.SkillBlockchainRecordDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillBlockchainRecordPayload>
+          }
+          update: {
+            args: Prisma.SkillBlockchainRecordUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillBlockchainRecordPayload>
+          }
+          deleteMany: {
+            args: Prisma.SkillBlockchainRecordDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SkillBlockchainRecordUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SkillBlockchainRecordUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillBlockchainRecordPayload>[]
+          }
+          upsert: {
+            args: Prisma.SkillBlockchainRecordUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SkillBlockchainRecordPayload>
+          }
+          aggregate: {
+            args: Prisma.SkillBlockchainRecordAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSkillBlockchainRecord>
+          }
+          groupBy: {
+            args: Prisma.SkillBlockchainRecordGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SkillBlockchainRecordGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SkillBlockchainRecordCountArgs<ExtArgs>
+            result: $Utils.Optional<SkillBlockchainRecordCountAggregateOutputType> | number
+          }
+        }
+      }
+      DonorEndorsement: {
+        payload: Prisma.$DonorEndorsementPayload<ExtArgs>
+        fields: Prisma.DonorEndorsementFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DonorEndorsementFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DonorEndorsementPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DonorEndorsementFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DonorEndorsementPayload>
+          }
+          findFirst: {
+            args: Prisma.DonorEndorsementFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DonorEndorsementPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DonorEndorsementFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DonorEndorsementPayload>
+          }
+          findMany: {
+            args: Prisma.DonorEndorsementFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DonorEndorsementPayload>[]
+          }
+          create: {
+            args: Prisma.DonorEndorsementCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DonorEndorsementPayload>
+          }
+          createMany: {
+            args: Prisma.DonorEndorsementCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DonorEndorsementCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DonorEndorsementPayload>[]
+          }
+          delete: {
+            args: Prisma.DonorEndorsementDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DonorEndorsementPayload>
+          }
+          update: {
+            args: Prisma.DonorEndorsementUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DonorEndorsementPayload>
+          }
+          deleteMany: {
+            args: Prisma.DonorEndorsementDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DonorEndorsementUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.DonorEndorsementUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DonorEndorsementPayload>[]
+          }
+          upsert: {
+            args: Prisma.DonorEndorsementUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DonorEndorsementPayload>
+          }
+          aggregate: {
+            args: Prisma.DonorEndorsementAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDonorEndorsement>
+          }
+          groupBy: {
+            args: Prisma.DonorEndorsementGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DonorEndorsementGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DonorEndorsementCountArgs<ExtArgs>
+            result: $Utils.Optional<DonorEndorsementCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -2802,6 +3162,10 @@ export namespace Prisma {
     ngoSuggestion?: NgoSuggestionOmit
     referral?: ReferralOmit
     activityEvent?: ActivityEventOmit
+    boardMember?: BoardMemberOmit
+    skillContribution?: SkillContributionOmit
+    skillBlockchainRecord?: SkillBlockchainRecordOmit
+    donorEndorsement?: DonorEndorsementOmit
   }
 
   /* Types for Logging */
@@ -2893,6 +3257,9 @@ export namespace Prisma {
     ngoSuggestions: number
     referralsMade: number
     referralsReceived: number
+    skillContributions: number
+    endorsementsReceived: number
+    endorsementsGiven: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2907,6 +3274,9 @@ export namespace Prisma {
     ngoSuggestions?: boolean | UserCountOutputTypeCountNgoSuggestionsArgs
     referralsMade?: boolean | UserCountOutputTypeCountReferralsMadeArgs
     referralsReceived?: boolean | UserCountOutputTypeCountReferralsReceivedArgs
+    skillContributions?: boolean | UserCountOutputTypeCountSkillContributionsArgs
+    endorsementsReceived?: boolean | UserCountOutputTypeCountEndorsementsReceivedArgs
+    endorsementsGiven?: boolean | UserCountOutputTypeCountEndorsementsGivenArgs
   }
 
   // Custom InputTypes
@@ -2997,6 +3367,27 @@ export namespace Prisma {
     where?: ReferralWhereInput
   }
 
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountSkillContributionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SkillContributionWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountEndorsementsReceivedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DonorEndorsementWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountEndorsementsGivenArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DonorEndorsementWhereInput
+  }
+
 
   /**
    * Count Type NgoCountOutputType
@@ -3006,12 +3397,18 @@ export namespace Prisma {
     projects: number
     expenses: number
     ratings: number
+    boardMembers: number
+    skillContributions: number
+    donorEndorsements: number
   }
 
   export type NgoCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     projects?: boolean | NgoCountOutputTypeCountProjectsArgs
     expenses?: boolean | NgoCountOutputTypeCountExpensesArgs
     ratings?: boolean | NgoCountOutputTypeCountRatingsArgs
+    boardMembers?: boolean | NgoCountOutputTypeCountBoardMembersArgs
+    skillContributions?: boolean | NgoCountOutputTypeCountSkillContributionsArgs
+    donorEndorsements?: boolean | NgoCountOutputTypeCountDonorEndorsementsArgs
   }
 
   // Custom InputTypes
@@ -3046,6 +3443,27 @@ export namespace Prisma {
     where?: RatingWhereInput
   }
 
+  /**
+   * NgoCountOutputType without action
+   */
+  export type NgoCountOutputTypeCountBoardMembersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BoardMemberWhereInput
+  }
+
+  /**
+   * NgoCountOutputType without action
+   */
+  export type NgoCountOutputTypeCountSkillContributionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SkillContributionWhereInput
+  }
+
+  /**
+   * NgoCountOutputType without action
+   */
+  export type NgoCountOutputTypeCountDonorEndorsementsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DonorEndorsementWhereInput
+  }
+
 
   /**
    * Count Type ProjectCountOutputType
@@ -3057,6 +3475,7 @@ export namespace Prisma {
     expenses: number
     spotlightVotes: number
     campaigns: number
+    skillContributions: number
   }
 
   export type ProjectCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3065,6 +3484,7 @@ export namespace Prisma {
     expenses?: boolean | ProjectCountOutputTypeCountExpensesArgs
     spotlightVotes?: boolean | ProjectCountOutputTypeCountSpotlightVotesArgs
     campaigns?: boolean | ProjectCountOutputTypeCountCampaignsArgs
+    skillContributions?: boolean | ProjectCountOutputTypeCountSkillContributionsArgs
   }
 
   // Custom InputTypes
@@ -3111,6 +3531,13 @@ export namespace Prisma {
    */
   export type ProjectCountOutputTypeCountCampaignsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: CampaignWhereInput
+  }
+
+  /**
+   * ProjectCountOutputType without action
+   */
+  export type ProjectCountOutputTypeCountSkillContributionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SkillContributionWhereInput
   }
 
 
@@ -6594,6 +7021,9 @@ export namespace Prisma {
     ngoSuggestions?: boolean | User$ngoSuggestionsArgs<ExtArgs>
     referralsMade?: boolean | User$referralsMadeArgs<ExtArgs>
     referralsReceived?: boolean | User$referralsReceivedArgs<ExtArgs>
+    skillContributions?: boolean | User$skillContributionsArgs<ExtArgs>
+    endorsementsReceived?: boolean | User$endorsementsReceivedArgs<ExtArgs>
+    endorsementsGiven?: boolean | User$endorsementsGivenArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -6647,6 +7077,9 @@ export namespace Prisma {
     ngoSuggestions?: boolean | User$ngoSuggestionsArgs<ExtArgs>
     referralsMade?: boolean | User$referralsMadeArgs<ExtArgs>
     referralsReceived?: boolean | User$referralsReceivedArgs<ExtArgs>
+    skillContributions?: boolean | User$skillContributionsArgs<ExtArgs>
+    endorsementsReceived?: boolean | User$endorsementsReceivedArgs<ExtArgs>
+    endorsementsGiven?: boolean | User$endorsementsGivenArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -6667,6 +7100,9 @@ export namespace Prisma {
       ngoSuggestions: Prisma.$NgoSuggestionPayload<ExtArgs>[]
       referralsMade: Prisma.$ReferralPayload<ExtArgs>[]
       referralsReceived: Prisma.$ReferralPayload<ExtArgs>[]
+      skillContributions: Prisma.$SkillContributionPayload<ExtArgs>[]
+      endorsementsReceived: Prisma.$DonorEndorsementPayload<ExtArgs>[]
+      endorsementsGiven: Prisma.$DonorEndorsementPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -7084,6 +7520,9 @@ export namespace Prisma {
     ngoSuggestions<T extends User$ngoSuggestionsArgs<ExtArgs> = {}>(args?: Subset<T, User$ngoSuggestionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NgoSuggestionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     referralsMade<T extends User$referralsMadeArgs<ExtArgs> = {}>(args?: Subset<T, User$referralsMadeArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReferralPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     referralsReceived<T extends User$referralsReceivedArgs<ExtArgs> = {}>(args?: Subset<T, User$referralsReceivedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReferralPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    skillContributions<T extends User$skillContributionsArgs<ExtArgs> = {}>(args?: Subset<T, User$skillContributionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SkillContributionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    endorsementsReceived<T extends User$endorsementsReceivedArgs<ExtArgs> = {}>(args?: Subset<T, User$endorsementsReceivedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DonorEndorsementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    endorsementsGiven<T extends User$endorsementsGivenArgs<ExtArgs> = {}>(args?: Subset<T, User$endorsementsGivenArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DonorEndorsementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7793,6 +8232,78 @@ export namespace Prisma {
   }
 
   /**
+   * User.skillContributions
+   */
+  export type User$skillContributionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SkillContribution
+     */
+    select?: SkillContributionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SkillContribution
+     */
+    omit?: SkillContributionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillContributionInclude<ExtArgs> | null
+    where?: SkillContributionWhereInput
+    orderBy?: SkillContributionOrderByWithRelationInput | SkillContributionOrderByWithRelationInput[]
+    cursor?: SkillContributionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SkillContributionScalarFieldEnum | SkillContributionScalarFieldEnum[]
+  }
+
+  /**
+   * User.endorsementsReceived
+   */
+  export type User$endorsementsReceivedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DonorEndorsement
+     */
+    select?: DonorEndorsementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DonorEndorsement
+     */
+    omit?: DonorEndorsementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DonorEndorsementInclude<ExtArgs> | null
+    where?: DonorEndorsementWhereInput
+    orderBy?: DonorEndorsementOrderByWithRelationInput | DonorEndorsementOrderByWithRelationInput[]
+    cursor?: DonorEndorsementWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DonorEndorsementScalarFieldEnum | DonorEndorsementScalarFieldEnum[]
+  }
+
+  /**
+   * User.endorsementsGiven
+   */
+  export type User$endorsementsGivenArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DonorEndorsement
+     */
+    select?: DonorEndorsementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DonorEndorsement
+     */
+    omit?: DonorEndorsementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DonorEndorsementInclude<ExtArgs> | null
+    where?: DonorEndorsementWhereInput
+    orderBy?: DonorEndorsementOrderByWithRelationInput | DonorEndorsementOrderByWithRelationInput[]
+    cursor?: DonorEndorsementWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DonorEndorsementScalarFieldEnum | DonorEndorsementScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8085,6 +8596,9 @@ export namespace Prisma {
     projects?: boolean | Ngo$projectsArgs<ExtArgs>
     expenses?: boolean | Ngo$expensesArgs<ExtArgs>
     ratings?: boolean | Ngo$ratingsArgs<ExtArgs>
+    boardMembers?: boolean | Ngo$boardMembersArgs<ExtArgs>
+    skillContributions?: boolean | Ngo$skillContributionsArgs<ExtArgs>
+    donorEndorsements?: boolean | Ngo$donorEndorsementsArgs<ExtArgs>
     _count?: boolean | NgoCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["ngo"]>
 
@@ -8147,6 +8661,9 @@ export namespace Prisma {
     projects?: boolean | Ngo$projectsArgs<ExtArgs>
     expenses?: boolean | Ngo$expensesArgs<ExtArgs>
     ratings?: boolean | Ngo$ratingsArgs<ExtArgs>
+    boardMembers?: boolean | Ngo$boardMembersArgs<ExtArgs>
+    skillContributions?: boolean | Ngo$skillContributionsArgs<ExtArgs>
+    donorEndorsements?: boolean | Ngo$donorEndorsementsArgs<ExtArgs>
     _count?: boolean | NgoCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type NgoIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8163,6 +8680,9 @@ export namespace Prisma {
       projects: Prisma.$ProjectPayload<ExtArgs>[]
       expenses: Prisma.$ExpensePayload<ExtArgs>[]
       ratings: Prisma.$RatingPayload<ExtArgs>[]
+      boardMembers: Prisma.$BoardMemberPayload<ExtArgs>[]
+      skillContributions: Prisma.$SkillContributionPayload<ExtArgs>[]
+      donorEndorsements: Prisma.$DonorEndorsementPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -8577,6 +9097,9 @@ export namespace Prisma {
     projects<T extends Ngo$projectsArgs<ExtArgs> = {}>(args?: Subset<T, Ngo$projectsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     expenses<T extends Ngo$expensesArgs<ExtArgs> = {}>(args?: Subset<T, Ngo$expensesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExpensePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     ratings<T extends Ngo$ratingsArgs<ExtArgs> = {}>(args?: Subset<T, Ngo$ratingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RatingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    boardMembers<T extends Ngo$boardMembersArgs<ExtArgs> = {}>(args?: Subset<T, Ngo$boardMembersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BoardMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    skillContributions<T extends Ngo$skillContributionsArgs<ExtArgs> = {}>(args?: Subset<T, Ngo$skillContributionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SkillContributionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    donorEndorsements<T extends Ngo$donorEndorsementsArgs<ExtArgs> = {}>(args?: Subset<T, Ngo$donorEndorsementsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DonorEndorsementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -9088,6 +9611,78 @@ export namespace Prisma {
   }
 
   /**
+   * Ngo.boardMembers
+   */
+  export type Ngo$boardMembersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BoardMember
+     */
+    select?: BoardMemberSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BoardMember
+     */
+    omit?: BoardMemberOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BoardMemberInclude<ExtArgs> | null
+    where?: BoardMemberWhereInput
+    orderBy?: BoardMemberOrderByWithRelationInput | BoardMemberOrderByWithRelationInput[]
+    cursor?: BoardMemberWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: BoardMemberScalarFieldEnum | BoardMemberScalarFieldEnum[]
+  }
+
+  /**
+   * Ngo.skillContributions
+   */
+  export type Ngo$skillContributionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SkillContribution
+     */
+    select?: SkillContributionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SkillContribution
+     */
+    omit?: SkillContributionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillContributionInclude<ExtArgs> | null
+    where?: SkillContributionWhereInput
+    orderBy?: SkillContributionOrderByWithRelationInput | SkillContributionOrderByWithRelationInput[]
+    cursor?: SkillContributionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SkillContributionScalarFieldEnum | SkillContributionScalarFieldEnum[]
+  }
+
+  /**
+   * Ngo.donorEndorsements
+   */
+  export type Ngo$donorEndorsementsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DonorEndorsement
+     */
+    select?: DonorEndorsementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DonorEndorsement
+     */
+    omit?: DonorEndorsementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DonorEndorsementInclude<ExtArgs> | null
+    where?: DonorEndorsementWhereInput
+    orderBy?: DonorEndorsementOrderByWithRelationInput | DonorEndorsementOrderByWithRelationInput[]
+    cursor?: DonorEndorsementWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DonorEndorsementScalarFieldEnum | DonorEndorsementScalarFieldEnum[]
+  }
+
+  /**
    * Ngo without action
    */
   export type NgoDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -9406,6 +10001,7 @@ export namespace Prisma {
     expenses?: boolean | Project$expensesArgs<ExtArgs>
     spotlightVotes?: boolean | Project$spotlightVotesArgs<ExtArgs>
     campaigns?: boolean | Project$campaignsArgs<ExtArgs>
+    skillContributions?: boolean | Project$skillContributionsArgs<ExtArgs>
     _count?: boolean | ProjectCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["project"]>
 
@@ -9476,6 +10072,7 @@ export namespace Prisma {
     expenses?: boolean | Project$expensesArgs<ExtArgs>
     spotlightVotes?: boolean | Project$spotlightVotesArgs<ExtArgs>
     campaigns?: boolean | Project$campaignsArgs<ExtArgs>
+    skillContributions?: boolean | Project$skillContributionsArgs<ExtArgs>
     _count?: boolean | ProjectCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ProjectIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -9494,6 +10091,7 @@ export namespace Prisma {
       expenses: Prisma.$ExpensePayload<ExtArgs>[]
       spotlightVotes: Prisma.$SpotlightVotePayload<ExtArgs>[]
       campaigns: Prisma.$CampaignPayload<ExtArgs>[]
+      skillContributions: Prisma.$SkillContributionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -9912,6 +10510,7 @@ export namespace Prisma {
     expenses<T extends Project$expensesArgs<ExtArgs> = {}>(args?: Subset<T, Project$expensesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExpensePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     spotlightVotes<T extends Project$spotlightVotesArgs<ExtArgs> = {}>(args?: Subset<T, Project$spotlightVotesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SpotlightVotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     campaigns<T extends Project$campaignsArgs<ExtArgs> = {}>(args?: Subset<T, Project$campaignsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CampaignPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    skillContributions<T extends Project$skillContributionsArgs<ExtArgs> = {}>(args?: Subset<T, Project$skillContributionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SkillContributionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -10470,6 +11069,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: CampaignScalarFieldEnum | CampaignScalarFieldEnum[]
+  }
+
+  /**
+   * Project.skillContributions
+   */
+  export type Project$skillContributionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SkillContribution
+     */
+    select?: SkillContributionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SkillContribution
+     */
+    omit?: SkillContributionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillContributionInclude<ExtArgs> | null
+    where?: SkillContributionWhereInput
+    orderBy?: SkillContributionOrderByWithRelationInput | SkillContributionOrderByWithRelationInput[]
+    cursor?: SkillContributionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SkillContributionScalarFieldEnum | SkillContributionScalarFieldEnum[]
   }
 
   /**
@@ -28614,6 +29237,4579 @@ export namespace Prisma {
 
 
   /**
+   * Model BoardMember
+   */
+
+  export type AggregateBoardMember = {
+    _count: BoardMemberCountAggregateOutputType | null
+    _avg: BoardMemberAvgAggregateOutputType | null
+    _sum: BoardMemberSumAggregateOutputType | null
+    _min: BoardMemberMinAggregateOutputType | null
+    _max: BoardMemberMaxAggregateOutputType | null
+  }
+
+  export type BoardMemberAvgAggregateOutputType = {
+    orderIndex: number | null
+  }
+
+  export type BoardMemberSumAggregateOutputType = {
+    orderIndex: number | null
+  }
+
+  export type BoardMemberMinAggregateOutputType = {
+    id: string | null
+    ngoId: string | null
+    name: string | null
+    role: string | null
+    bio: string | null
+    linkedinUrl: string | null
+    photoUrl: string | null
+    orderIndex: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type BoardMemberMaxAggregateOutputType = {
+    id: string | null
+    ngoId: string | null
+    name: string | null
+    role: string | null
+    bio: string | null
+    linkedinUrl: string | null
+    photoUrl: string | null
+    orderIndex: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type BoardMemberCountAggregateOutputType = {
+    id: number
+    ngoId: number
+    name: number
+    role: number
+    bio: number
+    linkedinUrl: number
+    photoUrl: number
+    orderIndex: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type BoardMemberAvgAggregateInputType = {
+    orderIndex?: true
+  }
+
+  export type BoardMemberSumAggregateInputType = {
+    orderIndex?: true
+  }
+
+  export type BoardMemberMinAggregateInputType = {
+    id?: true
+    ngoId?: true
+    name?: true
+    role?: true
+    bio?: true
+    linkedinUrl?: true
+    photoUrl?: true
+    orderIndex?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type BoardMemberMaxAggregateInputType = {
+    id?: true
+    ngoId?: true
+    name?: true
+    role?: true
+    bio?: true
+    linkedinUrl?: true
+    photoUrl?: true
+    orderIndex?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type BoardMemberCountAggregateInputType = {
+    id?: true
+    ngoId?: true
+    name?: true
+    role?: true
+    bio?: true
+    linkedinUrl?: true
+    photoUrl?: true
+    orderIndex?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type BoardMemberAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BoardMember to aggregate.
+     */
+    where?: BoardMemberWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BoardMembers to fetch.
+     */
+    orderBy?: BoardMemberOrderByWithRelationInput | BoardMemberOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: BoardMemberWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BoardMembers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BoardMembers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned BoardMembers
+    **/
+    _count?: true | BoardMemberCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: BoardMemberAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: BoardMemberSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: BoardMemberMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: BoardMemberMaxAggregateInputType
+  }
+
+  export type GetBoardMemberAggregateType<T extends BoardMemberAggregateArgs> = {
+        [P in keyof T & keyof AggregateBoardMember]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateBoardMember[P]>
+      : GetScalarType<T[P], AggregateBoardMember[P]>
+  }
+
+
+
+
+  export type BoardMemberGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BoardMemberWhereInput
+    orderBy?: BoardMemberOrderByWithAggregationInput | BoardMemberOrderByWithAggregationInput[]
+    by: BoardMemberScalarFieldEnum[] | BoardMemberScalarFieldEnum
+    having?: BoardMemberScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: BoardMemberCountAggregateInputType | true
+    _avg?: BoardMemberAvgAggregateInputType
+    _sum?: BoardMemberSumAggregateInputType
+    _min?: BoardMemberMinAggregateInputType
+    _max?: BoardMemberMaxAggregateInputType
+  }
+
+  export type BoardMemberGroupByOutputType = {
+    id: string
+    ngoId: string
+    name: string
+    role: string
+    bio: string | null
+    linkedinUrl: string | null
+    photoUrl: string | null
+    orderIndex: number
+    createdAt: Date
+    updatedAt: Date
+    _count: BoardMemberCountAggregateOutputType | null
+    _avg: BoardMemberAvgAggregateOutputType | null
+    _sum: BoardMemberSumAggregateOutputType | null
+    _min: BoardMemberMinAggregateOutputType | null
+    _max: BoardMemberMaxAggregateOutputType | null
+  }
+
+  type GetBoardMemberGroupByPayload<T extends BoardMemberGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<BoardMemberGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof BoardMemberGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], BoardMemberGroupByOutputType[P]>
+            : GetScalarType<T[P], BoardMemberGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type BoardMemberSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    ngoId?: boolean
+    name?: boolean
+    role?: boolean
+    bio?: boolean
+    linkedinUrl?: boolean
+    photoUrl?: boolean
+    orderIndex?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    ngo?: boolean | NgoDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["boardMember"]>
+
+  export type BoardMemberSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    ngoId?: boolean
+    name?: boolean
+    role?: boolean
+    bio?: boolean
+    linkedinUrl?: boolean
+    photoUrl?: boolean
+    orderIndex?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    ngo?: boolean | NgoDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["boardMember"]>
+
+  export type BoardMemberSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    ngoId?: boolean
+    name?: boolean
+    role?: boolean
+    bio?: boolean
+    linkedinUrl?: boolean
+    photoUrl?: boolean
+    orderIndex?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    ngo?: boolean | NgoDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["boardMember"]>
+
+  export type BoardMemberSelectScalar = {
+    id?: boolean
+    ngoId?: boolean
+    name?: boolean
+    role?: boolean
+    bio?: boolean
+    linkedinUrl?: boolean
+    photoUrl?: boolean
+    orderIndex?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type BoardMemberOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "ngoId" | "name" | "role" | "bio" | "linkedinUrl" | "photoUrl" | "orderIndex" | "createdAt" | "updatedAt", ExtArgs["result"]["boardMember"]>
+  export type BoardMemberInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    ngo?: boolean | NgoDefaultArgs<ExtArgs>
+  }
+  export type BoardMemberIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    ngo?: boolean | NgoDefaultArgs<ExtArgs>
+  }
+  export type BoardMemberIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    ngo?: boolean | NgoDefaultArgs<ExtArgs>
+  }
+
+  export type $BoardMemberPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "BoardMember"
+    objects: {
+      ngo: Prisma.$NgoPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      ngoId: string
+      name: string
+      role: string
+      bio: string | null
+      linkedinUrl: string | null
+      photoUrl: string | null
+      orderIndex: number
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["boardMember"]>
+    composites: {}
+  }
+
+  type BoardMemberGetPayload<S extends boolean | null | undefined | BoardMemberDefaultArgs> = $Result.GetResult<Prisma.$BoardMemberPayload, S>
+
+  type BoardMemberCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<BoardMemberFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: BoardMemberCountAggregateInputType | true
+    }
+
+  export interface BoardMemberDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['BoardMember'], meta: { name: 'BoardMember' } }
+    /**
+     * Find zero or one BoardMember that matches the filter.
+     * @param {BoardMemberFindUniqueArgs} args - Arguments to find a BoardMember
+     * @example
+     * // Get one BoardMember
+     * const boardMember = await prisma.boardMember.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends BoardMemberFindUniqueArgs>(args: SelectSubset<T, BoardMemberFindUniqueArgs<ExtArgs>>): Prisma__BoardMemberClient<$Result.GetResult<Prisma.$BoardMemberPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one BoardMember that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {BoardMemberFindUniqueOrThrowArgs} args - Arguments to find a BoardMember
+     * @example
+     * // Get one BoardMember
+     * const boardMember = await prisma.boardMember.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends BoardMemberFindUniqueOrThrowArgs>(args: SelectSubset<T, BoardMemberFindUniqueOrThrowArgs<ExtArgs>>): Prisma__BoardMemberClient<$Result.GetResult<Prisma.$BoardMemberPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first BoardMember that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BoardMemberFindFirstArgs} args - Arguments to find a BoardMember
+     * @example
+     * // Get one BoardMember
+     * const boardMember = await prisma.boardMember.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends BoardMemberFindFirstArgs>(args?: SelectSubset<T, BoardMemberFindFirstArgs<ExtArgs>>): Prisma__BoardMemberClient<$Result.GetResult<Prisma.$BoardMemberPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first BoardMember that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BoardMemberFindFirstOrThrowArgs} args - Arguments to find a BoardMember
+     * @example
+     * // Get one BoardMember
+     * const boardMember = await prisma.boardMember.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends BoardMemberFindFirstOrThrowArgs>(args?: SelectSubset<T, BoardMemberFindFirstOrThrowArgs<ExtArgs>>): Prisma__BoardMemberClient<$Result.GetResult<Prisma.$BoardMemberPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more BoardMembers that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BoardMemberFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all BoardMembers
+     * const boardMembers = await prisma.boardMember.findMany()
+     * 
+     * // Get first 10 BoardMembers
+     * const boardMembers = await prisma.boardMember.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const boardMemberWithIdOnly = await prisma.boardMember.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends BoardMemberFindManyArgs>(args?: SelectSubset<T, BoardMemberFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BoardMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a BoardMember.
+     * @param {BoardMemberCreateArgs} args - Arguments to create a BoardMember.
+     * @example
+     * // Create one BoardMember
+     * const BoardMember = await prisma.boardMember.create({
+     *   data: {
+     *     // ... data to create a BoardMember
+     *   }
+     * })
+     * 
+     */
+    create<T extends BoardMemberCreateArgs>(args: SelectSubset<T, BoardMemberCreateArgs<ExtArgs>>): Prisma__BoardMemberClient<$Result.GetResult<Prisma.$BoardMemberPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many BoardMembers.
+     * @param {BoardMemberCreateManyArgs} args - Arguments to create many BoardMembers.
+     * @example
+     * // Create many BoardMembers
+     * const boardMember = await prisma.boardMember.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends BoardMemberCreateManyArgs>(args?: SelectSubset<T, BoardMemberCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many BoardMembers and returns the data saved in the database.
+     * @param {BoardMemberCreateManyAndReturnArgs} args - Arguments to create many BoardMembers.
+     * @example
+     * // Create many BoardMembers
+     * const boardMember = await prisma.boardMember.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many BoardMembers and only return the `id`
+     * const boardMemberWithIdOnly = await prisma.boardMember.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends BoardMemberCreateManyAndReturnArgs>(args?: SelectSubset<T, BoardMemberCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BoardMemberPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a BoardMember.
+     * @param {BoardMemberDeleteArgs} args - Arguments to delete one BoardMember.
+     * @example
+     * // Delete one BoardMember
+     * const BoardMember = await prisma.boardMember.delete({
+     *   where: {
+     *     // ... filter to delete one BoardMember
+     *   }
+     * })
+     * 
+     */
+    delete<T extends BoardMemberDeleteArgs>(args: SelectSubset<T, BoardMemberDeleteArgs<ExtArgs>>): Prisma__BoardMemberClient<$Result.GetResult<Prisma.$BoardMemberPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one BoardMember.
+     * @param {BoardMemberUpdateArgs} args - Arguments to update one BoardMember.
+     * @example
+     * // Update one BoardMember
+     * const boardMember = await prisma.boardMember.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends BoardMemberUpdateArgs>(args: SelectSubset<T, BoardMemberUpdateArgs<ExtArgs>>): Prisma__BoardMemberClient<$Result.GetResult<Prisma.$BoardMemberPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more BoardMembers.
+     * @param {BoardMemberDeleteManyArgs} args - Arguments to filter BoardMembers to delete.
+     * @example
+     * // Delete a few BoardMembers
+     * const { count } = await prisma.boardMember.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends BoardMemberDeleteManyArgs>(args?: SelectSubset<T, BoardMemberDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more BoardMembers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BoardMemberUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many BoardMembers
+     * const boardMember = await prisma.boardMember.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends BoardMemberUpdateManyArgs>(args: SelectSubset<T, BoardMemberUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more BoardMembers and returns the data updated in the database.
+     * @param {BoardMemberUpdateManyAndReturnArgs} args - Arguments to update many BoardMembers.
+     * @example
+     * // Update many BoardMembers
+     * const boardMember = await prisma.boardMember.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more BoardMembers and only return the `id`
+     * const boardMemberWithIdOnly = await prisma.boardMember.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends BoardMemberUpdateManyAndReturnArgs>(args: SelectSubset<T, BoardMemberUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BoardMemberPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one BoardMember.
+     * @param {BoardMemberUpsertArgs} args - Arguments to update or create a BoardMember.
+     * @example
+     * // Update or create a BoardMember
+     * const boardMember = await prisma.boardMember.upsert({
+     *   create: {
+     *     // ... data to create a BoardMember
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the BoardMember we want to update
+     *   }
+     * })
+     */
+    upsert<T extends BoardMemberUpsertArgs>(args: SelectSubset<T, BoardMemberUpsertArgs<ExtArgs>>): Prisma__BoardMemberClient<$Result.GetResult<Prisma.$BoardMemberPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of BoardMembers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BoardMemberCountArgs} args - Arguments to filter BoardMembers to count.
+     * @example
+     * // Count the number of BoardMembers
+     * const count = await prisma.boardMember.count({
+     *   where: {
+     *     // ... the filter for the BoardMembers we want to count
+     *   }
+     * })
+    **/
+    count<T extends BoardMemberCountArgs>(
+      args?: Subset<T, BoardMemberCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], BoardMemberCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a BoardMember.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BoardMemberAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends BoardMemberAggregateArgs>(args: Subset<T, BoardMemberAggregateArgs>): Prisma.PrismaPromise<GetBoardMemberAggregateType<T>>
+
+    /**
+     * Group by BoardMember.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BoardMemberGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends BoardMemberGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: BoardMemberGroupByArgs['orderBy'] }
+        : { orderBy?: BoardMemberGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, BoardMemberGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBoardMemberGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the BoardMember model
+   */
+  readonly fields: BoardMemberFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for BoardMember.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__BoardMemberClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    ngo<T extends NgoDefaultArgs<ExtArgs> = {}>(args?: Subset<T, NgoDefaultArgs<ExtArgs>>): Prisma__NgoClient<$Result.GetResult<Prisma.$NgoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the BoardMember model
+   */
+  interface BoardMemberFieldRefs {
+    readonly id: FieldRef<"BoardMember", 'String'>
+    readonly ngoId: FieldRef<"BoardMember", 'String'>
+    readonly name: FieldRef<"BoardMember", 'String'>
+    readonly role: FieldRef<"BoardMember", 'String'>
+    readonly bio: FieldRef<"BoardMember", 'String'>
+    readonly linkedinUrl: FieldRef<"BoardMember", 'String'>
+    readonly photoUrl: FieldRef<"BoardMember", 'String'>
+    readonly orderIndex: FieldRef<"BoardMember", 'Int'>
+    readonly createdAt: FieldRef<"BoardMember", 'DateTime'>
+    readonly updatedAt: FieldRef<"BoardMember", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * BoardMember findUnique
+   */
+  export type BoardMemberFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BoardMember
+     */
+    select?: BoardMemberSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BoardMember
+     */
+    omit?: BoardMemberOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BoardMemberInclude<ExtArgs> | null
+    /**
+     * Filter, which BoardMember to fetch.
+     */
+    where: BoardMemberWhereUniqueInput
+  }
+
+  /**
+   * BoardMember findUniqueOrThrow
+   */
+  export type BoardMemberFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BoardMember
+     */
+    select?: BoardMemberSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BoardMember
+     */
+    omit?: BoardMemberOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BoardMemberInclude<ExtArgs> | null
+    /**
+     * Filter, which BoardMember to fetch.
+     */
+    where: BoardMemberWhereUniqueInput
+  }
+
+  /**
+   * BoardMember findFirst
+   */
+  export type BoardMemberFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BoardMember
+     */
+    select?: BoardMemberSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BoardMember
+     */
+    omit?: BoardMemberOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BoardMemberInclude<ExtArgs> | null
+    /**
+     * Filter, which BoardMember to fetch.
+     */
+    where?: BoardMemberWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BoardMembers to fetch.
+     */
+    orderBy?: BoardMemberOrderByWithRelationInput | BoardMemberOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BoardMembers.
+     */
+    cursor?: BoardMemberWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BoardMembers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BoardMembers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BoardMembers.
+     */
+    distinct?: BoardMemberScalarFieldEnum | BoardMemberScalarFieldEnum[]
+  }
+
+  /**
+   * BoardMember findFirstOrThrow
+   */
+  export type BoardMemberFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BoardMember
+     */
+    select?: BoardMemberSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BoardMember
+     */
+    omit?: BoardMemberOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BoardMemberInclude<ExtArgs> | null
+    /**
+     * Filter, which BoardMember to fetch.
+     */
+    where?: BoardMemberWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BoardMembers to fetch.
+     */
+    orderBy?: BoardMemberOrderByWithRelationInput | BoardMemberOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BoardMembers.
+     */
+    cursor?: BoardMemberWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BoardMembers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BoardMembers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BoardMembers.
+     */
+    distinct?: BoardMemberScalarFieldEnum | BoardMemberScalarFieldEnum[]
+  }
+
+  /**
+   * BoardMember findMany
+   */
+  export type BoardMemberFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BoardMember
+     */
+    select?: BoardMemberSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BoardMember
+     */
+    omit?: BoardMemberOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BoardMemberInclude<ExtArgs> | null
+    /**
+     * Filter, which BoardMembers to fetch.
+     */
+    where?: BoardMemberWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BoardMembers to fetch.
+     */
+    orderBy?: BoardMemberOrderByWithRelationInput | BoardMemberOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing BoardMembers.
+     */
+    cursor?: BoardMemberWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BoardMembers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BoardMembers.
+     */
+    skip?: number
+    distinct?: BoardMemberScalarFieldEnum | BoardMemberScalarFieldEnum[]
+  }
+
+  /**
+   * BoardMember create
+   */
+  export type BoardMemberCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BoardMember
+     */
+    select?: BoardMemberSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BoardMember
+     */
+    omit?: BoardMemberOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BoardMemberInclude<ExtArgs> | null
+    /**
+     * The data needed to create a BoardMember.
+     */
+    data: XOR<BoardMemberCreateInput, BoardMemberUncheckedCreateInput>
+  }
+
+  /**
+   * BoardMember createMany
+   */
+  export type BoardMemberCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many BoardMembers.
+     */
+    data: BoardMemberCreateManyInput | BoardMemberCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * BoardMember createManyAndReturn
+   */
+  export type BoardMemberCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BoardMember
+     */
+    select?: BoardMemberSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the BoardMember
+     */
+    omit?: BoardMemberOmit<ExtArgs> | null
+    /**
+     * The data used to create many BoardMembers.
+     */
+    data: BoardMemberCreateManyInput | BoardMemberCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BoardMemberIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * BoardMember update
+   */
+  export type BoardMemberUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BoardMember
+     */
+    select?: BoardMemberSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BoardMember
+     */
+    omit?: BoardMemberOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BoardMemberInclude<ExtArgs> | null
+    /**
+     * The data needed to update a BoardMember.
+     */
+    data: XOR<BoardMemberUpdateInput, BoardMemberUncheckedUpdateInput>
+    /**
+     * Choose, which BoardMember to update.
+     */
+    where: BoardMemberWhereUniqueInput
+  }
+
+  /**
+   * BoardMember updateMany
+   */
+  export type BoardMemberUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update BoardMembers.
+     */
+    data: XOR<BoardMemberUpdateManyMutationInput, BoardMemberUncheckedUpdateManyInput>
+    /**
+     * Filter which BoardMembers to update
+     */
+    where?: BoardMemberWhereInput
+    /**
+     * Limit how many BoardMembers to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * BoardMember updateManyAndReturn
+   */
+  export type BoardMemberUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BoardMember
+     */
+    select?: BoardMemberSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the BoardMember
+     */
+    omit?: BoardMemberOmit<ExtArgs> | null
+    /**
+     * The data used to update BoardMembers.
+     */
+    data: XOR<BoardMemberUpdateManyMutationInput, BoardMemberUncheckedUpdateManyInput>
+    /**
+     * Filter which BoardMembers to update
+     */
+    where?: BoardMemberWhereInput
+    /**
+     * Limit how many BoardMembers to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BoardMemberIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * BoardMember upsert
+   */
+  export type BoardMemberUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BoardMember
+     */
+    select?: BoardMemberSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BoardMember
+     */
+    omit?: BoardMemberOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BoardMemberInclude<ExtArgs> | null
+    /**
+     * The filter to search for the BoardMember to update in case it exists.
+     */
+    where: BoardMemberWhereUniqueInput
+    /**
+     * In case the BoardMember found by the `where` argument doesn't exist, create a new BoardMember with this data.
+     */
+    create: XOR<BoardMemberCreateInput, BoardMemberUncheckedCreateInput>
+    /**
+     * In case the BoardMember was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<BoardMemberUpdateInput, BoardMemberUncheckedUpdateInput>
+  }
+
+  /**
+   * BoardMember delete
+   */
+  export type BoardMemberDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BoardMember
+     */
+    select?: BoardMemberSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BoardMember
+     */
+    omit?: BoardMemberOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BoardMemberInclude<ExtArgs> | null
+    /**
+     * Filter which BoardMember to delete.
+     */
+    where: BoardMemberWhereUniqueInput
+  }
+
+  /**
+   * BoardMember deleteMany
+   */
+  export type BoardMemberDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BoardMembers to delete
+     */
+    where?: BoardMemberWhereInput
+    /**
+     * Limit how many BoardMembers to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * BoardMember without action
+   */
+  export type BoardMemberDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BoardMember
+     */
+    select?: BoardMemberSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BoardMember
+     */
+    omit?: BoardMemberOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BoardMemberInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model SkillContribution
+   */
+
+  export type AggregateSkillContribution = {
+    _count: SkillContributionCountAggregateOutputType | null
+    _avg: SkillContributionAvgAggregateOutputType | null
+    _sum: SkillContributionSumAggregateOutputType | null
+    _min: SkillContributionMinAggregateOutputType | null
+    _max: SkillContributionMaxAggregateOutputType | null
+  }
+
+  export type SkillContributionAvgAggregateOutputType = {
+    hoursContributed: number | null
+    monetaryValue: number | null
+  }
+
+  export type SkillContributionSumAggregateOutputType = {
+    hoursContributed: number | null
+    monetaryValue: number | null
+  }
+
+  export type SkillContributionMinAggregateOutputType = {
+    id: string | null
+    donorId: string | null
+    ngoId: string | null
+    projectId: string | null
+    skillCategory: string | null
+    description: string | null
+    hoursContributed: number | null
+    status: string | null
+    monetaryValue: number | null
+    txHash: string | null
+    submittedAt: Date | null
+    approvedAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SkillContributionMaxAggregateOutputType = {
+    id: string | null
+    donorId: string | null
+    ngoId: string | null
+    projectId: string | null
+    skillCategory: string | null
+    description: string | null
+    hoursContributed: number | null
+    status: string | null
+    monetaryValue: number | null
+    txHash: string | null
+    submittedAt: Date | null
+    approvedAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SkillContributionCountAggregateOutputType = {
+    id: number
+    donorId: number
+    ngoId: number
+    projectId: number
+    skillCategory: number
+    description: number
+    hoursContributed: number
+    status: number
+    monetaryValue: number
+    txHash: number
+    submittedAt: number
+    approvedAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type SkillContributionAvgAggregateInputType = {
+    hoursContributed?: true
+    monetaryValue?: true
+  }
+
+  export type SkillContributionSumAggregateInputType = {
+    hoursContributed?: true
+    monetaryValue?: true
+  }
+
+  export type SkillContributionMinAggregateInputType = {
+    id?: true
+    donorId?: true
+    ngoId?: true
+    projectId?: true
+    skillCategory?: true
+    description?: true
+    hoursContributed?: true
+    status?: true
+    monetaryValue?: true
+    txHash?: true
+    submittedAt?: true
+    approvedAt?: true
+    updatedAt?: true
+  }
+
+  export type SkillContributionMaxAggregateInputType = {
+    id?: true
+    donorId?: true
+    ngoId?: true
+    projectId?: true
+    skillCategory?: true
+    description?: true
+    hoursContributed?: true
+    status?: true
+    monetaryValue?: true
+    txHash?: true
+    submittedAt?: true
+    approvedAt?: true
+    updatedAt?: true
+  }
+
+  export type SkillContributionCountAggregateInputType = {
+    id?: true
+    donorId?: true
+    ngoId?: true
+    projectId?: true
+    skillCategory?: true
+    description?: true
+    hoursContributed?: true
+    status?: true
+    monetaryValue?: true
+    txHash?: true
+    submittedAt?: true
+    approvedAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type SkillContributionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SkillContribution to aggregate.
+     */
+    where?: SkillContributionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SkillContributions to fetch.
+     */
+    orderBy?: SkillContributionOrderByWithRelationInput | SkillContributionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SkillContributionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SkillContributions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SkillContributions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SkillContributions
+    **/
+    _count?: true | SkillContributionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: SkillContributionAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SkillContributionSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SkillContributionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SkillContributionMaxAggregateInputType
+  }
+
+  export type GetSkillContributionAggregateType<T extends SkillContributionAggregateArgs> = {
+        [P in keyof T & keyof AggregateSkillContribution]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSkillContribution[P]>
+      : GetScalarType<T[P], AggregateSkillContribution[P]>
+  }
+
+
+
+
+  export type SkillContributionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SkillContributionWhereInput
+    orderBy?: SkillContributionOrderByWithAggregationInput | SkillContributionOrderByWithAggregationInput[]
+    by: SkillContributionScalarFieldEnum[] | SkillContributionScalarFieldEnum
+    having?: SkillContributionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SkillContributionCountAggregateInputType | true
+    _avg?: SkillContributionAvgAggregateInputType
+    _sum?: SkillContributionSumAggregateInputType
+    _min?: SkillContributionMinAggregateInputType
+    _max?: SkillContributionMaxAggregateInputType
+  }
+
+  export type SkillContributionGroupByOutputType = {
+    id: string
+    donorId: string
+    ngoId: string
+    projectId: string | null
+    skillCategory: string
+    description: string
+    hoursContributed: number | null
+    status: string
+    monetaryValue: number | null
+    txHash: string | null
+    submittedAt: Date
+    approvedAt: Date | null
+    updatedAt: Date
+    _count: SkillContributionCountAggregateOutputType | null
+    _avg: SkillContributionAvgAggregateOutputType | null
+    _sum: SkillContributionSumAggregateOutputType | null
+    _min: SkillContributionMinAggregateOutputType | null
+    _max: SkillContributionMaxAggregateOutputType | null
+  }
+
+  type GetSkillContributionGroupByPayload<T extends SkillContributionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SkillContributionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SkillContributionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SkillContributionGroupByOutputType[P]>
+            : GetScalarType<T[P], SkillContributionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SkillContributionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    donorId?: boolean
+    ngoId?: boolean
+    projectId?: boolean
+    skillCategory?: boolean
+    description?: boolean
+    hoursContributed?: boolean
+    status?: boolean
+    monetaryValue?: boolean
+    txHash?: boolean
+    submittedAt?: boolean
+    approvedAt?: boolean
+    updatedAt?: boolean
+    donor?: boolean | UserDefaultArgs<ExtArgs>
+    ngo?: boolean | NgoDefaultArgs<ExtArgs>
+    project?: boolean | SkillContribution$projectArgs<ExtArgs>
+    blockchainRecord?: boolean | SkillContribution$blockchainRecordArgs<ExtArgs>
+  }, ExtArgs["result"]["skillContribution"]>
+
+  export type SkillContributionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    donorId?: boolean
+    ngoId?: boolean
+    projectId?: boolean
+    skillCategory?: boolean
+    description?: boolean
+    hoursContributed?: boolean
+    status?: boolean
+    monetaryValue?: boolean
+    txHash?: boolean
+    submittedAt?: boolean
+    approvedAt?: boolean
+    updatedAt?: boolean
+    donor?: boolean | UserDefaultArgs<ExtArgs>
+    ngo?: boolean | NgoDefaultArgs<ExtArgs>
+    project?: boolean | SkillContribution$projectArgs<ExtArgs>
+  }, ExtArgs["result"]["skillContribution"]>
+
+  export type SkillContributionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    donorId?: boolean
+    ngoId?: boolean
+    projectId?: boolean
+    skillCategory?: boolean
+    description?: boolean
+    hoursContributed?: boolean
+    status?: boolean
+    monetaryValue?: boolean
+    txHash?: boolean
+    submittedAt?: boolean
+    approvedAt?: boolean
+    updatedAt?: boolean
+    donor?: boolean | UserDefaultArgs<ExtArgs>
+    ngo?: boolean | NgoDefaultArgs<ExtArgs>
+    project?: boolean | SkillContribution$projectArgs<ExtArgs>
+  }, ExtArgs["result"]["skillContribution"]>
+
+  export type SkillContributionSelectScalar = {
+    id?: boolean
+    donorId?: boolean
+    ngoId?: boolean
+    projectId?: boolean
+    skillCategory?: boolean
+    description?: boolean
+    hoursContributed?: boolean
+    status?: boolean
+    monetaryValue?: boolean
+    txHash?: boolean
+    submittedAt?: boolean
+    approvedAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type SkillContributionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "donorId" | "ngoId" | "projectId" | "skillCategory" | "description" | "hoursContributed" | "status" | "monetaryValue" | "txHash" | "submittedAt" | "approvedAt" | "updatedAt", ExtArgs["result"]["skillContribution"]>
+  export type SkillContributionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    donor?: boolean | UserDefaultArgs<ExtArgs>
+    ngo?: boolean | NgoDefaultArgs<ExtArgs>
+    project?: boolean | SkillContribution$projectArgs<ExtArgs>
+    blockchainRecord?: boolean | SkillContribution$blockchainRecordArgs<ExtArgs>
+  }
+  export type SkillContributionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    donor?: boolean | UserDefaultArgs<ExtArgs>
+    ngo?: boolean | NgoDefaultArgs<ExtArgs>
+    project?: boolean | SkillContribution$projectArgs<ExtArgs>
+  }
+  export type SkillContributionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    donor?: boolean | UserDefaultArgs<ExtArgs>
+    ngo?: boolean | NgoDefaultArgs<ExtArgs>
+    project?: boolean | SkillContribution$projectArgs<ExtArgs>
+  }
+
+  export type $SkillContributionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SkillContribution"
+    objects: {
+      donor: Prisma.$UserPayload<ExtArgs>
+      ngo: Prisma.$NgoPayload<ExtArgs>
+      project: Prisma.$ProjectPayload<ExtArgs> | null
+      blockchainRecord: Prisma.$SkillBlockchainRecordPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      donorId: string
+      ngoId: string
+      projectId: string | null
+      skillCategory: string
+      description: string
+      hoursContributed: number | null
+      status: string
+      monetaryValue: number | null
+      txHash: string | null
+      submittedAt: Date
+      approvedAt: Date | null
+      updatedAt: Date
+    }, ExtArgs["result"]["skillContribution"]>
+    composites: {}
+  }
+
+  type SkillContributionGetPayload<S extends boolean | null | undefined | SkillContributionDefaultArgs> = $Result.GetResult<Prisma.$SkillContributionPayload, S>
+
+  type SkillContributionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SkillContributionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SkillContributionCountAggregateInputType | true
+    }
+
+  export interface SkillContributionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SkillContribution'], meta: { name: 'SkillContribution' } }
+    /**
+     * Find zero or one SkillContribution that matches the filter.
+     * @param {SkillContributionFindUniqueArgs} args - Arguments to find a SkillContribution
+     * @example
+     * // Get one SkillContribution
+     * const skillContribution = await prisma.skillContribution.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SkillContributionFindUniqueArgs>(args: SelectSubset<T, SkillContributionFindUniqueArgs<ExtArgs>>): Prisma__SkillContributionClient<$Result.GetResult<Prisma.$SkillContributionPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one SkillContribution that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SkillContributionFindUniqueOrThrowArgs} args - Arguments to find a SkillContribution
+     * @example
+     * // Get one SkillContribution
+     * const skillContribution = await prisma.skillContribution.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SkillContributionFindUniqueOrThrowArgs>(args: SelectSubset<T, SkillContributionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SkillContributionClient<$Result.GetResult<Prisma.$SkillContributionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SkillContribution that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SkillContributionFindFirstArgs} args - Arguments to find a SkillContribution
+     * @example
+     * // Get one SkillContribution
+     * const skillContribution = await prisma.skillContribution.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SkillContributionFindFirstArgs>(args?: SelectSubset<T, SkillContributionFindFirstArgs<ExtArgs>>): Prisma__SkillContributionClient<$Result.GetResult<Prisma.$SkillContributionPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SkillContribution that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SkillContributionFindFirstOrThrowArgs} args - Arguments to find a SkillContribution
+     * @example
+     * // Get one SkillContribution
+     * const skillContribution = await prisma.skillContribution.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SkillContributionFindFirstOrThrowArgs>(args?: SelectSubset<T, SkillContributionFindFirstOrThrowArgs<ExtArgs>>): Prisma__SkillContributionClient<$Result.GetResult<Prisma.$SkillContributionPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more SkillContributions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SkillContributionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SkillContributions
+     * const skillContributions = await prisma.skillContribution.findMany()
+     * 
+     * // Get first 10 SkillContributions
+     * const skillContributions = await prisma.skillContribution.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const skillContributionWithIdOnly = await prisma.skillContribution.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SkillContributionFindManyArgs>(args?: SelectSubset<T, SkillContributionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SkillContributionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a SkillContribution.
+     * @param {SkillContributionCreateArgs} args - Arguments to create a SkillContribution.
+     * @example
+     * // Create one SkillContribution
+     * const SkillContribution = await prisma.skillContribution.create({
+     *   data: {
+     *     // ... data to create a SkillContribution
+     *   }
+     * })
+     * 
+     */
+    create<T extends SkillContributionCreateArgs>(args: SelectSubset<T, SkillContributionCreateArgs<ExtArgs>>): Prisma__SkillContributionClient<$Result.GetResult<Prisma.$SkillContributionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many SkillContributions.
+     * @param {SkillContributionCreateManyArgs} args - Arguments to create many SkillContributions.
+     * @example
+     * // Create many SkillContributions
+     * const skillContribution = await prisma.skillContribution.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SkillContributionCreateManyArgs>(args?: SelectSubset<T, SkillContributionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SkillContributions and returns the data saved in the database.
+     * @param {SkillContributionCreateManyAndReturnArgs} args - Arguments to create many SkillContributions.
+     * @example
+     * // Create many SkillContributions
+     * const skillContribution = await prisma.skillContribution.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SkillContributions and only return the `id`
+     * const skillContributionWithIdOnly = await prisma.skillContribution.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SkillContributionCreateManyAndReturnArgs>(args?: SelectSubset<T, SkillContributionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SkillContributionPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a SkillContribution.
+     * @param {SkillContributionDeleteArgs} args - Arguments to delete one SkillContribution.
+     * @example
+     * // Delete one SkillContribution
+     * const SkillContribution = await prisma.skillContribution.delete({
+     *   where: {
+     *     // ... filter to delete one SkillContribution
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SkillContributionDeleteArgs>(args: SelectSubset<T, SkillContributionDeleteArgs<ExtArgs>>): Prisma__SkillContributionClient<$Result.GetResult<Prisma.$SkillContributionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one SkillContribution.
+     * @param {SkillContributionUpdateArgs} args - Arguments to update one SkillContribution.
+     * @example
+     * // Update one SkillContribution
+     * const skillContribution = await prisma.skillContribution.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SkillContributionUpdateArgs>(args: SelectSubset<T, SkillContributionUpdateArgs<ExtArgs>>): Prisma__SkillContributionClient<$Result.GetResult<Prisma.$SkillContributionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more SkillContributions.
+     * @param {SkillContributionDeleteManyArgs} args - Arguments to filter SkillContributions to delete.
+     * @example
+     * // Delete a few SkillContributions
+     * const { count } = await prisma.skillContribution.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SkillContributionDeleteManyArgs>(args?: SelectSubset<T, SkillContributionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SkillContributions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SkillContributionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SkillContributions
+     * const skillContribution = await prisma.skillContribution.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SkillContributionUpdateManyArgs>(args: SelectSubset<T, SkillContributionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SkillContributions and returns the data updated in the database.
+     * @param {SkillContributionUpdateManyAndReturnArgs} args - Arguments to update many SkillContributions.
+     * @example
+     * // Update many SkillContributions
+     * const skillContribution = await prisma.skillContribution.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more SkillContributions and only return the `id`
+     * const skillContributionWithIdOnly = await prisma.skillContribution.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SkillContributionUpdateManyAndReturnArgs>(args: SelectSubset<T, SkillContributionUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SkillContributionPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one SkillContribution.
+     * @param {SkillContributionUpsertArgs} args - Arguments to update or create a SkillContribution.
+     * @example
+     * // Update or create a SkillContribution
+     * const skillContribution = await prisma.skillContribution.upsert({
+     *   create: {
+     *     // ... data to create a SkillContribution
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SkillContribution we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SkillContributionUpsertArgs>(args: SelectSubset<T, SkillContributionUpsertArgs<ExtArgs>>): Prisma__SkillContributionClient<$Result.GetResult<Prisma.$SkillContributionPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of SkillContributions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SkillContributionCountArgs} args - Arguments to filter SkillContributions to count.
+     * @example
+     * // Count the number of SkillContributions
+     * const count = await prisma.skillContribution.count({
+     *   where: {
+     *     // ... the filter for the SkillContributions we want to count
+     *   }
+     * })
+    **/
+    count<T extends SkillContributionCountArgs>(
+      args?: Subset<T, SkillContributionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SkillContributionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SkillContribution.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SkillContributionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SkillContributionAggregateArgs>(args: Subset<T, SkillContributionAggregateArgs>): Prisma.PrismaPromise<GetSkillContributionAggregateType<T>>
+
+    /**
+     * Group by SkillContribution.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SkillContributionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SkillContributionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SkillContributionGroupByArgs['orderBy'] }
+        : { orderBy?: SkillContributionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SkillContributionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSkillContributionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SkillContribution model
+   */
+  readonly fields: SkillContributionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SkillContribution.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SkillContributionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    donor<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    ngo<T extends NgoDefaultArgs<ExtArgs> = {}>(args?: Subset<T, NgoDefaultArgs<ExtArgs>>): Prisma__NgoClient<$Result.GetResult<Prisma.$NgoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    project<T extends SkillContribution$projectArgs<ExtArgs> = {}>(args?: Subset<T, SkillContribution$projectArgs<ExtArgs>>): Prisma__ProjectClient<$Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    blockchainRecord<T extends SkillContribution$blockchainRecordArgs<ExtArgs> = {}>(args?: Subset<T, SkillContribution$blockchainRecordArgs<ExtArgs>>): Prisma__SkillBlockchainRecordClient<$Result.GetResult<Prisma.$SkillBlockchainRecordPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SkillContribution model
+   */
+  interface SkillContributionFieldRefs {
+    readonly id: FieldRef<"SkillContribution", 'String'>
+    readonly donorId: FieldRef<"SkillContribution", 'String'>
+    readonly ngoId: FieldRef<"SkillContribution", 'String'>
+    readonly projectId: FieldRef<"SkillContribution", 'String'>
+    readonly skillCategory: FieldRef<"SkillContribution", 'String'>
+    readonly description: FieldRef<"SkillContribution", 'String'>
+    readonly hoursContributed: FieldRef<"SkillContribution", 'Float'>
+    readonly status: FieldRef<"SkillContribution", 'String'>
+    readonly monetaryValue: FieldRef<"SkillContribution", 'Float'>
+    readonly txHash: FieldRef<"SkillContribution", 'String'>
+    readonly submittedAt: FieldRef<"SkillContribution", 'DateTime'>
+    readonly approvedAt: FieldRef<"SkillContribution", 'DateTime'>
+    readonly updatedAt: FieldRef<"SkillContribution", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SkillContribution findUnique
+   */
+  export type SkillContributionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SkillContribution
+     */
+    select?: SkillContributionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SkillContribution
+     */
+    omit?: SkillContributionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillContributionInclude<ExtArgs> | null
+    /**
+     * Filter, which SkillContribution to fetch.
+     */
+    where: SkillContributionWhereUniqueInput
+  }
+
+  /**
+   * SkillContribution findUniqueOrThrow
+   */
+  export type SkillContributionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SkillContribution
+     */
+    select?: SkillContributionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SkillContribution
+     */
+    omit?: SkillContributionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillContributionInclude<ExtArgs> | null
+    /**
+     * Filter, which SkillContribution to fetch.
+     */
+    where: SkillContributionWhereUniqueInput
+  }
+
+  /**
+   * SkillContribution findFirst
+   */
+  export type SkillContributionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SkillContribution
+     */
+    select?: SkillContributionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SkillContribution
+     */
+    omit?: SkillContributionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillContributionInclude<ExtArgs> | null
+    /**
+     * Filter, which SkillContribution to fetch.
+     */
+    where?: SkillContributionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SkillContributions to fetch.
+     */
+    orderBy?: SkillContributionOrderByWithRelationInput | SkillContributionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SkillContributions.
+     */
+    cursor?: SkillContributionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SkillContributions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SkillContributions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SkillContributions.
+     */
+    distinct?: SkillContributionScalarFieldEnum | SkillContributionScalarFieldEnum[]
+  }
+
+  /**
+   * SkillContribution findFirstOrThrow
+   */
+  export type SkillContributionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SkillContribution
+     */
+    select?: SkillContributionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SkillContribution
+     */
+    omit?: SkillContributionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillContributionInclude<ExtArgs> | null
+    /**
+     * Filter, which SkillContribution to fetch.
+     */
+    where?: SkillContributionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SkillContributions to fetch.
+     */
+    orderBy?: SkillContributionOrderByWithRelationInput | SkillContributionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SkillContributions.
+     */
+    cursor?: SkillContributionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SkillContributions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SkillContributions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SkillContributions.
+     */
+    distinct?: SkillContributionScalarFieldEnum | SkillContributionScalarFieldEnum[]
+  }
+
+  /**
+   * SkillContribution findMany
+   */
+  export type SkillContributionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SkillContribution
+     */
+    select?: SkillContributionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SkillContribution
+     */
+    omit?: SkillContributionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillContributionInclude<ExtArgs> | null
+    /**
+     * Filter, which SkillContributions to fetch.
+     */
+    where?: SkillContributionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SkillContributions to fetch.
+     */
+    orderBy?: SkillContributionOrderByWithRelationInput | SkillContributionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SkillContributions.
+     */
+    cursor?: SkillContributionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SkillContributions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SkillContributions.
+     */
+    skip?: number
+    distinct?: SkillContributionScalarFieldEnum | SkillContributionScalarFieldEnum[]
+  }
+
+  /**
+   * SkillContribution create
+   */
+  export type SkillContributionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SkillContribution
+     */
+    select?: SkillContributionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SkillContribution
+     */
+    omit?: SkillContributionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillContributionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a SkillContribution.
+     */
+    data: XOR<SkillContributionCreateInput, SkillContributionUncheckedCreateInput>
+  }
+
+  /**
+   * SkillContribution createMany
+   */
+  export type SkillContributionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SkillContributions.
+     */
+    data: SkillContributionCreateManyInput | SkillContributionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SkillContribution createManyAndReturn
+   */
+  export type SkillContributionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SkillContribution
+     */
+    select?: SkillContributionSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SkillContribution
+     */
+    omit?: SkillContributionOmit<ExtArgs> | null
+    /**
+     * The data used to create many SkillContributions.
+     */
+    data: SkillContributionCreateManyInput | SkillContributionCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillContributionIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SkillContribution update
+   */
+  export type SkillContributionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SkillContribution
+     */
+    select?: SkillContributionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SkillContribution
+     */
+    omit?: SkillContributionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillContributionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a SkillContribution.
+     */
+    data: XOR<SkillContributionUpdateInput, SkillContributionUncheckedUpdateInput>
+    /**
+     * Choose, which SkillContribution to update.
+     */
+    where: SkillContributionWhereUniqueInput
+  }
+
+  /**
+   * SkillContribution updateMany
+   */
+  export type SkillContributionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SkillContributions.
+     */
+    data: XOR<SkillContributionUpdateManyMutationInput, SkillContributionUncheckedUpdateManyInput>
+    /**
+     * Filter which SkillContributions to update
+     */
+    where?: SkillContributionWhereInput
+    /**
+     * Limit how many SkillContributions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SkillContribution updateManyAndReturn
+   */
+  export type SkillContributionUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SkillContribution
+     */
+    select?: SkillContributionSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SkillContribution
+     */
+    omit?: SkillContributionOmit<ExtArgs> | null
+    /**
+     * The data used to update SkillContributions.
+     */
+    data: XOR<SkillContributionUpdateManyMutationInput, SkillContributionUncheckedUpdateManyInput>
+    /**
+     * Filter which SkillContributions to update
+     */
+    where?: SkillContributionWhereInput
+    /**
+     * Limit how many SkillContributions to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillContributionIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SkillContribution upsert
+   */
+  export type SkillContributionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SkillContribution
+     */
+    select?: SkillContributionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SkillContribution
+     */
+    omit?: SkillContributionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillContributionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the SkillContribution to update in case it exists.
+     */
+    where: SkillContributionWhereUniqueInput
+    /**
+     * In case the SkillContribution found by the `where` argument doesn't exist, create a new SkillContribution with this data.
+     */
+    create: XOR<SkillContributionCreateInput, SkillContributionUncheckedCreateInput>
+    /**
+     * In case the SkillContribution was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SkillContributionUpdateInput, SkillContributionUncheckedUpdateInput>
+  }
+
+  /**
+   * SkillContribution delete
+   */
+  export type SkillContributionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SkillContribution
+     */
+    select?: SkillContributionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SkillContribution
+     */
+    omit?: SkillContributionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillContributionInclude<ExtArgs> | null
+    /**
+     * Filter which SkillContribution to delete.
+     */
+    where: SkillContributionWhereUniqueInput
+  }
+
+  /**
+   * SkillContribution deleteMany
+   */
+  export type SkillContributionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SkillContributions to delete
+     */
+    where?: SkillContributionWhereInput
+    /**
+     * Limit how many SkillContributions to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * SkillContribution.project
+   */
+  export type SkillContribution$projectArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Project
+     */
+    select?: ProjectSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Project
+     */
+    omit?: ProjectOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectInclude<ExtArgs> | null
+    where?: ProjectWhereInput
+  }
+
+  /**
+   * SkillContribution.blockchainRecord
+   */
+  export type SkillContribution$blockchainRecordArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SkillBlockchainRecord
+     */
+    select?: SkillBlockchainRecordSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SkillBlockchainRecord
+     */
+    omit?: SkillBlockchainRecordOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillBlockchainRecordInclude<ExtArgs> | null
+    where?: SkillBlockchainRecordWhereInput
+  }
+
+  /**
+   * SkillContribution without action
+   */
+  export type SkillContributionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SkillContribution
+     */
+    select?: SkillContributionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SkillContribution
+     */
+    omit?: SkillContributionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillContributionInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model SkillBlockchainRecord
+   */
+
+  export type AggregateSkillBlockchainRecord = {
+    _count: SkillBlockchainRecordCountAggregateOutputType | null
+    _min: SkillBlockchainRecordMinAggregateOutputType | null
+    _max: SkillBlockchainRecordMaxAggregateOutputType | null
+  }
+
+  export type SkillBlockchainRecordMinAggregateOutputType = {
+    id: string | null
+    skillContributionId: string | null
+    txHash: string | null
+    network: string | null
+    timestamp: Date | null
+  }
+
+  export type SkillBlockchainRecordMaxAggregateOutputType = {
+    id: string | null
+    skillContributionId: string | null
+    txHash: string | null
+    network: string | null
+    timestamp: Date | null
+  }
+
+  export type SkillBlockchainRecordCountAggregateOutputType = {
+    id: number
+    skillContributionId: number
+    txHash: number
+    network: number
+    timestamp: number
+    _all: number
+  }
+
+
+  export type SkillBlockchainRecordMinAggregateInputType = {
+    id?: true
+    skillContributionId?: true
+    txHash?: true
+    network?: true
+    timestamp?: true
+  }
+
+  export type SkillBlockchainRecordMaxAggregateInputType = {
+    id?: true
+    skillContributionId?: true
+    txHash?: true
+    network?: true
+    timestamp?: true
+  }
+
+  export type SkillBlockchainRecordCountAggregateInputType = {
+    id?: true
+    skillContributionId?: true
+    txHash?: true
+    network?: true
+    timestamp?: true
+    _all?: true
+  }
+
+  export type SkillBlockchainRecordAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SkillBlockchainRecord to aggregate.
+     */
+    where?: SkillBlockchainRecordWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SkillBlockchainRecords to fetch.
+     */
+    orderBy?: SkillBlockchainRecordOrderByWithRelationInput | SkillBlockchainRecordOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SkillBlockchainRecordWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SkillBlockchainRecords from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SkillBlockchainRecords.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SkillBlockchainRecords
+    **/
+    _count?: true | SkillBlockchainRecordCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SkillBlockchainRecordMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SkillBlockchainRecordMaxAggregateInputType
+  }
+
+  export type GetSkillBlockchainRecordAggregateType<T extends SkillBlockchainRecordAggregateArgs> = {
+        [P in keyof T & keyof AggregateSkillBlockchainRecord]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSkillBlockchainRecord[P]>
+      : GetScalarType<T[P], AggregateSkillBlockchainRecord[P]>
+  }
+
+
+
+
+  export type SkillBlockchainRecordGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SkillBlockchainRecordWhereInput
+    orderBy?: SkillBlockchainRecordOrderByWithAggregationInput | SkillBlockchainRecordOrderByWithAggregationInput[]
+    by: SkillBlockchainRecordScalarFieldEnum[] | SkillBlockchainRecordScalarFieldEnum
+    having?: SkillBlockchainRecordScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SkillBlockchainRecordCountAggregateInputType | true
+    _min?: SkillBlockchainRecordMinAggregateInputType
+    _max?: SkillBlockchainRecordMaxAggregateInputType
+  }
+
+  export type SkillBlockchainRecordGroupByOutputType = {
+    id: string
+    skillContributionId: string
+    txHash: string
+    network: string
+    timestamp: Date
+    _count: SkillBlockchainRecordCountAggregateOutputType | null
+    _min: SkillBlockchainRecordMinAggregateOutputType | null
+    _max: SkillBlockchainRecordMaxAggregateOutputType | null
+  }
+
+  type GetSkillBlockchainRecordGroupByPayload<T extends SkillBlockchainRecordGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SkillBlockchainRecordGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SkillBlockchainRecordGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SkillBlockchainRecordGroupByOutputType[P]>
+            : GetScalarType<T[P], SkillBlockchainRecordGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SkillBlockchainRecordSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    skillContributionId?: boolean
+    txHash?: boolean
+    network?: boolean
+    timestamp?: boolean
+    contribution?: boolean | SkillContributionDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["skillBlockchainRecord"]>
+
+  export type SkillBlockchainRecordSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    skillContributionId?: boolean
+    txHash?: boolean
+    network?: boolean
+    timestamp?: boolean
+    contribution?: boolean | SkillContributionDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["skillBlockchainRecord"]>
+
+  export type SkillBlockchainRecordSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    skillContributionId?: boolean
+    txHash?: boolean
+    network?: boolean
+    timestamp?: boolean
+    contribution?: boolean | SkillContributionDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["skillBlockchainRecord"]>
+
+  export type SkillBlockchainRecordSelectScalar = {
+    id?: boolean
+    skillContributionId?: boolean
+    txHash?: boolean
+    network?: boolean
+    timestamp?: boolean
+  }
+
+  export type SkillBlockchainRecordOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "skillContributionId" | "txHash" | "network" | "timestamp", ExtArgs["result"]["skillBlockchainRecord"]>
+  export type SkillBlockchainRecordInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    contribution?: boolean | SkillContributionDefaultArgs<ExtArgs>
+  }
+  export type SkillBlockchainRecordIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    contribution?: boolean | SkillContributionDefaultArgs<ExtArgs>
+  }
+  export type SkillBlockchainRecordIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    contribution?: boolean | SkillContributionDefaultArgs<ExtArgs>
+  }
+
+  export type $SkillBlockchainRecordPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SkillBlockchainRecord"
+    objects: {
+      contribution: Prisma.$SkillContributionPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      skillContributionId: string
+      txHash: string
+      network: string
+      timestamp: Date
+    }, ExtArgs["result"]["skillBlockchainRecord"]>
+    composites: {}
+  }
+
+  type SkillBlockchainRecordGetPayload<S extends boolean | null | undefined | SkillBlockchainRecordDefaultArgs> = $Result.GetResult<Prisma.$SkillBlockchainRecordPayload, S>
+
+  type SkillBlockchainRecordCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SkillBlockchainRecordFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SkillBlockchainRecordCountAggregateInputType | true
+    }
+
+  export interface SkillBlockchainRecordDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SkillBlockchainRecord'], meta: { name: 'SkillBlockchainRecord' } }
+    /**
+     * Find zero or one SkillBlockchainRecord that matches the filter.
+     * @param {SkillBlockchainRecordFindUniqueArgs} args - Arguments to find a SkillBlockchainRecord
+     * @example
+     * // Get one SkillBlockchainRecord
+     * const skillBlockchainRecord = await prisma.skillBlockchainRecord.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SkillBlockchainRecordFindUniqueArgs>(args: SelectSubset<T, SkillBlockchainRecordFindUniqueArgs<ExtArgs>>): Prisma__SkillBlockchainRecordClient<$Result.GetResult<Prisma.$SkillBlockchainRecordPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one SkillBlockchainRecord that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SkillBlockchainRecordFindUniqueOrThrowArgs} args - Arguments to find a SkillBlockchainRecord
+     * @example
+     * // Get one SkillBlockchainRecord
+     * const skillBlockchainRecord = await prisma.skillBlockchainRecord.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SkillBlockchainRecordFindUniqueOrThrowArgs>(args: SelectSubset<T, SkillBlockchainRecordFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SkillBlockchainRecordClient<$Result.GetResult<Prisma.$SkillBlockchainRecordPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SkillBlockchainRecord that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SkillBlockchainRecordFindFirstArgs} args - Arguments to find a SkillBlockchainRecord
+     * @example
+     * // Get one SkillBlockchainRecord
+     * const skillBlockchainRecord = await prisma.skillBlockchainRecord.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SkillBlockchainRecordFindFirstArgs>(args?: SelectSubset<T, SkillBlockchainRecordFindFirstArgs<ExtArgs>>): Prisma__SkillBlockchainRecordClient<$Result.GetResult<Prisma.$SkillBlockchainRecordPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SkillBlockchainRecord that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SkillBlockchainRecordFindFirstOrThrowArgs} args - Arguments to find a SkillBlockchainRecord
+     * @example
+     * // Get one SkillBlockchainRecord
+     * const skillBlockchainRecord = await prisma.skillBlockchainRecord.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SkillBlockchainRecordFindFirstOrThrowArgs>(args?: SelectSubset<T, SkillBlockchainRecordFindFirstOrThrowArgs<ExtArgs>>): Prisma__SkillBlockchainRecordClient<$Result.GetResult<Prisma.$SkillBlockchainRecordPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more SkillBlockchainRecords that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SkillBlockchainRecordFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SkillBlockchainRecords
+     * const skillBlockchainRecords = await prisma.skillBlockchainRecord.findMany()
+     * 
+     * // Get first 10 SkillBlockchainRecords
+     * const skillBlockchainRecords = await prisma.skillBlockchainRecord.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const skillBlockchainRecordWithIdOnly = await prisma.skillBlockchainRecord.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SkillBlockchainRecordFindManyArgs>(args?: SelectSubset<T, SkillBlockchainRecordFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SkillBlockchainRecordPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a SkillBlockchainRecord.
+     * @param {SkillBlockchainRecordCreateArgs} args - Arguments to create a SkillBlockchainRecord.
+     * @example
+     * // Create one SkillBlockchainRecord
+     * const SkillBlockchainRecord = await prisma.skillBlockchainRecord.create({
+     *   data: {
+     *     // ... data to create a SkillBlockchainRecord
+     *   }
+     * })
+     * 
+     */
+    create<T extends SkillBlockchainRecordCreateArgs>(args: SelectSubset<T, SkillBlockchainRecordCreateArgs<ExtArgs>>): Prisma__SkillBlockchainRecordClient<$Result.GetResult<Prisma.$SkillBlockchainRecordPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many SkillBlockchainRecords.
+     * @param {SkillBlockchainRecordCreateManyArgs} args - Arguments to create many SkillBlockchainRecords.
+     * @example
+     * // Create many SkillBlockchainRecords
+     * const skillBlockchainRecord = await prisma.skillBlockchainRecord.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SkillBlockchainRecordCreateManyArgs>(args?: SelectSubset<T, SkillBlockchainRecordCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SkillBlockchainRecords and returns the data saved in the database.
+     * @param {SkillBlockchainRecordCreateManyAndReturnArgs} args - Arguments to create many SkillBlockchainRecords.
+     * @example
+     * // Create many SkillBlockchainRecords
+     * const skillBlockchainRecord = await prisma.skillBlockchainRecord.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SkillBlockchainRecords and only return the `id`
+     * const skillBlockchainRecordWithIdOnly = await prisma.skillBlockchainRecord.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SkillBlockchainRecordCreateManyAndReturnArgs>(args?: SelectSubset<T, SkillBlockchainRecordCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SkillBlockchainRecordPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a SkillBlockchainRecord.
+     * @param {SkillBlockchainRecordDeleteArgs} args - Arguments to delete one SkillBlockchainRecord.
+     * @example
+     * // Delete one SkillBlockchainRecord
+     * const SkillBlockchainRecord = await prisma.skillBlockchainRecord.delete({
+     *   where: {
+     *     // ... filter to delete one SkillBlockchainRecord
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SkillBlockchainRecordDeleteArgs>(args: SelectSubset<T, SkillBlockchainRecordDeleteArgs<ExtArgs>>): Prisma__SkillBlockchainRecordClient<$Result.GetResult<Prisma.$SkillBlockchainRecordPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one SkillBlockchainRecord.
+     * @param {SkillBlockchainRecordUpdateArgs} args - Arguments to update one SkillBlockchainRecord.
+     * @example
+     * // Update one SkillBlockchainRecord
+     * const skillBlockchainRecord = await prisma.skillBlockchainRecord.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SkillBlockchainRecordUpdateArgs>(args: SelectSubset<T, SkillBlockchainRecordUpdateArgs<ExtArgs>>): Prisma__SkillBlockchainRecordClient<$Result.GetResult<Prisma.$SkillBlockchainRecordPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more SkillBlockchainRecords.
+     * @param {SkillBlockchainRecordDeleteManyArgs} args - Arguments to filter SkillBlockchainRecords to delete.
+     * @example
+     * // Delete a few SkillBlockchainRecords
+     * const { count } = await prisma.skillBlockchainRecord.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SkillBlockchainRecordDeleteManyArgs>(args?: SelectSubset<T, SkillBlockchainRecordDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SkillBlockchainRecords.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SkillBlockchainRecordUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SkillBlockchainRecords
+     * const skillBlockchainRecord = await prisma.skillBlockchainRecord.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SkillBlockchainRecordUpdateManyArgs>(args: SelectSubset<T, SkillBlockchainRecordUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SkillBlockchainRecords and returns the data updated in the database.
+     * @param {SkillBlockchainRecordUpdateManyAndReturnArgs} args - Arguments to update many SkillBlockchainRecords.
+     * @example
+     * // Update many SkillBlockchainRecords
+     * const skillBlockchainRecord = await prisma.skillBlockchainRecord.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more SkillBlockchainRecords and only return the `id`
+     * const skillBlockchainRecordWithIdOnly = await prisma.skillBlockchainRecord.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SkillBlockchainRecordUpdateManyAndReturnArgs>(args: SelectSubset<T, SkillBlockchainRecordUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SkillBlockchainRecordPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one SkillBlockchainRecord.
+     * @param {SkillBlockchainRecordUpsertArgs} args - Arguments to update or create a SkillBlockchainRecord.
+     * @example
+     * // Update or create a SkillBlockchainRecord
+     * const skillBlockchainRecord = await prisma.skillBlockchainRecord.upsert({
+     *   create: {
+     *     // ... data to create a SkillBlockchainRecord
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SkillBlockchainRecord we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SkillBlockchainRecordUpsertArgs>(args: SelectSubset<T, SkillBlockchainRecordUpsertArgs<ExtArgs>>): Prisma__SkillBlockchainRecordClient<$Result.GetResult<Prisma.$SkillBlockchainRecordPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of SkillBlockchainRecords.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SkillBlockchainRecordCountArgs} args - Arguments to filter SkillBlockchainRecords to count.
+     * @example
+     * // Count the number of SkillBlockchainRecords
+     * const count = await prisma.skillBlockchainRecord.count({
+     *   where: {
+     *     // ... the filter for the SkillBlockchainRecords we want to count
+     *   }
+     * })
+    **/
+    count<T extends SkillBlockchainRecordCountArgs>(
+      args?: Subset<T, SkillBlockchainRecordCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SkillBlockchainRecordCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SkillBlockchainRecord.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SkillBlockchainRecordAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SkillBlockchainRecordAggregateArgs>(args: Subset<T, SkillBlockchainRecordAggregateArgs>): Prisma.PrismaPromise<GetSkillBlockchainRecordAggregateType<T>>
+
+    /**
+     * Group by SkillBlockchainRecord.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SkillBlockchainRecordGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SkillBlockchainRecordGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SkillBlockchainRecordGroupByArgs['orderBy'] }
+        : { orderBy?: SkillBlockchainRecordGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SkillBlockchainRecordGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSkillBlockchainRecordGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SkillBlockchainRecord model
+   */
+  readonly fields: SkillBlockchainRecordFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SkillBlockchainRecord.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SkillBlockchainRecordClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    contribution<T extends SkillContributionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SkillContributionDefaultArgs<ExtArgs>>): Prisma__SkillContributionClient<$Result.GetResult<Prisma.$SkillContributionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SkillBlockchainRecord model
+   */
+  interface SkillBlockchainRecordFieldRefs {
+    readonly id: FieldRef<"SkillBlockchainRecord", 'String'>
+    readonly skillContributionId: FieldRef<"SkillBlockchainRecord", 'String'>
+    readonly txHash: FieldRef<"SkillBlockchainRecord", 'String'>
+    readonly network: FieldRef<"SkillBlockchainRecord", 'String'>
+    readonly timestamp: FieldRef<"SkillBlockchainRecord", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SkillBlockchainRecord findUnique
+   */
+  export type SkillBlockchainRecordFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SkillBlockchainRecord
+     */
+    select?: SkillBlockchainRecordSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SkillBlockchainRecord
+     */
+    omit?: SkillBlockchainRecordOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillBlockchainRecordInclude<ExtArgs> | null
+    /**
+     * Filter, which SkillBlockchainRecord to fetch.
+     */
+    where: SkillBlockchainRecordWhereUniqueInput
+  }
+
+  /**
+   * SkillBlockchainRecord findUniqueOrThrow
+   */
+  export type SkillBlockchainRecordFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SkillBlockchainRecord
+     */
+    select?: SkillBlockchainRecordSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SkillBlockchainRecord
+     */
+    omit?: SkillBlockchainRecordOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillBlockchainRecordInclude<ExtArgs> | null
+    /**
+     * Filter, which SkillBlockchainRecord to fetch.
+     */
+    where: SkillBlockchainRecordWhereUniqueInput
+  }
+
+  /**
+   * SkillBlockchainRecord findFirst
+   */
+  export type SkillBlockchainRecordFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SkillBlockchainRecord
+     */
+    select?: SkillBlockchainRecordSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SkillBlockchainRecord
+     */
+    omit?: SkillBlockchainRecordOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillBlockchainRecordInclude<ExtArgs> | null
+    /**
+     * Filter, which SkillBlockchainRecord to fetch.
+     */
+    where?: SkillBlockchainRecordWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SkillBlockchainRecords to fetch.
+     */
+    orderBy?: SkillBlockchainRecordOrderByWithRelationInput | SkillBlockchainRecordOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SkillBlockchainRecords.
+     */
+    cursor?: SkillBlockchainRecordWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SkillBlockchainRecords from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SkillBlockchainRecords.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SkillBlockchainRecords.
+     */
+    distinct?: SkillBlockchainRecordScalarFieldEnum | SkillBlockchainRecordScalarFieldEnum[]
+  }
+
+  /**
+   * SkillBlockchainRecord findFirstOrThrow
+   */
+  export type SkillBlockchainRecordFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SkillBlockchainRecord
+     */
+    select?: SkillBlockchainRecordSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SkillBlockchainRecord
+     */
+    omit?: SkillBlockchainRecordOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillBlockchainRecordInclude<ExtArgs> | null
+    /**
+     * Filter, which SkillBlockchainRecord to fetch.
+     */
+    where?: SkillBlockchainRecordWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SkillBlockchainRecords to fetch.
+     */
+    orderBy?: SkillBlockchainRecordOrderByWithRelationInput | SkillBlockchainRecordOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SkillBlockchainRecords.
+     */
+    cursor?: SkillBlockchainRecordWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SkillBlockchainRecords from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SkillBlockchainRecords.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SkillBlockchainRecords.
+     */
+    distinct?: SkillBlockchainRecordScalarFieldEnum | SkillBlockchainRecordScalarFieldEnum[]
+  }
+
+  /**
+   * SkillBlockchainRecord findMany
+   */
+  export type SkillBlockchainRecordFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SkillBlockchainRecord
+     */
+    select?: SkillBlockchainRecordSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SkillBlockchainRecord
+     */
+    omit?: SkillBlockchainRecordOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillBlockchainRecordInclude<ExtArgs> | null
+    /**
+     * Filter, which SkillBlockchainRecords to fetch.
+     */
+    where?: SkillBlockchainRecordWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SkillBlockchainRecords to fetch.
+     */
+    orderBy?: SkillBlockchainRecordOrderByWithRelationInput | SkillBlockchainRecordOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SkillBlockchainRecords.
+     */
+    cursor?: SkillBlockchainRecordWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SkillBlockchainRecords from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SkillBlockchainRecords.
+     */
+    skip?: number
+    distinct?: SkillBlockchainRecordScalarFieldEnum | SkillBlockchainRecordScalarFieldEnum[]
+  }
+
+  /**
+   * SkillBlockchainRecord create
+   */
+  export type SkillBlockchainRecordCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SkillBlockchainRecord
+     */
+    select?: SkillBlockchainRecordSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SkillBlockchainRecord
+     */
+    omit?: SkillBlockchainRecordOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillBlockchainRecordInclude<ExtArgs> | null
+    /**
+     * The data needed to create a SkillBlockchainRecord.
+     */
+    data: XOR<SkillBlockchainRecordCreateInput, SkillBlockchainRecordUncheckedCreateInput>
+  }
+
+  /**
+   * SkillBlockchainRecord createMany
+   */
+  export type SkillBlockchainRecordCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SkillBlockchainRecords.
+     */
+    data: SkillBlockchainRecordCreateManyInput | SkillBlockchainRecordCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SkillBlockchainRecord createManyAndReturn
+   */
+  export type SkillBlockchainRecordCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SkillBlockchainRecord
+     */
+    select?: SkillBlockchainRecordSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SkillBlockchainRecord
+     */
+    omit?: SkillBlockchainRecordOmit<ExtArgs> | null
+    /**
+     * The data used to create many SkillBlockchainRecords.
+     */
+    data: SkillBlockchainRecordCreateManyInput | SkillBlockchainRecordCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillBlockchainRecordIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SkillBlockchainRecord update
+   */
+  export type SkillBlockchainRecordUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SkillBlockchainRecord
+     */
+    select?: SkillBlockchainRecordSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SkillBlockchainRecord
+     */
+    omit?: SkillBlockchainRecordOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillBlockchainRecordInclude<ExtArgs> | null
+    /**
+     * The data needed to update a SkillBlockchainRecord.
+     */
+    data: XOR<SkillBlockchainRecordUpdateInput, SkillBlockchainRecordUncheckedUpdateInput>
+    /**
+     * Choose, which SkillBlockchainRecord to update.
+     */
+    where: SkillBlockchainRecordWhereUniqueInput
+  }
+
+  /**
+   * SkillBlockchainRecord updateMany
+   */
+  export type SkillBlockchainRecordUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SkillBlockchainRecords.
+     */
+    data: XOR<SkillBlockchainRecordUpdateManyMutationInput, SkillBlockchainRecordUncheckedUpdateManyInput>
+    /**
+     * Filter which SkillBlockchainRecords to update
+     */
+    where?: SkillBlockchainRecordWhereInput
+    /**
+     * Limit how many SkillBlockchainRecords to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SkillBlockchainRecord updateManyAndReturn
+   */
+  export type SkillBlockchainRecordUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SkillBlockchainRecord
+     */
+    select?: SkillBlockchainRecordSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SkillBlockchainRecord
+     */
+    omit?: SkillBlockchainRecordOmit<ExtArgs> | null
+    /**
+     * The data used to update SkillBlockchainRecords.
+     */
+    data: XOR<SkillBlockchainRecordUpdateManyMutationInput, SkillBlockchainRecordUncheckedUpdateManyInput>
+    /**
+     * Filter which SkillBlockchainRecords to update
+     */
+    where?: SkillBlockchainRecordWhereInput
+    /**
+     * Limit how many SkillBlockchainRecords to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillBlockchainRecordIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SkillBlockchainRecord upsert
+   */
+  export type SkillBlockchainRecordUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SkillBlockchainRecord
+     */
+    select?: SkillBlockchainRecordSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SkillBlockchainRecord
+     */
+    omit?: SkillBlockchainRecordOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillBlockchainRecordInclude<ExtArgs> | null
+    /**
+     * The filter to search for the SkillBlockchainRecord to update in case it exists.
+     */
+    where: SkillBlockchainRecordWhereUniqueInput
+    /**
+     * In case the SkillBlockchainRecord found by the `where` argument doesn't exist, create a new SkillBlockchainRecord with this data.
+     */
+    create: XOR<SkillBlockchainRecordCreateInput, SkillBlockchainRecordUncheckedCreateInput>
+    /**
+     * In case the SkillBlockchainRecord was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SkillBlockchainRecordUpdateInput, SkillBlockchainRecordUncheckedUpdateInput>
+  }
+
+  /**
+   * SkillBlockchainRecord delete
+   */
+  export type SkillBlockchainRecordDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SkillBlockchainRecord
+     */
+    select?: SkillBlockchainRecordSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SkillBlockchainRecord
+     */
+    omit?: SkillBlockchainRecordOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillBlockchainRecordInclude<ExtArgs> | null
+    /**
+     * Filter which SkillBlockchainRecord to delete.
+     */
+    where: SkillBlockchainRecordWhereUniqueInput
+  }
+
+  /**
+   * SkillBlockchainRecord deleteMany
+   */
+  export type SkillBlockchainRecordDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SkillBlockchainRecords to delete
+     */
+    where?: SkillBlockchainRecordWhereInput
+    /**
+     * Limit how many SkillBlockchainRecords to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * SkillBlockchainRecord without action
+   */
+  export type SkillBlockchainRecordDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SkillBlockchainRecord
+     */
+    select?: SkillBlockchainRecordSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SkillBlockchainRecord
+     */
+    omit?: SkillBlockchainRecordOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SkillBlockchainRecordInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model DonorEndorsement
+   */
+
+  export type AggregateDonorEndorsement = {
+    _count: DonorEndorsementCountAggregateOutputType | null
+    _min: DonorEndorsementMinAggregateOutputType | null
+    _max: DonorEndorsementMaxAggregateOutputType | null
+  }
+
+  export type DonorEndorsementMinAggregateOutputType = {
+    id: string | null
+    donorId: string | null
+    ngoId: string | null
+    endorsedBy: string | null
+    note: string | null
+    category: string | null
+    createdAt: Date | null
+  }
+
+  export type DonorEndorsementMaxAggregateOutputType = {
+    id: string | null
+    donorId: string | null
+    ngoId: string | null
+    endorsedBy: string | null
+    note: string | null
+    category: string | null
+    createdAt: Date | null
+  }
+
+  export type DonorEndorsementCountAggregateOutputType = {
+    id: number
+    donorId: number
+    ngoId: number
+    endorsedBy: number
+    note: number
+    category: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type DonorEndorsementMinAggregateInputType = {
+    id?: true
+    donorId?: true
+    ngoId?: true
+    endorsedBy?: true
+    note?: true
+    category?: true
+    createdAt?: true
+  }
+
+  export type DonorEndorsementMaxAggregateInputType = {
+    id?: true
+    donorId?: true
+    ngoId?: true
+    endorsedBy?: true
+    note?: true
+    category?: true
+    createdAt?: true
+  }
+
+  export type DonorEndorsementCountAggregateInputType = {
+    id?: true
+    donorId?: true
+    ngoId?: true
+    endorsedBy?: true
+    note?: true
+    category?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type DonorEndorsementAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DonorEndorsement to aggregate.
+     */
+    where?: DonorEndorsementWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DonorEndorsements to fetch.
+     */
+    orderBy?: DonorEndorsementOrderByWithRelationInput | DonorEndorsementOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DonorEndorsementWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DonorEndorsements from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DonorEndorsements.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned DonorEndorsements
+    **/
+    _count?: true | DonorEndorsementCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DonorEndorsementMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DonorEndorsementMaxAggregateInputType
+  }
+
+  export type GetDonorEndorsementAggregateType<T extends DonorEndorsementAggregateArgs> = {
+        [P in keyof T & keyof AggregateDonorEndorsement]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDonorEndorsement[P]>
+      : GetScalarType<T[P], AggregateDonorEndorsement[P]>
+  }
+
+
+
+
+  export type DonorEndorsementGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DonorEndorsementWhereInput
+    orderBy?: DonorEndorsementOrderByWithAggregationInput | DonorEndorsementOrderByWithAggregationInput[]
+    by: DonorEndorsementScalarFieldEnum[] | DonorEndorsementScalarFieldEnum
+    having?: DonorEndorsementScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DonorEndorsementCountAggregateInputType | true
+    _min?: DonorEndorsementMinAggregateInputType
+    _max?: DonorEndorsementMaxAggregateInputType
+  }
+
+  export type DonorEndorsementGroupByOutputType = {
+    id: string
+    donorId: string
+    ngoId: string
+    endorsedBy: string
+    note: string | null
+    category: string
+    createdAt: Date
+    _count: DonorEndorsementCountAggregateOutputType | null
+    _min: DonorEndorsementMinAggregateOutputType | null
+    _max: DonorEndorsementMaxAggregateOutputType | null
+  }
+
+  type GetDonorEndorsementGroupByPayload<T extends DonorEndorsementGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DonorEndorsementGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DonorEndorsementGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DonorEndorsementGroupByOutputType[P]>
+            : GetScalarType<T[P], DonorEndorsementGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DonorEndorsementSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    donorId?: boolean
+    ngoId?: boolean
+    endorsedBy?: boolean
+    note?: boolean
+    category?: boolean
+    createdAt?: boolean
+    donor?: boolean | UserDefaultArgs<ExtArgs>
+    ngo?: boolean | NgoDefaultArgs<ExtArgs>
+    endorser?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["donorEndorsement"]>
+
+  export type DonorEndorsementSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    donorId?: boolean
+    ngoId?: boolean
+    endorsedBy?: boolean
+    note?: boolean
+    category?: boolean
+    createdAt?: boolean
+    donor?: boolean | UserDefaultArgs<ExtArgs>
+    ngo?: boolean | NgoDefaultArgs<ExtArgs>
+    endorser?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["donorEndorsement"]>
+
+  export type DonorEndorsementSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    donorId?: boolean
+    ngoId?: boolean
+    endorsedBy?: boolean
+    note?: boolean
+    category?: boolean
+    createdAt?: boolean
+    donor?: boolean | UserDefaultArgs<ExtArgs>
+    ngo?: boolean | NgoDefaultArgs<ExtArgs>
+    endorser?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["donorEndorsement"]>
+
+  export type DonorEndorsementSelectScalar = {
+    id?: boolean
+    donorId?: boolean
+    ngoId?: boolean
+    endorsedBy?: boolean
+    note?: boolean
+    category?: boolean
+    createdAt?: boolean
+  }
+
+  export type DonorEndorsementOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "donorId" | "ngoId" | "endorsedBy" | "note" | "category" | "createdAt", ExtArgs["result"]["donorEndorsement"]>
+  export type DonorEndorsementInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    donor?: boolean | UserDefaultArgs<ExtArgs>
+    ngo?: boolean | NgoDefaultArgs<ExtArgs>
+    endorser?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type DonorEndorsementIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    donor?: boolean | UserDefaultArgs<ExtArgs>
+    ngo?: boolean | NgoDefaultArgs<ExtArgs>
+    endorser?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type DonorEndorsementIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    donor?: boolean | UserDefaultArgs<ExtArgs>
+    ngo?: boolean | NgoDefaultArgs<ExtArgs>
+    endorser?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $DonorEndorsementPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "DonorEndorsement"
+    objects: {
+      donor: Prisma.$UserPayload<ExtArgs>
+      ngo: Prisma.$NgoPayload<ExtArgs>
+      endorser: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      donorId: string
+      ngoId: string
+      endorsedBy: string
+      note: string | null
+      category: string
+      createdAt: Date
+    }, ExtArgs["result"]["donorEndorsement"]>
+    composites: {}
+  }
+
+  type DonorEndorsementGetPayload<S extends boolean | null | undefined | DonorEndorsementDefaultArgs> = $Result.GetResult<Prisma.$DonorEndorsementPayload, S>
+
+  type DonorEndorsementCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<DonorEndorsementFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DonorEndorsementCountAggregateInputType | true
+    }
+
+  export interface DonorEndorsementDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['DonorEndorsement'], meta: { name: 'DonorEndorsement' } }
+    /**
+     * Find zero or one DonorEndorsement that matches the filter.
+     * @param {DonorEndorsementFindUniqueArgs} args - Arguments to find a DonorEndorsement
+     * @example
+     * // Get one DonorEndorsement
+     * const donorEndorsement = await prisma.donorEndorsement.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DonorEndorsementFindUniqueArgs>(args: SelectSubset<T, DonorEndorsementFindUniqueArgs<ExtArgs>>): Prisma__DonorEndorsementClient<$Result.GetResult<Prisma.$DonorEndorsementPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one DonorEndorsement that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {DonorEndorsementFindUniqueOrThrowArgs} args - Arguments to find a DonorEndorsement
+     * @example
+     * // Get one DonorEndorsement
+     * const donorEndorsement = await prisma.donorEndorsement.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DonorEndorsementFindUniqueOrThrowArgs>(args: SelectSubset<T, DonorEndorsementFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DonorEndorsementClient<$Result.GetResult<Prisma.$DonorEndorsementPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DonorEndorsement that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DonorEndorsementFindFirstArgs} args - Arguments to find a DonorEndorsement
+     * @example
+     * // Get one DonorEndorsement
+     * const donorEndorsement = await prisma.donorEndorsement.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DonorEndorsementFindFirstArgs>(args?: SelectSubset<T, DonorEndorsementFindFirstArgs<ExtArgs>>): Prisma__DonorEndorsementClient<$Result.GetResult<Prisma.$DonorEndorsementPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DonorEndorsement that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DonorEndorsementFindFirstOrThrowArgs} args - Arguments to find a DonorEndorsement
+     * @example
+     * // Get one DonorEndorsement
+     * const donorEndorsement = await prisma.donorEndorsement.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DonorEndorsementFindFirstOrThrowArgs>(args?: SelectSubset<T, DonorEndorsementFindFirstOrThrowArgs<ExtArgs>>): Prisma__DonorEndorsementClient<$Result.GetResult<Prisma.$DonorEndorsementPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more DonorEndorsements that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DonorEndorsementFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all DonorEndorsements
+     * const donorEndorsements = await prisma.donorEndorsement.findMany()
+     * 
+     * // Get first 10 DonorEndorsements
+     * const donorEndorsements = await prisma.donorEndorsement.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const donorEndorsementWithIdOnly = await prisma.donorEndorsement.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DonorEndorsementFindManyArgs>(args?: SelectSubset<T, DonorEndorsementFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DonorEndorsementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a DonorEndorsement.
+     * @param {DonorEndorsementCreateArgs} args - Arguments to create a DonorEndorsement.
+     * @example
+     * // Create one DonorEndorsement
+     * const DonorEndorsement = await prisma.donorEndorsement.create({
+     *   data: {
+     *     // ... data to create a DonorEndorsement
+     *   }
+     * })
+     * 
+     */
+    create<T extends DonorEndorsementCreateArgs>(args: SelectSubset<T, DonorEndorsementCreateArgs<ExtArgs>>): Prisma__DonorEndorsementClient<$Result.GetResult<Prisma.$DonorEndorsementPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many DonorEndorsements.
+     * @param {DonorEndorsementCreateManyArgs} args - Arguments to create many DonorEndorsements.
+     * @example
+     * // Create many DonorEndorsements
+     * const donorEndorsement = await prisma.donorEndorsement.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DonorEndorsementCreateManyArgs>(args?: SelectSubset<T, DonorEndorsementCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many DonorEndorsements and returns the data saved in the database.
+     * @param {DonorEndorsementCreateManyAndReturnArgs} args - Arguments to create many DonorEndorsements.
+     * @example
+     * // Create many DonorEndorsements
+     * const donorEndorsement = await prisma.donorEndorsement.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many DonorEndorsements and only return the `id`
+     * const donorEndorsementWithIdOnly = await prisma.donorEndorsement.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DonorEndorsementCreateManyAndReturnArgs>(args?: SelectSubset<T, DonorEndorsementCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DonorEndorsementPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a DonorEndorsement.
+     * @param {DonorEndorsementDeleteArgs} args - Arguments to delete one DonorEndorsement.
+     * @example
+     * // Delete one DonorEndorsement
+     * const DonorEndorsement = await prisma.donorEndorsement.delete({
+     *   where: {
+     *     // ... filter to delete one DonorEndorsement
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DonorEndorsementDeleteArgs>(args: SelectSubset<T, DonorEndorsementDeleteArgs<ExtArgs>>): Prisma__DonorEndorsementClient<$Result.GetResult<Prisma.$DonorEndorsementPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one DonorEndorsement.
+     * @param {DonorEndorsementUpdateArgs} args - Arguments to update one DonorEndorsement.
+     * @example
+     * // Update one DonorEndorsement
+     * const donorEndorsement = await prisma.donorEndorsement.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DonorEndorsementUpdateArgs>(args: SelectSubset<T, DonorEndorsementUpdateArgs<ExtArgs>>): Prisma__DonorEndorsementClient<$Result.GetResult<Prisma.$DonorEndorsementPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more DonorEndorsements.
+     * @param {DonorEndorsementDeleteManyArgs} args - Arguments to filter DonorEndorsements to delete.
+     * @example
+     * // Delete a few DonorEndorsements
+     * const { count } = await prisma.donorEndorsement.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DonorEndorsementDeleteManyArgs>(args?: SelectSubset<T, DonorEndorsementDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DonorEndorsements.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DonorEndorsementUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many DonorEndorsements
+     * const donorEndorsement = await prisma.donorEndorsement.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DonorEndorsementUpdateManyArgs>(args: SelectSubset<T, DonorEndorsementUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DonorEndorsements and returns the data updated in the database.
+     * @param {DonorEndorsementUpdateManyAndReturnArgs} args - Arguments to update many DonorEndorsements.
+     * @example
+     * // Update many DonorEndorsements
+     * const donorEndorsement = await prisma.donorEndorsement.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more DonorEndorsements and only return the `id`
+     * const donorEndorsementWithIdOnly = await prisma.donorEndorsement.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends DonorEndorsementUpdateManyAndReturnArgs>(args: SelectSubset<T, DonorEndorsementUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DonorEndorsementPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one DonorEndorsement.
+     * @param {DonorEndorsementUpsertArgs} args - Arguments to update or create a DonorEndorsement.
+     * @example
+     * // Update or create a DonorEndorsement
+     * const donorEndorsement = await prisma.donorEndorsement.upsert({
+     *   create: {
+     *     // ... data to create a DonorEndorsement
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the DonorEndorsement we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DonorEndorsementUpsertArgs>(args: SelectSubset<T, DonorEndorsementUpsertArgs<ExtArgs>>): Prisma__DonorEndorsementClient<$Result.GetResult<Prisma.$DonorEndorsementPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of DonorEndorsements.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DonorEndorsementCountArgs} args - Arguments to filter DonorEndorsements to count.
+     * @example
+     * // Count the number of DonorEndorsements
+     * const count = await prisma.donorEndorsement.count({
+     *   where: {
+     *     // ... the filter for the DonorEndorsements we want to count
+     *   }
+     * })
+    **/
+    count<T extends DonorEndorsementCountArgs>(
+      args?: Subset<T, DonorEndorsementCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DonorEndorsementCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a DonorEndorsement.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DonorEndorsementAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DonorEndorsementAggregateArgs>(args: Subset<T, DonorEndorsementAggregateArgs>): Prisma.PrismaPromise<GetDonorEndorsementAggregateType<T>>
+
+    /**
+     * Group by DonorEndorsement.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DonorEndorsementGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DonorEndorsementGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DonorEndorsementGroupByArgs['orderBy'] }
+        : { orderBy?: DonorEndorsementGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DonorEndorsementGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDonorEndorsementGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the DonorEndorsement model
+   */
+  readonly fields: DonorEndorsementFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for DonorEndorsement.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DonorEndorsementClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    donor<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    ngo<T extends NgoDefaultArgs<ExtArgs> = {}>(args?: Subset<T, NgoDefaultArgs<ExtArgs>>): Prisma__NgoClient<$Result.GetResult<Prisma.$NgoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    endorser<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the DonorEndorsement model
+   */
+  interface DonorEndorsementFieldRefs {
+    readonly id: FieldRef<"DonorEndorsement", 'String'>
+    readonly donorId: FieldRef<"DonorEndorsement", 'String'>
+    readonly ngoId: FieldRef<"DonorEndorsement", 'String'>
+    readonly endorsedBy: FieldRef<"DonorEndorsement", 'String'>
+    readonly note: FieldRef<"DonorEndorsement", 'String'>
+    readonly category: FieldRef<"DonorEndorsement", 'String'>
+    readonly createdAt: FieldRef<"DonorEndorsement", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * DonorEndorsement findUnique
+   */
+  export type DonorEndorsementFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DonorEndorsement
+     */
+    select?: DonorEndorsementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DonorEndorsement
+     */
+    omit?: DonorEndorsementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DonorEndorsementInclude<ExtArgs> | null
+    /**
+     * Filter, which DonorEndorsement to fetch.
+     */
+    where: DonorEndorsementWhereUniqueInput
+  }
+
+  /**
+   * DonorEndorsement findUniqueOrThrow
+   */
+  export type DonorEndorsementFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DonorEndorsement
+     */
+    select?: DonorEndorsementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DonorEndorsement
+     */
+    omit?: DonorEndorsementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DonorEndorsementInclude<ExtArgs> | null
+    /**
+     * Filter, which DonorEndorsement to fetch.
+     */
+    where: DonorEndorsementWhereUniqueInput
+  }
+
+  /**
+   * DonorEndorsement findFirst
+   */
+  export type DonorEndorsementFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DonorEndorsement
+     */
+    select?: DonorEndorsementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DonorEndorsement
+     */
+    omit?: DonorEndorsementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DonorEndorsementInclude<ExtArgs> | null
+    /**
+     * Filter, which DonorEndorsement to fetch.
+     */
+    where?: DonorEndorsementWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DonorEndorsements to fetch.
+     */
+    orderBy?: DonorEndorsementOrderByWithRelationInput | DonorEndorsementOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DonorEndorsements.
+     */
+    cursor?: DonorEndorsementWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DonorEndorsements from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DonorEndorsements.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DonorEndorsements.
+     */
+    distinct?: DonorEndorsementScalarFieldEnum | DonorEndorsementScalarFieldEnum[]
+  }
+
+  /**
+   * DonorEndorsement findFirstOrThrow
+   */
+  export type DonorEndorsementFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DonorEndorsement
+     */
+    select?: DonorEndorsementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DonorEndorsement
+     */
+    omit?: DonorEndorsementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DonorEndorsementInclude<ExtArgs> | null
+    /**
+     * Filter, which DonorEndorsement to fetch.
+     */
+    where?: DonorEndorsementWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DonorEndorsements to fetch.
+     */
+    orderBy?: DonorEndorsementOrderByWithRelationInput | DonorEndorsementOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DonorEndorsements.
+     */
+    cursor?: DonorEndorsementWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DonorEndorsements from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DonorEndorsements.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DonorEndorsements.
+     */
+    distinct?: DonorEndorsementScalarFieldEnum | DonorEndorsementScalarFieldEnum[]
+  }
+
+  /**
+   * DonorEndorsement findMany
+   */
+  export type DonorEndorsementFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DonorEndorsement
+     */
+    select?: DonorEndorsementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DonorEndorsement
+     */
+    omit?: DonorEndorsementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DonorEndorsementInclude<ExtArgs> | null
+    /**
+     * Filter, which DonorEndorsements to fetch.
+     */
+    where?: DonorEndorsementWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DonorEndorsements to fetch.
+     */
+    orderBy?: DonorEndorsementOrderByWithRelationInput | DonorEndorsementOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing DonorEndorsements.
+     */
+    cursor?: DonorEndorsementWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DonorEndorsements from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DonorEndorsements.
+     */
+    skip?: number
+    distinct?: DonorEndorsementScalarFieldEnum | DonorEndorsementScalarFieldEnum[]
+  }
+
+  /**
+   * DonorEndorsement create
+   */
+  export type DonorEndorsementCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DonorEndorsement
+     */
+    select?: DonorEndorsementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DonorEndorsement
+     */
+    omit?: DonorEndorsementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DonorEndorsementInclude<ExtArgs> | null
+    /**
+     * The data needed to create a DonorEndorsement.
+     */
+    data: XOR<DonorEndorsementCreateInput, DonorEndorsementUncheckedCreateInput>
+  }
+
+  /**
+   * DonorEndorsement createMany
+   */
+  export type DonorEndorsementCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many DonorEndorsements.
+     */
+    data: DonorEndorsementCreateManyInput | DonorEndorsementCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * DonorEndorsement createManyAndReturn
+   */
+  export type DonorEndorsementCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DonorEndorsement
+     */
+    select?: DonorEndorsementSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DonorEndorsement
+     */
+    omit?: DonorEndorsementOmit<ExtArgs> | null
+    /**
+     * The data used to create many DonorEndorsements.
+     */
+    data: DonorEndorsementCreateManyInput | DonorEndorsementCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DonorEndorsementIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * DonorEndorsement update
+   */
+  export type DonorEndorsementUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DonorEndorsement
+     */
+    select?: DonorEndorsementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DonorEndorsement
+     */
+    omit?: DonorEndorsementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DonorEndorsementInclude<ExtArgs> | null
+    /**
+     * The data needed to update a DonorEndorsement.
+     */
+    data: XOR<DonorEndorsementUpdateInput, DonorEndorsementUncheckedUpdateInput>
+    /**
+     * Choose, which DonorEndorsement to update.
+     */
+    where: DonorEndorsementWhereUniqueInput
+  }
+
+  /**
+   * DonorEndorsement updateMany
+   */
+  export type DonorEndorsementUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update DonorEndorsements.
+     */
+    data: XOR<DonorEndorsementUpdateManyMutationInput, DonorEndorsementUncheckedUpdateManyInput>
+    /**
+     * Filter which DonorEndorsements to update
+     */
+    where?: DonorEndorsementWhereInput
+    /**
+     * Limit how many DonorEndorsements to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * DonorEndorsement updateManyAndReturn
+   */
+  export type DonorEndorsementUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DonorEndorsement
+     */
+    select?: DonorEndorsementSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DonorEndorsement
+     */
+    omit?: DonorEndorsementOmit<ExtArgs> | null
+    /**
+     * The data used to update DonorEndorsements.
+     */
+    data: XOR<DonorEndorsementUpdateManyMutationInput, DonorEndorsementUncheckedUpdateManyInput>
+    /**
+     * Filter which DonorEndorsements to update
+     */
+    where?: DonorEndorsementWhereInput
+    /**
+     * Limit how many DonorEndorsements to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DonorEndorsementIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * DonorEndorsement upsert
+   */
+  export type DonorEndorsementUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DonorEndorsement
+     */
+    select?: DonorEndorsementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DonorEndorsement
+     */
+    omit?: DonorEndorsementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DonorEndorsementInclude<ExtArgs> | null
+    /**
+     * The filter to search for the DonorEndorsement to update in case it exists.
+     */
+    where: DonorEndorsementWhereUniqueInput
+    /**
+     * In case the DonorEndorsement found by the `where` argument doesn't exist, create a new DonorEndorsement with this data.
+     */
+    create: XOR<DonorEndorsementCreateInput, DonorEndorsementUncheckedCreateInput>
+    /**
+     * In case the DonorEndorsement was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DonorEndorsementUpdateInput, DonorEndorsementUncheckedUpdateInput>
+  }
+
+  /**
+   * DonorEndorsement delete
+   */
+  export type DonorEndorsementDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DonorEndorsement
+     */
+    select?: DonorEndorsementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DonorEndorsement
+     */
+    omit?: DonorEndorsementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DonorEndorsementInclude<ExtArgs> | null
+    /**
+     * Filter which DonorEndorsement to delete.
+     */
+    where: DonorEndorsementWhereUniqueInput
+  }
+
+  /**
+   * DonorEndorsement deleteMany
+   */
+  export type DonorEndorsementDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DonorEndorsements to delete
+     */
+    where?: DonorEndorsementWhereInput
+    /**
+     * Limit how many DonorEndorsements to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * DonorEndorsement without action
+   */
+  export type DonorEndorsementDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DonorEndorsement
+     */
+    select?: DonorEndorsementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DonorEndorsement
+     */
+    omit?: DonorEndorsementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DonorEndorsementInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -28946,6 +34142,65 @@ export namespace Prisma {
   };
 
   export type ActivityEventScalarFieldEnum = (typeof ActivityEventScalarFieldEnum)[keyof typeof ActivityEventScalarFieldEnum]
+
+
+  export const BoardMemberScalarFieldEnum: {
+    id: 'id',
+    ngoId: 'ngoId',
+    name: 'name',
+    role: 'role',
+    bio: 'bio',
+    linkedinUrl: 'linkedinUrl',
+    photoUrl: 'photoUrl',
+    orderIndex: 'orderIndex',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type BoardMemberScalarFieldEnum = (typeof BoardMemberScalarFieldEnum)[keyof typeof BoardMemberScalarFieldEnum]
+
+
+  export const SkillContributionScalarFieldEnum: {
+    id: 'id',
+    donorId: 'donorId',
+    ngoId: 'ngoId',
+    projectId: 'projectId',
+    skillCategory: 'skillCategory',
+    description: 'description',
+    hoursContributed: 'hoursContributed',
+    status: 'status',
+    monetaryValue: 'monetaryValue',
+    txHash: 'txHash',
+    submittedAt: 'submittedAt',
+    approvedAt: 'approvedAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type SkillContributionScalarFieldEnum = (typeof SkillContributionScalarFieldEnum)[keyof typeof SkillContributionScalarFieldEnum]
+
+
+  export const SkillBlockchainRecordScalarFieldEnum: {
+    id: 'id',
+    skillContributionId: 'skillContributionId',
+    txHash: 'txHash',
+    network: 'network',
+    timestamp: 'timestamp'
+  };
+
+  export type SkillBlockchainRecordScalarFieldEnum = (typeof SkillBlockchainRecordScalarFieldEnum)[keyof typeof SkillBlockchainRecordScalarFieldEnum]
+
+
+  export const DonorEndorsementScalarFieldEnum: {
+    id: 'id',
+    donorId: 'donorId',
+    ngoId: 'ngoId',
+    endorsedBy: 'endorsedBy',
+    note: 'note',
+    category: 'category',
+    createdAt: 'createdAt'
+  };
+
+  export type DonorEndorsementScalarFieldEnum = (typeof DonorEndorsementScalarFieldEnum)[keyof typeof DonorEndorsementScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -29352,6 +34607,9 @@ export namespace Prisma {
     ngoSuggestions?: NgoSuggestionListRelationFilter
     referralsMade?: ReferralListRelationFilter
     referralsReceived?: ReferralListRelationFilter
+    skillContributions?: SkillContributionListRelationFilter
+    endorsementsReceived?: DonorEndorsementListRelationFilter
+    endorsementsGiven?: DonorEndorsementListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -29376,6 +34634,9 @@ export namespace Prisma {
     ngoSuggestions?: NgoSuggestionOrderByRelationAggregateInput
     referralsMade?: ReferralOrderByRelationAggregateInput
     referralsReceived?: ReferralOrderByRelationAggregateInput
+    skillContributions?: SkillContributionOrderByRelationAggregateInput
+    endorsementsReceived?: DonorEndorsementOrderByRelationAggregateInput
+    endorsementsGiven?: DonorEndorsementOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -29403,6 +34664,9 @@ export namespace Prisma {
     ngoSuggestions?: NgoSuggestionListRelationFilter
     referralsMade?: ReferralListRelationFilter
     referralsReceived?: ReferralListRelationFilter
+    skillContributions?: SkillContributionListRelationFilter
+    endorsementsReceived?: DonorEndorsementListRelationFilter
+    endorsementsGiven?: DonorEndorsementListRelationFilter
   }, "id" | "email" | "referralCode">
 
   export type UserOrderByWithAggregationInput = {
@@ -29457,6 +34721,9 @@ export namespace Prisma {
     projects?: ProjectListRelationFilter
     expenses?: ExpenseListRelationFilter
     ratings?: RatingListRelationFilter
+    boardMembers?: BoardMemberListRelationFilter
+    skillContributions?: SkillContributionListRelationFilter
+    donorEndorsements?: DonorEndorsementListRelationFilter
   }
 
   export type NgoOrderByWithRelationInput = {
@@ -29478,6 +34745,9 @@ export namespace Prisma {
     projects?: ProjectOrderByRelationAggregateInput
     expenses?: ExpenseOrderByRelationAggregateInput
     ratings?: RatingOrderByRelationAggregateInput
+    boardMembers?: BoardMemberOrderByRelationAggregateInput
+    skillContributions?: SkillContributionOrderByRelationAggregateInput
+    donorEndorsements?: DonorEndorsementOrderByRelationAggregateInput
   }
 
   export type NgoWhereUniqueInput = Prisma.AtLeast<{
@@ -29502,6 +34772,9 @@ export namespace Prisma {
     projects?: ProjectListRelationFilter
     expenses?: ExpenseListRelationFilter
     ratings?: RatingListRelationFilter
+    boardMembers?: BoardMemberListRelationFilter
+    skillContributions?: SkillContributionListRelationFilter
+    donorEndorsements?: DonorEndorsementListRelationFilter
   }, "id" | "userId">
 
   export type NgoOrderByWithAggregationInput = {
@@ -29572,6 +34845,7 @@ export namespace Prisma {
     expenses?: ExpenseListRelationFilter
     spotlightVotes?: SpotlightVoteListRelationFilter
     campaigns?: CampaignListRelationFilter
+    skillContributions?: SkillContributionListRelationFilter
   }
 
   export type ProjectOrderByWithRelationInput = {
@@ -29597,6 +34871,7 @@ export namespace Prisma {
     expenses?: ExpenseOrderByRelationAggregateInput
     spotlightVotes?: SpotlightVoteOrderByRelationAggregateInput
     campaigns?: CampaignOrderByRelationAggregateInput
+    skillContributions?: SkillContributionOrderByRelationAggregateInput
   }
 
   export type ProjectWhereUniqueInput = Prisma.AtLeast<{
@@ -29625,6 +34900,7 @@ export namespace Prisma {
     expenses?: ExpenseListRelationFilter
     spotlightVotes?: SpotlightVoteListRelationFilter
     campaigns?: CampaignListRelationFilter
+    skillContributions?: SkillContributionListRelationFilter
   }, "id">
 
   export type ProjectOrderByWithAggregationInput = {
@@ -30867,6 +36143,321 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"ActivityEvent"> | Date | string
   }
 
+  export type BoardMemberWhereInput = {
+    AND?: BoardMemberWhereInput | BoardMemberWhereInput[]
+    OR?: BoardMemberWhereInput[]
+    NOT?: BoardMemberWhereInput | BoardMemberWhereInput[]
+    id?: StringFilter<"BoardMember"> | string
+    ngoId?: StringFilter<"BoardMember"> | string
+    name?: StringFilter<"BoardMember"> | string
+    role?: StringFilter<"BoardMember"> | string
+    bio?: StringNullableFilter<"BoardMember"> | string | null
+    linkedinUrl?: StringNullableFilter<"BoardMember"> | string | null
+    photoUrl?: StringNullableFilter<"BoardMember"> | string | null
+    orderIndex?: IntFilter<"BoardMember"> | number
+    createdAt?: DateTimeFilter<"BoardMember"> | Date | string
+    updatedAt?: DateTimeFilter<"BoardMember"> | Date | string
+    ngo?: XOR<NgoScalarRelationFilter, NgoWhereInput>
+  }
+
+  export type BoardMemberOrderByWithRelationInput = {
+    id?: SortOrder
+    ngoId?: SortOrder
+    name?: SortOrder
+    role?: SortOrder
+    bio?: SortOrderInput | SortOrder
+    linkedinUrl?: SortOrderInput | SortOrder
+    photoUrl?: SortOrderInput | SortOrder
+    orderIndex?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    ngo?: NgoOrderByWithRelationInput
+  }
+
+  export type BoardMemberWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: BoardMemberWhereInput | BoardMemberWhereInput[]
+    OR?: BoardMemberWhereInput[]
+    NOT?: BoardMemberWhereInput | BoardMemberWhereInput[]
+    ngoId?: StringFilter<"BoardMember"> | string
+    name?: StringFilter<"BoardMember"> | string
+    role?: StringFilter<"BoardMember"> | string
+    bio?: StringNullableFilter<"BoardMember"> | string | null
+    linkedinUrl?: StringNullableFilter<"BoardMember"> | string | null
+    photoUrl?: StringNullableFilter<"BoardMember"> | string | null
+    orderIndex?: IntFilter<"BoardMember"> | number
+    createdAt?: DateTimeFilter<"BoardMember"> | Date | string
+    updatedAt?: DateTimeFilter<"BoardMember"> | Date | string
+    ngo?: XOR<NgoScalarRelationFilter, NgoWhereInput>
+  }, "id">
+
+  export type BoardMemberOrderByWithAggregationInput = {
+    id?: SortOrder
+    ngoId?: SortOrder
+    name?: SortOrder
+    role?: SortOrder
+    bio?: SortOrderInput | SortOrder
+    linkedinUrl?: SortOrderInput | SortOrder
+    photoUrl?: SortOrderInput | SortOrder
+    orderIndex?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: BoardMemberCountOrderByAggregateInput
+    _avg?: BoardMemberAvgOrderByAggregateInput
+    _max?: BoardMemberMaxOrderByAggregateInput
+    _min?: BoardMemberMinOrderByAggregateInput
+    _sum?: BoardMemberSumOrderByAggregateInput
+  }
+
+  export type BoardMemberScalarWhereWithAggregatesInput = {
+    AND?: BoardMemberScalarWhereWithAggregatesInput | BoardMemberScalarWhereWithAggregatesInput[]
+    OR?: BoardMemberScalarWhereWithAggregatesInput[]
+    NOT?: BoardMemberScalarWhereWithAggregatesInput | BoardMemberScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"BoardMember"> | string
+    ngoId?: StringWithAggregatesFilter<"BoardMember"> | string
+    name?: StringWithAggregatesFilter<"BoardMember"> | string
+    role?: StringWithAggregatesFilter<"BoardMember"> | string
+    bio?: StringNullableWithAggregatesFilter<"BoardMember"> | string | null
+    linkedinUrl?: StringNullableWithAggregatesFilter<"BoardMember"> | string | null
+    photoUrl?: StringNullableWithAggregatesFilter<"BoardMember"> | string | null
+    orderIndex?: IntWithAggregatesFilter<"BoardMember"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"BoardMember"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"BoardMember"> | Date | string
+  }
+
+  export type SkillContributionWhereInput = {
+    AND?: SkillContributionWhereInput | SkillContributionWhereInput[]
+    OR?: SkillContributionWhereInput[]
+    NOT?: SkillContributionWhereInput | SkillContributionWhereInput[]
+    id?: StringFilter<"SkillContribution"> | string
+    donorId?: StringFilter<"SkillContribution"> | string
+    ngoId?: StringFilter<"SkillContribution"> | string
+    projectId?: StringNullableFilter<"SkillContribution"> | string | null
+    skillCategory?: StringFilter<"SkillContribution"> | string
+    description?: StringFilter<"SkillContribution"> | string
+    hoursContributed?: FloatNullableFilter<"SkillContribution"> | number | null
+    status?: StringFilter<"SkillContribution"> | string
+    monetaryValue?: FloatNullableFilter<"SkillContribution"> | number | null
+    txHash?: StringNullableFilter<"SkillContribution"> | string | null
+    submittedAt?: DateTimeFilter<"SkillContribution"> | Date | string
+    approvedAt?: DateTimeNullableFilter<"SkillContribution"> | Date | string | null
+    updatedAt?: DateTimeFilter<"SkillContribution"> | Date | string
+    donor?: XOR<UserScalarRelationFilter, UserWhereInput>
+    ngo?: XOR<NgoScalarRelationFilter, NgoWhereInput>
+    project?: XOR<ProjectNullableScalarRelationFilter, ProjectWhereInput> | null
+    blockchainRecord?: XOR<SkillBlockchainRecordNullableScalarRelationFilter, SkillBlockchainRecordWhereInput> | null
+  }
+
+  export type SkillContributionOrderByWithRelationInput = {
+    id?: SortOrder
+    donorId?: SortOrder
+    ngoId?: SortOrder
+    projectId?: SortOrderInput | SortOrder
+    skillCategory?: SortOrder
+    description?: SortOrder
+    hoursContributed?: SortOrderInput | SortOrder
+    status?: SortOrder
+    monetaryValue?: SortOrderInput | SortOrder
+    txHash?: SortOrderInput | SortOrder
+    submittedAt?: SortOrder
+    approvedAt?: SortOrderInput | SortOrder
+    updatedAt?: SortOrder
+    donor?: UserOrderByWithRelationInput
+    ngo?: NgoOrderByWithRelationInput
+    project?: ProjectOrderByWithRelationInput
+    blockchainRecord?: SkillBlockchainRecordOrderByWithRelationInput
+  }
+
+  export type SkillContributionWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: SkillContributionWhereInput | SkillContributionWhereInput[]
+    OR?: SkillContributionWhereInput[]
+    NOT?: SkillContributionWhereInput | SkillContributionWhereInput[]
+    donorId?: StringFilter<"SkillContribution"> | string
+    ngoId?: StringFilter<"SkillContribution"> | string
+    projectId?: StringNullableFilter<"SkillContribution"> | string | null
+    skillCategory?: StringFilter<"SkillContribution"> | string
+    description?: StringFilter<"SkillContribution"> | string
+    hoursContributed?: FloatNullableFilter<"SkillContribution"> | number | null
+    status?: StringFilter<"SkillContribution"> | string
+    monetaryValue?: FloatNullableFilter<"SkillContribution"> | number | null
+    txHash?: StringNullableFilter<"SkillContribution"> | string | null
+    submittedAt?: DateTimeFilter<"SkillContribution"> | Date | string
+    approvedAt?: DateTimeNullableFilter<"SkillContribution"> | Date | string | null
+    updatedAt?: DateTimeFilter<"SkillContribution"> | Date | string
+    donor?: XOR<UserScalarRelationFilter, UserWhereInput>
+    ngo?: XOR<NgoScalarRelationFilter, NgoWhereInput>
+    project?: XOR<ProjectNullableScalarRelationFilter, ProjectWhereInput> | null
+    blockchainRecord?: XOR<SkillBlockchainRecordNullableScalarRelationFilter, SkillBlockchainRecordWhereInput> | null
+  }, "id">
+
+  export type SkillContributionOrderByWithAggregationInput = {
+    id?: SortOrder
+    donorId?: SortOrder
+    ngoId?: SortOrder
+    projectId?: SortOrderInput | SortOrder
+    skillCategory?: SortOrder
+    description?: SortOrder
+    hoursContributed?: SortOrderInput | SortOrder
+    status?: SortOrder
+    monetaryValue?: SortOrderInput | SortOrder
+    txHash?: SortOrderInput | SortOrder
+    submittedAt?: SortOrder
+    approvedAt?: SortOrderInput | SortOrder
+    updatedAt?: SortOrder
+    _count?: SkillContributionCountOrderByAggregateInput
+    _avg?: SkillContributionAvgOrderByAggregateInput
+    _max?: SkillContributionMaxOrderByAggregateInput
+    _min?: SkillContributionMinOrderByAggregateInput
+    _sum?: SkillContributionSumOrderByAggregateInput
+  }
+
+  export type SkillContributionScalarWhereWithAggregatesInput = {
+    AND?: SkillContributionScalarWhereWithAggregatesInput | SkillContributionScalarWhereWithAggregatesInput[]
+    OR?: SkillContributionScalarWhereWithAggregatesInput[]
+    NOT?: SkillContributionScalarWhereWithAggregatesInput | SkillContributionScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"SkillContribution"> | string
+    donorId?: StringWithAggregatesFilter<"SkillContribution"> | string
+    ngoId?: StringWithAggregatesFilter<"SkillContribution"> | string
+    projectId?: StringNullableWithAggregatesFilter<"SkillContribution"> | string | null
+    skillCategory?: StringWithAggregatesFilter<"SkillContribution"> | string
+    description?: StringWithAggregatesFilter<"SkillContribution"> | string
+    hoursContributed?: FloatNullableWithAggregatesFilter<"SkillContribution"> | number | null
+    status?: StringWithAggregatesFilter<"SkillContribution"> | string
+    monetaryValue?: FloatNullableWithAggregatesFilter<"SkillContribution"> | number | null
+    txHash?: StringNullableWithAggregatesFilter<"SkillContribution"> | string | null
+    submittedAt?: DateTimeWithAggregatesFilter<"SkillContribution"> | Date | string
+    approvedAt?: DateTimeNullableWithAggregatesFilter<"SkillContribution"> | Date | string | null
+    updatedAt?: DateTimeWithAggregatesFilter<"SkillContribution"> | Date | string
+  }
+
+  export type SkillBlockchainRecordWhereInput = {
+    AND?: SkillBlockchainRecordWhereInput | SkillBlockchainRecordWhereInput[]
+    OR?: SkillBlockchainRecordWhereInput[]
+    NOT?: SkillBlockchainRecordWhereInput | SkillBlockchainRecordWhereInput[]
+    id?: StringFilter<"SkillBlockchainRecord"> | string
+    skillContributionId?: StringFilter<"SkillBlockchainRecord"> | string
+    txHash?: StringFilter<"SkillBlockchainRecord"> | string
+    network?: StringFilter<"SkillBlockchainRecord"> | string
+    timestamp?: DateTimeFilter<"SkillBlockchainRecord"> | Date | string
+    contribution?: XOR<SkillContributionScalarRelationFilter, SkillContributionWhereInput>
+  }
+
+  export type SkillBlockchainRecordOrderByWithRelationInput = {
+    id?: SortOrder
+    skillContributionId?: SortOrder
+    txHash?: SortOrder
+    network?: SortOrder
+    timestamp?: SortOrder
+    contribution?: SkillContributionOrderByWithRelationInput
+  }
+
+  export type SkillBlockchainRecordWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    skillContributionId?: string
+    txHash?: string
+    AND?: SkillBlockchainRecordWhereInput | SkillBlockchainRecordWhereInput[]
+    OR?: SkillBlockchainRecordWhereInput[]
+    NOT?: SkillBlockchainRecordWhereInput | SkillBlockchainRecordWhereInput[]
+    network?: StringFilter<"SkillBlockchainRecord"> | string
+    timestamp?: DateTimeFilter<"SkillBlockchainRecord"> | Date | string
+    contribution?: XOR<SkillContributionScalarRelationFilter, SkillContributionWhereInput>
+  }, "id" | "skillContributionId" | "txHash">
+
+  export type SkillBlockchainRecordOrderByWithAggregationInput = {
+    id?: SortOrder
+    skillContributionId?: SortOrder
+    txHash?: SortOrder
+    network?: SortOrder
+    timestamp?: SortOrder
+    _count?: SkillBlockchainRecordCountOrderByAggregateInput
+    _max?: SkillBlockchainRecordMaxOrderByAggregateInput
+    _min?: SkillBlockchainRecordMinOrderByAggregateInput
+  }
+
+  export type SkillBlockchainRecordScalarWhereWithAggregatesInput = {
+    AND?: SkillBlockchainRecordScalarWhereWithAggregatesInput | SkillBlockchainRecordScalarWhereWithAggregatesInput[]
+    OR?: SkillBlockchainRecordScalarWhereWithAggregatesInput[]
+    NOT?: SkillBlockchainRecordScalarWhereWithAggregatesInput | SkillBlockchainRecordScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"SkillBlockchainRecord"> | string
+    skillContributionId?: StringWithAggregatesFilter<"SkillBlockchainRecord"> | string
+    txHash?: StringWithAggregatesFilter<"SkillBlockchainRecord"> | string
+    network?: StringWithAggregatesFilter<"SkillBlockchainRecord"> | string
+    timestamp?: DateTimeWithAggregatesFilter<"SkillBlockchainRecord"> | Date | string
+  }
+
+  export type DonorEndorsementWhereInput = {
+    AND?: DonorEndorsementWhereInput | DonorEndorsementWhereInput[]
+    OR?: DonorEndorsementWhereInput[]
+    NOT?: DonorEndorsementWhereInput | DonorEndorsementWhereInput[]
+    id?: StringFilter<"DonorEndorsement"> | string
+    donorId?: StringFilter<"DonorEndorsement"> | string
+    ngoId?: StringFilter<"DonorEndorsement"> | string
+    endorsedBy?: StringFilter<"DonorEndorsement"> | string
+    note?: StringNullableFilter<"DonorEndorsement"> | string | null
+    category?: StringFilter<"DonorEndorsement"> | string
+    createdAt?: DateTimeFilter<"DonorEndorsement"> | Date | string
+    donor?: XOR<UserScalarRelationFilter, UserWhereInput>
+    ngo?: XOR<NgoScalarRelationFilter, NgoWhereInput>
+    endorser?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type DonorEndorsementOrderByWithRelationInput = {
+    id?: SortOrder
+    donorId?: SortOrder
+    ngoId?: SortOrder
+    endorsedBy?: SortOrder
+    note?: SortOrderInput | SortOrder
+    category?: SortOrder
+    createdAt?: SortOrder
+    donor?: UserOrderByWithRelationInput
+    ngo?: NgoOrderByWithRelationInput
+    endorser?: UserOrderByWithRelationInput
+  }
+
+  export type DonorEndorsementWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    donorId_ngoId_endorsedBy?: DonorEndorsementDonorIdNgoIdEndorsedByCompoundUniqueInput
+    AND?: DonorEndorsementWhereInput | DonorEndorsementWhereInput[]
+    OR?: DonorEndorsementWhereInput[]
+    NOT?: DonorEndorsementWhereInput | DonorEndorsementWhereInput[]
+    donorId?: StringFilter<"DonorEndorsement"> | string
+    ngoId?: StringFilter<"DonorEndorsement"> | string
+    endorsedBy?: StringFilter<"DonorEndorsement"> | string
+    note?: StringNullableFilter<"DonorEndorsement"> | string | null
+    category?: StringFilter<"DonorEndorsement"> | string
+    createdAt?: DateTimeFilter<"DonorEndorsement"> | Date | string
+    donor?: XOR<UserScalarRelationFilter, UserWhereInput>
+    ngo?: XOR<NgoScalarRelationFilter, NgoWhereInput>
+    endorser?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "donorId_ngoId_endorsedBy">
+
+  export type DonorEndorsementOrderByWithAggregationInput = {
+    id?: SortOrder
+    donorId?: SortOrder
+    ngoId?: SortOrder
+    endorsedBy?: SortOrder
+    note?: SortOrderInput | SortOrder
+    category?: SortOrder
+    createdAt?: SortOrder
+    _count?: DonorEndorsementCountOrderByAggregateInput
+    _max?: DonorEndorsementMaxOrderByAggregateInput
+    _min?: DonorEndorsementMinOrderByAggregateInput
+  }
+
+  export type DonorEndorsementScalarWhereWithAggregatesInput = {
+    AND?: DonorEndorsementScalarWhereWithAggregatesInput | DonorEndorsementScalarWhereWithAggregatesInput[]
+    OR?: DonorEndorsementScalarWhereWithAggregatesInput[]
+    NOT?: DonorEndorsementScalarWhereWithAggregatesInput | DonorEndorsementScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"DonorEndorsement"> | string
+    donorId?: StringWithAggregatesFilter<"DonorEndorsement"> | string
+    ngoId?: StringWithAggregatesFilter<"DonorEndorsement"> | string
+    endorsedBy?: StringWithAggregatesFilter<"DonorEndorsement"> | string
+    note?: StringNullableWithAggregatesFilter<"DonorEndorsement"> | string | null
+    category?: StringWithAggregatesFilter<"DonorEndorsement"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"DonorEndorsement"> | Date | string
+  }
+
   export type AccountCreateInput = {
     id?: string
     type: string
@@ -31083,6 +36674,9 @@ export namespace Prisma {
     ngoSuggestions?: NgoSuggestionCreateNestedManyWithoutUserInput
     referralsMade?: ReferralCreateNestedManyWithoutReferrerInput
     referralsReceived?: ReferralCreateNestedManyWithoutReferredInput
+    skillContributions?: SkillContributionCreateNestedManyWithoutDonorInput
+    endorsementsReceived?: DonorEndorsementCreateNestedManyWithoutDonorInput
+    endorsementsGiven?: DonorEndorsementCreateNestedManyWithoutEndorserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -31107,6 +36701,9 @@ export namespace Prisma {
     ngoSuggestions?: NgoSuggestionUncheckedCreateNestedManyWithoutUserInput
     referralsMade?: ReferralUncheckedCreateNestedManyWithoutReferrerInput
     referralsReceived?: ReferralUncheckedCreateNestedManyWithoutReferredInput
+    skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutDonorInput
+    endorsementsReceived?: DonorEndorsementUncheckedCreateNestedManyWithoutDonorInput
+    endorsementsGiven?: DonorEndorsementUncheckedCreateNestedManyWithoutEndorserInput
   }
 
   export type UserUpdateInput = {
@@ -31131,6 +36728,9 @@ export namespace Prisma {
     ngoSuggestions?: NgoSuggestionUpdateManyWithoutUserNestedInput
     referralsMade?: ReferralUpdateManyWithoutReferrerNestedInput
     referralsReceived?: ReferralUpdateManyWithoutReferredNestedInput
+    skillContributions?: SkillContributionUpdateManyWithoutDonorNestedInput
+    endorsementsReceived?: DonorEndorsementUpdateManyWithoutDonorNestedInput
+    endorsementsGiven?: DonorEndorsementUpdateManyWithoutEndorserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -31155,6 +36755,9 @@ export namespace Prisma {
     ngoSuggestions?: NgoSuggestionUncheckedUpdateManyWithoutUserNestedInput
     referralsMade?: ReferralUncheckedUpdateManyWithoutReferrerNestedInput
     referralsReceived?: ReferralUncheckedUpdateManyWithoutReferredNestedInput
+    skillContributions?: SkillContributionUncheckedUpdateManyWithoutDonorNestedInput
+    endorsementsReceived?: DonorEndorsementUncheckedUpdateManyWithoutDonorNestedInput
+    endorsementsGiven?: DonorEndorsementUncheckedUpdateManyWithoutEndorserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -31211,6 +36814,9 @@ export namespace Prisma {
     projects?: ProjectCreateNestedManyWithoutNgoInput
     expenses?: ExpenseCreateNestedManyWithoutNgoInput
     ratings?: RatingCreateNestedManyWithoutNgoInput
+    boardMembers?: BoardMemberCreateNestedManyWithoutNgoInput
+    skillContributions?: SkillContributionCreateNestedManyWithoutNgoInput
+    donorEndorsements?: DonorEndorsementCreateNestedManyWithoutNgoInput
   }
 
   export type NgoUncheckedCreateInput = {
@@ -31231,6 +36837,9 @@ export namespace Prisma {
     projects?: ProjectUncheckedCreateNestedManyWithoutNgoInput
     expenses?: ExpenseUncheckedCreateNestedManyWithoutNgoInput
     ratings?: RatingUncheckedCreateNestedManyWithoutNgoInput
+    boardMembers?: BoardMemberUncheckedCreateNestedManyWithoutNgoInput
+    skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutNgoInput
+    donorEndorsements?: DonorEndorsementUncheckedCreateNestedManyWithoutNgoInput
   }
 
   export type NgoUpdateInput = {
@@ -31251,6 +36860,9 @@ export namespace Prisma {
     projects?: ProjectUpdateManyWithoutNgoNestedInput
     expenses?: ExpenseUpdateManyWithoutNgoNestedInput
     ratings?: RatingUpdateManyWithoutNgoNestedInput
+    boardMembers?: BoardMemberUpdateManyWithoutNgoNestedInput
+    skillContributions?: SkillContributionUpdateManyWithoutNgoNestedInput
+    donorEndorsements?: DonorEndorsementUpdateManyWithoutNgoNestedInput
   }
 
   export type NgoUncheckedUpdateInput = {
@@ -31271,6 +36883,9 @@ export namespace Prisma {
     projects?: ProjectUncheckedUpdateManyWithoutNgoNestedInput
     expenses?: ExpenseUncheckedUpdateManyWithoutNgoNestedInput
     ratings?: RatingUncheckedUpdateManyWithoutNgoNestedInput
+    boardMembers?: BoardMemberUncheckedUpdateManyWithoutNgoNestedInput
+    skillContributions?: SkillContributionUncheckedUpdateManyWithoutNgoNestedInput
+    donorEndorsements?: DonorEndorsementUncheckedUpdateManyWithoutNgoNestedInput
   }
 
   export type NgoCreateManyInput = {
@@ -31345,6 +36960,7 @@ export namespace Prisma {
     expenses?: ExpenseCreateNestedManyWithoutProjectInput
     spotlightVotes?: SpotlightVoteCreateNestedManyWithoutProjectInput
     campaigns?: CampaignCreateNestedManyWithoutProjectInput
+    skillContributions?: SkillContributionCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUncheckedCreateInput = {
@@ -31369,6 +36985,7 @@ export namespace Prisma {
     expenses?: ExpenseUncheckedCreateNestedManyWithoutProjectInput
     spotlightVotes?: SpotlightVoteUncheckedCreateNestedManyWithoutProjectInput
     campaigns?: CampaignUncheckedCreateNestedManyWithoutProjectInput
+    skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUpdateInput = {
@@ -31393,6 +37010,7 @@ export namespace Prisma {
     expenses?: ExpenseUpdateManyWithoutProjectNestedInput
     spotlightVotes?: SpotlightVoteUpdateManyWithoutProjectNestedInput
     campaigns?: CampaignUpdateManyWithoutProjectNestedInput
+    skillContributions?: SkillContributionUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateInput = {
@@ -31417,6 +37035,7 @@ export namespace Prisma {
     expenses?: ExpenseUncheckedUpdateManyWithoutProjectNestedInput
     spotlightVotes?: SpotlightVoteUncheckedUpdateManyWithoutProjectNestedInput
     campaigns?: CampaignUncheckedUpdateManyWithoutProjectNestedInput
+    skillContributions?: SkillContributionUncheckedUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectCreateManyInput = {
@@ -32730,6 +38349,331 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type BoardMemberCreateInput = {
+    id?: string
+    name: string
+    role: string
+    bio?: string | null
+    linkedinUrl?: string | null
+    photoUrl?: string | null
+    orderIndex?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    ngo: NgoCreateNestedOneWithoutBoardMembersInput
+  }
+
+  export type BoardMemberUncheckedCreateInput = {
+    id?: string
+    ngoId: string
+    name: string
+    role: string
+    bio?: string | null
+    linkedinUrl?: string | null
+    photoUrl?: string | null
+    orderIndex?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BoardMemberUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    orderIndex?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ngo?: NgoUpdateOneRequiredWithoutBoardMembersNestedInput
+  }
+
+  export type BoardMemberUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ngoId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    orderIndex?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BoardMemberCreateManyInput = {
+    id?: string
+    ngoId: string
+    name: string
+    role: string
+    bio?: string | null
+    linkedinUrl?: string | null
+    photoUrl?: string | null
+    orderIndex?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BoardMemberUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    orderIndex?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BoardMemberUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ngoId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    orderIndex?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SkillContributionCreateInput = {
+    id?: string
+    skillCategory: string
+    description: string
+    hoursContributed?: number | null
+    status?: string
+    monetaryValue?: number | null
+    txHash?: string | null
+    submittedAt?: Date | string
+    approvedAt?: Date | string | null
+    updatedAt?: Date | string
+    donor: UserCreateNestedOneWithoutSkillContributionsInput
+    ngo: NgoCreateNestedOneWithoutSkillContributionsInput
+    project?: ProjectCreateNestedOneWithoutSkillContributionsInput
+    blockchainRecord?: SkillBlockchainRecordCreateNestedOneWithoutContributionInput
+  }
+
+  export type SkillContributionUncheckedCreateInput = {
+    id?: string
+    donorId: string
+    ngoId: string
+    projectId?: string | null
+    skillCategory: string
+    description: string
+    hoursContributed?: number | null
+    status?: string
+    monetaryValue?: number | null
+    txHash?: string | null
+    submittedAt?: Date | string
+    approvedAt?: Date | string | null
+    updatedAt?: Date | string
+    blockchainRecord?: SkillBlockchainRecordUncheckedCreateNestedOneWithoutContributionInput
+  }
+
+  export type SkillContributionUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    skillCategory?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    hoursContributed?: NullableFloatFieldUpdateOperationsInput | number | null
+    status?: StringFieldUpdateOperationsInput | string
+    monetaryValue?: NullableFloatFieldUpdateOperationsInput | number | null
+    txHash?: NullableStringFieldUpdateOperationsInput | string | null
+    submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    donor?: UserUpdateOneRequiredWithoutSkillContributionsNestedInput
+    ngo?: NgoUpdateOneRequiredWithoutSkillContributionsNestedInput
+    project?: ProjectUpdateOneWithoutSkillContributionsNestedInput
+    blockchainRecord?: SkillBlockchainRecordUpdateOneWithoutContributionNestedInput
+  }
+
+  export type SkillContributionUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    donorId?: StringFieldUpdateOperationsInput | string
+    ngoId?: StringFieldUpdateOperationsInput | string
+    projectId?: NullableStringFieldUpdateOperationsInput | string | null
+    skillCategory?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    hoursContributed?: NullableFloatFieldUpdateOperationsInput | number | null
+    status?: StringFieldUpdateOperationsInput | string
+    monetaryValue?: NullableFloatFieldUpdateOperationsInput | number | null
+    txHash?: NullableStringFieldUpdateOperationsInput | string | null
+    submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    blockchainRecord?: SkillBlockchainRecordUncheckedUpdateOneWithoutContributionNestedInput
+  }
+
+  export type SkillContributionCreateManyInput = {
+    id?: string
+    donorId: string
+    ngoId: string
+    projectId?: string | null
+    skillCategory: string
+    description: string
+    hoursContributed?: number | null
+    status?: string
+    monetaryValue?: number | null
+    txHash?: string | null
+    submittedAt?: Date | string
+    approvedAt?: Date | string | null
+    updatedAt?: Date | string
+  }
+
+  export type SkillContributionUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    skillCategory?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    hoursContributed?: NullableFloatFieldUpdateOperationsInput | number | null
+    status?: StringFieldUpdateOperationsInput | string
+    monetaryValue?: NullableFloatFieldUpdateOperationsInput | number | null
+    txHash?: NullableStringFieldUpdateOperationsInput | string | null
+    submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SkillContributionUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    donorId?: StringFieldUpdateOperationsInput | string
+    ngoId?: StringFieldUpdateOperationsInput | string
+    projectId?: NullableStringFieldUpdateOperationsInput | string | null
+    skillCategory?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    hoursContributed?: NullableFloatFieldUpdateOperationsInput | number | null
+    status?: StringFieldUpdateOperationsInput | string
+    monetaryValue?: NullableFloatFieldUpdateOperationsInput | number | null
+    txHash?: NullableStringFieldUpdateOperationsInput | string | null
+    submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SkillBlockchainRecordCreateInput = {
+    id?: string
+    txHash: string
+    network?: string
+    timestamp?: Date | string
+    contribution: SkillContributionCreateNestedOneWithoutBlockchainRecordInput
+  }
+
+  export type SkillBlockchainRecordUncheckedCreateInput = {
+    id?: string
+    skillContributionId: string
+    txHash: string
+    network?: string
+    timestamp?: Date | string
+  }
+
+  export type SkillBlockchainRecordUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    txHash?: StringFieldUpdateOperationsInput | string
+    network?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    contribution?: SkillContributionUpdateOneRequiredWithoutBlockchainRecordNestedInput
+  }
+
+  export type SkillBlockchainRecordUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    skillContributionId?: StringFieldUpdateOperationsInput | string
+    txHash?: StringFieldUpdateOperationsInput | string
+    network?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SkillBlockchainRecordCreateManyInput = {
+    id?: string
+    skillContributionId: string
+    txHash: string
+    network?: string
+    timestamp?: Date | string
+  }
+
+  export type SkillBlockchainRecordUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    txHash?: StringFieldUpdateOperationsInput | string
+    network?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SkillBlockchainRecordUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    skillContributionId?: StringFieldUpdateOperationsInput | string
+    txHash?: StringFieldUpdateOperationsInput | string
+    network?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DonorEndorsementCreateInput = {
+    id?: string
+    note?: string | null
+    category?: string
+    createdAt?: Date | string
+    donor: UserCreateNestedOneWithoutEndorsementsReceivedInput
+    ngo: NgoCreateNestedOneWithoutDonorEndorsementsInput
+    endorser: UserCreateNestedOneWithoutEndorsementsGivenInput
+  }
+
+  export type DonorEndorsementUncheckedCreateInput = {
+    id?: string
+    donorId: string
+    ngoId: string
+    endorsedBy: string
+    note?: string | null
+    category?: string
+    createdAt?: Date | string
+  }
+
+  export type DonorEndorsementUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    donor?: UserUpdateOneRequiredWithoutEndorsementsReceivedNestedInput
+    ngo?: NgoUpdateOneRequiredWithoutDonorEndorsementsNestedInput
+    endorser?: UserUpdateOneRequiredWithoutEndorsementsGivenNestedInput
+  }
+
+  export type DonorEndorsementUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    donorId?: StringFieldUpdateOperationsInput | string
+    ngoId?: StringFieldUpdateOperationsInput | string
+    endorsedBy?: StringFieldUpdateOperationsInput | string
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DonorEndorsementCreateManyInput = {
+    id?: string
+    donorId: string
+    ngoId: string
+    endorsedBy: string
+    note?: string | null
+    category?: string
+    createdAt?: Date | string
+  }
+
+  export type DonorEndorsementUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DonorEndorsementUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    donorId?: StringFieldUpdateOperationsInput | string
+    ngoId?: StringFieldUpdateOperationsInput | string
+    endorsedBy?: StringFieldUpdateOperationsInput | string
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -33043,6 +38987,18 @@ export namespace Prisma {
     none?: ReferralWhereInput
   }
 
+  export type SkillContributionListRelationFilter = {
+    every?: SkillContributionWhereInput
+    some?: SkillContributionWhereInput
+    none?: SkillContributionWhereInput
+  }
+
+  export type DonorEndorsementListRelationFilter = {
+    every?: DonorEndorsementWhereInput
+    some?: DonorEndorsementWhereInput
+    none?: DonorEndorsementWhereInput
+  }
+
   export type AccountOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -33080,6 +39036,14 @@ export namespace Prisma {
   }
 
   export type ReferralOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SkillContributionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type DonorEndorsementOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -33173,11 +39137,21 @@ export namespace Prisma {
     none?: ExpenseWhereInput
   }
 
+  export type BoardMemberListRelationFilter = {
+    every?: BoardMemberWhereInput
+    some?: BoardMemberWhereInput
+    none?: BoardMemberWhereInput
+  }
+
   export type ProjectOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
   export type ExpenseOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type BoardMemberOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -34205,6 +40179,181 @@ export namespace Prisma {
     createdAt?: SortOrder
   }
 
+  export type BoardMemberCountOrderByAggregateInput = {
+    id?: SortOrder
+    ngoId?: SortOrder
+    name?: SortOrder
+    role?: SortOrder
+    bio?: SortOrder
+    linkedinUrl?: SortOrder
+    photoUrl?: SortOrder
+    orderIndex?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type BoardMemberAvgOrderByAggregateInput = {
+    orderIndex?: SortOrder
+  }
+
+  export type BoardMemberMaxOrderByAggregateInput = {
+    id?: SortOrder
+    ngoId?: SortOrder
+    name?: SortOrder
+    role?: SortOrder
+    bio?: SortOrder
+    linkedinUrl?: SortOrder
+    photoUrl?: SortOrder
+    orderIndex?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type BoardMemberMinOrderByAggregateInput = {
+    id?: SortOrder
+    ngoId?: SortOrder
+    name?: SortOrder
+    role?: SortOrder
+    bio?: SortOrder
+    linkedinUrl?: SortOrder
+    photoUrl?: SortOrder
+    orderIndex?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type BoardMemberSumOrderByAggregateInput = {
+    orderIndex?: SortOrder
+  }
+
+  export type SkillBlockchainRecordNullableScalarRelationFilter = {
+    is?: SkillBlockchainRecordWhereInput | null
+    isNot?: SkillBlockchainRecordWhereInput | null
+  }
+
+  export type SkillContributionCountOrderByAggregateInput = {
+    id?: SortOrder
+    donorId?: SortOrder
+    ngoId?: SortOrder
+    projectId?: SortOrder
+    skillCategory?: SortOrder
+    description?: SortOrder
+    hoursContributed?: SortOrder
+    status?: SortOrder
+    monetaryValue?: SortOrder
+    txHash?: SortOrder
+    submittedAt?: SortOrder
+    approvedAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SkillContributionAvgOrderByAggregateInput = {
+    hoursContributed?: SortOrder
+    monetaryValue?: SortOrder
+  }
+
+  export type SkillContributionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    donorId?: SortOrder
+    ngoId?: SortOrder
+    projectId?: SortOrder
+    skillCategory?: SortOrder
+    description?: SortOrder
+    hoursContributed?: SortOrder
+    status?: SortOrder
+    monetaryValue?: SortOrder
+    txHash?: SortOrder
+    submittedAt?: SortOrder
+    approvedAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SkillContributionMinOrderByAggregateInput = {
+    id?: SortOrder
+    donorId?: SortOrder
+    ngoId?: SortOrder
+    projectId?: SortOrder
+    skillCategory?: SortOrder
+    description?: SortOrder
+    hoursContributed?: SortOrder
+    status?: SortOrder
+    monetaryValue?: SortOrder
+    txHash?: SortOrder
+    submittedAt?: SortOrder
+    approvedAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SkillContributionSumOrderByAggregateInput = {
+    hoursContributed?: SortOrder
+    monetaryValue?: SortOrder
+  }
+
+  export type SkillContributionScalarRelationFilter = {
+    is?: SkillContributionWhereInput
+    isNot?: SkillContributionWhereInput
+  }
+
+  export type SkillBlockchainRecordCountOrderByAggregateInput = {
+    id?: SortOrder
+    skillContributionId?: SortOrder
+    txHash?: SortOrder
+    network?: SortOrder
+    timestamp?: SortOrder
+  }
+
+  export type SkillBlockchainRecordMaxOrderByAggregateInput = {
+    id?: SortOrder
+    skillContributionId?: SortOrder
+    txHash?: SortOrder
+    network?: SortOrder
+    timestamp?: SortOrder
+  }
+
+  export type SkillBlockchainRecordMinOrderByAggregateInput = {
+    id?: SortOrder
+    skillContributionId?: SortOrder
+    txHash?: SortOrder
+    network?: SortOrder
+    timestamp?: SortOrder
+  }
+
+  export type DonorEndorsementDonorIdNgoIdEndorsedByCompoundUniqueInput = {
+    donorId: string
+    ngoId: string
+    endorsedBy: string
+  }
+
+  export type DonorEndorsementCountOrderByAggregateInput = {
+    id?: SortOrder
+    donorId?: SortOrder
+    ngoId?: SortOrder
+    endorsedBy?: SortOrder
+    note?: SortOrder
+    category?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type DonorEndorsementMaxOrderByAggregateInput = {
+    id?: SortOrder
+    donorId?: SortOrder
+    ngoId?: SortOrder
+    endorsedBy?: SortOrder
+    note?: SortOrder
+    category?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type DonorEndorsementMinOrderByAggregateInput = {
+    id?: SortOrder
+    donorId?: SortOrder
+    ngoId?: SortOrder
+    endorsedBy?: SortOrder
+    note?: SortOrder
+    category?: SortOrder
+    createdAt?: SortOrder
+  }
+
   export type UserCreateNestedOneWithoutAccountsInput = {
     create?: XOR<UserCreateWithoutAccountsInput, UserUncheckedCreateWithoutAccountsInput>
     connectOrCreate?: UserCreateOrConnectWithoutAccountsInput
@@ -34336,6 +40485,27 @@ export namespace Prisma {
     connect?: ReferralWhereUniqueInput | ReferralWhereUniqueInput[]
   }
 
+  export type SkillContributionCreateNestedManyWithoutDonorInput = {
+    create?: XOR<SkillContributionCreateWithoutDonorInput, SkillContributionUncheckedCreateWithoutDonorInput> | SkillContributionCreateWithoutDonorInput[] | SkillContributionUncheckedCreateWithoutDonorInput[]
+    connectOrCreate?: SkillContributionCreateOrConnectWithoutDonorInput | SkillContributionCreateOrConnectWithoutDonorInput[]
+    createMany?: SkillContributionCreateManyDonorInputEnvelope
+    connect?: SkillContributionWhereUniqueInput | SkillContributionWhereUniqueInput[]
+  }
+
+  export type DonorEndorsementCreateNestedManyWithoutDonorInput = {
+    create?: XOR<DonorEndorsementCreateWithoutDonorInput, DonorEndorsementUncheckedCreateWithoutDonorInput> | DonorEndorsementCreateWithoutDonorInput[] | DonorEndorsementUncheckedCreateWithoutDonorInput[]
+    connectOrCreate?: DonorEndorsementCreateOrConnectWithoutDonorInput | DonorEndorsementCreateOrConnectWithoutDonorInput[]
+    createMany?: DonorEndorsementCreateManyDonorInputEnvelope
+    connect?: DonorEndorsementWhereUniqueInput | DonorEndorsementWhereUniqueInput[]
+  }
+
+  export type DonorEndorsementCreateNestedManyWithoutEndorserInput = {
+    create?: XOR<DonorEndorsementCreateWithoutEndorserInput, DonorEndorsementUncheckedCreateWithoutEndorserInput> | DonorEndorsementCreateWithoutEndorserInput[] | DonorEndorsementUncheckedCreateWithoutEndorserInput[]
+    connectOrCreate?: DonorEndorsementCreateOrConnectWithoutEndorserInput | DonorEndorsementCreateOrConnectWithoutEndorserInput[]
+    createMany?: DonorEndorsementCreateManyEndorserInputEnvelope
+    connect?: DonorEndorsementWhereUniqueInput | DonorEndorsementWhereUniqueInput[]
+  }
+
   export type AccountUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -34417,6 +40587,27 @@ export namespace Prisma {
     connectOrCreate?: ReferralCreateOrConnectWithoutReferredInput | ReferralCreateOrConnectWithoutReferredInput[]
     createMany?: ReferralCreateManyReferredInputEnvelope
     connect?: ReferralWhereUniqueInput | ReferralWhereUniqueInput[]
+  }
+
+  export type SkillContributionUncheckedCreateNestedManyWithoutDonorInput = {
+    create?: XOR<SkillContributionCreateWithoutDonorInput, SkillContributionUncheckedCreateWithoutDonorInput> | SkillContributionCreateWithoutDonorInput[] | SkillContributionUncheckedCreateWithoutDonorInput[]
+    connectOrCreate?: SkillContributionCreateOrConnectWithoutDonorInput | SkillContributionCreateOrConnectWithoutDonorInput[]
+    createMany?: SkillContributionCreateManyDonorInputEnvelope
+    connect?: SkillContributionWhereUniqueInput | SkillContributionWhereUniqueInput[]
+  }
+
+  export type DonorEndorsementUncheckedCreateNestedManyWithoutDonorInput = {
+    create?: XOR<DonorEndorsementCreateWithoutDonorInput, DonorEndorsementUncheckedCreateWithoutDonorInput> | DonorEndorsementCreateWithoutDonorInput[] | DonorEndorsementUncheckedCreateWithoutDonorInput[]
+    connectOrCreate?: DonorEndorsementCreateOrConnectWithoutDonorInput | DonorEndorsementCreateOrConnectWithoutDonorInput[]
+    createMany?: DonorEndorsementCreateManyDonorInputEnvelope
+    connect?: DonorEndorsementWhereUniqueInput | DonorEndorsementWhereUniqueInput[]
+  }
+
+  export type DonorEndorsementUncheckedCreateNestedManyWithoutEndorserInput = {
+    create?: XOR<DonorEndorsementCreateWithoutEndorserInput, DonorEndorsementUncheckedCreateWithoutEndorserInput> | DonorEndorsementCreateWithoutEndorserInput[] | DonorEndorsementUncheckedCreateWithoutEndorserInput[]
+    connectOrCreate?: DonorEndorsementCreateOrConnectWithoutEndorserInput | DonorEndorsementCreateOrConnectWithoutEndorserInput[]
+    createMany?: DonorEndorsementCreateManyEndorserInputEnvelope
+    connect?: DonorEndorsementWhereUniqueInput | DonorEndorsementWhereUniqueInput[]
   }
 
   export type NullableDateTimeFieldUpdateOperationsInput = {
@@ -34591,6 +40782,48 @@ export namespace Prisma {
     deleteMany?: ReferralScalarWhereInput | ReferralScalarWhereInput[]
   }
 
+  export type SkillContributionUpdateManyWithoutDonorNestedInput = {
+    create?: XOR<SkillContributionCreateWithoutDonorInput, SkillContributionUncheckedCreateWithoutDonorInput> | SkillContributionCreateWithoutDonorInput[] | SkillContributionUncheckedCreateWithoutDonorInput[]
+    connectOrCreate?: SkillContributionCreateOrConnectWithoutDonorInput | SkillContributionCreateOrConnectWithoutDonorInput[]
+    upsert?: SkillContributionUpsertWithWhereUniqueWithoutDonorInput | SkillContributionUpsertWithWhereUniqueWithoutDonorInput[]
+    createMany?: SkillContributionCreateManyDonorInputEnvelope
+    set?: SkillContributionWhereUniqueInput | SkillContributionWhereUniqueInput[]
+    disconnect?: SkillContributionWhereUniqueInput | SkillContributionWhereUniqueInput[]
+    delete?: SkillContributionWhereUniqueInput | SkillContributionWhereUniqueInput[]
+    connect?: SkillContributionWhereUniqueInput | SkillContributionWhereUniqueInput[]
+    update?: SkillContributionUpdateWithWhereUniqueWithoutDonorInput | SkillContributionUpdateWithWhereUniqueWithoutDonorInput[]
+    updateMany?: SkillContributionUpdateManyWithWhereWithoutDonorInput | SkillContributionUpdateManyWithWhereWithoutDonorInput[]
+    deleteMany?: SkillContributionScalarWhereInput | SkillContributionScalarWhereInput[]
+  }
+
+  export type DonorEndorsementUpdateManyWithoutDonorNestedInput = {
+    create?: XOR<DonorEndorsementCreateWithoutDonorInput, DonorEndorsementUncheckedCreateWithoutDonorInput> | DonorEndorsementCreateWithoutDonorInput[] | DonorEndorsementUncheckedCreateWithoutDonorInput[]
+    connectOrCreate?: DonorEndorsementCreateOrConnectWithoutDonorInput | DonorEndorsementCreateOrConnectWithoutDonorInput[]
+    upsert?: DonorEndorsementUpsertWithWhereUniqueWithoutDonorInput | DonorEndorsementUpsertWithWhereUniqueWithoutDonorInput[]
+    createMany?: DonorEndorsementCreateManyDonorInputEnvelope
+    set?: DonorEndorsementWhereUniqueInput | DonorEndorsementWhereUniqueInput[]
+    disconnect?: DonorEndorsementWhereUniqueInput | DonorEndorsementWhereUniqueInput[]
+    delete?: DonorEndorsementWhereUniqueInput | DonorEndorsementWhereUniqueInput[]
+    connect?: DonorEndorsementWhereUniqueInput | DonorEndorsementWhereUniqueInput[]
+    update?: DonorEndorsementUpdateWithWhereUniqueWithoutDonorInput | DonorEndorsementUpdateWithWhereUniqueWithoutDonorInput[]
+    updateMany?: DonorEndorsementUpdateManyWithWhereWithoutDonorInput | DonorEndorsementUpdateManyWithWhereWithoutDonorInput[]
+    deleteMany?: DonorEndorsementScalarWhereInput | DonorEndorsementScalarWhereInput[]
+  }
+
+  export type DonorEndorsementUpdateManyWithoutEndorserNestedInput = {
+    create?: XOR<DonorEndorsementCreateWithoutEndorserInput, DonorEndorsementUncheckedCreateWithoutEndorserInput> | DonorEndorsementCreateWithoutEndorserInput[] | DonorEndorsementUncheckedCreateWithoutEndorserInput[]
+    connectOrCreate?: DonorEndorsementCreateOrConnectWithoutEndorserInput | DonorEndorsementCreateOrConnectWithoutEndorserInput[]
+    upsert?: DonorEndorsementUpsertWithWhereUniqueWithoutEndorserInput | DonorEndorsementUpsertWithWhereUniqueWithoutEndorserInput[]
+    createMany?: DonorEndorsementCreateManyEndorserInputEnvelope
+    set?: DonorEndorsementWhereUniqueInput | DonorEndorsementWhereUniqueInput[]
+    disconnect?: DonorEndorsementWhereUniqueInput | DonorEndorsementWhereUniqueInput[]
+    delete?: DonorEndorsementWhereUniqueInput | DonorEndorsementWhereUniqueInput[]
+    connect?: DonorEndorsementWhereUniqueInput | DonorEndorsementWhereUniqueInput[]
+    update?: DonorEndorsementUpdateWithWhereUniqueWithoutEndorserInput | DonorEndorsementUpdateWithWhereUniqueWithoutEndorserInput[]
+    updateMany?: DonorEndorsementUpdateManyWithWhereWithoutEndorserInput | DonorEndorsementUpdateManyWithWhereWithoutEndorserInput[]
+    deleteMany?: DonorEndorsementScalarWhereInput | DonorEndorsementScalarWhereInput[]
+  }
+
   export type AccountUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -34755,6 +40988,48 @@ export namespace Prisma {
     deleteMany?: ReferralScalarWhereInput | ReferralScalarWhereInput[]
   }
 
+  export type SkillContributionUncheckedUpdateManyWithoutDonorNestedInput = {
+    create?: XOR<SkillContributionCreateWithoutDonorInput, SkillContributionUncheckedCreateWithoutDonorInput> | SkillContributionCreateWithoutDonorInput[] | SkillContributionUncheckedCreateWithoutDonorInput[]
+    connectOrCreate?: SkillContributionCreateOrConnectWithoutDonorInput | SkillContributionCreateOrConnectWithoutDonorInput[]
+    upsert?: SkillContributionUpsertWithWhereUniqueWithoutDonorInput | SkillContributionUpsertWithWhereUniqueWithoutDonorInput[]
+    createMany?: SkillContributionCreateManyDonorInputEnvelope
+    set?: SkillContributionWhereUniqueInput | SkillContributionWhereUniqueInput[]
+    disconnect?: SkillContributionWhereUniqueInput | SkillContributionWhereUniqueInput[]
+    delete?: SkillContributionWhereUniqueInput | SkillContributionWhereUniqueInput[]
+    connect?: SkillContributionWhereUniqueInput | SkillContributionWhereUniqueInput[]
+    update?: SkillContributionUpdateWithWhereUniqueWithoutDonorInput | SkillContributionUpdateWithWhereUniqueWithoutDonorInput[]
+    updateMany?: SkillContributionUpdateManyWithWhereWithoutDonorInput | SkillContributionUpdateManyWithWhereWithoutDonorInput[]
+    deleteMany?: SkillContributionScalarWhereInput | SkillContributionScalarWhereInput[]
+  }
+
+  export type DonorEndorsementUncheckedUpdateManyWithoutDonorNestedInput = {
+    create?: XOR<DonorEndorsementCreateWithoutDonorInput, DonorEndorsementUncheckedCreateWithoutDonorInput> | DonorEndorsementCreateWithoutDonorInput[] | DonorEndorsementUncheckedCreateWithoutDonorInput[]
+    connectOrCreate?: DonorEndorsementCreateOrConnectWithoutDonorInput | DonorEndorsementCreateOrConnectWithoutDonorInput[]
+    upsert?: DonorEndorsementUpsertWithWhereUniqueWithoutDonorInput | DonorEndorsementUpsertWithWhereUniqueWithoutDonorInput[]
+    createMany?: DonorEndorsementCreateManyDonorInputEnvelope
+    set?: DonorEndorsementWhereUniqueInput | DonorEndorsementWhereUniqueInput[]
+    disconnect?: DonorEndorsementWhereUniqueInput | DonorEndorsementWhereUniqueInput[]
+    delete?: DonorEndorsementWhereUniqueInput | DonorEndorsementWhereUniqueInput[]
+    connect?: DonorEndorsementWhereUniqueInput | DonorEndorsementWhereUniqueInput[]
+    update?: DonorEndorsementUpdateWithWhereUniqueWithoutDonorInput | DonorEndorsementUpdateWithWhereUniqueWithoutDonorInput[]
+    updateMany?: DonorEndorsementUpdateManyWithWhereWithoutDonorInput | DonorEndorsementUpdateManyWithWhereWithoutDonorInput[]
+    deleteMany?: DonorEndorsementScalarWhereInput | DonorEndorsementScalarWhereInput[]
+  }
+
+  export type DonorEndorsementUncheckedUpdateManyWithoutEndorserNestedInput = {
+    create?: XOR<DonorEndorsementCreateWithoutEndorserInput, DonorEndorsementUncheckedCreateWithoutEndorserInput> | DonorEndorsementCreateWithoutEndorserInput[] | DonorEndorsementUncheckedCreateWithoutEndorserInput[]
+    connectOrCreate?: DonorEndorsementCreateOrConnectWithoutEndorserInput | DonorEndorsementCreateOrConnectWithoutEndorserInput[]
+    upsert?: DonorEndorsementUpsertWithWhereUniqueWithoutEndorserInput | DonorEndorsementUpsertWithWhereUniqueWithoutEndorserInput[]
+    createMany?: DonorEndorsementCreateManyEndorserInputEnvelope
+    set?: DonorEndorsementWhereUniqueInput | DonorEndorsementWhereUniqueInput[]
+    disconnect?: DonorEndorsementWhereUniqueInput | DonorEndorsementWhereUniqueInput[]
+    delete?: DonorEndorsementWhereUniqueInput | DonorEndorsementWhereUniqueInput[]
+    connect?: DonorEndorsementWhereUniqueInput | DonorEndorsementWhereUniqueInput[]
+    update?: DonorEndorsementUpdateWithWhereUniqueWithoutEndorserInput | DonorEndorsementUpdateWithWhereUniqueWithoutEndorserInput[]
+    updateMany?: DonorEndorsementUpdateManyWithWhereWithoutEndorserInput | DonorEndorsementUpdateManyWithWhereWithoutEndorserInput[]
+    deleteMany?: DonorEndorsementScalarWhereInput | DonorEndorsementScalarWhereInput[]
+  }
+
   export type UserCreateNestedOneWithoutNgoInput = {
     create?: XOR<UserCreateWithoutNgoInput, UserUncheckedCreateWithoutNgoInput>
     connectOrCreate?: UserCreateOrConnectWithoutNgoInput
@@ -34782,6 +41057,27 @@ export namespace Prisma {
     connect?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
   }
 
+  export type BoardMemberCreateNestedManyWithoutNgoInput = {
+    create?: XOR<BoardMemberCreateWithoutNgoInput, BoardMemberUncheckedCreateWithoutNgoInput> | BoardMemberCreateWithoutNgoInput[] | BoardMemberUncheckedCreateWithoutNgoInput[]
+    connectOrCreate?: BoardMemberCreateOrConnectWithoutNgoInput | BoardMemberCreateOrConnectWithoutNgoInput[]
+    createMany?: BoardMemberCreateManyNgoInputEnvelope
+    connect?: BoardMemberWhereUniqueInput | BoardMemberWhereUniqueInput[]
+  }
+
+  export type SkillContributionCreateNestedManyWithoutNgoInput = {
+    create?: XOR<SkillContributionCreateWithoutNgoInput, SkillContributionUncheckedCreateWithoutNgoInput> | SkillContributionCreateWithoutNgoInput[] | SkillContributionUncheckedCreateWithoutNgoInput[]
+    connectOrCreate?: SkillContributionCreateOrConnectWithoutNgoInput | SkillContributionCreateOrConnectWithoutNgoInput[]
+    createMany?: SkillContributionCreateManyNgoInputEnvelope
+    connect?: SkillContributionWhereUniqueInput | SkillContributionWhereUniqueInput[]
+  }
+
+  export type DonorEndorsementCreateNestedManyWithoutNgoInput = {
+    create?: XOR<DonorEndorsementCreateWithoutNgoInput, DonorEndorsementUncheckedCreateWithoutNgoInput> | DonorEndorsementCreateWithoutNgoInput[] | DonorEndorsementUncheckedCreateWithoutNgoInput[]
+    connectOrCreate?: DonorEndorsementCreateOrConnectWithoutNgoInput | DonorEndorsementCreateOrConnectWithoutNgoInput[]
+    createMany?: DonorEndorsementCreateManyNgoInputEnvelope
+    connect?: DonorEndorsementWhereUniqueInput | DonorEndorsementWhereUniqueInput[]
+  }
+
   export type ProjectUncheckedCreateNestedManyWithoutNgoInput = {
     create?: XOR<ProjectCreateWithoutNgoInput, ProjectUncheckedCreateWithoutNgoInput> | ProjectCreateWithoutNgoInput[] | ProjectUncheckedCreateWithoutNgoInput[]
     connectOrCreate?: ProjectCreateOrConnectWithoutNgoInput | ProjectCreateOrConnectWithoutNgoInput[]
@@ -34801,6 +41097,27 @@ export namespace Prisma {
     connectOrCreate?: RatingCreateOrConnectWithoutNgoInput | RatingCreateOrConnectWithoutNgoInput[]
     createMany?: RatingCreateManyNgoInputEnvelope
     connect?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
+  }
+
+  export type BoardMemberUncheckedCreateNestedManyWithoutNgoInput = {
+    create?: XOR<BoardMemberCreateWithoutNgoInput, BoardMemberUncheckedCreateWithoutNgoInput> | BoardMemberCreateWithoutNgoInput[] | BoardMemberUncheckedCreateWithoutNgoInput[]
+    connectOrCreate?: BoardMemberCreateOrConnectWithoutNgoInput | BoardMemberCreateOrConnectWithoutNgoInput[]
+    createMany?: BoardMemberCreateManyNgoInputEnvelope
+    connect?: BoardMemberWhereUniqueInput | BoardMemberWhereUniqueInput[]
+  }
+
+  export type SkillContributionUncheckedCreateNestedManyWithoutNgoInput = {
+    create?: XOR<SkillContributionCreateWithoutNgoInput, SkillContributionUncheckedCreateWithoutNgoInput> | SkillContributionCreateWithoutNgoInput[] | SkillContributionUncheckedCreateWithoutNgoInput[]
+    connectOrCreate?: SkillContributionCreateOrConnectWithoutNgoInput | SkillContributionCreateOrConnectWithoutNgoInput[]
+    createMany?: SkillContributionCreateManyNgoInputEnvelope
+    connect?: SkillContributionWhereUniqueInput | SkillContributionWhereUniqueInput[]
+  }
+
+  export type DonorEndorsementUncheckedCreateNestedManyWithoutNgoInput = {
+    create?: XOR<DonorEndorsementCreateWithoutNgoInput, DonorEndorsementUncheckedCreateWithoutNgoInput> | DonorEndorsementCreateWithoutNgoInput[] | DonorEndorsementUncheckedCreateWithoutNgoInput[]
+    connectOrCreate?: DonorEndorsementCreateOrConnectWithoutNgoInput | DonorEndorsementCreateOrConnectWithoutNgoInput[]
+    createMany?: DonorEndorsementCreateManyNgoInputEnvelope
+    connect?: DonorEndorsementWhereUniqueInput | DonorEndorsementWhereUniqueInput[]
   }
 
   export type FloatFieldUpdateOperationsInput = {
@@ -34865,6 +41182,48 @@ export namespace Prisma {
     deleteMany?: RatingScalarWhereInput | RatingScalarWhereInput[]
   }
 
+  export type BoardMemberUpdateManyWithoutNgoNestedInput = {
+    create?: XOR<BoardMemberCreateWithoutNgoInput, BoardMemberUncheckedCreateWithoutNgoInput> | BoardMemberCreateWithoutNgoInput[] | BoardMemberUncheckedCreateWithoutNgoInput[]
+    connectOrCreate?: BoardMemberCreateOrConnectWithoutNgoInput | BoardMemberCreateOrConnectWithoutNgoInput[]
+    upsert?: BoardMemberUpsertWithWhereUniqueWithoutNgoInput | BoardMemberUpsertWithWhereUniqueWithoutNgoInput[]
+    createMany?: BoardMemberCreateManyNgoInputEnvelope
+    set?: BoardMemberWhereUniqueInput | BoardMemberWhereUniqueInput[]
+    disconnect?: BoardMemberWhereUniqueInput | BoardMemberWhereUniqueInput[]
+    delete?: BoardMemberWhereUniqueInput | BoardMemberWhereUniqueInput[]
+    connect?: BoardMemberWhereUniqueInput | BoardMemberWhereUniqueInput[]
+    update?: BoardMemberUpdateWithWhereUniqueWithoutNgoInput | BoardMemberUpdateWithWhereUniqueWithoutNgoInput[]
+    updateMany?: BoardMemberUpdateManyWithWhereWithoutNgoInput | BoardMemberUpdateManyWithWhereWithoutNgoInput[]
+    deleteMany?: BoardMemberScalarWhereInput | BoardMemberScalarWhereInput[]
+  }
+
+  export type SkillContributionUpdateManyWithoutNgoNestedInput = {
+    create?: XOR<SkillContributionCreateWithoutNgoInput, SkillContributionUncheckedCreateWithoutNgoInput> | SkillContributionCreateWithoutNgoInput[] | SkillContributionUncheckedCreateWithoutNgoInput[]
+    connectOrCreate?: SkillContributionCreateOrConnectWithoutNgoInput | SkillContributionCreateOrConnectWithoutNgoInput[]
+    upsert?: SkillContributionUpsertWithWhereUniqueWithoutNgoInput | SkillContributionUpsertWithWhereUniqueWithoutNgoInput[]
+    createMany?: SkillContributionCreateManyNgoInputEnvelope
+    set?: SkillContributionWhereUniqueInput | SkillContributionWhereUniqueInput[]
+    disconnect?: SkillContributionWhereUniqueInput | SkillContributionWhereUniqueInput[]
+    delete?: SkillContributionWhereUniqueInput | SkillContributionWhereUniqueInput[]
+    connect?: SkillContributionWhereUniqueInput | SkillContributionWhereUniqueInput[]
+    update?: SkillContributionUpdateWithWhereUniqueWithoutNgoInput | SkillContributionUpdateWithWhereUniqueWithoutNgoInput[]
+    updateMany?: SkillContributionUpdateManyWithWhereWithoutNgoInput | SkillContributionUpdateManyWithWhereWithoutNgoInput[]
+    deleteMany?: SkillContributionScalarWhereInput | SkillContributionScalarWhereInput[]
+  }
+
+  export type DonorEndorsementUpdateManyWithoutNgoNestedInput = {
+    create?: XOR<DonorEndorsementCreateWithoutNgoInput, DonorEndorsementUncheckedCreateWithoutNgoInput> | DonorEndorsementCreateWithoutNgoInput[] | DonorEndorsementUncheckedCreateWithoutNgoInput[]
+    connectOrCreate?: DonorEndorsementCreateOrConnectWithoutNgoInput | DonorEndorsementCreateOrConnectWithoutNgoInput[]
+    upsert?: DonorEndorsementUpsertWithWhereUniqueWithoutNgoInput | DonorEndorsementUpsertWithWhereUniqueWithoutNgoInput[]
+    createMany?: DonorEndorsementCreateManyNgoInputEnvelope
+    set?: DonorEndorsementWhereUniqueInput | DonorEndorsementWhereUniqueInput[]
+    disconnect?: DonorEndorsementWhereUniqueInput | DonorEndorsementWhereUniqueInput[]
+    delete?: DonorEndorsementWhereUniqueInput | DonorEndorsementWhereUniqueInput[]
+    connect?: DonorEndorsementWhereUniqueInput | DonorEndorsementWhereUniqueInput[]
+    update?: DonorEndorsementUpdateWithWhereUniqueWithoutNgoInput | DonorEndorsementUpdateWithWhereUniqueWithoutNgoInput[]
+    updateMany?: DonorEndorsementUpdateManyWithWhereWithoutNgoInput | DonorEndorsementUpdateManyWithWhereWithoutNgoInput[]
+    deleteMany?: DonorEndorsementScalarWhereInput | DonorEndorsementScalarWhereInput[]
+  }
+
   export type ProjectUncheckedUpdateManyWithoutNgoNestedInput = {
     create?: XOR<ProjectCreateWithoutNgoInput, ProjectUncheckedCreateWithoutNgoInput> | ProjectCreateWithoutNgoInput[] | ProjectUncheckedCreateWithoutNgoInput[]
     connectOrCreate?: ProjectCreateOrConnectWithoutNgoInput | ProjectCreateOrConnectWithoutNgoInput[]
@@ -34905,6 +41264,48 @@ export namespace Prisma {
     update?: RatingUpdateWithWhereUniqueWithoutNgoInput | RatingUpdateWithWhereUniqueWithoutNgoInput[]
     updateMany?: RatingUpdateManyWithWhereWithoutNgoInput | RatingUpdateManyWithWhereWithoutNgoInput[]
     deleteMany?: RatingScalarWhereInput | RatingScalarWhereInput[]
+  }
+
+  export type BoardMemberUncheckedUpdateManyWithoutNgoNestedInput = {
+    create?: XOR<BoardMemberCreateWithoutNgoInput, BoardMemberUncheckedCreateWithoutNgoInput> | BoardMemberCreateWithoutNgoInput[] | BoardMemberUncheckedCreateWithoutNgoInput[]
+    connectOrCreate?: BoardMemberCreateOrConnectWithoutNgoInput | BoardMemberCreateOrConnectWithoutNgoInput[]
+    upsert?: BoardMemberUpsertWithWhereUniqueWithoutNgoInput | BoardMemberUpsertWithWhereUniqueWithoutNgoInput[]
+    createMany?: BoardMemberCreateManyNgoInputEnvelope
+    set?: BoardMemberWhereUniqueInput | BoardMemberWhereUniqueInput[]
+    disconnect?: BoardMemberWhereUniqueInput | BoardMemberWhereUniqueInput[]
+    delete?: BoardMemberWhereUniqueInput | BoardMemberWhereUniqueInput[]
+    connect?: BoardMemberWhereUniqueInput | BoardMemberWhereUniqueInput[]
+    update?: BoardMemberUpdateWithWhereUniqueWithoutNgoInput | BoardMemberUpdateWithWhereUniqueWithoutNgoInput[]
+    updateMany?: BoardMemberUpdateManyWithWhereWithoutNgoInput | BoardMemberUpdateManyWithWhereWithoutNgoInput[]
+    deleteMany?: BoardMemberScalarWhereInput | BoardMemberScalarWhereInput[]
+  }
+
+  export type SkillContributionUncheckedUpdateManyWithoutNgoNestedInput = {
+    create?: XOR<SkillContributionCreateWithoutNgoInput, SkillContributionUncheckedCreateWithoutNgoInput> | SkillContributionCreateWithoutNgoInput[] | SkillContributionUncheckedCreateWithoutNgoInput[]
+    connectOrCreate?: SkillContributionCreateOrConnectWithoutNgoInput | SkillContributionCreateOrConnectWithoutNgoInput[]
+    upsert?: SkillContributionUpsertWithWhereUniqueWithoutNgoInput | SkillContributionUpsertWithWhereUniqueWithoutNgoInput[]
+    createMany?: SkillContributionCreateManyNgoInputEnvelope
+    set?: SkillContributionWhereUniqueInput | SkillContributionWhereUniqueInput[]
+    disconnect?: SkillContributionWhereUniqueInput | SkillContributionWhereUniqueInput[]
+    delete?: SkillContributionWhereUniqueInput | SkillContributionWhereUniqueInput[]
+    connect?: SkillContributionWhereUniqueInput | SkillContributionWhereUniqueInput[]
+    update?: SkillContributionUpdateWithWhereUniqueWithoutNgoInput | SkillContributionUpdateWithWhereUniqueWithoutNgoInput[]
+    updateMany?: SkillContributionUpdateManyWithWhereWithoutNgoInput | SkillContributionUpdateManyWithWhereWithoutNgoInput[]
+    deleteMany?: SkillContributionScalarWhereInput | SkillContributionScalarWhereInput[]
+  }
+
+  export type DonorEndorsementUncheckedUpdateManyWithoutNgoNestedInput = {
+    create?: XOR<DonorEndorsementCreateWithoutNgoInput, DonorEndorsementUncheckedCreateWithoutNgoInput> | DonorEndorsementCreateWithoutNgoInput[] | DonorEndorsementUncheckedCreateWithoutNgoInput[]
+    connectOrCreate?: DonorEndorsementCreateOrConnectWithoutNgoInput | DonorEndorsementCreateOrConnectWithoutNgoInput[]
+    upsert?: DonorEndorsementUpsertWithWhereUniqueWithoutNgoInput | DonorEndorsementUpsertWithWhereUniqueWithoutNgoInput[]
+    createMany?: DonorEndorsementCreateManyNgoInputEnvelope
+    set?: DonorEndorsementWhereUniqueInput | DonorEndorsementWhereUniqueInput[]
+    disconnect?: DonorEndorsementWhereUniqueInput | DonorEndorsementWhereUniqueInput[]
+    delete?: DonorEndorsementWhereUniqueInput | DonorEndorsementWhereUniqueInput[]
+    connect?: DonorEndorsementWhereUniqueInput | DonorEndorsementWhereUniqueInput[]
+    update?: DonorEndorsementUpdateWithWhereUniqueWithoutNgoInput | DonorEndorsementUpdateWithWhereUniqueWithoutNgoInput[]
+    updateMany?: DonorEndorsementUpdateManyWithWhereWithoutNgoInput | DonorEndorsementUpdateManyWithWhereWithoutNgoInput[]
+    deleteMany?: DonorEndorsementScalarWhereInput | DonorEndorsementScalarWhereInput[]
   }
 
   export type NgoCreateNestedOneWithoutProjectsInput = {
@@ -34948,6 +41349,13 @@ export namespace Prisma {
     connect?: CampaignWhereUniqueInput | CampaignWhereUniqueInput[]
   }
 
+  export type SkillContributionCreateNestedManyWithoutProjectInput = {
+    create?: XOR<SkillContributionCreateWithoutProjectInput, SkillContributionUncheckedCreateWithoutProjectInput> | SkillContributionCreateWithoutProjectInput[] | SkillContributionUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: SkillContributionCreateOrConnectWithoutProjectInput | SkillContributionCreateOrConnectWithoutProjectInput[]
+    createMany?: SkillContributionCreateManyProjectInputEnvelope
+    connect?: SkillContributionWhereUniqueInput | SkillContributionWhereUniqueInput[]
+  }
+
   export type MilestoneUncheckedCreateNestedManyWithoutProjectInput = {
     create?: XOR<MilestoneCreateWithoutProjectInput, MilestoneUncheckedCreateWithoutProjectInput> | MilestoneCreateWithoutProjectInput[] | MilestoneUncheckedCreateWithoutProjectInput[]
     connectOrCreate?: MilestoneCreateOrConnectWithoutProjectInput | MilestoneCreateOrConnectWithoutProjectInput[]
@@ -34981,6 +41389,13 @@ export namespace Prisma {
     connectOrCreate?: CampaignCreateOrConnectWithoutProjectInput | CampaignCreateOrConnectWithoutProjectInput[]
     createMany?: CampaignCreateManyProjectInputEnvelope
     connect?: CampaignWhereUniqueInput | CampaignWhereUniqueInput[]
+  }
+
+  export type SkillContributionUncheckedCreateNestedManyWithoutProjectInput = {
+    create?: XOR<SkillContributionCreateWithoutProjectInput, SkillContributionUncheckedCreateWithoutProjectInput> | SkillContributionCreateWithoutProjectInput[] | SkillContributionUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: SkillContributionCreateOrConnectWithoutProjectInput | SkillContributionCreateOrConnectWithoutProjectInput[]
+    createMany?: SkillContributionCreateManyProjectInputEnvelope
+    connect?: SkillContributionWhereUniqueInput | SkillContributionWhereUniqueInput[]
   }
 
   export type EnumProjectCategoryFieldUpdateOperationsInput = {
@@ -35081,6 +41496,20 @@ export namespace Prisma {
     deleteMany?: CampaignScalarWhereInput | CampaignScalarWhereInput[]
   }
 
+  export type SkillContributionUpdateManyWithoutProjectNestedInput = {
+    create?: XOR<SkillContributionCreateWithoutProjectInput, SkillContributionUncheckedCreateWithoutProjectInput> | SkillContributionCreateWithoutProjectInput[] | SkillContributionUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: SkillContributionCreateOrConnectWithoutProjectInput | SkillContributionCreateOrConnectWithoutProjectInput[]
+    upsert?: SkillContributionUpsertWithWhereUniqueWithoutProjectInput | SkillContributionUpsertWithWhereUniqueWithoutProjectInput[]
+    createMany?: SkillContributionCreateManyProjectInputEnvelope
+    set?: SkillContributionWhereUniqueInput | SkillContributionWhereUniqueInput[]
+    disconnect?: SkillContributionWhereUniqueInput | SkillContributionWhereUniqueInput[]
+    delete?: SkillContributionWhereUniqueInput | SkillContributionWhereUniqueInput[]
+    connect?: SkillContributionWhereUniqueInput | SkillContributionWhereUniqueInput[]
+    update?: SkillContributionUpdateWithWhereUniqueWithoutProjectInput | SkillContributionUpdateWithWhereUniqueWithoutProjectInput[]
+    updateMany?: SkillContributionUpdateManyWithWhereWithoutProjectInput | SkillContributionUpdateManyWithWhereWithoutProjectInput[]
+    deleteMany?: SkillContributionScalarWhereInput | SkillContributionScalarWhereInput[]
+  }
+
   export type MilestoneUncheckedUpdateManyWithoutProjectNestedInput = {
     create?: XOR<MilestoneCreateWithoutProjectInput, MilestoneUncheckedCreateWithoutProjectInput> | MilestoneCreateWithoutProjectInput[] | MilestoneUncheckedCreateWithoutProjectInput[]
     connectOrCreate?: MilestoneCreateOrConnectWithoutProjectInput | MilestoneCreateOrConnectWithoutProjectInput[]
@@ -35149,6 +41578,20 @@ export namespace Prisma {
     update?: CampaignUpdateWithWhereUniqueWithoutProjectInput | CampaignUpdateWithWhereUniqueWithoutProjectInput[]
     updateMany?: CampaignUpdateManyWithWhereWithoutProjectInput | CampaignUpdateManyWithWhereWithoutProjectInput[]
     deleteMany?: CampaignScalarWhereInput | CampaignScalarWhereInput[]
+  }
+
+  export type SkillContributionUncheckedUpdateManyWithoutProjectNestedInput = {
+    create?: XOR<SkillContributionCreateWithoutProjectInput, SkillContributionUncheckedCreateWithoutProjectInput> | SkillContributionCreateWithoutProjectInput[] | SkillContributionUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: SkillContributionCreateOrConnectWithoutProjectInput | SkillContributionCreateOrConnectWithoutProjectInput[]
+    upsert?: SkillContributionUpsertWithWhereUniqueWithoutProjectInput | SkillContributionUpsertWithWhereUniqueWithoutProjectInput[]
+    createMany?: SkillContributionCreateManyProjectInputEnvelope
+    set?: SkillContributionWhereUniqueInput | SkillContributionWhereUniqueInput[]
+    disconnect?: SkillContributionWhereUniqueInput | SkillContributionWhereUniqueInput[]
+    delete?: SkillContributionWhereUniqueInput | SkillContributionWhereUniqueInput[]
+    connect?: SkillContributionWhereUniqueInput | SkillContributionWhereUniqueInput[]
+    update?: SkillContributionUpdateWithWhereUniqueWithoutProjectInput | SkillContributionUpdateWithWhereUniqueWithoutProjectInput[]
+    updateMany?: SkillContributionUpdateManyWithWhereWithoutProjectInput | SkillContributionUpdateManyWithWhereWithoutProjectInput[]
+    deleteMany?: SkillContributionScalarWhereInput | SkillContributionScalarWhereInput[]
   }
 
   export type ProjectCreateNestedOneWithoutMilestonesInput = {
@@ -35709,6 +42152,152 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutReferralsReceivedInput, UserUpdateWithoutReferralsReceivedInput>, UserUncheckedUpdateWithoutReferralsReceivedInput>
   }
 
+  export type NgoCreateNestedOneWithoutBoardMembersInput = {
+    create?: XOR<NgoCreateWithoutBoardMembersInput, NgoUncheckedCreateWithoutBoardMembersInput>
+    connectOrCreate?: NgoCreateOrConnectWithoutBoardMembersInput
+    connect?: NgoWhereUniqueInput
+  }
+
+  export type NgoUpdateOneRequiredWithoutBoardMembersNestedInput = {
+    create?: XOR<NgoCreateWithoutBoardMembersInput, NgoUncheckedCreateWithoutBoardMembersInput>
+    connectOrCreate?: NgoCreateOrConnectWithoutBoardMembersInput
+    upsert?: NgoUpsertWithoutBoardMembersInput
+    connect?: NgoWhereUniqueInput
+    update?: XOR<XOR<NgoUpdateToOneWithWhereWithoutBoardMembersInput, NgoUpdateWithoutBoardMembersInput>, NgoUncheckedUpdateWithoutBoardMembersInput>
+  }
+
+  export type UserCreateNestedOneWithoutSkillContributionsInput = {
+    create?: XOR<UserCreateWithoutSkillContributionsInput, UserUncheckedCreateWithoutSkillContributionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSkillContributionsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type NgoCreateNestedOneWithoutSkillContributionsInput = {
+    create?: XOR<NgoCreateWithoutSkillContributionsInput, NgoUncheckedCreateWithoutSkillContributionsInput>
+    connectOrCreate?: NgoCreateOrConnectWithoutSkillContributionsInput
+    connect?: NgoWhereUniqueInput
+  }
+
+  export type ProjectCreateNestedOneWithoutSkillContributionsInput = {
+    create?: XOR<ProjectCreateWithoutSkillContributionsInput, ProjectUncheckedCreateWithoutSkillContributionsInput>
+    connectOrCreate?: ProjectCreateOrConnectWithoutSkillContributionsInput
+    connect?: ProjectWhereUniqueInput
+  }
+
+  export type SkillBlockchainRecordCreateNestedOneWithoutContributionInput = {
+    create?: XOR<SkillBlockchainRecordCreateWithoutContributionInput, SkillBlockchainRecordUncheckedCreateWithoutContributionInput>
+    connectOrCreate?: SkillBlockchainRecordCreateOrConnectWithoutContributionInput
+    connect?: SkillBlockchainRecordWhereUniqueInput
+  }
+
+  export type SkillBlockchainRecordUncheckedCreateNestedOneWithoutContributionInput = {
+    create?: XOR<SkillBlockchainRecordCreateWithoutContributionInput, SkillBlockchainRecordUncheckedCreateWithoutContributionInput>
+    connectOrCreate?: SkillBlockchainRecordCreateOrConnectWithoutContributionInput
+    connect?: SkillBlockchainRecordWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutSkillContributionsNestedInput = {
+    create?: XOR<UserCreateWithoutSkillContributionsInput, UserUncheckedCreateWithoutSkillContributionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSkillContributionsInput
+    upsert?: UserUpsertWithoutSkillContributionsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSkillContributionsInput, UserUpdateWithoutSkillContributionsInput>, UserUncheckedUpdateWithoutSkillContributionsInput>
+  }
+
+  export type NgoUpdateOneRequiredWithoutSkillContributionsNestedInput = {
+    create?: XOR<NgoCreateWithoutSkillContributionsInput, NgoUncheckedCreateWithoutSkillContributionsInput>
+    connectOrCreate?: NgoCreateOrConnectWithoutSkillContributionsInput
+    upsert?: NgoUpsertWithoutSkillContributionsInput
+    connect?: NgoWhereUniqueInput
+    update?: XOR<XOR<NgoUpdateToOneWithWhereWithoutSkillContributionsInput, NgoUpdateWithoutSkillContributionsInput>, NgoUncheckedUpdateWithoutSkillContributionsInput>
+  }
+
+  export type ProjectUpdateOneWithoutSkillContributionsNestedInput = {
+    create?: XOR<ProjectCreateWithoutSkillContributionsInput, ProjectUncheckedCreateWithoutSkillContributionsInput>
+    connectOrCreate?: ProjectCreateOrConnectWithoutSkillContributionsInput
+    upsert?: ProjectUpsertWithoutSkillContributionsInput
+    disconnect?: ProjectWhereInput | boolean
+    delete?: ProjectWhereInput | boolean
+    connect?: ProjectWhereUniqueInput
+    update?: XOR<XOR<ProjectUpdateToOneWithWhereWithoutSkillContributionsInput, ProjectUpdateWithoutSkillContributionsInput>, ProjectUncheckedUpdateWithoutSkillContributionsInput>
+  }
+
+  export type SkillBlockchainRecordUpdateOneWithoutContributionNestedInput = {
+    create?: XOR<SkillBlockchainRecordCreateWithoutContributionInput, SkillBlockchainRecordUncheckedCreateWithoutContributionInput>
+    connectOrCreate?: SkillBlockchainRecordCreateOrConnectWithoutContributionInput
+    upsert?: SkillBlockchainRecordUpsertWithoutContributionInput
+    disconnect?: SkillBlockchainRecordWhereInput | boolean
+    delete?: SkillBlockchainRecordWhereInput | boolean
+    connect?: SkillBlockchainRecordWhereUniqueInput
+    update?: XOR<XOR<SkillBlockchainRecordUpdateToOneWithWhereWithoutContributionInput, SkillBlockchainRecordUpdateWithoutContributionInput>, SkillBlockchainRecordUncheckedUpdateWithoutContributionInput>
+  }
+
+  export type SkillBlockchainRecordUncheckedUpdateOneWithoutContributionNestedInput = {
+    create?: XOR<SkillBlockchainRecordCreateWithoutContributionInput, SkillBlockchainRecordUncheckedCreateWithoutContributionInput>
+    connectOrCreate?: SkillBlockchainRecordCreateOrConnectWithoutContributionInput
+    upsert?: SkillBlockchainRecordUpsertWithoutContributionInput
+    disconnect?: SkillBlockchainRecordWhereInput | boolean
+    delete?: SkillBlockchainRecordWhereInput | boolean
+    connect?: SkillBlockchainRecordWhereUniqueInput
+    update?: XOR<XOR<SkillBlockchainRecordUpdateToOneWithWhereWithoutContributionInput, SkillBlockchainRecordUpdateWithoutContributionInput>, SkillBlockchainRecordUncheckedUpdateWithoutContributionInput>
+  }
+
+  export type SkillContributionCreateNestedOneWithoutBlockchainRecordInput = {
+    create?: XOR<SkillContributionCreateWithoutBlockchainRecordInput, SkillContributionUncheckedCreateWithoutBlockchainRecordInput>
+    connectOrCreate?: SkillContributionCreateOrConnectWithoutBlockchainRecordInput
+    connect?: SkillContributionWhereUniqueInput
+  }
+
+  export type SkillContributionUpdateOneRequiredWithoutBlockchainRecordNestedInput = {
+    create?: XOR<SkillContributionCreateWithoutBlockchainRecordInput, SkillContributionUncheckedCreateWithoutBlockchainRecordInput>
+    connectOrCreate?: SkillContributionCreateOrConnectWithoutBlockchainRecordInput
+    upsert?: SkillContributionUpsertWithoutBlockchainRecordInput
+    connect?: SkillContributionWhereUniqueInput
+    update?: XOR<XOR<SkillContributionUpdateToOneWithWhereWithoutBlockchainRecordInput, SkillContributionUpdateWithoutBlockchainRecordInput>, SkillContributionUncheckedUpdateWithoutBlockchainRecordInput>
+  }
+
+  export type UserCreateNestedOneWithoutEndorsementsReceivedInput = {
+    create?: XOR<UserCreateWithoutEndorsementsReceivedInput, UserUncheckedCreateWithoutEndorsementsReceivedInput>
+    connectOrCreate?: UserCreateOrConnectWithoutEndorsementsReceivedInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type NgoCreateNestedOneWithoutDonorEndorsementsInput = {
+    create?: XOR<NgoCreateWithoutDonorEndorsementsInput, NgoUncheckedCreateWithoutDonorEndorsementsInput>
+    connectOrCreate?: NgoCreateOrConnectWithoutDonorEndorsementsInput
+    connect?: NgoWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutEndorsementsGivenInput = {
+    create?: XOR<UserCreateWithoutEndorsementsGivenInput, UserUncheckedCreateWithoutEndorsementsGivenInput>
+    connectOrCreate?: UserCreateOrConnectWithoutEndorsementsGivenInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutEndorsementsReceivedNestedInput = {
+    create?: XOR<UserCreateWithoutEndorsementsReceivedInput, UserUncheckedCreateWithoutEndorsementsReceivedInput>
+    connectOrCreate?: UserCreateOrConnectWithoutEndorsementsReceivedInput
+    upsert?: UserUpsertWithoutEndorsementsReceivedInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutEndorsementsReceivedInput, UserUpdateWithoutEndorsementsReceivedInput>, UserUncheckedUpdateWithoutEndorsementsReceivedInput>
+  }
+
+  export type NgoUpdateOneRequiredWithoutDonorEndorsementsNestedInput = {
+    create?: XOR<NgoCreateWithoutDonorEndorsementsInput, NgoUncheckedCreateWithoutDonorEndorsementsInput>
+    connectOrCreate?: NgoCreateOrConnectWithoutDonorEndorsementsInput
+    upsert?: NgoUpsertWithoutDonorEndorsementsInput
+    connect?: NgoWhereUniqueInput
+    update?: XOR<XOR<NgoUpdateToOneWithWhereWithoutDonorEndorsementsInput, NgoUpdateWithoutDonorEndorsementsInput>, NgoUncheckedUpdateWithoutDonorEndorsementsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutEndorsementsGivenNestedInput = {
+    create?: XOR<UserCreateWithoutEndorsementsGivenInput, UserUncheckedCreateWithoutEndorsementsGivenInput>
+    connectOrCreate?: UserCreateOrConnectWithoutEndorsementsGivenInput
+    upsert?: UserUpsertWithoutEndorsementsGivenInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutEndorsementsGivenInput, UserUpdateWithoutEndorsementsGivenInput>, UserUncheckedUpdateWithoutEndorsementsGivenInput>
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -36082,6 +42671,9 @@ export namespace Prisma {
     ngoSuggestions?: NgoSuggestionCreateNestedManyWithoutUserInput
     referralsMade?: ReferralCreateNestedManyWithoutReferrerInput
     referralsReceived?: ReferralCreateNestedManyWithoutReferredInput
+    skillContributions?: SkillContributionCreateNestedManyWithoutDonorInput
+    endorsementsReceived?: DonorEndorsementCreateNestedManyWithoutDonorInput
+    endorsementsGiven?: DonorEndorsementCreateNestedManyWithoutEndorserInput
   }
 
   export type UserUncheckedCreateWithoutAccountsInput = {
@@ -36105,6 +42697,9 @@ export namespace Prisma {
     ngoSuggestions?: NgoSuggestionUncheckedCreateNestedManyWithoutUserInput
     referralsMade?: ReferralUncheckedCreateNestedManyWithoutReferrerInput
     referralsReceived?: ReferralUncheckedCreateNestedManyWithoutReferredInput
+    skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutDonorInput
+    endorsementsReceived?: DonorEndorsementUncheckedCreateNestedManyWithoutDonorInput
+    endorsementsGiven?: DonorEndorsementUncheckedCreateNestedManyWithoutEndorserInput
   }
 
   export type UserCreateOrConnectWithoutAccountsInput = {
@@ -36144,6 +42739,9 @@ export namespace Prisma {
     ngoSuggestions?: NgoSuggestionUpdateManyWithoutUserNestedInput
     referralsMade?: ReferralUpdateManyWithoutReferrerNestedInput
     referralsReceived?: ReferralUpdateManyWithoutReferredNestedInput
+    skillContributions?: SkillContributionUpdateManyWithoutDonorNestedInput
+    endorsementsReceived?: DonorEndorsementUpdateManyWithoutDonorNestedInput
+    endorsementsGiven?: DonorEndorsementUpdateManyWithoutEndorserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -36167,6 +42765,9 @@ export namespace Prisma {
     ngoSuggestions?: NgoSuggestionUncheckedUpdateManyWithoutUserNestedInput
     referralsMade?: ReferralUncheckedUpdateManyWithoutReferrerNestedInput
     referralsReceived?: ReferralUncheckedUpdateManyWithoutReferredNestedInput
+    skillContributions?: SkillContributionUncheckedUpdateManyWithoutDonorNestedInput
+    endorsementsReceived?: DonorEndorsementUncheckedUpdateManyWithoutDonorNestedInput
+    endorsementsGiven?: DonorEndorsementUncheckedUpdateManyWithoutEndorserNestedInput
   }
 
   export type UserCreateWithoutSessionsInput = {
@@ -36190,6 +42791,9 @@ export namespace Prisma {
     ngoSuggestions?: NgoSuggestionCreateNestedManyWithoutUserInput
     referralsMade?: ReferralCreateNestedManyWithoutReferrerInput
     referralsReceived?: ReferralCreateNestedManyWithoutReferredInput
+    skillContributions?: SkillContributionCreateNestedManyWithoutDonorInput
+    endorsementsReceived?: DonorEndorsementCreateNestedManyWithoutDonorInput
+    endorsementsGiven?: DonorEndorsementCreateNestedManyWithoutEndorserInput
   }
 
   export type UserUncheckedCreateWithoutSessionsInput = {
@@ -36213,6 +42817,9 @@ export namespace Prisma {
     ngoSuggestions?: NgoSuggestionUncheckedCreateNestedManyWithoutUserInput
     referralsMade?: ReferralUncheckedCreateNestedManyWithoutReferrerInput
     referralsReceived?: ReferralUncheckedCreateNestedManyWithoutReferredInput
+    skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutDonorInput
+    endorsementsReceived?: DonorEndorsementUncheckedCreateNestedManyWithoutDonorInput
+    endorsementsGiven?: DonorEndorsementUncheckedCreateNestedManyWithoutEndorserInput
   }
 
   export type UserCreateOrConnectWithoutSessionsInput = {
@@ -36252,6 +42859,9 @@ export namespace Prisma {
     ngoSuggestions?: NgoSuggestionUpdateManyWithoutUserNestedInput
     referralsMade?: ReferralUpdateManyWithoutReferrerNestedInput
     referralsReceived?: ReferralUpdateManyWithoutReferredNestedInput
+    skillContributions?: SkillContributionUpdateManyWithoutDonorNestedInput
+    endorsementsReceived?: DonorEndorsementUpdateManyWithoutDonorNestedInput
+    endorsementsGiven?: DonorEndorsementUpdateManyWithoutEndorserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -36275,6 +42885,9 @@ export namespace Prisma {
     ngoSuggestions?: NgoSuggestionUncheckedUpdateManyWithoutUserNestedInput
     referralsMade?: ReferralUncheckedUpdateManyWithoutReferrerNestedInput
     referralsReceived?: ReferralUncheckedUpdateManyWithoutReferredNestedInput
+    skillContributions?: SkillContributionUncheckedUpdateManyWithoutDonorNestedInput
+    endorsementsReceived?: DonorEndorsementUncheckedUpdateManyWithoutDonorNestedInput
+    endorsementsGiven?: DonorEndorsementUncheckedUpdateManyWithoutEndorserNestedInput
   }
 
   export type AccountCreateWithoutUserInput = {
@@ -36354,6 +42967,9 @@ export namespace Prisma {
     projects?: ProjectCreateNestedManyWithoutNgoInput
     expenses?: ExpenseCreateNestedManyWithoutNgoInput
     ratings?: RatingCreateNestedManyWithoutNgoInput
+    boardMembers?: BoardMemberCreateNestedManyWithoutNgoInput
+    skillContributions?: SkillContributionCreateNestedManyWithoutNgoInput
+    donorEndorsements?: DonorEndorsementCreateNestedManyWithoutNgoInput
   }
 
   export type NgoUncheckedCreateWithoutUserInput = {
@@ -36373,6 +42989,9 @@ export namespace Prisma {
     projects?: ProjectUncheckedCreateNestedManyWithoutNgoInput
     expenses?: ExpenseUncheckedCreateNestedManyWithoutNgoInput
     ratings?: RatingUncheckedCreateNestedManyWithoutNgoInput
+    boardMembers?: BoardMemberUncheckedCreateNestedManyWithoutNgoInput
+    skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutNgoInput
+    donorEndorsements?: DonorEndorsementUncheckedCreateNestedManyWithoutNgoInput
   }
 
   export type NgoCreateOrConnectWithoutUserInput = {
@@ -36642,6 +43261,104 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type SkillContributionCreateWithoutDonorInput = {
+    id?: string
+    skillCategory: string
+    description: string
+    hoursContributed?: number | null
+    status?: string
+    monetaryValue?: number | null
+    txHash?: string | null
+    submittedAt?: Date | string
+    approvedAt?: Date | string | null
+    updatedAt?: Date | string
+    ngo: NgoCreateNestedOneWithoutSkillContributionsInput
+    project?: ProjectCreateNestedOneWithoutSkillContributionsInput
+    blockchainRecord?: SkillBlockchainRecordCreateNestedOneWithoutContributionInput
+  }
+
+  export type SkillContributionUncheckedCreateWithoutDonorInput = {
+    id?: string
+    ngoId: string
+    projectId?: string | null
+    skillCategory: string
+    description: string
+    hoursContributed?: number | null
+    status?: string
+    monetaryValue?: number | null
+    txHash?: string | null
+    submittedAt?: Date | string
+    approvedAt?: Date | string | null
+    updatedAt?: Date | string
+    blockchainRecord?: SkillBlockchainRecordUncheckedCreateNestedOneWithoutContributionInput
+  }
+
+  export type SkillContributionCreateOrConnectWithoutDonorInput = {
+    where: SkillContributionWhereUniqueInput
+    create: XOR<SkillContributionCreateWithoutDonorInput, SkillContributionUncheckedCreateWithoutDonorInput>
+  }
+
+  export type SkillContributionCreateManyDonorInputEnvelope = {
+    data: SkillContributionCreateManyDonorInput | SkillContributionCreateManyDonorInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type DonorEndorsementCreateWithoutDonorInput = {
+    id?: string
+    note?: string | null
+    category?: string
+    createdAt?: Date | string
+    ngo: NgoCreateNestedOneWithoutDonorEndorsementsInput
+    endorser: UserCreateNestedOneWithoutEndorsementsGivenInput
+  }
+
+  export type DonorEndorsementUncheckedCreateWithoutDonorInput = {
+    id?: string
+    ngoId: string
+    endorsedBy: string
+    note?: string | null
+    category?: string
+    createdAt?: Date | string
+  }
+
+  export type DonorEndorsementCreateOrConnectWithoutDonorInput = {
+    where: DonorEndorsementWhereUniqueInput
+    create: XOR<DonorEndorsementCreateWithoutDonorInput, DonorEndorsementUncheckedCreateWithoutDonorInput>
+  }
+
+  export type DonorEndorsementCreateManyDonorInputEnvelope = {
+    data: DonorEndorsementCreateManyDonorInput | DonorEndorsementCreateManyDonorInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type DonorEndorsementCreateWithoutEndorserInput = {
+    id?: string
+    note?: string | null
+    category?: string
+    createdAt?: Date | string
+    donor: UserCreateNestedOneWithoutEndorsementsReceivedInput
+    ngo: NgoCreateNestedOneWithoutDonorEndorsementsInput
+  }
+
+  export type DonorEndorsementUncheckedCreateWithoutEndorserInput = {
+    id?: string
+    donorId: string
+    ngoId: string
+    note?: string | null
+    category?: string
+    createdAt?: Date | string
+  }
+
+  export type DonorEndorsementCreateOrConnectWithoutEndorserInput = {
+    where: DonorEndorsementWhereUniqueInput
+    create: XOR<DonorEndorsementCreateWithoutEndorserInput, DonorEndorsementUncheckedCreateWithoutEndorserInput>
+  }
+
+  export type DonorEndorsementCreateManyEndorserInputEnvelope = {
+    data: DonorEndorsementCreateManyEndorserInput | DonorEndorsementCreateManyEndorserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type AccountUpsertWithWhereUniqueWithoutUserInput = {
     where: AccountWhereUniqueInput
     update: XOR<AccountUpdateWithoutUserInput, AccountUncheckedUpdateWithoutUserInput>
@@ -36730,6 +43447,9 @@ export namespace Prisma {
     projects?: ProjectUpdateManyWithoutNgoNestedInput
     expenses?: ExpenseUpdateManyWithoutNgoNestedInput
     ratings?: RatingUpdateManyWithoutNgoNestedInput
+    boardMembers?: BoardMemberUpdateManyWithoutNgoNestedInput
+    skillContributions?: SkillContributionUpdateManyWithoutNgoNestedInput
+    donorEndorsements?: DonorEndorsementUpdateManyWithoutNgoNestedInput
   }
 
   export type NgoUncheckedUpdateWithoutUserInput = {
@@ -36749,6 +43469,9 @@ export namespace Prisma {
     projects?: ProjectUncheckedUpdateManyWithoutNgoNestedInput
     expenses?: ExpenseUncheckedUpdateManyWithoutNgoNestedInput
     ratings?: RatingUncheckedUpdateManyWithoutNgoNestedInput
+    boardMembers?: BoardMemberUncheckedUpdateManyWithoutNgoNestedInput
+    skillContributions?: SkillContributionUncheckedUpdateManyWithoutNgoNestedInput
+    donorEndorsements?: DonorEndorsementUncheckedUpdateManyWithoutNgoNestedInput
   }
 
   export type DonationUpsertWithWhereUniqueWithoutUserInput = {
@@ -37003,6 +43726,86 @@ export namespace Prisma {
     data: XOR<ReferralUpdateManyMutationInput, ReferralUncheckedUpdateManyWithoutReferredInput>
   }
 
+  export type SkillContributionUpsertWithWhereUniqueWithoutDonorInput = {
+    where: SkillContributionWhereUniqueInput
+    update: XOR<SkillContributionUpdateWithoutDonorInput, SkillContributionUncheckedUpdateWithoutDonorInput>
+    create: XOR<SkillContributionCreateWithoutDonorInput, SkillContributionUncheckedCreateWithoutDonorInput>
+  }
+
+  export type SkillContributionUpdateWithWhereUniqueWithoutDonorInput = {
+    where: SkillContributionWhereUniqueInput
+    data: XOR<SkillContributionUpdateWithoutDonorInput, SkillContributionUncheckedUpdateWithoutDonorInput>
+  }
+
+  export type SkillContributionUpdateManyWithWhereWithoutDonorInput = {
+    where: SkillContributionScalarWhereInput
+    data: XOR<SkillContributionUpdateManyMutationInput, SkillContributionUncheckedUpdateManyWithoutDonorInput>
+  }
+
+  export type SkillContributionScalarWhereInput = {
+    AND?: SkillContributionScalarWhereInput | SkillContributionScalarWhereInput[]
+    OR?: SkillContributionScalarWhereInput[]
+    NOT?: SkillContributionScalarWhereInput | SkillContributionScalarWhereInput[]
+    id?: StringFilter<"SkillContribution"> | string
+    donorId?: StringFilter<"SkillContribution"> | string
+    ngoId?: StringFilter<"SkillContribution"> | string
+    projectId?: StringNullableFilter<"SkillContribution"> | string | null
+    skillCategory?: StringFilter<"SkillContribution"> | string
+    description?: StringFilter<"SkillContribution"> | string
+    hoursContributed?: FloatNullableFilter<"SkillContribution"> | number | null
+    status?: StringFilter<"SkillContribution"> | string
+    monetaryValue?: FloatNullableFilter<"SkillContribution"> | number | null
+    txHash?: StringNullableFilter<"SkillContribution"> | string | null
+    submittedAt?: DateTimeFilter<"SkillContribution"> | Date | string
+    approvedAt?: DateTimeNullableFilter<"SkillContribution"> | Date | string | null
+    updatedAt?: DateTimeFilter<"SkillContribution"> | Date | string
+  }
+
+  export type DonorEndorsementUpsertWithWhereUniqueWithoutDonorInput = {
+    where: DonorEndorsementWhereUniqueInput
+    update: XOR<DonorEndorsementUpdateWithoutDonorInput, DonorEndorsementUncheckedUpdateWithoutDonorInput>
+    create: XOR<DonorEndorsementCreateWithoutDonorInput, DonorEndorsementUncheckedCreateWithoutDonorInput>
+  }
+
+  export type DonorEndorsementUpdateWithWhereUniqueWithoutDonorInput = {
+    where: DonorEndorsementWhereUniqueInput
+    data: XOR<DonorEndorsementUpdateWithoutDonorInput, DonorEndorsementUncheckedUpdateWithoutDonorInput>
+  }
+
+  export type DonorEndorsementUpdateManyWithWhereWithoutDonorInput = {
+    where: DonorEndorsementScalarWhereInput
+    data: XOR<DonorEndorsementUpdateManyMutationInput, DonorEndorsementUncheckedUpdateManyWithoutDonorInput>
+  }
+
+  export type DonorEndorsementScalarWhereInput = {
+    AND?: DonorEndorsementScalarWhereInput | DonorEndorsementScalarWhereInput[]
+    OR?: DonorEndorsementScalarWhereInput[]
+    NOT?: DonorEndorsementScalarWhereInput | DonorEndorsementScalarWhereInput[]
+    id?: StringFilter<"DonorEndorsement"> | string
+    donorId?: StringFilter<"DonorEndorsement"> | string
+    ngoId?: StringFilter<"DonorEndorsement"> | string
+    endorsedBy?: StringFilter<"DonorEndorsement"> | string
+    note?: StringNullableFilter<"DonorEndorsement"> | string | null
+    category?: StringFilter<"DonorEndorsement"> | string
+    createdAt?: DateTimeFilter<"DonorEndorsement"> | Date | string
+  }
+
+  export type DonorEndorsementUpsertWithWhereUniqueWithoutEndorserInput = {
+    where: DonorEndorsementWhereUniqueInput
+    update: XOR<DonorEndorsementUpdateWithoutEndorserInput, DonorEndorsementUncheckedUpdateWithoutEndorserInput>
+    create: XOR<DonorEndorsementCreateWithoutEndorserInput, DonorEndorsementUncheckedCreateWithoutEndorserInput>
+  }
+
+  export type DonorEndorsementUpdateWithWhereUniqueWithoutEndorserInput = {
+    where: DonorEndorsementWhereUniqueInput
+    data: XOR<DonorEndorsementUpdateWithoutEndorserInput, DonorEndorsementUncheckedUpdateWithoutEndorserInput>
+  }
+
+  export type DonorEndorsementUpdateManyWithWhereWithoutEndorserInput = {
+    where: DonorEndorsementScalarWhereInput
+    data: XOR<DonorEndorsementUpdateManyMutationInput, DonorEndorsementUncheckedUpdateManyWithoutEndorserInput>
+  }
+
   export type UserCreateWithoutNgoInput = {
     id?: string
     email: string
@@ -37024,6 +43827,9 @@ export namespace Prisma {
     ngoSuggestions?: NgoSuggestionCreateNestedManyWithoutUserInput
     referralsMade?: ReferralCreateNestedManyWithoutReferrerInput
     referralsReceived?: ReferralCreateNestedManyWithoutReferredInput
+    skillContributions?: SkillContributionCreateNestedManyWithoutDonorInput
+    endorsementsReceived?: DonorEndorsementCreateNestedManyWithoutDonorInput
+    endorsementsGiven?: DonorEndorsementCreateNestedManyWithoutEndorserInput
   }
 
   export type UserUncheckedCreateWithoutNgoInput = {
@@ -37047,6 +43853,9 @@ export namespace Prisma {
     ngoSuggestions?: NgoSuggestionUncheckedCreateNestedManyWithoutUserInput
     referralsMade?: ReferralUncheckedCreateNestedManyWithoutReferrerInput
     referralsReceived?: ReferralUncheckedCreateNestedManyWithoutReferredInput
+    skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutDonorInput
+    endorsementsReceived?: DonorEndorsementUncheckedCreateNestedManyWithoutDonorInput
+    endorsementsGiven?: DonorEndorsementUncheckedCreateNestedManyWithoutEndorserInput
   }
 
   export type UserCreateOrConnectWithoutNgoInput = {
@@ -37075,6 +43884,7 @@ export namespace Prisma {
     expenses?: ExpenseCreateNestedManyWithoutProjectInput
     spotlightVotes?: SpotlightVoteCreateNestedManyWithoutProjectInput
     campaigns?: CampaignCreateNestedManyWithoutProjectInput
+    skillContributions?: SkillContributionCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUncheckedCreateWithoutNgoInput = {
@@ -37098,6 +43908,7 @@ export namespace Prisma {
     expenses?: ExpenseUncheckedCreateNestedManyWithoutProjectInput
     spotlightVotes?: SpotlightVoteUncheckedCreateNestedManyWithoutProjectInput
     campaigns?: CampaignUncheckedCreateNestedManyWithoutProjectInput
+    skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectCreateOrConnectWithoutNgoInput = {
@@ -37168,6 +43979,110 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type BoardMemberCreateWithoutNgoInput = {
+    id?: string
+    name: string
+    role: string
+    bio?: string | null
+    linkedinUrl?: string | null
+    photoUrl?: string | null
+    orderIndex?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BoardMemberUncheckedCreateWithoutNgoInput = {
+    id?: string
+    name: string
+    role: string
+    bio?: string | null
+    linkedinUrl?: string | null
+    photoUrl?: string | null
+    orderIndex?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BoardMemberCreateOrConnectWithoutNgoInput = {
+    where: BoardMemberWhereUniqueInput
+    create: XOR<BoardMemberCreateWithoutNgoInput, BoardMemberUncheckedCreateWithoutNgoInput>
+  }
+
+  export type BoardMemberCreateManyNgoInputEnvelope = {
+    data: BoardMemberCreateManyNgoInput | BoardMemberCreateManyNgoInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type SkillContributionCreateWithoutNgoInput = {
+    id?: string
+    skillCategory: string
+    description: string
+    hoursContributed?: number | null
+    status?: string
+    monetaryValue?: number | null
+    txHash?: string | null
+    submittedAt?: Date | string
+    approvedAt?: Date | string | null
+    updatedAt?: Date | string
+    donor: UserCreateNestedOneWithoutSkillContributionsInput
+    project?: ProjectCreateNestedOneWithoutSkillContributionsInput
+    blockchainRecord?: SkillBlockchainRecordCreateNestedOneWithoutContributionInput
+  }
+
+  export type SkillContributionUncheckedCreateWithoutNgoInput = {
+    id?: string
+    donorId: string
+    projectId?: string | null
+    skillCategory: string
+    description: string
+    hoursContributed?: number | null
+    status?: string
+    monetaryValue?: number | null
+    txHash?: string | null
+    submittedAt?: Date | string
+    approvedAt?: Date | string | null
+    updatedAt?: Date | string
+    blockchainRecord?: SkillBlockchainRecordUncheckedCreateNestedOneWithoutContributionInput
+  }
+
+  export type SkillContributionCreateOrConnectWithoutNgoInput = {
+    where: SkillContributionWhereUniqueInput
+    create: XOR<SkillContributionCreateWithoutNgoInput, SkillContributionUncheckedCreateWithoutNgoInput>
+  }
+
+  export type SkillContributionCreateManyNgoInputEnvelope = {
+    data: SkillContributionCreateManyNgoInput | SkillContributionCreateManyNgoInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type DonorEndorsementCreateWithoutNgoInput = {
+    id?: string
+    note?: string | null
+    category?: string
+    createdAt?: Date | string
+    donor: UserCreateNestedOneWithoutEndorsementsReceivedInput
+    endorser: UserCreateNestedOneWithoutEndorsementsGivenInput
+  }
+
+  export type DonorEndorsementUncheckedCreateWithoutNgoInput = {
+    id?: string
+    donorId: string
+    endorsedBy: string
+    note?: string | null
+    category?: string
+    createdAt?: Date | string
+  }
+
+  export type DonorEndorsementCreateOrConnectWithoutNgoInput = {
+    where: DonorEndorsementWhereUniqueInput
+    create: XOR<DonorEndorsementCreateWithoutNgoInput, DonorEndorsementUncheckedCreateWithoutNgoInput>
+  }
+
+  export type DonorEndorsementCreateManyNgoInputEnvelope = {
+    data: DonorEndorsementCreateManyNgoInput | DonorEndorsementCreateManyNgoInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserUpsertWithoutNgoInput = {
     update: XOR<UserUpdateWithoutNgoInput, UserUncheckedUpdateWithoutNgoInput>
     create: XOR<UserCreateWithoutNgoInput, UserUncheckedCreateWithoutNgoInput>
@@ -37200,6 +44115,9 @@ export namespace Prisma {
     ngoSuggestions?: NgoSuggestionUpdateManyWithoutUserNestedInput
     referralsMade?: ReferralUpdateManyWithoutReferrerNestedInput
     referralsReceived?: ReferralUpdateManyWithoutReferredNestedInput
+    skillContributions?: SkillContributionUpdateManyWithoutDonorNestedInput
+    endorsementsReceived?: DonorEndorsementUpdateManyWithoutDonorNestedInput
+    endorsementsGiven?: DonorEndorsementUpdateManyWithoutEndorserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNgoInput = {
@@ -37223,6 +44141,9 @@ export namespace Prisma {
     ngoSuggestions?: NgoSuggestionUncheckedUpdateManyWithoutUserNestedInput
     referralsMade?: ReferralUncheckedUpdateManyWithoutReferrerNestedInput
     referralsReceived?: ReferralUncheckedUpdateManyWithoutReferredNestedInput
+    skillContributions?: SkillContributionUncheckedUpdateManyWithoutDonorNestedInput
+    endorsementsReceived?: DonorEndorsementUncheckedUpdateManyWithoutDonorNestedInput
+    endorsementsGiven?: DonorEndorsementUncheckedUpdateManyWithoutEndorserNestedInput
   }
 
   export type ProjectUpsertWithWhereUniqueWithoutNgoInput = {
@@ -37310,6 +44231,70 @@ export namespace Prisma {
     data: XOR<RatingUpdateManyMutationInput, RatingUncheckedUpdateManyWithoutNgoInput>
   }
 
+  export type BoardMemberUpsertWithWhereUniqueWithoutNgoInput = {
+    where: BoardMemberWhereUniqueInput
+    update: XOR<BoardMemberUpdateWithoutNgoInput, BoardMemberUncheckedUpdateWithoutNgoInput>
+    create: XOR<BoardMemberCreateWithoutNgoInput, BoardMemberUncheckedCreateWithoutNgoInput>
+  }
+
+  export type BoardMemberUpdateWithWhereUniqueWithoutNgoInput = {
+    where: BoardMemberWhereUniqueInput
+    data: XOR<BoardMemberUpdateWithoutNgoInput, BoardMemberUncheckedUpdateWithoutNgoInput>
+  }
+
+  export type BoardMemberUpdateManyWithWhereWithoutNgoInput = {
+    where: BoardMemberScalarWhereInput
+    data: XOR<BoardMemberUpdateManyMutationInput, BoardMemberUncheckedUpdateManyWithoutNgoInput>
+  }
+
+  export type BoardMemberScalarWhereInput = {
+    AND?: BoardMemberScalarWhereInput | BoardMemberScalarWhereInput[]
+    OR?: BoardMemberScalarWhereInput[]
+    NOT?: BoardMemberScalarWhereInput | BoardMemberScalarWhereInput[]
+    id?: StringFilter<"BoardMember"> | string
+    ngoId?: StringFilter<"BoardMember"> | string
+    name?: StringFilter<"BoardMember"> | string
+    role?: StringFilter<"BoardMember"> | string
+    bio?: StringNullableFilter<"BoardMember"> | string | null
+    linkedinUrl?: StringNullableFilter<"BoardMember"> | string | null
+    photoUrl?: StringNullableFilter<"BoardMember"> | string | null
+    orderIndex?: IntFilter<"BoardMember"> | number
+    createdAt?: DateTimeFilter<"BoardMember"> | Date | string
+    updatedAt?: DateTimeFilter<"BoardMember"> | Date | string
+  }
+
+  export type SkillContributionUpsertWithWhereUniqueWithoutNgoInput = {
+    where: SkillContributionWhereUniqueInput
+    update: XOR<SkillContributionUpdateWithoutNgoInput, SkillContributionUncheckedUpdateWithoutNgoInput>
+    create: XOR<SkillContributionCreateWithoutNgoInput, SkillContributionUncheckedCreateWithoutNgoInput>
+  }
+
+  export type SkillContributionUpdateWithWhereUniqueWithoutNgoInput = {
+    where: SkillContributionWhereUniqueInput
+    data: XOR<SkillContributionUpdateWithoutNgoInput, SkillContributionUncheckedUpdateWithoutNgoInput>
+  }
+
+  export type SkillContributionUpdateManyWithWhereWithoutNgoInput = {
+    where: SkillContributionScalarWhereInput
+    data: XOR<SkillContributionUpdateManyMutationInput, SkillContributionUncheckedUpdateManyWithoutNgoInput>
+  }
+
+  export type DonorEndorsementUpsertWithWhereUniqueWithoutNgoInput = {
+    where: DonorEndorsementWhereUniqueInput
+    update: XOR<DonorEndorsementUpdateWithoutNgoInput, DonorEndorsementUncheckedUpdateWithoutNgoInput>
+    create: XOR<DonorEndorsementCreateWithoutNgoInput, DonorEndorsementUncheckedCreateWithoutNgoInput>
+  }
+
+  export type DonorEndorsementUpdateWithWhereUniqueWithoutNgoInput = {
+    where: DonorEndorsementWhereUniqueInput
+    data: XOR<DonorEndorsementUpdateWithoutNgoInput, DonorEndorsementUncheckedUpdateWithoutNgoInput>
+  }
+
+  export type DonorEndorsementUpdateManyWithWhereWithoutNgoInput = {
+    where: DonorEndorsementScalarWhereInput
+    data: XOR<DonorEndorsementUpdateManyMutationInput, DonorEndorsementUncheckedUpdateManyWithoutNgoInput>
+  }
+
   export type NgoCreateWithoutProjectsInput = {
     id?: string
     orgName: string
@@ -37327,6 +44312,9 @@ export namespace Prisma {
     user: UserCreateNestedOneWithoutNgoInput
     expenses?: ExpenseCreateNestedManyWithoutNgoInput
     ratings?: RatingCreateNestedManyWithoutNgoInput
+    boardMembers?: BoardMemberCreateNestedManyWithoutNgoInput
+    skillContributions?: SkillContributionCreateNestedManyWithoutNgoInput
+    donorEndorsements?: DonorEndorsementCreateNestedManyWithoutNgoInput
   }
 
   export type NgoUncheckedCreateWithoutProjectsInput = {
@@ -37346,6 +44334,9 @@ export namespace Prisma {
     updatedAt?: Date | string
     expenses?: ExpenseUncheckedCreateNestedManyWithoutNgoInput
     ratings?: RatingUncheckedCreateNestedManyWithoutNgoInput
+    boardMembers?: BoardMemberUncheckedCreateNestedManyWithoutNgoInput
+    skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutNgoInput
+    donorEndorsements?: DonorEndorsementUncheckedCreateNestedManyWithoutNgoInput
   }
 
   export type NgoCreateOrConnectWithoutProjectsInput = {
@@ -37533,6 +44524,48 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type SkillContributionCreateWithoutProjectInput = {
+    id?: string
+    skillCategory: string
+    description: string
+    hoursContributed?: number | null
+    status?: string
+    monetaryValue?: number | null
+    txHash?: string | null
+    submittedAt?: Date | string
+    approvedAt?: Date | string | null
+    updatedAt?: Date | string
+    donor: UserCreateNestedOneWithoutSkillContributionsInput
+    ngo: NgoCreateNestedOneWithoutSkillContributionsInput
+    blockchainRecord?: SkillBlockchainRecordCreateNestedOneWithoutContributionInput
+  }
+
+  export type SkillContributionUncheckedCreateWithoutProjectInput = {
+    id?: string
+    donorId: string
+    ngoId: string
+    skillCategory: string
+    description: string
+    hoursContributed?: number | null
+    status?: string
+    monetaryValue?: number | null
+    txHash?: string | null
+    submittedAt?: Date | string
+    approvedAt?: Date | string | null
+    updatedAt?: Date | string
+    blockchainRecord?: SkillBlockchainRecordUncheckedCreateNestedOneWithoutContributionInput
+  }
+
+  export type SkillContributionCreateOrConnectWithoutProjectInput = {
+    where: SkillContributionWhereUniqueInput
+    create: XOR<SkillContributionCreateWithoutProjectInput, SkillContributionUncheckedCreateWithoutProjectInput>
+  }
+
+  export type SkillContributionCreateManyProjectInputEnvelope = {
+    data: SkillContributionCreateManyProjectInput | SkillContributionCreateManyProjectInput[]
+    skipDuplicates?: boolean
+  }
+
   export type NgoUpsertWithoutProjectsInput = {
     update: XOR<NgoUpdateWithoutProjectsInput, NgoUncheckedUpdateWithoutProjectsInput>
     create: XOR<NgoCreateWithoutProjectsInput, NgoUncheckedCreateWithoutProjectsInput>
@@ -37561,6 +44594,9 @@ export namespace Prisma {
     user?: UserUpdateOneRequiredWithoutNgoNestedInput
     expenses?: ExpenseUpdateManyWithoutNgoNestedInput
     ratings?: RatingUpdateManyWithoutNgoNestedInput
+    boardMembers?: BoardMemberUpdateManyWithoutNgoNestedInput
+    skillContributions?: SkillContributionUpdateManyWithoutNgoNestedInput
+    donorEndorsements?: DonorEndorsementUpdateManyWithoutNgoNestedInput
   }
 
   export type NgoUncheckedUpdateWithoutProjectsInput = {
@@ -37580,6 +44616,9 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     expenses?: ExpenseUncheckedUpdateManyWithoutNgoNestedInput
     ratings?: RatingUncheckedUpdateManyWithoutNgoNestedInput
+    boardMembers?: BoardMemberUncheckedUpdateManyWithoutNgoNestedInput
+    skillContributions?: SkillContributionUncheckedUpdateManyWithoutNgoNestedInput
+    donorEndorsements?: DonorEndorsementUncheckedUpdateManyWithoutNgoNestedInput
   }
 
   export type MilestoneUpsertWithWhereUniqueWithoutProjectInput = {
@@ -37682,6 +44721,22 @@ export namespace Prisma {
     data: XOR<CampaignUpdateManyMutationInput, CampaignUncheckedUpdateManyWithoutProjectInput>
   }
 
+  export type SkillContributionUpsertWithWhereUniqueWithoutProjectInput = {
+    where: SkillContributionWhereUniqueInput
+    update: XOR<SkillContributionUpdateWithoutProjectInput, SkillContributionUncheckedUpdateWithoutProjectInput>
+    create: XOR<SkillContributionCreateWithoutProjectInput, SkillContributionUncheckedCreateWithoutProjectInput>
+  }
+
+  export type SkillContributionUpdateWithWhereUniqueWithoutProjectInput = {
+    where: SkillContributionWhereUniqueInput
+    data: XOR<SkillContributionUpdateWithoutProjectInput, SkillContributionUncheckedUpdateWithoutProjectInput>
+  }
+
+  export type SkillContributionUpdateManyWithWhereWithoutProjectInput = {
+    where: SkillContributionScalarWhereInput
+    data: XOR<SkillContributionUpdateManyMutationInput, SkillContributionUncheckedUpdateManyWithoutProjectInput>
+  }
+
   export type ProjectCreateWithoutMilestonesInput = {
     id?: string
     title: string
@@ -37703,6 +44758,7 @@ export namespace Prisma {
     expenses?: ExpenseCreateNestedManyWithoutProjectInput
     spotlightVotes?: SpotlightVoteCreateNestedManyWithoutProjectInput
     campaigns?: CampaignCreateNestedManyWithoutProjectInput
+    skillContributions?: SkillContributionCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUncheckedCreateWithoutMilestonesInput = {
@@ -37726,6 +44782,7 @@ export namespace Prisma {
     expenses?: ExpenseUncheckedCreateNestedManyWithoutProjectInput
     spotlightVotes?: SpotlightVoteUncheckedCreateNestedManyWithoutProjectInput
     campaigns?: CampaignUncheckedCreateNestedManyWithoutProjectInput
+    skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectCreateOrConnectWithoutMilestonesInput = {
@@ -37854,6 +44911,7 @@ export namespace Prisma {
     expenses?: ExpenseUpdateManyWithoutProjectNestedInput
     spotlightVotes?: SpotlightVoteUpdateManyWithoutProjectNestedInput
     campaigns?: CampaignUpdateManyWithoutProjectNestedInput
+    skillContributions?: SkillContributionUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateWithoutMilestonesInput = {
@@ -37877,6 +44935,7 @@ export namespace Prisma {
     expenses?: ExpenseUncheckedUpdateManyWithoutProjectNestedInput
     spotlightVotes?: SpotlightVoteUncheckedUpdateManyWithoutProjectNestedInput
     campaigns?: CampaignUncheckedUpdateManyWithoutProjectNestedInput
+    skillContributions?: SkillContributionUncheckedUpdateManyWithoutProjectNestedInput
   }
 
   export type EvidenceFileUpsertWithWhereUniqueWithoutMilestoneInput = {
@@ -38181,6 +45240,9 @@ export namespace Prisma {
     ngoSuggestions?: NgoSuggestionCreateNestedManyWithoutUserInput
     referralsMade?: ReferralCreateNestedManyWithoutReferrerInput
     referralsReceived?: ReferralCreateNestedManyWithoutReferredInput
+    skillContributions?: SkillContributionCreateNestedManyWithoutDonorInput
+    endorsementsReceived?: DonorEndorsementCreateNestedManyWithoutDonorInput
+    endorsementsGiven?: DonorEndorsementCreateNestedManyWithoutEndorserInput
   }
 
   export type UserUncheckedCreateWithoutDonationsInput = {
@@ -38204,6 +45266,9 @@ export namespace Prisma {
     ngoSuggestions?: NgoSuggestionUncheckedCreateNestedManyWithoutUserInput
     referralsMade?: ReferralUncheckedCreateNestedManyWithoutReferrerInput
     referralsReceived?: ReferralUncheckedCreateNestedManyWithoutReferredInput
+    skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutDonorInput
+    endorsementsReceived?: DonorEndorsementUncheckedCreateNestedManyWithoutDonorInput
+    endorsementsGiven?: DonorEndorsementUncheckedCreateNestedManyWithoutEndorserInput
   }
 
   export type UserCreateOrConnectWithoutDonationsInput = {
@@ -38232,6 +45297,7 @@ export namespace Prisma {
     expenses?: ExpenseCreateNestedManyWithoutProjectInput
     spotlightVotes?: SpotlightVoteCreateNestedManyWithoutProjectInput
     campaigns?: CampaignCreateNestedManyWithoutProjectInput
+    skillContributions?: SkillContributionCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUncheckedCreateWithoutDonationsInput = {
@@ -38255,6 +45321,7 @@ export namespace Prisma {
     expenses?: ExpenseUncheckedCreateNestedManyWithoutProjectInput
     spotlightVotes?: SpotlightVoteUncheckedCreateNestedManyWithoutProjectInput
     campaigns?: CampaignUncheckedCreateNestedManyWithoutProjectInput
+    skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectCreateOrConnectWithoutDonationsInput = {
@@ -38319,6 +45386,9 @@ export namespace Prisma {
     ngoSuggestions?: NgoSuggestionUpdateManyWithoutUserNestedInput
     referralsMade?: ReferralUpdateManyWithoutReferrerNestedInput
     referralsReceived?: ReferralUpdateManyWithoutReferredNestedInput
+    skillContributions?: SkillContributionUpdateManyWithoutDonorNestedInput
+    endorsementsReceived?: DonorEndorsementUpdateManyWithoutDonorNestedInput
+    endorsementsGiven?: DonorEndorsementUpdateManyWithoutEndorserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDonationsInput = {
@@ -38342,6 +45412,9 @@ export namespace Prisma {
     ngoSuggestions?: NgoSuggestionUncheckedUpdateManyWithoutUserNestedInput
     referralsMade?: ReferralUncheckedUpdateManyWithoutReferrerNestedInput
     referralsReceived?: ReferralUncheckedUpdateManyWithoutReferredNestedInput
+    skillContributions?: SkillContributionUncheckedUpdateManyWithoutDonorNestedInput
+    endorsementsReceived?: DonorEndorsementUncheckedUpdateManyWithoutDonorNestedInput
+    endorsementsGiven?: DonorEndorsementUncheckedUpdateManyWithoutEndorserNestedInput
   }
 
   export type ProjectUpsertWithoutDonationsInput = {
@@ -38376,6 +45449,7 @@ export namespace Prisma {
     expenses?: ExpenseUpdateManyWithoutProjectNestedInput
     spotlightVotes?: SpotlightVoteUpdateManyWithoutProjectNestedInput
     campaigns?: CampaignUpdateManyWithoutProjectNestedInput
+    skillContributions?: SkillContributionUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateWithoutDonationsInput = {
@@ -38399,6 +45473,7 @@ export namespace Prisma {
     expenses?: ExpenseUncheckedUpdateManyWithoutProjectNestedInput
     spotlightVotes?: SpotlightVoteUncheckedUpdateManyWithoutProjectNestedInput
     campaigns?: CampaignUncheckedUpdateManyWithoutProjectNestedInput
+    skillContributions?: SkillContributionUncheckedUpdateManyWithoutProjectNestedInput
   }
 
   export type BlockchainRecordUpsertWithoutDonationInput = {
@@ -38597,6 +45672,9 @@ export namespace Prisma {
     user: UserCreateNestedOneWithoutNgoInput
     projects?: ProjectCreateNestedManyWithoutNgoInput
     ratings?: RatingCreateNestedManyWithoutNgoInput
+    boardMembers?: BoardMemberCreateNestedManyWithoutNgoInput
+    skillContributions?: SkillContributionCreateNestedManyWithoutNgoInput
+    donorEndorsements?: DonorEndorsementCreateNestedManyWithoutNgoInput
   }
 
   export type NgoUncheckedCreateWithoutExpensesInput = {
@@ -38616,6 +45694,9 @@ export namespace Prisma {
     updatedAt?: Date | string
     projects?: ProjectUncheckedCreateNestedManyWithoutNgoInput
     ratings?: RatingUncheckedCreateNestedManyWithoutNgoInput
+    boardMembers?: BoardMemberUncheckedCreateNestedManyWithoutNgoInput
+    skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutNgoInput
+    donorEndorsements?: DonorEndorsementUncheckedCreateNestedManyWithoutNgoInput
   }
 
   export type NgoCreateOrConnectWithoutExpensesInput = {
@@ -38644,6 +45725,7 @@ export namespace Prisma {
     donations?: DonationCreateNestedManyWithoutProjectInput
     spotlightVotes?: SpotlightVoteCreateNestedManyWithoutProjectInput
     campaigns?: CampaignCreateNestedManyWithoutProjectInput
+    skillContributions?: SkillContributionCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUncheckedCreateWithoutExpensesInput = {
@@ -38667,6 +45749,7 @@ export namespace Prisma {
     donations?: DonationUncheckedCreateNestedManyWithoutProjectInput
     spotlightVotes?: SpotlightVoteUncheckedCreateNestedManyWithoutProjectInput
     campaigns?: CampaignUncheckedCreateNestedManyWithoutProjectInput
+    skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectCreateOrConnectWithoutExpensesInput = {
@@ -38702,6 +45785,9 @@ export namespace Prisma {
     user?: UserUpdateOneRequiredWithoutNgoNestedInput
     projects?: ProjectUpdateManyWithoutNgoNestedInput
     ratings?: RatingUpdateManyWithoutNgoNestedInput
+    boardMembers?: BoardMemberUpdateManyWithoutNgoNestedInput
+    skillContributions?: SkillContributionUpdateManyWithoutNgoNestedInput
+    donorEndorsements?: DonorEndorsementUpdateManyWithoutNgoNestedInput
   }
 
   export type NgoUncheckedUpdateWithoutExpensesInput = {
@@ -38721,6 +45807,9 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     projects?: ProjectUncheckedUpdateManyWithoutNgoNestedInput
     ratings?: RatingUncheckedUpdateManyWithoutNgoNestedInput
+    boardMembers?: BoardMemberUncheckedUpdateManyWithoutNgoNestedInput
+    skillContributions?: SkillContributionUncheckedUpdateManyWithoutNgoNestedInput
+    donorEndorsements?: DonorEndorsementUncheckedUpdateManyWithoutNgoNestedInput
   }
 
   export type ProjectUpsertWithoutExpensesInput = {
@@ -38755,6 +45844,7 @@ export namespace Prisma {
     donations?: DonationUpdateManyWithoutProjectNestedInput
     spotlightVotes?: SpotlightVoteUpdateManyWithoutProjectNestedInput
     campaigns?: CampaignUpdateManyWithoutProjectNestedInput
+    skillContributions?: SkillContributionUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateWithoutExpensesInput = {
@@ -38778,6 +45868,7 @@ export namespace Prisma {
     donations?: DonationUncheckedUpdateManyWithoutProjectNestedInput
     spotlightVotes?: SpotlightVoteUncheckedUpdateManyWithoutProjectNestedInput
     campaigns?: CampaignUncheckedUpdateManyWithoutProjectNestedInput
+    skillContributions?: SkillContributionUncheckedUpdateManyWithoutProjectNestedInput
   }
 
   export type DonationCreateWithoutBlockchainRecordInput = {
@@ -38941,6 +46032,9 @@ export namespace Prisma {
     ngoSuggestions?: NgoSuggestionCreateNestedManyWithoutUserInput
     referralsMade?: ReferralCreateNestedManyWithoutReferrerInput
     referralsReceived?: ReferralCreateNestedManyWithoutReferredInput
+    skillContributions?: SkillContributionCreateNestedManyWithoutDonorInput
+    endorsementsReceived?: DonorEndorsementCreateNestedManyWithoutDonorInput
+    endorsementsGiven?: DonorEndorsementCreateNestedManyWithoutEndorserInput
   }
 
   export type UserUncheckedCreateWithoutRatingsInput = {
@@ -38964,6 +46058,9 @@ export namespace Prisma {
     ngoSuggestions?: NgoSuggestionUncheckedCreateNestedManyWithoutUserInput
     referralsMade?: ReferralUncheckedCreateNestedManyWithoutReferrerInput
     referralsReceived?: ReferralUncheckedCreateNestedManyWithoutReferredInput
+    skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutDonorInput
+    endorsementsReceived?: DonorEndorsementUncheckedCreateNestedManyWithoutDonorInput
+    endorsementsGiven?: DonorEndorsementUncheckedCreateNestedManyWithoutEndorserInput
   }
 
   export type UserCreateOrConnectWithoutRatingsInput = {
@@ -38988,6 +46085,9 @@ export namespace Prisma {
     user: UserCreateNestedOneWithoutNgoInput
     projects?: ProjectCreateNestedManyWithoutNgoInput
     expenses?: ExpenseCreateNestedManyWithoutNgoInput
+    boardMembers?: BoardMemberCreateNestedManyWithoutNgoInput
+    skillContributions?: SkillContributionCreateNestedManyWithoutNgoInput
+    donorEndorsements?: DonorEndorsementCreateNestedManyWithoutNgoInput
   }
 
   export type NgoUncheckedCreateWithoutRatingsInput = {
@@ -39007,6 +46107,9 @@ export namespace Prisma {
     updatedAt?: Date | string
     projects?: ProjectUncheckedCreateNestedManyWithoutNgoInput
     expenses?: ExpenseUncheckedCreateNestedManyWithoutNgoInput
+    boardMembers?: BoardMemberUncheckedCreateNestedManyWithoutNgoInput
+    skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutNgoInput
+    donorEndorsements?: DonorEndorsementUncheckedCreateNestedManyWithoutNgoInput
   }
 
   export type NgoCreateOrConnectWithoutRatingsInput = {
@@ -39046,6 +46149,9 @@ export namespace Prisma {
     ngoSuggestions?: NgoSuggestionUpdateManyWithoutUserNestedInput
     referralsMade?: ReferralUpdateManyWithoutReferrerNestedInput
     referralsReceived?: ReferralUpdateManyWithoutReferredNestedInput
+    skillContributions?: SkillContributionUpdateManyWithoutDonorNestedInput
+    endorsementsReceived?: DonorEndorsementUpdateManyWithoutDonorNestedInput
+    endorsementsGiven?: DonorEndorsementUpdateManyWithoutEndorserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRatingsInput = {
@@ -39069,6 +46175,9 @@ export namespace Prisma {
     ngoSuggestions?: NgoSuggestionUncheckedUpdateManyWithoutUserNestedInput
     referralsMade?: ReferralUncheckedUpdateManyWithoutReferrerNestedInput
     referralsReceived?: ReferralUncheckedUpdateManyWithoutReferredNestedInput
+    skillContributions?: SkillContributionUncheckedUpdateManyWithoutDonorNestedInput
+    endorsementsReceived?: DonorEndorsementUncheckedUpdateManyWithoutDonorNestedInput
+    endorsementsGiven?: DonorEndorsementUncheckedUpdateManyWithoutEndorserNestedInput
   }
 
   export type NgoUpsertWithoutRatingsInput = {
@@ -39099,6 +46208,9 @@ export namespace Prisma {
     user?: UserUpdateOneRequiredWithoutNgoNestedInput
     projects?: ProjectUpdateManyWithoutNgoNestedInput
     expenses?: ExpenseUpdateManyWithoutNgoNestedInput
+    boardMembers?: BoardMemberUpdateManyWithoutNgoNestedInput
+    skillContributions?: SkillContributionUpdateManyWithoutNgoNestedInput
+    donorEndorsements?: DonorEndorsementUpdateManyWithoutNgoNestedInput
   }
 
   export type NgoUncheckedUpdateWithoutRatingsInput = {
@@ -39118,6 +46230,9 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     projects?: ProjectUncheckedUpdateManyWithoutNgoNestedInput
     expenses?: ExpenseUncheckedUpdateManyWithoutNgoNestedInput
+    boardMembers?: BoardMemberUncheckedUpdateManyWithoutNgoNestedInput
+    skillContributions?: SkillContributionUncheckedUpdateManyWithoutNgoNestedInput
+    donorEndorsements?: DonorEndorsementUncheckedUpdateManyWithoutNgoNestedInput
   }
 
   export type UserCreateWithoutNotificationsInput = {
@@ -39141,6 +46256,9 @@ export namespace Prisma {
     ngoSuggestions?: NgoSuggestionCreateNestedManyWithoutUserInput
     referralsMade?: ReferralCreateNestedManyWithoutReferrerInput
     referralsReceived?: ReferralCreateNestedManyWithoutReferredInput
+    skillContributions?: SkillContributionCreateNestedManyWithoutDonorInput
+    endorsementsReceived?: DonorEndorsementCreateNestedManyWithoutDonorInput
+    endorsementsGiven?: DonorEndorsementCreateNestedManyWithoutEndorserInput
   }
 
   export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -39164,6 +46282,9 @@ export namespace Prisma {
     ngoSuggestions?: NgoSuggestionUncheckedCreateNestedManyWithoutUserInput
     referralsMade?: ReferralUncheckedCreateNestedManyWithoutReferrerInput
     referralsReceived?: ReferralUncheckedCreateNestedManyWithoutReferredInput
+    skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutDonorInput
+    endorsementsReceived?: DonorEndorsementUncheckedCreateNestedManyWithoutDonorInput
+    endorsementsGiven?: DonorEndorsementUncheckedCreateNestedManyWithoutEndorserInput
   }
 
   export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -39203,6 +46324,9 @@ export namespace Prisma {
     ngoSuggestions?: NgoSuggestionUpdateManyWithoutUserNestedInput
     referralsMade?: ReferralUpdateManyWithoutReferrerNestedInput
     referralsReceived?: ReferralUpdateManyWithoutReferredNestedInput
+    skillContributions?: SkillContributionUpdateManyWithoutDonorNestedInput
+    endorsementsReceived?: DonorEndorsementUpdateManyWithoutDonorNestedInput
+    endorsementsGiven?: DonorEndorsementUpdateManyWithoutEndorserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -39226,6 +46350,9 @@ export namespace Prisma {
     ngoSuggestions?: NgoSuggestionUncheckedUpdateManyWithoutUserNestedInput
     referralsMade?: ReferralUncheckedUpdateManyWithoutReferrerNestedInput
     referralsReceived?: ReferralUncheckedUpdateManyWithoutReferredNestedInput
+    skillContributions?: SkillContributionUncheckedUpdateManyWithoutDonorNestedInput
+    endorsementsReceived?: DonorEndorsementUncheckedUpdateManyWithoutDonorNestedInput
+    endorsementsGiven?: DonorEndorsementUncheckedUpdateManyWithoutEndorserNestedInput
   }
 
   export type UserCreateWithoutSpotlightVotesInput = {
@@ -39249,6 +46376,9 @@ export namespace Prisma {
     ngoSuggestions?: NgoSuggestionCreateNestedManyWithoutUserInput
     referralsMade?: ReferralCreateNestedManyWithoutReferrerInput
     referralsReceived?: ReferralCreateNestedManyWithoutReferredInput
+    skillContributions?: SkillContributionCreateNestedManyWithoutDonorInput
+    endorsementsReceived?: DonorEndorsementCreateNestedManyWithoutDonorInput
+    endorsementsGiven?: DonorEndorsementCreateNestedManyWithoutEndorserInput
   }
 
   export type UserUncheckedCreateWithoutSpotlightVotesInput = {
@@ -39272,6 +46402,9 @@ export namespace Prisma {
     ngoSuggestions?: NgoSuggestionUncheckedCreateNestedManyWithoutUserInput
     referralsMade?: ReferralUncheckedCreateNestedManyWithoutReferrerInput
     referralsReceived?: ReferralUncheckedCreateNestedManyWithoutReferredInput
+    skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutDonorInput
+    endorsementsReceived?: DonorEndorsementUncheckedCreateNestedManyWithoutDonorInput
+    endorsementsGiven?: DonorEndorsementUncheckedCreateNestedManyWithoutEndorserInput
   }
 
   export type UserCreateOrConnectWithoutSpotlightVotesInput = {
@@ -39300,6 +46433,7 @@ export namespace Prisma {
     donations?: DonationCreateNestedManyWithoutProjectInput
     expenses?: ExpenseCreateNestedManyWithoutProjectInput
     campaigns?: CampaignCreateNestedManyWithoutProjectInput
+    skillContributions?: SkillContributionCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUncheckedCreateWithoutSpotlightVotesInput = {
@@ -39323,6 +46457,7 @@ export namespace Prisma {
     donations?: DonationUncheckedCreateNestedManyWithoutProjectInput
     expenses?: ExpenseUncheckedCreateNestedManyWithoutProjectInput
     campaigns?: CampaignUncheckedCreateNestedManyWithoutProjectInput
+    skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectCreateOrConnectWithoutSpotlightVotesInput = {
@@ -39362,6 +46497,9 @@ export namespace Prisma {
     ngoSuggestions?: NgoSuggestionUpdateManyWithoutUserNestedInput
     referralsMade?: ReferralUpdateManyWithoutReferrerNestedInput
     referralsReceived?: ReferralUpdateManyWithoutReferredNestedInput
+    skillContributions?: SkillContributionUpdateManyWithoutDonorNestedInput
+    endorsementsReceived?: DonorEndorsementUpdateManyWithoutDonorNestedInput
+    endorsementsGiven?: DonorEndorsementUpdateManyWithoutEndorserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSpotlightVotesInput = {
@@ -39385,6 +46523,9 @@ export namespace Prisma {
     ngoSuggestions?: NgoSuggestionUncheckedUpdateManyWithoutUserNestedInput
     referralsMade?: ReferralUncheckedUpdateManyWithoutReferrerNestedInput
     referralsReceived?: ReferralUncheckedUpdateManyWithoutReferredNestedInput
+    skillContributions?: SkillContributionUncheckedUpdateManyWithoutDonorNestedInput
+    endorsementsReceived?: DonorEndorsementUncheckedUpdateManyWithoutDonorNestedInput
+    endorsementsGiven?: DonorEndorsementUncheckedUpdateManyWithoutEndorserNestedInput
   }
 
   export type ProjectUpsertWithoutSpotlightVotesInput = {
@@ -39419,6 +46560,7 @@ export namespace Prisma {
     donations?: DonationUpdateManyWithoutProjectNestedInput
     expenses?: ExpenseUpdateManyWithoutProjectNestedInput
     campaigns?: CampaignUpdateManyWithoutProjectNestedInput
+    skillContributions?: SkillContributionUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateWithoutSpotlightVotesInput = {
@@ -39442,6 +46584,7 @@ export namespace Prisma {
     donations?: DonationUncheckedUpdateManyWithoutProjectNestedInput
     expenses?: ExpenseUncheckedUpdateManyWithoutProjectNestedInput
     campaigns?: CampaignUncheckedUpdateManyWithoutProjectNestedInput
+    skillContributions?: SkillContributionUncheckedUpdateManyWithoutProjectNestedInput
   }
 
   export type UserCreateWithoutCampaignsCreatedInput = {
@@ -39465,6 +46608,9 @@ export namespace Prisma {
     ngoSuggestions?: NgoSuggestionCreateNestedManyWithoutUserInput
     referralsMade?: ReferralCreateNestedManyWithoutReferrerInput
     referralsReceived?: ReferralCreateNestedManyWithoutReferredInput
+    skillContributions?: SkillContributionCreateNestedManyWithoutDonorInput
+    endorsementsReceived?: DonorEndorsementCreateNestedManyWithoutDonorInput
+    endorsementsGiven?: DonorEndorsementCreateNestedManyWithoutEndorserInput
   }
 
   export type UserUncheckedCreateWithoutCampaignsCreatedInput = {
@@ -39488,6 +46634,9 @@ export namespace Prisma {
     ngoSuggestions?: NgoSuggestionUncheckedCreateNestedManyWithoutUserInput
     referralsMade?: ReferralUncheckedCreateNestedManyWithoutReferrerInput
     referralsReceived?: ReferralUncheckedCreateNestedManyWithoutReferredInput
+    skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutDonorInput
+    endorsementsReceived?: DonorEndorsementUncheckedCreateNestedManyWithoutDonorInput
+    endorsementsGiven?: DonorEndorsementUncheckedCreateNestedManyWithoutEndorserInput
   }
 
   export type UserCreateOrConnectWithoutCampaignsCreatedInput = {
@@ -39516,6 +46665,7 @@ export namespace Prisma {
     donations?: DonationCreateNestedManyWithoutProjectInput
     expenses?: ExpenseCreateNestedManyWithoutProjectInput
     spotlightVotes?: SpotlightVoteCreateNestedManyWithoutProjectInput
+    skillContributions?: SkillContributionCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUncheckedCreateWithoutCampaignsInput = {
@@ -39539,6 +46689,7 @@ export namespace Prisma {
     donations?: DonationUncheckedCreateNestedManyWithoutProjectInput
     expenses?: ExpenseUncheckedCreateNestedManyWithoutProjectInput
     spotlightVotes?: SpotlightVoteUncheckedCreateNestedManyWithoutProjectInput
+    skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectCreateOrConnectWithoutCampaignsInput = {
@@ -39602,6 +46753,9 @@ export namespace Prisma {
     ngoSuggestions?: NgoSuggestionUpdateManyWithoutUserNestedInput
     referralsMade?: ReferralUpdateManyWithoutReferrerNestedInput
     referralsReceived?: ReferralUpdateManyWithoutReferredNestedInput
+    skillContributions?: SkillContributionUpdateManyWithoutDonorNestedInput
+    endorsementsReceived?: DonorEndorsementUpdateManyWithoutDonorNestedInput
+    endorsementsGiven?: DonorEndorsementUpdateManyWithoutEndorserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCampaignsCreatedInput = {
@@ -39625,6 +46779,9 @@ export namespace Prisma {
     ngoSuggestions?: NgoSuggestionUncheckedUpdateManyWithoutUserNestedInput
     referralsMade?: ReferralUncheckedUpdateManyWithoutReferrerNestedInput
     referralsReceived?: ReferralUncheckedUpdateManyWithoutReferredNestedInput
+    skillContributions?: SkillContributionUncheckedUpdateManyWithoutDonorNestedInput
+    endorsementsReceived?: DonorEndorsementUncheckedUpdateManyWithoutDonorNestedInput
+    endorsementsGiven?: DonorEndorsementUncheckedUpdateManyWithoutEndorserNestedInput
   }
 
   export type ProjectUpsertWithoutCampaignsInput = {
@@ -39659,6 +46816,7 @@ export namespace Prisma {
     donations?: DonationUpdateManyWithoutProjectNestedInput
     expenses?: ExpenseUpdateManyWithoutProjectNestedInput
     spotlightVotes?: SpotlightVoteUpdateManyWithoutProjectNestedInput
+    skillContributions?: SkillContributionUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateWithoutCampaignsInput = {
@@ -39682,6 +46840,7 @@ export namespace Prisma {
     donations?: DonationUncheckedUpdateManyWithoutProjectNestedInput
     expenses?: ExpenseUncheckedUpdateManyWithoutProjectNestedInput
     spotlightVotes?: SpotlightVoteUncheckedUpdateManyWithoutProjectNestedInput
+    skillContributions?: SkillContributionUncheckedUpdateManyWithoutProjectNestedInput
   }
 
   export type CampaignContributorUpsertWithWhereUniqueWithoutCampaignInput = {
@@ -39754,6 +46913,9 @@ export namespace Prisma {
     ngoSuggestions?: NgoSuggestionCreateNestedManyWithoutUserInput
     referralsMade?: ReferralCreateNestedManyWithoutReferrerInput
     referralsReceived?: ReferralCreateNestedManyWithoutReferredInput
+    skillContributions?: SkillContributionCreateNestedManyWithoutDonorInput
+    endorsementsReceived?: DonorEndorsementCreateNestedManyWithoutDonorInput
+    endorsementsGiven?: DonorEndorsementCreateNestedManyWithoutEndorserInput
   }
 
   export type UserUncheckedCreateWithoutCampaignContributionsInput = {
@@ -39777,6 +46939,9 @@ export namespace Prisma {
     ngoSuggestions?: NgoSuggestionUncheckedCreateNestedManyWithoutUserInput
     referralsMade?: ReferralUncheckedCreateNestedManyWithoutReferrerInput
     referralsReceived?: ReferralUncheckedCreateNestedManyWithoutReferredInput
+    skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutDonorInput
+    endorsementsReceived?: DonorEndorsementUncheckedCreateNestedManyWithoutDonorInput
+    endorsementsGiven?: DonorEndorsementUncheckedCreateNestedManyWithoutEndorserInput
   }
 
   export type UserCreateOrConnectWithoutCampaignContributionsInput = {
@@ -39855,6 +47020,9 @@ export namespace Prisma {
     ngoSuggestions?: NgoSuggestionUpdateManyWithoutUserNestedInput
     referralsMade?: ReferralUpdateManyWithoutReferrerNestedInput
     referralsReceived?: ReferralUpdateManyWithoutReferredNestedInput
+    skillContributions?: SkillContributionUpdateManyWithoutDonorNestedInput
+    endorsementsReceived?: DonorEndorsementUpdateManyWithoutDonorNestedInput
+    endorsementsGiven?: DonorEndorsementUpdateManyWithoutEndorserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCampaignContributionsInput = {
@@ -39878,6 +47046,9 @@ export namespace Prisma {
     ngoSuggestions?: NgoSuggestionUncheckedUpdateManyWithoutUserNestedInput
     referralsMade?: ReferralUncheckedUpdateManyWithoutReferrerNestedInput
     referralsReceived?: ReferralUncheckedUpdateManyWithoutReferredNestedInput
+    skillContributions?: SkillContributionUncheckedUpdateManyWithoutDonorNestedInput
+    endorsementsReceived?: DonorEndorsementUncheckedUpdateManyWithoutDonorNestedInput
+    endorsementsGiven?: DonorEndorsementUncheckedUpdateManyWithoutEndorserNestedInput
   }
 
   export type UserCreateWithoutNgoSuggestionsInput = {
@@ -39901,6 +47072,9 @@ export namespace Prisma {
     campaignContributions?: CampaignContributorCreateNestedManyWithoutUserInput
     referralsMade?: ReferralCreateNestedManyWithoutReferrerInput
     referralsReceived?: ReferralCreateNestedManyWithoutReferredInput
+    skillContributions?: SkillContributionCreateNestedManyWithoutDonorInput
+    endorsementsReceived?: DonorEndorsementCreateNestedManyWithoutDonorInput
+    endorsementsGiven?: DonorEndorsementCreateNestedManyWithoutEndorserInput
   }
 
   export type UserUncheckedCreateWithoutNgoSuggestionsInput = {
@@ -39924,6 +47098,9 @@ export namespace Prisma {
     campaignContributions?: CampaignContributorUncheckedCreateNestedManyWithoutUserInput
     referralsMade?: ReferralUncheckedCreateNestedManyWithoutReferrerInput
     referralsReceived?: ReferralUncheckedCreateNestedManyWithoutReferredInput
+    skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutDonorInput
+    endorsementsReceived?: DonorEndorsementUncheckedCreateNestedManyWithoutDonorInput
+    endorsementsGiven?: DonorEndorsementUncheckedCreateNestedManyWithoutEndorserInput
   }
 
   export type UserCreateOrConnectWithoutNgoSuggestionsInput = {
@@ -39963,6 +47140,9 @@ export namespace Prisma {
     campaignContributions?: CampaignContributorUpdateManyWithoutUserNestedInput
     referralsMade?: ReferralUpdateManyWithoutReferrerNestedInput
     referralsReceived?: ReferralUpdateManyWithoutReferredNestedInput
+    skillContributions?: SkillContributionUpdateManyWithoutDonorNestedInput
+    endorsementsReceived?: DonorEndorsementUpdateManyWithoutDonorNestedInput
+    endorsementsGiven?: DonorEndorsementUpdateManyWithoutEndorserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNgoSuggestionsInput = {
@@ -39986,6 +47166,9 @@ export namespace Prisma {
     campaignContributions?: CampaignContributorUncheckedUpdateManyWithoutUserNestedInput
     referralsMade?: ReferralUncheckedUpdateManyWithoutReferrerNestedInput
     referralsReceived?: ReferralUncheckedUpdateManyWithoutReferredNestedInput
+    skillContributions?: SkillContributionUncheckedUpdateManyWithoutDonorNestedInput
+    endorsementsReceived?: DonorEndorsementUncheckedUpdateManyWithoutDonorNestedInput
+    endorsementsGiven?: DonorEndorsementUncheckedUpdateManyWithoutEndorserNestedInput
   }
 
   export type UserCreateWithoutReferralsMadeInput = {
@@ -40009,6 +47192,9 @@ export namespace Prisma {
     campaignContributions?: CampaignContributorCreateNestedManyWithoutUserInput
     ngoSuggestions?: NgoSuggestionCreateNestedManyWithoutUserInput
     referralsReceived?: ReferralCreateNestedManyWithoutReferredInput
+    skillContributions?: SkillContributionCreateNestedManyWithoutDonorInput
+    endorsementsReceived?: DonorEndorsementCreateNestedManyWithoutDonorInput
+    endorsementsGiven?: DonorEndorsementCreateNestedManyWithoutEndorserInput
   }
 
   export type UserUncheckedCreateWithoutReferralsMadeInput = {
@@ -40032,6 +47218,9 @@ export namespace Prisma {
     campaignContributions?: CampaignContributorUncheckedCreateNestedManyWithoutUserInput
     ngoSuggestions?: NgoSuggestionUncheckedCreateNestedManyWithoutUserInput
     referralsReceived?: ReferralUncheckedCreateNestedManyWithoutReferredInput
+    skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutDonorInput
+    endorsementsReceived?: DonorEndorsementUncheckedCreateNestedManyWithoutDonorInput
+    endorsementsGiven?: DonorEndorsementUncheckedCreateNestedManyWithoutEndorserInput
   }
 
   export type UserCreateOrConnectWithoutReferralsMadeInput = {
@@ -40060,6 +47249,9 @@ export namespace Prisma {
     campaignContributions?: CampaignContributorCreateNestedManyWithoutUserInput
     ngoSuggestions?: NgoSuggestionCreateNestedManyWithoutUserInput
     referralsMade?: ReferralCreateNestedManyWithoutReferrerInput
+    skillContributions?: SkillContributionCreateNestedManyWithoutDonorInput
+    endorsementsReceived?: DonorEndorsementCreateNestedManyWithoutDonorInput
+    endorsementsGiven?: DonorEndorsementCreateNestedManyWithoutEndorserInput
   }
 
   export type UserUncheckedCreateWithoutReferralsReceivedInput = {
@@ -40083,6 +47275,9 @@ export namespace Prisma {
     campaignContributions?: CampaignContributorUncheckedCreateNestedManyWithoutUserInput
     ngoSuggestions?: NgoSuggestionUncheckedCreateNestedManyWithoutUserInput
     referralsMade?: ReferralUncheckedCreateNestedManyWithoutReferrerInput
+    skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutDonorInput
+    endorsementsReceived?: DonorEndorsementUncheckedCreateNestedManyWithoutDonorInput
+    endorsementsGiven?: DonorEndorsementUncheckedCreateNestedManyWithoutEndorserInput
   }
 
   export type UserCreateOrConnectWithoutReferralsReceivedInput = {
@@ -40122,6 +47317,9 @@ export namespace Prisma {
     campaignContributions?: CampaignContributorUpdateManyWithoutUserNestedInput
     ngoSuggestions?: NgoSuggestionUpdateManyWithoutUserNestedInput
     referralsReceived?: ReferralUpdateManyWithoutReferredNestedInput
+    skillContributions?: SkillContributionUpdateManyWithoutDonorNestedInput
+    endorsementsReceived?: DonorEndorsementUpdateManyWithoutDonorNestedInput
+    endorsementsGiven?: DonorEndorsementUpdateManyWithoutEndorserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReferralsMadeInput = {
@@ -40145,6 +47343,9 @@ export namespace Prisma {
     campaignContributions?: CampaignContributorUncheckedUpdateManyWithoutUserNestedInput
     ngoSuggestions?: NgoSuggestionUncheckedUpdateManyWithoutUserNestedInput
     referralsReceived?: ReferralUncheckedUpdateManyWithoutReferredNestedInput
+    skillContributions?: SkillContributionUncheckedUpdateManyWithoutDonorNestedInput
+    endorsementsReceived?: DonorEndorsementUncheckedUpdateManyWithoutDonorNestedInput
+    endorsementsGiven?: DonorEndorsementUncheckedUpdateManyWithoutEndorserNestedInput
   }
 
   export type UserUpsertWithoutReferralsReceivedInput = {
@@ -40179,6 +47380,9 @@ export namespace Prisma {
     campaignContributions?: CampaignContributorUpdateManyWithoutUserNestedInput
     ngoSuggestions?: NgoSuggestionUpdateManyWithoutUserNestedInput
     referralsMade?: ReferralUpdateManyWithoutReferrerNestedInput
+    skillContributions?: SkillContributionUpdateManyWithoutDonorNestedInput
+    endorsementsReceived?: DonorEndorsementUpdateManyWithoutDonorNestedInput
+    endorsementsGiven?: DonorEndorsementUpdateManyWithoutEndorserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReferralsReceivedInput = {
@@ -40202,6 +47406,917 @@ export namespace Prisma {
     campaignContributions?: CampaignContributorUncheckedUpdateManyWithoutUserNestedInput
     ngoSuggestions?: NgoSuggestionUncheckedUpdateManyWithoutUserNestedInput
     referralsMade?: ReferralUncheckedUpdateManyWithoutReferrerNestedInput
+    skillContributions?: SkillContributionUncheckedUpdateManyWithoutDonorNestedInput
+    endorsementsReceived?: DonorEndorsementUncheckedUpdateManyWithoutDonorNestedInput
+    endorsementsGiven?: DonorEndorsementUncheckedUpdateManyWithoutEndorserNestedInput
+  }
+
+  export type NgoCreateWithoutBoardMembersInput = {
+    id?: string
+    orgName: string
+    regNumber?: string | null
+    country?: string | null
+    website?: string | null
+    description?: string | null
+    logoUrl?: string | null
+    trustScore?: number
+    status?: $Enums.NgoStatus
+    approvedAt?: Date | string | null
+    rejectReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutNgoInput
+    projects?: ProjectCreateNestedManyWithoutNgoInput
+    expenses?: ExpenseCreateNestedManyWithoutNgoInput
+    ratings?: RatingCreateNestedManyWithoutNgoInput
+    skillContributions?: SkillContributionCreateNestedManyWithoutNgoInput
+    donorEndorsements?: DonorEndorsementCreateNestedManyWithoutNgoInput
+  }
+
+  export type NgoUncheckedCreateWithoutBoardMembersInput = {
+    id?: string
+    userId: string
+    orgName: string
+    regNumber?: string | null
+    country?: string | null
+    website?: string | null
+    description?: string | null
+    logoUrl?: string | null
+    trustScore?: number
+    status?: $Enums.NgoStatus
+    approvedAt?: Date | string | null
+    rejectReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    projects?: ProjectUncheckedCreateNestedManyWithoutNgoInput
+    expenses?: ExpenseUncheckedCreateNestedManyWithoutNgoInput
+    ratings?: RatingUncheckedCreateNestedManyWithoutNgoInput
+    skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutNgoInput
+    donorEndorsements?: DonorEndorsementUncheckedCreateNestedManyWithoutNgoInput
+  }
+
+  export type NgoCreateOrConnectWithoutBoardMembersInput = {
+    where: NgoWhereUniqueInput
+    create: XOR<NgoCreateWithoutBoardMembersInput, NgoUncheckedCreateWithoutBoardMembersInput>
+  }
+
+  export type NgoUpsertWithoutBoardMembersInput = {
+    update: XOR<NgoUpdateWithoutBoardMembersInput, NgoUncheckedUpdateWithoutBoardMembersInput>
+    create: XOR<NgoCreateWithoutBoardMembersInput, NgoUncheckedCreateWithoutBoardMembersInput>
+    where?: NgoWhereInput
+  }
+
+  export type NgoUpdateToOneWithWhereWithoutBoardMembersInput = {
+    where?: NgoWhereInput
+    data: XOR<NgoUpdateWithoutBoardMembersInput, NgoUncheckedUpdateWithoutBoardMembersInput>
+  }
+
+  export type NgoUpdateWithoutBoardMembersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    orgName?: StringFieldUpdateOperationsInput | string
+    regNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    trustScore?: FloatFieldUpdateOperationsInput | number
+    status?: EnumNgoStatusFieldUpdateOperationsInput | $Enums.NgoStatus
+    approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejectReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutNgoNestedInput
+    projects?: ProjectUpdateManyWithoutNgoNestedInput
+    expenses?: ExpenseUpdateManyWithoutNgoNestedInput
+    ratings?: RatingUpdateManyWithoutNgoNestedInput
+    skillContributions?: SkillContributionUpdateManyWithoutNgoNestedInput
+    donorEndorsements?: DonorEndorsementUpdateManyWithoutNgoNestedInput
+  }
+
+  export type NgoUncheckedUpdateWithoutBoardMembersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    orgName?: StringFieldUpdateOperationsInput | string
+    regNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    trustScore?: FloatFieldUpdateOperationsInput | number
+    status?: EnumNgoStatusFieldUpdateOperationsInput | $Enums.NgoStatus
+    approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejectReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    projects?: ProjectUncheckedUpdateManyWithoutNgoNestedInput
+    expenses?: ExpenseUncheckedUpdateManyWithoutNgoNestedInput
+    ratings?: RatingUncheckedUpdateManyWithoutNgoNestedInput
+    skillContributions?: SkillContributionUncheckedUpdateManyWithoutNgoNestedInput
+    donorEndorsements?: DonorEndorsementUncheckedUpdateManyWithoutNgoNestedInput
+  }
+
+  export type UserCreateWithoutSkillContributionsInput = {
+    id?: string
+    email: string
+    emailVerified?: Date | string | null
+    name?: string | null
+    image?: string | null
+    role?: $Enums.Role
+    referralCode?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    ngo?: NgoCreateNestedOneWithoutUserInput
+    donations?: DonationCreateNestedManyWithoutUserInput
+    ratings?: RatingCreateNestedManyWithoutDonorInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    spotlightVotes?: SpotlightVoteCreateNestedManyWithoutUserInput
+    campaignsCreated?: CampaignCreateNestedManyWithoutCreatorInput
+    campaignContributions?: CampaignContributorCreateNestedManyWithoutUserInput
+    ngoSuggestions?: NgoSuggestionCreateNestedManyWithoutUserInput
+    referralsMade?: ReferralCreateNestedManyWithoutReferrerInput
+    referralsReceived?: ReferralCreateNestedManyWithoutReferredInput
+    endorsementsReceived?: DonorEndorsementCreateNestedManyWithoutDonorInput
+    endorsementsGiven?: DonorEndorsementCreateNestedManyWithoutEndorserInput
+  }
+
+  export type UserUncheckedCreateWithoutSkillContributionsInput = {
+    id?: string
+    email: string
+    emailVerified?: Date | string | null
+    name?: string | null
+    image?: string | null
+    role?: $Enums.Role
+    referralCode?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    ngo?: NgoUncheckedCreateNestedOneWithoutUserInput
+    donations?: DonationUncheckedCreateNestedManyWithoutUserInput
+    ratings?: RatingUncheckedCreateNestedManyWithoutDonorInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    spotlightVotes?: SpotlightVoteUncheckedCreateNestedManyWithoutUserInput
+    campaignsCreated?: CampaignUncheckedCreateNestedManyWithoutCreatorInput
+    campaignContributions?: CampaignContributorUncheckedCreateNestedManyWithoutUserInput
+    ngoSuggestions?: NgoSuggestionUncheckedCreateNestedManyWithoutUserInput
+    referralsMade?: ReferralUncheckedCreateNestedManyWithoutReferrerInput
+    referralsReceived?: ReferralUncheckedCreateNestedManyWithoutReferredInput
+    endorsementsReceived?: DonorEndorsementUncheckedCreateNestedManyWithoutDonorInput
+    endorsementsGiven?: DonorEndorsementUncheckedCreateNestedManyWithoutEndorserInput
+  }
+
+  export type UserCreateOrConnectWithoutSkillContributionsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutSkillContributionsInput, UserUncheckedCreateWithoutSkillContributionsInput>
+  }
+
+  export type NgoCreateWithoutSkillContributionsInput = {
+    id?: string
+    orgName: string
+    regNumber?: string | null
+    country?: string | null
+    website?: string | null
+    description?: string | null
+    logoUrl?: string | null
+    trustScore?: number
+    status?: $Enums.NgoStatus
+    approvedAt?: Date | string | null
+    rejectReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutNgoInput
+    projects?: ProjectCreateNestedManyWithoutNgoInput
+    expenses?: ExpenseCreateNestedManyWithoutNgoInput
+    ratings?: RatingCreateNestedManyWithoutNgoInput
+    boardMembers?: BoardMemberCreateNestedManyWithoutNgoInput
+    donorEndorsements?: DonorEndorsementCreateNestedManyWithoutNgoInput
+  }
+
+  export type NgoUncheckedCreateWithoutSkillContributionsInput = {
+    id?: string
+    userId: string
+    orgName: string
+    regNumber?: string | null
+    country?: string | null
+    website?: string | null
+    description?: string | null
+    logoUrl?: string | null
+    trustScore?: number
+    status?: $Enums.NgoStatus
+    approvedAt?: Date | string | null
+    rejectReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    projects?: ProjectUncheckedCreateNestedManyWithoutNgoInput
+    expenses?: ExpenseUncheckedCreateNestedManyWithoutNgoInput
+    ratings?: RatingUncheckedCreateNestedManyWithoutNgoInput
+    boardMembers?: BoardMemberUncheckedCreateNestedManyWithoutNgoInput
+    donorEndorsements?: DonorEndorsementUncheckedCreateNestedManyWithoutNgoInput
+  }
+
+  export type NgoCreateOrConnectWithoutSkillContributionsInput = {
+    where: NgoWhereUniqueInput
+    create: XOR<NgoCreateWithoutSkillContributionsInput, NgoUncheckedCreateWithoutSkillContributionsInput>
+  }
+
+  export type ProjectCreateWithoutSkillContributionsInput = {
+    id?: string
+    title: string
+    description: string
+    category: $Enums.ProjectCategory
+    coverImage?: string | null
+    goalAmount: number
+    raisedAmount?: number
+    currency?: string
+    status?: $Enums.ProjectStatus
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    featured?: boolean
+    spotlightVoteCount?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    ngo: NgoCreateNestedOneWithoutProjectsInput
+    milestones?: MilestoneCreateNestedManyWithoutProjectInput
+    donations?: DonationCreateNestedManyWithoutProjectInput
+    expenses?: ExpenseCreateNestedManyWithoutProjectInput
+    spotlightVotes?: SpotlightVoteCreateNestedManyWithoutProjectInput
+    campaigns?: CampaignCreateNestedManyWithoutProjectInput
+  }
+
+  export type ProjectUncheckedCreateWithoutSkillContributionsInput = {
+    id?: string
+    ngoId: string
+    title: string
+    description: string
+    category: $Enums.ProjectCategory
+    coverImage?: string | null
+    goalAmount: number
+    raisedAmount?: number
+    currency?: string
+    status?: $Enums.ProjectStatus
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    featured?: boolean
+    spotlightVoteCount?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    milestones?: MilestoneUncheckedCreateNestedManyWithoutProjectInput
+    donations?: DonationUncheckedCreateNestedManyWithoutProjectInput
+    expenses?: ExpenseUncheckedCreateNestedManyWithoutProjectInput
+    spotlightVotes?: SpotlightVoteUncheckedCreateNestedManyWithoutProjectInput
+    campaigns?: CampaignUncheckedCreateNestedManyWithoutProjectInput
+  }
+
+  export type ProjectCreateOrConnectWithoutSkillContributionsInput = {
+    where: ProjectWhereUniqueInput
+    create: XOR<ProjectCreateWithoutSkillContributionsInput, ProjectUncheckedCreateWithoutSkillContributionsInput>
+  }
+
+  export type SkillBlockchainRecordCreateWithoutContributionInput = {
+    id?: string
+    txHash: string
+    network?: string
+    timestamp?: Date | string
+  }
+
+  export type SkillBlockchainRecordUncheckedCreateWithoutContributionInput = {
+    id?: string
+    txHash: string
+    network?: string
+    timestamp?: Date | string
+  }
+
+  export type SkillBlockchainRecordCreateOrConnectWithoutContributionInput = {
+    where: SkillBlockchainRecordWhereUniqueInput
+    create: XOR<SkillBlockchainRecordCreateWithoutContributionInput, SkillBlockchainRecordUncheckedCreateWithoutContributionInput>
+  }
+
+  export type UserUpsertWithoutSkillContributionsInput = {
+    update: XOR<UserUpdateWithoutSkillContributionsInput, UserUncheckedUpdateWithoutSkillContributionsInput>
+    create: XOR<UserCreateWithoutSkillContributionsInput, UserUncheckedCreateWithoutSkillContributionsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutSkillContributionsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutSkillContributionsInput, UserUncheckedUpdateWithoutSkillContributionsInput>
+  }
+
+  export type UserUpdateWithoutSkillContributionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    referralCode?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    ngo?: NgoUpdateOneWithoutUserNestedInput
+    donations?: DonationUpdateManyWithoutUserNestedInput
+    ratings?: RatingUpdateManyWithoutDonorNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    spotlightVotes?: SpotlightVoteUpdateManyWithoutUserNestedInput
+    campaignsCreated?: CampaignUpdateManyWithoutCreatorNestedInput
+    campaignContributions?: CampaignContributorUpdateManyWithoutUserNestedInput
+    ngoSuggestions?: NgoSuggestionUpdateManyWithoutUserNestedInput
+    referralsMade?: ReferralUpdateManyWithoutReferrerNestedInput
+    referralsReceived?: ReferralUpdateManyWithoutReferredNestedInput
+    endorsementsReceived?: DonorEndorsementUpdateManyWithoutDonorNestedInput
+    endorsementsGiven?: DonorEndorsementUpdateManyWithoutEndorserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutSkillContributionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    referralCode?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    ngo?: NgoUncheckedUpdateOneWithoutUserNestedInput
+    donations?: DonationUncheckedUpdateManyWithoutUserNestedInput
+    ratings?: RatingUncheckedUpdateManyWithoutDonorNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    spotlightVotes?: SpotlightVoteUncheckedUpdateManyWithoutUserNestedInput
+    campaignsCreated?: CampaignUncheckedUpdateManyWithoutCreatorNestedInput
+    campaignContributions?: CampaignContributorUncheckedUpdateManyWithoutUserNestedInput
+    ngoSuggestions?: NgoSuggestionUncheckedUpdateManyWithoutUserNestedInput
+    referralsMade?: ReferralUncheckedUpdateManyWithoutReferrerNestedInput
+    referralsReceived?: ReferralUncheckedUpdateManyWithoutReferredNestedInput
+    endorsementsReceived?: DonorEndorsementUncheckedUpdateManyWithoutDonorNestedInput
+    endorsementsGiven?: DonorEndorsementUncheckedUpdateManyWithoutEndorserNestedInput
+  }
+
+  export type NgoUpsertWithoutSkillContributionsInput = {
+    update: XOR<NgoUpdateWithoutSkillContributionsInput, NgoUncheckedUpdateWithoutSkillContributionsInput>
+    create: XOR<NgoCreateWithoutSkillContributionsInput, NgoUncheckedCreateWithoutSkillContributionsInput>
+    where?: NgoWhereInput
+  }
+
+  export type NgoUpdateToOneWithWhereWithoutSkillContributionsInput = {
+    where?: NgoWhereInput
+    data: XOR<NgoUpdateWithoutSkillContributionsInput, NgoUncheckedUpdateWithoutSkillContributionsInput>
+  }
+
+  export type NgoUpdateWithoutSkillContributionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    orgName?: StringFieldUpdateOperationsInput | string
+    regNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    trustScore?: FloatFieldUpdateOperationsInput | number
+    status?: EnumNgoStatusFieldUpdateOperationsInput | $Enums.NgoStatus
+    approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejectReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutNgoNestedInput
+    projects?: ProjectUpdateManyWithoutNgoNestedInput
+    expenses?: ExpenseUpdateManyWithoutNgoNestedInput
+    ratings?: RatingUpdateManyWithoutNgoNestedInput
+    boardMembers?: BoardMemberUpdateManyWithoutNgoNestedInput
+    donorEndorsements?: DonorEndorsementUpdateManyWithoutNgoNestedInput
+  }
+
+  export type NgoUncheckedUpdateWithoutSkillContributionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    orgName?: StringFieldUpdateOperationsInput | string
+    regNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    trustScore?: FloatFieldUpdateOperationsInput | number
+    status?: EnumNgoStatusFieldUpdateOperationsInput | $Enums.NgoStatus
+    approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejectReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    projects?: ProjectUncheckedUpdateManyWithoutNgoNestedInput
+    expenses?: ExpenseUncheckedUpdateManyWithoutNgoNestedInput
+    ratings?: RatingUncheckedUpdateManyWithoutNgoNestedInput
+    boardMembers?: BoardMemberUncheckedUpdateManyWithoutNgoNestedInput
+    donorEndorsements?: DonorEndorsementUncheckedUpdateManyWithoutNgoNestedInput
+  }
+
+  export type ProjectUpsertWithoutSkillContributionsInput = {
+    update: XOR<ProjectUpdateWithoutSkillContributionsInput, ProjectUncheckedUpdateWithoutSkillContributionsInput>
+    create: XOR<ProjectCreateWithoutSkillContributionsInput, ProjectUncheckedCreateWithoutSkillContributionsInput>
+    where?: ProjectWhereInput
+  }
+
+  export type ProjectUpdateToOneWithWhereWithoutSkillContributionsInput = {
+    where?: ProjectWhereInput
+    data: XOR<ProjectUpdateWithoutSkillContributionsInput, ProjectUncheckedUpdateWithoutSkillContributionsInput>
+  }
+
+  export type ProjectUpdateWithoutSkillContributionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    category?: EnumProjectCategoryFieldUpdateOperationsInput | $Enums.ProjectCategory
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
+    goalAmount?: FloatFieldUpdateOperationsInput | number
+    raisedAmount?: FloatFieldUpdateOperationsInput | number
+    currency?: StringFieldUpdateOperationsInput | string
+    status?: EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    featured?: BoolFieldUpdateOperationsInput | boolean
+    spotlightVoteCount?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ngo?: NgoUpdateOneRequiredWithoutProjectsNestedInput
+    milestones?: MilestoneUpdateManyWithoutProjectNestedInput
+    donations?: DonationUpdateManyWithoutProjectNestedInput
+    expenses?: ExpenseUpdateManyWithoutProjectNestedInput
+    spotlightVotes?: SpotlightVoteUpdateManyWithoutProjectNestedInput
+    campaigns?: CampaignUpdateManyWithoutProjectNestedInput
+  }
+
+  export type ProjectUncheckedUpdateWithoutSkillContributionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ngoId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    category?: EnumProjectCategoryFieldUpdateOperationsInput | $Enums.ProjectCategory
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
+    goalAmount?: FloatFieldUpdateOperationsInput | number
+    raisedAmount?: FloatFieldUpdateOperationsInput | number
+    currency?: StringFieldUpdateOperationsInput | string
+    status?: EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    featured?: BoolFieldUpdateOperationsInput | boolean
+    spotlightVoteCount?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    milestones?: MilestoneUncheckedUpdateManyWithoutProjectNestedInput
+    donations?: DonationUncheckedUpdateManyWithoutProjectNestedInput
+    expenses?: ExpenseUncheckedUpdateManyWithoutProjectNestedInput
+    spotlightVotes?: SpotlightVoteUncheckedUpdateManyWithoutProjectNestedInput
+    campaigns?: CampaignUncheckedUpdateManyWithoutProjectNestedInput
+  }
+
+  export type SkillBlockchainRecordUpsertWithoutContributionInput = {
+    update: XOR<SkillBlockchainRecordUpdateWithoutContributionInput, SkillBlockchainRecordUncheckedUpdateWithoutContributionInput>
+    create: XOR<SkillBlockchainRecordCreateWithoutContributionInput, SkillBlockchainRecordUncheckedCreateWithoutContributionInput>
+    where?: SkillBlockchainRecordWhereInput
+  }
+
+  export type SkillBlockchainRecordUpdateToOneWithWhereWithoutContributionInput = {
+    where?: SkillBlockchainRecordWhereInput
+    data: XOR<SkillBlockchainRecordUpdateWithoutContributionInput, SkillBlockchainRecordUncheckedUpdateWithoutContributionInput>
+  }
+
+  export type SkillBlockchainRecordUpdateWithoutContributionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    txHash?: StringFieldUpdateOperationsInput | string
+    network?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SkillBlockchainRecordUncheckedUpdateWithoutContributionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    txHash?: StringFieldUpdateOperationsInput | string
+    network?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SkillContributionCreateWithoutBlockchainRecordInput = {
+    id?: string
+    skillCategory: string
+    description: string
+    hoursContributed?: number | null
+    status?: string
+    monetaryValue?: number | null
+    txHash?: string | null
+    submittedAt?: Date | string
+    approvedAt?: Date | string | null
+    updatedAt?: Date | string
+    donor: UserCreateNestedOneWithoutSkillContributionsInput
+    ngo: NgoCreateNestedOneWithoutSkillContributionsInput
+    project?: ProjectCreateNestedOneWithoutSkillContributionsInput
+  }
+
+  export type SkillContributionUncheckedCreateWithoutBlockchainRecordInput = {
+    id?: string
+    donorId: string
+    ngoId: string
+    projectId?: string | null
+    skillCategory: string
+    description: string
+    hoursContributed?: number | null
+    status?: string
+    monetaryValue?: number | null
+    txHash?: string | null
+    submittedAt?: Date | string
+    approvedAt?: Date | string | null
+    updatedAt?: Date | string
+  }
+
+  export type SkillContributionCreateOrConnectWithoutBlockchainRecordInput = {
+    where: SkillContributionWhereUniqueInput
+    create: XOR<SkillContributionCreateWithoutBlockchainRecordInput, SkillContributionUncheckedCreateWithoutBlockchainRecordInput>
+  }
+
+  export type SkillContributionUpsertWithoutBlockchainRecordInput = {
+    update: XOR<SkillContributionUpdateWithoutBlockchainRecordInput, SkillContributionUncheckedUpdateWithoutBlockchainRecordInput>
+    create: XOR<SkillContributionCreateWithoutBlockchainRecordInput, SkillContributionUncheckedCreateWithoutBlockchainRecordInput>
+    where?: SkillContributionWhereInput
+  }
+
+  export type SkillContributionUpdateToOneWithWhereWithoutBlockchainRecordInput = {
+    where?: SkillContributionWhereInput
+    data: XOR<SkillContributionUpdateWithoutBlockchainRecordInput, SkillContributionUncheckedUpdateWithoutBlockchainRecordInput>
+  }
+
+  export type SkillContributionUpdateWithoutBlockchainRecordInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    skillCategory?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    hoursContributed?: NullableFloatFieldUpdateOperationsInput | number | null
+    status?: StringFieldUpdateOperationsInput | string
+    monetaryValue?: NullableFloatFieldUpdateOperationsInput | number | null
+    txHash?: NullableStringFieldUpdateOperationsInput | string | null
+    submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    donor?: UserUpdateOneRequiredWithoutSkillContributionsNestedInput
+    ngo?: NgoUpdateOneRequiredWithoutSkillContributionsNestedInput
+    project?: ProjectUpdateOneWithoutSkillContributionsNestedInput
+  }
+
+  export type SkillContributionUncheckedUpdateWithoutBlockchainRecordInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    donorId?: StringFieldUpdateOperationsInput | string
+    ngoId?: StringFieldUpdateOperationsInput | string
+    projectId?: NullableStringFieldUpdateOperationsInput | string | null
+    skillCategory?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    hoursContributed?: NullableFloatFieldUpdateOperationsInput | number | null
+    status?: StringFieldUpdateOperationsInput | string
+    monetaryValue?: NullableFloatFieldUpdateOperationsInput | number | null
+    txHash?: NullableStringFieldUpdateOperationsInput | string | null
+    submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserCreateWithoutEndorsementsReceivedInput = {
+    id?: string
+    email: string
+    emailVerified?: Date | string | null
+    name?: string | null
+    image?: string | null
+    role?: $Enums.Role
+    referralCode?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    ngo?: NgoCreateNestedOneWithoutUserInput
+    donations?: DonationCreateNestedManyWithoutUserInput
+    ratings?: RatingCreateNestedManyWithoutDonorInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    spotlightVotes?: SpotlightVoteCreateNestedManyWithoutUserInput
+    campaignsCreated?: CampaignCreateNestedManyWithoutCreatorInput
+    campaignContributions?: CampaignContributorCreateNestedManyWithoutUserInput
+    ngoSuggestions?: NgoSuggestionCreateNestedManyWithoutUserInput
+    referralsMade?: ReferralCreateNestedManyWithoutReferrerInput
+    referralsReceived?: ReferralCreateNestedManyWithoutReferredInput
+    skillContributions?: SkillContributionCreateNestedManyWithoutDonorInput
+    endorsementsGiven?: DonorEndorsementCreateNestedManyWithoutEndorserInput
+  }
+
+  export type UserUncheckedCreateWithoutEndorsementsReceivedInput = {
+    id?: string
+    email: string
+    emailVerified?: Date | string | null
+    name?: string | null
+    image?: string | null
+    role?: $Enums.Role
+    referralCode?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    ngo?: NgoUncheckedCreateNestedOneWithoutUserInput
+    donations?: DonationUncheckedCreateNestedManyWithoutUserInput
+    ratings?: RatingUncheckedCreateNestedManyWithoutDonorInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    spotlightVotes?: SpotlightVoteUncheckedCreateNestedManyWithoutUserInput
+    campaignsCreated?: CampaignUncheckedCreateNestedManyWithoutCreatorInput
+    campaignContributions?: CampaignContributorUncheckedCreateNestedManyWithoutUserInput
+    ngoSuggestions?: NgoSuggestionUncheckedCreateNestedManyWithoutUserInput
+    referralsMade?: ReferralUncheckedCreateNestedManyWithoutReferrerInput
+    referralsReceived?: ReferralUncheckedCreateNestedManyWithoutReferredInput
+    skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutDonorInput
+    endorsementsGiven?: DonorEndorsementUncheckedCreateNestedManyWithoutEndorserInput
+  }
+
+  export type UserCreateOrConnectWithoutEndorsementsReceivedInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutEndorsementsReceivedInput, UserUncheckedCreateWithoutEndorsementsReceivedInput>
+  }
+
+  export type NgoCreateWithoutDonorEndorsementsInput = {
+    id?: string
+    orgName: string
+    regNumber?: string | null
+    country?: string | null
+    website?: string | null
+    description?: string | null
+    logoUrl?: string | null
+    trustScore?: number
+    status?: $Enums.NgoStatus
+    approvedAt?: Date | string | null
+    rejectReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutNgoInput
+    projects?: ProjectCreateNestedManyWithoutNgoInput
+    expenses?: ExpenseCreateNestedManyWithoutNgoInput
+    ratings?: RatingCreateNestedManyWithoutNgoInput
+    boardMembers?: BoardMemberCreateNestedManyWithoutNgoInput
+    skillContributions?: SkillContributionCreateNestedManyWithoutNgoInput
+  }
+
+  export type NgoUncheckedCreateWithoutDonorEndorsementsInput = {
+    id?: string
+    userId: string
+    orgName: string
+    regNumber?: string | null
+    country?: string | null
+    website?: string | null
+    description?: string | null
+    logoUrl?: string | null
+    trustScore?: number
+    status?: $Enums.NgoStatus
+    approvedAt?: Date | string | null
+    rejectReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    projects?: ProjectUncheckedCreateNestedManyWithoutNgoInput
+    expenses?: ExpenseUncheckedCreateNestedManyWithoutNgoInput
+    ratings?: RatingUncheckedCreateNestedManyWithoutNgoInput
+    boardMembers?: BoardMemberUncheckedCreateNestedManyWithoutNgoInput
+    skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutNgoInput
+  }
+
+  export type NgoCreateOrConnectWithoutDonorEndorsementsInput = {
+    where: NgoWhereUniqueInput
+    create: XOR<NgoCreateWithoutDonorEndorsementsInput, NgoUncheckedCreateWithoutDonorEndorsementsInput>
+  }
+
+  export type UserCreateWithoutEndorsementsGivenInput = {
+    id?: string
+    email: string
+    emailVerified?: Date | string | null
+    name?: string | null
+    image?: string | null
+    role?: $Enums.Role
+    referralCode?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    ngo?: NgoCreateNestedOneWithoutUserInput
+    donations?: DonationCreateNestedManyWithoutUserInput
+    ratings?: RatingCreateNestedManyWithoutDonorInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    spotlightVotes?: SpotlightVoteCreateNestedManyWithoutUserInput
+    campaignsCreated?: CampaignCreateNestedManyWithoutCreatorInput
+    campaignContributions?: CampaignContributorCreateNestedManyWithoutUserInput
+    ngoSuggestions?: NgoSuggestionCreateNestedManyWithoutUserInput
+    referralsMade?: ReferralCreateNestedManyWithoutReferrerInput
+    referralsReceived?: ReferralCreateNestedManyWithoutReferredInput
+    skillContributions?: SkillContributionCreateNestedManyWithoutDonorInput
+    endorsementsReceived?: DonorEndorsementCreateNestedManyWithoutDonorInput
+  }
+
+  export type UserUncheckedCreateWithoutEndorsementsGivenInput = {
+    id?: string
+    email: string
+    emailVerified?: Date | string | null
+    name?: string | null
+    image?: string | null
+    role?: $Enums.Role
+    referralCode?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    ngo?: NgoUncheckedCreateNestedOneWithoutUserInput
+    donations?: DonationUncheckedCreateNestedManyWithoutUserInput
+    ratings?: RatingUncheckedCreateNestedManyWithoutDonorInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    spotlightVotes?: SpotlightVoteUncheckedCreateNestedManyWithoutUserInput
+    campaignsCreated?: CampaignUncheckedCreateNestedManyWithoutCreatorInput
+    campaignContributions?: CampaignContributorUncheckedCreateNestedManyWithoutUserInput
+    ngoSuggestions?: NgoSuggestionUncheckedCreateNestedManyWithoutUserInput
+    referralsMade?: ReferralUncheckedCreateNestedManyWithoutReferrerInput
+    referralsReceived?: ReferralUncheckedCreateNestedManyWithoutReferredInput
+    skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutDonorInput
+    endorsementsReceived?: DonorEndorsementUncheckedCreateNestedManyWithoutDonorInput
+  }
+
+  export type UserCreateOrConnectWithoutEndorsementsGivenInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutEndorsementsGivenInput, UserUncheckedCreateWithoutEndorsementsGivenInput>
+  }
+
+  export type UserUpsertWithoutEndorsementsReceivedInput = {
+    update: XOR<UserUpdateWithoutEndorsementsReceivedInput, UserUncheckedUpdateWithoutEndorsementsReceivedInput>
+    create: XOR<UserCreateWithoutEndorsementsReceivedInput, UserUncheckedCreateWithoutEndorsementsReceivedInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutEndorsementsReceivedInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutEndorsementsReceivedInput, UserUncheckedUpdateWithoutEndorsementsReceivedInput>
+  }
+
+  export type UserUpdateWithoutEndorsementsReceivedInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    referralCode?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    ngo?: NgoUpdateOneWithoutUserNestedInput
+    donations?: DonationUpdateManyWithoutUserNestedInput
+    ratings?: RatingUpdateManyWithoutDonorNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    spotlightVotes?: SpotlightVoteUpdateManyWithoutUserNestedInput
+    campaignsCreated?: CampaignUpdateManyWithoutCreatorNestedInput
+    campaignContributions?: CampaignContributorUpdateManyWithoutUserNestedInput
+    ngoSuggestions?: NgoSuggestionUpdateManyWithoutUserNestedInput
+    referralsMade?: ReferralUpdateManyWithoutReferrerNestedInput
+    referralsReceived?: ReferralUpdateManyWithoutReferredNestedInput
+    skillContributions?: SkillContributionUpdateManyWithoutDonorNestedInput
+    endorsementsGiven?: DonorEndorsementUpdateManyWithoutEndorserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutEndorsementsReceivedInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    referralCode?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    ngo?: NgoUncheckedUpdateOneWithoutUserNestedInput
+    donations?: DonationUncheckedUpdateManyWithoutUserNestedInput
+    ratings?: RatingUncheckedUpdateManyWithoutDonorNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    spotlightVotes?: SpotlightVoteUncheckedUpdateManyWithoutUserNestedInput
+    campaignsCreated?: CampaignUncheckedUpdateManyWithoutCreatorNestedInput
+    campaignContributions?: CampaignContributorUncheckedUpdateManyWithoutUserNestedInput
+    ngoSuggestions?: NgoSuggestionUncheckedUpdateManyWithoutUserNestedInput
+    referralsMade?: ReferralUncheckedUpdateManyWithoutReferrerNestedInput
+    referralsReceived?: ReferralUncheckedUpdateManyWithoutReferredNestedInput
+    skillContributions?: SkillContributionUncheckedUpdateManyWithoutDonorNestedInput
+    endorsementsGiven?: DonorEndorsementUncheckedUpdateManyWithoutEndorserNestedInput
+  }
+
+  export type NgoUpsertWithoutDonorEndorsementsInput = {
+    update: XOR<NgoUpdateWithoutDonorEndorsementsInput, NgoUncheckedUpdateWithoutDonorEndorsementsInput>
+    create: XOR<NgoCreateWithoutDonorEndorsementsInput, NgoUncheckedCreateWithoutDonorEndorsementsInput>
+    where?: NgoWhereInput
+  }
+
+  export type NgoUpdateToOneWithWhereWithoutDonorEndorsementsInput = {
+    where?: NgoWhereInput
+    data: XOR<NgoUpdateWithoutDonorEndorsementsInput, NgoUncheckedUpdateWithoutDonorEndorsementsInput>
+  }
+
+  export type NgoUpdateWithoutDonorEndorsementsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    orgName?: StringFieldUpdateOperationsInput | string
+    regNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    trustScore?: FloatFieldUpdateOperationsInput | number
+    status?: EnumNgoStatusFieldUpdateOperationsInput | $Enums.NgoStatus
+    approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejectReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutNgoNestedInput
+    projects?: ProjectUpdateManyWithoutNgoNestedInput
+    expenses?: ExpenseUpdateManyWithoutNgoNestedInput
+    ratings?: RatingUpdateManyWithoutNgoNestedInput
+    boardMembers?: BoardMemberUpdateManyWithoutNgoNestedInput
+    skillContributions?: SkillContributionUpdateManyWithoutNgoNestedInput
+  }
+
+  export type NgoUncheckedUpdateWithoutDonorEndorsementsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    orgName?: StringFieldUpdateOperationsInput | string
+    regNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    trustScore?: FloatFieldUpdateOperationsInput | number
+    status?: EnumNgoStatusFieldUpdateOperationsInput | $Enums.NgoStatus
+    approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejectReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    projects?: ProjectUncheckedUpdateManyWithoutNgoNestedInput
+    expenses?: ExpenseUncheckedUpdateManyWithoutNgoNestedInput
+    ratings?: RatingUncheckedUpdateManyWithoutNgoNestedInput
+    boardMembers?: BoardMemberUncheckedUpdateManyWithoutNgoNestedInput
+    skillContributions?: SkillContributionUncheckedUpdateManyWithoutNgoNestedInput
+  }
+
+  export type UserUpsertWithoutEndorsementsGivenInput = {
+    update: XOR<UserUpdateWithoutEndorsementsGivenInput, UserUncheckedUpdateWithoutEndorsementsGivenInput>
+    create: XOR<UserCreateWithoutEndorsementsGivenInput, UserUncheckedCreateWithoutEndorsementsGivenInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutEndorsementsGivenInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutEndorsementsGivenInput, UserUncheckedUpdateWithoutEndorsementsGivenInput>
+  }
+
+  export type UserUpdateWithoutEndorsementsGivenInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    referralCode?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    ngo?: NgoUpdateOneWithoutUserNestedInput
+    donations?: DonationUpdateManyWithoutUserNestedInput
+    ratings?: RatingUpdateManyWithoutDonorNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    spotlightVotes?: SpotlightVoteUpdateManyWithoutUserNestedInput
+    campaignsCreated?: CampaignUpdateManyWithoutCreatorNestedInput
+    campaignContributions?: CampaignContributorUpdateManyWithoutUserNestedInput
+    ngoSuggestions?: NgoSuggestionUpdateManyWithoutUserNestedInput
+    referralsMade?: ReferralUpdateManyWithoutReferrerNestedInput
+    referralsReceived?: ReferralUpdateManyWithoutReferredNestedInput
+    skillContributions?: SkillContributionUpdateManyWithoutDonorNestedInput
+    endorsementsReceived?: DonorEndorsementUpdateManyWithoutDonorNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutEndorsementsGivenInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    referralCode?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    ngo?: NgoUncheckedUpdateOneWithoutUserNestedInput
+    donations?: DonationUncheckedUpdateManyWithoutUserNestedInput
+    ratings?: RatingUncheckedUpdateManyWithoutDonorNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    spotlightVotes?: SpotlightVoteUncheckedUpdateManyWithoutUserNestedInput
+    campaignsCreated?: CampaignUncheckedUpdateManyWithoutCreatorNestedInput
+    campaignContributions?: CampaignContributorUncheckedUpdateManyWithoutUserNestedInput
+    ngoSuggestions?: NgoSuggestionUncheckedUpdateManyWithoutUserNestedInput
+    referralsMade?: ReferralUncheckedUpdateManyWithoutReferrerNestedInput
+    referralsReceived?: ReferralUncheckedUpdateManyWithoutReferredNestedInput
+    skillContributions?: SkillContributionUncheckedUpdateManyWithoutDonorNestedInput
+    endorsementsReceived?: DonorEndorsementUncheckedUpdateManyWithoutDonorNestedInput
   }
 
   export type AccountCreateManyUserInput = {
@@ -40305,6 +48420,39 @@ export namespace Prisma {
     referrerId: string
     converted?: boolean
     convertedAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type SkillContributionCreateManyDonorInput = {
+    id?: string
+    ngoId: string
+    projectId?: string | null
+    skillCategory: string
+    description: string
+    hoursContributed?: number | null
+    status?: string
+    monetaryValue?: number | null
+    txHash?: string | null
+    submittedAt?: Date | string
+    approvedAt?: Date | string | null
+    updatedAt?: Date | string
+  }
+
+  export type DonorEndorsementCreateManyDonorInput = {
+    id?: string
+    ngoId: string
+    endorsedBy: string
+    note?: string | null
+    category?: string
+    createdAt?: Date | string
+  }
+
+  export type DonorEndorsementCreateManyEndorserInput = {
+    id?: string
+    donorId: string
+    ngoId: string
+    note?: string | null
+    category?: string
     createdAt?: Date | string
   }
 
@@ -40624,6 +48772,107 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type SkillContributionUpdateWithoutDonorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    skillCategory?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    hoursContributed?: NullableFloatFieldUpdateOperationsInput | number | null
+    status?: StringFieldUpdateOperationsInput | string
+    monetaryValue?: NullableFloatFieldUpdateOperationsInput | number | null
+    txHash?: NullableStringFieldUpdateOperationsInput | string | null
+    submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ngo?: NgoUpdateOneRequiredWithoutSkillContributionsNestedInput
+    project?: ProjectUpdateOneWithoutSkillContributionsNestedInput
+    blockchainRecord?: SkillBlockchainRecordUpdateOneWithoutContributionNestedInput
+  }
+
+  export type SkillContributionUncheckedUpdateWithoutDonorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ngoId?: StringFieldUpdateOperationsInput | string
+    projectId?: NullableStringFieldUpdateOperationsInput | string | null
+    skillCategory?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    hoursContributed?: NullableFloatFieldUpdateOperationsInput | number | null
+    status?: StringFieldUpdateOperationsInput | string
+    monetaryValue?: NullableFloatFieldUpdateOperationsInput | number | null
+    txHash?: NullableStringFieldUpdateOperationsInput | string | null
+    submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    blockchainRecord?: SkillBlockchainRecordUncheckedUpdateOneWithoutContributionNestedInput
+  }
+
+  export type SkillContributionUncheckedUpdateManyWithoutDonorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ngoId?: StringFieldUpdateOperationsInput | string
+    projectId?: NullableStringFieldUpdateOperationsInput | string | null
+    skillCategory?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    hoursContributed?: NullableFloatFieldUpdateOperationsInput | number | null
+    status?: StringFieldUpdateOperationsInput | string
+    monetaryValue?: NullableFloatFieldUpdateOperationsInput | number | null
+    txHash?: NullableStringFieldUpdateOperationsInput | string | null
+    submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DonorEndorsementUpdateWithoutDonorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ngo?: NgoUpdateOneRequiredWithoutDonorEndorsementsNestedInput
+    endorser?: UserUpdateOneRequiredWithoutEndorsementsGivenNestedInput
+  }
+
+  export type DonorEndorsementUncheckedUpdateWithoutDonorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ngoId?: StringFieldUpdateOperationsInput | string
+    endorsedBy?: StringFieldUpdateOperationsInput | string
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DonorEndorsementUncheckedUpdateManyWithoutDonorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ngoId?: StringFieldUpdateOperationsInput | string
+    endorsedBy?: StringFieldUpdateOperationsInput | string
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DonorEndorsementUpdateWithoutEndorserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    donor?: UserUpdateOneRequiredWithoutEndorsementsReceivedNestedInput
+    ngo?: NgoUpdateOneRequiredWithoutDonorEndorsementsNestedInput
+  }
+
+  export type DonorEndorsementUncheckedUpdateWithoutEndorserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    donorId?: StringFieldUpdateOperationsInput | string
+    ngoId?: StringFieldUpdateOperationsInput | string
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DonorEndorsementUncheckedUpdateManyWithoutEndorserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    donorId?: StringFieldUpdateOperationsInput | string
+    ngoId?: StringFieldUpdateOperationsInput | string
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type ProjectCreateManyNgoInput = {
     id?: string
     title: string
@@ -40661,6 +48910,42 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
+  export type BoardMemberCreateManyNgoInput = {
+    id?: string
+    name: string
+    role: string
+    bio?: string | null
+    linkedinUrl?: string | null
+    photoUrl?: string | null
+    orderIndex?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SkillContributionCreateManyNgoInput = {
+    id?: string
+    donorId: string
+    projectId?: string | null
+    skillCategory: string
+    description: string
+    hoursContributed?: number | null
+    status?: string
+    monetaryValue?: number | null
+    txHash?: string | null
+    submittedAt?: Date | string
+    approvedAt?: Date | string | null
+    updatedAt?: Date | string
+  }
+
+  export type DonorEndorsementCreateManyNgoInput = {
+    id?: string
+    donorId: string
+    endorsedBy: string
+    note?: string | null
+    category?: string
+    createdAt?: Date | string
+  }
+
   export type ProjectUpdateWithoutNgoInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
@@ -40682,6 +48967,7 @@ export namespace Prisma {
     expenses?: ExpenseUpdateManyWithoutProjectNestedInput
     spotlightVotes?: SpotlightVoteUpdateManyWithoutProjectNestedInput
     campaigns?: CampaignUpdateManyWithoutProjectNestedInput
+    skillContributions?: SkillContributionUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateWithoutNgoInput = {
@@ -40705,6 +48991,7 @@ export namespace Prisma {
     expenses?: ExpenseUncheckedUpdateManyWithoutProjectNestedInput
     spotlightVotes?: SpotlightVoteUncheckedUpdateManyWithoutProjectNestedInput
     campaigns?: CampaignUncheckedUpdateManyWithoutProjectNestedInput
+    skillContributions?: SkillContributionUncheckedUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateManyWithoutNgoInput = {
@@ -40782,6 +49069,116 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type BoardMemberUpdateWithoutNgoInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    orderIndex?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BoardMemberUncheckedUpdateWithoutNgoInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    orderIndex?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BoardMemberUncheckedUpdateManyWithoutNgoInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    orderIndex?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SkillContributionUpdateWithoutNgoInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    skillCategory?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    hoursContributed?: NullableFloatFieldUpdateOperationsInput | number | null
+    status?: StringFieldUpdateOperationsInput | string
+    monetaryValue?: NullableFloatFieldUpdateOperationsInput | number | null
+    txHash?: NullableStringFieldUpdateOperationsInput | string | null
+    submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    donor?: UserUpdateOneRequiredWithoutSkillContributionsNestedInput
+    project?: ProjectUpdateOneWithoutSkillContributionsNestedInput
+    blockchainRecord?: SkillBlockchainRecordUpdateOneWithoutContributionNestedInput
+  }
+
+  export type SkillContributionUncheckedUpdateWithoutNgoInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    donorId?: StringFieldUpdateOperationsInput | string
+    projectId?: NullableStringFieldUpdateOperationsInput | string | null
+    skillCategory?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    hoursContributed?: NullableFloatFieldUpdateOperationsInput | number | null
+    status?: StringFieldUpdateOperationsInput | string
+    monetaryValue?: NullableFloatFieldUpdateOperationsInput | number | null
+    txHash?: NullableStringFieldUpdateOperationsInput | string | null
+    submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    blockchainRecord?: SkillBlockchainRecordUncheckedUpdateOneWithoutContributionNestedInput
+  }
+
+  export type SkillContributionUncheckedUpdateManyWithoutNgoInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    donorId?: StringFieldUpdateOperationsInput | string
+    projectId?: NullableStringFieldUpdateOperationsInput | string | null
+    skillCategory?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    hoursContributed?: NullableFloatFieldUpdateOperationsInput | number | null
+    status?: StringFieldUpdateOperationsInput | string
+    monetaryValue?: NullableFloatFieldUpdateOperationsInput | number | null
+    txHash?: NullableStringFieldUpdateOperationsInput | string | null
+    submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DonorEndorsementUpdateWithoutNgoInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    donor?: UserUpdateOneRequiredWithoutEndorsementsReceivedNestedInput
+    endorser?: UserUpdateOneRequiredWithoutEndorsementsGivenNestedInput
+  }
+
+  export type DonorEndorsementUncheckedUpdateWithoutNgoInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    donorId?: StringFieldUpdateOperationsInput | string
+    endorsedBy?: StringFieldUpdateOperationsInput | string
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DonorEndorsementUncheckedUpdateManyWithoutNgoInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    donorId?: StringFieldUpdateOperationsInput | string
+    endorsedBy?: StringFieldUpdateOperationsInput | string
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type MilestoneCreateManyProjectInput = {
     id?: string
     name: string
@@ -40839,6 +49236,21 @@ export namespace Prisma {
     endsAt?: Date | string | null
     active?: boolean
     createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SkillContributionCreateManyProjectInput = {
+    id?: string
+    donorId: string
+    ngoId: string
+    skillCategory: string
+    description: string
+    hoursContributed?: number | null
+    status?: string
+    monetaryValue?: number | null
+    txHash?: string | null
+    submittedAt?: Date | string
+    approvedAt?: Date | string | null
     updatedAt?: Date | string
   }
 
@@ -41029,6 +49441,53 @@ export namespace Prisma {
     endsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     active?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SkillContributionUpdateWithoutProjectInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    skillCategory?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    hoursContributed?: NullableFloatFieldUpdateOperationsInput | number | null
+    status?: StringFieldUpdateOperationsInput | string
+    monetaryValue?: NullableFloatFieldUpdateOperationsInput | number | null
+    txHash?: NullableStringFieldUpdateOperationsInput | string | null
+    submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    donor?: UserUpdateOneRequiredWithoutSkillContributionsNestedInput
+    ngo?: NgoUpdateOneRequiredWithoutSkillContributionsNestedInput
+    blockchainRecord?: SkillBlockchainRecordUpdateOneWithoutContributionNestedInput
+  }
+
+  export type SkillContributionUncheckedUpdateWithoutProjectInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    donorId?: StringFieldUpdateOperationsInput | string
+    ngoId?: StringFieldUpdateOperationsInput | string
+    skillCategory?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    hoursContributed?: NullableFloatFieldUpdateOperationsInput | number | null
+    status?: StringFieldUpdateOperationsInput | string
+    monetaryValue?: NullableFloatFieldUpdateOperationsInput | number | null
+    txHash?: NullableStringFieldUpdateOperationsInput | string | null
+    submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    blockchainRecord?: SkillBlockchainRecordUncheckedUpdateOneWithoutContributionNestedInput
+  }
+
+  export type SkillContributionUncheckedUpdateManyWithoutProjectInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    donorId?: StringFieldUpdateOperationsInput | string
+    ngoId?: StringFieldUpdateOperationsInput | string
+    skillCategory?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    hoursContributed?: NullableFloatFieldUpdateOperationsInput | number | null
+    status?: StringFieldUpdateOperationsInput | string
+    monetaryValue?: NullableFloatFieldUpdateOperationsInput | number | null
+    txHash?: NullableStringFieldUpdateOperationsInput | string | null
+    submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

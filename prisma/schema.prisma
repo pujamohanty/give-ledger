@@ -112,6 +112,9 @@ model User {
   ngoSuggestions      NgoSuggestion[]
   referralsMade       Referral[]  @relation("ReferralsMade")
   referralsReceived   Referral[]  @relation("ReferralsReceived")
+  skillContributions  SkillContribution[] @relation("SkillDonor")
+  endorsementsReceived DonorEndorsement[]  @relation("EndorsementsReceived")
+  endorsementsGiven    DonorEndorsement[]  @relation("EndorsementsGiven")
 }
 
 model Ngo {
@@ -129,10 +132,13 @@ model Ngo {
   rejectReason String?
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
-  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  projects     Project[]
-  expenses     Expense[]
-  ratings      Rating[]
+  user              User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  projects          Project[]
+  expenses          Expense[]
+  ratings           Rating[]
+  boardMembers      BoardMember[]
+  skillContributions SkillContribution[]
+  donorEndorsements  DonorEndorsement[]
 }
 
 model Project {
@@ -152,12 +158,13 @@ model Project {
   spotlightVoteCount Int       @default(0)
   createdAt    DateTime        @default(now())
   updatedAt    DateTime        @updatedAt
-  ngo          Ngo             @relation(fields: [ngoId], references: [id], onDelete: Cascade)
-  milestones   Milestone[]
-  donations    Donation[]
-  expenses     Expense[]
-  spotlightVotes SpotlightVote[]
-  campaigns    Campaign[]
+  ngo                Ngo               @relation(fields: [ngoId], references: [id], onDelete: Cascade)
+  milestones         Milestone[]
+  donations          Donation[]
+  expenses           Expense[]
+  spotlightVotes     SpotlightVote[]
+  campaigns          Campaign[]
+  skillContributions SkillContribution[]
 }
 
 model Milestone {
@@ -374,4 +381,65 @@ model ActivityEvent {
   description String
   metadata    String?  @db.Text
   createdAt   DateTime @default(now())
+}
+
+// Phase 2: NGO Board Members
+model BoardMember {
+  id          String   @id @default(cuid())
+  ngoId       String
+  name        String
+  role        String   // e.g. "Chairman", "Trustee", "Secretary"
+  bio         String?  @db.Text
+  linkedinUrl String?
+  photoUrl    String?
+  orderIndex  Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  ngo         Ngo      @relation(fields: [ngoId], references: [id], onDelete: Cascade)
+}
+
+// Phase 2: Skill & Time Contributions
+model SkillContribution {
+  id              String    @id @default(cuid())
+  donorId         String
+  ngoId           String
+  projectId       String?
+  skillCategory   String    // IT | MARKETING | LEGAL | FUNDRAISING | DESIGN | TRAINING | OTHER
+  description     String    @db.Text
+  hoursContributed Float?
+  status          String    @default("PENDING")  // PENDING | APPROVED | REJECTED
+  monetaryValue   Float?    // assigned by NGO on approval
+  txHash          String?   // on-chain record once approved
+  submittedAt     DateTime  @default(now())
+  approvedAt      DateTime?
+  updatedAt       DateTime  @updatedAt
+  donor           User      @relation("SkillDonor", fields: [donorId], references: [id])
+  ngo             Ngo       @relation(fields: [ngoId], references: [id])
+  project         Project?  @relation(fields: [projectId], references: [id])
+  blockchainRecord SkillBlockchainRecord?
+}
+
+// Phase 2: On-chain record for skill contributions
+model SkillBlockchainRecord {
+  id                  String            @id @default(cuid())
+  skillContributionId String            @unique
+  txHash              String            @unique
+  network             String            @default("polygon")
+  timestamp           DateTime          @default(now())
+  contribution        SkillContribution @relation(fields: [skillContributionId], references: [id])
+}
+
+// Phase 2: Donor Endorsements (NGO field staff recognise donors)
+model DonorEndorsement {
+  id          String   @id @default(cuid())
+  donorId     String
+  ngoId       String
+  endorsedBy  String   // userId of the NGO staff member who endorsed
+  note        String?  @db.Text
+  category    String   @default("GENERAL")  // GENERAL | FINANCIAL | SKILL | COMMUNITY_IMPACT
+  createdAt   DateTime @default(now())
+  donor       User     @relation("EndorsementsReceived", fields: [donorId], references: [id])
+  ngo         Ngo      @relation(fields: [ngoId], references: [id])
+  endorser    User     @relation("EndorsementsGiven", fields: [endorsedBy], references: [id])
+  @@unique([donorId, ngoId, endorsedBy])
 }

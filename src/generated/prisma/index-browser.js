@@ -375,6 +375,53 @@ exports.Prisma.ActivityEventScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.BoardMemberScalarFieldEnum = {
+  id: 'id',
+  ngoId: 'ngoId',
+  name: 'name',
+  role: 'role',
+  bio: 'bio',
+  linkedinUrl: 'linkedinUrl',
+  photoUrl: 'photoUrl',
+  orderIndex: 'orderIndex',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SkillContributionScalarFieldEnum = {
+  id: 'id',
+  donorId: 'donorId',
+  ngoId: 'ngoId',
+  projectId: 'projectId',
+  skillCategory: 'skillCategory',
+  description: 'description',
+  hoursContributed: 'hoursContributed',
+  status: 'status',
+  monetaryValue: 'monetaryValue',
+  txHash: 'txHash',
+  submittedAt: 'submittedAt',
+  approvedAt: 'approvedAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SkillBlockchainRecordScalarFieldEnum = {
+  id: 'id',
+  skillContributionId: 'skillContributionId',
+  txHash: 'txHash',
+  network: 'network',
+  timestamp: 'timestamp'
+};
+
+exports.Prisma.DonorEndorsementScalarFieldEnum = {
+  id: 'id',
+  donorId: 'donorId',
+  ngoId: 'ngoId',
+  endorsedBy: 'endorsedBy',
+  note: 'note',
+  category: 'category',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -462,7 +509,11 @@ exports.Prisma.ModelName = {
   CampaignContributor: 'CampaignContributor',
   NgoSuggestion: 'NgoSuggestion',
   Referral: 'Referral',
-  ActivityEvent: 'ActivityEvent'
+  ActivityEvent: 'ActivityEvent',
+  BoardMember: 'BoardMember',
+  SkillContribution: 'SkillContribution',
+  SkillBlockchainRecord: 'SkillBlockchainRecord',
+  DonorEndorsement: 'DonorEndorsement'
 };
 
 /**
