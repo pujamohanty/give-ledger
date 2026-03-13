@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
+import AssistantPortal from "@/components/AssistantPortal";
 import {
   Leaf, LayoutDashboard, Heart, TrendingUp, Settings,
   Search, Bell, Share2, Gift, Star, Globe, Briefcase, Award, Linkedin,
@@ -66,6 +67,7 @@ export default async function DonorLayout({ children }: { children: React.ReactN
       <main className="flex-1 lg:ml-64 min-h-screen">
         {children}
       </main>
+      <AssistantPortal role="donor" />
     </div>
   );
 }

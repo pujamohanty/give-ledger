@@ -2,6 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import AssistantPortal from "@/components/AssistantPortal";
 import { Leaf, LayoutDashboard, FolderOpen, DollarSign, Settings, FileText, Upload, Clock, XCircle, Briefcase, Award, Linkedin } from "lucide-react";
 import SignOutButton from "@/components/SignOutButton";
 
@@ -118,6 +119,7 @@ export default async function NgoLayout({ children }: { children: React.ReactNod
         </div>
       </aside>
       <main className="flex-1 lg:ml-64 min-h-screen">{children}</main>
+      <AssistantPortal role="ngo" />
     </div>
   );
 }
