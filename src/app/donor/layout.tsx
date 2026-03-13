@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 import {
   Leaf, LayoutDashboard, Heart, TrendingUp, Settings,
-  Search, Bell, Share2, Gift, Star, Globe,
+  Search, Bell, Share2, Gift, Star, Globe, Briefcase,
 } from "lucide-react";
 import SignOutButton from "@/components/SignOutButton";
 
@@ -11,6 +11,7 @@ const navItems = [
   { href: "/donor/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/donor/donations", label: "My Donations", icon: Heart },
   { href: "/donor/impact", label: "My Impact", icon: TrendingUp },
+  { href: "/donor/skills", label: "Skill Contributions", icon: Briefcase },
   { href: "/projects", label: "Browse Projects", icon: Search },
   { href: "/campaigns", label: "Campaigns", icon: Gift },
   { href: "/donor/notifications", label: "Notifications", icon: Bell },

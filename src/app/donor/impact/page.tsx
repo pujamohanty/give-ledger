@@ -4,7 +4,8 @@ import { prisma } from "@/lib/prisma";
 import { formatCurrency } from "@/lib/utils";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { Users, Droplets, BookOpen, Heart } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Users, Droplets, BookOpen, Heart, Briefcase, CheckCircle2, ExternalLink } from "lucide-react";
 
 export default async function ImpactPage() {
   const session = await auth();
@@ -53,6 +54,19 @@ export default async function ImpactPage() {
     }
   }
   const projects = Array.from(projectMap.values());
+
+  // Fetch skill contributions for this donor
+  const skillContributions = await prisma.skillContribution.findMany({
+    where: { donorId: userId },
+    include: {
+      ngo: { select: { orgName: true } },
+      project: { select: { title: true } },
+    },
+    orderBy: { submittedAt: "desc" },
+  });
+  const approvedSkills = skillContributions.filter((c) => c.status === "APPROVED");
+  const totalSkillValue = approvedSkills.reduce((sum, c) => sum + (c.monetaryValue ?? 0), 0);
+  const totalSkillHours = skillContributions.reduce((sum, c) => sum + (c.hoursContributed ?? 0), 0);
 
   // Compute platform-level impact KPIs
   let totalLives = 0;
@@ -194,6 +208,74 @@ export default async function ImpactPage() {
           })
         )}
       </div>
+
+      {/* Skill Contributions section */}
+      {skillContributions.length > 0 && (
+        <div className="mt-8 space-y-4">
+          <div className="flex items-center justify-between">
+            <h2 className="font-semibold text-gray-900 flex items-center gap-2">
+              <Briefcase className="w-4 h-4 text-emerald-600" />
+              Skill &amp; Time Contributions
+            </h2>
+            <div className="flex gap-4 text-xs text-gray-500">
+              {totalSkillHours > 0 && <span>{totalSkillHours}h contributed</span>}
+              {totalSkillValue > 0 && (
+                <span className="text-emerald-700 font-semibold">
+                  {formatCurrency(totalSkillValue)} recognised value
+                </span>
+              )}
+            </div>
+          </div>
+          <Card>
+            <CardContent className="divide-y divide-gray-50">
+              {skillContributions.map((c) => (
+                <div key={c.id} className="py-3 flex items-start justify-between gap-3">
+                  <div className="flex items-start gap-3 min-w-0">
+                    <div className="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center shrink-0 mt-0.5">
+                      <Briefcase className="w-4 h-4 text-emerald-700" />
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-sm font-medium text-gray-900">{c.ngo.orgName}</p>
+                      <p className="text-xs text-gray-500">
+                        {c.skillCategory}
+                        {c.project ? ` · ${c.project.title}` : ""}
+                      </p>
+                      <p className="text-xs text-gray-400 mt-0.5 line-clamp-1">{c.description}</p>
+                      {c.txHash && c.status === "APPROVED" && (
+                        <a
+                          href={`https://polygonscan.com/tx/${c.txHash}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1 text-xs text-emerald-600 hover:underline mt-0.5"
+                        >
+                          <ExternalLink className="w-3 h-3" /> On-chain record
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                  <div className="text-right shrink-0 space-y-1">
+                    {c.status === "APPROVED" ? (
+                      <Badge className="bg-emerald-100 text-emerald-800 text-xs">
+                        <CheckCircle2 className="w-3 h-3 mr-1" />
+                        Approved
+                      </Badge>
+                    ) : c.status === "REJECTED" ? (
+                      <Badge className="bg-red-100 text-red-700 text-xs">Rejected</Badge>
+                    ) : (
+                      <Badge className="bg-amber-100 text-amber-800 text-xs">Pending</Badge>
+                    )}
+                    {c.monetaryValue && (
+                      <p className="text-xs text-emerald-700 font-semibold">
+                        ${c.monetaryValue.toLocaleString()}
+                      </p>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </CardContent>
+          </Card>
+        </div>
+      )}
 
       <div className="mt-6 p-4 bg-emerald-50 rounded-xl border border-emerald-100">
         <p className="text-sm text-emerald-800">
