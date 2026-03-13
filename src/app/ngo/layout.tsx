@@ -2,7 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { Leaf, LayoutDashboard, FolderOpen, DollarSign, Settings, FileText, Upload, Clock, XCircle, Briefcase } from "lucide-react";
+import { Leaf, LayoutDashboard, FolderOpen, DollarSign, Settings, FileText, Upload, Clock, XCircle, Briefcase, Award } from "lucide-react";
 import SignOutButton from "@/components/SignOutButton";
 
 const navItems = [
@@ -10,6 +10,7 @@ const navItems = [
   { href: "/ngo/projects", label: "My Projects", icon: FolderOpen },
   { href: "/ngo/submit-milestone", label: "Submit Evidence", icon: Upload },
   { href: "/ngo/skills", label: "Skill Contributions", icon: Briefcase },
+  { href: "/ngo/recognition", label: "Donor Recognition", icon: Award },
   { href: "/ngo/finances", label: "Finances", icon: DollarSign },
   { href: "/ngo/reports", label: "Reports", icon: FileText },
   { href: "/ngo/settings", label: "Settings", icon: Settings },
