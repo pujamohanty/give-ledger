@@ -87,7 +87,11 @@ Uploaded documents: ${ngo.documents.map(d => `${d.fileName} (${d.category}${d.ca
       ? generateDonorSummary(profileText)
       : generateNgoSummary(profileText);
 
-    await prisma.user.update({ where: { id: session.user.id }, data: { aiSummary: summary } }).catch(() => {});
+    if (targetType === "USER") {
+      await prisma.user.update({ where: { id: targetId }, data: { aiSummary: summary } }).catch(() => {});
+    } else {
+      await prisma.ngo.update({ where: { id: targetId }, data: { aiSummary: summary } }).catch(() => {});
+    }
     return NextResponse.json({ summary });
   }
 
