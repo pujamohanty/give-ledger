@@ -4,12 +4,13 @@ import { auth } from "@/lib/auth";
 import AssistantPortal from "@/components/AssistantPortal";
 import {
   Leaf, LayoutDashboard, Heart, TrendingUp, Settings,
-  Search, Bell, Share2, Gift, Star, Globe, Briefcase, Award, Linkedin,
+  Search, Bell, Share2, Gift, Star, Globe, Briefcase, Award, Linkedin, UserCircle,
 } from "lucide-react";
 import SignOutButton from "@/components/SignOutButton";
 
 const navItems = [
   { href: "/donor/dashboard", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/donor/profile", label: "My Profile", icon: UserCircle },
   { href: "/donor/donations", label: "My Donations", icon: Heart },
   { href: "/donor/impact", label: "My Impact", icon: TrendingUp },
   { href: "/donor/skills", label: "Skill Contributions", icon: Briefcase },

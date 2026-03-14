@@ -13,7 +13,7 @@ export default async function NgoSkillsPage() {
   const contributions = await prisma.skillContribution.findMany({
     where: { ngoId: ngo.id },
     include: {
-      donor: { select: { name: true, email: true } },
+      donor: { select: { id: true, name: true, email: true, jobTitle: true, company: true, skills: true } },
       project: { select: { title: true } },
     },
     orderBy: { submittedAt: "desc" },
@@ -23,8 +23,12 @@ export default async function NgoSkillsPage() {
     <SkillsReviewClient
       initialOffers={contributions.map((c) => ({
         id: c.id,
+        donorId: c.donor.id,
         donorName: c.donor.name,
         donorEmail: c.donor.email,
+        donorJobTitle: c.donor.jobTitle,
+        donorCompany: c.donor.company,
+        donorSkills: c.donor.skills,
         projectTitle: c.project?.title ?? null,
         skillCategory: c.skillCategory,
         description: c.description,

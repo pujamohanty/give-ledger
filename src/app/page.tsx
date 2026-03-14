@@ -88,7 +88,7 @@ const howItWorksNgo = [
   {
     step: "01",
     title: "Register & Verify",
-    desc: "Submit your NGO registration. Our team verifies your credentials within 48 hours.",
+    desc: "US-based 501(c)(3) nonprofits submit their EIN and registration details. Our team verifies credentials within 48 hours.",
   },
   {
     step: "02",

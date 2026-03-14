@@ -76,10 +76,31 @@ export async function POST(req: NextRequest) {
       },
     });
 
+    const fullProject = await prisma.project.findUnique({
+      where: { id: projectId },
+      select: { title: true, ngo: { select: { orgName: true, id: true } } },
+    });
+
     await prisma.project.update({
       where: { id: projectId },
       data: { raisedAmount: { increment: amountPaid } },
     });
+
+    // Emit activity event
+    const donor = await prisma.user.findUnique({ where: { id: userId }, select: { name: true } });
+    await prisma.activityEvent.create({
+      data: {
+        type: "DONATION",
+        projectId,
+        ngoName: fullProject?.ngo.orgName,
+        projectTitle: fullProject?.title,
+        actorId: userId,
+        actorType: "USER",
+        actorName: donor?.name ?? "A donor",
+        description: `${donor?.name ?? "A donor"} donated $${amountPaid.toLocaleString()} to "${fullProject?.title ?? "a project"}"`,
+        linkUrl: `/projects/${projectId}`,
+      },
+    }).catch(() => {});
   }
 
   return NextResponse.json({ received: true });

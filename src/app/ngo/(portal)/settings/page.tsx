@@ -40,19 +40,28 @@ export default async function NgoSettingsPage() {
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
+            <div className="bg-blue-50 border border-blue-100 rounded-lg px-4 py-3 text-xs text-blue-800">
+              GiveLedger is currently available for <strong>US-based 501(c)(3) nonprofits only</strong>.
+            </div>
             <div className="space-y-1.5">
               <Label htmlFor="ngoName">Organisation name</Label>
               <Input id="ngoName" defaultValue={ngo.orgName} />
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-1.5">
-                <Label htmlFor="regNumber">Registration number</Label>
-                <Input id="regNumber" defaultValue={ngo.regNumber ?? ""} placeholder="NGO/2023/00123" />
+                <Label htmlFor="ein">EIN (Employer Identification Number)</Label>
+                <Input id="ein" defaultValue={(ngo as { ein?: string }).ein ?? ""} placeholder="12-3456789" />
+                <p className="text-xs text-gray-400">Format: XX-XXXXXXX</p>
               </div>
               <div className="space-y-1.5">
-                <Label htmlFor="country">Country</Label>
-                <Input id="country" defaultValue={ngo.country ?? ""} placeholder="Kenya" />
+                <Label htmlFor="state">State of registration</Label>
+                <Input id="state" defaultValue={(ngo as { state?: string }).state ?? ""} placeholder="e.g. California" />
               </div>
+            </div>
+            <div className="space-y-1.5">
+              <Label htmlFor="taxStatus">Tax-exempt status</Label>
+              <Input id="taxStatus" defaultValue="501(c)(3)" readOnly className="bg-gray-50 text-gray-500 cursor-not-allowed" />
+              <p className="text-xs text-gray-400">Only 501(c)(3) organizations are eligible to list on GiveLedger.</p>
             </div>
             <div className="space-y-1.5">
               <Label htmlFor="website">Website</Label>

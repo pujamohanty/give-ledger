@@ -143,6 +143,16 @@ export type SkillBlockchainRecord = $Result.DefaultSelection<Prisma.$SkillBlockc
  * 
  */
 export type DonorEndorsement = $Result.DefaultSelection<Prisma.$DonorEndorsementPayload>
+/**
+ * Model DonorDocument
+ * 
+ */
+export type DonorDocument = $Result.DefaultSelection<Prisma.$DonorDocumentPayload>
+/**
+ * Model NgoDocument
+ * 
+ */
+export type NgoDocument = $Result.DefaultSelection<Prisma.$NgoDocumentPayload>
 
 /**
  * Enums
@@ -629,6 +639,26 @@ export class PrismaClient<
     * ```
     */
   get donorEndorsement(): Prisma.DonorEndorsementDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.donorDocument`: Exposes CRUD operations for the **DonorDocument** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more DonorDocuments
+    * const donorDocuments = await prisma.donorDocument.findMany()
+    * ```
+    */
+  get donorDocument(): Prisma.DonorDocumentDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.ngoDocument`: Exposes CRUD operations for the **NgoDocument** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more NgoDocuments
+    * const ngoDocuments = await prisma.ngoDocument.findMany()
+    * ```
+    */
+  get ngoDocument(): Prisma.NgoDocumentDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -1088,7 +1118,9 @@ export namespace Prisma {
     BoardMember: 'BoardMember',
     SkillContribution: 'SkillContribution',
     SkillBlockchainRecord: 'SkillBlockchainRecord',
-    DonorEndorsement: 'DonorEndorsement'
+    DonorEndorsement: 'DonorEndorsement',
+    DonorDocument: 'DonorDocument',
+    NgoDocument: 'NgoDocument'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1104,7 +1136,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "account" | "session" | "verificationToken" | "user" | "ngo" | "project" | "milestone" | "evidenceFile" | "outputMarker" | "donation" | "disbursement" | "expense" | "blockchainRecord" | "rating" | "platformSetting" | "notification" | "spotlightVote" | "campaign" | "campaignContributor" | "ngoSuggestion" | "referral" | "activityEvent" | "boardMember" | "skillContribution" | "skillBlockchainRecord" | "donorEndorsement"
+      modelProps: "account" | "session" | "verificationToken" | "user" | "ngo" | "project" | "milestone" | "evidenceFile" | "outputMarker" | "donation" | "disbursement" | "expense" | "blockchainRecord" | "rating" | "platformSetting" | "notification" | "spotlightVote" | "campaign" | "campaignContributor" | "ngoSuggestion" | "referral" | "activityEvent" | "boardMember" | "skillContribution" | "skillBlockchainRecord" | "donorEndorsement" | "donorDocument" | "ngoDocument"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -3032,6 +3064,154 @@ export namespace Prisma {
           }
         }
       }
+      DonorDocument: {
+        payload: Prisma.$DonorDocumentPayload<ExtArgs>
+        fields: Prisma.DonorDocumentFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DonorDocumentFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DonorDocumentPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DonorDocumentFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DonorDocumentPayload>
+          }
+          findFirst: {
+            args: Prisma.DonorDocumentFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DonorDocumentPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DonorDocumentFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DonorDocumentPayload>
+          }
+          findMany: {
+            args: Prisma.DonorDocumentFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DonorDocumentPayload>[]
+          }
+          create: {
+            args: Prisma.DonorDocumentCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DonorDocumentPayload>
+          }
+          createMany: {
+            args: Prisma.DonorDocumentCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DonorDocumentCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DonorDocumentPayload>[]
+          }
+          delete: {
+            args: Prisma.DonorDocumentDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DonorDocumentPayload>
+          }
+          update: {
+            args: Prisma.DonorDocumentUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DonorDocumentPayload>
+          }
+          deleteMany: {
+            args: Prisma.DonorDocumentDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DonorDocumentUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.DonorDocumentUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DonorDocumentPayload>[]
+          }
+          upsert: {
+            args: Prisma.DonorDocumentUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DonorDocumentPayload>
+          }
+          aggregate: {
+            args: Prisma.DonorDocumentAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDonorDocument>
+          }
+          groupBy: {
+            args: Prisma.DonorDocumentGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DonorDocumentGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DonorDocumentCountArgs<ExtArgs>
+            result: $Utils.Optional<DonorDocumentCountAggregateOutputType> | number
+          }
+        }
+      }
+      NgoDocument: {
+        payload: Prisma.$NgoDocumentPayload<ExtArgs>
+        fields: Prisma.NgoDocumentFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.NgoDocumentFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NgoDocumentPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.NgoDocumentFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NgoDocumentPayload>
+          }
+          findFirst: {
+            args: Prisma.NgoDocumentFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NgoDocumentPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.NgoDocumentFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NgoDocumentPayload>
+          }
+          findMany: {
+            args: Prisma.NgoDocumentFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NgoDocumentPayload>[]
+          }
+          create: {
+            args: Prisma.NgoDocumentCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NgoDocumentPayload>
+          }
+          createMany: {
+            args: Prisma.NgoDocumentCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.NgoDocumentCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NgoDocumentPayload>[]
+          }
+          delete: {
+            args: Prisma.NgoDocumentDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NgoDocumentPayload>
+          }
+          update: {
+            args: Prisma.NgoDocumentUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NgoDocumentPayload>
+          }
+          deleteMany: {
+            args: Prisma.NgoDocumentDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.NgoDocumentUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.NgoDocumentUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NgoDocumentPayload>[]
+          }
+          upsert: {
+            args: Prisma.NgoDocumentUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NgoDocumentPayload>
+          }
+          aggregate: {
+            args: Prisma.NgoDocumentAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateNgoDocument>
+          }
+          groupBy: {
+            args: Prisma.NgoDocumentGroupByArgs<ExtArgs>
+            result: $Utils.Optional<NgoDocumentGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.NgoDocumentCountArgs<ExtArgs>
+            result: $Utils.Optional<NgoDocumentCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -3166,6 +3346,8 @@ export namespace Prisma {
     skillContribution?: SkillContributionOmit
     skillBlockchainRecord?: SkillBlockchainRecordOmit
     donorEndorsement?: DonorEndorsementOmit
+    donorDocument?: DonorDocumentOmit
+    ngoDocument?: NgoDocumentOmit
   }
 
   /* Types for Logging */
@@ -3260,6 +3442,7 @@ export namespace Prisma {
     skillContributions: number
     endorsementsReceived: number
     endorsementsGiven: number
+    documents: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3277,6 +3460,7 @@ export namespace Prisma {
     skillContributions?: boolean | UserCountOutputTypeCountSkillContributionsArgs
     endorsementsReceived?: boolean | UserCountOutputTypeCountEndorsementsReceivedArgs
     endorsementsGiven?: boolean | UserCountOutputTypeCountEndorsementsGivenArgs
+    documents?: boolean | UserCountOutputTypeCountDocumentsArgs
   }
 
   // Custom InputTypes
@@ -3388,6 +3572,13 @@ export namespace Prisma {
     where?: DonorEndorsementWhereInput
   }
 
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountDocumentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DonorDocumentWhereInput
+  }
+
 
   /**
    * Count Type NgoCountOutputType
@@ -3400,6 +3591,7 @@ export namespace Prisma {
     boardMembers: number
     skillContributions: number
     donorEndorsements: number
+    documents: number
   }
 
   export type NgoCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3409,6 +3601,7 @@ export namespace Prisma {
     boardMembers?: boolean | NgoCountOutputTypeCountBoardMembersArgs
     skillContributions?: boolean | NgoCountOutputTypeCountSkillContributionsArgs
     donorEndorsements?: boolean | NgoCountOutputTypeCountDonorEndorsementsArgs
+    documents?: boolean | NgoCountOutputTypeCountDocumentsArgs
   }
 
   // Custom InputTypes
@@ -3462,6 +3655,13 @@ export namespace Prisma {
    */
   export type NgoCountOutputTypeCountDonorEndorsementsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: DonorEndorsementWhereInput
+  }
+
+  /**
+   * NgoCountOutputType without action
+   */
+  export type NgoCountOutputTypeCountDocumentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: NgoDocumentWhereInput
   }
 
 
@@ -6829,10 +7029,20 @@ export namespace Prisma {
     emailVerified: Date | null
     name: string | null
     image: string | null
+    password: string | null
     role: $Enums.Role | null
     referralCode: string | null
+    bio: string | null
+    jobTitle: string | null
+    company: string | null
+    city: string | null
+    linkedinUrl: string | null
+    twitterUrl: string | null
+    portfolioUrl: string | null
+    skills: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    aiSummary: string | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -6841,10 +7051,20 @@ export namespace Prisma {
     emailVerified: Date | null
     name: string | null
     image: string | null
+    password: string | null
     role: $Enums.Role | null
     referralCode: string | null
+    bio: string | null
+    jobTitle: string | null
+    company: string | null
+    city: string | null
+    linkedinUrl: string | null
+    twitterUrl: string | null
+    portfolioUrl: string | null
+    skills: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    aiSummary: string | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -6853,10 +7073,20 @@ export namespace Prisma {
     emailVerified: number
     name: number
     image: number
+    password: number
     role: number
     referralCode: number
+    bio: number
+    jobTitle: number
+    company: number
+    city: number
+    linkedinUrl: number
+    twitterUrl: number
+    portfolioUrl: number
+    skills: number
     createdAt: number
     updatedAt: number
+    aiSummary: number
     _all: number
   }
 
@@ -6867,10 +7097,20 @@ export namespace Prisma {
     emailVerified?: true
     name?: true
     image?: true
+    password?: true
     role?: true
     referralCode?: true
+    bio?: true
+    jobTitle?: true
+    company?: true
+    city?: true
+    linkedinUrl?: true
+    twitterUrl?: true
+    portfolioUrl?: true
+    skills?: true
     createdAt?: true
     updatedAt?: true
+    aiSummary?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -6879,10 +7119,20 @@ export namespace Prisma {
     emailVerified?: true
     name?: true
     image?: true
+    password?: true
     role?: true
     referralCode?: true
+    bio?: true
+    jobTitle?: true
+    company?: true
+    city?: true
+    linkedinUrl?: true
+    twitterUrl?: true
+    portfolioUrl?: true
+    skills?: true
     createdAt?: true
     updatedAt?: true
+    aiSummary?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -6891,10 +7141,20 @@ export namespace Prisma {
     emailVerified?: true
     name?: true
     image?: true
+    password?: true
     role?: true
     referralCode?: true
+    bio?: true
+    jobTitle?: true
+    company?: true
+    city?: true
+    linkedinUrl?: true
+    twitterUrl?: true
+    portfolioUrl?: true
+    skills?: true
     createdAt?: true
     updatedAt?: true
+    aiSummary?: true
     _all?: true
   }
 
@@ -6976,10 +7236,20 @@ export namespace Prisma {
     emailVerified: Date | null
     name: string | null
     image: string | null
+    password: string | null
     role: $Enums.Role
     referralCode: string | null
+    bio: string | null
+    jobTitle: string | null
+    company: string | null
+    city: string | null
+    linkedinUrl: string | null
+    twitterUrl: string | null
+    portfolioUrl: string | null
+    skills: string | null
     createdAt: Date
     updatedAt: Date
+    aiSummary: string | null
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -7005,10 +7275,20 @@ export namespace Prisma {
     emailVerified?: boolean
     name?: boolean
     image?: boolean
+    password?: boolean
     role?: boolean
     referralCode?: boolean
+    bio?: boolean
+    jobTitle?: boolean
+    company?: boolean
+    city?: boolean
+    linkedinUrl?: boolean
+    twitterUrl?: boolean
+    portfolioUrl?: boolean
+    skills?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    aiSummary?: boolean
     accounts?: boolean | User$accountsArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     ngo?: boolean | User$ngoArgs<ExtArgs>
@@ -7024,6 +7304,7 @@ export namespace Prisma {
     skillContributions?: boolean | User$skillContributionsArgs<ExtArgs>
     endorsementsReceived?: boolean | User$endorsementsReceivedArgs<ExtArgs>
     endorsementsGiven?: boolean | User$endorsementsGivenArgs<ExtArgs>
+    documents?: boolean | User$documentsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -7033,10 +7314,20 @@ export namespace Prisma {
     emailVerified?: boolean
     name?: boolean
     image?: boolean
+    password?: boolean
     role?: boolean
     referralCode?: boolean
+    bio?: boolean
+    jobTitle?: boolean
+    company?: boolean
+    city?: boolean
+    linkedinUrl?: boolean
+    twitterUrl?: boolean
+    portfolioUrl?: boolean
+    skills?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    aiSummary?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -7045,10 +7336,20 @@ export namespace Prisma {
     emailVerified?: boolean
     name?: boolean
     image?: boolean
+    password?: boolean
     role?: boolean
     referralCode?: boolean
+    bio?: boolean
+    jobTitle?: boolean
+    company?: boolean
+    city?: boolean
+    linkedinUrl?: boolean
+    twitterUrl?: boolean
+    portfolioUrl?: boolean
+    skills?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    aiSummary?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -7057,13 +7358,23 @@ export namespace Prisma {
     emailVerified?: boolean
     name?: boolean
     image?: boolean
+    password?: boolean
     role?: boolean
     referralCode?: boolean
+    bio?: boolean
+    jobTitle?: boolean
+    company?: boolean
+    city?: boolean
+    linkedinUrl?: boolean
+    twitterUrl?: boolean
+    portfolioUrl?: boolean
+    skills?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    aiSummary?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "emailVerified" | "name" | "image" | "role" | "referralCode" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "emailVerified" | "name" | "image" | "password" | "role" | "referralCode" | "bio" | "jobTitle" | "company" | "city" | "linkedinUrl" | "twitterUrl" | "portfolioUrl" | "skills" | "createdAt" | "updatedAt" | "aiSummary", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     accounts?: boolean | User$accountsArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
@@ -7080,6 +7391,7 @@ export namespace Prisma {
     skillContributions?: boolean | User$skillContributionsArgs<ExtArgs>
     endorsementsReceived?: boolean | User$endorsementsReceivedArgs<ExtArgs>
     endorsementsGiven?: boolean | User$endorsementsGivenArgs<ExtArgs>
+    documents?: boolean | User$documentsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -7103,6 +7415,7 @@ export namespace Prisma {
       skillContributions: Prisma.$SkillContributionPayload<ExtArgs>[]
       endorsementsReceived: Prisma.$DonorEndorsementPayload<ExtArgs>[]
       endorsementsGiven: Prisma.$DonorEndorsementPayload<ExtArgs>[]
+      documents: Prisma.$DonorDocumentPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -7110,10 +7423,20 @@ export namespace Prisma {
       emailVerified: Date | null
       name: string | null
       image: string | null
+      password: string | null
       role: $Enums.Role
       referralCode: string | null
+      bio: string | null
+      jobTitle: string | null
+      company: string | null
+      city: string | null
+      linkedinUrl: string | null
+      twitterUrl: string | null
+      portfolioUrl: string | null
+      skills: string | null
       createdAt: Date
       updatedAt: Date
+      aiSummary: string | null
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -7523,6 +7846,7 @@ export namespace Prisma {
     skillContributions<T extends User$skillContributionsArgs<ExtArgs> = {}>(args?: Subset<T, User$skillContributionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SkillContributionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     endorsementsReceived<T extends User$endorsementsReceivedArgs<ExtArgs> = {}>(args?: Subset<T, User$endorsementsReceivedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DonorEndorsementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     endorsementsGiven<T extends User$endorsementsGivenArgs<ExtArgs> = {}>(args?: Subset<T, User$endorsementsGivenArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DonorEndorsementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    documents<T extends User$documentsArgs<ExtArgs> = {}>(args?: Subset<T, User$documentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DonorDocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7557,10 +7881,20 @@ export namespace Prisma {
     readonly emailVerified: FieldRef<"User", 'DateTime'>
     readonly name: FieldRef<"User", 'String'>
     readonly image: FieldRef<"User", 'String'>
+    readonly password: FieldRef<"User", 'String'>
     readonly role: FieldRef<"User", 'Role'>
     readonly referralCode: FieldRef<"User", 'String'>
+    readonly bio: FieldRef<"User", 'String'>
+    readonly jobTitle: FieldRef<"User", 'String'>
+    readonly company: FieldRef<"User", 'String'>
+    readonly city: FieldRef<"User", 'String'>
+    readonly linkedinUrl: FieldRef<"User", 'String'>
+    readonly twitterUrl: FieldRef<"User", 'String'>
+    readonly portfolioUrl: FieldRef<"User", 'String'>
+    readonly skills: FieldRef<"User", 'String'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
+    readonly aiSummary: FieldRef<"User", 'String'>
   }
     
 
@@ -8304,6 +8638,30 @@ export namespace Prisma {
   }
 
   /**
+   * User.documents
+   */
+  export type User$documentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DonorDocument
+     */
+    select?: DonorDocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DonorDocument
+     */
+    omit?: DonorDocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DonorDocumentInclude<ExtArgs> | null
+    where?: DonorDocumentWhereInput
+    orderBy?: DonorDocumentOrderByWithRelationInput | DonorDocumentOrderByWithRelationInput[]
+    cursor?: DonorDocumentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DonorDocumentScalarFieldEnum | DonorDocumentScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8346,7 +8704,9 @@ export namespace Prisma {
     id: string | null
     userId: string | null
     orgName: string | null
+    ein: string | null
     regNumber: string | null
+    state: string | null
     country: string | null
     website: string | null
     description: string | null
@@ -8357,13 +8717,16 @@ export namespace Prisma {
     rejectReason: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    aiSummary: string | null
   }
 
   export type NgoMaxAggregateOutputType = {
     id: string | null
     userId: string | null
     orgName: string | null
+    ein: string | null
     regNumber: string | null
+    state: string | null
     country: string | null
     website: string | null
     description: string | null
@@ -8374,13 +8737,16 @@ export namespace Prisma {
     rejectReason: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    aiSummary: string | null
   }
 
   export type NgoCountAggregateOutputType = {
     id: number
     userId: number
     orgName: number
+    ein: number
     regNumber: number
+    state: number
     country: number
     website: number
     description: number
@@ -8391,6 +8757,7 @@ export namespace Prisma {
     rejectReason: number
     createdAt: number
     updatedAt: number
+    aiSummary: number
     _all: number
   }
 
@@ -8407,7 +8774,9 @@ export namespace Prisma {
     id?: true
     userId?: true
     orgName?: true
+    ein?: true
     regNumber?: true
+    state?: true
     country?: true
     website?: true
     description?: true
@@ -8418,13 +8787,16 @@ export namespace Prisma {
     rejectReason?: true
     createdAt?: true
     updatedAt?: true
+    aiSummary?: true
   }
 
   export type NgoMaxAggregateInputType = {
     id?: true
     userId?: true
     orgName?: true
+    ein?: true
     regNumber?: true
+    state?: true
     country?: true
     website?: true
     description?: true
@@ -8435,13 +8807,16 @@ export namespace Prisma {
     rejectReason?: true
     createdAt?: true
     updatedAt?: true
+    aiSummary?: true
   }
 
   export type NgoCountAggregateInputType = {
     id?: true
     userId?: true
     orgName?: true
+    ein?: true
     regNumber?: true
+    state?: true
     country?: true
     website?: true
     description?: true
@@ -8452,6 +8827,7 @@ export namespace Prisma {
     rejectReason?: true
     createdAt?: true
     updatedAt?: true
+    aiSummary?: true
     _all?: true
   }
 
@@ -8545,7 +8921,9 @@ export namespace Prisma {
     id: string
     userId: string
     orgName: string
+    ein: string | null
     regNumber: string | null
+    state: string | null
     country: string | null
     website: string | null
     description: string | null
@@ -8556,6 +8934,7 @@ export namespace Prisma {
     rejectReason: string | null
     createdAt: Date
     updatedAt: Date
+    aiSummary: string | null
     _count: NgoCountAggregateOutputType | null
     _avg: NgoAvgAggregateOutputType | null
     _sum: NgoSumAggregateOutputType | null
@@ -8581,7 +8960,9 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     orgName?: boolean
+    ein?: boolean
     regNumber?: boolean
+    state?: boolean
     country?: boolean
     website?: boolean
     description?: boolean
@@ -8592,6 +8973,7 @@ export namespace Prisma {
     rejectReason?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    aiSummary?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     projects?: boolean | Ngo$projectsArgs<ExtArgs>
     expenses?: boolean | Ngo$expensesArgs<ExtArgs>
@@ -8599,6 +8981,7 @@ export namespace Prisma {
     boardMembers?: boolean | Ngo$boardMembersArgs<ExtArgs>
     skillContributions?: boolean | Ngo$skillContributionsArgs<ExtArgs>
     donorEndorsements?: boolean | Ngo$donorEndorsementsArgs<ExtArgs>
+    documents?: boolean | Ngo$documentsArgs<ExtArgs>
     _count?: boolean | NgoCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["ngo"]>
 
@@ -8606,7 +8989,9 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     orgName?: boolean
+    ein?: boolean
     regNumber?: boolean
+    state?: boolean
     country?: boolean
     website?: boolean
     description?: boolean
@@ -8617,6 +9002,7 @@ export namespace Prisma {
     rejectReason?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    aiSummary?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["ngo"]>
 
@@ -8624,7 +9010,9 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     orgName?: boolean
+    ein?: boolean
     regNumber?: boolean
+    state?: boolean
     country?: boolean
     website?: boolean
     description?: boolean
@@ -8635,6 +9023,7 @@ export namespace Prisma {
     rejectReason?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    aiSummary?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["ngo"]>
 
@@ -8642,7 +9031,9 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     orgName?: boolean
+    ein?: boolean
     regNumber?: boolean
+    state?: boolean
     country?: boolean
     website?: boolean
     description?: boolean
@@ -8653,9 +9044,10 @@ export namespace Prisma {
     rejectReason?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    aiSummary?: boolean
   }
 
-  export type NgoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "orgName" | "regNumber" | "country" | "website" | "description" | "logoUrl" | "trustScore" | "status" | "approvedAt" | "rejectReason" | "createdAt" | "updatedAt", ExtArgs["result"]["ngo"]>
+  export type NgoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "orgName" | "ein" | "regNumber" | "state" | "country" | "website" | "description" | "logoUrl" | "trustScore" | "status" | "approvedAt" | "rejectReason" | "createdAt" | "updatedAt" | "aiSummary", ExtArgs["result"]["ngo"]>
   export type NgoInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     projects?: boolean | Ngo$projectsArgs<ExtArgs>
@@ -8664,6 +9056,7 @@ export namespace Prisma {
     boardMembers?: boolean | Ngo$boardMembersArgs<ExtArgs>
     skillContributions?: boolean | Ngo$skillContributionsArgs<ExtArgs>
     donorEndorsements?: boolean | Ngo$donorEndorsementsArgs<ExtArgs>
+    documents?: boolean | Ngo$documentsArgs<ExtArgs>
     _count?: boolean | NgoCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type NgoIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8683,12 +9076,15 @@ export namespace Prisma {
       boardMembers: Prisma.$BoardMemberPayload<ExtArgs>[]
       skillContributions: Prisma.$SkillContributionPayload<ExtArgs>[]
       donorEndorsements: Prisma.$DonorEndorsementPayload<ExtArgs>[]
+      documents: Prisma.$NgoDocumentPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       userId: string
       orgName: string
+      ein: string | null
       regNumber: string | null
+      state: string | null
       country: string | null
       website: string | null
       description: string | null
@@ -8699,6 +9095,7 @@ export namespace Prisma {
       rejectReason: string | null
       createdAt: Date
       updatedAt: Date
+      aiSummary: string | null
     }, ExtArgs["result"]["ngo"]>
     composites: {}
   }
@@ -9100,6 +9497,7 @@ export namespace Prisma {
     boardMembers<T extends Ngo$boardMembersArgs<ExtArgs> = {}>(args?: Subset<T, Ngo$boardMembersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BoardMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     skillContributions<T extends Ngo$skillContributionsArgs<ExtArgs> = {}>(args?: Subset<T, Ngo$skillContributionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SkillContributionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     donorEndorsements<T extends Ngo$donorEndorsementsArgs<ExtArgs> = {}>(args?: Subset<T, Ngo$donorEndorsementsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DonorEndorsementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    documents<T extends Ngo$documentsArgs<ExtArgs> = {}>(args?: Subset<T, Ngo$documentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NgoDocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -9132,7 +9530,9 @@ export namespace Prisma {
     readonly id: FieldRef<"Ngo", 'String'>
     readonly userId: FieldRef<"Ngo", 'String'>
     readonly orgName: FieldRef<"Ngo", 'String'>
+    readonly ein: FieldRef<"Ngo", 'String'>
     readonly regNumber: FieldRef<"Ngo", 'String'>
+    readonly state: FieldRef<"Ngo", 'String'>
     readonly country: FieldRef<"Ngo", 'String'>
     readonly website: FieldRef<"Ngo", 'String'>
     readonly description: FieldRef<"Ngo", 'String'>
@@ -9143,6 +9543,7 @@ export namespace Prisma {
     readonly rejectReason: FieldRef<"Ngo", 'String'>
     readonly createdAt: FieldRef<"Ngo", 'DateTime'>
     readonly updatedAt: FieldRef<"Ngo", 'DateTime'>
+    readonly aiSummary: FieldRef<"Ngo", 'String'>
   }
     
 
@@ -9680,6 +10081,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: DonorEndorsementScalarFieldEnum | DonorEndorsementScalarFieldEnum[]
+  }
+
+  /**
+   * Ngo.documents
+   */
+  export type Ngo$documentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NgoDocument
+     */
+    select?: NgoDocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NgoDocument
+     */
+    omit?: NgoDocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NgoDocumentInclude<ExtArgs> | null
+    where?: NgoDocumentWhereInput
+    orderBy?: NgoDocumentOrderByWithRelationInput | NgoDocumentOrderByWithRelationInput[]
+    cursor?: NgoDocumentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: NgoDocumentScalarFieldEnum | NgoDocumentScalarFieldEnum[]
   }
 
   /**
@@ -28206,7 +28631,11 @@ export namespace Prisma {
     ngoName: string | null
     projectTitle: string | null
     actorName: string | null
+    actorId: string | null
+    actorType: string | null
+    imageUrl: string | null
     description: string | null
+    linkUrl: string | null
     metadata: string | null
     createdAt: Date | null
   }
@@ -28218,7 +28647,11 @@ export namespace Prisma {
     ngoName: string | null
     projectTitle: string | null
     actorName: string | null
+    actorId: string | null
+    actorType: string | null
+    imageUrl: string | null
     description: string | null
+    linkUrl: string | null
     metadata: string | null
     createdAt: Date | null
   }
@@ -28230,7 +28663,11 @@ export namespace Prisma {
     ngoName: number
     projectTitle: number
     actorName: number
+    actorId: number
+    actorType: number
+    imageUrl: number
     description: number
+    linkUrl: number
     metadata: number
     createdAt: number
     _all: number
@@ -28244,7 +28681,11 @@ export namespace Prisma {
     ngoName?: true
     projectTitle?: true
     actorName?: true
+    actorId?: true
+    actorType?: true
+    imageUrl?: true
     description?: true
+    linkUrl?: true
     metadata?: true
     createdAt?: true
   }
@@ -28256,7 +28697,11 @@ export namespace Prisma {
     ngoName?: true
     projectTitle?: true
     actorName?: true
+    actorId?: true
+    actorType?: true
+    imageUrl?: true
     description?: true
+    linkUrl?: true
     metadata?: true
     createdAt?: true
   }
@@ -28268,7 +28713,11 @@ export namespace Prisma {
     ngoName?: true
     projectTitle?: true
     actorName?: true
+    actorId?: true
+    actorType?: true
+    imageUrl?: true
     description?: true
+    linkUrl?: true
     metadata?: true
     createdAt?: true
     _all?: true
@@ -28353,7 +28802,11 @@ export namespace Prisma {
     ngoName: string | null
     projectTitle: string | null
     actorName: string | null
+    actorId: string | null
+    actorType: string | null
+    imageUrl: string | null
     description: string
+    linkUrl: string | null
     metadata: string | null
     createdAt: Date
     _count: ActivityEventCountAggregateOutputType | null
@@ -28382,7 +28835,11 @@ export namespace Prisma {
     ngoName?: boolean
     projectTitle?: boolean
     actorName?: boolean
+    actorId?: boolean
+    actorType?: boolean
+    imageUrl?: boolean
     description?: boolean
+    linkUrl?: boolean
     metadata?: boolean
     createdAt?: boolean
   }, ExtArgs["result"]["activityEvent"]>
@@ -28394,7 +28851,11 @@ export namespace Prisma {
     ngoName?: boolean
     projectTitle?: boolean
     actorName?: boolean
+    actorId?: boolean
+    actorType?: boolean
+    imageUrl?: boolean
     description?: boolean
+    linkUrl?: boolean
     metadata?: boolean
     createdAt?: boolean
   }, ExtArgs["result"]["activityEvent"]>
@@ -28406,7 +28867,11 @@ export namespace Prisma {
     ngoName?: boolean
     projectTitle?: boolean
     actorName?: boolean
+    actorId?: boolean
+    actorType?: boolean
+    imageUrl?: boolean
     description?: boolean
+    linkUrl?: boolean
     metadata?: boolean
     createdAt?: boolean
   }, ExtArgs["result"]["activityEvent"]>
@@ -28418,12 +28883,16 @@ export namespace Prisma {
     ngoName?: boolean
     projectTitle?: boolean
     actorName?: boolean
+    actorId?: boolean
+    actorType?: boolean
+    imageUrl?: boolean
     description?: boolean
+    linkUrl?: boolean
     metadata?: boolean
     createdAt?: boolean
   }
 
-  export type ActivityEventOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "type" | "projectId" | "ngoName" | "projectTitle" | "actorName" | "description" | "metadata" | "createdAt", ExtArgs["result"]["activityEvent"]>
+  export type ActivityEventOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "type" | "projectId" | "ngoName" | "projectTitle" | "actorName" | "actorId" | "actorType" | "imageUrl" | "description" | "linkUrl" | "metadata" | "createdAt", ExtArgs["result"]["activityEvent"]>
 
   export type $ActivityEventPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "ActivityEvent"
@@ -28435,7 +28904,11 @@ export namespace Prisma {
       ngoName: string | null
       projectTitle: string | null
       actorName: string | null
+      actorId: string | null
+      actorType: string | null
+      imageUrl: string | null
       description: string
+      linkUrl: string | null
       metadata: string | null
       createdAt: Date
     }, ExtArgs["result"]["activityEvent"]>
@@ -28867,7 +29340,11 @@ export namespace Prisma {
     readonly ngoName: FieldRef<"ActivityEvent", 'String'>
     readonly projectTitle: FieldRef<"ActivityEvent", 'String'>
     readonly actorName: FieldRef<"ActivityEvent", 'String'>
+    readonly actorId: FieldRef<"ActivityEvent", 'String'>
+    readonly actorType: FieldRef<"ActivityEvent", 'String'>
+    readonly imageUrl: FieldRef<"ActivityEvent", 'String'>
     readonly description: FieldRef<"ActivityEvent", 'String'>
+    readonly linkUrl: FieldRef<"ActivityEvent", 'String'>
     readonly metadata: FieldRef<"ActivityEvent", 'String'>
     readonly createdAt: FieldRef<"ActivityEvent", 'DateTime'>
   }
@@ -29261,6 +29738,7 @@ export namespace Prisma {
     ngoId: string | null
     name: string | null
     role: string | null
+    memberType: string | null
     bio: string | null
     linkedinUrl: string | null
     photoUrl: string | null
@@ -29274,6 +29752,7 @@ export namespace Prisma {
     ngoId: string | null
     name: string | null
     role: string | null
+    memberType: string | null
     bio: string | null
     linkedinUrl: string | null
     photoUrl: string | null
@@ -29287,6 +29766,7 @@ export namespace Prisma {
     ngoId: number
     name: number
     role: number
+    memberType: number
     bio: number
     linkedinUrl: number
     photoUrl: number
@@ -29310,6 +29790,7 @@ export namespace Prisma {
     ngoId?: true
     name?: true
     role?: true
+    memberType?: true
     bio?: true
     linkedinUrl?: true
     photoUrl?: true
@@ -29323,6 +29804,7 @@ export namespace Prisma {
     ngoId?: true
     name?: true
     role?: true
+    memberType?: true
     bio?: true
     linkedinUrl?: true
     photoUrl?: true
@@ -29336,6 +29818,7 @@ export namespace Prisma {
     ngoId?: true
     name?: true
     role?: true
+    memberType?: true
     bio?: true
     linkedinUrl?: true
     photoUrl?: true
@@ -29436,6 +29919,7 @@ export namespace Prisma {
     ngoId: string
     name: string
     role: string
+    memberType: string
     bio: string | null
     linkedinUrl: string | null
     photoUrl: string | null
@@ -29468,6 +29952,7 @@ export namespace Prisma {
     ngoId?: boolean
     name?: boolean
     role?: boolean
+    memberType?: boolean
     bio?: boolean
     linkedinUrl?: boolean
     photoUrl?: boolean
@@ -29482,6 +29967,7 @@ export namespace Prisma {
     ngoId?: boolean
     name?: boolean
     role?: boolean
+    memberType?: boolean
     bio?: boolean
     linkedinUrl?: boolean
     photoUrl?: boolean
@@ -29496,6 +29982,7 @@ export namespace Prisma {
     ngoId?: boolean
     name?: boolean
     role?: boolean
+    memberType?: boolean
     bio?: boolean
     linkedinUrl?: boolean
     photoUrl?: boolean
@@ -29510,6 +29997,7 @@ export namespace Prisma {
     ngoId?: boolean
     name?: boolean
     role?: boolean
+    memberType?: boolean
     bio?: boolean
     linkedinUrl?: boolean
     photoUrl?: boolean
@@ -29518,7 +30006,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type BoardMemberOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "ngoId" | "name" | "role" | "bio" | "linkedinUrl" | "photoUrl" | "orderIndex" | "createdAt" | "updatedAt", ExtArgs["result"]["boardMember"]>
+  export type BoardMemberOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "ngoId" | "name" | "role" | "memberType" | "bio" | "linkedinUrl" | "photoUrl" | "orderIndex" | "createdAt" | "updatedAt", ExtArgs["result"]["boardMember"]>
   export type BoardMemberInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     ngo?: boolean | NgoDefaultArgs<ExtArgs>
   }
@@ -29539,6 +30027,7 @@ export namespace Prisma {
       ngoId: string
       name: string
       role: string
+      memberType: string
       bio: string | null
       linkedinUrl: string | null
       photoUrl: string | null
@@ -29973,6 +30462,7 @@ export namespace Prisma {
     readonly ngoId: FieldRef<"BoardMember", 'String'>
     readonly name: FieldRef<"BoardMember", 'String'>
     readonly role: FieldRef<"BoardMember", 'String'>
+    readonly memberType: FieldRef<"BoardMember", 'String'>
     readonly bio: FieldRef<"BoardMember", 'String'>
     readonly linkedinUrl: FieldRef<"BoardMember", 'String'>
     readonly photoUrl: FieldRef<"BoardMember", 'String'>
@@ -33810,6 +34300,2281 @@ export namespace Prisma {
 
 
   /**
+   * Model DonorDocument
+   */
+
+  export type AggregateDonorDocument = {
+    _count: DonorDocumentCountAggregateOutputType | null
+    _avg: DonorDocumentAvgAggregateOutputType | null
+    _sum: DonorDocumentSumAggregateOutputType | null
+    _min: DonorDocumentMinAggregateOutputType | null
+    _max: DonorDocumentMaxAggregateOutputType | null
+  }
+
+  export type DonorDocumentAvgAggregateOutputType = {
+    fileSize: number | null
+  }
+
+  export type DonorDocumentSumAggregateOutputType = {
+    fileSize: number | null
+  }
+
+  export type DonorDocumentMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    fileName: string | null
+    category: string | null
+    mimeType: string | null
+    fileSize: number | null
+    fileData: string | null
+    createdAt: Date | null
+  }
+
+  export type DonorDocumentMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    fileName: string | null
+    category: string | null
+    mimeType: string | null
+    fileSize: number | null
+    fileData: string | null
+    createdAt: Date | null
+  }
+
+  export type DonorDocumentCountAggregateOutputType = {
+    id: number
+    userId: number
+    fileName: number
+    category: number
+    mimeType: number
+    fileSize: number
+    fileData: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type DonorDocumentAvgAggregateInputType = {
+    fileSize?: true
+  }
+
+  export type DonorDocumentSumAggregateInputType = {
+    fileSize?: true
+  }
+
+  export type DonorDocumentMinAggregateInputType = {
+    id?: true
+    userId?: true
+    fileName?: true
+    category?: true
+    mimeType?: true
+    fileSize?: true
+    fileData?: true
+    createdAt?: true
+  }
+
+  export type DonorDocumentMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    fileName?: true
+    category?: true
+    mimeType?: true
+    fileSize?: true
+    fileData?: true
+    createdAt?: true
+  }
+
+  export type DonorDocumentCountAggregateInputType = {
+    id?: true
+    userId?: true
+    fileName?: true
+    category?: true
+    mimeType?: true
+    fileSize?: true
+    fileData?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type DonorDocumentAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DonorDocument to aggregate.
+     */
+    where?: DonorDocumentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DonorDocuments to fetch.
+     */
+    orderBy?: DonorDocumentOrderByWithRelationInput | DonorDocumentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DonorDocumentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DonorDocuments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DonorDocuments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned DonorDocuments
+    **/
+    _count?: true | DonorDocumentCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: DonorDocumentAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: DonorDocumentSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DonorDocumentMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DonorDocumentMaxAggregateInputType
+  }
+
+  export type GetDonorDocumentAggregateType<T extends DonorDocumentAggregateArgs> = {
+        [P in keyof T & keyof AggregateDonorDocument]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDonorDocument[P]>
+      : GetScalarType<T[P], AggregateDonorDocument[P]>
+  }
+
+
+
+
+  export type DonorDocumentGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DonorDocumentWhereInput
+    orderBy?: DonorDocumentOrderByWithAggregationInput | DonorDocumentOrderByWithAggregationInput[]
+    by: DonorDocumentScalarFieldEnum[] | DonorDocumentScalarFieldEnum
+    having?: DonorDocumentScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DonorDocumentCountAggregateInputType | true
+    _avg?: DonorDocumentAvgAggregateInputType
+    _sum?: DonorDocumentSumAggregateInputType
+    _min?: DonorDocumentMinAggregateInputType
+    _max?: DonorDocumentMaxAggregateInputType
+  }
+
+  export type DonorDocumentGroupByOutputType = {
+    id: string
+    userId: string
+    fileName: string
+    category: string
+    mimeType: string
+    fileSize: number
+    fileData: string
+    createdAt: Date
+    _count: DonorDocumentCountAggregateOutputType | null
+    _avg: DonorDocumentAvgAggregateOutputType | null
+    _sum: DonorDocumentSumAggregateOutputType | null
+    _min: DonorDocumentMinAggregateOutputType | null
+    _max: DonorDocumentMaxAggregateOutputType | null
+  }
+
+  type GetDonorDocumentGroupByPayload<T extends DonorDocumentGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DonorDocumentGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DonorDocumentGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DonorDocumentGroupByOutputType[P]>
+            : GetScalarType<T[P], DonorDocumentGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DonorDocumentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    fileName?: boolean
+    category?: boolean
+    mimeType?: boolean
+    fileSize?: boolean
+    fileData?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["donorDocument"]>
+
+  export type DonorDocumentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    fileName?: boolean
+    category?: boolean
+    mimeType?: boolean
+    fileSize?: boolean
+    fileData?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["donorDocument"]>
+
+  export type DonorDocumentSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    fileName?: boolean
+    category?: boolean
+    mimeType?: boolean
+    fileSize?: boolean
+    fileData?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["donorDocument"]>
+
+  export type DonorDocumentSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    fileName?: boolean
+    category?: boolean
+    mimeType?: boolean
+    fileSize?: boolean
+    fileData?: boolean
+    createdAt?: boolean
+  }
+
+  export type DonorDocumentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "fileName" | "category" | "mimeType" | "fileSize" | "fileData" | "createdAt", ExtArgs["result"]["donorDocument"]>
+  export type DonorDocumentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type DonorDocumentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type DonorDocumentIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $DonorDocumentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "DonorDocument"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      fileName: string
+      category: string
+      mimeType: string
+      fileSize: number
+      fileData: string
+      createdAt: Date
+    }, ExtArgs["result"]["donorDocument"]>
+    composites: {}
+  }
+
+  type DonorDocumentGetPayload<S extends boolean | null | undefined | DonorDocumentDefaultArgs> = $Result.GetResult<Prisma.$DonorDocumentPayload, S>
+
+  type DonorDocumentCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<DonorDocumentFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DonorDocumentCountAggregateInputType | true
+    }
+
+  export interface DonorDocumentDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['DonorDocument'], meta: { name: 'DonorDocument' } }
+    /**
+     * Find zero or one DonorDocument that matches the filter.
+     * @param {DonorDocumentFindUniqueArgs} args - Arguments to find a DonorDocument
+     * @example
+     * // Get one DonorDocument
+     * const donorDocument = await prisma.donorDocument.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DonorDocumentFindUniqueArgs>(args: SelectSubset<T, DonorDocumentFindUniqueArgs<ExtArgs>>): Prisma__DonorDocumentClient<$Result.GetResult<Prisma.$DonorDocumentPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one DonorDocument that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {DonorDocumentFindUniqueOrThrowArgs} args - Arguments to find a DonorDocument
+     * @example
+     * // Get one DonorDocument
+     * const donorDocument = await prisma.donorDocument.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DonorDocumentFindUniqueOrThrowArgs>(args: SelectSubset<T, DonorDocumentFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DonorDocumentClient<$Result.GetResult<Prisma.$DonorDocumentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DonorDocument that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DonorDocumentFindFirstArgs} args - Arguments to find a DonorDocument
+     * @example
+     * // Get one DonorDocument
+     * const donorDocument = await prisma.donorDocument.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DonorDocumentFindFirstArgs>(args?: SelectSubset<T, DonorDocumentFindFirstArgs<ExtArgs>>): Prisma__DonorDocumentClient<$Result.GetResult<Prisma.$DonorDocumentPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DonorDocument that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DonorDocumentFindFirstOrThrowArgs} args - Arguments to find a DonorDocument
+     * @example
+     * // Get one DonorDocument
+     * const donorDocument = await prisma.donorDocument.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DonorDocumentFindFirstOrThrowArgs>(args?: SelectSubset<T, DonorDocumentFindFirstOrThrowArgs<ExtArgs>>): Prisma__DonorDocumentClient<$Result.GetResult<Prisma.$DonorDocumentPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more DonorDocuments that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DonorDocumentFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all DonorDocuments
+     * const donorDocuments = await prisma.donorDocument.findMany()
+     * 
+     * // Get first 10 DonorDocuments
+     * const donorDocuments = await prisma.donorDocument.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const donorDocumentWithIdOnly = await prisma.donorDocument.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DonorDocumentFindManyArgs>(args?: SelectSubset<T, DonorDocumentFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DonorDocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a DonorDocument.
+     * @param {DonorDocumentCreateArgs} args - Arguments to create a DonorDocument.
+     * @example
+     * // Create one DonorDocument
+     * const DonorDocument = await prisma.donorDocument.create({
+     *   data: {
+     *     // ... data to create a DonorDocument
+     *   }
+     * })
+     * 
+     */
+    create<T extends DonorDocumentCreateArgs>(args: SelectSubset<T, DonorDocumentCreateArgs<ExtArgs>>): Prisma__DonorDocumentClient<$Result.GetResult<Prisma.$DonorDocumentPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many DonorDocuments.
+     * @param {DonorDocumentCreateManyArgs} args - Arguments to create many DonorDocuments.
+     * @example
+     * // Create many DonorDocuments
+     * const donorDocument = await prisma.donorDocument.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DonorDocumentCreateManyArgs>(args?: SelectSubset<T, DonorDocumentCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many DonorDocuments and returns the data saved in the database.
+     * @param {DonorDocumentCreateManyAndReturnArgs} args - Arguments to create many DonorDocuments.
+     * @example
+     * // Create many DonorDocuments
+     * const donorDocument = await prisma.donorDocument.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many DonorDocuments and only return the `id`
+     * const donorDocumentWithIdOnly = await prisma.donorDocument.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DonorDocumentCreateManyAndReturnArgs>(args?: SelectSubset<T, DonorDocumentCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DonorDocumentPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a DonorDocument.
+     * @param {DonorDocumentDeleteArgs} args - Arguments to delete one DonorDocument.
+     * @example
+     * // Delete one DonorDocument
+     * const DonorDocument = await prisma.donorDocument.delete({
+     *   where: {
+     *     // ... filter to delete one DonorDocument
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DonorDocumentDeleteArgs>(args: SelectSubset<T, DonorDocumentDeleteArgs<ExtArgs>>): Prisma__DonorDocumentClient<$Result.GetResult<Prisma.$DonorDocumentPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one DonorDocument.
+     * @param {DonorDocumentUpdateArgs} args - Arguments to update one DonorDocument.
+     * @example
+     * // Update one DonorDocument
+     * const donorDocument = await prisma.donorDocument.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DonorDocumentUpdateArgs>(args: SelectSubset<T, DonorDocumentUpdateArgs<ExtArgs>>): Prisma__DonorDocumentClient<$Result.GetResult<Prisma.$DonorDocumentPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more DonorDocuments.
+     * @param {DonorDocumentDeleteManyArgs} args - Arguments to filter DonorDocuments to delete.
+     * @example
+     * // Delete a few DonorDocuments
+     * const { count } = await prisma.donorDocument.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DonorDocumentDeleteManyArgs>(args?: SelectSubset<T, DonorDocumentDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DonorDocuments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DonorDocumentUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many DonorDocuments
+     * const donorDocument = await prisma.donorDocument.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DonorDocumentUpdateManyArgs>(args: SelectSubset<T, DonorDocumentUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DonorDocuments and returns the data updated in the database.
+     * @param {DonorDocumentUpdateManyAndReturnArgs} args - Arguments to update many DonorDocuments.
+     * @example
+     * // Update many DonorDocuments
+     * const donorDocument = await prisma.donorDocument.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more DonorDocuments and only return the `id`
+     * const donorDocumentWithIdOnly = await prisma.donorDocument.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends DonorDocumentUpdateManyAndReturnArgs>(args: SelectSubset<T, DonorDocumentUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DonorDocumentPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one DonorDocument.
+     * @param {DonorDocumentUpsertArgs} args - Arguments to update or create a DonorDocument.
+     * @example
+     * // Update or create a DonorDocument
+     * const donorDocument = await prisma.donorDocument.upsert({
+     *   create: {
+     *     // ... data to create a DonorDocument
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the DonorDocument we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DonorDocumentUpsertArgs>(args: SelectSubset<T, DonorDocumentUpsertArgs<ExtArgs>>): Prisma__DonorDocumentClient<$Result.GetResult<Prisma.$DonorDocumentPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of DonorDocuments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DonorDocumentCountArgs} args - Arguments to filter DonorDocuments to count.
+     * @example
+     * // Count the number of DonorDocuments
+     * const count = await prisma.donorDocument.count({
+     *   where: {
+     *     // ... the filter for the DonorDocuments we want to count
+     *   }
+     * })
+    **/
+    count<T extends DonorDocumentCountArgs>(
+      args?: Subset<T, DonorDocumentCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DonorDocumentCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a DonorDocument.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DonorDocumentAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DonorDocumentAggregateArgs>(args: Subset<T, DonorDocumentAggregateArgs>): Prisma.PrismaPromise<GetDonorDocumentAggregateType<T>>
+
+    /**
+     * Group by DonorDocument.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DonorDocumentGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DonorDocumentGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DonorDocumentGroupByArgs['orderBy'] }
+        : { orderBy?: DonorDocumentGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DonorDocumentGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDonorDocumentGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the DonorDocument model
+   */
+  readonly fields: DonorDocumentFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for DonorDocument.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DonorDocumentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the DonorDocument model
+   */
+  interface DonorDocumentFieldRefs {
+    readonly id: FieldRef<"DonorDocument", 'String'>
+    readonly userId: FieldRef<"DonorDocument", 'String'>
+    readonly fileName: FieldRef<"DonorDocument", 'String'>
+    readonly category: FieldRef<"DonorDocument", 'String'>
+    readonly mimeType: FieldRef<"DonorDocument", 'String'>
+    readonly fileSize: FieldRef<"DonorDocument", 'Int'>
+    readonly fileData: FieldRef<"DonorDocument", 'String'>
+    readonly createdAt: FieldRef<"DonorDocument", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * DonorDocument findUnique
+   */
+  export type DonorDocumentFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DonorDocument
+     */
+    select?: DonorDocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DonorDocument
+     */
+    omit?: DonorDocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DonorDocumentInclude<ExtArgs> | null
+    /**
+     * Filter, which DonorDocument to fetch.
+     */
+    where: DonorDocumentWhereUniqueInput
+  }
+
+  /**
+   * DonorDocument findUniqueOrThrow
+   */
+  export type DonorDocumentFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DonorDocument
+     */
+    select?: DonorDocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DonorDocument
+     */
+    omit?: DonorDocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DonorDocumentInclude<ExtArgs> | null
+    /**
+     * Filter, which DonorDocument to fetch.
+     */
+    where: DonorDocumentWhereUniqueInput
+  }
+
+  /**
+   * DonorDocument findFirst
+   */
+  export type DonorDocumentFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DonorDocument
+     */
+    select?: DonorDocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DonorDocument
+     */
+    omit?: DonorDocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DonorDocumentInclude<ExtArgs> | null
+    /**
+     * Filter, which DonorDocument to fetch.
+     */
+    where?: DonorDocumentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DonorDocuments to fetch.
+     */
+    orderBy?: DonorDocumentOrderByWithRelationInput | DonorDocumentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DonorDocuments.
+     */
+    cursor?: DonorDocumentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DonorDocuments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DonorDocuments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DonorDocuments.
+     */
+    distinct?: DonorDocumentScalarFieldEnum | DonorDocumentScalarFieldEnum[]
+  }
+
+  /**
+   * DonorDocument findFirstOrThrow
+   */
+  export type DonorDocumentFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DonorDocument
+     */
+    select?: DonorDocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DonorDocument
+     */
+    omit?: DonorDocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DonorDocumentInclude<ExtArgs> | null
+    /**
+     * Filter, which DonorDocument to fetch.
+     */
+    where?: DonorDocumentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DonorDocuments to fetch.
+     */
+    orderBy?: DonorDocumentOrderByWithRelationInput | DonorDocumentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DonorDocuments.
+     */
+    cursor?: DonorDocumentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DonorDocuments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DonorDocuments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DonorDocuments.
+     */
+    distinct?: DonorDocumentScalarFieldEnum | DonorDocumentScalarFieldEnum[]
+  }
+
+  /**
+   * DonorDocument findMany
+   */
+  export type DonorDocumentFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DonorDocument
+     */
+    select?: DonorDocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DonorDocument
+     */
+    omit?: DonorDocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DonorDocumentInclude<ExtArgs> | null
+    /**
+     * Filter, which DonorDocuments to fetch.
+     */
+    where?: DonorDocumentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DonorDocuments to fetch.
+     */
+    orderBy?: DonorDocumentOrderByWithRelationInput | DonorDocumentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing DonorDocuments.
+     */
+    cursor?: DonorDocumentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DonorDocuments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DonorDocuments.
+     */
+    skip?: number
+    distinct?: DonorDocumentScalarFieldEnum | DonorDocumentScalarFieldEnum[]
+  }
+
+  /**
+   * DonorDocument create
+   */
+  export type DonorDocumentCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DonorDocument
+     */
+    select?: DonorDocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DonorDocument
+     */
+    omit?: DonorDocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DonorDocumentInclude<ExtArgs> | null
+    /**
+     * The data needed to create a DonorDocument.
+     */
+    data: XOR<DonorDocumentCreateInput, DonorDocumentUncheckedCreateInput>
+  }
+
+  /**
+   * DonorDocument createMany
+   */
+  export type DonorDocumentCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many DonorDocuments.
+     */
+    data: DonorDocumentCreateManyInput | DonorDocumentCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * DonorDocument createManyAndReturn
+   */
+  export type DonorDocumentCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DonorDocument
+     */
+    select?: DonorDocumentSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DonorDocument
+     */
+    omit?: DonorDocumentOmit<ExtArgs> | null
+    /**
+     * The data used to create many DonorDocuments.
+     */
+    data: DonorDocumentCreateManyInput | DonorDocumentCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DonorDocumentIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * DonorDocument update
+   */
+  export type DonorDocumentUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DonorDocument
+     */
+    select?: DonorDocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DonorDocument
+     */
+    omit?: DonorDocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DonorDocumentInclude<ExtArgs> | null
+    /**
+     * The data needed to update a DonorDocument.
+     */
+    data: XOR<DonorDocumentUpdateInput, DonorDocumentUncheckedUpdateInput>
+    /**
+     * Choose, which DonorDocument to update.
+     */
+    where: DonorDocumentWhereUniqueInput
+  }
+
+  /**
+   * DonorDocument updateMany
+   */
+  export type DonorDocumentUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update DonorDocuments.
+     */
+    data: XOR<DonorDocumentUpdateManyMutationInput, DonorDocumentUncheckedUpdateManyInput>
+    /**
+     * Filter which DonorDocuments to update
+     */
+    where?: DonorDocumentWhereInput
+    /**
+     * Limit how many DonorDocuments to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * DonorDocument updateManyAndReturn
+   */
+  export type DonorDocumentUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DonorDocument
+     */
+    select?: DonorDocumentSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DonorDocument
+     */
+    omit?: DonorDocumentOmit<ExtArgs> | null
+    /**
+     * The data used to update DonorDocuments.
+     */
+    data: XOR<DonorDocumentUpdateManyMutationInput, DonorDocumentUncheckedUpdateManyInput>
+    /**
+     * Filter which DonorDocuments to update
+     */
+    where?: DonorDocumentWhereInput
+    /**
+     * Limit how many DonorDocuments to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DonorDocumentIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * DonorDocument upsert
+   */
+  export type DonorDocumentUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DonorDocument
+     */
+    select?: DonorDocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DonorDocument
+     */
+    omit?: DonorDocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DonorDocumentInclude<ExtArgs> | null
+    /**
+     * The filter to search for the DonorDocument to update in case it exists.
+     */
+    where: DonorDocumentWhereUniqueInput
+    /**
+     * In case the DonorDocument found by the `where` argument doesn't exist, create a new DonorDocument with this data.
+     */
+    create: XOR<DonorDocumentCreateInput, DonorDocumentUncheckedCreateInput>
+    /**
+     * In case the DonorDocument was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DonorDocumentUpdateInput, DonorDocumentUncheckedUpdateInput>
+  }
+
+  /**
+   * DonorDocument delete
+   */
+  export type DonorDocumentDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DonorDocument
+     */
+    select?: DonorDocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DonorDocument
+     */
+    omit?: DonorDocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DonorDocumentInclude<ExtArgs> | null
+    /**
+     * Filter which DonorDocument to delete.
+     */
+    where: DonorDocumentWhereUniqueInput
+  }
+
+  /**
+   * DonorDocument deleteMany
+   */
+  export type DonorDocumentDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DonorDocuments to delete
+     */
+    where?: DonorDocumentWhereInput
+    /**
+     * Limit how many DonorDocuments to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * DonorDocument without action
+   */
+  export type DonorDocumentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DonorDocument
+     */
+    select?: DonorDocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DonorDocument
+     */
+    omit?: DonorDocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DonorDocumentInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model NgoDocument
+   */
+
+  export type AggregateNgoDocument = {
+    _count: NgoDocumentCountAggregateOutputType | null
+    _avg: NgoDocumentAvgAggregateOutputType | null
+    _sum: NgoDocumentSumAggregateOutputType | null
+    _min: NgoDocumentMinAggregateOutputType | null
+    _max: NgoDocumentMaxAggregateOutputType | null
+  }
+
+  export type NgoDocumentAvgAggregateOutputType = {
+    fileSize: number | null
+  }
+
+  export type NgoDocumentSumAggregateOutputType = {
+    fileSize: number | null
+  }
+
+  export type NgoDocumentMinAggregateOutputType = {
+    id: string | null
+    ngoId: string | null
+    fileName: string | null
+    category: string | null
+    mimeType: string | null
+    fileSize: number | null
+    fileData: string | null
+    caption: string | null
+    createdAt: Date | null
+  }
+
+  export type NgoDocumentMaxAggregateOutputType = {
+    id: string | null
+    ngoId: string | null
+    fileName: string | null
+    category: string | null
+    mimeType: string | null
+    fileSize: number | null
+    fileData: string | null
+    caption: string | null
+    createdAt: Date | null
+  }
+
+  export type NgoDocumentCountAggregateOutputType = {
+    id: number
+    ngoId: number
+    fileName: number
+    category: number
+    mimeType: number
+    fileSize: number
+    fileData: number
+    caption: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type NgoDocumentAvgAggregateInputType = {
+    fileSize?: true
+  }
+
+  export type NgoDocumentSumAggregateInputType = {
+    fileSize?: true
+  }
+
+  export type NgoDocumentMinAggregateInputType = {
+    id?: true
+    ngoId?: true
+    fileName?: true
+    category?: true
+    mimeType?: true
+    fileSize?: true
+    fileData?: true
+    caption?: true
+    createdAt?: true
+  }
+
+  export type NgoDocumentMaxAggregateInputType = {
+    id?: true
+    ngoId?: true
+    fileName?: true
+    category?: true
+    mimeType?: true
+    fileSize?: true
+    fileData?: true
+    caption?: true
+    createdAt?: true
+  }
+
+  export type NgoDocumentCountAggregateInputType = {
+    id?: true
+    ngoId?: true
+    fileName?: true
+    category?: true
+    mimeType?: true
+    fileSize?: true
+    fileData?: true
+    caption?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type NgoDocumentAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which NgoDocument to aggregate.
+     */
+    where?: NgoDocumentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NgoDocuments to fetch.
+     */
+    orderBy?: NgoDocumentOrderByWithRelationInput | NgoDocumentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: NgoDocumentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NgoDocuments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NgoDocuments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned NgoDocuments
+    **/
+    _count?: true | NgoDocumentCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: NgoDocumentAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: NgoDocumentSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: NgoDocumentMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: NgoDocumentMaxAggregateInputType
+  }
+
+  export type GetNgoDocumentAggregateType<T extends NgoDocumentAggregateArgs> = {
+        [P in keyof T & keyof AggregateNgoDocument]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateNgoDocument[P]>
+      : GetScalarType<T[P], AggregateNgoDocument[P]>
+  }
+
+
+
+
+  export type NgoDocumentGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: NgoDocumentWhereInput
+    orderBy?: NgoDocumentOrderByWithAggregationInput | NgoDocumentOrderByWithAggregationInput[]
+    by: NgoDocumentScalarFieldEnum[] | NgoDocumentScalarFieldEnum
+    having?: NgoDocumentScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: NgoDocumentCountAggregateInputType | true
+    _avg?: NgoDocumentAvgAggregateInputType
+    _sum?: NgoDocumentSumAggregateInputType
+    _min?: NgoDocumentMinAggregateInputType
+    _max?: NgoDocumentMaxAggregateInputType
+  }
+
+  export type NgoDocumentGroupByOutputType = {
+    id: string
+    ngoId: string
+    fileName: string
+    category: string
+    mimeType: string
+    fileSize: number
+    fileData: string
+    caption: string | null
+    createdAt: Date
+    _count: NgoDocumentCountAggregateOutputType | null
+    _avg: NgoDocumentAvgAggregateOutputType | null
+    _sum: NgoDocumentSumAggregateOutputType | null
+    _min: NgoDocumentMinAggregateOutputType | null
+    _max: NgoDocumentMaxAggregateOutputType | null
+  }
+
+  type GetNgoDocumentGroupByPayload<T extends NgoDocumentGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<NgoDocumentGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof NgoDocumentGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], NgoDocumentGroupByOutputType[P]>
+            : GetScalarType<T[P], NgoDocumentGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type NgoDocumentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    ngoId?: boolean
+    fileName?: boolean
+    category?: boolean
+    mimeType?: boolean
+    fileSize?: boolean
+    fileData?: boolean
+    caption?: boolean
+    createdAt?: boolean
+    ngo?: boolean | NgoDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["ngoDocument"]>
+
+  export type NgoDocumentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    ngoId?: boolean
+    fileName?: boolean
+    category?: boolean
+    mimeType?: boolean
+    fileSize?: boolean
+    fileData?: boolean
+    caption?: boolean
+    createdAt?: boolean
+    ngo?: boolean | NgoDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["ngoDocument"]>
+
+  export type NgoDocumentSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    ngoId?: boolean
+    fileName?: boolean
+    category?: boolean
+    mimeType?: boolean
+    fileSize?: boolean
+    fileData?: boolean
+    caption?: boolean
+    createdAt?: boolean
+    ngo?: boolean | NgoDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["ngoDocument"]>
+
+  export type NgoDocumentSelectScalar = {
+    id?: boolean
+    ngoId?: boolean
+    fileName?: boolean
+    category?: boolean
+    mimeType?: boolean
+    fileSize?: boolean
+    fileData?: boolean
+    caption?: boolean
+    createdAt?: boolean
+  }
+
+  export type NgoDocumentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "ngoId" | "fileName" | "category" | "mimeType" | "fileSize" | "fileData" | "caption" | "createdAt", ExtArgs["result"]["ngoDocument"]>
+  export type NgoDocumentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    ngo?: boolean | NgoDefaultArgs<ExtArgs>
+  }
+  export type NgoDocumentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    ngo?: boolean | NgoDefaultArgs<ExtArgs>
+  }
+  export type NgoDocumentIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    ngo?: boolean | NgoDefaultArgs<ExtArgs>
+  }
+
+  export type $NgoDocumentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "NgoDocument"
+    objects: {
+      ngo: Prisma.$NgoPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      ngoId: string
+      fileName: string
+      category: string
+      mimeType: string
+      fileSize: number
+      fileData: string
+      caption: string | null
+      createdAt: Date
+    }, ExtArgs["result"]["ngoDocument"]>
+    composites: {}
+  }
+
+  type NgoDocumentGetPayload<S extends boolean | null | undefined | NgoDocumentDefaultArgs> = $Result.GetResult<Prisma.$NgoDocumentPayload, S>
+
+  type NgoDocumentCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<NgoDocumentFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: NgoDocumentCountAggregateInputType | true
+    }
+
+  export interface NgoDocumentDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['NgoDocument'], meta: { name: 'NgoDocument' } }
+    /**
+     * Find zero or one NgoDocument that matches the filter.
+     * @param {NgoDocumentFindUniqueArgs} args - Arguments to find a NgoDocument
+     * @example
+     * // Get one NgoDocument
+     * const ngoDocument = await prisma.ngoDocument.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends NgoDocumentFindUniqueArgs>(args: SelectSubset<T, NgoDocumentFindUniqueArgs<ExtArgs>>): Prisma__NgoDocumentClient<$Result.GetResult<Prisma.$NgoDocumentPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one NgoDocument that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {NgoDocumentFindUniqueOrThrowArgs} args - Arguments to find a NgoDocument
+     * @example
+     * // Get one NgoDocument
+     * const ngoDocument = await prisma.ngoDocument.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends NgoDocumentFindUniqueOrThrowArgs>(args: SelectSubset<T, NgoDocumentFindUniqueOrThrowArgs<ExtArgs>>): Prisma__NgoDocumentClient<$Result.GetResult<Prisma.$NgoDocumentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first NgoDocument that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NgoDocumentFindFirstArgs} args - Arguments to find a NgoDocument
+     * @example
+     * // Get one NgoDocument
+     * const ngoDocument = await prisma.ngoDocument.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends NgoDocumentFindFirstArgs>(args?: SelectSubset<T, NgoDocumentFindFirstArgs<ExtArgs>>): Prisma__NgoDocumentClient<$Result.GetResult<Prisma.$NgoDocumentPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first NgoDocument that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NgoDocumentFindFirstOrThrowArgs} args - Arguments to find a NgoDocument
+     * @example
+     * // Get one NgoDocument
+     * const ngoDocument = await prisma.ngoDocument.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends NgoDocumentFindFirstOrThrowArgs>(args?: SelectSubset<T, NgoDocumentFindFirstOrThrowArgs<ExtArgs>>): Prisma__NgoDocumentClient<$Result.GetResult<Prisma.$NgoDocumentPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more NgoDocuments that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NgoDocumentFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all NgoDocuments
+     * const ngoDocuments = await prisma.ngoDocument.findMany()
+     * 
+     * // Get first 10 NgoDocuments
+     * const ngoDocuments = await prisma.ngoDocument.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const ngoDocumentWithIdOnly = await prisma.ngoDocument.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends NgoDocumentFindManyArgs>(args?: SelectSubset<T, NgoDocumentFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NgoDocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a NgoDocument.
+     * @param {NgoDocumentCreateArgs} args - Arguments to create a NgoDocument.
+     * @example
+     * // Create one NgoDocument
+     * const NgoDocument = await prisma.ngoDocument.create({
+     *   data: {
+     *     // ... data to create a NgoDocument
+     *   }
+     * })
+     * 
+     */
+    create<T extends NgoDocumentCreateArgs>(args: SelectSubset<T, NgoDocumentCreateArgs<ExtArgs>>): Prisma__NgoDocumentClient<$Result.GetResult<Prisma.$NgoDocumentPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many NgoDocuments.
+     * @param {NgoDocumentCreateManyArgs} args - Arguments to create many NgoDocuments.
+     * @example
+     * // Create many NgoDocuments
+     * const ngoDocument = await prisma.ngoDocument.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends NgoDocumentCreateManyArgs>(args?: SelectSubset<T, NgoDocumentCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many NgoDocuments and returns the data saved in the database.
+     * @param {NgoDocumentCreateManyAndReturnArgs} args - Arguments to create many NgoDocuments.
+     * @example
+     * // Create many NgoDocuments
+     * const ngoDocument = await prisma.ngoDocument.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many NgoDocuments and only return the `id`
+     * const ngoDocumentWithIdOnly = await prisma.ngoDocument.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends NgoDocumentCreateManyAndReturnArgs>(args?: SelectSubset<T, NgoDocumentCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NgoDocumentPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a NgoDocument.
+     * @param {NgoDocumentDeleteArgs} args - Arguments to delete one NgoDocument.
+     * @example
+     * // Delete one NgoDocument
+     * const NgoDocument = await prisma.ngoDocument.delete({
+     *   where: {
+     *     // ... filter to delete one NgoDocument
+     *   }
+     * })
+     * 
+     */
+    delete<T extends NgoDocumentDeleteArgs>(args: SelectSubset<T, NgoDocumentDeleteArgs<ExtArgs>>): Prisma__NgoDocumentClient<$Result.GetResult<Prisma.$NgoDocumentPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one NgoDocument.
+     * @param {NgoDocumentUpdateArgs} args - Arguments to update one NgoDocument.
+     * @example
+     * // Update one NgoDocument
+     * const ngoDocument = await prisma.ngoDocument.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends NgoDocumentUpdateArgs>(args: SelectSubset<T, NgoDocumentUpdateArgs<ExtArgs>>): Prisma__NgoDocumentClient<$Result.GetResult<Prisma.$NgoDocumentPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more NgoDocuments.
+     * @param {NgoDocumentDeleteManyArgs} args - Arguments to filter NgoDocuments to delete.
+     * @example
+     * // Delete a few NgoDocuments
+     * const { count } = await prisma.ngoDocument.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends NgoDocumentDeleteManyArgs>(args?: SelectSubset<T, NgoDocumentDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more NgoDocuments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NgoDocumentUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many NgoDocuments
+     * const ngoDocument = await prisma.ngoDocument.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends NgoDocumentUpdateManyArgs>(args: SelectSubset<T, NgoDocumentUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more NgoDocuments and returns the data updated in the database.
+     * @param {NgoDocumentUpdateManyAndReturnArgs} args - Arguments to update many NgoDocuments.
+     * @example
+     * // Update many NgoDocuments
+     * const ngoDocument = await prisma.ngoDocument.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more NgoDocuments and only return the `id`
+     * const ngoDocumentWithIdOnly = await prisma.ngoDocument.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends NgoDocumentUpdateManyAndReturnArgs>(args: SelectSubset<T, NgoDocumentUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NgoDocumentPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one NgoDocument.
+     * @param {NgoDocumentUpsertArgs} args - Arguments to update or create a NgoDocument.
+     * @example
+     * // Update or create a NgoDocument
+     * const ngoDocument = await prisma.ngoDocument.upsert({
+     *   create: {
+     *     // ... data to create a NgoDocument
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the NgoDocument we want to update
+     *   }
+     * })
+     */
+    upsert<T extends NgoDocumentUpsertArgs>(args: SelectSubset<T, NgoDocumentUpsertArgs<ExtArgs>>): Prisma__NgoDocumentClient<$Result.GetResult<Prisma.$NgoDocumentPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of NgoDocuments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NgoDocumentCountArgs} args - Arguments to filter NgoDocuments to count.
+     * @example
+     * // Count the number of NgoDocuments
+     * const count = await prisma.ngoDocument.count({
+     *   where: {
+     *     // ... the filter for the NgoDocuments we want to count
+     *   }
+     * })
+    **/
+    count<T extends NgoDocumentCountArgs>(
+      args?: Subset<T, NgoDocumentCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], NgoDocumentCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a NgoDocument.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NgoDocumentAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends NgoDocumentAggregateArgs>(args: Subset<T, NgoDocumentAggregateArgs>): Prisma.PrismaPromise<GetNgoDocumentAggregateType<T>>
+
+    /**
+     * Group by NgoDocument.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NgoDocumentGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends NgoDocumentGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: NgoDocumentGroupByArgs['orderBy'] }
+        : { orderBy?: NgoDocumentGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, NgoDocumentGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetNgoDocumentGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the NgoDocument model
+   */
+  readonly fields: NgoDocumentFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for NgoDocument.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__NgoDocumentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    ngo<T extends NgoDefaultArgs<ExtArgs> = {}>(args?: Subset<T, NgoDefaultArgs<ExtArgs>>): Prisma__NgoClient<$Result.GetResult<Prisma.$NgoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the NgoDocument model
+   */
+  interface NgoDocumentFieldRefs {
+    readonly id: FieldRef<"NgoDocument", 'String'>
+    readonly ngoId: FieldRef<"NgoDocument", 'String'>
+    readonly fileName: FieldRef<"NgoDocument", 'String'>
+    readonly category: FieldRef<"NgoDocument", 'String'>
+    readonly mimeType: FieldRef<"NgoDocument", 'String'>
+    readonly fileSize: FieldRef<"NgoDocument", 'Int'>
+    readonly fileData: FieldRef<"NgoDocument", 'String'>
+    readonly caption: FieldRef<"NgoDocument", 'String'>
+    readonly createdAt: FieldRef<"NgoDocument", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * NgoDocument findUnique
+   */
+  export type NgoDocumentFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NgoDocument
+     */
+    select?: NgoDocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NgoDocument
+     */
+    omit?: NgoDocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NgoDocumentInclude<ExtArgs> | null
+    /**
+     * Filter, which NgoDocument to fetch.
+     */
+    where: NgoDocumentWhereUniqueInput
+  }
+
+  /**
+   * NgoDocument findUniqueOrThrow
+   */
+  export type NgoDocumentFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NgoDocument
+     */
+    select?: NgoDocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NgoDocument
+     */
+    omit?: NgoDocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NgoDocumentInclude<ExtArgs> | null
+    /**
+     * Filter, which NgoDocument to fetch.
+     */
+    where: NgoDocumentWhereUniqueInput
+  }
+
+  /**
+   * NgoDocument findFirst
+   */
+  export type NgoDocumentFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NgoDocument
+     */
+    select?: NgoDocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NgoDocument
+     */
+    omit?: NgoDocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NgoDocumentInclude<ExtArgs> | null
+    /**
+     * Filter, which NgoDocument to fetch.
+     */
+    where?: NgoDocumentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NgoDocuments to fetch.
+     */
+    orderBy?: NgoDocumentOrderByWithRelationInput | NgoDocumentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for NgoDocuments.
+     */
+    cursor?: NgoDocumentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NgoDocuments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NgoDocuments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of NgoDocuments.
+     */
+    distinct?: NgoDocumentScalarFieldEnum | NgoDocumentScalarFieldEnum[]
+  }
+
+  /**
+   * NgoDocument findFirstOrThrow
+   */
+  export type NgoDocumentFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NgoDocument
+     */
+    select?: NgoDocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NgoDocument
+     */
+    omit?: NgoDocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NgoDocumentInclude<ExtArgs> | null
+    /**
+     * Filter, which NgoDocument to fetch.
+     */
+    where?: NgoDocumentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NgoDocuments to fetch.
+     */
+    orderBy?: NgoDocumentOrderByWithRelationInput | NgoDocumentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for NgoDocuments.
+     */
+    cursor?: NgoDocumentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NgoDocuments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NgoDocuments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of NgoDocuments.
+     */
+    distinct?: NgoDocumentScalarFieldEnum | NgoDocumentScalarFieldEnum[]
+  }
+
+  /**
+   * NgoDocument findMany
+   */
+  export type NgoDocumentFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NgoDocument
+     */
+    select?: NgoDocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NgoDocument
+     */
+    omit?: NgoDocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NgoDocumentInclude<ExtArgs> | null
+    /**
+     * Filter, which NgoDocuments to fetch.
+     */
+    where?: NgoDocumentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NgoDocuments to fetch.
+     */
+    orderBy?: NgoDocumentOrderByWithRelationInput | NgoDocumentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing NgoDocuments.
+     */
+    cursor?: NgoDocumentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NgoDocuments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NgoDocuments.
+     */
+    skip?: number
+    distinct?: NgoDocumentScalarFieldEnum | NgoDocumentScalarFieldEnum[]
+  }
+
+  /**
+   * NgoDocument create
+   */
+  export type NgoDocumentCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NgoDocument
+     */
+    select?: NgoDocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NgoDocument
+     */
+    omit?: NgoDocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NgoDocumentInclude<ExtArgs> | null
+    /**
+     * The data needed to create a NgoDocument.
+     */
+    data: XOR<NgoDocumentCreateInput, NgoDocumentUncheckedCreateInput>
+  }
+
+  /**
+   * NgoDocument createMany
+   */
+  export type NgoDocumentCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many NgoDocuments.
+     */
+    data: NgoDocumentCreateManyInput | NgoDocumentCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * NgoDocument createManyAndReturn
+   */
+  export type NgoDocumentCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NgoDocument
+     */
+    select?: NgoDocumentSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the NgoDocument
+     */
+    omit?: NgoDocumentOmit<ExtArgs> | null
+    /**
+     * The data used to create many NgoDocuments.
+     */
+    data: NgoDocumentCreateManyInput | NgoDocumentCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NgoDocumentIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * NgoDocument update
+   */
+  export type NgoDocumentUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NgoDocument
+     */
+    select?: NgoDocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NgoDocument
+     */
+    omit?: NgoDocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NgoDocumentInclude<ExtArgs> | null
+    /**
+     * The data needed to update a NgoDocument.
+     */
+    data: XOR<NgoDocumentUpdateInput, NgoDocumentUncheckedUpdateInput>
+    /**
+     * Choose, which NgoDocument to update.
+     */
+    where: NgoDocumentWhereUniqueInput
+  }
+
+  /**
+   * NgoDocument updateMany
+   */
+  export type NgoDocumentUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update NgoDocuments.
+     */
+    data: XOR<NgoDocumentUpdateManyMutationInput, NgoDocumentUncheckedUpdateManyInput>
+    /**
+     * Filter which NgoDocuments to update
+     */
+    where?: NgoDocumentWhereInput
+    /**
+     * Limit how many NgoDocuments to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * NgoDocument updateManyAndReturn
+   */
+  export type NgoDocumentUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NgoDocument
+     */
+    select?: NgoDocumentSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the NgoDocument
+     */
+    omit?: NgoDocumentOmit<ExtArgs> | null
+    /**
+     * The data used to update NgoDocuments.
+     */
+    data: XOR<NgoDocumentUpdateManyMutationInput, NgoDocumentUncheckedUpdateManyInput>
+    /**
+     * Filter which NgoDocuments to update
+     */
+    where?: NgoDocumentWhereInput
+    /**
+     * Limit how many NgoDocuments to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NgoDocumentIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * NgoDocument upsert
+   */
+  export type NgoDocumentUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NgoDocument
+     */
+    select?: NgoDocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NgoDocument
+     */
+    omit?: NgoDocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NgoDocumentInclude<ExtArgs> | null
+    /**
+     * The filter to search for the NgoDocument to update in case it exists.
+     */
+    where: NgoDocumentWhereUniqueInput
+    /**
+     * In case the NgoDocument found by the `where` argument doesn't exist, create a new NgoDocument with this data.
+     */
+    create: XOR<NgoDocumentCreateInput, NgoDocumentUncheckedCreateInput>
+    /**
+     * In case the NgoDocument was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<NgoDocumentUpdateInput, NgoDocumentUncheckedUpdateInput>
+  }
+
+  /**
+   * NgoDocument delete
+   */
+  export type NgoDocumentDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NgoDocument
+     */
+    select?: NgoDocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NgoDocument
+     */
+    omit?: NgoDocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NgoDocumentInclude<ExtArgs> | null
+    /**
+     * Filter which NgoDocument to delete.
+     */
+    where: NgoDocumentWhereUniqueInput
+  }
+
+  /**
+   * NgoDocument deleteMany
+   */
+  export type NgoDocumentDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which NgoDocuments to delete
+     */
+    where?: NgoDocumentWhereInput
+    /**
+     * Limit how many NgoDocuments to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * NgoDocument without action
+   */
+  export type NgoDocumentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NgoDocument
+     */
+    select?: NgoDocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NgoDocument
+     */
+    omit?: NgoDocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NgoDocumentInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -33866,10 +36631,20 @@ export namespace Prisma {
     emailVerified: 'emailVerified',
     name: 'name',
     image: 'image',
+    password: 'password',
     role: 'role',
     referralCode: 'referralCode',
+    bio: 'bio',
+    jobTitle: 'jobTitle',
+    company: 'company',
+    city: 'city',
+    linkedinUrl: 'linkedinUrl',
+    twitterUrl: 'twitterUrl',
+    portfolioUrl: 'portfolioUrl',
+    skills: 'skills',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    aiSummary: 'aiSummary'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -33879,7 +36654,9 @@ export namespace Prisma {
     id: 'id',
     userId: 'userId',
     orgName: 'orgName',
+    ein: 'ein',
     regNumber: 'regNumber',
+    state: 'state',
     country: 'country',
     website: 'website',
     description: 'description',
@@ -33889,7 +36666,8 @@ export namespace Prisma {
     approvedAt: 'approvedAt',
     rejectReason: 'rejectReason',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    aiSummary: 'aiSummary'
   };
 
   export type NgoScalarFieldEnum = (typeof NgoScalarFieldEnum)[keyof typeof NgoScalarFieldEnum]
@@ -34136,7 +36914,11 @@ export namespace Prisma {
     ngoName: 'ngoName',
     projectTitle: 'projectTitle',
     actorName: 'actorName',
+    actorId: 'actorId',
+    actorType: 'actorType',
+    imageUrl: 'imageUrl',
     description: 'description',
+    linkUrl: 'linkUrl',
     metadata: 'metadata',
     createdAt: 'createdAt'
   };
@@ -34149,6 +36931,7 @@ export namespace Prisma {
     ngoId: 'ngoId',
     name: 'name',
     role: 'role',
+    memberType: 'memberType',
     bio: 'bio',
     linkedinUrl: 'linkedinUrl',
     photoUrl: 'photoUrl',
@@ -34201,6 +36984,35 @@ export namespace Prisma {
   };
 
   export type DonorEndorsementScalarFieldEnum = (typeof DonorEndorsementScalarFieldEnum)[keyof typeof DonorEndorsementScalarFieldEnum]
+
+
+  export const DonorDocumentScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    fileName: 'fileName',
+    category: 'category',
+    mimeType: 'mimeType',
+    fileSize: 'fileSize',
+    fileData: 'fileData',
+    createdAt: 'createdAt'
+  };
+
+  export type DonorDocumentScalarFieldEnum = (typeof DonorDocumentScalarFieldEnum)[keyof typeof DonorDocumentScalarFieldEnum]
+
+
+  export const NgoDocumentScalarFieldEnum: {
+    id: 'id',
+    ngoId: 'ngoId',
+    fileName: 'fileName',
+    category: 'category',
+    mimeType: 'mimeType',
+    fileSize: 'fileSize',
+    fileData: 'fileData',
+    caption: 'caption',
+    createdAt: 'createdAt'
+  };
+
+  export type NgoDocumentScalarFieldEnum = (typeof NgoDocumentScalarFieldEnum)[keyof typeof NgoDocumentScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -34591,10 +37403,20 @@ export namespace Prisma {
     emailVerified?: DateTimeNullableFilter<"User"> | Date | string | null
     name?: StringNullableFilter<"User"> | string | null
     image?: StringNullableFilter<"User"> | string | null
+    password?: StringNullableFilter<"User"> | string | null
     role?: EnumRoleFilter<"User"> | $Enums.Role
     referralCode?: StringNullableFilter<"User"> | string | null
+    bio?: StringNullableFilter<"User"> | string | null
+    jobTitle?: StringNullableFilter<"User"> | string | null
+    company?: StringNullableFilter<"User"> | string | null
+    city?: StringNullableFilter<"User"> | string | null
+    linkedinUrl?: StringNullableFilter<"User"> | string | null
+    twitterUrl?: StringNullableFilter<"User"> | string | null
+    portfolioUrl?: StringNullableFilter<"User"> | string | null
+    skills?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    aiSummary?: StringNullableFilter<"User"> | string | null
     accounts?: AccountListRelationFilter
     sessions?: SessionListRelationFilter
     ngo?: XOR<NgoNullableScalarRelationFilter, NgoWhereInput> | null
@@ -34610,6 +37432,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionListRelationFilter
     endorsementsReceived?: DonorEndorsementListRelationFilter
     endorsementsGiven?: DonorEndorsementListRelationFilter
+    documents?: DonorDocumentListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -34618,10 +37441,20 @@ export namespace Prisma {
     emailVerified?: SortOrderInput | SortOrder
     name?: SortOrderInput | SortOrder
     image?: SortOrderInput | SortOrder
+    password?: SortOrderInput | SortOrder
     role?: SortOrder
     referralCode?: SortOrderInput | SortOrder
+    bio?: SortOrderInput | SortOrder
+    jobTitle?: SortOrderInput | SortOrder
+    company?: SortOrderInput | SortOrder
+    city?: SortOrderInput | SortOrder
+    linkedinUrl?: SortOrderInput | SortOrder
+    twitterUrl?: SortOrderInput | SortOrder
+    portfolioUrl?: SortOrderInput | SortOrder
+    skills?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    aiSummary?: SortOrderInput | SortOrder
     accounts?: AccountOrderByRelationAggregateInput
     sessions?: SessionOrderByRelationAggregateInput
     ngo?: NgoOrderByWithRelationInput
@@ -34637,6 +37470,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionOrderByRelationAggregateInput
     endorsementsReceived?: DonorEndorsementOrderByRelationAggregateInput
     endorsementsGiven?: DonorEndorsementOrderByRelationAggregateInput
+    documents?: DonorDocumentOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -34649,9 +37483,19 @@ export namespace Prisma {
     emailVerified?: DateTimeNullableFilter<"User"> | Date | string | null
     name?: StringNullableFilter<"User"> | string | null
     image?: StringNullableFilter<"User"> | string | null
+    password?: StringNullableFilter<"User"> | string | null
     role?: EnumRoleFilter<"User"> | $Enums.Role
+    bio?: StringNullableFilter<"User"> | string | null
+    jobTitle?: StringNullableFilter<"User"> | string | null
+    company?: StringNullableFilter<"User"> | string | null
+    city?: StringNullableFilter<"User"> | string | null
+    linkedinUrl?: StringNullableFilter<"User"> | string | null
+    twitterUrl?: StringNullableFilter<"User"> | string | null
+    portfolioUrl?: StringNullableFilter<"User"> | string | null
+    skills?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    aiSummary?: StringNullableFilter<"User"> | string | null
     accounts?: AccountListRelationFilter
     sessions?: SessionListRelationFilter
     ngo?: XOR<NgoNullableScalarRelationFilter, NgoWhereInput> | null
@@ -34667,6 +37511,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionListRelationFilter
     endorsementsReceived?: DonorEndorsementListRelationFilter
     endorsementsGiven?: DonorEndorsementListRelationFilter
+    documents?: DonorDocumentListRelationFilter
   }, "id" | "email" | "referralCode">
 
   export type UserOrderByWithAggregationInput = {
@@ -34675,10 +37520,20 @@ export namespace Prisma {
     emailVerified?: SortOrderInput | SortOrder
     name?: SortOrderInput | SortOrder
     image?: SortOrderInput | SortOrder
+    password?: SortOrderInput | SortOrder
     role?: SortOrder
     referralCode?: SortOrderInput | SortOrder
+    bio?: SortOrderInput | SortOrder
+    jobTitle?: SortOrderInput | SortOrder
+    company?: SortOrderInput | SortOrder
+    city?: SortOrderInput | SortOrder
+    linkedinUrl?: SortOrderInput | SortOrder
+    twitterUrl?: SortOrderInput | SortOrder
+    portfolioUrl?: SortOrderInput | SortOrder
+    skills?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    aiSummary?: SortOrderInput | SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
@@ -34693,10 +37548,20 @@ export namespace Prisma {
     emailVerified?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     name?: StringNullableWithAggregatesFilter<"User"> | string | null
     image?: StringNullableWithAggregatesFilter<"User"> | string | null
+    password?: StringNullableWithAggregatesFilter<"User"> | string | null
     role?: EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
     referralCode?: StringNullableWithAggregatesFilter<"User"> | string | null
+    bio?: StringNullableWithAggregatesFilter<"User"> | string | null
+    jobTitle?: StringNullableWithAggregatesFilter<"User"> | string | null
+    company?: StringNullableWithAggregatesFilter<"User"> | string | null
+    city?: StringNullableWithAggregatesFilter<"User"> | string | null
+    linkedinUrl?: StringNullableWithAggregatesFilter<"User"> | string | null
+    twitterUrl?: StringNullableWithAggregatesFilter<"User"> | string | null
+    portfolioUrl?: StringNullableWithAggregatesFilter<"User"> | string | null
+    skills?: StringNullableWithAggregatesFilter<"User"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+    aiSummary?: StringNullableWithAggregatesFilter<"User"> | string | null
   }
 
   export type NgoWhereInput = {
@@ -34706,7 +37571,9 @@ export namespace Prisma {
     id?: StringFilter<"Ngo"> | string
     userId?: StringFilter<"Ngo"> | string
     orgName?: StringFilter<"Ngo"> | string
+    ein?: StringNullableFilter<"Ngo"> | string | null
     regNumber?: StringNullableFilter<"Ngo"> | string | null
+    state?: StringNullableFilter<"Ngo"> | string | null
     country?: StringNullableFilter<"Ngo"> | string | null
     website?: StringNullableFilter<"Ngo"> | string | null
     description?: StringNullableFilter<"Ngo"> | string | null
@@ -34717,6 +37584,7 @@ export namespace Prisma {
     rejectReason?: StringNullableFilter<"Ngo"> | string | null
     createdAt?: DateTimeFilter<"Ngo"> | Date | string
     updatedAt?: DateTimeFilter<"Ngo"> | Date | string
+    aiSummary?: StringNullableFilter<"Ngo"> | string | null
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     projects?: ProjectListRelationFilter
     expenses?: ExpenseListRelationFilter
@@ -34724,13 +37592,16 @@ export namespace Prisma {
     boardMembers?: BoardMemberListRelationFilter
     skillContributions?: SkillContributionListRelationFilter
     donorEndorsements?: DonorEndorsementListRelationFilter
+    documents?: NgoDocumentListRelationFilter
   }
 
   export type NgoOrderByWithRelationInput = {
     id?: SortOrder
     userId?: SortOrder
     orgName?: SortOrder
+    ein?: SortOrderInput | SortOrder
     regNumber?: SortOrderInput | SortOrder
+    state?: SortOrderInput | SortOrder
     country?: SortOrderInput | SortOrder
     website?: SortOrderInput | SortOrder
     description?: SortOrderInput | SortOrder
@@ -34741,6 +37612,7 @@ export namespace Prisma {
     rejectReason?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    aiSummary?: SortOrderInput | SortOrder
     user?: UserOrderByWithRelationInput
     projects?: ProjectOrderByRelationAggregateInput
     expenses?: ExpenseOrderByRelationAggregateInput
@@ -34748,6 +37620,7 @@ export namespace Prisma {
     boardMembers?: BoardMemberOrderByRelationAggregateInput
     skillContributions?: SkillContributionOrderByRelationAggregateInput
     donorEndorsements?: DonorEndorsementOrderByRelationAggregateInput
+    documents?: NgoDocumentOrderByRelationAggregateInput
   }
 
   export type NgoWhereUniqueInput = Prisma.AtLeast<{
@@ -34757,7 +37630,9 @@ export namespace Prisma {
     OR?: NgoWhereInput[]
     NOT?: NgoWhereInput | NgoWhereInput[]
     orgName?: StringFilter<"Ngo"> | string
+    ein?: StringNullableFilter<"Ngo"> | string | null
     regNumber?: StringNullableFilter<"Ngo"> | string | null
+    state?: StringNullableFilter<"Ngo"> | string | null
     country?: StringNullableFilter<"Ngo"> | string | null
     website?: StringNullableFilter<"Ngo"> | string | null
     description?: StringNullableFilter<"Ngo"> | string | null
@@ -34768,6 +37643,7 @@ export namespace Prisma {
     rejectReason?: StringNullableFilter<"Ngo"> | string | null
     createdAt?: DateTimeFilter<"Ngo"> | Date | string
     updatedAt?: DateTimeFilter<"Ngo"> | Date | string
+    aiSummary?: StringNullableFilter<"Ngo"> | string | null
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     projects?: ProjectListRelationFilter
     expenses?: ExpenseListRelationFilter
@@ -34775,13 +37651,16 @@ export namespace Prisma {
     boardMembers?: BoardMemberListRelationFilter
     skillContributions?: SkillContributionListRelationFilter
     donorEndorsements?: DonorEndorsementListRelationFilter
+    documents?: NgoDocumentListRelationFilter
   }, "id" | "userId">
 
   export type NgoOrderByWithAggregationInput = {
     id?: SortOrder
     userId?: SortOrder
     orgName?: SortOrder
+    ein?: SortOrderInput | SortOrder
     regNumber?: SortOrderInput | SortOrder
+    state?: SortOrderInput | SortOrder
     country?: SortOrderInput | SortOrder
     website?: SortOrderInput | SortOrder
     description?: SortOrderInput | SortOrder
@@ -34792,6 +37671,7 @@ export namespace Prisma {
     rejectReason?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    aiSummary?: SortOrderInput | SortOrder
     _count?: NgoCountOrderByAggregateInput
     _avg?: NgoAvgOrderByAggregateInput
     _max?: NgoMaxOrderByAggregateInput
@@ -34806,7 +37686,9 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Ngo"> | string
     userId?: StringWithAggregatesFilter<"Ngo"> | string
     orgName?: StringWithAggregatesFilter<"Ngo"> | string
+    ein?: StringNullableWithAggregatesFilter<"Ngo"> | string | null
     regNumber?: StringNullableWithAggregatesFilter<"Ngo"> | string | null
+    state?: StringNullableWithAggregatesFilter<"Ngo"> | string | null
     country?: StringNullableWithAggregatesFilter<"Ngo"> | string | null
     website?: StringNullableWithAggregatesFilter<"Ngo"> | string | null
     description?: StringNullableWithAggregatesFilter<"Ngo"> | string | null
@@ -34817,6 +37699,7 @@ export namespace Prisma {
     rejectReason?: StringNullableWithAggregatesFilter<"Ngo"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Ngo"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Ngo"> | Date | string
+    aiSummary?: StringNullableWithAggregatesFilter<"Ngo"> | string | null
   }
 
   export type ProjectWhereInput = {
@@ -36081,7 +38964,11 @@ export namespace Prisma {
     ngoName?: StringNullableFilter<"ActivityEvent"> | string | null
     projectTitle?: StringNullableFilter<"ActivityEvent"> | string | null
     actorName?: StringNullableFilter<"ActivityEvent"> | string | null
+    actorId?: StringNullableFilter<"ActivityEvent"> | string | null
+    actorType?: StringNullableFilter<"ActivityEvent"> | string | null
+    imageUrl?: StringNullableFilter<"ActivityEvent"> | string | null
     description?: StringFilter<"ActivityEvent"> | string
+    linkUrl?: StringNullableFilter<"ActivityEvent"> | string | null
     metadata?: StringNullableFilter<"ActivityEvent"> | string | null
     createdAt?: DateTimeFilter<"ActivityEvent"> | Date | string
   }
@@ -36093,7 +38980,11 @@ export namespace Prisma {
     ngoName?: SortOrderInput | SortOrder
     projectTitle?: SortOrderInput | SortOrder
     actorName?: SortOrderInput | SortOrder
+    actorId?: SortOrderInput | SortOrder
+    actorType?: SortOrderInput | SortOrder
+    imageUrl?: SortOrderInput | SortOrder
     description?: SortOrder
+    linkUrl?: SortOrderInput | SortOrder
     metadata?: SortOrderInput | SortOrder
     createdAt?: SortOrder
   }
@@ -36108,7 +38999,11 @@ export namespace Prisma {
     ngoName?: StringNullableFilter<"ActivityEvent"> | string | null
     projectTitle?: StringNullableFilter<"ActivityEvent"> | string | null
     actorName?: StringNullableFilter<"ActivityEvent"> | string | null
+    actorId?: StringNullableFilter<"ActivityEvent"> | string | null
+    actorType?: StringNullableFilter<"ActivityEvent"> | string | null
+    imageUrl?: StringNullableFilter<"ActivityEvent"> | string | null
     description?: StringFilter<"ActivityEvent"> | string
+    linkUrl?: StringNullableFilter<"ActivityEvent"> | string | null
     metadata?: StringNullableFilter<"ActivityEvent"> | string | null
     createdAt?: DateTimeFilter<"ActivityEvent"> | Date | string
   }, "id">
@@ -36120,7 +39015,11 @@ export namespace Prisma {
     ngoName?: SortOrderInput | SortOrder
     projectTitle?: SortOrderInput | SortOrder
     actorName?: SortOrderInput | SortOrder
+    actorId?: SortOrderInput | SortOrder
+    actorType?: SortOrderInput | SortOrder
+    imageUrl?: SortOrderInput | SortOrder
     description?: SortOrder
+    linkUrl?: SortOrderInput | SortOrder
     metadata?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     _count?: ActivityEventCountOrderByAggregateInput
@@ -36138,7 +39037,11 @@ export namespace Prisma {
     ngoName?: StringNullableWithAggregatesFilter<"ActivityEvent"> | string | null
     projectTitle?: StringNullableWithAggregatesFilter<"ActivityEvent"> | string | null
     actorName?: StringNullableWithAggregatesFilter<"ActivityEvent"> | string | null
+    actorId?: StringNullableWithAggregatesFilter<"ActivityEvent"> | string | null
+    actorType?: StringNullableWithAggregatesFilter<"ActivityEvent"> | string | null
+    imageUrl?: StringNullableWithAggregatesFilter<"ActivityEvent"> | string | null
     description?: StringWithAggregatesFilter<"ActivityEvent"> | string
+    linkUrl?: StringNullableWithAggregatesFilter<"ActivityEvent"> | string | null
     metadata?: StringNullableWithAggregatesFilter<"ActivityEvent"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"ActivityEvent"> | Date | string
   }
@@ -36151,6 +39054,7 @@ export namespace Prisma {
     ngoId?: StringFilter<"BoardMember"> | string
     name?: StringFilter<"BoardMember"> | string
     role?: StringFilter<"BoardMember"> | string
+    memberType?: StringFilter<"BoardMember"> | string
     bio?: StringNullableFilter<"BoardMember"> | string | null
     linkedinUrl?: StringNullableFilter<"BoardMember"> | string | null
     photoUrl?: StringNullableFilter<"BoardMember"> | string | null
@@ -36165,6 +39069,7 @@ export namespace Prisma {
     ngoId?: SortOrder
     name?: SortOrder
     role?: SortOrder
+    memberType?: SortOrder
     bio?: SortOrderInput | SortOrder
     linkedinUrl?: SortOrderInput | SortOrder
     photoUrl?: SortOrderInput | SortOrder
@@ -36182,6 +39087,7 @@ export namespace Prisma {
     ngoId?: StringFilter<"BoardMember"> | string
     name?: StringFilter<"BoardMember"> | string
     role?: StringFilter<"BoardMember"> | string
+    memberType?: StringFilter<"BoardMember"> | string
     bio?: StringNullableFilter<"BoardMember"> | string | null
     linkedinUrl?: StringNullableFilter<"BoardMember"> | string | null
     photoUrl?: StringNullableFilter<"BoardMember"> | string | null
@@ -36196,6 +39102,7 @@ export namespace Prisma {
     ngoId?: SortOrder
     name?: SortOrder
     role?: SortOrder
+    memberType?: SortOrder
     bio?: SortOrderInput | SortOrder
     linkedinUrl?: SortOrderInput | SortOrder
     photoUrl?: SortOrderInput | SortOrder
@@ -36217,6 +39124,7 @@ export namespace Prisma {
     ngoId?: StringWithAggregatesFilter<"BoardMember"> | string
     name?: StringWithAggregatesFilter<"BoardMember"> | string
     role?: StringWithAggregatesFilter<"BoardMember"> | string
+    memberType?: StringWithAggregatesFilter<"BoardMember"> | string
     bio?: StringNullableWithAggregatesFilter<"BoardMember"> | string | null
     linkedinUrl?: StringNullableWithAggregatesFilter<"BoardMember"> | string | null
     photoUrl?: StringNullableWithAggregatesFilter<"BoardMember"> | string | null
@@ -36458,6 +39366,155 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"DonorEndorsement"> | Date | string
   }
 
+  export type DonorDocumentWhereInput = {
+    AND?: DonorDocumentWhereInput | DonorDocumentWhereInput[]
+    OR?: DonorDocumentWhereInput[]
+    NOT?: DonorDocumentWhereInput | DonorDocumentWhereInput[]
+    id?: StringFilter<"DonorDocument"> | string
+    userId?: StringFilter<"DonorDocument"> | string
+    fileName?: StringFilter<"DonorDocument"> | string
+    category?: StringFilter<"DonorDocument"> | string
+    mimeType?: StringFilter<"DonorDocument"> | string
+    fileSize?: IntFilter<"DonorDocument"> | number
+    fileData?: StringFilter<"DonorDocument"> | string
+    createdAt?: DateTimeFilter<"DonorDocument"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type DonorDocumentOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    fileName?: SortOrder
+    category?: SortOrder
+    mimeType?: SortOrder
+    fileSize?: SortOrder
+    fileData?: SortOrder
+    createdAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type DonorDocumentWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: DonorDocumentWhereInput | DonorDocumentWhereInput[]
+    OR?: DonorDocumentWhereInput[]
+    NOT?: DonorDocumentWhereInput | DonorDocumentWhereInput[]
+    userId?: StringFilter<"DonorDocument"> | string
+    fileName?: StringFilter<"DonorDocument"> | string
+    category?: StringFilter<"DonorDocument"> | string
+    mimeType?: StringFilter<"DonorDocument"> | string
+    fileSize?: IntFilter<"DonorDocument"> | number
+    fileData?: StringFilter<"DonorDocument"> | string
+    createdAt?: DateTimeFilter<"DonorDocument"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type DonorDocumentOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    fileName?: SortOrder
+    category?: SortOrder
+    mimeType?: SortOrder
+    fileSize?: SortOrder
+    fileData?: SortOrder
+    createdAt?: SortOrder
+    _count?: DonorDocumentCountOrderByAggregateInput
+    _avg?: DonorDocumentAvgOrderByAggregateInput
+    _max?: DonorDocumentMaxOrderByAggregateInput
+    _min?: DonorDocumentMinOrderByAggregateInput
+    _sum?: DonorDocumentSumOrderByAggregateInput
+  }
+
+  export type DonorDocumentScalarWhereWithAggregatesInput = {
+    AND?: DonorDocumentScalarWhereWithAggregatesInput | DonorDocumentScalarWhereWithAggregatesInput[]
+    OR?: DonorDocumentScalarWhereWithAggregatesInput[]
+    NOT?: DonorDocumentScalarWhereWithAggregatesInput | DonorDocumentScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"DonorDocument"> | string
+    userId?: StringWithAggregatesFilter<"DonorDocument"> | string
+    fileName?: StringWithAggregatesFilter<"DonorDocument"> | string
+    category?: StringWithAggregatesFilter<"DonorDocument"> | string
+    mimeType?: StringWithAggregatesFilter<"DonorDocument"> | string
+    fileSize?: IntWithAggregatesFilter<"DonorDocument"> | number
+    fileData?: StringWithAggregatesFilter<"DonorDocument"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"DonorDocument"> | Date | string
+  }
+
+  export type NgoDocumentWhereInput = {
+    AND?: NgoDocumentWhereInput | NgoDocumentWhereInput[]
+    OR?: NgoDocumentWhereInput[]
+    NOT?: NgoDocumentWhereInput | NgoDocumentWhereInput[]
+    id?: StringFilter<"NgoDocument"> | string
+    ngoId?: StringFilter<"NgoDocument"> | string
+    fileName?: StringFilter<"NgoDocument"> | string
+    category?: StringFilter<"NgoDocument"> | string
+    mimeType?: StringFilter<"NgoDocument"> | string
+    fileSize?: IntFilter<"NgoDocument"> | number
+    fileData?: StringFilter<"NgoDocument"> | string
+    caption?: StringNullableFilter<"NgoDocument"> | string | null
+    createdAt?: DateTimeFilter<"NgoDocument"> | Date | string
+    ngo?: XOR<NgoScalarRelationFilter, NgoWhereInput>
+  }
+
+  export type NgoDocumentOrderByWithRelationInput = {
+    id?: SortOrder
+    ngoId?: SortOrder
+    fileName?: SortOrder
+    category?: SortOrder
+    mimeType?: SortOrder
+    fileSize?: SortOrder
+    fileData?: SortOrder
+    caption?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    ngo?: NgoOrderByWithRelationInput
+  }
+
+  export type NgoDocumentWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: NgoDocumentWhereInput | NgoDocumentWhereInput[]
+    OR?: NgoDocumentWhereInput[]
+    NOT?: NgoDocumentWhereInput | NgoDocumentWhereInput[]
+    ngoId?: StringFilter<"NgoDocument"> | string
+    fileName?: StringFilter<"NgoDocument"> | string
+    category?: StringFilter<"NgoDocument"> | string
+    mimeType?: StringFilter<"NgoDocument"> | string
+    fileSize?: IntFilter<"NgoDocument"> | number
+    fileData?: StringFilter<"NgoDocument"> | string
+    caption?: StringNullableFilter<"NgoDocument"> | string | null
+    createdAt?: DateTimeFilter<"NgoDocument"> | Date | string
+    ngo?: XOR<NgoScalarRelationFilter, NgoWhereInput>
+  }, "id">
+
+  export type NgoDocumentOrderByWithAggregationInput = {
+    id?: SortOrder
+    ngoId?: SortOrder
+    fileName?: SortOrder
+    category?: SortOrder
+    mimeType?: SortOrder
+    fileSize?: SortOrder
+    fileData?: SortOrder
+    caption?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: NgoDocumentCountOrderByAggregateInput
+    _avg?: NgoDocumentAvgOrderByAggregateInput
+    _max?: NgoDocumentMaxOrderByAggregateInput
+    _min?: NgoDocumentMinOrderByAggregateInput
+    _sum?: NgoDocumentSumOrderByAggregateInput
+  }
+
+  export type NgoDocumentScalarWhereWithAggregatesInput = {
+    AND?: NgoDocumentScalarWhereWithAggregatesInput | NgoDocumentScalarWhereWithAggregatesInput[]
+    OR?: NgoDocumentScalarWhereWithAggregatesInput[]
+    NOT?: NgoDocumentScalarWhereWithAggregatesInput | NgoDocumentScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"NgoDocument"> | string
+    ngoId?: StringWithAggregatesFilter<"NgoDocument"> | string
+    fileName?: StringWithAggregatesFilter<"NgoDocument"> | string
+    category?: StringWithAggregatesFilter<"NgoDocument"> | string
+    mimeType?: StringWithAggregatesFilter<"NgoDocument"> | string
+    fileSize?: IntWithAggregatesFilter<"NgoDocument"> | number
+    fileData?: StringWithAggregatesFilter<"NgoDocument"> | string
+    caption?: StringNullableWithAggregatesFilter<"NgoDocument"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"NgoDocument"> | Date | string
+  }
+
   export type AccountCreateInput = {
     id?: string
     type: string
@@ -36658,10 +39715,20 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     name?: string | null
     image?: string | null
+    password?: string | null
     role?: $Enums.Role
     referralCode?: string | null
+    bio?: string | null
+    jobTitle?: string | null
+    company?: string | null
+    city?: string | null
+    linkedinUrl?: string | null
+    twitterUrl?: string | null
+    portfolioUrl?: string | null
+    skills?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    aiSummary?: string | null
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     ngo?: NgoCreateNestedOneWithoutUserInput
@@ -36677,6 +39744,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionCreateNestedManyWithoutDonorInput
     endorsementsReceived?: DonorEndorsementCreateNestedManyWithoutDonorInput
     endorsementsGiven?: DonorEndorsementCreateNestedManyWithoutEndorserInput
+    documents?: DonorDocumentCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -36685,10 +39753,20 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     name?: string | null
     image?: string | null
+    password?: string | null
     role?: $Enums.Role
     referralCode?: string | null
+    bio?: string | null
+    jobTitle?: string | null
+    company?: string | null
+    city?: string | null
+    linkedinUrl?: string | null
+    twitterUrl?: string | null
+    portfolioUrl?: string | null
+    skills?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    aiSummary?: string | null
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ngo?: NgoUncheckedCreateNestedOneWithoutUserInput
@@ -36704,6 +39782,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutDonorInput
     endorsementsReceived?: DonorEndorsementUncheckedCreateNestedManyWithoutDonorInput
     endorsementsGiven?: DonorEndorsementUncheckedCreateNestedManyWithoutEndorserInput
+    documents?: DonorDocumentUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -36712,10 +39791,20 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     referralCode?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    portfolioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    skills?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ngo?: NgoUpdateOneWithoutUserNestedInput
@@ -36731,6 +39820,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionUpdateManyWithoutDonorNestedInput
     endorsementsReceived?: DonorEndorsementUpdateManyWithoutDonorNestedInput
     endorsementsGiven?: DonorEndorsementUpdateManyWithoutEndorserNestedInput
+    documents?: DonorDocumentUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -36739,10 +39829,20 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     referralCode?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    portfolioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    skills?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ngo?: NgoUncheckedUpdateOneWithoutUserNestedInput
@@ -36758,6 +39858,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionUncheckedUpdateManyWithoutDonorNestedInput
     endorsementsReceived?: DonorEndorsementUncheckedUpdateManyWithoutDonorNestedInput
     endorsementsGiven?: DonorEndorsementUncheckedUpdateManyWithoutEndorserNestedInput
+    documents?: DonorDocumentUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -36766,10 +39867,20 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     name?: string | null
     image?: string | null
+    password?: string | null
     role?: $Enums.Role
     referralCode?: string | null
+    bio?: string | null
+    jobTitle?: string | null
+    company?: string | null
+    city?: string | null
+    linkedinUrl?: string | null
+    twitterUrl?: string | null
+    portfolioUrl?: string | null
+    skills?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    aiSummary?: string | null
   }
 
   export type UserUpdateManyMutationInput = {
@@ -36778,10 +39889,20 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     referralCode?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    portfolioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    skills?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -36790,16 +39911,28 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     referralCode?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    portfolioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    skills?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type NgoCreateInput = {
     id?: string
     orgName: string
+    ein?: string | null
     regNumber?: string | null
+    state?: string | null
     country?: string | null
     website?: string | null
     description?: string | null
@@ -36810,6 +39943,7 @@ export namespace Prisma {
     rejectReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    aiSummary?: string | null
     user: UserCreateNestedOneWithoutNgoInput
     projects?: ProjectCreateNestedManyWithoutNgoInput
     expenses?: ExpenseCreateNestedManyWithoutNgoInput
@@ -36817,13 +39951,16 @@ export namespace Prisma {
     boardMembers?: BoardMemberCreateNestedManyWithoutNgoInput
     skillContributions?: SkillContributionCreateNestedManyWithoutNgoInput
     donorEndorsements?: DonorEndorsementCreateNestedManyWithoutNgoInput
+    documents?: NgoDocumentCreateNestedManyWithoutNgoInput
   }
 
   export type NgoUncheckedCreateInput = {
     id?: string
     userId: string
     orgName: string
+    ein?: string | null
     regNumber?: string | null
+    state?: string | null
     country?: string | null
     website?: string | null
     description?: string | null
@@ -36834,18 +39971,22 @@ export namespace Prisma {
     rejectReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    aiSummary?: string | null
     projects?: ProjectUncheckedCreateNestedManyWithoutNgoInput
     expenses?: ExpenseUncheckedCreateNestedManyWithoutNgoInput
     ratings?: RatingUncheckedCreateNestedManyWithoutNgoInput
     boardMembers?: BoardMemberUncheckedCreateNestedManyWithoutNgoInput
     skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutNgoInput
     donorEndorsements?: DonorEndorsementUncheckedCreateNestedManyWithoutNgoInput
+    documents?: NgoDocumentUncheckedCreateNestedManyWithoutNgoInput
   }
 
   export type NgoUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     orgName?: StringFieldUpdateOperationsInput | string
+    ein?: NullableStringFieldUpdateOperationsInput | string | null
     regNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     website?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -36856,6 +39997,7 @@ export namespace Prisma {
     rejectReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
     user?: UserUpdateOneRequiredWithoutNgoNestedInput
     projects?: ProjectUpdateManyWithoutNgoNestedInput
     expenses?: ExpenseUpdateManyWithoutNgoNestedInput
@@ -36863,13 +40005,16 @@ export namespace Prisma {
     boardMembers?: BoardMemberUpdateManyWithoutNgoNestedInput
     skillContributions?: SkillContributionUpdateManyWithoutNgoNestedInput
     donorEndorsements?: DonorEndorsementUpdateManyWithoutNgoNestedInput
+    documents?: NgoDocumentUpdateManyWithoutNgoNestedInput
   }
 
   export type NgoUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     orgName?: StringFieldUpdateOperationsInput | string
+    ein?: NullableStringFieldUpdateOperationsInput | string | null
     regNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     website?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -36880,19 +40025,23 @@ export namespace Prisma {
     rejectReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
     projects?: ProjectUncheckedUpdateManyWithoutNgoNestedInput
     expenses?: ExpenseUncheckedUpdateManyWithoutNgoNestedInput
     ratings?: RatingUncheckedUpdateManyWithoutNgoNestedInput
     boardMembers?: BoardMemberUncheckedUpdateManyWithoutNgoNestedInput
     skillContributions?: SkillContributionUncheckedUpdateManyWithoutNgoNestedInput
     donorEndorsements?: DonorEndorsementUncheckedUpdateManyWithoutNgoNestedInput
+    documents?: NgoDocumentUncheckedUpdateManyWithoutNgoNestedInput
   }
 
   export type NgoCreateManyInput = {
     id?: string
     userId: string
     orgName: string
+    ein?: string | null
     regNumber?: string | null
+    state?: string | null
     country?: string | null
     website?: string | null
     description?: string | null
@@ -36903,12 +40052,15 @@ export namespace Prisma {
     rejectReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    aiSummary?: string | null
   }
 
   export type NgoUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     orgName?: StringFieldUpdateOperationsInput | string
+    ein?: NullableStringFieldUpdateOperationsInput | string | null
     regNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     website?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -36919,13 +40071,16 @@ export namespace Prisma {
     rejectReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type NgoUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     orgName?: StringFieldUpdateOperationsInput | string
+    ein?: NullableStringFieldUpdateOperationsInput | string | null
     regNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     website?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -36936,6 +40091,7 @@ export namespace Prisma {
     rejectReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ProjectCreateInput = {
@@ -38272,7 +41428,11 @@ export namespace Prisma {
     ngoName?: string | null
     projectTitle?: string | null
     actorName?: string | null
+    actorId?: string | null
+    actorType?: string | null
+    imageUrl?: string | null
     description: string
+    linkUrl?: string | null
     metadata?: string | null
     createdAt?: Date | string
   }
@@ -38284,7 +41444,11 @@ export namespace Prisma {
     ngoName?: string | null
     projectTitle?: string | null
     actorName?: string | null
+    actorId?: string | null
+    actorType?: string | null
+    imageUrl?: string | null
     description: string
+    linkUrl?: string | null
     metadata?: string | null
     createdAt?: Date | string
   }
@@ -38296,7 +41460,11 @@ export namespace Prisma {
     ngoName?: NullableStringFieldUpdateOperationsInput | string | null
     projectTitle?: NullableStringFieldUpdateOperationsInput | string | null
     actorName?: NullableStringFieldUpdateOperationsInput | string | null
+    actorId?: NullableStringFieldUpdateOperationsInput | string | null
+    actorType?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
+    linkUrl?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -38308,7 +41476,11 @@ export namespace Prisma {
     ngoName?: NullableStringFieldUpdateOperationsInput | string | null
     projectTitle?: NullableStringFieldUpdateOperationsInput | string | null
     actorName?: NullableStringFieldUpdateOperationsInput | string | null
+    actorId?: NullableStringFieldUpdateOperationsInput | string | null
+    actorType?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
+    linkUrl?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -38320,7 +41492,11 @@ export namespace Prisma {
     ngoName?: string | null
     projectTitle?: string | null
     actorName?: string | null
+    actorId?: string | null
+    actorType?: string | null
+    imageUrl?: string | null
     description: string
+    linkUrl?: string | null
     metadata?: string | null
     createdAt?: Date | string
   }
@@ -38332,7 +41508,11 @@ export namespace Prisma {
     ngoName?: NullableStringFieldUpdateOperationsInput | string | null
     projectTitle?: NullableStringFieldUpdateOperationsInput | string | null
     actorName?: NullableStringFieldUpdateOperationsInput | string | null
+    actorId?: NullableStringFieldUpdateOperationsInput | string | null
+    actorType?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
+    linkUrl?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -38344,7 +41524,11 @@ export namespace Prisma {
     ngoName?: NullableStringFieldUpdateOperationsInput | string | null
     projectTitle?: NullableStringFieldUpdateOperationsInput | string | null
     actorName?: NullableStringFieldUpdateOperationsInput | string | null
+    actorId?: NullableStringFieldUpdateOperationsInput | string | null
+    actorType?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
+    linkUrl?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -38353,6 +41537,7 @@ export namespace Prisma {
     id?: string
     name: string
     role: string
+    memberType?: string
     bio?: string | null
     linkedinUrl?: string | null
     photoUrl?: string | null
@@ -38367,6 +41552,7 @@ export namespace Prisma {
     ngoId: string
     name: string
     role: string
+    memberType?: string
     bio?: string | null
     linkedinUrl?: string | null
     photoUrl?: string | null
@@ -38379,6 +41565,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
+    memberType?: StringFieldUpdateOperationsInput | string
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -38393,6 +41580,7 @@ export namespace Prisma {
     ngoId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
+    memberType?: StringFieldUpdateOperationsInput | string
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -38406,6 +41594,7 @@ export namespace Prisma {
     ngoId: string
     name: string
     role: string
+    memberType?: string
     bio?: string | null
     linkedinUrl?: string | null
     photoUrl?: string | null
@@ -38418,6 +41607,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
+    memberType?: StringFieldUpdateOperationsInput | string
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -38431,6 +41621,7 @@ export namespace Prisma {
     ngoId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
+    memberType?: StringFieldUpdateOperationsInput | string
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -38671,6 +41862,165 @@ export namespace Prisma {
     endorsedBy?: StringFieldUpdateOperationsInput | string
     note?: NullableStringFieldUpdateOperationsInput | string | null
     category?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DonorDocumentCreateInput = {
+    id?: string
+    fileName: string
+    category?: string
+    mimeType: string
+    fileSize: number
+    fileData: string
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutDocumentsInput
+  }
+
+  export type DonorDocumentUncheckedCreateInput = {
+    id?: string
+    userId: string
+    fileName: string
+    category?: string
+    mimeType: string
+    fileSize: number
+    fileData: string
+    createdAt?: Date | string
+  }
+
+  export type DonorDocumentUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fileName?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    mimeType?: StringFieldUpdateOperationsInput | string
+    fileSize?: IntFieldUpdateOperationsInput | number
+    fileData?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutDocumentsNestedInput
+  }
+
+  export type DonorDocumentUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    fileName?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    mimeType?: StringFieldUpdateOperationsInput | string
+    fileSize?: IntFieldUpdateOperationsInput | number
+    fileData?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DonorDocumentCreateManyInput = {
+    id?: string
+    userId: string
+    fileName: string
+    category?: string
+    mimeType: string
+    fileSize: number
+    fileData: string
+    createdAt?: Date | string
+  }
+
+  export type DonorDocumentUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fileName?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    mimeType?: StringFieldUpdateOperationsInput | string
+    fileSize?: IntFieldUpdateOperationsInput | number
+    fileData?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DonorDocumentUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    fileName?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    mimeType?: StringFieldUpdateOperationsInput | string
+    fileSize?: IntFieldUpdateOperationsInput | number
+    fileData?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NgoDocumentCreateInput = {
+    id?: string
+    fileName: string
+    category?: string
+    mimeType: string
+    fileSize: number
+    fileData: string
+    caption?: string | null
+    createdAt?: Date | string
+    ngo: NgoCreateNestedOneWithoutDocumentsInput
+  }
+
+  export type NgoDocumentUncheckedCreateInput = {
+    id?: string
+    ngoId: string
+    fileName: string
+    category?: string
+    mimeType: string
+    fileSize: number
+    fileData: string
+    caption?: string | null
+    createdAt?: Date | string
+  }
+
+  export type NgoDocumentUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fileName?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    mimeType?: StringFieldUpdateOperationsInput | string
+    fileSize?: IntFieldUpdateOperationsInput | number
+    fileData?: StringFieldUpdateOperationsInput | string
+    caption?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ngo?: NgoUpdateOneRequiredWithoutDocumentsNestedInput
+  }
+
+  export type NgoDocumentUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ngoId?: StringFieldUpdateOperationsInput | string
+    fileName?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    mimeType?: StringFieldUpdateOperationsInput | string
+    fileSize?: IntFieldUpdateOperationsInput | number
+    fileData?: StringFieldUpdateOperationsInput | string
+    caption?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NgoDocumentCreateManyInput = {
+    id?: string
+    ngoId: string
+    fileName: string
+    category?: string
+    mimeType: string
+    fileSize: number
+    fileData: string
+    caption?: string | null
+    createdAt?: Date | string
+  }
+
+  export type NgoDocumentUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fileName?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    mimeType?: StringFieldUpdateOperationsInput | string
+    fileSize?: IntFieldUpdateOperationsInput | number
+    fileData?: StringFieldUpdateOperationsInput | string
+    caption?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NgoDocumentUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ngoId?: StringFieldUpdateOperationsInput | string
+    fileName?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    mimeType?: StringFieldUpdateOperationsInput | string
+    fileSize?: IntFieldUpdateOperationsInput | number
+    fileData?: StringFieldUpdateOperationsInput | string
+    caption?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -38999,6 +42349,12 @@ export namespace Prisma {
     none?: DonorEndorsementWhereInput
   }
 
+  export type DonorDocumentListRelationFilter = {
+    every?: DonorDocumentWhereInput
+    some?: DonorDocumentWhereInput
+    none?: DonorDocumentWhereInput
+  }
+
   export type AccountOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -39047,16 +42403,30 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type DonorDocumentOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type UserCountOrderByAggregateInput = {
     id?: SortOrder
     email?: SortOrder
     emailVerified?: SortOrder
     name?: SortOrder
     image?: SortOrder
+    password?: SortOrder
     role?: SortOrder
     referralCode?: SortOrder
+    bio?: SortOrder
+    jobTitle?: SortOrder
+    company?: SortOrder
+    city?: SortOrder
+    linkedinUrl?: SortOrder
+    twitterUrl?: SortOrder
+    portfolioUrl?: SortOrder
+    skills?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    aiSummary?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -39065,10 +42435,20 @@ export namespace Prisma {
     emailVerified?: SortOrder
     name?: SortOrder
     image?: SortOrder
+    password?: SortOrder
     role?: SortOrder
     referralCode?: SortOrder
+    bio?: SortOrder
+    jobTitle?: SortOrder
+    company?: SortOrder
+    city?: SortOrder
+    linkedinUrl?: SortOrder
+    twitterUrl?: SortOrder
+    portfolioUrl?: SortOrder
+    skills?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    aiSummary?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -39077,10 +42457,20 @@ export namespace Prisma {
     emailVerified?: SortOrder
     name?: SortOrder
     image?: SortOrder
+    password?: SortOrder
     role?: SortOrder
     referralCode?: SortOrder
+    bio?: SortOrder
+    jobTitle?: SortOrder
+    company?: SortOrder
+    city?: SortOrder
+    linkedinUrl?: SortOrder
+    twitterUrl?: SortOrder
+    portfolioUrl?: SortOrder
+    skills?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    aiSummary?: SortOrder
   }
 
   export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -39143,6 +42533,12 @@ export namespace Prisma {
     none?: BoardMemberWhereInput
   }
 
+  export type NgoDocumentListRelationFilter = {
+    every?: NgoDocumentWhereInput
+    some?: NgoDocumentWhereInput
+    none?: NgoDocumentWhereInput
+  }
+
   export type ProjectOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -39155,11 +42551,17 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type NgoDocumentOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type NgoCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
     orgName?: SortOrder
+    ein?: SortOrder
     regNumber?: SortOrder
+    state?: SortOrder
     country?: SortOrder
     website?: SortOrder
     description?: SortOrder
@@ -39170,6 +42572,7 @@ export namespace Prisma {
     rejectReason?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    aiSummary?: SortOrder
   }
 
   export type NgoAvgOrderByAggregateInput = {
@@ -39180,7 +42583,9 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     orgName?: SortOrder
+    ein?: SortOrder
     regNumber?: SortOrder
+    state?: SortOrder
     country?: SortOrder
     website?: SortOrder
     description?: SortOrder
@@ -39191,13 +42596,16 @@ export namespace Prisma {
     rejectReason?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    aiSummary?: SortOrder
   }
 
   export type NgoMinOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
     orgName?: SortOrder
+    ein?: SortOrder
     regNumber?: SortOrder
+    state?: SortOrder
     country?: SortOrder
     website?: SortOrder
     description?: SortOrder
@@ -39208,6 +42616,7 @@ export namespace Prisma {
     rejectReason?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    aiSummary?: SortOrder
   }
 
   export type NgoSumOrderByAggregateInput = {
@@ -40150,7 +43559,11 @@ export namespace Prisma {
     ngoName?: SortOrder
     projectTitle?: SortOrder
     actorName?: SortOrder
+    actorId?: SortOrder
+    actorType?: SortOrder
+    imageUrl?: SortOrder
     description?: SortOrder
+    linkUrl?: SortOrder
     metadata?: SortOrder
     createdAt?: SortOrder
   }
@@ -40162,7 +43575,11 @@ export namespace Prisma {
     ngoName?: SortOrder
     projectTitle?: SortOrder
     actorName?: SortOrder
+    actorId?: SortOrder
+    actorType?: SortOrder
+    imageUrl?: SortOrder
     description?: SortOrder
+    linkUrl?: SortOrder
     metadata?: SortOrder
     createdAt?: SortOrder
   }
@@ -40174,7 +43591,11 @@ export namespace Prisma {
     ngoName?: SortOrder
     projectTitle?: SortOrder
     actorName?: SortOrder
+    actorId?: SortOrder
+    actorType?: SortOrder
+    imageUrl?: SortOrder
     description?: SortOrder
+    linkUrl?: SortOrder
     metadata?: SortOrder
     createdAt?: SortOrder
   }
@@ -40184,6 +43605,7 @@ export namespace Prisma {
     ngoId?: SortOrder
     name?: SortOrder
     role?: SortOrder
+    memberType?: SortOrder
     bio?: SortOrder
     linkedinUrl?: SortOrder
     photoUrl?: SortOrder
@@ -40201,6 +43623,7 @@ export namespace Prisma {
     ngoId?: SortOrder
     name?: SortOrder
     role?: SortOrder
+    memberType?: SortOrder
     bio?: SortOrder
     linkedinUrl?: SortOrder
     photoUrl?: SortOrder
@@ -40214,6 +43637,7 @@ export namespace Prisma {
     ngoId?: SortOrder
     name?: SortOrder
     role?: SortOrder
+    memberType?: SortOrder
     bio?: SortOrder
     linkedinUrl?: SortOrder
     photoUrl?: SortOrder
@@ -40352,6 +43776,91 @@ export namespace Prisma {
     note?: SortOrder
     category?: SortOrder
     createdAt?: SortOrder
+  }
+
+  export type DonorDocumentCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    fileName?: SortOrder
+    category?: SortOrder
+    mimeType?: SortOrder
+    fileSize?: SortOrder
+    fileData?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type DonorDocumentAvgOrderByAggregateInput = {
+    fileSize?: SortOrder
+  }
+
+  export type DonorDocumentMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    fileName?: SortOrder
+    category?: SortOrder
+    mimeType?: SortOrder
+    fileSize?: SortOrder
+    fileData?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type DonorDocumentMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    fileName?: SortOrder
+    category?: SortOrder
+    mimeType?: SortOrder
+    fileSize?: SortOrder
+    fileData?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type DonorDocumentSumOrderByAggregateInput = {
+    fileSize?: SortOrder
+  }
+
+  export type NgoDocumentCountOrderByAggregateInput = {
+    id?: SortOrder
+    ngoId?: SortOrder
+    fileName?: SortOrder
+    category?: SortOrder
+    mimeType?: SortOrder
+    fileSize?: SortOrder
+    fileData?: SortOrder
+    caption?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type NgoDocumentAvgOrderByAggregateInput = {
+    fileSize?: SortOrder
+  }
+
+  export type NgoDocumentMaxOrderByAggregateInput = {
+    id?: SortOrder
+    ngoId?: SortOrder
+    fileName?: SortOrder
+    category?: SortOrder
+    mimeType?: SortOrder
+    fileSize?: SortOrder
+    fileData?: SortOrder
+    caption?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type NgoDocumentMinOrderByAggregateInput = {
+    id?: SortOrder
+    ngoId?: SortOrder
+    fileName?: SortOrder
+    category?: SortOrder
+    mimeType?: SortOrder
+    fileSize?: SortOrder
+    fileData?: SortOrder
+    caption?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type NgoDocumentSumOrderByAggregateInput = {
+    fileSize?: SortOrder
   }
 
   export type UserCreateNestedOneWithoutAccountsInput = {
@@ -40506,6 +44015,13 @@ export namespace Prisma {
     connect?: DonorEndorsementWhereUniqueInput | DonorEndorsementWhereUniqueInput[]
   }
 
+  export type DonorDocumentCreateNestedManyWithoutUserInput = {
+    create?: XOR<DonorDocumentCreateWithoutUserInput, DonorDocumentUncheckedCreateWithoutUserInput> | DonorDocumentCreateWithoutUserInput[] | DonorDocumentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DonorDocumentCreateOrConnectWithoutUserInput | DonorDocumentCreateOrConnectWithoutUserInput[]
+    createMany?: DonorDocumentCreateManyUserInputEnvelope
+    connect?: DonorDocumentWhereUniqueInput | DonorDocumentWhereUniqueInput[]
+  }
+
   export type AccountUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -40608,6 +44124,13 @@ export namespace Prisma {
     connectOrCreate?: DonorEndorsementCreateOrConnectWithoutEndorserInput | DonorEndorsementCreateOrConnectWithoutEndorserInput[]
     createMany?: DonorEndorsementCreateManyEndorserInputEnvelope
     connect?: DonorEndorsementWhereUniqueInput | DonorEndorsementWhereUniqueInput[]
+  }
+
+  export type DonorDocumentUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<DonorDocumentCreateWithoutUserInput, DonorDocumentUncheckedCreateWithoutUserInput> | DonorDocumentCreateWithoutUserInput[] | DonorDocumentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DonorDocumentCreateOrConnectWithoutUserInput | DonorDocumentCreateOrConnectWithoutUserInput[]
+    createMany?: DonorDocumentCreateManyUserInputEnvelope
+    connect?: DonorDocumentWhereUniqueInput | DonorDocumentWhereUniqueInput[]
   }
 
   export type NullableDateTimeFieldUpdateOperationsInput = {
@@ -40824,6 +44347,20 @@ export namespace Prisma {
     deleteMany?: DonorEndorsementScalarWhereInput | DonorEndorsementScalarWhereInput[]
   }
 
+  export type DonorDocumentUpdateManyWithoutUserNestedInput = {
+    create?: XOR<DonorDocumentCreateWithoutUserInput, DonorDocumentUncheckedCreateWithoutUserInput> | DonorDocumentCreateWithoutUserInput[] | DonorDocumentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DonorDocumentCreateOrConnectWithoutUserInput | DonorDocumentCreateOrConnectWithoutUserInput[]
+    upsert?: DonorDocumentUpsertWithWhereUniqueWithoutUserInput | DonorDocumentUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: DonorDocumentCreateManyUserInputEnvelope
+    set?: DonorDocumentWhereUniqueInput | DonorDocumentWhereUniqueInput[]
+    disconnect?: DonorDocumentWhereUniqueInput | DonorDocumentWhereUniqueInput[]
+    delete?: DonorDocumentWhereUniqueInput | DonorDocumentWhereUniqueInput[]
+    connect?: DonorDocumentWhereUniqueInput | DonorDocumentWhereUniqueInput[]
+    update?: DonorDocumentUpdateWithWhereUniqueWithoutUserInput | DonorDocumentUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: DonorDocumentUpdateManyWithWhereWithoutUserInput | DonorDocumentUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: DonorDocumentScalarWhereInput | DonorDocumentScalarWhereInput[]
+  }
+
   export type AccountUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -41030,6 +44567,20 @@ export namespace Prisma {
     deleteMany?: DonorEndorsementScalarWhereInput | DonorEndorsementScalarWhereInput[]
   }
 
+  export type DonorDocumentUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<DonorDocumentCreateWithoutUserInput, DonorDocumentUncheckedCreateWithoutUserInput> | DonorDocumentCreateWithoutUserInput[] | DonorDocumentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DonorDocumentCreateOrConnectWithoutUserInput | DonorDocumentCreateOrConnectWithoutUserInput[]
+    upsert?: DonorDocumentUpsertWithWhereUniqueWithoutUserInput | DonorDocumentUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: DonorDocumentCreateManyUserInputEnvelope
+    set?: DonorDocumentWhereUniqueInput | DonorDocumentWhereUniqueInput[]
+    disconnect?: DonorDocumentWhereUniqueInput | DonorDocumentWhereUniqueInput[]
+    delete?: DonorDocumentWhereUniqueInput | DonorDocumentWhereUniqueInput[]
+    connect?: DonorDocumentWhereUniqueInput | DonorDocumentWhereUniqueInput[]
+    update?: DonorDocumentUpdateWithWhereUniqueWithoutUserInput | DonorDocumentUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: DonorDocumentUpdateManyWithWhereWithoutUserInput | DonorDocumentUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: DonorDocumentScalarWhereInput | DonorDocumentScalarWhereInput[]
+  }
+
   export type UserCreateNestedOneWithoutNgoInput = {
     create?: XOR<UserCreateWithoutNgoInput, UserUncheckedCreateWithoutNgoInput>
     connectOrCreate?: UserCreateOrConnectWithoutNgoInput
@@ -41078,6 +44629,13 @@ export namespace Prisma {
     connect?: DonorEndorsementWhereUniqueInput | DonorEndorsementWhereUniqueInput[]
   }
 
+  export type NgoDocumentCreateNestedManyWithoutNgoInput = {
+    create?: XOR<NgoDocumentCreateWithoutNgoInput, NgoDocumentUncheckedCreateWithoutNgoInput> | NgoDocumentCreateWithoutNgoInput[] | NgoDocumentUncheckedCreateWithoutNgoInput[]
+    connectOrCreate?: NgoDocumentCreateOrConnectWithoutNgoInput | NgoDocumentCreateOrConnectWithoutNgoInput[]
+    createMany?: NgoDocumentCreateManyNgoInputEnvelope
+    connect?: NgoDocumentWhereUniqueInput | NgoDocumentWhereUniqueInput[]
+  }
+
   export type ProjectUncheckedCreateNestedManyWithoutNgoInput = {
     create?: XOR<ProjectCreateWithoutNgoInput, ProjectUncheckedCreateWithoutNgoInput> | ProjectCreateWithoutNgoInput[] | ProjectUncheckedCreateWithoutNgoInput[]
     connectOrCreate?: ProjectCreateOrConnectWithoutNgoInput | ProjectCreateOrConnectWithoutNgoInput[]
@@ -41118,6 +44676,13 @@ export namespace Prisma {
     connectOrCreate?: DonorEndorsementCreateOrConnectWithoutNgoInput | DonorEndorsementCreateOrConnectWithoutNgoInput[]
     createMany?: DonorEndorsementCreateManyNgoInputEnvelope
     connect?: DonorEndorsementWhereUniqueInput | DonorEndorsementWhereUniqueInput[]
+  }
+
+  export type NgoDocumentUncheckedCreateNestedManyWithoutNgoInput = {
+    create?: XOR<NgoDocumentCreateWithoutNgoInput, NgoDocumentUncheckedCreateWithoutNgoInput> | NgoDocumentCreateWithoutNgoInput[] | NgoDocumentUncheckedCreateWithoutNgoInput[]
+    connectOrCreate?: NgoDocumentCreateOrConnectWithoutNgoInput | NgoDocumentCreateOrConnectWithoutNgoInput[]
+    createMany?: NgoDocumentCreateManyNgoInputEnvelope
+    connect?: NgoDocumentWhereUniqueInput | NgoDocumentWhereUniqueInput[]
   }
 
   export type FloatFieldUpdateOperationsInput = {
@@ -41224,6 +44789,20 @@ export namespace Prisma {
     deleteMany?: DonorEndorsementScalarWhereInput | DonorEndorsementScalarWhereInput[]
   }
 
+  export type NgoDocumentUpdateManyWithoutNgoNestedInput = {
+    create?: XOR<NgoDocumentCreateWithoutNgoInput, NgoDocumentUncheckedCreateWithoutNgoInput> | NgoDocumentCreateWithoutNgoInput[] | NgoDocumentUncheckedCreateWithoutNgoInput[]
+    connectOrCreate?: NgoDocumentCreateOrConnectWithoutNgoInput | NgoDocumentCreateOrConnectWithoutNgoInput[]
+    upsert?: NgoDocumentUpsertWithWhereUniqueWithoutNgoInput | NgoDocumentUpsertWithWhereUniqueWithoutNgoInput[]
+    createMany?: NgoDocumentCreateManyNgoInputEnvelope
+    set?: NgoDocumentWhereUniqueInput | NgoDocumentWhereUniqueInput[]
+    disconnect?: NgoDocumentWhereUniqueInput | NgoDocumentWhereUniqueInput[]
+    delete?: NgoDocumentWhereUniqueInput | NgoDocumentWhereUniqueInput[]
+    connect?: NgoDocumentWhereUniqueInput | NgoDocumentWhereUniqueInput[]
+    update?: NgoDocumentUpdateWithWhereUniqueWithoutNgoInput | NgoDocumentUpdateWithWhereUniqueWithoutNgoInput[]
+    updateMany?: NgoDocumentUpdateManyWithWhereWithoutNgoInput | NgoDocumentUpdateManyWithWhereWithoutNgoInput[]
+    deleteMany?: NgoDocumentScalarWhereInput | NgoDocumentScalarWhereInput[]
+  }
+
   export type ProjectUncheckedUpdateManyWithoutNgoNestedInput = {
     create?: XOR<ProjectCreateWithoutNgoInput, ProjectUncheckedCreateWithoutNgoInput> | ProjectCreateWithoutNgoInput[] | ProjectUncheckedCreateWithoutNgoInput[]
     connectOrCreate?: ProjectCreateOrConnectWithoutNgoInput | ProjectCreateOrConnectWithoutNgoInput[]
@@ -41306,6 +44885,20 @@ export namespace Prisma {
     update?: DonorEndorsementUpdateWithWhereUniqueWithoutNgoInput | DonorEndorsementUpdateWithWhereUniqueWithoutNgoInput[]
     updateMany?: DonorEndorsementUpdateManyWithWhereWithoutNgoInput | DonorEndorsementUpdateManyWithWhereWithoutNgoInput[]
     deleteMany?: DonorEndorsementScalarWhereInput | DonorEndorsementScalarWhereInput[]
+  }
+
+  export type NgoDocumentUncheckedUpdateManyWithoutNgoNestedInput = {
+    create?: XOR<NgoDocumentCreateWithoutNgoInput, NgoDocumentUncheckedCreateWithoutNgoInput> | NgoDocumentCreateWithoutNgoInput[] | NgoDocumentUncheckedCreateWithoutNgoInput[]
+    connectOrCreate?: NgoDocumentCreateOrConnectWithoutNgoInput | NgoDocumentCreateOrConnectWithoutNgoInput[]
+    upsert?: NgoDocumentUpsertWithWhereUniqueWithoutNgoInput | NgoDocumentUpsertWithWhereUniqueWithoutNgoInput[]
+    createMany?: NgoDocumentCreateManyNgoInputEnvelope
+    set?: NgoDocumentWhereUniqueInput | NgoDocumentWhereUniqueInput[]
+    disconnect?: NgoDocumentWhereUniqueInput | NgoDocumentWhereUniqueInput[]
+    delete?: NgoDocumentWhereUniqueInput | NgoDocumentWhereUniqueInput[]
+    connect?: NgoDocumentWhereUniqueInput | NgoDocumentWhereUniqueInput[]
+    update?: NgoDocumentUpdateWithWhereUniqueWithoutNgoInput | NgoDocumentUpdateWithWhereUniqueWithoutNgoInput[]
+    updateMany?: NgoDocumentUpdateManyWithWhereWithoutNgoInput | NgoDocumentUpdateManyWithWhereWithoutNgoInput[]
+    deleteMany?: NgoDocumentScalarWhereInput | NgoDocumentScalarWhereInput[]
   }
 
   export type NgoCreateNestedOneWithoutProjectsInput = {
@@ -42298,6 +45891,34 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutEndorsementsGivenInput, UserUpdateWithoutEndorsementsGivenInput>, UserUncheckedUpdateWithoutEndorsementsGivenInput>
   }
 
+  export type UserCreateNestedOneWithoutDocumentsInput = {
+    create?: XOR<UserCreateWithoutDocumentsInput, UserUncheckedCreateWithoutDocumentsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutDocumentsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutDocumentsNestedInput = {
+    create?: XOR<UserCreateWithoutDocumentsInput, UserUncheckedCreateWithoutDocumentsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutDocumentsInput
+    upsert?: UserUpsertWithoutDocumentsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutDocumentsInput, UserUpdateWithoutDocumentsInput>, UserUncheckedUpdateWithoutDocumentsInput>
+  }
+
+  export type NgoCreateNestedOneWithoutDocumentsInput = {
+    create?: XOR<NgoCreateWithoutDocumentsInput, NgoUncheckedCreateWithoutDocumentsInput>
+    connectOrCreate?: NgoCreateOrConnectWithoutDocumentsInput
+    connect?: NgoWhereUniqueInput
+  }
+
+  export type NgoUpdateOneRequiredWithoutDocumentsNestedInput = {
+    create?: XOR<NgoCreateWithoutDocumentsInput, NgoUncheckedCreateWithoutDocumentsInput>
+    connectOrCreate?: NgoCreateOrConnectWithoutDocumentsInput
+    upsert?: NgoUpsertWithoutDocumentsInput
+    connect?: NgoWhereUniqueInput
+    update?: XOR<XOR<NgoUpdateToOneWithWhereWithoutDocumentsInput, NgoUpdateWithoutDocumentsInput>, NgoUncheckedUpdateWithoutDocumentsInput>
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -42656,10 +46277,20 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     name?: string | null
     image?: string | null
+    password?: string | null
     role?: $Enums.Role
     referralCode?: string | null
+    bio?: string | null
+    jobTitle?: string | null
+    company?: string | null
+    city?: string | null
+    linkedinUrl?: string | null
+    twitterUrl?: string | null
+    portfolioUrl?: string | null
+    skills?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    aiSummary?: string | null
     sessions?: SessionCreateNestedManyWithoutUserInput
     ngo?: NgoCreateNestedOneWithoutUserInput
     donations?: DonationCreateNestedManyWithoutUserInput
@@ -42674,6 +46305,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionCreateNestedManyWithoutDonorInput
     endorsementsReceived?: DonorEndorsementCreateNestedManyWithoutDonorInput
     endorsementsGiven?: DonorEndorsementCreateNestedManyWithoutEndorserInput
+    documents?: DonorDocumentCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAccountsInput = {
@@ -42682,10 +46314,20 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     name?: string | null
     image?: string | null
+    password?: string | null
     role?: $Enums.Role
     referralCode?: string | null
+    bio?: string | null
+    jobTitle?: string | null
+    company?: string | null
+    city?: string | null
+    linkedinUrl?: string | null
+    twitterUrl?: string | null
+    portfolioUrl?: string | null
+    skills?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    aiSummary?: string | null
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ngo?: NgoUncheckedCreateNestedOneWithoutUserInput
     donations?: DonationUncheckedCreateNestedManyWithoutUserInput
@@ -42700,6 +46342,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutDonorInput
     endorsementsReceived?: DonorEndorsementUncheckedCreateNestedManyWithoutDonorInput
     endorsementsGiven?: DonorEndorsementUncheckedCreateNestedManyWithoutEndorserInput
+    documents?: DonorDocumentUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAccountsInput = {
@@ -42724,10 +46367,20 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     referralCode?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    portfolioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    skills?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ngo?: NgoUpdateOneWithoutUserNestedInput
     donations?: DonationUpdateManyWithoutUserNestedInput
@@ -42742,6 +46395,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionUpdateManyWithoutDonorNestedInput
     endorsementsReceived?: DonorEndorsementUpdateManyWithoutDonorNestedInput
     endorsementsGiven?: DonorEndorsementUpdateManyWithoutEndorserNestedInput
+    documents?: DonorDocumentUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -42750,10 +46404,20 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     referralCode?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    portfolioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    skills?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ngo?: NgoUncheckedUpdateOneWithoutUserNestedInput
     donations?: DonationUncheckedUpdateManyWithoutUserNestedInput
@@ -42768,6 +46432,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionUncheckedUpdateManyWithoutDonorNestedInput
     endorsementsReceived?: DonorEndorsementUncheckedUpdateManyWithoutDonorNestedInput
     endorsementsGiven?: DonorEndorsementUncheckedUpdateManyWithoutEndorserNestedInput
+    documents?: DonorDocumentUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutSessionsInput = {
@@ -42776,10 +46441,20 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     name?: string | null
     image?: string | null
+    password?: string | null
     role?: $Enums.Role
     referralCode?: string | null
+    bio?: string | null
+    jobTitle?: string | null
+    company?: string | null
+    city?: string | null
+    linkedinUrl?: string | null
+    twitterUrl?: string | null
+    portfolioUrl?: string | null
+    skills?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    aiSummary?: string | null
     accounts?: AccountCreateNestedManyWithoutUserInput
     ngo?: NgoCreateNestedOneWithoutUserInput
     donations?: DonationCreateNestedManyWithoutUserInput
@@ -42794,6 +46469,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionCreateNestedManyWithoutDonorInput
     endorsementsReceived?: DonorEndorsementCreateNestedManyWithoutDonorInput
     endorsementsGiven?: DonorEndorsementCreateNestedManyWithoutEndorserInput
+    documents?: DonorDocumentCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSessionsInput = {
@@ -42802,10 +46478,20 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     name?: string | null
     image?: string | null
+    password?: string | null
     role?: $Enums.Role
     referralCode?: string | null
+    bio?: string | null
+    jobTitle?: string | null
+    company?: string | null
+    city?: string | null
+    linkedinUrl?: string | null
+    twitterUrl?: string | null
+    portfolioUrl?: string | null
+    skills?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    aiSummary?: string | null
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     ngo?: NgoUncheckedCreateNestedOneWithoutUserInput
     donations?: DonationUncheckedCreateNestedManyWithoutUserInput
@@ -42820,6 +46506,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutDonorInput
     endorsementsReceived?: DonorEndorsementUncheckedCreateNestedManyWithoutDonorInput
     endorsementsGiven?: DonorEndorsementUncheckedCreateNestedManyWithoutEndorserInput
+    documents?: DonorDocumentUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSessionsInput = {
@@ -42844,10 +46531,20 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     referralCode?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    portfolioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    skills?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUpdateManyWithoutUserNestedInput
     ngo?: NgoUpdateOneWithoutUserNestedInput
     donations?: DonationUpdateManyWithoutUserNestedInput
@@ -42862,6 +46559,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionUpdateManyWithoutDonorNestedInput
     endorsementsReceived?: DonorEndorsementUpdateManyWithoutDonorNestedInput
     endorsementsGiven?: DonorEndorsementUpdateManyWithoutEndorserNestedInput
+    documents?: DonorDocumentUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -42870,10 +46568,20 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     referralCode?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    portfolioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    skills?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     ngo?: NgoUncheckedUpdateOneWithoutUserNestedInput
     donations?: DonationUncheckedUpdateManyWithoutUserNestedInput
@@ -42888,6 +46596,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionUncheckedUpdateManyWithoutDonorNestedInput
     endorsementsReceived?: DonorEndorsementUncheckedUpdateManyWithoutDonorNestedInput
     endorsementsGiven?: DonorEndorsementUncheckedUpdateManyWithoutEndorserNestedInput
+    documents?: DonorDocumentUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type AccountCreateWithoutUserInput = {
@@ -42953,7 +46662,9 @@ export namespace Prisma {
   export type NgoCreateWithoutUserInput = {
     id?: string
     orgName: string
+    ein?: string | null
     regNumber?: string | null
+    state?: string | null
     country?: string | null
     website?: string | null
     description?: string | null
@@ -42964,18 +46675,22 @@ export namespace Prisma {
     rejectReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    aiSummary?: string | null
     projects?: ProjectCreateNestedManyWithoutNgoInput
     expenses?: ExpenseCreateNestedManyWithoutNgoInput
     ratings?: RatingCreateNestedManyWithoutNgoInput
     boardMembers?: BoardMemberCreateNestedManyWithoutNgoInput
     skillContributions?: SkillContributionCreateNestedManyWithoutNgoInput
     donorEndorsements?: DonorEndorsementCreateNestedManyWithoutNgoInput
+    documents?: NgoDocumentCreateNestedManyWithoutNgoInput
   }
 
   export type NgoUncheckedCreateWithoutUserInput = {
     id?: string
     orgName: string
+    ein?: string | null
     regNumber?: string | null
+    state?: string | null
     country?: string | null
     website?: string | null
     description?: string | null
@@ -42986,12 +46701,14 @@ export namespace Prisma {
     rejectReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    aiSummary?: string | null
     projects?: ProjectUncheckedCreateNestedManyWithoutNgoInput
     expenses?: ExpenseUncheckedCreateNestedManyWithoutNgoInput
     ratings?: RatingUncheckedCreateNestedManyWithoutNgoInput
     boardMembers?: BoardMemberUncheckedCreateNestedManyWithoutNgoInput
     skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutNgoInput
     donorEndorsements?: DonorEndorsementUncheckedCreateNestedManyWithoutNgoInput
+    documents?: NgoDocumentUncheckedCreateNestedManyWithoutNgoInput
   }
 
   export type NgoCreateOrConnectWithoutUserInput = {
@@ -43359,6 +47076,36 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type DonorDocumentCreateWithoutUserInput = {
+    id?: string
+    fileName: string
+    category?: string
+    mimeType: string
+    fileSize: number
+    fileData: string
+    createdAt?: Date | string
+  }
+
+  export type DonorDocumentUncheckedCreateWithoutUserInput = {
+    id?: string
+    fileName: string
+    category?: string
+    mimeType: string
+    fileSize: number
+    fileData: string
+    createdAt?: Date | string
+  }
+
+  export type DonorDocumentCreateOrConnectWithoutUserInput = {
+    where: DonorDocumentWhereUniqueInput
+    create: XOR<DonorDocumentCreateWithoutUserInput, DonorDocumentUncheckedCreateWithoutUserInput>
+  }
+
+  export type DonorDocumentCreateManyUserInputEnvelope = {
+    data: DonorDocumentCreateManyUserInput | DonorDocumentCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type AccountUpsertWithWhereUniqueWithoutUserInput = {
     where: AccountWhereUniqueInput
     update: XOR<AccountUpdateWithoutUserInput, AccountUncheckedUpdateWithoutUserInput>
@@ -43433,7 +47180,9 @@ export namespace Prisma {
   export type NgoUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     orgName?: StringFieldUpdateOperationsInput | string
+    ein?: NullableStringFieldUpdateOperationsInput | string | null
     regNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     website?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -43444,18 +47193,22 @@ export namespace Prisma {
     rejectReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
     projects?: ProjectUpdateManyWithoutNgoNestedInput
     expenses?: ExpenseUpdateManyWithoutNgoNestedInput
     ratings?: RatingUpdateManyWithoutNgoNestedInput
     boardMembers?: BoardMemberUpdateManyWithoutNgoNestedInput
     skillContributions?: SkillContributionUpdateManyWithoutNgoNestedInput
     donorEndorsements?: DonorEndorsementUpdateManyWithoutNgoNestedInput
+    documents?: NgoDocumentUpdateManyWithoutNgoNestedInput
   }
 
   export type NgoUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     orgName?: StringFieldUpdateOperationsInput | string
+    ein?: NullableStringFieldUpdateOperationsInput | string | null
     regNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     website?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -43466,12 +47219,14 @@ export namespace Prisma {
     rejectReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
     projects?: ProjectUncheckedUpdateManyWithoutNgoNestedInput
     expenses?: ExpenseUncheckedUpdateManyWithoutNgoNestedInput
     ratings?: RatingUncheckedUpdateManyWithoutNgoNestedInput
     boardMembers?: BoardMemberUncheckedUpdateManyWithoutNgoNestedInput
     skillContributions?: SkillContributionUncheckedUpdateManyWithoutNgoNestedInput
     donorEndorsements?: DonorEndorsementUncheckedUpdateManyWithoutNgoNestedInput
+    documents?: NgoDocumentUncheckedUpdateManyWithoutNgoNestedInput
   }
 
   export type DonationUpsertWithWhereUniqueWithoutUserInput = {
@@ -43806,16 +47561,56 @@ export namespace Prisma {
     data: XOR<DonorEndorsementUpdateManyMutationInput, DonorEndorsementUncheckedUpdateManyWithoutEndorserInput>
   }
 
+  export type DonorDocumentUpsertWithWhereUniqueWithoutUserInput = {
+    where: DonorDocumentWhereUniqueInput
+    update: XOR<DonorDocumentUpdateWithoutUserInput, DonorDocumentUncheckedUpdateWithoutUserInput>
+    create: XOR<DonorDocumentCreateWithoutUserInput, DonorDocumentUncheckedCreateWithoutUserInput>
+  }
+
+  export type DonorDocumentUpdateWithWhereUniqueWithoutUserInput = {
+    where: DonorDocumentWhereUniqueInput
+    data: XOR<DonorDocumentUpdateWithoutUserInput, DonorDocumentUncheckedUpdateWithoutUserInput>
+  }
+
+  export type DonorDocumentUpdateManyWithWhereWithoutUserInput = {
+    where: DonorDocumentScalarWhereInput
+    data: XOR<DonorDocumentUpdateManyMutationInput, DonorDocumentUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type DonorDocumentScalarWhereInput = {
+    AND?: DonorDocumentScalarWhereInput | DonorDocumentScalarWhereInput[]
+    OR?: DonorDocumentScalarWhereInput[]
+    NOT?: DonorDocumentScalarWhereInput | DonorDocumentScalarWhereInput[]
+    id?: StringFilter<"DonorDocument"> | string
+    userId?: StringFilter<"DonorDocument"> | string
+    fileName?: StringFilter<"DonorDocument"> | string
+    category?: StringFilter<"DonorDocument"> | string
+    mimeType?: StringFilter<"DonorDocument"> | string
+    fileSize?: IntFilter<"DonorDocument"> | number
+    fileData?: StringFilter<"DonorDocument"> | string
+    createdAt?: DateTimeFilter<"DonorDocument"> | Date | string
+  }
+
   export type UserCreateWithoutNgoInput = {
     id?: string
     email: string
     emailVerified?: Date | string | null
     name?: string | null
     image?: string | null
+    password?: string | null
     role?: $Enums.Role
     referralCode?: string | null
+    bio?: string | null
+    jobTitle?: string | null
+    company?: string | null
+    city?: string | null
+    linkedinUrl?: string | null
+    twitterUrl?: string | null
+    portfolioUrl?: string | null
+    skills?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    aiSummary?: string | null
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     donations?: DonationCreateNestedManyWithoutUserInput
@@ -43830,6 +47625,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionCreateNestedManyWithoutDonorInput
     endorsementsReceived?: DonorEndorsementCreateNestedManyWithoutDonorInput
     endorsementsGiven?: DonorEndorsementCreateNestedManyWithoutEndorserInput
+    documents?: DonorDocumentCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutNgoInput = {
@@ -43838,10 +47634,20 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     name?: string | null
     image?: string | null
+    password?: string | null
     role?: $Enums.Role
     referralCode?: string | null
+    bio?: string | null
+    jobTitle?: string | null
+    company?: string | null
+    city?: string | null
+    linkedinUrl?: string | null
+    twitterUrl?: string | null
+    portfolioUrl?: string | null
+    skills?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    aiSummary?: string | null
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     donations?: DonationUncheckedCreateNestedManyWithoutUserInput
@@ -43856,6 +47662,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutDonorInput
     endorsementsReceived?: DonorEndorsementUncheckedCreateNestedManyWithoutDonorInput
     endorsementsGiven?: DonorEndorsementUncheckedCreateNestedManyWithoutEndorserInput
+    documents?: DonorDocumentUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutNgoInput = {
@@ -43983,6 +47790,7 @@ export namespace Prisma {
     id?: string
     name: string
     role: string
+    memberType?: string
     bio?: string | null
     linkedinUrl?: string | null
     photoUrl?: string | null
@@ -43995,6 +47803,7 @@ export namespace Prisma {
     id?: string
     name: string
     role: string
+    memberType?: string
     bio?: string | null
     linkedinUrl?: string | null
     photoUrl?: string | null
@@ -44083,6 +47892,38 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type NgoDocumentCreateWithoutNgoInput = {
+    id?: string
+    fileName: string
+    category?: string
+    mimeType: string
+    fileSize: number
+    fileData: string
+    caption?: string | null
+    createdAt?: Date | string
+  }
+
+  export type NgoDocumentUncheckedCreateWithoutNgoInput = {
+    id?: string
+    fileName: string
+    category?: string
+    mimeType: string
+    fileSize: number
+    fileData: string
+    caption?: string | null
+    createdAt?: Date | string
+  }
+
+  export type NgoDocumentCreateOrConnectWithoutNgoInput = {
+    where: NgoDocumentWhereUniqueInput
+    create: XOR<NgoDocumentCreateWithoutNgoInput, NgoDocumentUncheckedCreateWithoutNgoInput>
+  }
+
+  export type NgoDocumentCreateManyNgoInputEnvelope = {
+    data: NgoDocumentCreateManyNgoInput | NgoDocumentCreateManyNgoInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserUpsertWithoutNgoInput = {
     update: XOR<UserUpdateWithoutNgoInput, UserUncheckedUpdateWithoutNgoInput>
     create: XOR<UserCreateWithoutNgoInput, UserUncheckedCreateWithoutNgoInput>
@@ -44100,10 +47941,20 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     referralCode?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    portfolioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    skills?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     donations?: DonationUpdateManyWithoutUserNestedInput
@@ -44118,6 +47969,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionUpdateManyWithoutDonorNestedInput
     endorsementsReceived?: DonorEndorsementUpdateManyWithoutDonorNestedInput
     endorsementsGiven?: DonorEndorsementUpdateManyWithoutEndorserNestedInput
+    documents?: DonorDocumentUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNgoInput = {
@@ -44126,10 +47978,20 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     referralCode?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    portfolioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    skills?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     donations?: DonationUncheckedUpdateManyWithoutUserNestedInput
@@ -44144,6 +48006,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionUncheckedUpdateManyWithoutDonorNestedInput
     endorsementsReceived?: DonorEndorsementUncheckedUpdateManyWithoutDonorNestedInput
     endorsementsGiven?: DonorEndorsementUncheckedUpdateManyWithoutEndorserNestedInput
+    documents?: DonorDocumentUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ProjectUpsertWithWhereUniqueWithoutNgoInput = {
@@ -44255,6 +48118,7 @@ export namespace Prisma {
     ngoId?: StringFilter<"BoardMember"> | string
     name?: StringFilter<"BoardMember"> | string
     role?: StringFilter<"BoardMember"> | string
+    memberType?: StringFilter<"BoardMember"> | string
     bio?: StringNullableFilter<"BoardMember"> | string | null
     linkedinUrl?: StringNullableFilter<"BoardMember"> | string | null
     photoUrl?: StringNullableFilter<"BoardMember"> | string | null
@@ -44295,10 +48159,43 @@ export namespace Prisma {
     data: XOR<DonorEndorsementUpdateManyMutationInput, DonorEndorsementUncheckedUpdateManyWithoutNgoInput>
   }
 
+  export type NgoDocumentUpsertWithWhereUniqueWithoutNgoInput = {
+    where: NgoDocumentWhereUniqueInput
+    update: XOR<NgoDocumentUpdateWithoutNgoInput, NgoDocumentUncheckedUpdateWithoutNgoInput>
+    create: XOR<NgoDocumentCreateWithoutNgoInput, NgoDocumentUncheckedCreateWithoutNgoInput>
+  }
+
+  export type NgoDocumentUpdateWithWhereUniqueWithoutNgoInput = {
+    where: NgoDocumentWhereUniqueInput
+    data: XOR<NgoDocumentUpdateWithoutNgoInput, NgoDocumentUncheckedUpdateWithoutNgoInput>
+  }
+
+  export type NgoDocumentUpdateManyWithWhereWithoutNgoInput = {
+    where: NgoDocumentScalarWhereInput
+    data: XOR<NgoDocumentUpdateManyMutationInput, NgoDocumentUncheckedUpdateManyWithoutNgoInput>
+  }
+
+  export type NgoDocumentScalarWhereInput = {
+    AND?: NgoDocumentScalarWhereInput | NgoDocumentScalarWhereInput[]
+    OR?: NgoDocumentScalarWhereInput[]
+    NOT?: NgoDocumentScalarWhereInput | NgoDocumentScalarWhereInput[]
+    id?: StringFilter<"NgoDocument"> | string
+    ngoId?: StringFilter<"NgoDocument"> | string
+    fileName?: StringFilter<"NgoDocument"> | string
+    category?: StringFilter<"NgoDocument"> | string
+    mimeType?: StringFilter<"NgoDocument"> | string
+    fileSize?: IntFilter<"NgoDocument"> | number
+    fileData?: StringFilter<"NgoDocument"> | string
+    caption?: StringNullableFilter<"NgoDocument"> | string | null
+    createdAt?: DateTimeFilter<"NgoDocument"> | Date | string
+  }
+
   export type NgoCreateWithoutProjectsInput = {
     id?: string
     orgName: string
+    ein?: string | null
     regNumber?: string | null
+    state?: string | null
     country?: string | null
     website?: string | null
     description?: string | null
@@ -44309,19 +48206,23 @@ export namespace Prisma {
     rejectReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    aiSummary?: string | null
     user: UserCreateNestedOneWithoutNgoInput
     expenses?: ExpenseCreateNestedManyWithoutNgoInput
     ratings?: RatingCreateNestedManyWithoutNgoInput
     boardMembers?: BoardMemberCreateNestedManyWithoutNgoInput
     skillContributions?: SkillContributionCreateNestedManyWithoutNgoInput
     donorEndorsements?: DonorEndorsementCreateNestedManyWithoutNgoInput
+    documents?: NgoDocumentCreateNestedManyWithoutNgoInput
   }
 
   export type NgoUncheckedCreateWithoutProjectsInput = {
     id?: string
     userId: string
     orgName: string
+    ein?: string | null
     regNumber?: string | null
+    state?: string | null
     country?: string | null
     website?: string | null
     description?: string | null
@@ -44332,11 +48233,13 @@ export namespace Prisma {
     rejectReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    aiSummary?: string | null
     expenses?: ExpenseUncheckedCreateNestedManyWithoutNgoInput
     ratings?: RatingUncheckedCreateNestedManyWithoutNgoInput
     boardMembers?: BoardMemberUncheckedCreateNestedManyWithoutNgoInput
     skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutNgoInput
     donorEndorsements?: DonorEndorsementUncheckedCreateNestedManyWithoutNgoInput
+    documents?: NgoDocumentUncheckedCreateNestedManyWithoutNgoInput
   }
 
   export type NgoCreateOrConnectWithoutProjectsInput = {
@@ -44580,7 +48483,9 @@ export namespace Prisma {
   export type NgoUpdateWithoutProjectsInput = {
     id?: StringFieldUpdateOperationsInput | string
     orgName?: StringFieldUpdateOperationsInput | string
+    ein?: NullableStringFieldUpdateOperationsInput | string | null
     regNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     website?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -44591,19 +48496,23 @@ export namespace Prisma {
     rejectReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
     user?: UserUpdateOneRequiredWithoutNgoNestedInput
     expenses?: ExpenseUpdateManyWithoutNgoNestedInput
     ratings?: RatingUpdateManyWithoutNgoNestedInput
     boardMembers?: BoardMemberUpdateManyWithoutNgoNestedInput
     skillContributions?: SkillContributionUpdateManyWithoutNgoNestedInput
     donorEndorsements?: DonorEndorsementUpdateManyWithoutNgoNestedInput
+    documents?: NgoDocumentUpdateManyWithoutNgoNestedInput
   }
 
   export type NgoUncheckedUpdateWithoutProjectsInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     orgName?: StringFieldUpdateOperationsInput | string
+    ein?: NullableStringFieldUpdateOperationsInput | string | null
     regNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     website?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -44614,11 +48523,13 @@ export namespace Prisma {
     rejectReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
     expenses?: ExpenseUncheckedUpdateManyWithoutNgoNestedInput
     ratings?: RatingUncheckedUpdateManyWithoutNgoNestedInput
     boardMembers?: BoardMemberUncheckedUpdateManyWithoutNgoNestedInput
     skillContributions?: SkillContributionUncheckedUpdateManyWithoutNgoNestedInput
     donorEndorsements?: DonorEndorsementUncheckedUpdateManyWithoutNgoNestedInput
+    documents?: NgoDocumentUncheckedUpdateManyWithoutNgoNestedInput
   }
 
   export type MilestoneUpsertWithWhereUniqueWithoutProjectInput = {
@@ -45225,10 +49136,20 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     name?: string | null
     image?: string | null
+    password?: string | null
     role?: $Enums.Role
     referralCode?: string | null
+    bio?: string | null
+    jobTitle?: string | null
+    company?: string | null
+    city?: string | null
+    linkedinUrl?: string | null
+    twitterUrl?: string | null
+    portfolioUrl?: string | null
+    skills?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    aiSummary?: string | null
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     ngo?: NgoCreateNestedOneWithoutUserInput
@@ -45243,6 +49164,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionCreateNestedManyWithoutDonorInput
     endorsementsReceived?: DonorEndorsementCreateNestedManyWithoutDonorInput
     endorsementsGiven?: DonorEndorsementCreateNestedManyWithoutEndorserInput
+    documents?: DonorDocumentCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutDonationsInput = {
@@ -45251,10 +49173,20 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     name?: string | null
     image?: string | null
+    password?: string | null
     role?: $Enums.Role
     referralCode?: string | null
+    bio?: string | null
+    jobTitle?: string | null
+    company?: string | null
+    city?: string | null
+    linkedinUrl?: string | null
+    twitterUrl?: string | null
+    portfolioUrl?: string | null
+    skills?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    aiSummary?: string | null
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ngo?: NgoUncheckedCreateNestedOneWithoutUserInput
@@ -45269,6 +49201,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutDonorInput
     endorsementsReceived?: DonorEndorsementUncheckedCreateNestedManyWithoutDonorInput
     endorsementsGiven?: DonorEndorsementUncheckedCreateNestedManyWithoutEndorserInput
+    documents?: DonorDocumentUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutDonationsInput = {
@@ -45371,10 +49304,20 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     referralCode?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    portfolioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    skills?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ngo?: NgoUpdateOneWithoutUserNestedInput
@@ -45389,6 +49332,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionUpdateManyWithoutDonorNestedInput
     endorsementsReceived?: DonorEndorsementUpdateManyWithoutDonorNestedInput
     endorsementsGiven?: DonorEndorsementUpdateManyWithoutEndorserNestedInput
+    documents?: DonorDocumentUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDonationsInput = {
@@ -45397,10 +49341,20 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     referralCode?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    portfolioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    skills?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ngo?: NgoUncheckedUpdateOneWithoutUserNestedInput
@@ -45415,6 +49369,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionUncheckedUpdateManyWithoutDonorNestedInput
     endorsementsReceived?: DonorEndorsementUncheckedUpdateManyWithoutDonorNestedInput
     endorsementsGiven?: DonorEndorsementUncheckedUpdateManyWithoutEndorserNestedInput
+    documents?: DonorDocumentUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ProjectUpsertWithoutDonationsInput = {
@@ -45658,7 +49613,9 @@ export namespace Prisma {
   export type NgoCreateWithoutExpensesInput = {
     id?: string
     orgName: string
+    ein?: string | null
     regNumber?: string | null
+    state?: string | null
     country?: string | null
     website?: string | null
     description?: string | null
@@ -45669,19 +49626,23 @@ export namespace Prisma {
     rejectReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    aiSummary?: string | null
     user: UserCreateNestedOneWithoutNgoInput
     projects?: ProjectCreateNestedManyWithoutNgoInput
     ratings?: RatingCreateNestedManyWithoutNgoInput
     boardMembers?: BoardMemberCreateNestedManyWithoutNgoInput
     skillContributions?: SkillContributionCreateNestedManyWithoutNgoInput
     donorEndorsements?: DonorEndorsementCreateNestedManyWithoutNgoInput
+    documents?: NgoDocumentCreateNestedManyWithoutNgoInput
   }
 
   export type NgoUncheckedCreateWithoutExpensesInput = {
     id?: string
     userId: string
     orgName: string
+    ein?: string | null
     regNumber?: string | null
+    state?: string | null
     country?: string | null
     website?: string | null
     description?: string | null
@@ -45692,11 +49653,13 @@ export namespace Prisma {
     rejectReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    aiSummary?: string | null
     projects?: ProjectUncheckedCreateNestedManyWithoutNgoInput
     ratings?: RatingUncheckedCreateNestedManyWithoutNgoInput
     boardMembers?: BoardMemberUncheckedCreateNestedManyWithoutNgoInput
     skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutNgoInput
     donorEndorsements?: DonorEndorsementUncheckedCreateNestedManyWithoutNgoInput
+    documents?: NgoDocumentUncheckedCreateNestedManyWithoutNgoInput
   }
 
   export type NgoCreateOrConnectWithoutExpensesInput = {
@@ -45771,7 +49734,9 @@ export namespace Prisma {
   export type NgoUpdateWithoutExpensesInput = {
     id?: StringFieldUpdateOperationsInput | string
     orgName?: StringFieldUpdateOperationsInput | string
+    ein?: NullableStringFieldUpdateOperationsInput | string | null
     regNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     website?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -45782,19 +49747,23 @@ export namespace Prisma {
     rejectReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
     user?: UserUpdateOneRequiredWithoutNgoNestedInput
     projects?: ProjectUpdateManyWithoutNgoNestedInput
     ratings?: RatingUpdateManyWithoutNgoNestedInput
     boardMembers?: BoardMemberUpdateManyWithoutNgoNestedInput
     skillContributions?: SkillContributionUpdateManyWithoutNgoNestedInput
     donorEndorsements?: DonorEndorsementUpdateManyWithoutNgoNestedInput
+    documents?: NgoDocumentUpdateManyWithoutNgoNestedInput
   }
 
   export type NgoUncheckedUpdateWithoutExpensesInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     orgName?: StringFieldUpdateOperationsInput | string
+    ein?: NullableStringFieldUpdateOperationsInput | string | null
     regNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     website?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -45805,11 +49774,13 @@ export namespace Prisma {
     rejectReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
     projects?: ProjectUncheckedUpdateManyWithoutNgoNestedInput
     ratings?: RatingUncheckedUpdateManyWithoutNgoNestedInput
     boardMembers?: BoardMemberUncheckedUpdateManyWithoutNgoNestedInput
     skillContributions?: SkillContributionUncheckedUpdateManyWithoutNgoNestedInput
     donorEndorsements?: DonorEndorsementUncheckedUpdateManyWithoutNgoNestedInput
+    documents?: NgoDocumentUncheckedUpdateManyWithoutNgoNestedInput
   }
 
   export type ProjectUpsertWithoutExpensesInput = {
@@ -46017,10 +49988,20 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     name?: string | null
     image?: string | null
+    password?: string | null
     role?: $Enums.Role
     referralCode?: string | null
+    bio?: string | null
+    jobTitle?: string | null
+    company?: string | null
+    city?: string | null
+    linkedinUrl?: string | null
+    twitterUrl?: string | null
+    portfolioUrl?: string | null
+    skills?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    aiSummary?: string | null
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     ngo?: NgoCreateNestedOneWithoutUserInput
@@ -46035,6 +50016,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionCreateNestedManyWithoutDonorInput
     endorsementsReceived?: DonorEndorsementCreateNestedManyWithoutDonorInput
     endorsementsGiven?: DonorEndorsementCreateNestedManyWithoutEndorserInput
+    documents?: DonorDocumentCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutRatingsInput = {
@@ -46043,10 +50025,20 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     name?: string | null
     image?: string | null
+    password?: string | null
     role?: $Enums.Role
     referralCode?: string | null
+    bio?: string | null
+    jobTitle?: string | null
+    company?: string | null
+    city?: string | null
+    linkedinUrl?: string | null
+    twitterUrl?: string | null
+    portfolioUrl?: string | null
+    skills?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    aiSummary?: string | null
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ngo?: NgoUncheckedCreateNestedOneWithoutUserInput
@@ -46061,6 +50053,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutDonorInput
     endorsementsReceived?: DonorEndorsementUncheckedCreateNestedManyWithoutDonorInput
     endorsementsGiven?: DonorEndorsementUncheckedCreateNestedManyWithoutEndorserInput
+    documents?: DonorDocumentUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutRatingsInput = {
@@ -46071,7 +50064,9 @@ export namespace Prisma {
   export type NgoCreateWithoutRatingsInput = {
     id?: string
     orgName: string
+    ein?: string | null
     regNumber?: string | null
+    state?: string | null
     country?: string | null
     website?: string | null
     description?: string | null
@@ -46082,19 +50077,23 @@ export namespace Prisma {
     rejectReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    aiSummary?: string | null
     user: UserCreateNestedOneWithoutNgoInput
     projects?: ProjectCreateNestedManyWithoutNgoInput
     expenses?: ExpenseCreateNestedManyWithoutNgoInput
     boardMembers?: BoardMemberCreateNestedManyWithoutNgoInput
     skillContributions?: SkillContributionCreateNestedManyWithoutNgoInput
     donorEndorsements?: DonorEndorsementCreateNestedManyWithoutNgoInput
+    documents?: NgoDocumentCreateNestedManyWithoutNgoInput
   }
 
   export type NgoUncheckedCreateWithoutRatingsInput = {
     id?: string
     userId: string
     orgName: string
+    ein?: string | null
     regNumber?: string | null
+    state?: string | null
     country?: string | null
     website?: string | null
     description?: string | null
@@ -46105,11 +50104,13 @@ export namespace Prisma {
     rejectReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    aiSummary?: string | null
     projects?: ProjectUncheckedCreateNestedManyWithoutNgoInput
     expenses?: ExpenseUncheckedCreateNestedManyWithoutNgoInput
     boardMembers?: BoardMemberUncheckedCreateNestedManyWithoutNgoInput
     skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutNgoInput
     donorEndorsements?: DonorEndorsementUncheckedCreateNestedManyWithoutNgoInput
+    documents?: NgoDocumentUncheckedCreateNestedManyWithoutNgoInput
   }
 
   export type NgoCreateOrConnectWithoutRatingsInput = {
@@ -46134,10 +50135,20 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     referralCode?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    portfolioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    skills?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ngo?: NgoUpdateOneWithoutUserNestedInput
@@ -46152,6 +50163,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionUpdateManyWithoutDonorNestedInput
     endorsementsReceived?: DonorEndorsementUpdateManyWithoutDonorNestedInput
     endorsementsGiven?: DonorEndorsementUpdateManyWithoutEndorserNestedInput
+    documents?: DonorDocumentUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRatingsInput = {
@@ -46160,10 +50172,20 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     referralCode?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    portfolioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    skills?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ngo?: NgoUncheckedUpdateOneWithoutUserNestedInput
@@ -46178,6 +50200,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionUncheckedUpdateManyWithoutDonorNestedInput
     endorsementsReceived?: DonorEndorsementUncheckedUpdateManyWithoutDonorNestedInput
     endorsementsGiven?: DonorEndorsementUncheckedUpdateManyWithoutEndorserNestedInput
+    documents?: DonorDocumentUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type NgoUpsertWithoutRatingsInput = {
@@ -46194,7 +50217,9 @@ export namespace Prisma {
   export type NgoUpdateWithoutRatingsInput = {
     id?: StringFieldUpdateOperationsInput | string
     orgName?: StringFieldUpdateOperationsInput | string
+    ein?: NullableStringFieldUpdateOperationsInput | string | null
     regNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     website?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -46205,19 +50230,23 @@ export namespace Prisma {
     rejectReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
     user?: UserUpdateOneRequiredWithoutNgoNestedInput
     projects?: ProjectUpdateManyWithoutNgoNestedInput
     expenses?: ExpenseUpdateManyWithoutNgoNestedInput
     boardMembers?: BoardMemberUpdateManyWithoutNgoNestedInput
     skillContributions?: SkillContributionUpdateManyWithoutNgoNestedInput
     donorEndorsements?: DonorEndorsementUpdateManyWithoutNgoNestedInput
+    documents?: NgoDocumentUpdateManyWithoutNgoNestedInput
   }
 
   export type NgoUncheckedUpdateWithoutRatingsInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     orgName?: StringFieldUpdateOperationsInput | string
+    ein?: NullableStringFieldUpdateOperationsInput | string | null
     regNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     website?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -46228,11 +50257,13 @@ export namespace Prisma {
     rejectReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
     projects?: ProjectUncheckedUpdateManyWithoutNgoNestedInput
     expenses?: ExpenseUncheckedUpdateManyWithoutNgoNestedInput
     boardMembers?: BoardMemberUncheckedUpdateManyWithoutNgoNestedInput
     skillContributions?: SkillContributionUncheckedUpdateManyWithoutNgoNestedInput
     donorEndorsements?: DonorEndorsementUncheckedUpdateManyWithoutNgoNestedInput
+    documents?: NgoDocumentUncheckedUpdateManyWithoutNgoNestedInput
   }
 
   export type UserCreateWithoutNotificationsInput = {
@@ -46241,10 +50272,20 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     name?: string | null
     image?: string | null
+    password?: string | null
     role?: $Enums.Role
     referralCode?: string | null
+    bio?: string | null
+    jobTitle?: string | null
+    company?: string | null
+    city?: string | null
+    linkedinUrl?: string | null
+    twitterUrl?: string | null
+    portfolioUrl?: string | null
+    skills?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    aiSummary?: string | null
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     ngo?: NgoCreateNestedOneWithoutUserInput
@@ -46259,6 +50300,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionCreateNestedManyWithoutDonorInput
     endorsementsReceived?: DonorEndorsementCreateNestedManyWithoutDonorInput
     endorsementsGiven?: DonorEndorsementCreateNestedManyWithoutEndorserInput
+    documents?: DonorDocumentCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -46267,10 +50309,20 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     name?: string | null
     image?: string | null
+    password?: string | null
     role?: $Enums.Role
     referralCode?: string | null
+    bio?: string | null
+    jobTitle?: string | null
+    company?: string | null
+    city?: string | null
+    linkedinUrl?: string | null
+    twitterUrl?: string | null
+    portfolioUrl?: string | null
+    skills?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    aiSummary?: string | null
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ngo?: NgoUncheckedCreateNestedOneWithoutUserInput
@@ -46285,6 +50337,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutDonorInput
     endorsementsReceived?: DonorEndorsementUncheckedCreateNestedManyWithoutDonorInput
     endorsementsGiven?: DonorEndorsementUncheckedCreateNestedManyWithoutEndorserInput
+    documents?: DonorDocumentUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -46309,10 +50362,20 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     referralCode?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    portfolioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    skills?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ngo?: NgoUpdateOneWithoutUserNestedInput
@@ -46327,6 +50390,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionUpdateManyWithoutDonorNestedInput
     endorsementsReceived?: DonorEndorsementUpdateManyWithoutDonorNestedInput
     endorsementsGiven?: DonorEndorsementUpdateManyWithoutEndorserNestedInput
+    documents?: DonorDocumentUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -46335,10 +50399,20 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     referralCode?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    portfolioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    skills?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ngo?: NgoUncheckedUpdateOneWithoutUserNestedInput
@@ -46353,6 +50427,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionUncheckedUpdateManyWithoutDonorNestedInput
     endorsementsReceived?: DonorEndorsementUncheckedUpdateManyWithoutDonorNestedInput
     endorsementsGiven?: DonorEndorsementUncheckedUpdateManyWithoutEndorserNestedInput
+    documents?: DonorDocumentUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutSpotlightVotesInput = {
@@ -46361,10 +50436,20 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     name?: string | null
     image?: string | null
+    password?: string | null
     role?: $Enums.Role
     referralCode?: string | null
+    bio?: string | null
+    jobTitle?: string | null
+    company?: string | null
+    city?: string | null
+    linkedinUrl?: string | null
+    twitterUrl?: string | null
+    portfolioUrl?: string | null
+    skills?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    aiSummary?: string | null
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     ngo?: NgoCreateNestedOneWithoutUserInput
@@ -46379,6 +50464,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionCreateNestedManyWithoutDonorInput
     endorsementsReceived?: DonorEndorsementCreateNestedManyWithoutDonorInput
     endorsementsGiven?: DonorEndorsementCreateNestedManyWithoutEndorserInput
+    documents?: DonorDocumentCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSpotlightVotesInput = {
@@ -46387,10 +50473,20 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     name?: string | null
     image?: string | null
+    password?: string | null
     role?: $Enums.Role
     referralCode?: string | null
+    bio?: string | null
+    jobTitle?: string | null
+    company?: string | null
+    city?: string | null
+    linkedinUrl?: string | null
+    twitterUrl?: string | null
+    portfolioUrl?: string | null
+    skills?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    aiSummary?: string | null
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ngo?: NgoUncheckedCreateNestedOneWithoutUserInput
@@ -46405,6 +50501,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutDonorInput
     endorsementsReceived?: DonorEndorsementUncheckedCreateNestedManyWithoutDonorInput
     endorsementsGiven?: DonorEndorsementUncheckedCreateNestedManyWithoutEndorserInput
+    documents?: DonorDocumentUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSpotlightVotesInput = {
@@ -46482,10 +50579,20 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     referralCode?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    portfolioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    skills?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ngo?: NgoUpdateOneWithoutUserNestedInput
@@ -46500,6 +50607,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionUpdateManyWithoutDonorNestedInput
     endorsementsReceived?: DonorEndorsementUpdateManyWithoutDonorNestedInput
     endorsementsGiven?: DonorEndorsementUpdateManyWithoutEndorserNestedInput
+    documents?: DonorDocumentUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSpotlightVotesInput = {
@@ -46508,10 +50616,20 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     referralCode?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    portfolioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    skills?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ngo?: NgoUncheckedUpdateOneWithoutUserNestedInput
@@ -46526,6 +50644,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionUncheckedUpdateManyWithoutDonorNestedInput
     endorsementsReceived?: DonorEndorsementUncheckedUpdateManyWithoutDonorNestedInput
     endorsementsGiven?: DonorEndorsementUncheckedUpdateManyWithoutEndorserNestedInput
+    documents?: DonorDocumentUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ProjectUpsertWithoutSpotlightVotesInput = {
@@ -46593,10 +50712,20 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     name?: string | null
     image?: string | null
+    password?: string | null
     role?: $Enums.Role
     referralCode?: string | null
+    bio?: string | null
+    jobTitle?: string | null
+    company?: string | null
+    city?: string | null
+    linkedinUrl?: string | null
+    twitterUrl?: string | null
+    portfolioUrl?: string | null
+    skills?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    aiSummary?: string | null
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     ngo?: NgoCreateNestedOneWithoutUserInput
@@ -46611,6 +50740,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionCreateNestedManyWithoutDonorInput
     endorsementsReceived?: DonorEndorsementCreateNestedManyWithoutDonorInput
     endorsementsGiven?: DonorEndorsementCreateNestedManyWithoutEndorserInput
+    documents?: DonorDocumentCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCampaignsCreatedInput = {
@@ -46619,10 +50749,20 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     name?: string | null
     image?: string | null
+    password?: string | null
     role?: $Enums.Role
     referralCode?: string | null
+    bio?: string | null
+    jobTitle?: string | null
+    company?: string | null
+    city?: string | null
+    linkedinUrl?: string | null
+    twitterUrl?: string | null
+    portfolioUrl?: string | null
+    skills?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    aiSummary?: string | null
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ngo?: NgoUncheckedCreateNestedOneWithoutUserInput
@@ -46637,6 +50777,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutDonorInput
     endorsementsReceived?: DonorEndorsementUncheckedCreateNestedManyWithoutDonorInput
     endorsementsGiven?: DonorEndorsementUncheckedCreateNestedManyWithoutEndorserInput
+    documents?: DonorDocumentUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCampaignsCreatedInput = {
@@ -46738,10 +50879,20 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     referralCode?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    portfolioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    skills?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ngo?: NgoUpdateOneWithoutUserNestedInput
@@ -46756,6 +50907,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionUpdateManyWithoutDonorNestedInput
     endorsementsReceived?: DonorEndorsementUpdateManyWithoutDonorNestedInput
     endorsementsGiven?: DonorEndorsementUpdateManyWithoutEndorserNestedInput
+    documents?: DonorDocumentUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCampaignsCreatedInput = {
@@ -46764,10 +50916,20 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     referralCode?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    portfolioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    skills?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ngo?: NgoUncheckedUpdateOneWithoutUserNestedInput
@@ -46782,6 +50944,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionUncheckedUpdateManyWithoutDonorNestedInput
     endorsementsReceived?: DonorEndorsementUncheckedUpdateManyWithoutDonorNestedInput
     endorsementsGiven?: DonorEndorsementUncheckedUpdateManyWithoutEndorserNestedInput
+    documents?: DonorDocumentUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ProjectUpsertWithoutCampaignsInput = {
@@ -46898,10 +51061,20 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     name?: string | null
     image?: string | null
+    password?: string | null
     role?: $Enums.Role
     referralCode?: string | null
+    bio?: string | null
+    jobTitle?: string | null
+    company?: string | null
+    city?: string | null
+    linkedinUrl?: string | null
+    twitterUrl?: string | null
+    portfolioUrl?: string | null
+    skills?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    aiSummary?: string | null
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     ngo?: NgoCreateNestedOneWithoutUserInput
@@ -46916,6 +51089,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionCreateNestedManyWithoutDonorInput
     endorsementsReceived?: DonorEndorsementCreateNestedManyWithoutDonorInput
     endorsementsGiven?: DonorEndorsementCreateNestedManyWithoutEndorserInput
+    documents?: DonorDocumentCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCampaignContributionsInput = {
@@ -46924,10 +51098,20 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     name?: string | null
     image?: string | null
+    password?: string | null
     role?: $Enums.Role
     referralCode?: string | null
+    bio?: string | null
+    jobTitle?: string | null
+    company?: string | null
+    city?: string | null
+    linkedinUrl?: string | null
+    twitterUrl?: string | null
+    portfolioUrl?: string | null
+    skills?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    aiSummary?: string | null
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ngo?: NgoUncheckedCreateNestedOneWithoutUserInput
@@ -46942,6 +51126,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutDonorInput
     endorsementsReceived?: DonorEndorsementUncheckedCreateNestedManyWithoutDonorInput
     endorsementsGiven?: DonorEndorsementUncheckedCreateNestedManyWithoutEndorserInput
+    documents?: DonorDocumentUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCampaignContributionsInput = {
@@ -47005,10 +51190,20 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     referralCode?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    portfolioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    skills?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ngo?: NgoUpdateOneWithoutUserNestedInput
@@ -47023,6 +51218,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionUpdateManyWithoutDonorNestedInput
     endorsementsReceived?: DonorEndorsementUpdateManyWithoutDonorNestedInput
     endorsementsGiven?: DonorEndorsementUpdateManyWithoutEndorserNestedInput
+    documents?: DonorDocumentUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCampaignContributionsInput = {
@@ -47031,10 +51227,20 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     referralCode?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    portfolioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    skills?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ngo?: NgoUncheckedUpdateOneWithoutUserNestedInput
@@ -47049,6 +51255,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionUncheckedUpdateManyWithoutDonorNestedInput
     endorsementsReceived?: DonorEndorsementUncheckedUpdateManyWithoutDonorNestedInput
     endorsementsGiven?: DonorEndorsementUncheckedUpdateManyWithoutEndorserNestedInput
+    documents?: DonorDocumentUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutNgoSuggestionsInput = {
@@ -47057,10 +51264,20 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     name?: string | null
     image?: string | null
+    password?: string | null
     role?: $Enums.Role
     referralCode?: string | null
+    bio?: string | null
+    jobTitle?: string | null
+    company?: string | null
+    city?: string | null
+    linkedinUrl?: string | null
+    twitterUrl?: string | null
+    portfolioUrl?: string | null
+    skills?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    aiSummary?: string | null
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     ngo?: NgoCreateNestedOneWithoutUserInput
@@ -47075,6 +51292,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionCreateNestedManyWithoutDonorInput
     endorsementsReceived?: DonorEndorsementCreateNestedManyWithoutDonorInput
     endorsementsGiven?: DonorEndorsementCreateNestedManyWithoutEndorserInput
+    documents?: DonorDocumentCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutNgoSuggestionsInput = {
@@ -47083,10 +51301,20 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     name?: string | null
     image?: string | null
+    password?: string | null
     role?: $Enums.Role
     referralCode?: string | null
+    bio?: string | null
+    jobTitle?: string | null
+    company?: string | null
+    city?: string | null
+    linkedinUrl?: string | null
+    twitterUrl?: string | null
+    portfolioUrl?: string | null
+    skills?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    aiSummary?: string | null
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ngo?: NgoUncheckedCreateNestedOneWithoutUserInput
@@ -47101,6 +51329,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutDonorInput
     endorsementsReceived?: DonorEndorsementUncheckedCreateNestedManyWithoutDonorInput
     endorsementsGiven?: DonorEndorsementUncheckedCreateNestedManyWithoutEndorserInput
+    documents?: DonorDocumentUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutNgoSuggestionsInput = {
@@ -47125,10 +51354,20 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     referralCode?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    portfolioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    skills?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ngo?: NgoUpdateOneWithoutUserNestedInput
@@ -47143,6 +51382,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionUpdateManyWithoutDonorNestedInput
     endorsementsReceived?: DonorEndorsementUpdateManyWithoutDonorNestedInput
     endorsementsGiven?: DonorEndorsementUpdateManyWithoutEndorserNestedInput
+    documents?: DonorDocumentUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNgoSuggestionsInput = {
@@ -47151,10 +51391,20 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     referralCode?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    portfolioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    skills?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ngo?: NgoUncheckedUpdateOneWithoutUserNestedInput
@@ -47169,6 +51419,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionUncheckedUpdateManyWithoutDonorNestedInput
     endorsementsReceived?: DonorEndorsementUncheckedUpdateManyWithoutDonorNestedInput
     endorsementsGiven?: DonorEndorsementUncheckedUpdateManyWithoutEndorserNestedInput
+    documents?: DonorDocumentUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutReferralsMadeInput = {
@@ -47177,10 +51428,20 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     name?: string | null
     image?: string | null
+    password?: string | null
     role?: $Enums.Role
     referralCode?: string | null
+    bio?: string | null
+    jobTitle?: string | null
+    company?: string | null
+    city?: string | null
+    linkedinUrl?: string | null
+    twitterUrl?: string | null
+    portfolioUrl?: string | null
+    skills?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    aiSummary?: string | null
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     ngo?: NgoCreateNestedOneWithoutUserInput
@@ -47195,6 +51456,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionCreateNestedManyWithoutDonorInput
     endorsementsReceived?: DonorEndorsementCreateNestedManyWithoutDonorInput
     endorsementsGiven?: DonorEndorsementCreateNestedManyWithoutEndorserInput
+    documents?: DonorDocumentCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutReferralsMadeInput = {
@@ -47203,10 +51465,20 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     name?: string | null
     image?: string | null
+    password?: string | null
     role?: $Enums.Role
     referralCode?: string | null
+    bio?: string | null
+    jobTitle?: string | null
+    company?: string | null
+    city?: string | null
+    linkedinUrl?: string | null
+    twitterUrl?: string | null
+    portfolioUrl?: string | null
+    skills?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    aiSummary?: string | null
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ngo?: NgoUncheckedCreateNestedOneWithoutUserInput
@@ -47221,6 +51493,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutDonorInput
     endorsementsReceived?: DonorEndorsementUncheckedCreateNestedManyWithoutDonorInput
     endorsementsGiven?: DonorEndorsementUncheckedCreateNestedManyWithoutEndorserInput
+    documents?: DonorDocumentUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutReferralsMadeInput = {
@@ -47234,10 +51507,20 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     name?: string | null
     image?: string | null
+    password?: string | null
     role?: $Enums.Role
     referralCode?: string | null
+    bio?: string | null
+    jobTitle?: string | null
+    company?: string | null
+    city?: string | null
+    linkedinUrl?: string | null
+    twitterUrl?: string | null
+    portfolioUrl?: string | null
+    skills?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    aiSummary?: string | null
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     ngo?: NgoCreateNestedOneWithoutUserInput
@@ -47252,6 +51535,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionCreateNestedManyWithoutDonorInput
     endorsementsReceived?: DonorEndorsementCreateNestedManyWithoutDonorInput
     endorsementsGiven?: DonorEndorsementCreateNestedManyWithoutEndorserInput
+    documents?: DonorDocumentCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutReferralsReceivedInput = {
@@ -47260,10 +51544,20 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     name?: string | null
     image?: string | null
+    password?: string | null
     role?: $Enums.Role
     referralCode?: string | null
+    bio?: string | null
+    jobTitle?: string | null
+    company?: string | null
+    city?: string | null
+    linkedinUrl?: string | null
+    twitterUrl?: string | null
+    portfolioUrl?: string | null
+    skills?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    aiSummary?: string | null
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ngo?: NgoUncheckedCreateNestedOneWithoutUserInput
@@ -47278,6 +51572,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutDonorInput
     endorsementsReceived?: DonorEndorsementUncheckedCreateNestedManyWithoutDonorInput
     endorsementsGiven?: DonorEndorsementUncheckedCreateNestedManyWithoutEndorserInput
+    documents?: DonorDocumentUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutReferralsReceivedInput = {
@@ -47302,10 +51597,20 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     referralCode?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    portfolioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    skills?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ngo?: NgoUpdateOneWithoutUserNestedInput
@@ -47320,6 +51625,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionUpdateManyWithoutDonorNestedInput
     endorsementsReceived?: DonorEndorsementUpdateManyWithoutDonorNestedInput
     endorsementsGiven?: DonorEndorsementUpdateManyWithoutEndorserNestedInput
+    documents?: DonorDocumentUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReferralsMadeInput = {
@@ -47328,10 +51634,20 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     referralCode?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    portfolioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    skills?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ngo?: NgoUncheckedUpdateOneWithoutUserNestedInput
@@ -47346,6 +51662,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionUncheckedUpdateManyWithoutDonorNestedInput
     endorsementsReceived?: DonorEndorsementUncheckedUpdateManyWithoutDonorNestedInput
     endorsementsGiven?: DonorEndorsementUncheckedUpdateManyWithoutEndorserNestedInput
+    documents?: DonorDocumentUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUpsertWithoutReferralsReceivedInput = {
@@ -47365,10 +51682,20 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     referralCode?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    portfolioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    skills?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ngo?: NgoUpdateOneWithoutUserNestedInput
@@ -47383,6 +51710,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionUpdateManyWithoutDonorNestedInput
     endorsementsReceived?: DonorEndorsementUpdateManyWithoutDonorNestedInput
     endorsementsGiven?: DonorEndorsementUpdateManyWithoutEndorserNestedInput
+    documents?: DonorDocumentUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReferralsReceivedInput = {
@@ -47391,10 +51719,20 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     referralCode?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    portfolioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    skills?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ngo?: NgoUncheckedUpdateOneWithoutUserNestedInput
@@ -47409,12 +51747,15 @@ export namespace Prisma {
     skillContributions?: SkillContributionUncheckedUpdateManyWithoutDonorNestedInput
     endorsementsReceived?: DonorEndorsementUncheckedUpdateManyWithoutDonorNestedInput
     endorsementsGiven?: DonorEndorsementUncheckedUpdateManyWithoutEndorserNestedInput
+    documents?: DonorDocumentUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type NgoCreateWithoutBoardMembersInput = {
     id?: string
     orgName: string
+    ein?: string | null
     regNumber?: string | null
+    state?: string | null
     country?: string | null
     website?: string | null
     description?: string | null
@@ -47425,19 +51766,23 @@ export namespace Prisma {
     rejectReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    aiSummary?: string | null
     user: UserCreateNestedOneWithoutNgoInput
     projects?: ProjectCreateNestedManyWithoutNgoInput
     expenses?: ExpenseCreateNestedManyWithoutNgoInput
     ratings?: RatingCreateNestedManyWithoutNgoInput
     skillContributions?: SkillContributionCreateNestedManyWithoutNgoInput
     donorEndorsements?: DonorEndorsementCreateNestedManyWithoutNgoInput
+    documents?: NgoDocumentCreateNestedManyWithoutNgoInput
   }
 
   export type NgoUncheckedCreateWithoutBoardMembersInput = {
     id?: string
     userId: string
     orgName: string
+    ein?: string | null
     regNumber?: string | null
+    state?: string | null
     country?: string | null
     website?: string | null
     description?: string | null
@@ -47448,11 +51793,13 @@ export namespace Prisma {
     rejectReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    aiSummary?: string | null
     projects?: ProjectUncheckedCreateNestedManyWithoutNgoInput
     expenses?: ExpenseUncheckedCreateNestedManyWithoutNgoInput
     ratings?: RatingUncheckedCreateNestedManyWithoutNgoInput
     skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutNgoInput
     donorEndorsements?: DonorEndorsementUncheckedCreateNestedManyWithoutNgoInput
+    documents?: NgoDocumentUncheckedCreateNestedManyWithoutNgoInput
   }
 
   export type NgoCreateOrConnectWithoutBoardMembersInput = {
@@ -47474,7 +51821,9 @@ export namespace Prisma {
   export type NgoUpdateWithoutBoardMembersInput = {
     id?: StringFieldUpdateOperationsInput | string
     orgName?: StringFieldUpdateOperationsInput | string
+    ein?: NullableStringFieldUpdateOperationsInput | string | null
     regNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     website?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -47485,19 +51834,23 @@ export namespace Prisma {
     rejectReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
     user?: UserUpdateOneRequiredWithoutNgoNestedInput
     projects?: ProjectUpdateManyWithoutNgoNestedInput
     expenses?: ExpenseUpdateManyWithoutNgoNestedInput
     ratings?: RatingUpdateManyWithoutNgoNestedInput
     skillContributions?: SkillContributionUpdateManyWithoutNgoNestedInput
     donorEndorsements?: DonorEndorsementUpdateManyWithoutNgoNestedInput
+    documents?: NgoDocumentUpdateManyWithoutNgoNestedInput
   }
 
   export type NgoUncheckedUpdateWithoutBoardMembersInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     orgName?: StringFieldUpdateOperationsInput | string
+    ein?: NullableStringFieldUpdateOperationsInput | string | null
     regNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     website?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -47508,11 +51861,13 @@ export namespace Prisma {
     rejectReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
     projects?: ProjectUncheckedUpdateManyWithoutNgoNestedInput
     expenses?: ExpenseUncheckedUpdateManyWithoutNgoNestedInput
     ratings?: RatingUncheckedUpdateManyWithoutNgoNestedInput
     skillContributions?: SkillContributionUncheckedUpdateManyWithoutNgoNestedInput
     donorEndorsements?: DonorEndorsementUncheckedUpdateManyWithoutNgoNestedInput
+    documents?: NgoDocumentUncheckedUpdateManyWithoutNgoNestedInput
   }
 
   export type UserCreateWithoutSkillContributionsInput = {
@@ -47521,10 +51876,20 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     name?: string | null
     image?: string | null
+    password?: string | null
     role?: $Enums.Role
     referralCode?: string | null
+    bio?: string | null
+    jobTitle?: string | null
+    company?: string | null
+    city?: string | null
+    linkedinUrl?: string | null
+    twitterUrl?: string | null
+    portfolioUrl?: string | null
+    skills?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    aiSummary?: string | null
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     ngo?: NgoCreateNestedOneWithoutUserInput
@@ -47539,6 +51904,7 @@ export namespace Prisma {
     referralsReceived?: ReferralCreateNestedManyWithoutReferredInput
     endorsementsReceived?: DonorEndorsementCreateNestedManyWithoutDonorInput
     endorsementsGiven?: DonorEndorsementCreateNestedManyWithoutEndorserInput
+    documents?: DonorDocumentCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSkillContributionsInput = {
@@ -47547,10 +51913,20 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     name?: string | null
     image?: string | null
+    password?: string | null
     role?: $Enums.Role
     referralCode?: string | null
+    bio?: string | null
+    jobTitle?: string | null
+    company?: string | null
+    city?: string | null
+    linkedinUrl?: string | null
+    twitterUrl?: string | null
+    portfolioUrl?: string | null
+    skills?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    aiSummary?: string | null
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ngo?: NgoUncheckedCreateNestedOneWithoutUserInput
@@ -47565,6 +51941,7 @@ export namespace Prisma {
     referralsReceived?: ReferralUncheckedCreateNestedManyWithoutReferredInput
     endorsementsReceived?: DonorEndorsementUncheckedCreateNestedManyWithoutDonorInput
     endorsementsGiven?: DonorEndorsementUncheckedCreateNestedManyWithoutEndorserInput
+    documents?: DonorDocumentUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSkillContributionsInput = {
@@ -47575,7 +51952,9 @@ export namespace Prisma {
   export type NgoCreateWithoutSkillContributionsInput = {
     id?: string
     orgName: string
+    ein?: string | null
     regNumber?: string | null
+    state?: string | null
     country?: string | null
     website?: string | null
     description?: string | null
@@ -47586,19 +51965,23 @@ export namespace Prisma {
     rejectReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    aiSummary?: string | null
     user: UserCreateNestedOneWithoutNgoInput
     projects?: ProjectCreateNestedManyWithoutNgoInput
     expenses?: ExpenseCreateNestedManyWithoutNgoInput
     ratings?: RatingCreateNestedManyWithoutNgoInput
     boardMembers?: BoardMemberCreateNestedManyWithoutNgoInput
     donorEndorsements?: DonorEndorsementCreateNestedManyWithoutNgoInput
+    documents?: NgoDocumentCreateNestedManyWithoutNgoInput
   }
 
   export type NgoUncheckedCreateWithoutSkillContributionsInput = {
     id?: string
     userId: string
     orgName: string
+    ein?: string | null
     regNumber?: string | null
+    state?: string | null
     country?: string | null
     website?: string | null
     description?: string | null
@@ -47609,11 +51992,13 @@ export namespace Prisma {
     rejectReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    aiSummary?: string | null
     projects?: ProjectUncheckedCreateNestedManyWithoutNgoInput
     expenses?: ExpenseUncheckedCreateNestedManyWithoutNgoInput
     ratings?: RatingUncheckedCreateNestedManyWithoutNgoInput
     boardMembers?: BoardMemberUncheckedCreateNestedManyWithoutNgoInput
     donorEndorsements?: DonorEndorsementUncheckedCreateNestedManyWithoutNgoInput
+    documents?: NgoDocumentUncheckedCreateNestedManyWithoutNgoInput
   }
 
   export type NgoCreateOrConnectWithoutSkillContributionsInput = {
@@ -47710,10 +52095,20 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     referralCode?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    portfolioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    skills?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ngo?: NgoUpdateOneWithoutUserNestedInput
@@ -47728,6 +52123,7 @@ export namespace Prisma {
     referralsReceived?: ReferralUpdateManyWithoutReferredNestedInput
     endorsementsReceived?: DonorEndorsementUpdateManyWithoutDonorNestedInput
     endorsementsGiven?: DonorEndorsementUpdateManyWithoutEndorserNestedInput
+    documents?: DonorDocumentUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSkillContributionsInput = {
@@ -47736,10 +52132,20 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     referralCode?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    portfolioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    skills?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ngo?: NgoUncheckedUpdateOneWithoutUserNestedInput
@@ -47754,6 +52160,7 @@ export namespace Prisma {
     referralsReceived?: ReferralUncheckedUpdateManyWithoutReferredNestedInput
     endorsementsReceived?: DonorEndorsementUncheckedUpdateManyWithoutDonorNestedInput
     endorsementsGiven?: DonorEndorsementUncheckedUpdateManyWithoutEndorserNestedInput
+    documents?: DonorDocumentUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type NgoUpsertWithoutSkillContributionsInput = {
@@ -47770,7 +52177,9 @@ export namespace Prisma {
   export type NgoUpdateWithoutSkillContributionsInput = {
     id?: StringFieldUpdateOperationsInput | string
     orgName?: StringFieldUpdateOperationsInput | string
+    ein?: NullableStringFieldUpdateOperationsInput | string | null
     regNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     website?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -47781,19 +52190,23 @@ export namespace Prisma {
     rejectReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
     user?: UserUpdateOneRequiredWithoutNgoNestedInput
     projects?: ProjectUpdateManyWithoutNgoNestedInput
     expenses?: ExpenseUpdateManyWithoutNgoNestedInput
     ratings?: RatingUpdateManyWithoutNgoNestedInput
     boardMembers?: BoardMemberUpdateManyWithoutNgoNestedInput
     donorEndorsements?: DonorEndorsementUpdateManyWithoutNgoNestedInput
+    documents?: NgoDocumentUpdateManyWithoutNgoNestedInput
   }
 
   export type NgoUncheckedUpdateWithoutSkillContributionsInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     orgName?: StringFieldUpdateOperationsInput | string
+    ein?: NullableStringFieldUpdateOperationsInput | string | null
     regNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     website?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -47804,11 +52217,13 @@ export namespace Prisma {
     rejectReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
     projects?: ProjectUncheckedUpdateManyWithoutNgoNestedInput
     expenses?: ExpenseUncheckedUpdateManyWithoutNgoNestedInput
     ratings?: RatingUncheckedUpdateManyWithoutNgoNestedInput
     boardMembers?: BoardMemberUncheckedUpdateManyWithoutNgoNestedInput
     donorEndorsements?: DonorEndorsementUncheckedUpdateManyWithoutNgoNestedInput
+    documents?: NgoDocumentUncheckedUpdateManyWithoutNgoNestedInput
   }
 
   export type ProjectUpsertWithoutSkillContributionsInput = {
@@ -47981,10 +52396,20 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     name?: string | null
     image?: string | null
+    password?: string | null
     role?: $Enums.Role
     referralCode?: string | null
+    bio?: string | null
+    jobTitle?: string | null
+    company?: string | null
+    city?: string | null
+    linkedinUrl?: string | null
+    twitterUrl?: string | null
+    portfolioUrl?: string | null
+    skills?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    aiSummary?: string | null
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     ngo?: NgoCreateNestedOneWithoutUserInput
@@ -47999,6 +52424,7 @@ export namespace Prisma {
     referralsReceived?: ReferralCreateNestedManyWithoutReferredInput
     skillContributions?: SkillContributionCreateNestedManyWithoutDonorInput
     endorsementsGiven?: DonorEndorsementCreateNestedManyWithoutEndorserInput
+    documents?: DonorDocumentCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutEndorsementsReceivedInput = {
@@ -48007,10 +52433,20 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     name?: string | null
     image?: string | null
+    password?: string | null
     role?: $Enums.Role
     referralCode?: string | null
+    bio?: string | null
+    jobTitle?: string | null
+    company?: string | null
+    city?: string | null
+    linkedinUrl?: string | null
+    twitterUrl?: string | null
+    portfolioUrl?: string | null
+    skills?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    aiSummary?: string | null
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ngo?: NgoUncheckedCreateNestedOneWithoutUserInput
@@ -48025,6 +52461,7 @@ export namespace Prisma {
     referralsReceived?: ReferralUncheckedCreateNestedManyWithoutReferredInput
     skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutDonorInput
     endorsementsGiven?: DonorEndorsementUncheckedCreateNestedManyWithoutEndorserInput
+    documents?: DonorDocumentUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutEndorsementsReceivedInput = {
@@ -48035,7 +52472,9 @@ export namespace Prisma {
   export type NgoCreateWithoutDonorEndorsementsInput = {
     id?: string
     orgName: string
+    ein?: string | null
     regNumber?: string | null
+    state?: string | null
     country?: string | null
     website?: string | null
     description?: string | null
@@ -48046,19 +52485,23 @@ export namespace Prisma {
     rejectReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    aiSummary?: string | null
     user: UserCreateNestedOneWithoutNgoInput
     projects?: ProjectCreateNestedManyWithoutNgoInput
     expenses?: ExpenseCreateNestedManyWithoutNgoInput
     ratings?: RatingCreateNestedManyWithoutNgoInput
     boardMembers?: BoardMemberCreateNestedManyWithoutNgoInput
     skillContributions?: SkillContributionCreateNestedManyWithoutNgoInput
+    documents?: NgoDocumentCreateNestedManyWithoutNgoInput
   }
 
   export type NgoUncheckedCreateWithoutDonorEndorsementsInput = {
     id?: string
     userId: string
     orgName: string
+    ein?: string | null
     regNumber?: string | null
+    state?: string | null
     country?: string | null
     website?: string | null
     description?: string | null
@@ -48069,11 +52512,13 @@ export namespace Prisma {
     rejectReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    aiSummary?: string | null
     projects?: ProjectUncheckedCreateNestedManyWithoutNgoInput
     expenses?: ExpenseUncheckedCreateNestedManyWithoutNgoInput
     ratings?: RatingUncheckedCreateNestedManyWithoutNgoInput
     boardMembers?: BoardMemberUncheckedCreateNestedManyWithoutNgoInput
     skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutNgoInput
+    documents?: NgoDocumentUncheckedCreateNestedManyWithoutNgoInput
   }
 
   export type NgoCreateOrConnectWithoutDonorEndorsementsInput = {
@@ -48087,10 +52532,20 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     name?: string | null
     image?: string | null
+    password?: string | null
     role?: $Enums.Role
     referralCode?: string | null
+    bio?: string | null
+    jobTitle?: string | null
+    company?: string | null
+    city?: string | null
+    linkedinUrl?: string | null
+    twitterUrl?: string | null
+    portfolioUrl?: string | null
+    skills?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    aiSummary?: string | null
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     ngo?: NgoCreateNestedOneWithoutUserInput
@@ -48105,6 +52560,7 @@ export namespace Prisma {
     referralsReceived?: ReferralCreateNestedManyWithoutReferredInput
     skillContributions?: SkillContributionCreateNestedManyWithoutDonorInput
     endorsementsReceived?: DonorEndorsementCreateNestedManyWithoutDonorInput
+    documents?: DonorDocumentCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutEndorsementsGivenInput = {
@@ -48113,10 +52569,20 @@ export namespace Prisma {
     emailVerified?: Date | string | null
     name?: string | null
     image?: string | null
+    password?: string | null
     role?: $Enums.Role
     referralCode?: string | null
+    bio?: string | null
+    jobTitle?: string | null
+    company?: string | null
+    city?: string | null
+    linkedinUrl?: string | null
+    twitterUrl?: string | null
+    portfolioUrl?: string | null
+    skills?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    aiSummary?: string | null
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ngo?: NgoUncheckedCreateNestedOneWithoutUserInput
@@ -48131,6 +52597,7 @@ export namespace Prisma {
     referralsReceived?: ReferralUncheckedCreateNestedManyWithoutReferredInput
     skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutDonorInput
     endorsementsReceived?: DonorEndorsementUncheckedCreateNestedManyWithoutDonorInput
+    documents?: DonorDocumentUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutEndorsementsGivenInput = {
@@ -48155,10 +52622,20 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     referralCode?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    portfolioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    skills?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ngo?: NgoUpdateOneWithoutUserNestedInput
@@ -48173,6 +52650,7 @@ export namespace Prisma {
     referralsReceived?: ReferralUpdateManyWithoutReferredNestedInput
     skillContributions?: SkillContributionUpdateManyWithoutDonorNestedInput
     endorsementsGiven?: DonorEndorsementUpdateManyWithoutEndorserNestedInput
+    documents?: DonorDocumentUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutEndorsementsReceivedInput = {
@@ -48181,10 +52659,20 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     referralCode?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    portfolioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    skills?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ngo?: NgoUncheckedUpdateOneWithoutUserNestedInput
@@ -48199,6 +52687,7 @@ export namespace Prisma {
     referralsReceived?: ReferralUncheckedUpdateManyWithoutReferredNestedInput
     skillContributions?: SkillContributionUncheckedUpdateManyWithoutDonorNestedInput
     endorsementsGiven?: DonorEndorsementUncheckedUpdateManyWithoutEndorserNestedInput
+    documents?: DonorDocumentUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type NgoUpsertWithoutDonorEndorsementsInput = {
@@ -48215,7 +52704,9 @@ export namespace Prisma {
   export type NgoUpdateWithoutDonorEndorsementsInput = {
     id?: StringFieldUpdateOperationsInput | string
     orgName?: StringFieldUpdateOperationsInput | string
+    ein?: NullableStringFieldUpdateOperationsInput | string | null
     regNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     website?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -48226,19 +52717,23 @@ export namespace Prisma {
     rejectReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
     user?: UserUpdateOneRequiredWithoutNgoNestedInput
     projects?: ProjectUpdateManyWithoutNgoNestedInput
     expenses?: ExpenseUpdateManyWithoutNgoNestedInput
     ratings?: RatingUpdateManyWithoutNgoNestedInput
     boardMembers?: BoardMemberUpdateManyWithoutNgoNestedInput
     skillContributions?: SkillContributionUpdateManyWithoutNgoNestedInput
+    documents?: NgoDocumentUpdateManyWithoutNgoNestedInput
   }
 
   export type NgoUncheckedUpdateWithoutDonorEndorsementsInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     orgName?: StringFieldUpdateOperationsInput | string
+    ein?: NullableStringFieldUpdateOperationsInput | string | null
     regNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     website?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -48249,11 +52744,13 @@ export namespace Prisma {
     rejectReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
     projects?: ProjectUncheckedUpdateManyWithoutNgoNestedInput
     expenses?: ExpenseUncheckedUpdateManyWithoutNgoNestedInput
     ratings?: RatingUncheckedUpdateManyWithoutNgoNestedInput
     boardMembers?: BoardMemberUncheckedUpdateManyWithoutNgoNestedInput
     skillContributions?: SkillContributionUncheckedUpdateManyWithoutNgoNestedInput
+    documents?: NgoDocumentUncheckedUpdateManyWithoutNgoNestedInput
   }
 
   export type UserUpsertWithoutEndorsementsGivenInput = {
@@ -48273,10 +52770,20 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     referralCode?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    portfolioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    skills?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ngo?: NgoUpdateOneWithoutUserNestedInput
@@ -48291,6 +52798,7 @@ export namespace Prisma {
     referralsReceived?: ReferralUpdateManyWithoutReferredNestedInput
     skillContributions?: SkillContributionUpdateManyWithoutDonorNestedInput
     endorsementsReceived?: DonorEndorsementUpdateManyWithoutDonorNestedInput
+    documents?: DonorDocumentUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutEndorsementsGivenInput = {
@@ -48299,10 +52807,20 @@ export namespace Prisma {
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     referralCode?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    portfolioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    skills?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ngo?: NgoUncheckedUpdateOneWithoutUserNestedInput
@@ -48317,6 +52835,291 @@ export namespace Prisma {
     referralsReceived?: ReferralUncheckedUpdateManyWithoutReferredNestedInput
     skillContributions?: SkillContributionUncheckedUpdateManyWithoutDonorNestedInput
     endorsementsReceived?: DonorEndorsementUncheckedUpdateManyWithoutDonorNestedInput
+    documents?: DonorDocumentUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutDocumentsInput = {
+    id?: string
+    email: string
+    emailVerified?: Date | string | null
+    name?: string | null
+    image?: string | null
+    password?: string | null
+    role?: $Enums.Role
+    referralCode?: string | null
+    bio?: string | null
+    jobTitle?: string | null
+    company?: string | null
+    city?: string | null
+    linkedinUrl?: string | null
+    twitterUrl?: string | null
+    portfolioUrl?: string | null
+    skills?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    aiSummary?: string | null
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    ngo?: NgoCreateNestedOneWithoutUserInput
+    donations?: DonationCreateNestedManyWithoutUserInput
+    ratings?: RatingCreateNestedManyWithoutDonorInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    spotlightVotes?: SpotlightVoteCreateNestedManyWithoutUserInput
+    campaignsCreated?: CampaignCreateNestedManyWithoutCreatorInput
+    campaignContributions?: CampaignContributorCreateNestedManyWithoutUserInput
+    ngoSuggestions?: NgoSuggestionCreateNestedManyWithoutUserInput
+    referralsMade?: ReferralCreateNestedManyWithoutReferrerInput
+    referralsReceived?: ReferralCreateNestedManyWithoutReferredInput
+    skillContributions?: SkillContributionCreateNestedManyWithoutDonorInput
+    endorsementsReceived?: DonorEndorsementCreateNestedManyWithoutDonorInput
+    endorsementsGiven?: DonorEndorsementCreateNestedManyWithoutEndorserInput
+  }
+
+  export type UserUncheckedCreateWithoutDocumentsInput = {
+    id?: string
+    email: string
+    emailVerified?: Date | string | null
+    name?: string | null
+    image?: string | null
+    password?: string | null
+    role?: $Enums.Role
+    referralCode?: string | null
+    bio?: string | null
+    jobTitle?: string | null
+    company?: string | null
+    city?: string | null
+    linkedinUrl?: string | null
+    twitterUrl?: string | null
+    portfolioUrl?: string | null
+    skills?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    aiSummary?: string | null
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    ngo?: NgoUncheckedCreateNestedOneWithoutUserInput
+    donations?: DonationUncheckedCreateNestedManyWithoutUserInput
+    ratings?: RatingUncheckedCreateNestedManyWithoutDonorInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    spotlightVotes?: SpotlightVoteUncheckedCreateNestedManyWithoutUserInput
+    campaignsCreated?: CampaignUncheckedCreateNestedManyWithoutCreatorInput
+    campaignContributions?: CampaignContributorUncheckedCreateNestedManyWithoutUserInput
+    ngoSuggestions?: NgoSuggestionUncheckedCreateNestedManyWithoutUserInput
+    referralsMade?: ReferralUncheckedCreateNestedManyWithoutReferrerInput
+    referralsReceived?: ReferralUncheckedCreateNestedManyWithoutReferredInput
+    skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutDonorInput
+    endorsementsReceived?: DonorEndorsementUncheckedCreateNestedManyWithoutDonorInput
+    endorsementsGiven?: DonorEndorsementUncheckedCreateNestedManyWithoutEndorserInput
+  }
+
+  export type UserCreateOrConnectWithoutDocumentsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutDocumentsInput, UserUncheckedCreateWithoutDocumentsInput>
+  }
+
+  export type UserUpsertWithoutDocumentsInput = {
+    update: XOR<UserUpdateWithoutDocumentsInput, UserUncheckedUpdateWithoutDocumentsInput>
+    create: XOR<UserCreateWithoutDocumentsInput, UserUncheckedCreateWithoutDocumentsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutDocumentsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutDocumentsInput, UserUncheckedUpdateWithoutDocumentsInput>
+  }
+
+  export type UserUpdateWithoutDocumentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    referralCode?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    portfolioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    skills?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    ngo?: NgoUpdateOneWithoutUserNestedInput
+    donations?: DonationUpdateManyWithoutUserNestedInput
+    ratings?: RatingUpdateManyWithoutDonorNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    spotlightVotes?: SpotlightVoteUpdateManyWithoutUserNestedInput
+    campaignsCreated?: CampaignUpdateManyWithoutCreatorNestedInput
+    campaignContributions?: CampaignContributorUpdateManyWithoutUserNestedInput
+    ngoSuggestions?: NgoSuggestionUpdateManyWithoutUserNestedInput
+    referralsMade?: ReferralUpdateManyWithoutReferrerNestedInput
+    referralsReceived?: ReferralUpdateManyWithoutReferredNestedInput
+    skillContributions?: SkillContributionUpdateManyWithoutDonorNestedInput
+    endorsementsReceived?: DonorEndorsementUpdateManyWithoutDonorNestedInput
+    endorsementsGiven?: DonorEndorsementUpdateManyWithoutEndorserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutDocumentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    referralCode?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    portfolioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    skills?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    ngo?: NgoUncheckedUpdateOneWithoutUserNestedInput
+    donations?: DonationUncheckedUpdateManyWithoutUserNestedInput
+    ratings?: RatingUncheckedUpdateManyWithoutDonorNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    spotlightVotes?: SpotlightVoteUncheckedUpdateManyWithoutUserNestedInput
+    campaignsCreated?: CampaignUncheckedUpdateManyWithoutCreatorNestedInput
+    campaignContributions?: CampaignContributorUncheckedUpdateManyWithoutUserNestedInput
+    ngoSuggestions?: NgoSuggestionUncheckedUpdateManyWithoutUserNestedInput
+    referralsMade?: ReferralUncheckedUpdateManyWithoutReferrerNestedInput
+    referralsReceived?: ReferralUncheckedUpdateManyWithoutReferredNestedInput
+    skillContributions?: SkillContributionUncheckedUpdateManyWithoutDonorNestedInput
+    endorsementsReceived?: DonorEndorsementUncheckedUpdateManyWithoutDonorNestedInput
+    endorsementsGiven?: DonorEndorsementUncheckedUpdateManyWithoutEndorserNestedInput
+  }
+
+  export type NgoCreateWithoutDocumentsInput = {
+    id?: string
+    orgName: string
+    ein?: string | null
+    regNumber?: string | null
+    state?: string | null
+    country?: string | null
+    website?: string | null
+    description?: string | null
+    logoUrl?: string | null
+    trustScore?: number
+    status?: $Enums.NgoStatus
+    approvedAt?: Date | string | null
+    rejectReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    aiSummary?: string | null
+    user: UserCreateNestedOneWithoutNgoInput
+    projects?: ProjectCreateNestedManyWithoutNgoInput
+    expenses?: ExpenseCreateNestedManyWithoutNgoInput
+    ratings?: RatingCreateNestedManyWithoutNgoInput
+    boardMembers?: BoardMemberCreateNestedManyWithoutNgoInput
+    skillContributions?: SkillContributionCreateNestedManyWithoutNgoInput
+    donorEndorsements?: DonorEndorsementCreateNestedManyWithoutNgoInput
+  }
+
+  export type NgoUncheckedCreateWithoutDocumentsInput = {
+    id?: string
+    userId: string
+    orgName: string
+    ein?: string | null
+    regNumber?: string | null
+    state?: string | null
+    country?: string | null
+    website?: string | null
+    description?: string | null
+    logoUrl?: string | null
+    trustScore?: number
+    status?: $Enums.NgoStatus
+    approvedAt?: Date | string | null
+    rejectReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    aiSummary?: string | null
+    projects?: ProjectUncheckedCreateNestedManyWithoutNgoInput
+    expenses?: ExpenseUncheckedCreateNestedManyWithoutNgoInput
+    ratings?: RatingUncheckedCreateNestedManyWithoutNgoInput
+    boardMembers?: BoardMemberUncheckedCreateNestedManyWithoutNgoInput
+    skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutNgoInput
+    donorEndorsements?: DonorEndorsementUncheckedCreateNestedManyWithoutNgoInput
+  }
+
+  export type NgoCreateOrConnectWithoutDocumentsInput = {
+    where: NgoWhereUniqueInput
+    create: XOR<NgoCreateWithoutDocumentsInput, NgoUncheckedCreateWithoutDocumentsInput>
+  }
+
+  export type NgoUpsertWithoutDocumentsInput = {
+    update: XOR<NgoUpdateWithoutDocumentsInput, NgoUncheckedUpdateWithoutDocumentsInput>
+    create: XOR<NgoCreateWithoutDocumentsInput, NgoUncheckedCreateWithoutDocumentsInput>
+    where?: NgoWhereInput
+  }
+
+  export type NgoUpdateToOneWithWhereWithoutDocumentsInput = {
+    where?: NgoWhereInput
+    data: XOR<NgoUpdateWithoutDocumentsInput, NgoUncheckedUpdateWithoutDocumentsInput>
+  }
+
+  export type NgoUpdateWithoutDocumentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    orgName?: StringFieldUpdateOperationsInput | string
+    ein?: NullableStringFieldUpdateOperationsInput | string | null
+    regNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    trustScore?: FloatFieldUpdateOperationsInput | number
+    status?: EnumNgoStatusFieldUpdateOperationsInput | $Enums.NgoStatus
+    approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejectReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    user?: UserUpdateOneRequiredWithoutNgoNestedInput
+    projects?: ProjectUpdateManyWithoutNgoNestedInput
+    expenses?: ExpenseUpdateManyWithoutNgoNestedInput
+    ratings?: RatingUpdateManyWithoutNgoNestedInput
+    boardMembers?: BoardMemberUpdateManyWithoutNgoNestedInput
+    skillContributions?: SkillContributionUpdateManyWithoutNgoNestedInput
+    donorEndorsements?: DonorEndorsementUpdateManyWithoutNgoNestedInput
+  }
+
+  export type NgoUncheckedUpdateWithoutDocumentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    orgName?: StringFieldUpdateOperationsInput | string
+    ein?: NullableStringFieldUpdateOperationsInput | string | null
+    regNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    trustScore?: FloatFieldUpdateOperationsInput | number
+    status?: EnumNgoStatusFieldUpdateOperationsInput | $Enums.NgoStatus
+    approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejectReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    projects?: ProjectUncheckedUpdateManyWithoutNgoNestedInput
+    expenses?: ExpenseUncheckedUpdateManyWithoutNgoNestedInput
+    ratings?: RatingUncheckedUpdateManyWithoutNgoNestedInput
+    boardMembers?: BoardMemberUncheckedUpdateManyWithoutNgoNestedInput
+    skillContributions?: SkillContributionUncheckedUpdateManyWithoutNgoNestedInput
+    donorEndorsements?: DonorEndorsementUncheckedUpdateManyWithoutNgoNestedInput
   }
 
   export type AccountCreateManyUserInput = {
@@ -48453,6 +53256,16 @@ export namespace Prisma {
     ngoId: string
     note?: string | null
     category?: string
+    createdAt?: Date | string
+  }
+
+  export type DonorDocumentCreateManyUserInput = {
+    id?: string
+    fileName: string
+    category?: string
+    mimeType: string
+    fileSize: number
+    fileData: string
     createdAt?: Date | string
   }
 
@@ -48873,6 +53686,36 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type DonorDocumentUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fileName?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    mimeType?: StringFieldUpdateOperationsInput | string
+    fileSize?: IntFieldUpdateOperationsInput | number
+    fileData?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DonorDocumentUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fileName?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    mimeType?: StringFieldUpdateOperationsInput | string
+    fileSize?: IntFieldUpdateOperationsInput | number
+    fileData?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DonorDocumentUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fileName?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    mimeType?: StringFieldUpdateOperationsInput | string
+    fileSize?: IntFieldUpdateOperationsInput | number
+    fileData?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type ProjectCreateManyNgoInput = {
     id?: string
     title: string
@@ -48914,6 +53757,7 @@ export namespace Prisma {
     id?: string
     name: string
     role: string
+    memberType?: string
     bio?: string | null
     linkedinUrl?: string | null
     photoUrl?: string | null
@@ -48943,6 +53787,17 @@ export namespace Prisma {
     endorsedBy: string
     note?: string | null
     category?: string
+    createdAt?: Date | string
+  }
+
+  export type NgoDocumentCreateManyNgoInput = {
+    id?: string
+    fileName: string
+    category?: string
+    mimeType: string
+    fileSize: number
+    fileData: string
+    caption?: string | null
     createdAt?: Date | string
   }
 
@@ -49073,6 +53928,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
+    memberType?: StringFieldUpdateOperationsInput | string
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -49085,6 +53941,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
+    memberType?: StringFieldUpdateOperationsInput | string
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -49097,6 +53954,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
+    memberType?: StringFieldUpdateOperationsInput | string
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -49176,6 +54034,39 @@ export namespace Prisma {
     endorsedBy?: StringFieldUpdateOperationsInput | string
     note?: NullableStringFieldUpdateOperationsInput | string | null
     category?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NgoDocumentUpdateWithoutNgoInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fileName?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    mimeType?: StringFieldUpdateOperationsInput | string
+    fileSize?: IntFieldUpdateOperationsInput | number
+    fileData?: StringFieldUpdateOperationsInput | string
+    caption?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NgoDocumentUncheckedUpdateWithoutNgoInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fileName?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    mimeType?: StringFieldUpdateOperationsInput | string
+    fileSize?: IntFieldUpdateOperationsInput | number
+    fileData?: StringFieldUpdateOperationsInput | string
+    caption?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NgoDocumentUncheckedUpdateManyWithoutNgoInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fileName?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    mimeType?: StringFieldUpdateOperationsInput | string
+    fileSize?: IntFieldUpdateOperationsInput | number
+    fileData?: StringFieldUpdateOperationsInput | string
+    caption?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

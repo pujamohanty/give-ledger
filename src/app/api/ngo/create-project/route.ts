@@ -47,5 +47,20 @@ export async function POST(req: NextRequest) {
     select: { id: true },
   });
 
+  // Emit activity event
+  await prisma.activityEvent.create({
+    data: {
+      type: "PROJECT_LAUNCH",
+      projectId: project.id,
+      ngoName: ngo.orgName,
+      projectTitle: title,
+      actorId: ngo.id,
+      actorType: "NGO",
+      actorName: ngo.orgName,
+      description: `${ngo.orgName} launched a new project: "${title}"`,
+      linkUrl: `/projects/${project.id}`,
+    },
+  }).catch(() => {});
+
   return NextResponse.json({ id: project.id });
 }

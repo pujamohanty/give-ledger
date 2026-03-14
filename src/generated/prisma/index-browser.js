@@ -154,17 +154,29 @@ exports.Prisma.UserScalarFieldEnum = {
   emailVerified: 'emailVerified',
   name: 'name',
   image: 'image',
+  password: 'password',
   role: 'role',
   referralCode: 'referralCode',
+  bio: 'bio',
+  jobTitle: 'jobTitle',
+  company: 'company',
+  city: 'city',
+  linkedinUrl: 'linkedinUrl',
+  twitterUrl: 'twitterUrl',
+  portfolioUrl: 'portfolioUrl',
+  skills: 'skills',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  aiSummary: 'aiSummary'
 };
 
 exports.Prisma.NgoScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   orgName: 'orgName',
+  ein: 'ein',
   regNumber: 'regNumber',
+  state: 'state',
   country: 'country',
   website: 'website',
   description: 'description',
@@ -174,7 +186,8 @@ exports.Prisma.NgoScalarFieldEnum = {
   approvedAt: 'approvedAt',
   rejectReason: 'rejectReason',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  aiSummary: 'aiSummary'
 };
 
 exports.Prisma.ProjectScalarFieldEnum = {
@@ -370,7 +383,11 @@ exports.Prisma.ActivityEventScalarFieldEnum = {
   ngoName: 'ngoName',
   projectTitle: 'projectTitle',
   actorName: 'actorName',
+  actorId: 'actorId',
+  actorType: 'actorType',
+  imageUrl: 'imageUrl',
   description: 'description',
+  linkUrl: 'linkUrl',
   metadata: 'metadata',
   createdAt: 'createdAt'
 };
@@ -380,6 +397,7 @@ exports.Prisma.BoardMemberScalarFieldEnum = {
   ngoId: 'ngoId',
   name: 'name',
   role: 'role',
+  memberType: 'memberType',
   bio: 'bio',
   linkedinUrl: 'linkedinUrl',
   photoUrl: 'photoUrl',
@@ -419,6 +437,29 @@ exports.Prisma.DonorEndorsementScalarFieldEnum = {
   endorsedBy: 'endorsedBy',
   note: 'note',
   category: 'category',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.DonorDocumentScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  fileName: 'fileName',
+  category: 'category',
+  mimeType: 'mimeType',
+  fileSize: 'fileSize',
+  fileData: 'fileData',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.NgoDocumentScalarFieldEnum = {
+  id: 'id',
+  ngoId: 'ngoId',
+  fileName: 'fileName',
+  category: 'category',
+  mimeType: 'mimeType',
+  fileSize: 'fileSize',
+  fileData: 'fileData',
+  caption: 'caption',
   createdAt: 'createdAt'
 };
 
@@ -513,7 +554,9 @@ exports.Prisma.ModelName = {
   BoardMember: 'BoardMember',
   SkillContribution: 'SkillContribution',
   SkillBlockchainRecord: 'SkillBlockchainRecord',
-  DonorEndorsement: 'DonorEndorsement'
+  DonorEndorsement: 'DonorEndorsement',
+  DonorDocument: 'DonorDocument',
+  NgoDocument: 'NgoDocument'
 };
 
 /**

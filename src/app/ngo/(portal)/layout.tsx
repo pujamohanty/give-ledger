@@ -3,11 +3,12 @@ import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import AssistantPortal from "@/components/AssistantPortal";
-import { Leaf, LayoutDashboard, FolderOpen, DollarSign, Settings, FileText, Upload, Clock, XCircle, Briefcase, Award, Linkedin } from "lucide-react";
+import { Leaf, LayoutDashboard, FolderOpen, DollarSign, Settings, FileText, Upload, Clock, XCircle, Briefcase, Award, Linkedin, Building2 } from "lucide-react";
 import SignOutButton from "@/components/SignOutButton";
 
 const navItems = [
   { href: "/ngo/dashboard", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/ngo/org-profile", label: "NGO Profile", icon: Building2 },
   { href: "/ngo/projects", label: "My Projects", icon: FolderOpen },
   { href: "/ngo/submit-milestone", label: "Submit Evidence", icon: Upload },
   { href: "/ngo/skills", label: "Skill Contributions", icon: Briefcase },

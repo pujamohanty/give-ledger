@@ -63,6 +63,19 @@ export async function PATCH(
       },
     });
 
+    // Emit activity event
+    const donor = await prisma.user.findUnique({ where: { id: contribution.donorId }, select: { name: true } });
+    await prisma.activityEvent.create({
+      data: {
+        type: "SKILL_APPROVED",
+        actorId: contribution.donorId,
+        actorType: "USER",
+        actorName: donor?.name ?? "A contributor",
+        description: `${ngo.orgName} approved a ${contribution.skillCategory} skill contribution from ${donor?.name ?? "a contributor"}${monetaryValue ? ` — valued at $${monetaryValue.toLocaleString()}` : ""}`,
+        linkUrl: `/donor/${contribution.donorId}/profile`,
+      },
+    }).catch(() => {});
+
     return NextResponse.json({ contribution: updated });
   } else {
     const updated = await prisma.skillContribution.update({

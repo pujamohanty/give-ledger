@@ -15,9 +15,10 @@ export async function POST(req: Request) {
   }
 
   const body = await req.json();
-  const { name, role, bio, linkedinUrl, photoUrl } = body as {
+  const { name, role, memberType, bio, linkedinUrl, photoUrl } = body as {
     name: string;
     role: string;
+    memberType?: string;
     bio?: string;
     linkedinUrl?: string;
     photoUrl?: string;
@@ -35,6 +36,7 @@ export async function POST(req: Request) {
       ngoId: ngo.id,
       name: name.trim(),
       role: role.trim(),
+      memberType: memberType === "FOUNDER" ? "FOUNDER" : "BOARD_MEMBER",
       bio: bio?.trim() || null,
       linkedinUrl: linkedinUrl?.trim() || null,
       photoUrl: photoUrl?.trim() || null,

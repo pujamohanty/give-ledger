@@ -5,7 +5,10 @@ import { prisma } from "@/lib/prisma";
 import Navbar from "@/components/Navbar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Globe, MapPin, Users, Target, CheckCircle, Linkedin, ExternalLink, Star } from "lucide-react";
+import {
+  Globe, MapPin, Users, Target, CheckCircle, Linkedin, ExternalLink,
+  Star, FileText, Image as ImageIcon, Sparkles,
+} from "lucide-react";
 
 function formatCurrency(amount: number) {
   if (amount >= 1_000_000) return `$${(amount / 1_000_000).toFixed(1)}M`;
@@ -31,6 +34,15 @@ const categoryEmoji: Record<string, string> = {
   OTHER: "🌱",
 };
 
+const docCategoryLabel: Record<string, string> = {
+  PROJECT: "Past Project",
+  GALLERY: "Gallery",
+  REPORT: "Impact Report",
+  LEGAL: "Legal",
+  FOUNDER: "Founder Bio",
+  OTHER: "Document",
+};
+
 export default async function NgoProfilePage({
   params,
 }: {
@@ -43,6 +55,10 @@ export default async function NgoProfilePage({
     where: { id },
     include: {
       boardMembers: { orderBy: { orderIndex: "asc" } },
+      documents: {
+        select: { id: true, fileName: true, category: true, mimeType: true, fileSize: true, caption: true, createdAt: true },
+        orderBy: { createdAt: "desc" },
+      },
       projects: {
         where: { status: "ACTIVE" },
         include: {
@@ -61,16 +77,13 @@ export default async function NgoProfilePage({
 
   if (!ngo || ngo.status !== "ACTIVE") notFound();
 
-  // Compute aggregate stats
+  // Compute stats
   const totalRaised = ngo.projects.reduce((sum, p) => sum + p.raisedAmount, 0);
   const totalGoal = ngo.projects.reduce((sum, p) => sum + p.goalAmount, 0);
   const completedMilestones = ngo.projects.reduce(
-    (sum, p) => sum + p.milestones.filter((m) => m.status === "COMPLETED").length,
-    0
+    (sum, p) => sum + p.milestones.filter((m) => m.status === "COMPLETED").length, 0
   );
-  const uniqueDonors = new Set(
-    ngo.projects.flatMap((p) => p.donations.map((d) => d.userId))
-  ).size;
+  const uniqueDonors = new Set(ngo.projects.flatMap((p) => p.donations.map((d) => d.userId))).size;
   const avgRating =
     ngo.ratings.length > 0
       ? ngo.ratings.reduce((sum, r) => sum + r.stars, 0) / ngo.ratings.length
@@ -78,6 +91,13 @@ export default async function NgoProfilePage({
   const foundedYear = ngo.approvedAt
     ? new Date(ngo.approvedAt).getFullYear()
     : new Date(ngo.createdAt).getFullYear();
+
+  const founders = ngo.boardMembers.filter((m) => m.memberType === "FOUNDER");
+  const boardOnly = ngo.boardMembers.filter((m) => m.memberType !== "FOUNDER");
+
+  // Separate docs by type
+  const galleryDocs = ngo.documents.filter((d) => d.category === "GALLERY");
+  const otherDocs = ngo.documents.filter((d) => d.category !== "GALLERY");
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -106,14 +126,22 @@ export default async function NgoProfilePage({
                 <h1 className="text-2xl font-bold text-gray-900">{ngo.orgName}</h1>
                 <Badge className="bg-emerald-100 text-emerald-800 text-xs">Verified NGO</Badge>
               </div>
-              {ngo.country && (
+              {ngo.state && (
                 <p className="text-sm text-gray-500 flex items-center gap-1 mb-2">
                   <MapPin className="w-3.5 h-3.5" />
-                  {ngo.country}
+                  {ngo.state}, United States
                 </p>
               )}
               {ngo.description && (
                 <p className="text-sm text-gray-600 max-w-2xl">{ngo.description}</p>
+              )}
+              {ngo.aiSummary && !ngo.description && (
+                <div className="max-w-2xl">
+                  <p className="text-sm text-gray-600">{ngo.aiSummary}</p>
+                  <p className="text-xs text-violet-500 flex items-center gap-1 mt-1">
+                    <Sparkles className="w-3 h-3" /> AI-generated summary
+                  </p>
+                </div>
               )}
               <div className="flex flex-wrap gap-4 mt-3">
                 {ngo.website && (
@@ -127,9 +155,10 @@ export default async function NgoProfilePage({
                     {ngo.website.replace(/^https?:\/\//, "")}
                   </a>
                 )}
-                <span className="text-xs text-gray-400 flex items-center gap-1">
-                  Founded {foundedYear}
-                </span>
+                <span className="text-xs text-gray-400 flex items-center gap-1">Founded {foundedYear}</span>
+                {ngo.ein && (
+                  <span className="text-xs text-gray-400">EIN: {ngo.ein}</span>
+                )}
                 {avgRating !== null && (
                   <span className="text-xs text-amber-600 flex items-center gap-1">
                     <Star className="w-3.5 h-3.5 fill-amber-500 text-amber-500" />
@@ -143,7 +172,7 @@ export default async function NgoProfilePage({
       </div>
 
       <div className="max-w-5xl mx-auto px-4 py-8 sm:px-6 lg:px-8 space-y-8">
-        {/* Stats row */}
+        {/* Stats */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
           {[
             { label: "Total Raised", value: formatCurrency(totalRaised), sub: `of ${formatCurrency(totalGoal)} goal` },
@@ -164,13 +193,13 @@ export default async function NgoProfilePage({
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Main column */}
           <div className="lg:col-span-2 space-y-8">
+
             {/* Active Projects */}
             {ngo.projects.length > 0 && (
               <Card>
                 <CardHeader>
                   <CardTitle className="text-base flex items-center gap-2">
-                    <Target className="w-4 h-4 text-emerald-600" />
-                    Active Projects
+                    <Target className="w-4 h-4 text-emerald-600" /> Active Projects
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
@@ -185,29 +214,18 @@ export default async function NgoProfilePage({
                             <div className="flex items-center gap-2">
                               <span className="text-lg">{categoryEmoji[p.category] ?? "🌱"}</span>
                               <div>
-                                <p className="text-sm font-semibold text-gray-900 group-hover:text-emerald-700">
-                                  {p.title}
-                                </p>
-                                <p className="text-xs text-gray-500">
-                                  {categoryLabel[p.category] ?? p.category}
-                                </p>
+                                <p className="text-sm font-semibold text-gray-900 group-hover:text-emerald-700">{p.title}</p>
+                                <p className="text-xs text-gray-500">{categoryLabel[p.category] ?? p.category}</p>
                               </div>
                             </div>
                             <ExternalLink className="w-3.5 h-3.5 text-gray-300 group-hover:text-emerald-500 mt-0.5 shrink-0" />
                           </div>
                           <div className="w-full bg-gray-100 rounded-full h-1.5 mb-2">
-                            <div
-                              className="bg-emerald-500 h-1.5 rounded-full"
-                              style={{ width: `${pct}%` }}
-                            />
+                            <div className="bg-emerald-500 h-1.5 rounded-full" style={{ width: `${pct}%` }} />
                           </div>
                           <div className="flex items-center justify-between text-xs text-gray-500">
-                            <span>
-                              {formatCurrency(p.raisedAmount)} raised ({pct}%)
-                            </span>
-                            <span>
-                              {completedCount}/{p.milestones.length} milestones · {donors} donors
-                            </span>
+                            <span>{formatCurrency(p.raisedAmount)} raised ({pct}%)</span>
+                            <span>{completedCount}/{p.milestones.length} milestones · {donors} donors</span>
                           </div>
                         </div>
                       </Link>
@@ -217,54 +235,97 @@ export default async function NgoProfilePage({
               </Card>
             )}
 
-            {/* Board Members */}
-            {ngo.boardMembers.length > 0 && (
+            {/* Founders */}
+            {founders.length > 0 && (
               <Card>
                 <CardHeader>
                   <CardTitle className="text-base flex items-center gap-2">
-                    <Users className="w-4 h-4 text-emerald-600" />
-                    Board &amp; Leadership
+                    <Users className="w-4 h-4 text-amber-600" /> Founders
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    {ngo.boardMembers.map((m) => (
-                      <div
-                        key={m.id}
-                        className="flex items-start gap-3 p-3 rounded-lg bg-gray-50"
+                    {founders.map((m) => <MemberCard key={m.id} member={m} />)}
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+
+            {/* Board Members */}
+            {boardOnly.length > 0 && (
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-base flex items-center gap-2">
+                    <Users className="w-4 h-4 text-emerald-600" /> Board &amp; Leadership
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {boardOnly.map((m) => <MemberCard key={m.id} member={m} />)}
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+
+            {/* Gallery */}
+            {galleryDocs.length > 0 && (
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-base flex items-center gap-2">
+                    <ImageIcon className="w-4 h-4 text-emerald-600" /> Gallery
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                    {galleryDocs.map((doc) => (
+                      <a
+                        key={doc.id}
+                        href={`/api/ngo/documents/${doc.id}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block rounded-lg border border-gray-100 overflow-hidden hover:border-emerald-200 transition-colors group"
                       >
-                        {m.photoUrl ? (
-                          // eslint-disable-next-line @next/next/no-img-element
-                          <img
-                            src={m.photoUrl}
-                            alt={m.name}
-                            className="w-12 h-12 rounded-full object-cover shrink-0 bg-gray-200"
-                          />
-                        ) : (
-                          <div className="w-12 h-12 rounded-full bg-emerald-100 flex items-center justify-center shrink-0">
-                            <span className="text-base font-bold text-emerald-700">
-                              {m.name.charAt(0).toUpperCase()}
-                            </span>
-                          </div>
-                        )}
-                        <div className="min-w-0">
-                          <p className="text-sm font-semibold text-gray-900">{m.name}</p>
-                          <p className="text-xs font-medium text-emerald-700">{m.role}</p>
-                          {m.bio && (
-                            <p className="text-xs text-gray-500 mt-0.5 line-clamp-2">{m.bio}</p>
-                          )}
-                          {m.linkedinUrl && (
-                            <a
-                              href={m.linkedinUrl}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="inline-flex items-center gap-1 text-xs text-blue-600 hover:underline mt-0.5"
-                            >
-                              <Linkedin className="w-3 h-3" /> LinkedIn
-                            </a>
-                          )}
+                        <div className="aspect-square bg-gray-100 flex items-center justify-center">
+                          <ImageIcon className="w-8 h-8 text-gray-300 group-hover:text-emerald-400" />
                         </div>
-                      </div>
+                        {doc.caption && (
+                          <p className="text-xs text-gray-500 px-2 py-1.5 truncate">{doc.caption}</p>
+                        )}
+                      </a>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+
+            {/* Other Documents */}
+            {otherDocs.length > 0 && (
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-base flex items-center gap-2">
+                    <FileText className="w-4 h-4 text-emerald-600" /> Documents &amp; Reports
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-2">
+                    {otherDocs.map((doc) => (
+                      <a
+                        key={doc.id}
+                        href={`/api/ngo/documents/${doc.id}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-3 p-3 rounded-lg border border-gray-100 hover:border-emerald-200 hover:bg-emerald-50/30 transition-colors group"
+                      >
+                        <FileText className="w-4 h-4 text-gray-400 group-hover:text-emerald-600 shrink-0" />
+                        <div className="flex-1 min-w-0">
+                          <p className="text-sm text-gray-700 truncate group-hover:text-emerald-700">{doc.fileName}</p>
+                          <p className="text-xs text-gray-400">
+                            {docCategoryLabel[doc.category] ?? doc.category}
+                            {doc.caption ? ` · ${doc.caption}` : ""}
+                          </p>
+                        </div>
+                        <ExternalLink className="w-3.5 h-3.5 text-gray-300 group-hover:text-emerald-500 shrink-0" />
+                      </a>
                     ))}
                   </div>
                 </CardContent>
@@ -284,6 +345,8 @@ export default async function NgoProfilePage({
                   { label: "Platform verified", icon: "✅" },
                   { label: "Milestone-locked funding", icon: "🔒" },
                   { label: "On-chain disbursements", icon: "⛓️" },
+                  { label: "501(c)(3) Non-Profit", icon: "📋" },
+                  ngo.ein ? { label: `EIN: ${ngo.ein}`, icon: "🆔" } : null,
                   ngo.regNumber ? { label: `Reg: ${ngo.regNumber}`, icon: "📄" } : null,
                 ].filter(Boolean).map((item) => (
                   <div key={item!.label} className="flex items-center gap-2 text-sm text-gray-700">
@@ -308,22 +371,19 @@ export default async function NgoProfilePage({
               </CardContent>
             </Card>
 
-            {/* Recent reviews */}
+            {/* Donor reviews */}
             {ngo.ratings.length > 0 && (
               <Card>
                 <CardHeader>
                   <CardTitle className="text-base flex items-center gap-2">
-                    <Star className="w-4 h-4 text-amber-500" />
-                    Donor Reviews
+                    <Star className="w-4 h-4 text-amber-500" /> Donor Reviews
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-3">
                   {ngo.ratings.slice(0, 3).map((r) => (
                     <div key={r.id} className="space-y-1">
                       <div className="flex items-center justify-between">
-                        <p className="text-xs font-medium text-gray-700">
-                          {r.donor.name ?? "Anonymous"}
-                        </p>
+                        <p className="text-xs font-medium text-gray-700">{r.donor.name ?? "Anonymous"}</p>
                         <div className="flex">
                           {Array.from({ length: 5 }).map((_, i) => (
                             <Star
@@ -360,6 +420,42 @@ export default async function NgoProfilePage({
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  );
+}
+
+function MemberCard({ member }: {
+  member: {
+    id: string; name: string; role: string; memberType: string;
+    bio: string | null; linkedinUrl: string | null; photoUrl: string | null;
+  };
+}) {
+  return (
+    <div className="flex items-start gap-3 p-3 rounded-lg bg-gray-50">
+      {member.photoUrl ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={member.photoUrl} alt={member.name} className="w-12 h-12 rounded-full object-cover shrink-0 bg-gray-200" />
+      ) : (
+        <div className="w-12 h-12 rounded-full bg-emerald-100 flex items-center justify-center shrink-0">
+          <span className="text-base font-bold text-emerald-700">{member.name.charAt(0).toUpperCase()}</span>
+        </div>
+      )}
+      <div className="min-w-0">
+        <div className="flex items-center gap-1.5">
+          <p className="text-sm font-semibold text-gray-900">{member.name}</p>
+          {member.memberType === "FOUNDER" && (
+            <span className="text-xs bg-amber-100 text-amber-700 px-1.5 py-0.5 rounded font-medium">Founder</span>
+          )}
+        </div>
+        <p className="text-xs font-medium text-emerald-700">{member.role}</p>
+        {member.bio && <p className="text-xs text-gray-500 mt-0.5 line-clamp-2">{member.bio}</p>}
+        {member.linkedinUrl && (
+          <a href={member.linkedinUrl} target="_blank" rel="noopener noreferrer"
+            className="inline-flex items-center gap-1 text-xs text-blue-600 hover:underline mt-0.5">
+            <Linkedin className="w-3 h-3" /> LinkedIn
+          </a>
+        )}
       </div>
     </div>
   );

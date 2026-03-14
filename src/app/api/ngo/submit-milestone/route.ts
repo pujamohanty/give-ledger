@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { recordDisbursement } from "@/lib/blockchain";
 
 export async function POST(req: NextRequest) {
   const session = await auth();
@@ -19,7 +20,7 @@ export async function POST(req: NextRequest) {
 
   const milestone = await prisma.milestone.findUnique({
     where: { id: milestoneId },
-    include: { project: true },
+    include: { project: { include: { ngo: true } } },
   });
 
   if (!milestone || milestone.project.ngoId !== ngo.id) {
@@ -35,11 +36,22 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Evidence already submitted for this milestone" }, { status: 400 });
   }
 
+  // Get on-chain tx hash (real if Polygon env vars set, mock otherwise)
+  const { txHash } = await recordDisbursement(
+    milestoneId,
+    milestone.project.ngoId,
+    milestone.projectId,
+    milestone.requiredAmount
+  );
+
+  // Mark milestone COMPLETED immediately with evidence
   await prisma.milestone.update({
     where: { id: milestoneId },
     data: {
-      status: "UNDER_REVIEW",
+      status: "COMPLETED",
+      completedAt: new Date(),
       completionNarrative: narrative,
+      releasedAmount: milestone.requiredAmount,
       ...(outputMarkers?.length && {
         outputMarkers: {
           create: outputMarkers.map((m: { label: string; value: string }) => ({
@@ -59,13 +71,53 @@ export async function POST(req: NextRequest) {
     },
   });
 
+  // Auto-create approved disbursement — no admin approval needed
   const disbursement = await prisma.disbursement.create({
     data: {
       milestoneId,
       requestedAmount: milestone.requiredAmount,
-      status: "PENDING",
+      approvedAmount: milestone.requiredAmount,
+      status: "APPROVED",
+      processedAt: new Date(),
+      txHash,
     },
   });
 
-  return NextResponse.json({ disbursementId: disbursement.id });
+  // Record on blockchain
+  await prisma.blockchainRecord.create({
+    data: {
+      entityType: "disbursement",
+      disbursementId: disbursement.id,
+      txHash,
+      network: "polygon",
+    },
+  });
+
+  // Notify the NGO
+  await prisma.notification.create({
+    data: {
+      userId: milestone.project.ngo.userId,
+      type: "MILESTONE_COMPLETE",
+      title: "Milestone completed — funds released",
+      message: `"${milestone.name}" has been verified. $${milestone.requiredAmount.toLocaleString()} has been automatically released to your account.`,
+      linkUrl: "/ngo/dashboard",
+    },
+  });
+
+  // Emit activity event
+  await prisma.activityEvent.create({
+    data: {
+      type: "MILESTONE_COMPLETE",
+      projectId: milestone.projectId,
+      ngoName: milestone.project.ngo.orgName,
+      projectTitle: milestone.project.title,
+      actorId: ngo.id,
+      actorType: "NGO",
+      actorName: milestone.project.ngo.orgName,
+      description: `${milestone.project.ngo.orgName} completed milestone "${milestone.name}" on project "${milestone.project.title}" — $${milestone.requiredAmount.toLocaleString()} released`,
+      linkUrl: `/projects/${milestone.projectId}`,
+    },
+  }).catch(() => {});
+
+  return NextResponse.json({ disbursementId: disbursement.id, txHash });
 }

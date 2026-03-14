@@ -5,15 +5,20 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import Link from "next/link";
 import {
   Briefcase, Clock, CheckCircle2, XCircle, ExternalLink,
-  ChevronDown, ChevronUp, DollarSign,
+  ChevronDown, ChevronUp, DollarSign, UserCircle, Building2,
 } from "lucide-react";
 
 export type SkillOffer = {
   id: string;
+  donorId: string;
   donorName: string | null;
   donorEmail: string;
+  donorJobTitle: string | null;
+  donorCompany: string | null;
+  donorSkills: string | null;
   projectTitle: string | null;
   skillCategory: string;
   description: string;
@@ -111,6 +116,39 @@ function OfferRow({ offer }: { offer: SkillOffer }) {
 
       {expanded && (
         <div className="px-4 pb-4 border-t border-gray-50 pt-3 space-y-3">
+          {/* Donor profile snapshot */}
+          <div className="bg-gray-50 rounded-lg p-3 flex items-start justify-between gap-3">
+            <div className="flex items-start gap-3">
+              <div className="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center flex-shrink-0 text-sm font-bold text-emerald-700">
+                {offer.donorName ? offer.donorName.charAt(0).toUpperCase() : "?"}
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-gray-900">{offer.donorName ?? offer.donorEmail}</p>
+                {(offer.donorJobTitle || offer.donorCompany) && (
+                  <p className="text-xs text-gray-500 flex items-center gap-1 mt-0.5">
+                    <Building2 className="w-3 h-3" />
+                    {[offer.donorJobTitle, offer.donorCompany].filter(Boolean).join(" at ")}
+                  </p>
+                )}
+                {offer.donorSkills && (
+                  <div className="flex flex-wrap gap-1 mt-1.5">
+                    {offer.donorSkills.split(",").filter(Boolean).map((s) => (
+                      <span key={s} className="text-xs bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded-full">{s}</span>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+            <Link
+              href={`/donor/${offer.donorId}/profile`}
+              target="_blank"
+              className="flex items-center gap-1 text-xs text-emerald-600 hover:underline font-medium shrink-0"
+            >
+              <UserCircle className="w-3.5 h-3.5" />
+              Full profile
+              <ExternalLink className="w-3 h-3 opacity-70" />
+            </Link>
+          </div>
           <p className="text-sm text-gray-700">{offer.description}</p>
           <div className="flex flex-wrap gap-4 text-xs text-gray-500">
             {offer.hoursContributed && (

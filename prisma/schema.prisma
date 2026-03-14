@@ -96,8 +96,17 @@ model User {
   emailVerified DateTime?
   name          String?
   image         String?
+  password      String?   // hashed — null for Google OAuth users
   role          Role      @default(DONOR)
   referralCode  String?   @unique @default(cuid())
+  bio           String?   @db.Text
+  jobTitle      String?
+  company       String?
+  city          String?
+  linkedinUrl   String?
+  twitterUrl    String?
+  portfolioUrl  String?
+  skills        String?   // comma-separated: e.g. "IT,MARKETING,LEGAL"
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
   accounts      Account[]
@@ -115,14 +124,18 @@ model User {
   skillContributions  SkillContribution[] @relation("SkillDonor")
   endorsementsReceived DonorEndorsement[]  @relation("EndorsementsReceived")
   endorsementsGiven    DonorEndorsement[]  @relation("EndorsementsGiven")
+  documents           DonorDocument[]
+  aiSummary           String?   @db.Text  // AI-generated profile narrative (cached)
 }
 
 model Ngo {
   id           String    @id @default(cuid())
   userId       String    @unique
   orgName      String
+  ein          String?   // US Employer Identification Number (XX-XXXXXXX)
   regNumber    String?
-  country      String?
+  state        String?   // US state of registration
+  country      String?   @default("United States")
   website      String?
   description  String?   @db.Text
   logoUrl      String?
@@ -139,6 +152,8 @@ model Ngo {
   boardMembers      BoardMember[]
   skillContributions SkillContribution[]
   donorEndorsements  DonorEndorsement[]
+  documents         NgoDocument[]
+  aiSummary         String?   @db.Text  // AI-generated NGO profile narrative (cached)
 }
 
 model Project {
@@ -372,23 +387,28 @@ model Referral {
 
 // Feature 8: Activity Feed
 model ActivityEvent {
-  id          String   @id @default(cuid())
-  type        String   // MILESTONE_COMPLETE | DONATION | PROJECT_LAUNCH | CAMPAIGN_CREATED | SPOTLIGHT_WIN
-  projectId   String?
-  ngoName     String?
+  id           String   @id @default(cuid())
+  type         String   // MILESTONE_COMPLETE | DONATION | PROJECT_LAUNCH | CAMPAIGN_CREATED | SPOTLIGHT_WIN | SKILL_APPROVED | NGO_JOINED | NGO_ENDORSEMENT | DONOR_ENDORSEMENT | SKILL_OFFER
+  projectId    String?
+  ngoName      String?
   projectTitle String?
-  actorName   String?
-  description String
-  metadata    String?  @db.Text
-  createdAt   DateTime @default(now())
+  actorName    String?
+  actorId      String?  // userId or ngoId of the actor
+  actorType    String?  // USER | NGO
+  imageUrl     String?  // optional avatar/logo
+  description  String
+  linkUrl      String?  // deep link to relevant page
+  metadata     String?  @db.Text
+  createdAt    DateTime @default(now())
 }
 
-// Phase 2: NGO Board Members
+// Phase 2: NGO Board Members & Founders
 model BoardMember {
   id          String   @id @default(cuid())
   ngoId       String
   name        String
-  role        String   // e.g. "Chairman", "Trustee", "Secretary"
+  role        String   // e.g. "Chairman", "Trustee", "Secretary", "Co-Founder"
+  memberType  String   @default("BOARD_MEMBER")  // FOUNDER | BOARD_MEMBER
   bio         String?  @db.Text
   linkedinUrl String?
   photoUrl    String?
@@ -442,4 +462,31 @@ model DonorEndorsement {
   ngo         Ngo      @relation(fields: [ngoId], references: [id])
   endorser    User     @relation("EndorsementsGiven", fields: [endorsedBy], references: [id])
   @@unique([donorId, ngoId, endorsedBy])
+}
+
+// Donor-uploaded documents (CV, certificates, portfolio)
+model DonorDocument {
+  id        String   @id @default(cuid())
+  userId    String
+  fileName  String
+  category  String   @default("OTHER")  // CV | CERTIFICATE | PORTFOLIO | OTHER
+  mimeType  String
+  fileSize  Int      // bytes
+  fileData  String   @db.Text  // base64-encoded file content
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// NGO-uploaded documents (past projects, founder photos, gallery, reports)
+model NgoDocument {
+  id        String   @id @default(cuid())
+  ngoId     String
+  fileName  String
+  category  String   @default("OTHER")  // PROJECT | FOUNDER | GALLERY | REPORT | LEGAL | OTHER
+  mimeType  String
+  fileSize  Int      // bytes
+  fileData  String   @db.Text  // base64-encoded file content
+  caption   String?
+  createdAt DateTime @default(now())
+  ngo       Ngo      @relation(fields: [ngoId], references: [id], onDelete: Cascade)
 }

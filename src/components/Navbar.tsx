@@ -40,6 +40,9 @@ export default function Navbar({ session }: NavbarProps) {
             <Link href="/campaigns" className="text-sm text-gray-600 hover:text-emerald-700 transition-colors">
               Campaigns
             </Link>
+            <Link href="/wall" className="text-sm text-gray-600 hover:text-emerald-700 transition-colors">
+              Activity
+            </Link>
             <Link href="/impact" className="text-sm text-gray-600 hover:text-emerald-700 transition-colors">
               Impact
             </Link>
@@ -82,6 +85,7 @@ export default function Navbar({ session }: NavbarProps) {
           <Link href="/#how-it-works" className="block text-sm text-gray-700 py-2">How It Works</Link>
           <Link href="/projects" className="block text-sm text-gray-700 py-2">Projects</Link>
           <Link href="/campaigns" className="block text-sm text-gray-700 py-2">Campaigns</Link>
+          <Link href="/wall" className="block text-sm text-gray-700 py-2">Activity</Link>
           <Link href="/impact" className="block text-sm text-gray-700 py-2">Impact</Link>
           <Link href="/#for-ngos" className="block text-sm text-gray-700 py-2">For NGOs</Link>
           <Link href="/suggest-ngo" className="block text-sm text-gray-700 py-2">Suggest an NGO</Link>

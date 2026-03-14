@@ -9,7 +9,6 @@ export async function GET() {
   }
 
   const disbursements = await prisma.disbursement.findMany({
-    where: { status: "PENDING" },
     include: {
       milestone: {
         include: {
