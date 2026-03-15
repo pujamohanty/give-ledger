@@ -92,7 +92,7 @@ export default async function CredentialPage({
   const memberYear = new Date(user.createdAt).getFullYear();
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[#f3f2ef]">
       <Navbar session={session} />
       <CredentialClient
         credential={{

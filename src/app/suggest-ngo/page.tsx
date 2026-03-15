@@ -30,7 +30,7 @@ export default function SuggestNgoPage() {
 
   if (submitted) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
+      <div className="min-h-screen bg-[#f3f2ef] flex items-center justify-center px-4">
         <div className="max-w-md w-full text-center">
           <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-5">
             <CheckCircle2 className="w-8 h-8 text-emerald-600" />
@@ -50,7 +50,7 @@ export default function SuggestNgoPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-10 px-4">
+    <div className="min-h-screen bg-[#f3f2ef] py-10 px-4">
       <div className="max-w-2xl mx-auto">
         <Link href="/projects">
           <Button variant="ghost" size="sm" className="mb-6 gap-2 text-gray-500">

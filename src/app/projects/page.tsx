@@ -32,7 +32,7 @@ export default async function ProjectsPage() {
   }));
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[#f3f2ef]">
       <Navbar session={session} />
       <ProjectsClient projects={projectData} />
     </div>

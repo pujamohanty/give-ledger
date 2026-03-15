@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
+import SignOutButton from "@/components/SignOutButton";
 import {
   Leaf,
   LayoutDashboard,
@@ -8,7 +9,6 @@ import {
   DollarSign,
   Activity,
   Settings,
-  LogOut,
   ShieldCheck,
 } from "lucide-react";
 
@@ -51,13 +51,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
           ))}
         </nav>
         <div className="p-4 border-t border-gray-700">
-          <Link
-            href="/api/auth/signout"
-            className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-gray-400 hover:bg-red-900/30 hover:text-red-400 transition-colors"
-          >
-            <LogOut className="w-4 h-4" />
-            Sign Out
-          </Link>
+          <SignOutButton dark />
         </div>
       </aside>
       <main className="flex-1 lg:ml-64 min-h-screen">{children}</main>

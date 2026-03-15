@@ -114,7 +114,7 @@ export default async function ImpactPage() {
   const session = await auth();
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[#f3f2ef]">
       <Navbar session={session} />
 
       {/* Hero */}

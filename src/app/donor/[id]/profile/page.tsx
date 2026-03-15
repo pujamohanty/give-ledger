@@ -73,7 +73,7 @@ export default async function DonorPublicProfilePage({
   const totalSkillValue = user.skillContributions.reduce((sum, c) => sum + (c.monetaryValue ?? 0), 0);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[#f3f2ef]">
       {/* Header bar */}
       <div className="bg-white border-b border-gray-100 px-4 py-3">
         <div className="max-w-3xl mx-auto flex items-center justify-between">
