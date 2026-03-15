@@ -1,21 +1,50 @@
 @import "tailwindcss";
 
+/* ─── Design tokens ──────────────────────────────────────── */
 :root {
+  --bg-page:       #f3f2ef;
+  --bg-surface:    #ffffff;
+  --border:        rgba(0,0,0,0.08);
+  --border-strong: rgba(0,0,0,0.14);
+  --accent:        #057642;
+  --accent-hover:  #046036;
+  --accent-light:  #e9f5ee;
+  --shadow-card:   0 0 0 1px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.05);
+  --shadow-hover:  0 0 0 1px rgba(0,0,0,0.12), 0 4px 12px rgba(0,0,0,0.08);
+  /* legacy compat */
   --background: #ffffff;
-  --foreground: #0a0a0a;
+  --foreground: #191919;
+}
+
+/* ─── Base ───────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  background: var(--bg-page);
+  color: #191919;
+  font-family: "DM Sans", system-ui, -apple-system, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
 }
 
-* {
-  box-sizing: border-box;
+h1,h2,h3,h4,h5,h6 {
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
 }
 
-/* Smooth scrolling */
-html {
-  scroll-behavior: smooth;
-}
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.14); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.24); }
+
+/* Focus */
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }

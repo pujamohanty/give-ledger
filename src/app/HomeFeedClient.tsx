@@ -155,7 +155,7 @@ function EventCard({ event }: { event: ActivityEvent }) {
   const [celebrated, setCelebrated] = useState(false);
 
   return (
-    <article className={`bg-white rounded-xl border border-gray-200 border-l-4 ${cfg.border} shadow-sm hover:shadow-md transition-all duration-200`}>
+    <article className={`bg-white rounded-lg border border-[rgba(0,0,0,0.08)] border-l-4 ${cfg.border} shadow-[0_0_0_1px_rgba(0,0,0,0.06),0_2px_4px_rgba(0,0,0,0.04)] hover:shadow-[0_0_0_1px_rgba(0,0,0,0.10),0_4px_12px_rgba(0,0,0,0.07)] transition-all duration-150`}>
       {/* Card Header */}
       <div className="p-4 pb-3">
         <div className="flex items-start justify-between gap-3">
@@ -246,7 +246,7 @@ function LeftSidebar({ session, stats }: {
     <aside className="space-y-4">
       {/* Profile / Auth Card */}
       {session ? (
-        <div className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm">
+        <div className="bg-white rounded-lg border border-[rgba(0,0,0,0.08)] overflow-hidden shadow-[0_0_0_1px_rgba(0,0,0,0.06),0_2px_4px_rgba(0,0,0,0.04)]">
           <div className="h-14 bg-gradient-to-r from-emerald-600 to-teal-500" />
           <div className="px-4 pb-4 -mt-6">
             <div className={`w-14 h-14 rounded-full border-4 border-white ${avatarColor(session.name)} flex items-center justify-center text-white font-bold text-lg shadow-sm`}>
@@ -272,7 +272,7 @@ function LeftSidebar({ session, stats }: {
           </div>
         </div>
       ) : (
-        <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-5">
+        <div className="bg-white rounded-lg border border-[rgba(0,0,0,0.08)] shadow-[0_0_0_1px_rgba(0,0,0,0.06),0_2px_4px_rgba(0,0,0,0.04)] p-5">
           <div className="flex items-center gap-2 mb-3">
             <div className="w-8 h-8 bg-emerald-600 rounded-lg flex items-center justify-center">
               <Leaf className="w-4 h-4 text-white" />
@@ -294,7 +294,7 @@ function LeftSidebar({ session, stats }: {
       )}
 
       {/* Platform Stats */}
-      <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-4">
+      <div className="bg-white rounded-lg border border-[rgba(0,0,0,0.08)] shadow-[0_0_0_1px_rgba(0,0,0,0.06),0_2px_4px_rgba(0,0,0,0.04)] p-4">
         <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">Platform Impact</h3>
         <div className="space-y-3">
           {[
@@ -315,7 +315,7 @@ function LeftSidebar({ session, stats }: {
       </div>
 
       {/* Quick Links */}
-      <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-4">
+      <div className="bg-white rounded-lg border border-[rgba(0,0,0,0.08)] shadow-[0_0_0_1px_rgba(0,0,0,0.06),0_2px_4px_rgba(0,0,0,0.04)] p-4">
         <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">Explore</h3>
         <div className="space-y-1">
           {[
@@ -341,7 +341,7 @@ function RightSidebar({ featuredProjects, recentNgos }: {
   return (
     <aside className="space-y-4">
       {/* Featured Projects */}
-      <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-4">
+      <div className="bg-white rounded-lg border border-[rgba(0,0,0,0.08)] shadow-[0_0_0_1px_rgba(0,0,0,0.06),0_2px_4px_rgba(0,0,0,0.04)] p-4">
         <div className="flex items-center justify-between mb-3">
           <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wider">Top Projects</h3>
           <Link href="/projects" className="text-xs text-emerald-600 font-semibold hover:underline">See all</Link>
@@ -374,7 +374,7 @@ function RightSidebar({ featuredProjects, recentNgos }: {
       </div>
 
       {/* Recently Joined NGOs */}
-      <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-4">
+      <div className="bg-white rounded-lg border border-[rgba(0,0,0,0.08)] shadow-[0_0_0_1px_rgba(0,0,0,0.06),0_2px_4px_rgba(0,0,0,0.04)] p-4">
         <div className="flex items-center justify-between mb-3">
           <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wider">New NGOs</h3>
         </div>
@@ -397,15 +397,17 @@ function RightSidebar({ featuredProjects, recentNgos }: {
       </div>
 
       {/* Trust badge */}
-      <div className="bg-gradient-to-br from-emerald-600 to-teal-600 rounded-xl p-4 text-white">
+      <div className="bg-white rounded-lg border border-[rgba(0,0,0,0.08)] shadow-[0_0_0_1px_rgba(0,0,0,0.06),0_2px_4px_rgba(0,0,0,0.04)] p-4">
         <div className="flex items-center gap-2 mb-2">
-          <Leaf className="w-5 h-5 text-emerald-200" />
-          <span className="font-bold text-sm">GiveLedger</span>
+          <div className="w-6 h-6 bg-emerald-700 rounded-md flex items-center justify-center">
+            <Leaf className="w-3.5 h-3.5 text-white" />
+          </div>
+          <span className="font-semibold text-sm text-gray-900">Are you a nonprofit?</span>
         </div>
-        <p className="text-xs text-emerald-100 leading-relaxed mb-3">
-          Every donation is milestone-locked and recorded on the Polygon blockchain. No black boxes.
+        <p className="text-xs text-gray-500 leading-relaxed mb-3">
+          Register your 501(c)(3) to raise funds with full milestone tracking and on-chain proof.
         </p>
-        <Link href="/signup?role=ngo" className="inline-flex items-center gap-1 bg-white/20 hover:bg-white/30 border border-white/30 text-white text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors">
+        <Link href="/signup?role=ngo" className="inline-flex items-center gap-1 border border-emerald-700 text-emerald-700 text-xs font-semibold px-3 py-1.5 rounded-full hover:bg-emerald-50 transition-colors">
           Register your NGO <ArrowRight className="w-3 h-3" />
         </Link>
       </div>
@@ -439,7 +441,7 @@ function Feed({ initial, initialCursor }: { initial: ActivityEvent[]; initialCur
   return (
     <div>
       {/* Filter tabs */}
-      <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-2 mb-4 flex gap-1 flex-wrap">
+      <div className="bg-white rounded-lg border border-[rgba(0,0,0,0.08)] shadow-[0_0_0_1px_rgba(0,0,0,0.06),0_2px_4px_rgba(0,0,0,0.04)] p-1.5 mb-4 flex gap-1 flex-wrap">
         {FILTERS.map(f => (
           <button
             key={f.key}
@@ -454,7 +456,7 @@ function Feed({ initial, initialCursor }: { initial: ActivityEvent[]; initialCur
       {/* Feed */}
       <div className="space-y-3">
         {filtered.length === 0 && (
-          <div className="bg-white rounded-xl border border-gray-200 p-10 text-center text-gray-400 text-sm">
+          <div className="bg-white rounded-lg border border-[rgba(0,0,0,0.08)] p-10 text-center text-gray-400 text-sm">
             No activity for this filter yet.
           </div>
         )}
@@ -469,7 +471,7 @@ function Feed({ initial, initialCursor }: { initial: ActivityEvent[]; initialCur
           <button
             onClick={loadMore}
             disabled={loading}
-            className="inline-flex items-center gap-2 text-sm text-emerald-700 font-semibold border border-emerald-200 bg-white rounded-xl px-6 py-2.5 hover:bg-emerald-50 disabled:opacity-50 transition-colors shadow-sm"
+            className="inline-flex items-center gap-2 text-sm text-emerald-700 font-semibold border border-emerald-600 bg-white rounded-full px-6 py-2 hover:bg-emerald-50 disabled:opacity-50 transition-colors"
           >
             {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : null}
             {loading ? "Loading…" : "Load more activity"}
@@ -492,17 +494,17 @@ export default function HomeFeedClient({ initial, initialCursor, stats, featured
     <main className="max-w-6xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
       {/* Top banner for guests */}
       {!session && (
-        <div className="bg-gradient-to-r from-emerald-700 to-teal-600 text-white rounded-xl p-4 mb-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-md">
+        <div className="bg-white rounded-lg border border-[rgba(0,0,0,0.08)] shadow-[0_0_0_1px_rgba(0,0,0,0.06),0_2px_4px_rgba(0,0,0,0.04)] p-4 mb-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
-            <p className="font-bold text-base">Welcome to GiveLedger</p>
-            <p className="text-sm text-emerald-100 mt-0.5">Transparent, blockchain-tracked donations. Every dollar has a story.</p>
+            <p className="font-semibold text-gray-900">Welcome to GiveLedger</p>
+            <p className="text-sm text-gray-500 mt-0.5">Transparent, blockchain-tracked donations — every dollar, provably spent.</p>
           </div>
           <div className="flex gap-2 shrink-0">
-            <Link href="/login" className="bg-white text-emerald-700 font-semibold text-sm px-4 py-2 rounded-lg hover:bg-emerald-50 transition-colors">
-              Sign In
+            <Link href="/login" className="text-sm font-semibold border border-[rgba(0,0,0,0.2)] text-gray-700 px-4 py-1.5 rounded-full hover:bg-gray-50 transition-colors">
+              Sign in
             </Link>
-            <Link href="/signup" className="border border-white/40 text-white font-semibold text-sm px-4 py-2 rounded-lg hover:bg-white/10 transition-colors">
-              Sign Up
+            <Link href="/signup" className="text-sm font-semibold border border-emerald-700 text-emerald-700 px-4 py-1.5 rounded-full hover:bg-emerald-50 transition-colors">
+              Join now
             </Link>
           </div>
         </div>

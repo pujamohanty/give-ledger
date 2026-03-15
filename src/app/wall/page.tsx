@@ -23,7 +23,7 @@ export default async function WallPage() {
   const nextCursor = hasMore ? items[items.length - 1].id : null;
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[#f3f2ef]">
       <Navbar session={session} />
 
       <div className="max-w-2xl mx-auto px-4 py-10 sm:px-6">

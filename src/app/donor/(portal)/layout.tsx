@@ -2,27 +2,28 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 import AssistantPortal from "@/components/AssistantPortal";
+import SidebarNavItem from "@/components/SidebarNavItem";
+import SignOutButton from "@/components/SignOutButton";
 import {
   Leaf, LayoutDashboard, Heart, TrendingUp, Settings,
   Search, Bell, Share2, Gift, Star, Globe, Briefcase, Award, Linkedin, UserCircle,
 } from "lucide-react";
-import SignOutButton from "@/components/SignOutButton";
 
 const navItems = [
-  { href: "/donor/dashboard", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/donor/profile", label: "My Profile", icon: UserCircle },
-  { href: "/donor/donations", label: "My Donations", icon: Heart },
-  { href: "/donor/impact", label: "My Impact", icon: TrendingUp },
-  { href: "/donor/skills", label: "Skill Contributions", icon: Briefcase },
-  { href: "/donor/standing", label: "NGO Standing", icon: Award },
-  { href: "/donor/post-builder", label: "Post Builder", icon: Linkedin },
-  { href: "/donor/credential", label: "My Credential", icon: Award },
-  { href: "/projects", label: "Browse Projects", icon: Search },
-  { href: "/campaigns", label: "Campaigns", icon: Gift },
-  { href: "/donor/notifications", label: "Notifications", icon: Bell },
-  { href: "/donor/referral", label: "Invite Friends", icon: Share2 },
-  { href: "/impact", label: "Platform Impact", icon: Globe },
-  { href: "/donor/settings", label: "Settings", icon: Settings },
+  { href: "/donor/dashboard",  label: "Dashboard",          icon: LayoutDashboard },
+  { href: "/donor/profile",    label: "My Profile",          icon: UserCircle },
+  { href: "/donor/donations",  label: "My Donations",        icon: Heart },
+  { href: "/donor/impact",     label: "My Impact",           icon: TrendingUp },
+  { href: "/donor/skills",     label: "Skill Contributions", icon: Briefcase },
+  { href: "/donor/standing",   label: "NGO Standing",        icon: Award },
+  { href: "/donor/post-builder", label: "Post Builder",      icon: Linkedin },
+  { href: "/donor/credential", label: "My Credential",       icon: Award },
+  { href: "/projects",         label: "Browse Projects",     icon: Search },
+  { href: "/campaigns",        label: "Campaigns",           icon: Gift },
+  { href: "/donor/notifications", label: "Notifications",   icon: Bell },
+  { href: "/donor/referral",   label: "Invite Friends",      icon: Share2 },
+  { href: "/impact",           label: "Platform Impact",     icon: Globe },
+  { href: "/donor/settings",   label: "Settings",            icon: Settings },
 ];
 
 export default async function DonorLayout({ children }: { children: React.ReactNode }) {
@@ -31,41 +32,55 @@ export default async function DonorLayout({ children }: { children: React.ReactN
   if (session.user.role === "NGO") redirect("/ngo/dashboard");
   if (session.user.role === "ADMIN") redirect("/admin/dashboard");
 
+  const userName = session.user.name ?? "Donor";
+  const initials = userName.trim().split(" ").map((p: string) => p[0]).slice(0, 2).join("").toUpperCase();
+
   return (
-    <div className="min-h-screen bg-gray-50 flex">
+    <div className="min-h-screen bg-[#f3f2ef] flex">
       {/* Sidebar */}
-      <aside className="hidden lg:flex w-64 flex-col bg-white border-r border-gray-100 fixed h-full overflow-y-auto">
-        <div className="p-6 border-b border-gray-100">
-          <Link href="/" className="flex items-center gap-2 font-bold text-emerald-700 text-lg">
-            <Leaf className="w-5 h-5" />
+      <aside className="hidden lg:flex w-60 flex-col bg-white border-r border-[rgba(0,0,0,0.08)] fixed h-full overflow-y-auto z-30">
+        {/* Logo */}
+        <div className="px-5 py-4 border-b border-[rgba(0,0,0,0.06)]">
+          <Link href="/" className="flex items-center gap-2 font-bold text-emerald-700 text-sm">
+            <div className="w-7 h-7 bg-emerald-700 rounded-md flex items-center justify-center shrink-0">
+              <Leaf className="w-3.5 h-3.5 text-white" />
+            </div>
             GiveLedger
           </Link>
-          <p className="text-xs text-gray-400 mt-1">Donor Portal</p>
+          <p className="text-xs text-gray-400 mt-0.5 ml-9">Donor Portal</p>
         </div>
-        <nav className="flex-1 p-4 space-y-1">
+
+        {/* User card */}
+        <div className="px-4 py-3 border-b border-[rgba(0,0,0,0.06)]">
+          <div className="flex items-center gap-2.5">
+            <div className="w-9 h-9 rounded-full bg-emerald-700 text-white text-xs font-bold flex items-center justify-center shrink-0">
+              {initials}
+            </div>
+            <div className="min-w-0">
+              <p className="text-sm font-semibold text-gray-900 truncate">{userName}</p>
+              <span className="inline-block text-[10px] font-semibold bg-emerald-50 text-emerald-700 px-1.5 py-0.5 rounded-full leading-tight">
+                Donor
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* Nav */}
+        <nav className="flex-1 px-3 py-3 space-y-0.5 overflow-y-auto">
           {navItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-gray-600 hover:bg-emerald-50 hover:text-emerald-700 transition-colors"
-            >
-              <item.icon className="w-4 h-4" />
-              {item.label}
-            </Link>
+            <SidebarNavItem key={item.href} href={item.href} label={item.label} icon={item.icon} />
           ))}
         </nav>
-        <div className="p-4 border-t border-gray-100 space-y-1">
-          <Link
-            href="/suggest-ngo"
-            className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-gray-500 hover:bg-emerald-50 hover:text-emerald-700 transition-colors"
-          >
-            <Star className="w-4 h-4" />
-            Suggest an NGO
-          </Link>
+
+        {/* Footer */}
+        <div className="px-3 py-3 border-t border-[rgba(0,0,0,0.06)] space-y-0.5">
+          <SidebarNavItem href="/suggest-ngo" label="Suggest an NGO" icon={Star} />
           <SignOutButton />
         </div>
       </aside>
-      <main className="flex-1 lg:ml-64 min-h-screen">
+
+      {/* Main */}
+      <main className="flex-1 lg:ml-60 min-h-screen">
         {children}
       </main>
       <AssistantPortal role="donor" />

@@ -3,20 +3,24 @@ import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import AssistantPortal from "@/components/AssistantPortal";
-import { Leaf, LayoutDashboard, FolderOpen, DollarSign, Settings, FileText, Upload, Clock, XCircle, Briefcase, Award, Linkedin, Building2 } from "lucide-react";
+import SidebarNavItem from "@/components/SidebarNavItem";
 import SignOutButton from "@/components/SignOutButton";
+import {
+  Leaf, LayoutDashboard, FolderOpen, DollarSign, Settings,
+  FileText, Upload, Clock, XCircle, Briefcase, Award, Linkedin, Building2,
+} from "lucide-react";
 
 const navItems = [
-  { href: "/ngo/dashboard", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/ngo/org-profile", label: "NGO Profile", icon: Building2 },
-  { href: "/ngo/projects", label: "My Projects", icon: FolderOpen },
-  { href: "/ngo/submit-milestone", label: "Submit Evidence", icon: Upload },
-  { href: "/ngo/skills", label: "Skill Contributions", icon: Briefcase },
-  { href: "/ngo/recognition", label: "Donor Recognition", icon: Award },
-  { href: "/ngo/post-builder", label: "Post Builder", icon: Linkedin },
-  { href: "/ngo/finances", label: "Finances", icon: DollarSign },
-  { href: "/ngo/reports", label: "Reports", icon: FileText },
-  { href: "/ngo/settings", label: "Settings", icon: Settings },
+  { href: "/ngo/dashboard",       label: "Dashboard",           icon: LayoutDashboard },
+  { href: "/ngo/org-profile",     label: "NGO Profile",         icon: Building2 },
+  { href: "/ngo/projects",        label: "My Projects",         icon: FolderOpen },
+  { href: "/ngo/submit-milestone", label: "Submit Evidence",    icon: Upload },
+  { href: "/ngo/skills",          label: "Skill Contributions", icon: Briefcase },
+  { href: "/ngo/recognition",     label: "Donor Recognition",   icon: Award },
+  { href: "/ngo/post-builder",    label: "Post Builder",        icon: Linkedin },
+  { href: "/ngo/finances",        label: "Finances",            icon: DollarSign },
+  { href: "/ngo/reports",         label: "Reports",             icon: FileText },
+  { href: "/ngo/settings",        label: "Settings",            icon: Settings },
 ];
 
 export default async function NgoLayout({ children }: { children: React.ReactNode }) {
@@ -25,7 +29,6 @@ export default async function NgoLayout({ children }: { children: React.ReactNod
   if (session.user.role === "DONOR") redirect("/donor/dashboard");
   if (session.user.role === "ADMIN") redirect("/admin/dashboard");
 
-  // Ensure Ngo record exists; create it on first portal access if missing
   let ngo = await prisma.ngo.findUnique({ where: { userId: session.user.id } });
   if (!ngo) {
     ngo = await prisma.ngo.create({
@@ -37,25 +40,27 @@ export default async function NgoLayout({ children }: { children: React.ReactNod
     });
   }
 
-  // Approval gate — show holding screen instead of the portal
+  const orgName = ngo.orgName;
+  const initials = orgName.trim().split(" ").map((p: string) => p[0]).slice(0, 2).join("").toUpperCase();
+
+  /* ── Pending gate ── */
   if (ngo.status === "PENDING") {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
-        <div className="max-w-md w-full text-center">
-          <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-5">
-            <Clock className="w-8 h-8 text-amber-600" />
+      <div className="min-h-screen bg-[#f3f2ef] flex items-center justify-center px-4">
+        <div className="max-w-md w-full bg-white rounded-xl border border-[rgba(0,0,0,0.08)] shadow-[0_0_0_1px_rgba(0,0,0,0.06),0_4px_12px_rgba(0,0,0,0.07)] p-8 text-center">
+          <div className="w-14 h-14 bg-amber-50 rounded-full flex items-center justify-center mx-auto mb-5">
+            <Clock className="w-7 h-7 text-amber-500" />
           </div>
-          <h1 className="text-2xl font-bold text-gray-900 mb-3">Application Under Review</h1>
-          <p className="text-gray-500 mb-2">
+          <h1 className="text-xl font-semibold text-gray-900 mb-2">Application Under Review</h1>
+          <p className="text-sm text-gray-500 mb-2">
             Your NGO account is being reviewed by the GiveLedger team.
           </p>
-          <p className="text-sm text-gray-400 mb-8">
-            We verify all NGOs before granting access to the portal. This typically takes 24–48 hours.
-            You will receive an email notification once your account is approved.
+          <p className="text-xs text-gray-400 mb-6">
+            We verify all NGOs before granting portal access. This typically takes 24–48 hours.
           </p>
-          <div className="bg-amber-50 border border-amber-100 rounded-xl p-4 text-left text-sm text-amber-800 mb-6">
-            <p className="font-semibold mb-2">What happens next:</p>
-            <ol className="space-y-1 list-decimal list-inside">
+          <div className="bg-amber-50 border border-amber-100 rounded-lg p-4 text-left text-sm text-amber-800 mb-6">
+            <p className="font-semibold mb-2 text-xs uppercase tracking-wide">What happens next</p>
+            <ol className="space-y-1 list-decimal list-inside text-xs">
               <li>Our team reviews your registration details</li>
               <li>We may request additional documents via email</li>
               <li>Once approved, you can create projects and submit milestones</li>
@@ -67,24 +72,25 @@ export default async function NgoLayout({ children }: { children: React.ReactNod
     );
   }
 
+  /* ── Rejected gate ── */
   if (ngo.status === "REJECTED") {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
-        <div className="max-w-md w-full text-center">
-          <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-5">
-            <XCircle className="w-8 h-8 text-red-500" />
+      <div className="min-h-screen bg-[#f3f2ef] flex items-center justify-center px-4">
+        <div className="max-w-md w-full bg-white rounded-xl border border-[rgba(0,0,0,0.08)] shadow-[0_0_0_1px_rgba(0,0,0,0.06),0_4px_12px_rgba(0,0,0,0.07)] p-8 text-center">
+          <div className="w-14 h-14 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-5">
+            <XCircle className="w-7 h-7 text-red-500" />
           </div>
-          <h1 className="text-2xl font-bold text-gray-900 mb-3">Application Not Approved</h1>
-          <p className="text-gray-500 mb-2">
+          <h1 className="text-xl font-semibold text-gray-900 mb-2">Application Not Approved</h1>
+          <p className="text-sm text-gray-500 mb-3">
             Unfortunately your NGO application was not approved at this time.
           </p>
           {ngo.rejectReason && (
-            <div className="bg-red-50 border border-red-100 rounded-xl p-4 text-left text-sm text-red-700 my-4">
-              <p className="font-semibold mb-1">Reason provided:</p>
-              <p>{ngo.rejectReason}</p>
+            <div className="bg-red-50 border border-red-100 rounded-lg p-4 text-left text-sm text-red-700 mb-4">
+              <p className="font-semibold mb-1 text-xs uppercase tracking-wide">Reason provided</p>
+              <p className="text-xs">{ngo.rejectReason}</p>
             </div>
           )}
-          <p className="text-sm text-gray-400 mb-6">
+          <p className="text-xs text-gray-400 mb-6">
             If you believe this is an error, please contact us at support@giveledger.com.
           </p>
           <SignOutButton />
@@ -94,32 +100,49 @@ export default async function NgoLayout({ children }: { children: React.ReactNod
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex">
-      <aside className="hidden lg:flex w-64 flex-col bg-white border-r border-gray-100 fixed h-full">
-        <div className="p-6 border-b border-gray-100">
-          <Link href="/" className="flex items-center gap-2 font-bold text-emerald-700 text-lg">
-            <Leaf className="w-5 h-5" />
+    <div className="min-h-screen bg-[#f3f2ef] flex">
+      {/* Sidebar */}
+      <aside className="hidden lg:flex w-60 flex-col bg-white border-r border-[rgba(0,0,0,0.08)] fixed h-full overflow-y-auto z-30">
+        {/* Logo */}
+        <div className="px-5 py-4 border-b border-[rgba(0,0,0,0.06)]">
+          <Link href="/" className="flex items-center gap-2 font-bold text-emerald-700 text-sm">
+            <div className="w-7 h-7 bg-emerald-700 rounded-md flex items-center justify-center shrink-0">
+              <Leaf className="w-3.5 h-3.5 text-white" />
+            </div>
             GiveLedger
           </Link>
-          <p className="text-xs text-gray-400 mt-1">NGO Portal</p>
+          <p className="text-xs text-gray-400 mt-0.5 ml-9">NGO Portal</p>
         </div>
-        <nav className="flex-1 p-4 space-y-1">
+
+        {/* Org card */}
+        <div className="px-4 py-3 border-b border-[rgba(0,0,0,0.06)]">
+          <div className="flex items-center gap-2.5">
+            <div className="w-9 h-9 rounded-lg bg-emerald-700 text-white text-xs font-bold flex items-center justify-center shrink-0">
+              {initials}
+            </div>
+            <div className="min-w-0">
+              <p className="text-sm font-semibold text-gray-900 truncate">{orgName}</p>
+              <span className="inline-block text-[10px] font-semibold bg-blue-50 text-blue-700 px-1.5 py-0.5 rounded-full leading-tight">
+                NGO
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* Nav */}
+        <nav className="flex-1 px-3 py-3 space-y-0.5 overflow-y-auto">
           {navItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-gray-600 hover:bg-emerald-50 hover:text-emerald-700 transition-colors"
-            >
-              <item.icon className="w-4 h-4" />
-              {item.label}
-            </Link>
+            <SidebarNavItem key={item.href} href={item.href} label={item.label} icon={item.icon} />
           ))}
         </nav>
-        <div className="p-4 border-t border-gray-100">
+
+        {/* Footer */}
+        <div className="px-3 py-3 border-t border-[rgba(0,0,0,0.06)]">
           <SignOutButton />
         </div>
       </aside>
-      <main className="flex-1 lg:ml-64 min-h-screen">{children}</main>
+
+      <main className="flex-1 lg:ml-60 min-h-screen">{children}</main>
       <AssistantPortal role="ngo" />
     </div>
   );

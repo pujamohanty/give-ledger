@@ -39,7 +39,7 @@ export default async function HomePage() {
   const nextCursor = hasMore ? items[items.length - 1].id : null;
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-[#f3f2ef]">
       <Navbar session={session} />
       <HomeFeedClient
         initial={items.map(e => ({ ...e, createdAt: e.createdAt.toISOString() }))}
