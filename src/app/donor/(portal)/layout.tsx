@@ -29,7 +29,12 @@ const navItems = [
 ];
 
 export default async function DonorLayout({ children }: { children: React.ReactNode }) {
-  const session = await auth();
+  let session;
+  try {
+    session = await auth();
+  } catch {
+    redirect("/api/auth/signout?callbackUrl=/login");
+  }
   if (!session) redirect("/login");
   if (session.user.role === "NGO") redirect("/ngo/dashboard");
   if (session.user.role === "ADMIN") redirect("/admin/dashboard");

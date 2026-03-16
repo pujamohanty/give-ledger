@@ -25,7 +25,15 @@ const navItems = [
 ];
 
 export default async function NgoLayout({ children }: { children: React.ReactNode }) {
-  const session = await auth();
+  // Wrap auth() in try-catch: a stale/malformed JWT cookie throws JWEInvalid.
+  // Redirect to NextAuth's signout endpoint which clears all auth cookies,
+  // then sends the user back to /login with a clean slate.
+  let session;
+  try {
+    session = await auth();
+  } catch {
+    redirect("/api/auth/signout?callbackUrl=/login");
+  }
   if (!session) redirect("/login");
   if (session.user.role === "DONOR") redirect("/donor/dashboard");
   if (session.user.role === "ADMIN") redirect("/admin/dashboard");
