@@ -1,0 +1,190 @@
+import Link from "next/link";
+import { prisma } from "@/lib/prisma";
+import { Briefcase, Clock, Users, MapPin, Wifi, ChevronRight, Search } from "lucide-react";
+import Navbar from "@/components/Navbar";
+import { auth } from "@/lib/auth";
+
+const roleTypeLabels: Record<string, { label: string; color: string }> = {
+  INTERNSHIP:        { label: "Internship",        color: "bg-blue-50 text-blue-700 border-blue-100" },
+  CAREER_TRANSITION: { label: "Career Transition",  color: "bg-purple-50 text-purple-700 border-purple-100" },
+  INTERIM:           { label: "Interim Role",        color: "bg-amber-50 text-amber-700 border-amber-100" },
+  VOLUNTEER:         { label: "Volunteer",            color: "bg-emerald-50 text-emerald-700 border-emerald-100" },
+};
+
+export default async function OpportunitiesPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ type?: string }>;
+}) {
+  const session = await auth();
+  const { type } = await searchParams;
+
+  const roles = await prisma.ngoRole.findMany({
+    where: {
+      status: "OPEN",
+      ...(type && type !== "ALL" ? { roleType: type as "INTERNSHIP" | "CAREER_TRANSITION" | "INTERIM" | "VOLUNTEER" } : {}),
+    },
+    include: {
+      ngo: { select: { id: true, orgName: true, logoUrl: true, trustScore: true, state: true } },
+      project: { select: { title: true } },
+      _count: { select: { applications: true } },
+    },
+    orderBy: { createdAt: "desc" },
+  });
+
+  const filters = [
+    { key: "ALL",               label: "All roles" },
+    { key: "INTERNSHIP",        label: "Internships" },
+    { key: "CAREER_TRANSITION", label: "Career Transition" },
+    { key: "INTERIM",           label: "Interim" },
+    { key: "VOLUNTEER",         label: "Volunteer" },
+  ];
+
+  const activeFilter = type ?? "ALL";
+
+  return (
+    <>
+      <Navbar session={session} />
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 py-10">
+
+        {/* Header */}
+        <div className="mb-8">
+          <h1 className="text-2xl font-bold text-gray-900 mb-2">Open Opportunities</h1>
+          <p className="text-sm text-gray-500 max-w-xl">
+            Contribute your skills and time to verified nonprofits. Every completed engagement is recorded
+            on your GiveLedger profile — count it as professional experience, a career pivot, or an
+            interim role between jobs.
+          </p>
+        </div>
+
+        {/* Value props */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
+          {[
+            { label: "Internship", desc: "Showcase skills to new employers", color: "bg-blue-50 border-blue-100", dot: "bg-blue-500" },
+            { label: "Career Transition", desc: "Acquire skills for a new field", color: "bg-purple-50 border-purple-100", dot: "bg-purple-500" },
+            { label: "Interim Role", desc: "Keep your CV active between jobs", color: "bg-amber-50 border-amber-100", dot: "bg-amber-500" },
+            { label: "Volunteer", desc: "Give time to causes you care about", color: "bg-emerald-50 border-emerald-100", dot: "bg-emerald-500" },
+          ].map((v) => (
+            <div key={v.label} className={`rounded-xl border p-3 ${v.color}`}>
+              <div className={`w-2 h-2 rounded-full ${v.dot} mb-2`} />
+              <p className="text-xs font-semibold text-gray-900">{v.label}</p>
+              <p className="text-[11px] text-gray-500 mt-0.5">{v.desc}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* Filters */}
+        <div className="flex gap-2 flex-wrap mb-6">
+          {filters.map((f) => (
+            <Link
+              key={f.key}
+              href={f.key === "ALL" ? "/opportunities" : `/opportunities?type=${f.key}`}
+              className={`px-3.5 py-1.5 rounded-full text-xs font-medium border transition-colors ${
+                activeFilter === f.key
+                  ? "bg-gray-900 text-white border-gray-900"
+                  : "bg-white text-gray-600 border-gray-200 hover:border-gray-400"
+              }`}
+            >
+              {f.label}
+            </Link>
+          ))}
+        </div>
+
+        {/* Roles grid */}
+        {roles.length === 0 ? (
+          <div className="flex flex-col items-center justify-center py-20 text-center">
+            <div className="w-14 h-14 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Search className="w-6 h-6 text-gray-400" />
+            </div>
+            <p className="text-gray-500 text-sm">No open roles right now.</p>
+            <p className="text-gray-400 text-xs mt-1">Check back soon — NGOs post new opportunities regularly.</p>
+          </div>
+        ) : (
+          <div className="grid sm:grid-cols-2 gap-4">
+            {roles.map((role) => {
+              const typeInfo = roleTypeLabels[role.roleType] ?? roleTypeLabels.VOLUNTEER;
+              const skills = role.skillsRequired.split(",").map((s) => s.trim()).filter(Boolean);
+              const spotsLeft = role.openings - role._count.applications;
+
+              return (
+                <Link
+                  key={role.id}
+                  href={`/opportunities/${role.id}`}
+                  className="group bg-white border border-gray-200 rounded-xl p-5 hover:border-gray-300 hover:shadow-sm transition-all flex flex-col gap-3"
+                >
+                  {/* NGO + type */}
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="flex items-center gap-2.5 min-w-0">
+                      <div className="w-9 h-9 rounded-lg bg-emerald-700 text-white text-xs font-bold flex items-center justify-center shrink-0">
+                        {role.ngo.orgName.slice(0, 2).toUpperCase()}
+                      </div>
+                      <div className="min-w-0">
+                        <p className="text-[11px] text-gray-500 truncate">{role.ngo.orgName}</p>
+                        <p className="text-sm font-semibold text-gray-900 truncate group-hover:text-emerald-700 transition-colors">
+                          {role.title}
+                        </p>
+                      </div>
+                    </div>
+                    <span className={`shrink-0 text-[10px] font-semibold px-2 py-0.5 rounded-full border ${typeInfo.color}`}>
+                      {typeInfo.label}
+                    </span>
+                  </div>
+
+                  {/* Meta */}
+                  <div className="flex flex-wrap gap-x-4 gap-y-1.5 text-[11px] text-gray-500">
+                    <span className="flex items-center gap-1">
+                      <Clock className="w-3 h-3" /> {role.timeCommitment}
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <Briefcase className="w-3 h-3" /> {role.durationWeeks} weeks
+                    </span>
+                    <span className="flex items-center gap-1">
+                      {role.isRemote
+                        ? <><Wifi className="w-3 h-3" /> Remote</>
+                        : <><MapPin className="w-3 h-3" /> {role.location ?? "On-site"}</>
+                      }
+                    </span>
+                    {spotsLeft > 0 && (
+                      <span className="flex items-center gap-1">
+                        <Users className="w-3 h-3" /> {spotsLeft} spot{spotsLeft !== 1 ? "s" : ""} left
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Skills */}
+                  {skills.length > 0 && (
+                    <div className="flex flex-wrap gap-1.5">
+                      {skills.slice(0, 4).map((skill) => (
+                        <span key={skill} className="text-[10px] bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full">
+                          {skill}
+                        </span>
+                      ))}
+                      {skills.length > 4 && (
+                        <span className="text-[10px] bg-gray-100 text-gray-500 px-2 py-0.5 rounded-full">
+                          +{skills.length - 4} more
+                        </span>
+                      )}
+                    </div>
+                  )}
+
+                  {/* Project link */}
+                  {role.project && (
+                    <p className="text-[10px] text-emerald-600 font-medium">
+                      Project: {role.project.title}
+                    </p>
+                  )}
+
+                  <div className="flex items-center justify-end mt-auto">
+                    <span className="text-xs text-gray-400 group-hover:text-emerald-600 flex items-center gap-1 transition-colors">
+                      View & apply <ChevronRight className="w-3.5 h-3.5" />
+                    </span>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+        )}
+      </div>
+    </>
+  );
+}

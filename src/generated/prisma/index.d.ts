@@ -153,6 +153,21 @@ export type DonorDocument = $Result.DefaultSelection<Prisma.$DonorDocumentPayloa
  * 
  */
 export type NgoDocument = $Result.DefaultSelection<Prisma.$NgoDocumentPayload>
+/**
+ * Model NgoRole
+ * 
+ */
+export type NgoRole = $Result.DefaultSelection<Prisma.$NgoRolePayload>
+/**
+ * Model RoleApplication
+ * 
+ */
+export type RoleApplication = $Result.DefaultSelection<Prisma.$RoleApplicationPayload>
+/**
+ * Model RoleEngagement
+ * 
+ */
+export type RoleEngagement = $Result.DefaultSelection<Prisma.$RoleEngagementPayload>
 
 /**
  * Enums
@@ -229,6 +244,44 @@ export const ProjectCategory: {
 
 export type ProjectCategory = (typeof ProjectCategory)[keyof typeof ProjectCategory]
 
+
+export const RoleType: {
+  INTERNSHIP: 'INTERNSHIP',
+  CAREER_TRANSITION: 'CAREER_TRANSITION',
+  INTERIM: 'INTERIM',
+  VOLUNTEER: 'VOLUNTEER'
+};
+
+export type RoleType = (typeof RoleType)[keyof typeof RoleType]
+
+
+export const RoleStatus: {
+  OPEN: 'OPEN',
+  CLOSED: 'CLOSED',
+  FILLED: 'FILLED'
+};
+
+export type RoleStatus = (typeof RoleStatus)[keyof typeof RoleStatus]
+
+
+export const ApplicationStatus: {
+  PENDING: 'PENDING',
+  ACCEPTED: 'ACCEPTED',
+  REJECTED: 'REJECTED',
+  WITHDRAWN: 'WITHDRAWN'
+};
+
+export type ApplicationStatus = (typeof ApplicationStatus)[keyof typeof ApplicationStatus]
+
+
+export const EngagementStatus: {
+  ACTIVE: 'ACTIVE',
+  COMPLETED: 'COMPLETED',
+  ABANDONED: 'ABANDONED'
+};
+
+export type EngagementStatus = (typeof EngagementStatus)[keyof typeof EngagementStatus]
+
 }
 
 export type Role = $Enums.Role
@@ -258,6 +311,22 @@ export const PaymentMethod: typeof $Enums.PaymentMethod
 export type ProjectCategory = $Enums.ProjectCategory
 
 export const ProjectCategory: typeof $Enums.ProjectCategory
+
+export type RoleType = $Enums.RoleType
+
+export const RoleType: typeof $Enums.RoleType
+
+export type RoleStatus = $Enums.RoleStatus
+
+export const RoleStatus: typeof $Enums.RoleStatus
+
+export type ApplicationStatus = $Enums.ApplicationStatus
+
+export const ApplicationStatus: typeof $Enums.ApplicationStatus
+
+export type EngagementStatus = $Enums.EngagementStatus
+
+export const EngagementStatus: typeof $Enums.EngagementStatus
 
 /**
  * ##  Prisma Client ʲˢ
@@ -659,6 +728,36 @@ export class PrismaClient<
     * ```
     */
   get ngoDocument(): Prisma.NgoDocumentDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.ngoRole`: Exposes CRUD operations for the **NgoRole** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more NgoRoles
+    * const ngoRoles = await prisma.ngoRole.findMany()
+    * ```
+    */
+  get ngoRole(): Prisma.NgoRoleDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.roleApplication`: Exposes CRUD operations for the **RoleApplication** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more RoleApplications
+    * const roleApplications = await prisma.roleApplication.findMany()
+    * ```
+    */
+  get roleApplication(): Prisma.RoleApplicationDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.roleEngagement`: Exposes CRUD operations for the **RoleEngagement** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more RoleEngagements
+    * const roleEngagements = await prisma.roleEngagement.findMany()
+    * ```
+    */
+  get roleEngagement(): Prisma.RoleEngagementDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -1120,7 +1219,10 @@ export namespace Prisma {
     SkillBlockchainRecord: 'SkillBlockchainRecord',
     DonorEndorsement: 'DonorEndorsement',
     DonorDocument: 'DonorDocument',
-    NgoDocument: 'NgoDocument'
+    NgoDocument: 'NgoDocument',
+    NgoRole: 'NgoRole',
+    RoleApplication: 'RoleApplication',
+    RoleEngagement: 'RoleEngagement'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1136,7 +1238,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "account" | "session" | "verificationToken" | "user" | "ngo" | "project" | "milestone" | "evidenceFile" | "outputMarker" | "donation" | "disbursement" | "expense" | "blockchainRecord" | "rating" | "platformSetting" | "notification" | "spotlightVote" | "campaign" | "campaignContributor" | "ngoSuggestion" | "referral" | "activityEvent" | "boardMember" | "skillContribution" | "skillBlockchainRecord" | "donorEndorsement" | "donorDocument" | "ngoDocument"
+      modelProps: "account" | "session" | "verificationToken" | "user" | "ngo" | "project" | "milestone" | "evidenceFile" | "outputMarker" | "donation" | "disbursement" | "expense" | "blockchainRecord" | "rating" | "platformSetting" | "notification" | "spotlightVote" | "campaign" | "campaignContributor" | "ngoSuggestion" | "referral" | "activityEvent" | "boardMember" | "skillContribution" | "skillBlockchainRecord" | "donorEndorsement" | "donorDocument" | "ngoDocument" | "ngoRole" | "roleApplication" | "roleEngagement"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -3212,6 +3314,228 @@ export namespace Prisma {
           }
         }
       }
+      NgoRole: {
+        payload: Prisma.$NgoRolePayload<ExtArgs>
+        fields: Prisma.NgoRoleFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.NgoRoleFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NgoRolePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.NgoRoleFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NgoRolePayload>
+          }
+          findFirst: {
+            args: Prisma.NgoRoleFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NgoRolePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.NgoRoleFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NgoRolePayload>
+          }
+          findMany: {
+            args: Prisma.NgoRoleFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NgoRolePayload>[]
+          }
+          create: {
+            args: Prisma.NgoRoleCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NgoRolePayload>
+          }
+          createMany: {
+            args: Prisma.NgoRoleCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.NgoRoleCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NgoRolePayload>[]
+          }
+          delete: {
+            args: Prisma.NgoRoleDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NgoRolePayload>
+          }
+          update: {
+            args: Prisma.NgoRoleUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NgoRolePayload>
+          }
+          deleteMany: {
+            args: Prisma.NgoRoleDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.NgoRoleUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.NgoRoleUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NgoRolePayload>[]
+          }
+          upsert: {
+            args: Prisma.NgoRoleUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NgoRolePayload>
+          }
+          aggregate: {
+            args: Prisma.NgoRoleAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateNgoRole>
+          }
+          groupBy: {
+            args: Prisma.NgoRoleGroupByArgs<ExtArgs>
+            result: $Utils.Optional<NgoRoleGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.NgoRoleCountArgs<ExtArgs>
+            result: $Utils.Optional<NgoRoleCountAggregateOutputType> | number
+          }
+        }
+      }
+      RoleApplication: {
+        payload: Prisma.$RoleApplicationPayload<ExtArgs>
+        fields: Prisma.RoleApplicationFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.RoleApplicationFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RoleApplicationPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.RoleApplicationFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RoleApplicationPayload>
+          }
+          findFirst: {
+            args: Prisma.RoleApplicationFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RoleApplicationPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.RoleApplicationFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RoleApplicationPayload>
+          }
+          findMany: {
+            args: Prisma.RoleApplicationFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RoleApplicationPayload>[]
+          }
+          create: {
+            args: Prisma.RoleApplicationCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RoleApplicationPayload>
+          }
+          createMany: {
+            args: Prisma.RoleApplicationCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.RoleApplicationCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RoleApplicationPayload>[]
+          }
+          delete: {
+            args: Prisma.RoleApplicationDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RoleApplicationPayload>
+          }
+          update: {
+            args: Prisma.RoleApplicationUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RoleApplicationPayload>
+          }
+          deleteMany: {
+            args: Prisma.RoleApplicationDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.RoleApplicationUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.RoleApplicationUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RoleApplicationPayload>[]
+          }
+          upsert: {
+            args: Prisma.RoleApplicationUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RoleApplicationPayload>
+          }
+          aggregate: {
+            args: Prisma.RoleApplicationAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateRoleApplication>
+          }
+          groupBy: {
+            args: Prisma.RoleApplicationGroupByArgs<ExtArgs>
+            result: $Utils.Optional<RoleApplicationGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.RoleApplicationCountArgs<ExtArgs>
+            result: $Utils.Optional<RoleApplicationCountAggregateOutputType> | number
+          }
+        }
+      }
+      RoleEngagement: {
+        payload: Prisma.$RoleEngagementPayload<ExtArgs>
+        fields: Prisma.RoleEngagementFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.RoleEngagementFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RoleEngagementPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.RoleEngagementFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RoleEngagementPayload>
+          }
+          findFirst: {
+            args: Prisma.RoleEngagementFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RoleEngagementPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.RoleEngagementFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RoleEngagementPayload>
+          }
+          findMany: {
+            args: Prisma.RoleEngagementFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RoleEngagementPayload>[]
+          }
+          create: {
+            args: Prisma.RoleEngagementCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RoleEngagementPayload>
+          }
+          createMany: {
+            args: Prisma.RoleEngagementCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.RoleEngagementCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RoleEngagementPayload>[]
+          }
+          delete: {
+            args: Prisma.RoleEngagementDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RoleEngagementPayload>
+          }
+          update: {
+            args: Prisma.RoleEngagementUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RoleEngagementPayload>
+          }
+          deleteMany: {
+            args: Prisma.RoleEngagementDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.RoleEngagementUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.RoleEngagementUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RoleEngagementPayload>[]
+          }
+          upsert: {
+            args: Prisma.RoleEngagementUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RoleEngagementPayload>
+          }
+          aggregate: {
+            args: Prisma.RoleEngagementAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateRoleEngagement>
+          }
+          groupBy: {
+            args: Prisma.RoleEngagementGroupByArgs<ExtArgs>
+            result: $Utils.Optional<RoleEngagementGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.RoleEngagementCountArgs<ExtArgs>
+            result: $Utils.Optional<RoleEngagementCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -3348,6 +3672,9 @@ export namespace Prisma {
     donorEndorsement?: DonorEndorsementOmit
     donorDocument?: DonorDocumentOmit
     ngoDocument?: NgoDocumentOmit
+    ngoRole?: NgoRoleOmit
+    roleApplication?: RoleApplicationOmit
+    roleEngagement?: RoleEngagementOmit
   }
 
   /* Types for Logging */
@@ -3443,6 +3770,7 @@ export namespace Prisma {
     endorsementsReceived: number
     endorsementsGiven: number
     documents: number
+    roleApplications: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3461,6 +3789,7 @@ export namespace Prisma {
     endorsementsReceived?: boolean | UserCountOutputTypeCountEndorsementsReceivedArgs
     endorsementsGiven?: boolean | UserCountOutputTypeCountEndorsementsGivenArgs
     documents?: boolean | UserCountOutputTypeCountDocumentsArgs
+    roleApplications?: boolean | UserCountOutputTypeCountRoleApplicationsArgs
   }
 
   // Custom InputTypes
@@ -3579,6 +3908,13 @@ export namespace Prisma {
     where?: DonorDocumentWhereInput
   }
 
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountRoleApplicationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RoleApplicationWhereInput
+  }
+
 
   /**
    * Count Type NgoCountOutputType
@@ -3592,6 +3928,7 @@ export namespace Prisma {
     skillContributions: number
     donorEndorsements: number
     documents: number
+    roles: number
   }
 
   export type NgoCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3602,6 +3939,7 @@ export namespace Prisma {
     skillContributions?: boolean | NgoCountOutputTypeCountSkillContributionsArgs
     donorEndorsements?: boolean | NgoCountOutputTypeCountDonorEndorsementsArgs
     documents?: boolean | NgoCountOutputTypeCountDocumentsArgs
+    roles?: boolean | NgoCountOutputTypeCountRolesArgs
   }
 
   // Custom InputTypes
@@ -3664,6 +4002,13 @@ export namespace Prisma {
     where?: NgoDocumentWhereInput
   }
 
+  /**
+   * NgoCountOutputType without action
+   */
+  export type NgoCountOutputTypeCountRolesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: NgoRoleWhereInput
+  }
+
 
   /**
    * Count Type ProjectCountOutputType
@@ -3676,6 +4021,7 @@ export namespace Prisma {
     spotlightVotes: number
     campaigns: number
     skillContributions: number
+    roles: number
   }
 
   export type ProjectCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3685,6 +4031,7 @@ export namespace Prisma {
     spotlightVotes?: boolean | ProjectCountOutputTypeCountSpotlightVotesArgs
     campaigns?: boolean | ProjectCountOutputTypeCountCampaignsArgs
     skillContributions?: boolean | ProjectCountOutputTypeCountSkillContributionsArgs
+    roles?: boolean | ProjectCountOutputTypeCountRolesArgs
   }
 
   // Custom InputTypes
@@ -3738,6 +4085,13 @@ export namespace Prisma {
    */
   export type ProjectCountOutputTypeCountSkillContributionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: SkillContributionWhereInput
+  }
+
+  /**
+   * ProjectCountOutputType without action
+   */
+  export type ProjectCountOutputTypeCountRolesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: NgoRoleWhereInput
   }
 
 
@@ -3809,6 +4163,37 @@ export namespace Prisma {
    */
   export type CampaignCountOutputTypeCountContributorsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: CampaignContributorWhereInput
+  }
+
+
+  /**
+   * Count Type NgoRoleCountOutputType
+   */
+
+  export type NgoRoleCountOutputType = {
+    applications: number
+  }
+
+  export type NgoRoleCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    applications?: boolean | NgoRoleCountOutputTypeCountApplicationsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * NgoRoleCountOutputType without action
+   */
+  export type NgoRoleCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NgoRoleCountOutputType
+     */
+    select?: NgoRoleCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * NgoRoleCountOutputType without action
+   */
+  export type NgoRoleCountOutputTypeCountApplicationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RoleApplicationWhereInput
   }
 
 
@@ -7305,6 +7690,7 @@ export namespace Prisma {
     endorsementsReceived?: boolean | User$endorsementsReceivedArgs<ExtArgs>
     endorsementsGiven?: boolean | User$endorsementsGivenArgs<ExtArgs>
     documents?: boolean | User$documentsArgs<ExtArgs>
+    roleApplications?: boolean | User$roleApplicationsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -7392,6 +7778,7 @@ export namespace Prisma {
     endorsementsReceived?: boolean | User$endorsementsReceivedArgs<ExtArgs>
     endorsementsGiven?: boolean | User$endorsementsGivenArgs<ExtArgs>
     documents?: boolean | User$documentsArgs<ExtArgs>
+    roleApplications?: boolean | User$roleApplicationsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -7416,6 +7803,7 @@ export namespace Prisma {
       endorsementsReceived: Prisma.$DonorEndorsementPayload<ExtArgs>[]
       endorsementsGiven: Prisma.$DonorEndorsementPayload<ExtArgs>[]
       documents: Prisma.$DonorDocumentPayload<ExtArgs>[]
+      roleApplications: Prisma.$RoleApplicationPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -7847,6 +8235,7 @@ export namespace Prisma {
     endorsementsReceived<T extends User$endorsementsReceivedArgs<ExtArgs> = {}>(args?: Subset<T, User$endorsementsReceivedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DonorEndorsementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     endorsementsGiven<T extends User$endorsementsGivenArgs<ExtArgs> = {}>(args?: Subset<T, User$endorsementsGivenArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DonorEndorsementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     documents<T extends User$documentsArgs<ExtArgs> = {}>(args?: Subset<T, User$documentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DonorDocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    roleApplications<T extends User$roleApplicationsArgs<ExtArgs> = {}>(args?: Subset<T, User$roleApplicationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RoleApplicationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8662,6 +9051,30 @@ export namespace Prisma {
   }
 
   /**
+   * User.roleApplications
+   */
+  export type User$roleApplicationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RoleApplication
+     */
+    select?: RoleApplicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RoleApplication
+     */
+    omit?: RoleApplicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoleApplicationInclude<ExtArgs> | null
+    where?: RoleApplicationWhereInput
+    orderBy?: RoleApplicationOrderByWithRelationInput | RoleApplicationOrderByWithRelationInput[]
+    cursor?: RoleApplicationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: RoleApplicationScalarFieldEnum | RoleApplicationScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8982,6 +9395,7 @@ export namespace Prisma {
     skillContributions?: boolean | Ngo$skillContributionsArgs<ExtArgs>
     donorEndorsements?: boolean | Ngo$donorEndorsementsArgs<ExtArgs>
     documents?: boolean | Ngo$documentsArgs<ExtArgs>
+    roles?: boolean | Ngo$rolesArgs<ExtArgs>
     _count?: boolean | NgoCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["ngo"]>
 
@@ -9057,6 +9471,7 @@ export namespace Prisma {
     skillContributions?: boolean | Ngo$skillContributionsArgs<ExtArgs>
     donorEndorsements?: boolean | Ngo$donorEndorsementsArgs<ExtArgs>
     documents?: boolean | Ngo$documentsArgs<ExtArgs>
+    roles?: boolean | Ngo$rolesArgs<ExtArgs>
     _count?: boolean | NgoCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type NgoIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -9077,6 +9492,7 @@ export namespace Prisma {
       skillContributions: Prisma.$SkillContributionPayload<ExtArgs>[]
       donorEndorsements: Prisma.$DonorEndorsementPayload<ExtArgs>[]
       documents: Prisma.$NgoDocumentPayload<ExtArgs>[]
+      roles: Prisma.$NgoRolePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -9498,6 +9914,7 @@ export namespace Prisma {
     skillContributions<T extends Ngo$skillContributionsArgs<ExtArgs> = {}>(args?: Subset<T, Ngo$skillContributionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SkillContributionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     donorEndorsements<T extends Ngo$donorEndorsementsArgs<ExtArgs> = {}>(args?: Subset<T, Ngo$donorEndorsementsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DonorEndorsementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     documents<T extends Ngo$documentsArgs<ExtArgs> = {}>(args?: Subset<T, Ngo$documentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NgoDocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    roles<T extends Ngo$rolesArgs<ExtArgs> = {}>(args?: Subset<T, Ngo$rolesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NgoRolePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -10108,6 +10525,30 @@ export namespace Prisma {
   }
 
   /**
+   * Ngo.roles
+   */
+  export type Ngo$rolesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NgoRole
+     */
+    select?: NgoRoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NgoRole
+     */
+    omit?: NgoRoleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NgoRoleInclude<ExtArgs> | null
+    where?: NgoRoleWhereInput
+    orderBy?: NgoRoleOrderByWithRelationInput | NgoRoleOrderByWithRelationInput[]
+    cursor?: NgoRoleWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: NgoRoleScalarFieldEnum | NgoRoleScalarFieldEnum[]
+  }
+
+  /**
    * Ngo without action
    */
   export type NgoDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -10427,6 +10868,7 @@ export namespace Prisma {
     spotlightVotes?: boolean | Project$spotlightVotesArgs<ExtArgs>
     campaigns?: boolean | Project$campaignsArgs<ExtArgs>
     skillContributions?: boolean | Project$skillContributionsArgs<ExtArgs>
+    roles?: boolean | Project$rolesArgs<ExtArgs>
     _count?: boolean | ProjectCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["project"]>
 
@@ -10498,6 +10940,7 @@ export namespace Prisma {
     spotlightVotes?: boolean | Project$spotlightVotesArgs<ExtArgs>
     campaigns?: boolean | Project$campaignsArgs<ExtArgs>
     skillContributions?: boolean | Project$skillContributionsArgs<ExtArgs>
+    roles?: boolean | Project$rolesArgs<ExtArgs>
     _count?: boolean | ProjectCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ProjectIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -10517,6 +10960,7 @@ export namespace Prisma {
       spotlightVotes: Prisma.$SpotlightVotePayload<ExtArgs>[]
       campaigns: Prisma.$CampaignPayload<ExtArgs>[]
       skillContributions: Prisma.$SkillContributionPayload<ExtArgs>[]
+      roles: Prisma.$NgoRolePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -10936,6 +11380,7 @@ export namespace Prisma {
     spotlightVotes<T extends Project$spotlightVotesArgs<ExtArgs> = {}>(args?: Subset<T, Project$spotlightVotesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SpotlightVotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     campaigns<T extends Project$campaignsArgs<ExtArgs> = {}>(args?: Subset<T, Project$campaignsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CampaignPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     skillContributions<T extends Project$skillContributionsArgs<ExtArgs> = {}>(args?: Subset<T, Project$skillContributionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SkillContributionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    roles<T extends Project$rolesArgs<ExtArgs> = {}>(args?: Subset<T, Project$rolesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NgoRolePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -11518,6 +11963,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: SkillContributionScalarFieldEnum | SkillContributionScalarFieldEnum[]
+  }
+
+  /**
+   * Project.roles
+   */
+  export type Project$rolesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NgoRole
+     */
+    select?: NgoRoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NgoRole
+     */
+    omit?: NgoRoleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NgoRoleInclude<ExtArgs> | null
+    where?: NgoRoleWhereInput
+    orderBy?: NgoRoleOrderByWithRelationInput | NgoRoleOrderByWithRelationInput[]
+    cursor?: NgoRoleWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: NgoRoleScalarFieldEnum | NgoRoleScalarFieldEnum[]
   }
 
   /**
@@ -36575,6 +37044,3643 @@ export namespace Prisma {
 
 
   /**
+   * Model NgoRole
+   */
+
+  export type AggregateNgoRole = {
+    _count: NgoRoleCountAggregateOutputType | null
+    _avg: NgoRoleAvgAggregateOutputType | null
+    _sum: NgoRoleSumAggregateOutputType | null
+    _min: NgoRoleMinAggregateOutputType | null
+    _max: NgoRoleMaxAggregateOutputType | null
+  }
+
+  export type NgoRoleAvgAggregateOutputType = {
+    durationWeeks: number | null
+    openings: number | null
+  }
+
+  export type NgoRoleSumAggregateOutputType = {
+    durationWeeks: number | null
+    openings: number | null
+  }
+
+  export type NgoRoleMinAggregateOutputType = {
+    id: string | null
+    ngoId: string | null
+    projectId: string | null
+    title: string | null
+    department: string | null
+    roleType: $Enums.RoleType | null
+    description: string | null
+    responsibilities: string | null
+    skillsRequired: string | null
+    timeCommitment: string | null
+    durationWeeks: number | null
+    isRemote: boolean | null
+    location: string | null
+    openings: number | null
+    status: $Enums.RoleStatus | null
+    applicationDeadline: Date | null
+    startDate: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type NgoRoleMaxAggregateOutputType = {
+    id: string | null
+    ngoId: string | null
+    projectId: string | null
+    title: string | null
+    department: string | null
+    roleType: $Enums.RoleType | null
+    description: string | null
+    responsibilities: string | null
+    skillsRequired: string | null
+    timeCommitment: string | null
+    durationWeeks: number | null
+    isRemote: boolean | null
+    location: string | null
+    openings: number | null
+    status: $Enums.RoleStatus | null
+    applicationDeadline: Date | null
+    startDate: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type NgoRoleCountAggregateOutputType = {
+    id: number
+    ngoId: number
+    projectId: number
+    title: number
+    department: number
+    roleType: number
+    description: number
+    responsibilities: number
+    skillsRequired: number
+    timeCommitment: number
+    durationWeeks: number
+    isRemote: number
+    location: number
+    openings: number
+    status: number
+    applicationDeadline: number
+    startDate: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type NgoRoleAvgAggregateInputType = {
+    durationWeeks?: true
+    openings?: true
+  }
+
+  export type NgoRoleSumAggregateInputType = {
+    durationWeeks?: true
+    openings?: true
+  }
+
+  export type NgoRoleMinAggregateInputType = {
+    id?: true
+    ngoId?: true
+    projectId?: true
+    title?: true
+    department?: true
+    roleType?: true
+    description?: true
+    responsibilities?: true
+    skillsRequired?: true
+    timeCommitment?: true
+    durationWeeks?: true
+    isRemote?: true
+    location?: true
+    openings?: true
+    status?: true
+    applicationDeadline?: true
+    startDate?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type NgoRoleMaxAggregateInputType = {
+    id?: true
+    ngoId?: true
+    projectId?: true
+    title?: true
+    department?: true
+    roleType?: true
+    description?: true
+    responsibilities?: true
+    skillsRequired?: true
+    timeCommitment?: true
+    durationWeeks?: true
+    isRemote?: true
+    location?: true
+    openings?: true
+    status?: true
+    applicationDeadline?: true
+    startDate?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type NgoRoleCountAggregateInputType = {
+    id?: true
+    ngoId?: true
+    projectId?: true
+    title?: true
+    department?: true
+    roleType?: true
+    description?: true
+    responsibilities?: true
+    skillsRequired?: true
+    timeCommitment?: true
+    durationWeeks?: true
+    isRemote?: true
+    location?: true
+    openings?: true
+    status?: true
+    applicationDeadline?: true
+    startDate?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type NgoRoleAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which NgoRole to aggregate.
+     */
+    where?: NgoRoleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NgoRoles to fetch.
+     */
+    orderBy?: NgoRoleOrderByWithRelationInput | NgoRoleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: NgoRoleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NgoRoles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NgoRoles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned NgoRoles
+    **/
+    _count?: true | NgoRoleCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: NgoRoleAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: NgoRoleSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: NgoRoleMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: NgoRoleMaxAggregateInputType
+  }
+
+  export type GetNgoRoleAggregateType<T extends NgoRoleAggregateArgs> = {
+        [P in keyof T & keyof AggregateNgoRole]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateNgoRole[P]>
+      : GetScalarType<T[P], AggregateNgoRole[P]>
+  }
+
+
+
+
+  export type NgoRoleGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: NgoRoleWhereInput
+    orderBy?: NgoRoleOrderByWithAggregationInput | NgoRoleOrderByWithAggregationInput[]
+    by: NgoRoleScalarFieldEnum[] | NgoRoleScalarFieldEnum
+    having?: NgoRoleScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: NgoRoleCountAggregateInputType | true
+    _avg?: NgoRoleAvgAggregateInputType
+    _sum?: NgoRoleSumAggregateInputType
+    _min?: NgoRoleMinAggregateInputType
+    _max?: NgoRoleMaxAggregateInputType
+  }
+
+  export type NgoRoleGroupByOutputType = {
+    id: string
+    ngoId: string
+    projectId: string | null
+    title: string
+    department: string | null
+    roleType: $Enums.RoleType
+    description: string
+    responsibilities: string
+    skillsRequired: string
+    timeCommitment: string
+    durationWeeks: number
+    isRemote: boolean
+    location: string | null
+    openings: number
+    status: $Enums.RoleStatus
+    applicationDeadline: Date | null
+    startDate: Date | null
+    createdAt: Date
+    updatedAt: Date
+    _count: NgoRoleCountAggregateOutputType | null
+    _avg: NgoRoleAvgAggregateOutputType | null
+    _sum: NgoRoleSumAggregateOutputType | null
+    _min: NgoRoleMinAggregateOutputType | null
+    _max: NgoRoleMaxAggregateOutputType | null
+  }
+
+  type GetNgoRoleGroupByPayload<T extends NgoRoleGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<NgoRoleGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof NgoRoleGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], NgoRoleGroupByOutputType[P]>
+            : GetScalarType<T[P], NgoRoleGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type NgoRoleSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    ngoId?: boolean
+    projectId?: boolean
+    title?: boolean
+    department?: boolean
+    roleType?: boolean
+    description?: boolean
+    responsibilities?: boolean
+    skillsRequired?: boolean
+    timeCommitment?: boolean
+    durationWeeks?: boolean
+    isRemote?: boolean
+    location?: boolean
+    openings?: boolean
+    status?: boolean
+    applicationDeadline?: boolean
+    startDate?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    ngo?: boolean | NgoDefaultArgs<ExtArgs>
+    project?: boolean | NgoRole$projectArgs<ExtArgs>
+    applications?: boolean | NgoRole$applicationsArgs<ExtArgs>
+    _count?: boolean | NgoRoleCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["ngoRole"]>
+
+  export type NgoRoleSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    ngoId?: boolean
+    projectId?: boolean
+    title?: boolean
+    department?: boolean
+    roleType?: boolean
+    description?: boolean
+    responsibilities?: boolean
+    skillsRequired?: boolean
+    timeCommitment?: boolean
+    durationWeeks?: boolean
+    isRemote?: boolean
+    location?: boolean
+    openings?: boolean
+    status?: boolean
+    applicationDeadline?: boolean
+    startDate?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    ngo?: boolean | NgoDefaultArgs<ExtArgs>
+    project?: boolean | NgoRole$projectArgs<ExtArgs>
+  }, ExtArgs["result"]["ngoRole"]>
+
+  export type NgoRoleSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    ngoId?: boolean
+    projectId?: boolean
+    title?: boolean
+    department?: boolean
+    roleType?: boolean
+    description?: boolean
+    responsibilities?: boolean
+    skillsRequired?: boolean
+    timeCommitment?: boolean
+    durationWeeks?: boolean
+    isRemote?: boolean
+    location?: boolean
+    openings?: boolean
+    status?: boolean
+    applicationDeadline?: boolean
+    startDate?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    ngo?: boolean | NgoDefaultArgs<ExtArgs>
+    project?: boolean | NgoRole$projectArgs<ExtArgs>
+  }, ExtArgs["result"]["ngoRole"]>
+
+  export type NgoRoleSelectScalar = {
+    id?: boolean
+    ngoId?: boolean
+    projectId?: boolean
+    title?: boolean
+    department?: boolean
+    roleType?: boolean
+    description?: boolean
+    responsibilities?: boolean
+    skillsRequired?: boolean
+    timeCommitment?: boolean
+    durationWeeks?: boolean
+    isRemote?: boolean
+    location?: boolean
+    openings?: boolean
+    status?: boolean
+    applicationDeadline?: boolean
+    startDate?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type NgoRoleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "ngoId" | "projectId" | "title" | "department" | "roleType" | "description" | "responsibilities" | "skillsRequired" | "timeCommitment" | "durationWeeks" | "isRemote" | "location" | "openings" | "status" | "applicationDeadline" | "startDate" | "createdAt" | "updatedAt", ExtArgs["result"]["ngoRole"]>
+  export type NgoRoleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    ngo?: boolean | NgoDefaultArgs<ExtArgs>
+    project?: boolean | NgoRole$projectArgs<ExtArgs>
+    applications?: boolean | NgoRole$applicationsArgs<ExtArgs>
+    _count?: boolean | NgoRoleCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type NgoRoleIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    ngo?: boolean | NgoDefaultArgs<ExtArgs>
+    project?: boolean | NgoRole$projectArgs<ExtArgs>
+  }
+  export type NgoRoleIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    ngo?: boolean | NgoDefaultArgs<ExtArgs>
+    project?: boolean | NgoRole$projectArgs<ExtArgs>
+  }
+
+  export type $NgoRolePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "NgoRole"
+    objects: {
+      ngo: Prisma.$NgoPayload<ExtArgs>
+      project: Prisma.$ProjectPayload<ExtArgs> | null
+      applications: Prisma.$RoleApplicationPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      ngoId: string
+      projectId: string | null
+      title: string
+      department: string | null
+      roleType: $Enums.RoleType
+      description: string
+      responsibilities: string
+      skillsRequired: string
+      timeCommitment: string
+      durationWeeks: number
+      isRemote: boolean
+      location: string | null
+      openings: number
+      status: $Enums.RoleStatus
+      applicationDeadline: Date | null
+      startDate: Date | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["ngoRole"]>
+    composites: {}
+  }
+
+  type NgoRoleGetPayload<S extends boolean | null | undefined | NgoRoleDefaultArgs> = $Result.GetResult<Prisma.$NgoRolePayload, S>
+
+  type NgoRoleCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<NgoRoleFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: NgoRoleCountAggregateInputType | true
+    }
+
+  export interface NgoRoleDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['NgoRole'], meta: { name: 'NgoRole' } }
+    /**
+     * Find zero or one NgoRole that matches the filter.
+     * @param {NgoRoleFindUniqueArgs} args - Arguments to find a NgoRole
+     * @example
+     * // Get one NgoRole
+     * const ngoRole = await prisma.ngoRole.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends NgoRoleFindUniqueArgs>(args: SelectSubset<T, NgoRoleFindUniqueArgs<ExtArgs>>): Prisma__NgoRoleClient<$Result.GetResult<Prisma.$NgoRolePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one NgoRole that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {NgoRoleFindUniqueOrThrowArgs} args - Arguments to find a NgoRole
+     * @example
+     * // Get one NgoRole
+     * const ngoRole = await prisma.ngoRole.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends NgoRoleFindUniqueOrThrowArgs>(args: SelectSubset<T, NgoRoleFindUniqueOrThrowArgs<ExtArgs>>): Prisma__NgoRoleClient<$Result.GetResult<Prisma.$NgoRolePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first NgoRole that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NgoRoleFindFirstArgs} args - Arguments to find a NgoRole
+     * @example
+     * // Get one NgoRole
+     * const ngoRole = await prisma.ngoRole.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends NgoRoleFindFirstArgs>(args?: SelectSubset<T, NgoRoleFindFirstArgs<ExtArgs>>): Prisma__NgoRoleClient<$Result.GetResult<Prisma.$NgoRolePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first NgoRole that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NgoRoleFindFirstOrThrowArgs} args - Arguments to find a NgoRole
+     * @example
+     * // Get one NgoRole
+     * const ngoRole = await prisma.ngoRole.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends NgoRoleFindFirstOrThrowArgs>(args?: SelectSubset<T, NgoRoleFindFirstOrThrowArgs<ExtArgs>>): Prisma__NgoRoleClient<$Result.GetResult<Prisma.$NgoRolePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more NgoRoles that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NgoRoleFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all NgoRoles
+     * const ngoRoles = await prisma.ngoRole.findMany()
+     * 
+     * // Get first 10 NgoRoles
+     * const ngoRoles = await prisma.ngoRole.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const ngoRoleWithIdOnly = await prisma.ngoRole.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends NgoRoleFindManyArgs>(args?: SelectSubset<T, NgoRoleFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NgoRolePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a NgoRole.
+     * @param {NgoRoleCreateArgs} args - Arguments to create a NgoRole.
+     * @example
+     * // Create one NgoRole
+     * const NgoRole = await prisma.ngoRole.create({
+     *   data: {
+     *     // ... data to create a NgoRole
+     *   }
+     * })
+     * 
+     */
+    create<T extends NgoRoleCreateArgs>(args: SelectSubset<T, NgoRoleCreateArgs<ExtArgs>>): Prisma__NgoRoleClient<$Result.GetResult<Prisma.$NgoRolePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many NgoRoles.
+     * @param {NgoRoleCreateManyArgs} args - Arguments to create many NgoRoles.
+     * @example
+     * // Create many NgoRoles
+     * const ngoRole = await prisma.ngoRole.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends NgoRoleCreateManyArgs>(args?: SelectSubset<T, NgoRoleCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many NgoRoles and returns the data saved in the database.
+     * @param {NgoRoleCreateManyAndReturnArgs} args - Arguments to create many NgoRoles.
+     * @example
+     * // Create many NgoRoles
+     * const ngoRole = await prisma.ngoRole.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many NgoRoles and only return the `id`
+     * const ngoRoleWithIdOnly = await prisma.ngoRole.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends NgoRoleCreateManyAndReturnArgs>(args?: SelectSubset<T, NgoRoleCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NgoRolePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a NgoRole.
+     * @param {NgoRoleDeleteArgs} args - Arguments to delete one NgoRole.
+     * @example
+     * // Delete one NgoRole
+     * const NgoRole = await prisma.ngoRole.delete({
+     *   where: {
+     *     // ... filter to delete one NgoRole
+     *   }
+     * })
+     * 
+     */
+    delete<T extends NgoRoleDeleteArgs>(args: SelectSubset<T, NgoRoleDeleteArgs<ExtArgs>>): Prisma__NgoRoleClient<$Result.GetResult<Prisma.$NgoRolePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one NgoRole.
+     * @param {NgoRoleUpdateArgs} args - Arguments to update one NgoRole.
+     * @example
+     * // Update one NgoRole
+     * const ngoRole = await prisma.ngoRole.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends NgoRoleUpdateArgs>(args: SelectSubset<T, NgoRoleUpdateArgs<ExtArgs>>): Prisma__NgoRoleClient<$Result.GetResult<Prisma.$NgoRolePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more NgoRoles.
+     * @param {NgoRoleDeleteManyArgs} args - Arguments to filter NgoRoles to delete.
+     * @example
+     * // Delete a few NgoRoles
+     * const { count } = await prisma.ngoRole.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends NgoRoleDeleteManyArgs>(args?: SelectSubset<T, NgoRoleDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more NgoRoles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NgoRoleUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many NgoRoles
+     * const ngoRole = await prisma.ngoRole.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends NgoRoleUpdateManyArgs>(args: SelectSubset<T, NgoRoleUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more NgoRoles and returns the data updated in the database.
+     * @param {NgoRoleUpdateManyAndReturnArgs} args - Arguments to update many NgoRoles.
+     * @example
+     * // Update many NgoRoles
+     * const ngoRole = await prisma.ngoRole.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more NgoRoles and only return the `id`
+     * const ngoRoleWithIdOnly = await prisma.ngoRole.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends NgoRoleUpdateManyAndReturnArgs>(args: SelectSubset<T, NgoRoleUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NgoRolePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one NgoRole.
+     * @param {NgoRoleUpsertArgs} args - Arguments to update or create a NgoRole.
+     * @example
+     * // Update or create a NgoRole
+     * const ngoRole = await prisma.ngoRole.upsert({
+     *   create: {
+     *     // ... data to create a NgoRole
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the NgoRole we want to update
+     *   }
+     * })
+     */
+    upsert<T extends NgoRoleUpsertArgs>(args: SelectSubset<T, NgoRoleUpsertArgs<ExtArgs>>): Prisma__NgoRoleClient<$Result.GetResult<Prisma.$NgoRolePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of NgoRoles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NgoRoleCountArgs} args - Arguments to filter NgoRoles to count.
+     * @example
+     * // Count the number of NgoRoles
+     * const count = await prisma.ngoRole.count({
+     *   where: {
+     *     // ... the filter for the NgoRoles we want to count
+     *   }
+     * })
+    **/
+    count<T extends NgoRoleCountArgs>(
+      args?: Subset<T, NgoRoleCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], NgoRoleCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a NgoRole.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NgoRoleAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends NgoRoleAggregateArgs>(args: Subset<T, NgoRoleAggregateArgs>): Prisma.PrismaPromise<GetNgoRoleAggregateType<T>>
+
+    /**
+     * Group by NgoRole.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NgoRoleGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends NgoRoleGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: NgoRoleGroupByArgs['orderBy'] }
+        : { orderBy?: NgoRoleGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, NgoRoleGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetNgoRoleGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the NgoRole model
+   */
+  readonly fields: NgoRoleFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for NgoRole.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__NgoRoleClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    ngo<T extends NgoDefaultArgs<ExtArgs> = {}>(args?: Subset<T, NgoDefaultArgs<ExtArgs>>): Prisma__NgoClient<$Result.GetResult<Prisma.$NgoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    project<T extends NgoRole$projectArgs<ExtArgs> = {}>(args?: Subset<T, NgoRole$projectArgs<ExtArgs>>): Prisma__ProjectClient<$Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    applications<T extends NgoRole$applicationsArgs<ExtArgs> = {}>(args?: Subset<T, NgoRole$applicationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RoleApplicationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the NgoRole model
+   */
+  interface NgoRoleFieldRefs {
+    readonly id: FieldRef<"NgoRole", 'String'>
+    readonly ngoId: FieldRef<"NgoRole", 'String'>
+    readonly projectId: FieldRef<"NgoRole", 'String'>
+    readonly title: FieldRef<"NgoRole", 'String'>
+    readonly department: FieldRef<"NgoRole", 'String'>
+    readonly roleType: FieldRef<"NgoRole", 'RoleType'>
+    readonly description: FieldRef<"NgoRole", 'String'>
+    readonly responsibilities: FieldRef<"NgoRole", 'String'>
+    readonly skillsRequired: FieldRef<"NgoRole", 'String'>
+    readonly timeCommitment: FieldRef<"NgoRole", 'String'>
+    readonly durationWeeks: FieldRef<"NgoRole", 'Int'>
+    readonly isRemote: FieldRef<"NgoRole", 'Boolean'>
+    readonly location: FieldRef<"NgoRole", 'String'>
+    readonly openings: FieldRef<"NgoRole", 'Int'>
+    readonly status: FieldRef<"NgoRole", 'RoleStatus'>
+    readonly applicationDeadline: FieldRef<"NgoRole", 'DateTime'>
+    readonly startDate: FieldRef<"NgoRole", 'DateTime'>
+    readonly createdAt: FieldRef<"NgoRole", 'DateTime'>
+    readonly updatedAt: FieldRef<"NgoRole", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * NgoRole findUnique
+   */
+  export type NgoRoleFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NgoRole
+     */
+    select?: NgoRoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NgoRole
+     */
+    omit?: NgoRoleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NgoRoleInclude<ExtArgs> | null
+    /**
+     * Filter, which NgoRole to fetch.
+     */
+    where: NgoRoleWhereUniqueInput
+  }
+
+  /**
+   * NgoRole findUniqueOrThrow
+   */
+  export type NgoRoleFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NgoRole
+     */
+    select?: NgoRoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NgoRole
+     */
+    omit?: NgoRoleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NgoRoleInclude<ExtArgs> | null
+    /**
+     * Filter, which NgoRole to fetch.
+     */
+    where: NgoRoleWhereUniqueInput
+  }
+
+  /**
+   * NgoRole findFirst
+   */
+  export type NgoRoleFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NgoRole
+     */
+    select?: NgoRoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NgoRole
+     */
+    omit?: NgoRoleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NgoRoleInclude<ExtArgs> | null
+    /**
+     * Filter, which NgoRole to fetch.
+     */
+    where?: NgoRoleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NgoRoles to fetch.
+     */
+    orderBy?: NgoRoleOrderByWithRelationInput | NgoRoleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for NgoRoles.
+     */
+    cursor?: NgoRoleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NgoRoles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NgoRoles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of NgoRoles.
+     */
+    distinct?: NgoRoleScalarFieldEnum | NgoRoleScalarFieldEnum[]
+  }
+
+  /**
+   * NgoRole findFirstOrThrow
+   */
+  export type NgoRoleFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NgoRole
+     */
+    select?: NgoRoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NgoRole
+     */
+    omit?: NgoRoleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NgoRoleInclude<ExtArgs> | null
+    /**
+     * Filter, which NgoRole to fetch.
+     */
+    where?: NgoRoleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NgoRoles to fetch.
+     */
+    orderBy?: NgoRoleOrderByWithRelationInput | NgoRoleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for NgoRoles.
+     */
+    cursor?: NgoRoleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NgoRoles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NgoRoles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of NgoRoles.
+     */
+    distinct?: NgoRoleScalarFieldEnum | NgoRoleScalarFieldEnum[]
+  }
+
+  /**
+   * NgoRole findMany
+   */
+  export type NgoRoleFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NgoRole
+     */
+    select?: NgoRoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NgoRole
+     */
+    omit?: NgoRoleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NgoRoleInclude<ExtArgs> | null
+    /**
+     * Filter, which NgoRoles to fetch.
+     */
+    where?: NgoRoleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NgoRoles to fetch.
+     */
+    orderBy?: NgoRoleOrderByWithRelationInput | NgoRoleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing NgoRoles.
+     */
+    cursor?: NgoRoleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NgoRoles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NgoRoles.
+     */
+    skip?: number
+    distinct?: NgoRoleScalarFieldEnum | NgoRoleScalarFieldEnum[]
+  }
+
+  /**
+   * NgoRole create
+   */
+  export type NgoRoleCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NgoRole
+     */
+    select?: NgoRoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NgoRole
+     */
+    omit?: NgoRoleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NgoRoleInclude<ExtArgs> | null
+    /**
+     * The data needed to create a NgoRole.
+     */
+    data: XOR<NgoRoleCreateInput, NgoRoleUncheckedCreateInput>
+  }
+
+  /**
+   * NgoRole createMany
+   */
+  export type NgoRoleCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many NgoRoles.
+     */
+    data: NgoRoleCreateManyInput | NgoRoleCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * NgoRole createManyAndReturn
+   */
+  export type NgoRoleCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NgoRole
+     */
+    select?: NgoRoleSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the NgoRole
+     */
+    omit?: NgoRoleOmit<ExtArgs> | null
+    /**
+     * The data used to create many NgoRoles.
+     */
+    data: NgoRoleCreateManyInput | NgoRoleCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NgoRoleIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * NgoRole update
+   */
+  export type NgoRoleUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NgoRole
+     */
+    select?: NgoRoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NgoRole
+     */
+    omit?: NgoRoleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NgoRoleInclude<ExtArgs> | null
+    /**
+     * The data needed to update a NgoRole.
+     */
+    data: XOR<NgoRoleUpdateInput, NgoRoleUncheckedUpdateInput>
+    /**
+     * Choose, which NgoRole to update.
+     */
+    where: NgoRoleWhereUniqueInput
+  }
+
+  /**
+   * NgoRole updateMany
+   */
+  export type NgoRoleUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update NgoRoles.
+     */
+    data: XOR<NgoRoleUpdateManyMutationInput, NgoRoleUncheckedUpdateManyInput>
+    /**
+     * Filter which NgoRoles to update
+     */
+    where?: NgoRoleWhereInput
+    /**
+     * Limit how many NgoRoles to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * NgoRole updateManyAndReturn
+   */
+  export type NgoRoleUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NgoRole
+     */
+    select?: NgoRoleSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the NgoRole
+     */
+    omit?: NgoRoleOmit<ExtArgs> | null
+    /**
+     * The data used to update NgoRoles.
+     */
+    data: XOR<NgoRoleUpdateManyMutationInput, NgoRoleUncheckedUpdateManyInput>
+    /**
+     * Filter which NgoRoles to update
+     */
+    where?: NgoRoleWhereInput
+    /**
+     * Limit how many NgoRoles to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NgoRoleIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * NgoRole upsert
+   */
+  export type NgoRoleUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NgoRole
+     */
+    select?: NgoRoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NgoRole
+     */
+    omit?: NgoRoleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NgoRoleInclude<ExtArgs> | null
+    /**
+     * The filter to search for the NgoRole to update in case it exists.
+     */
+    where: NgoRoleWhereUniqueInput
+    /**
+     * In case the NgoRole found by the `where` argument doesn't exist, create a new NgoRole with this data.
+     */
+    create: XOR<NgoRoleCreateInput, NgoRoleUncheckedCreateInput>
+    /**
+     * In case the NgoRole was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<NgoRoleUpdateInput, NgoRoleUncheckedUpdateInput>
+  }
+
+  /**
+   * NgoRole delete
+   */
+  export type NgoRoleDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NgoRole
+     */
+    select?: NgoRoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NgoRole
+     */
+    omit?: NgoRoleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NgoRoleInclude<ExtArgs> | null
+    /**
+     * Filter which NgoRole to delete.
+     */
+    where: NgoRoleWhereUniqueInput
+  }
+
+  /**
+   * NgoRole deleteMany
+   */
+  export type NgoRoleDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which NgoRoles to delete
+     */
+    where?: NgoRoleWhereInput
+    /**
+     * Limit how many NgoRoles to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * NgoRole.project
+   */
+  export type NgoRole$projectArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Project
+     */
+    select?: ProjectSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Project
+     */
+    omit?: ProjectOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectInclude<ExtArgs> | null
+    where?: ProjectWhereInput
+  }
+
+  /**
+   * NgoRole.applications
+   */
+  export type NgoRole$applicationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RoleApplication
+     */
+    select?: RoleApplicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RoleApplication
+     */
+    omit?: RoleApplicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoleApplicationInclude<ExtArgs> | null
+    where?: RoleApplicationWhereInput
+    orderBy?: RoleApplicationOrderByWithRelationInput | RoleApplicationOrderByWithRelationInput[]
+    cursor?: RoleApplicationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: RoleApplicationScalarFieldEnum | RoleApplicationScalarFieldEnum[]
+  }
+
+  /**
+   * NgoRole without action
+   */
+  export type NgoRoleDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NgoRole
+     */
+    select?: NgoRoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NgoRole
+     */
+    omit?: NgoRoleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NgoRoleInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model RoleApplication
+   */
+
+  export type AggregateRoleApplication = {
+    _count: RoleApplicationCountAggregateOutputType | null
+    _min: RoleApplicationMinAggregateOutputType | null
+    _max: RoleApplicationMaxAggregateOutputType | null
+  }
+
+  export type RoleApplicationMinAggregateOutputType = {
+    id: string | null
+    roleId: string | null
+    applicantId: string | null
+    coverNote: string | null
+    linkedinUrl: string | null
+    portfolioUrl: string | null
+    status: $Enums.ApplicationStatus | null
+    appliedAt: Date | null
+    reviewedAt: Date | null
+  }
+
+  export type RoleApplicationMaxAggregateOutputType = {
+    id: string | null
+    roleId: string | null
+    applicantId: string | null
+    coverNote: string | null
+    linkedinUrl: string | null
+    portfolioUrl: string | null
+    status: $Enums.ApplicationStatus | null
+    appliedAt: Date | null
+    reviewedAt: Date | null
+  }
+
+  export type RoleApplicationCountAggregateOutputType = {
+    id: number
+    roleId: number
+    applicantId: number
+    coverNote: number
+    linkedinUrl: number
+    portfolioUrl: number
+    status: number
+    appliedAt: number
+    reviewedAt: number
+    _all: number
+  }
+
+
+  export type RoleApplicationMinAggregateInputType = {
+    id?: true
+    roleId?: true
+    applicantId?: true
+    coverNote?: true
+    linkedinUrl?: true
+    portfolioUrl?: true
+    status?: true
+    appliedAt?: true
+    reviewedAt?: true
+  }
+
+  export type RoleApplicationMaxAggregateInputType = {
+    id?: true
+    roleId?: true
+    applicantId?: true
+    coverNote?: true
+    linkedinUrl?: true
+    portfolioUrl?: true
+    status?: true
+    appliedAt?: true
+    reviewedAt?: true
+  }
+
+  export type RoleApplicationCountAggregateInputType = {
+    id?: true
+    roleId?: true
+    applicantId?: true
+    coverNote?: true
+    linkedinUrl?: true
+    portfolioUrl?: true
+    status?: true
+    appliedAt?: true
+    reviewedAt?: true
+    _all?: true
+  }
+
+  export type RoleApplicationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which RoleApplication to aggregate.
+     */
+    where?: RoleApplicationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RoleApplications to fetch.
+     */
+    orderBy?: RoleApplicationOrderByWithRelationInput | RoleApplicationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: RoleApplicationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RoleApplications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RoleApplications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned RoleApplications
+    **/
+    _count?: true | RoleApplicationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: RoleApplicationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: RoleApplicationMaxAggregateInputType
+  }
+
+  export type GetRoleApplicationAggregateType<T extends RoleApplicationAggregateArgs> = {
+        [P in keyof T & keyof AggregateRoleApplication]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateRoleApplication[P]>
+      : GetScalarType<T[P], AggregateRoleApplication[P]>
+  }
+
+
+
+
+  export type RoleApplicationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RoleApplicationWhereInput
+    orderBy?: RoleApplicationOrderByWithAggregationInput | RoleApplicationOrderByWithAggregationInput[]
+    by: RoleApplicationScalarFieldEnum[] | RoleApplicationScalarFieldEnum
+    having?: RoleApplicationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: RoleApplicationCountAggregateInputType | true
+    _min?: RoleApplicationMinAggregateInputType
+    _max?: RoleApplicationMaxAggregateInputType
+  }
+
+  export type RoleApplicationGroupByOutputType = {
+    id: string
+    roleId: string
+    applicantId: string
+    coverNote: string
+    linkedinUrl: string | null
+    portfolioUrl: string | null
+    status: $Enums.ApplicationStatus
+    appliedAt: Date
+    reviewedAt: Date | null
+    _count: RoleApplicationCountAggregateOutputType | null
+    _min: RoleApplicationMinAggregateOutputType | null
+    _max: RoleApplicationMaxAggregateOutputType | null
+  }
+
+  type GetRoleApplicationGroupByPayload<T extends RoleApplicationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<RoleApplicationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof RoleApplicationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], RoleApplicationGroupByOutputType[P]>
+            : GetScalarType<T[P], RoleApplicationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type RoleApplicationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    roleId?: boolean
+    applicantId?: boolean
+    coverNote?: boolean
+    linkedinUrl?: boolean
+    portfolioUrl?: boolean
+    status?: boolean
+    appliedAt?: boolean
+    reviewedAt?: boolean
+    role?: boolean | NgoRoleDefaultArgs<ExtArgs>
+    applicant?: boolean | UserDefaultArgs<ExtArgs>
+    engagement?: boolean | RoleApplication$engagementArgs<ExtArgs>
+  }, ExtArgs["result"]["roleApplication"]>
+
+  export type RoleApplicationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    roleId?: boolean
+    applicantId?: boolean
+    coverNote?: boolean
+    linkedinUrl?: boolean
+    portfolioUrl?: boolean
+    status?: boolean
+    appliedAt?: boolean
+    reviewedAt?: boolean
+    role?: boolean | NgoRoleDefaultArgs<ExtArgs>
+    applicant?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["roleApplication"]>
+
+  export type RoleApplicationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    roleId?: boolean
+    applicantId?: boolean
+    coverNote?: boolean
+    linkedinUrl?: boolean
+    portfolioUrl?: boolean
+    status?: boolean
+    appliedAt?: boolean
+    reviewedAt?: boolean
+    role?: boolean | NgoRoleDefaultArgs<ExtArgs>
+    applicant?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["roleApplication"]>
+
+  export type RoleApplicationSelectScalar = {
+    id?: boolean
+    roleId?: boolean
+    applicantId?: boolean
+    coverNote?: boolean
+    linkedinUrl?: boolean
+    portfolioUrl?: boolean
+    status?: boolean
+    appliedAt?: boolean
+    reviewedAt?: boolean
+  }
+
+  export type RoleApplicationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "roleId" | "applicantId" | "coverNote" | "linkedinUrl" | "portfolioUrl" | "status" | "appliedAt" | "reviewedAt", ExtArgs["result"]["roleApplication"]>
+  export type RoleApplicationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    role?: boolean | NgoRoleDefaultArgs<ExtArgs>
+    applicant?: boolean | UserDefaultArgs<ExtArgs>
+    engagement?: boolean | RoleApplication$engagementArgs<ExtArgs>
+  }
+  export type RoleApplicationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    role?: boolean | NgoRoleDefaultArgs<ExtArgs>
+    applicant?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type RoleApplicationIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    role?: boolean | NgoRoleDefaultArgs<ExtArgs>
+    applicant?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $RoleApplicationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "RoleApplication"
+    objects: {
+      role: Prisma.$NgoRolePayload<ExtArgs>
+      applicant: Prisma.$UserPayload<ExtArgs>
+      engagement: Prisma.$RoleEngagementPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      roleId: string
+      applicantId: string
+      coverNote: string
+      linkedinUrl: string | null
+      portfolioUrl: string | null
+      status: $Enums.ApplicationStatus
+      appliedAt: Date
+      reviewedAt: Date | null
+    }, ExtArgs["result"]["roleApplication"]>
+    composites: {}
+  }
+
+  type RoleApplicationGetPayload<S extends boolean | null | undefined | RoleApplicationDefaultArgs> = $Result.GetResult<Prisma.$RoleApplicationPayload, S>
+
+  type RoleApplicationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<RoleApplicationFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: RoleApplicationCountAggregateInputType | true
+    }
+
+  export interface RoleApplicationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['RoleApplication'], meta: { name: 'RoleApplication' } }
+    /**
+     * Find zero or one RoleApplication that matches the filter.
+     * @param {RoleApplicationFindUniqueArgs} args - Arguments to find a RoleApplication
+     * @example
+     * // Get one RoleApplication
+     * const roleApplication = await prisma.roleApplication.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends RoleApplicationFindUniqueArgs>(args: SelectSubset<T, RoleApplicationFindUniqueArgs<ExtArgs>>): Prisma__RoleApplicationClient<$Result.GetResult<Prisma.$RoleApplicationPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one RoleApplication that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {RoleApplicationFindUniqueOrThrowArgs} args - Arguments to find a RoleApplication
+     * @example
+     * // Get one RoleApplication
+     * const roleApplication = await prisma.roleApplication.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends RoleApplicationFindUniqueOrThrowArgs>(args: SelectSubset<T, RoleApplicationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__RoleApplicationClient<$Result.GetResult<Prisma.$RoleApplicationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first RoleApplication that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RoleApplicationFindFirstArgs} args - Arguments to find a RoleApplication
+     * @example
+     * // Get one RoleApplication
+     * const roleApplication = await prisma.roleApplication.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends RoleApplicationFindFirstArgs>(args?: SelectSubset<T, RoleApplicationFindFirstArgs<ExtArgs>>): Prisma__RoleApplicationClient<$Result.GetResult<Prisma.$RoleApplicationPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first RoleApplication that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RoleApplicationFindFirstOrThrowArgs} args - Arguments to find a RoleApplication
+     * @example
+     * // Get one RoleApplication
+     * const roleApplication = await prisma.roleApplication.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends RoleApplicationFindFirstOrThrowArgs>(args?: SelectSubset<T, RoleApplicationFindFirstOrThrowArgs<ExtArgs>>): Prisma__RoleApplicationClient<$Result.GetResult<Prisma.$RoleApplicationPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more RoleApplications that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RoleApplicationFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all RoleApplications
+     * const roleApplications = await prisma.roleApplication.findMany()
+     * 
+     * // Get first 10 RoleApplications
+     * const roleApplications = await prisma.roleApplication.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const roleApplicationWithIdOnly = await prisma.roleApplication.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends RoleApplicationFindManyArgs>(args?: SelectSubset<T, RoleApplicationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RoleApplicationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a RoleApplication.
+     * @param {RoleApplicationCreateArgs} args - Arguments to create a RoleApplication.
+     * @example
+     * // Create one RoleApplication
+     * const RoleApplication = await prisma.roleApplication.create({
+     *   data: {
+     *     // ... data to create a RoleApplication
+     *   }
+     * })
+     * 
+     */
+    create<T extends RoleApplicationCreateArgs>(args: SelectSubset<T, RoleApplicationCreateArgs<ExtArgs>>): Prisma__RoleApplicationClient<$Result.GetResult<Prisma.$RoleApplicationPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many RoleApplications.
+     * @param {RoleApplicationCreateManyArgs} args - Arguments to create many RoleApplications.
+     * @example
+     * // Create many RoleApplications
+     * const roleApplication = await prisma.roleApplication.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends RoleApplicationCreateManyArgs>(args?: SelectSubset<T, RoleApplicationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many RoleApplications and returns the data saved in the database.
+     * @param {RoleApplicationCreateManyAndReturnArgs} args - Arguments to create many RoleApplications.
+     * @example
+     * // Create many RoleApplications
+     * const roleApplication = await prisma.roleApplication.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many RoleApplications and only return the `id`
+     * const roleApplicationWithIdOnly = await prisma.roleApplication.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends RoleApplicationCreateManyAndReturnArgs>(args?: SelectSubset<T, RoleApplicationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RoleApplicationPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a RoleApplication.
+     * @param {RoleApplicationDeleteArgs} args - Arguments to delete one RoleApplication.
+     * @example
+     * // Delete one RoleApplication
+     * const RoleApplication = await prisma.roleApplication.delete({
+     *   where: {
+     *     // ... filter to delete one RoleApplication
+     *   }
+     * })
+     * 
+     */
+    delete<T extends RoleApplicationDeleteArgs>(args: SelectSubset<T, RoleApplicationDeleteArgs<ExtArgs>>): Prisma__RoleApplicationClient<$Result.GetResult<Prisma.$RoleApplicationPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one RoleApplication.
+     * @param {RoleApplicationUpdateArgs} args - Arguments to update one RoleApplication.
+     * @example
+     * // Update one RoleApplication
+     * const roleApplication = await prisma.roleApplication.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends RoleApplicationUpdateArgs>(args: SelectSubset<T, RoleApplicationUpdateArgs<ExtArgs>>): Prisma__RoleApplicationClient<$Result.GetResult<Prisma.$RoleApplicationPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more RoleApplications.
+     * @param {RoleApplicationDeleteManyArgs} args - Arguments to filter RoleApplications to delete.
+     * @example
+     * // Delete a few RoleApplications
+     * const { count } = await prisma.roleApplication.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends RoleApplicationDeleteManyArgs>(args?: SelectSubset<T, RoleApplicationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more RoleApplications.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RoleApplicationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many RoleApplications
+     * const roleApplication = await prisma.roleApplication.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends RoleApplicationUpdateManyArgs>(args: SelectSubset<T, RoleApplicationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more RoleApplications and returns the data updated in the database.
+     * @param {RoleApplicationUpdateManyAndReturnArgs} args - Arguments to update many RoleApplications.
+     * @example
+     * // Update many RoleApplications
+     * const roleApplication = await prisma.roleApplication.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more RoleApplications and only return the `id`
+     * const roleApplicationWithIdOnly = await prisma.roleApplication.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends RoleApplicationUpdateManyAndReturnArgs>(args: SelectSubset<T, RoleApplicationUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RoleApplicationPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one RoleApplication.
+     * @param {RoleApplicationUpsertArgs} args - Arguments to update or create a RoleApplication.
+     * @example
+     * // Update or create a RoleApplication
+     * const roleApplication = await prisma.roleApplication.upsert({
+     *   create: {
+     *     // ... data to create a RoleApplication
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the RoleApplication we want to update
+     *   }
+     * })
+     */
+    upsert<T extends RoleApplicationUpsertArgs>(args: SelectSubset<T, RoleApplicationUpsertArgs<ExtArgs>>): Prisma__RoleApplicationClient<$Result.GetResult<Prisma.$RoleApplicationPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of RoleApplications.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RoleApplicationCountArgs} args - Arguments to filter RoleApplications to count.
+     * @example
+     * // Count the number of RoleApplications
+     * const count = await prisma.roleApplication.count({
+     *   where: {
+     *     // ... the filter for the RoleApplications we want to count
+     *   }
+     * })
+    **/
+    count<T extends RoleApplicationCountArgs>(
+      args?: Subset<T, RoleApplicationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], RoleApplicationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a RoleApplication.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RoleApplicationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends RoleApplicationAggregateArgs>(args: Subset<T, RoleApplicationAggregateArgs>): Prisma.PrismaPromise<GetRoleApplicationAggregateType<T>>
+
+    /**
+     * Group by RoleApplication.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RoleApplicationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends RoleApplicationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: RoleApplicationGroupByArgs['orderBy'] }
+        : { orderBy?: RoleApplicationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, RoleApplicationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetRoleApplicationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the RoleApplication model
+   */
+  readonly fields: RoleApplicationFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for RoleApplication.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__RoleApplicationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    role<T extends NgoRoleDefaultArgs<ExtArgs> = {}>(args?: Subset<T, NgoRoleDefaultArgs<ExtArgs>>): Prisma__NgoRoleClient<$Result.GetResult<Prisma.$NgoRolePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    applicant<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    engagement<T extends RoleApplication$engagementArgs<ExtArgs> = {}>(args?: Subset<T, RoleApplication$engagementArgs<ExtArgs>>): Prisma__RoleEngagementClient<$Result.GetResult<Prisma.$RoleEngagementPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the RoleApplication model
+   */
+  interface RoleApplicationFieldRefs {
+    readonly id: FieldRef<"RoleApplication", 'String'>
+    readonly roleId: FieldRef<"RoleApplication", 'String'>
+    readonly applicantId: FieldRef<"RoleApplication", 'String'>
+    readonly coverNote: FieldRef<"RoleApplication", 'String'>
+    readonly linkedinUrl: FieldRef<"RoleApplication", 'String'>
+    readonly portfolioUrl: FieldRef<"RoleApplication", 'String'>
+    readonly status: FieldRef<"RoleApplication", 'ApplicationStatus'>
+    readonly appliedAt: FieldRef<"RoleApplication", 'DateTime'>
+    readonly reviewedAt: FieldRef<"RoleApplication", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * RoleApplication findUnique
+   */
+  export type RoleApplicationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RoleApplication
+     */
+    select?: RoleApplicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RoleApplication
+     */
+    omit?: RoleApplicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoleApplicationInclude<ExtArgs> | null
+    /**
+     * Filter, which RoleApplication to fetch.
+     */
+    where: RoleApplicationWhereUniqueInput
+  }
+
+  /**
+   * RoleApplication findUniqueOrThrow
+   */
+  export type RoleApplicationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RoleApplication
+     */
+    select?: RoleApplicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RoleApplication
+     */
+    omit?: RoleApplicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoleApplicationInclude<ExtArgs> | null
+    /**
+     * Filter, which RoleApplication to fetch.
+     */
+    where: RoleApplicationWhereUniqueInput
+  }
+
+  /**
+   * RoleApplication findFirst
+   */
+  export type RoleApplicationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RoleApplication
+     */
+    select?: RoleApplicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RoleApplication
+     */
+    omit?: RoleApplicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoleApplicationInclude<ExtArgs> | null
+    /**
+     * Filter, which RoleApplication to fetch.
+     */
+    where?: RoleApplicationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RoleApplications to fetch.
+     */
+    orderBy?: RoleApplicationOrderByWithRelationInput | RoleApplicationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for RoleApplications.
+     */
+    cursor?: RoleApplicationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RoleApplications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RoleApplications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of RoleApplications.
+     */
+    distinct?: RoleApplicationScalarFieldEnum | RoleApplicationScalarFieldEnum[]
+  }
+
+  /**
+   * RoleApplication findFirstOrThrow
+   */
+  export type RoleApplicationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RoleApplication
+     */
+    select?: RoleApplicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RoleApplication
+     */
+    omit?: RoleApplicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoleApplicationInclude<ExtArgs> | null
+    /**
+     * Filter, which RoleApplication to fetch.
+     */
+    where?: RoleApplicationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RoleApplications to fetch.
+     */
+    orderBy?: RoleApplicationOrderByWithRelationInput | RoleApplicationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for RoleApplications.
+     */
+    cursor?: RoleApplicationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RoleApplications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RoleApplications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of RoleApplications.
+     */
+    distinct?: RoleApplicationScalarFieldEnum | RoleApplicationScalarFieldEnum[]
+  }
+
+  /**
+   * RoleApplication findMany
+   */
+  export type RoleApplicationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RoleApplication
+     */
+    select?: RoleApplicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RoleApplication
+     */
+    omit?: RoleApplicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoleApplicationInclude<ExtArgs> | null
+    /**
+     * Filter, which RoleApplications to fetch.
+     */
+    where?: RoleApplicationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RoleApplications to fetch.
+     */
+    orderBy?: RoleApplicationOrderByWithRelationInput | RoleApplicationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing RoleApplications.
+     */
+    cursor?: RoleApplicationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RoleApplications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RoleApplications.
+     */
+    skip?: number
+    distinct?: RoleApplicationScalarFieldEnum | RoleApplicationScalarFieldEnum[]
+  }
+
+  /**
+   * RoleApplication create
+   */
+  export type RoleApplicationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RoleApplication
+     */
+    select?: RoleApplicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RoleApplication
+     */
+    omit?: RoleApplicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoleApplicationInclude<ExtArgs> | null
+    /**
+     * The data needed to create a RoleApplication.
+     */
+    data: XOR<RoleApplicationCreateInput, RoleApplicationUncheckedCreateInput>
+  }
+
+  /**
+   * RoleApplication createMany
+   */
+  export type RoleApplicationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many RoleApplications.
+     */
+    data: RoleApplicationCreateManyInput | RoleApplicationCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * RoleApplication createManyAndReturn
+   */
+  export type RoleApplicationCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RoleApplication
+     */
+    select?: RoleApplicationSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the RoleApplication
+     */
+    omit?: RoleApplicationOmit<ExtArgs> | null
+    /**
+     * The data used to create many RoleApplications.
+     */
+    data: RoleApplicationCreateManyInput | RoleApplicationCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoleApplicationIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * RoleApplication update
+   */
+  export type RoleApplicationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RoleApplication
+     */
+    select?: RoleApplicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RoleApplication
+     */
+    omit?: RoleApplicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoleApplicationInclude<ExtArgs> | null
+    /**
+     * The data needed to update a RoleApplication.
+     */
+    data: XOR<RoleApplicationUpdateInput, RoleApplicationUncheckedUpdateInput>
+    /**
+     * Choose, which RoleApplication to update.
+     */
+    where: RoleApplicationWhereUniqueInput
+  }
+
+  /**
+   * RoleApplication updateMany
+   */
+  export type RoleApplicationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update RoleApplications.
+     */
+    data: XOR<RoleApplicationUpdateManyMutationInput, RoleApplicationUncheckedUpdateManyInput>
+    /**
+     * Filter which RoleApplications to update
+     */
+    where?: RoleApplicationWhereInput
+    /**
+     * Limit how many RoleApplications to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * RoleApplication updateManyAndReturn
+   */
+  export type RoleApplicationUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RoleApplication
+     */
+    select?: RoleApplicationSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the RoleApplication
+     */
+    omit?: RoleApplicationOmit<ExtArgs> | null
+    /**
+     * The data used to update RoleApplications.
+     */
+    data: XOR<RoleApplicationUpdateManyMutationInput, RoleApplicationUncheckedUpdateManyInput>
+    /**
+     * Filter which RoleApplications to update
+     */
+    where?: RoleApplicationWhereInput
+    /**
+     * Limit how many RoleApplications to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoleApplicationIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * RoleApplication upsert
+   */
+  export type RoleApplicationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RoleApplication
+     */
+    select?: RoleApplicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RoleApplication
+     */
+    omit?: RoleApplicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoleApplicationInclude<ExtArgs> | null
+    /**
+     * The filter to search for the RoleApplication to update in case it exists.
+     */
+    where: RoleApplicationWhereUniqueInput
+    /**
+     * In case the RoleApplication found by the `where` argument doesn't exist, create a new RoleApplication with this data.
+     */
+    create: XOR<RoleApplicationCreateInput, RoleApplicationUncheckedCreateInput>
+    /**
+     * In case the RoleApplication was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<RoleApplicationUpdateInput, RoleApplicationUncheckedUpdateInput>
+  }
+
+  /**
+   * RoleApplication delete
+   */
+  export type RoleApplicationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RoleApplication
+     */
+    select?: RoleApplicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RoleApplication
+     */
+    omit?: RoleApplicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoleApplicationInclude<ExtArgs> | null
+    /**
+     * Filter which RoleApplication to delete.
+     */
+    where: RoleApplicationWhereUniqueInput
+  }
+
+  /**
+   * RoleApplication deleteMany
+   */
+  export type RoleApplicationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which RoleApplications to delete
+     */
+    where?: RoleApplicationWhereInput
+    /**
+     * Limit how many RoleApplications to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * RoleApplication.engagement
+   */
+  export type RoleApplication$engagementArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RoleEngagement
+     */
+    select?: RoleEngagementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RoleEngagement
+     */
+    omit?: RoleEngagementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoleEngagementInclude<ExtArgs> | null
+    where?: RoleEngagementWhereInput
+  }
+
+  /**
+   * RoleApplication without action
+   */
+  export type RoleApplicationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RoleApplication
+     */
+    select?: RoleApplicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RoleApplication
+     */
+    omit?: RoleApplicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoleApplicationInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model RoleEngagement
+   */
+
+  export type AggregateRoleEngagement = {
+    _count: RoleEngagementCountAggregateOutputType | null
+    _avg: RoleEngagementAvgAggregateOutputType | null
+    _sum: RoleEngagementSumAggregateOutputType | null
+    _min: RoleEngagementMinAggregateOutputType | null
+    _max: RoleEngagementMaxAggregateOutputType | null
+  }
+
+  export type RoleEngagementAvgAggregateOutputType = {
+    hoursLogged: number | null
+    monetaryValue: number | null
+  }
+
+  export type RoleEngagementSumAggregateOutputType = {
+    hoursLogged: number | null
+    monetaryValue: number | null
+  }
+
+  export type RoleEngagementMinAggregateOutputType = {
+    id: string | null
+    applicationId: string | null
+    startedAt: Date | null
+    completedAt: Date | null
+    hoursLogged: number | null
+    workSummary: string | null
+    status: $Enums.EngagementStatus | null
+    ngoFeedback: string | null
+    monetaryValue: number | null
+    skillContributionId: string | null
+  }
+
+  export type RoleEngagementMaxAggregateOutputType = {
+    id: string | null
+    applicationId: string | null
+    startedAt: Date | null
+    completedAt: Date | null
+    hoursLogged: number | null
+    workSummary: string | null
+    status: $Enums.EngagementStatus | null
+    ngoFeedback: string | null
+    monetaryValue: number | null
+    skillContributionId: string | null
+  }
+
+  export type RoleEngagementCountAggregateOutputType = {
+    id: number
+    applicationId: number
+    startedAt: number
+    completedAt: number
+    hoursLogged: number
+    workSummary: number
+    status: number
+    ngoFeedback: number
+    monetaryValue: number
+    skillContributionId: number
+    _all: number
+  }
+
+
+  export type RoleEngagementAvgAggregateInputType = {
+    hoursLogged?: true
+    monetaryValue?: true
+  }
+
+  export type RoleEngagementSumAggregateInputType = {
+    hoursLogged?: true
+    monetaryValue?: true
+  }
+
+  export type RoleEngagementMinAggregateInputType = {
+    id?: true
+    applicationId?: true
+    startedAt?: true
+    completedAt?: true
+    hoursLogged?: true
+    workSummary?: true
+    status?: true
+    ngoFeedback?: true
+    monetaryValue?: true
+    skillContributionId?: true
+  }
+
+  export type RoleEngagementMaxAggregateInputType = {
+    id?: true
+    applicationId?: true
+    startedAt?: true
+    completedAt?: true
+    hoursLogged?: true
+    workSummary?: true
+    status?: true
+    ngoFeedback?: true
+    monetaryValue?: true
+    skillContributionId?: true
+  }
+
+  export type RoleEngagementCountAggregateInputType = {
+    id?: true
+    applicationId?: true
+    startedAt?: true
+    completedAt?: true
+    hoursLogged?: true
+    workSummary?: true
+    status?: true
+    ngoFeedback?: true
+    monetaryValue?: true
+    skillContributionId?: true
+    _all?: true
+  }
+
+  export type RoleEngagementAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which RoleEngagement to aggregate.
+     */
+    where?: RoleEngagementWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RoleEngagements to fetch.
+     */
+    orderBy?: RoleEngagementOrderByWithRelationInput | RoleEngagementOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: RoleEngagementWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RoleEngagements from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RoleEngagements.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned RoleEngagements
+    **/
+    _count?: true | RoleEngagementCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: RoleEngagementAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: RoleEngagementSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: RoleEngagementMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: RoleEngagementMaxAggregateInputType
+  }
+
+  export type GetRoleEngagementAggregateType<T extends RoleEngagementAggregateArgs> = {
+        [P in keyof T & keyof AggregateRoleEngagement]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateRoleEngagement[P]>
+      : GetScalarType<T[P], AggregateRoleEngagement[P]>
+  }
+
+
+
+
+  export type RoleEngagementGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RoleEngagementWhereInput
+    orderBy?: RoleEngagementOrderByWithAggregationInput | RoleEngagementOrderByWithAggregationInput[]
+    by: RoleEngagementScalarFieldEnum[] | RoleEngagementScalarFieldEnum
+    having?: RoleEngagementScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: RoleEngagementCountAggregateInputType | true
+    _avg?: RoleEngagementAvgAggregateInputType
+    _sum?: RoleEngagementSumAggregateInputType
+    _min?: RoleEngagementMinAggregateInputType
+    _max?: RoleEngagementMaxAggregateInputType
+  }
+
+  export type RoleEngagementGroupByOutputType = {
+    id: string
+    applicationId: string
+    startedAt: Date
+    completedAt: Date | null
+    hoursLogged: number
+    workSummary: string | null
+    status: $Enums.EngagementStatus
+    ngoFeedback: string | null
+    monetaryValue: number | null
+    skillContributionId: string | null
+    _count: RoleEngagementCountAggregateOutputType | null
+    _avg: RoleEngagementAvgAggregateOutputType | null
+    _sum: RoleEngagementSumAggregateOutputType | null
+    _min: RoleEngagementMinAggregateOutputType | null
+    _max: RoleEngagementMaxAggregateOutputType | null
+  }
+
+  type GetRoleEngagementGroupByPayload<T extends RoleEngagementGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<RoleEngagementGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof RoleEngagementGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], RoleEngagementGroupByOutputType[P]>
+            : GetScalarType<T[P], RoleEngagementGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type RoleEngagementSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    applicationId?: boolean
+    startedAt?: boolean
+    completedAt?: boolean
+    hoursLogged?: boolean
+    workSummary?: boolean
+    status?: boolean
+    ngoFeedback?: boolean
+    monetaryValue?: boolean
+    skillContributionId?: boolean
+    application?: boolean | RoleApplicationDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["roleEngagement"]>
+
+  export type RoleEngagementSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    applicationId?: boolean
+    startedAt?: boolean
+    completedAt?: boolean
+    hoursLogged?: boolean
+    workSummary?: boolean
+    status?: boolean
+    ngoFeedback?: boolean
+    monetaryValue?: boolean
+    skillContributionId?: boolean
+    application?: boolean | RoleApplicationDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["roleEngagement"]>
+
+  export type RoleEngagementSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    applicationId?: boolean
+    startedAt?: boolean
+    completedAt?: boolean
+    hoursLogged?: boolean
+    workSummary?: boolean
+    status?: boolean
+    ngoFeedback?: boolean
+    monetaryValue?: boolean
+    skillContributionId?: boolean
+    application?: boolean | RoleApplicationDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["roleEngagement"]>
+
+  export type RoleEngagementSelectScalar = {
+    id?: boolean
+    applicationId?: boolean
+    startedAt?: boolean
+    completedAt?: boolean
+    hoursLogged?: boolean
+    workSummary?: boolean
+    status?: boolean
+    ngoFeedback?: boolean
+    monetaryValue?: boolean
+    skillContributionId?: boolean
+  }
+
+  export type RoleEngagementOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "applicationId" | "startedAt" | "completedAt" | "hoursLogged" | "workSummary" | "status" | "ngoFeedback" | "monetaryValue" | "skillContributionId", ExtArgs["result"]["roleEngagement"]>
+  export type RoleEngagementInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    application?: boolean | RoleApplicationDefaultArgs<ExtArgs>
+  }
+  export type RoleEngagementIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    application?: boolean | RoleApplicationDefaultArgs<ExtArgs>
+  }
+  export type RoleEngagementIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    application?: boolean | RoleApplicationDefaultArgs<ExtArgs>
+  }
+
+  export type $RoleEngagementPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "RoleEngagement"
+    objects: {
+      application: Prisma.$RoleApplicationPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      applicationId: string
+      startedAt: Date
+      completedAt: Date | null
+      hoursLogged: number
+      workSummary: string | null
+      status: $Enums.EngagementStatus
+      ngoFeedback: string | null
+      monetaryValue: number | null
+      skillContributionId: string | null
+    }, ExtArgs["result"]["roleEngagement"]>
+    composites: {}
+  }
+
+  type RoleEngagementGetPayload<S extends boolean | null | undefined | RoleEngagementDefaultArgs> = $Result.GetResult<Prisma.$RoleEngagementPayload, S>
+
+  type RoleEngagementCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<RoleEngagementFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: RoleEngagementCountAggregateInputType | true
+    }
+
+  export interface RoleEngagementDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['RoleEngagement'], meta: { name: 'RoleEngagement' } }
+    /**
+     * Find zero or one RoleEngagement that matches the filter.
+     * @param {RoleEngagementFindUniqueArgs} args - Arguments to find a RoleEngagement
+     * @example
+     * // Get one RoleEngagement
+     * const roleEngagement = await prisma.roleEngagement.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends RoleEngagementFindUniqueArgs>(args: SelectSubset<T, RoleEngagementFindUniqueArgs<ExtArgs>>): Prisma__RoleEngagementClient<$Result.GetResult<Prisma.$RoleEngagementPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one RoleEngagement that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {RoleEngagementFindUniqueOrThrowArgs} args - Arguments to find a RoleEngagement
+     * @example
+     * // Get one RoleEngagement
+     * const roleEngagement = await prisma.roleEngagement.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends RoleEngagementFindUniqueOrThrowArgs>(args: SelectSubset<T, RoleEngagementFindUniqueOrThrowArgs<ExtArgs>>): Prisma__RoleEngagementClient<$Result.GetResult<Prisma.$RoleEngagementPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first RoleEngagement that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RoleEngagementFindFirstArgs} args - Arguments to find a RoleEngagement
+     * @example
+     * // Get one RoleEngagement
+     * const roleEngagement = await prisma.roleEngagement.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends RoleEngagementFindFirstArgs>(args?: SelectSubset<T, RoleEngagementFindFirstArgs<ExtArgs>>): Prisma__RoleEngagementClient<$Result.GetResult<Prisma.$RoleEngagementPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first RoleEngagement that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RoleEngagementFindFirstOrThrowArgs} args - Arguments to find a RoleEngagement
+     * @example
+     * // Get one RoleEngagement
+     * const roleEngagement = await prisma.roleEngagement.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends RoleEngagementFindFirstOrThrowArgs>(args?: SelectSubset<T, RoleEngagementFindFirstOrThrowArgs<ExtArgs>>): Prisma__RoleEngagementClient<$Result.GetResult<Prisma.$RoleEngagementPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more RoleEngagements that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RoleEngagementFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all RoleEngagements
+     * const roleEngagements = await prisma.roleEngagement.findMany()
+     * 
+     * // Get first 10 RoleEngagements
+     * const roleEngagements = await prisma.roleEngagement.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const roleEngagementWithIdOnly = await prisma.roleEngagement.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends RoleEngagementFindManyArgs>(args?: SelectSubset<T, RoleEngagementFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RoleEngagementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a RoleEngagement.
+     * @param {RoleEngagementCreateArgs} args - Arguments to create a RoleEngagement.
+     * @example
+     * // Create one RoleEngagement
+     * const RoleEngagement = await prisma.roleEngagement.create({
+     *   data: {
+     *     // ... data to create a RoleEngagement
+     *   }
+     * })
+     * 
+     */
+    create<T extends RoleEngagementCreateArgs>(args: SelectSubset<T, RoleEngagementCreateArgs<ExtArgs>>): Prisma__RoleEngagementClient<$Result.GetResult<Prisma.$RoleEngagementPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many RoleEngagements.
+     * @param {RoleEngagementCreateManyArgs} args - Arguments to create many RoleEngagements.
+     * @example
+     * // Create many RoleEngagements
+     * const roleEngagement = await prisma.roleEngagement.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends RoleEngagementCreateManyArgs>(args?: SelectSubset<T, RoleEngagementCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many RoleEngagements and returns the data saved in the database.
+     * @param {RoleEngagementCreateManyAndReturnArgs} args - Arguments to create many RoleEngagements.
+     * @example
+     * // Create many RoleEngagements
+     * const roleEngagement = await prisma.roleEngagement.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many RoleEngagements and only return the `id`
+     * const roleEngagementWithIdOnly = await prisma.roleEngagement.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends RoleEngagementCreateManyAndReturnArgs>(args?: SelectSubset<T, RoleEngagementCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RoleEngagementPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a RoleEngagement.
+     * @param {RoleEngagementDeleteArgs} args - Arguments to delete one RoleEngagement.
+     * @example
+     * // Delete one RoleEngagement
+     * const RoleEngagement = await prisma.roleEngagement.delete({
+     *   where: {
+     *     // ... filter to delete one RoleEngagement
+     *   }
+     * })
+     * 
+     */
+    delete<T extends RoleEngagementDeleteArgs>(args: SelectSubset<T, RoleEngagementDeleteArgs<ExtArgs>>): Prisma__RoleEngagementClient<$Result.GetResult<Prisma.$RoleEngagementPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one RoleEngagement.
+     * @param {RoleEngagementUpdateArgs} args - Arguments to update one RoleEngagement.
+     * @example
+     * // Update one RoleEngagement
+     * const roleEngagement = await prisma.roleEngagement.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends RoleEngagementUpdateArgs>(args: SelectSubset<T, RoleEngagementUpdateArgs<ExtArgs>>): Prisma__RoleEngagementClient<$Result.GetResult<Prisma.$RoleEngagementPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more RoleEngagements.
+     * @param {RoleEngagementDeleteManyArgs} args - Arguments to filter RoleEngagements to delete.
+     * @example
+     * // Delete a few RoleEngagements
+     * const { count } = await prisma.roleEngagement.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends RoleEngagementDeleteManyArgs>(args?: SelectSubset<T, RoleEngagementDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more RoleEngagements.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RoleEngagementUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many RoleEngagements
+     * const roleEngagement = await prisma.roleEngagement.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends RoleEngagementUpdateManyArgs>(args: SelectSubset<T, RoleEngagementUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more RoleEngagements and returns the data updated in the database.
+     * @param {RoleEngagementUpdateManyAndReturnArgs} args - Arguments to update many RoleEngagements.
+     * @example
+     * // Update many RoleEngagements
+     * const roleEngagement = await prisma.roleEngagement.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more RoleEngagements and only return the `id`
+     * const roleEngagementWithIdOnly = await prisma.roleEngagement.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends RoleEngagementUpdateManyAndReturnArgs>(args: SelectSubset<T, RoleEngagementUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RoleEngagementPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one RoleEngagement.
+     * @param {RoleEngagementUpsertArgs} args - Arguments to update or create a RoleEngagement.
+     * @example
+     * // Update or create a RoleEngagement
+     * const roleEngagement = await prisma.roleEngagement.upsert({
+     *   create: {
+     *     // ... data to create a RoleEngagement
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the RoleEngagement we want to update
+     *   }
+     * })
+     */
+    upsert<T extends RoleEngagementUpsertArgs>(args: SelectSubset<T, RoleEngagementUpsertArgs<ExtArgs>>): Prisma__RoleEngagementClient<$Result.GetResult<Prisma.$RoleEngagementPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of RoleEngagements.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RoleEngagementCountArgs} args - Arguments to filter RoleEngagements to count.
+     * @example
+     * // Count the number of RoleEngagements
+     * const count = await prisma.roleEngagement.count({
+     *   where: {
+     *     // ... the filter for the RoleEngagements we want to count
+     *   }
+     * })
+    **/
+    count<T extends RoleEngagementCountArgs>(
+      args?: Subset<T, RoleEngagementCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], RoleEngagementCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a RoleEngagement.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RoleEngagementAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends RoleEngagementAggregateArgs>(args: Subset<T, RoleEngagementAggregateArgs>): Prisma.PrismaPromise<GetRoleEngagementAggregateType<T>>
+
+    /**
+     * Group by RoleEngagement.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RoleEngagementGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends RoleEngagementGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: RoleEngagementGroupByArgs['orderBy'] }
+        : { orderBy?: RoleEngagementGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, RoleEngagementGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetRoleEngagementGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the RoleEngagement model
+   */
+  readonly fields: RoleEngagementFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for RoleEngagement.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__RoleEngagementClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    application<T extends RoleApplicationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, RoleApplicationDefaultArgs<ExtArgs>>): Prisma__RoleApplicationClient<$Result.GetResult<Prisma.$RoleApplicationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the RoleEngagement model
+   */
+  interface RoleEngagementFieldRefs {
+    readonly id: FieldRef<"RoleEngagement", 'String'>
+    readonly applicationId: FieldRef<"RoleEngagement", 'String'>
+    readonly startedAt: FieldRef<"RoleEngagement", 'DateTime'>
+    readonly completedAt: FieldRef<"RoleEngagement", 'DateTime'>
+    readonly hoursLogged: FieldRef<"RoleEngagement", 'Float'>
+    readonly workSummary: FieldRef<"RoleEngagement", 'String'>
+    readonly status: FieldRef<"RoleEngagement", 'EngagementStatus'>
+    readonly ngoFeedback: FieldRef<"RoleEngagement", 'String'>
+    readonly monetaryValue: FieldRef<"RoleEngagement", 'Float'>
+    readonly skillContributionId: FieldRef<"RoleEngagement", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * RoleEngagement findUnique
+   */
+  export type RoleEngagementFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RoleEngagement
+     */
+    select?: RoleEngagementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RoleEngagement
+     */
+    omit?: RoleEngagementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoleEngagementInclude<ExtArgs> | null
+    /**
+     * Filter, which RoleEngagement to fetch.
+     */
+    where: RoleEngagementWhereUniqueInput
+  }
+
+  /**
+   * RoleEngagement findUniqueOrThrow
+   */
+  export type RoleEngagementFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RoleEngagement
+     */
+    select?: RoleEngagementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RoleEngagement
+     */
+    omit?: RoleEngagementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoleEngagementInclude<ExtArgs> | null
+    /**
+     * Filter, which RoleEngagement to fetch.
+     */
+    where: RoleEngagementWhereUniqueInput
+  }
+
+  /**
+   * RoleEngagement findFirst
+   */
+  export type RoleEngagementFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RoleEngagement
+     */
+    select?: RoleEngagementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RoleEngagement
+     */
+    omit?: RoleEngagementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoleEngagementInclude<ExtArgs> | null
+    /**
+     * Filter, which RoleEngagement to fetch.
+     */
+    where?: RoleEngagementWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RoleEngagements to fetch.
+     */
+    orderBy?: RoleEngagementOrderByWithRelationInput | RoleEngagementOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for RoleEngagements.
+     */
+    cursor?: RoleEngagementWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RoleEngagements from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RoleEngagements.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of RoleEngagements.
+     */
+    distinct?: RoleEngagementScalarFieldEnum | RoleEngagementScalarFieldEnum[]
+  }
+
+  /**
+   * RoleEngagement findFirstOrThrow
+   */
+  export type RoleEngagementFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RoleEngagement
+     */
+    select?: RoleEngagementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RoleEngagement
+     */
+    omit?: RoleEngagementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoleEngagementInclude<ExtArgs> | null
+    /**
+     * Filter, which RoleEngagement to fetch.
+     */
+    where?: RoleEngagementWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RoleEngagements to fetch.
+     */
+    orderBy?: RoleEngagementOrderByWithRelationInput | RoleEngagementOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for RoleEngagements.
+     */
+    cursor?: RoleEngagementWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RoleEngagements from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RoleEngagements.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of RoleEngagements.
+     */
+    distinct?: RoleEngagementScalarFieldEnum | RoleEngagementScalarFieldEnum[]
+  }
+
+  /**
+   * RoleEngagement findMany
+   */
+  export type RoleEngagementFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RoleEngagement
+     */
+    select?: RoleEngagementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RoleEngagement
+     */
+    omit?: RoleEngagementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoleEngagementInclude<ExtArgs> | null
+    /**
+     * Filter, which RoleEngagements to fetch.
+     */
+    where?: RoleEngagementWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RoleEngagements to fetch.
+     */
+    orderBy?: RoleEngagementOrderByWithRelationInput | RoleEngagementOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing RoleEngagements.
+     */
+    cursor?: RoleEngagementWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RoleEngagements from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RoleEngagements.
+     */
+    skip?: number
+    distinct?: RoleEngagementScalarFieldEnum | RoleEngagementScalarFieldEnum[]
+  }
+
+  /**
+   * RoleEngagement create
+   */
+  export type RoleEngagementCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RoleEngagement
+     */
+    select?: RoleEngagementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RoleEngagement
+     */
+    omit?: RoleEngagementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoleEngagementInclude<ExtArgs> | null
+    /**
+     * The data needed to create a RoleEngagement.
+     */
+    data: XOR<RoleEngagementCreateInput, RoleEngagementUncheckedCreateInput>
+  }
+
+  /**
+   * RoleEngagement createMany
+   */
+  export type RoleEngagementCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many RoleEngagements.
+     */
+    data: RoleEngagementCreateManyInput | RoleEngagementCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * RoleEngagement createManyAndReturn
+   */
+  export type RoleEngagementCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RoleEngagement
+     */
+    select?: RoleEngagementSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the RoleEngagement
+     */
+    omit?: RoleEngagementOmit<ExtArgs> | null
+    /**
+     * The data used to create many RoleEngagements.
+     */
+    data: RoleEngagementCreateManyInput | RoleEngagementCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoleEngagementIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * RoleEngagement update
+   */
+  export type RoleEngagementUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RoleEngagement
+     */
+    select?: RoleEngagementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RoleEngagement
+     */
+    omit?: RoleEngagementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoleEngagementInclude<ExtArgs> | null
+    /**
+     * The data needed to update a RoleEngagement.
+     */
+    data: XOR<RoleEngagementUpdateInput, RoleEngagementUncheckedUpdateInput>
+    /**
+     * Choose, which RoleEngagement to update.
+     */
+    where: RoleEngagementWhereUniqueInput
+  }
+
+  /**
+   * RoleEngagement updateMany
+   */
+  export type RoleEngagementUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update RoleEngagements.
+     */
+    data: XOR<RoleEngagementUpdateManyMutationInput, RoleEngagementUncheckedUpdateManyInput>
+    /**
+     * Filter which RoleEngagements to update
+     */
+    where?: RoleEngagementWhereInput
+    /**
+     * Limit how many RoleEngagements to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * RoleEngagement updateManyAndReturn
+   */
+  export type RoleEngagementUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RoleEngagement
+     */
+    select?: RoleEngagementSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the RoleEngagement
+     */
+    omit?: RoleEngagementOmit<ExtArgs> | null
+    /**
+     * The data used to update RoleEngagements.
+     */
+    data: XOR<RoleEngagementUpdateManyMutationInput, RoleEngagementUncheckedUpdateManyInput>
+    /**
+     * Filter which RoleEngagements to update
+     */
+    where?: RoleEngagementWhereInput
+    /**
+     * Limit how many RoleEngagements to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoleEngagementIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * RoleEngagement upsert
+   */
+  export type RoleEngagementUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RoleEngagement
+     */
+    select?: RoleEngagementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RoleEngagement
+     */
+    omit?: RoleEngagementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoleEngagementInclude<ExtArgs> | null
+    /**
+     * The filter to search for the RoleEngagement to update in case it exists.
+     */
+    where: RoleEngagementWhereUniqueInput
+    /**
+     * In case the RoleEngagement found by the `where` argument doesn't exist, create a new RoleEngagement with this data.
+     */
+    create: XOR<RoleEngagementCreateInput, RoleEngagementUncheckedCreateInput>
+    /**
+     * In case the RoleEngagement was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<RoleEngagementUpdateInput, RoleEngagementUncheckedUpdateInput>
+  }
+
+  /**
+   * RoleEngagement delete
+   */
+  export type RoleEngagementDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RoleEngagement
+     */
+    select?: RoleEngagementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RoleEngagement
+     */
+    omit?: RoleEngagementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoleEngagementInclude<ExtArgs> | null
+    /**
+     * Filter which RoleEngagement to delete.
+     */
+    where: RoleEngagementWhereUniqueInput
+  }
+
+  /**
+   * RoleEngagement deleteMany
+   */
+  export type RoleEngagementDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which RoleEngagements to delete
+     */
+    where?: RoleEngagementWhereInput
+    /**
+     * Limit how many RoleEngagements to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * RoleEngagement without action
+   */
+  export type RoleEngagementDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RoleEngagement
+     */
+    select?: RoleEngagementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RoleEngagement
+     */
+    omit?: RoleEngagementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoleEngagementInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -37015,6 +41121,62 @@ export namespace Prisma {
   export type NgoDocumentScalarFieldEnum = (typeof NgoDocumentScalarFieldEnum)[keyof typeof NgoDocumentScalarFieldEnum]
 
 
+  export const NgoRoleScalarFieldEnum: {
+    id: 'id',
+    ngoId: 'ngoId',
+    projectId: 'projectId',
+    title: 'title',
+    department: 'department',
+    roleType: 'roleType',
+    description: 'description',
+    responsibilities: 'responsibilities',
+    skillsRequired: 'skillsRequired',
+    timeCommitment: 'timeCommitment',
+    durationWeeks: 'durationWeeks',
+    isRemote: 'isRemote',
+    location: 'location',
+    openings: 'openings',
+    status: 'status',
+    applicationDeadline: 'applicationDeadline',
+    startDate: 'startDate',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type NgoRoleScalarFieldEnum = (typeof NgoRoleScalarFieldEnum)[keyof typeof NgoRoleScalarFieldEnum]
+
+
+  export const RoleApplicationScalarFieldEnum: {
+    id: 'id',
+    roleId: 'roleId',
+    applicantId: 'applicantId',
+    coverNote: 'coverNote',
+    linkedinUrl: 'linkedinUrl',
+    portfolioUrl: 'portfolioUrl',
+    status: 'status',
+    appliedAt: 'appliedAt',
+    reviewedAt: 'reviewedAt'
+  };
+
+  export type RoleApplicationScalarFieldEnum = (typeof RoleApplicationScalarFieldEnum)[keyof typeof RoleApplicationScalarFieldEnum]
+
+
+  export const RoleEngagementScalarFieldEnum: {
+    id: 'id',
+    applicationId: 'applicationId',
+    startedAt: 'startedAt',
+    completedAt: 'completedAt',
+    hoursLogged: 'hoursLogged',
+    workSummary: 'workSummary',
+    status: 'status',
+    ngoFeedback: 'ngoFeedback',
+    monetaryValue: 'monetaryValue',
+    skillContributionId: 'skillContributionId'
+  };
+
+  export type RoleEngagementScalarFieldEnum = (typeof RoleEngagementScalarFieldEnum)[keyof typeof RoleEngagementScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -37202,6 +41364,62 @@ export namespace Prisma {
    * Reference to a field of type 'DisbursementStatus[]'
    */
   export type ListEnumDisbursementStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DisbursementStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'RoleType'
+   */
+  export type EnumRoleTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RoleType'>
+    
+
+
+  /**
+   * Reference to a field of type 'RoleType[]'
+   */
+  export type ListEnumRoleTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RoleType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'RoleStatus'
+   */
+  export type EnumRoleStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RoleStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'RoleStatus[]'
+   */
+  export type ListEnumRoleStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RoleStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'ApplicationStatus'
+   */
+  export type EnumApplicationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ApplicationStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'ApplicationStatus[]'
+   */
+  export type ListEnumApplicationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ApplicationStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'EngagementStatus'
+   */
+  export type EnumEngagementStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EngagementStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'EngagementStatus[]'
+   */
+  export type ListEnumEngagementStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EngagementStatus[]'>
     
   /**
    * Deep Input Types
@@ -37433,6 +41651,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementListRelationFilter
     endorsementsGiven?: DonorEndorsementListRelationFilter
     documents?: DonorDocumentListRelationFilter
+    roleApplications?: RoleApplicationListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -37471,6 +41690,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementOrderByRelationAggregateInput
     endorsementsGiven?: DonorEndorsementOrderByRelationAggregateInput
     documents?: DonorDocumentOrderByRelationAggregateInput
+    roleApplications?: RoleApplicationOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -37512,6 +41732,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementListRelationFilter
     endorsementsGiven?: DonorEndorsementListRelationFilter
     documents?: DonorDocumentListRelationFilter
+    roleApplications?: RoleApplicationListRelationFilter
   }, "id" | "email" | "referralCode">
 
   export type UserOrderByWithAggregationInput = {
@@ -37593,6 +41814,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionListRelationFilter
     donorEndorsements?: DonorEndorsementListRelationFilter
     documents?: NgoDocumentListRelationFilter
+    roles?: NgoRoleListRelationFilter
   }
 
   export type NgoOrderByWithRelationInput = {
@@ -37621,6 +41843,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionOrderByRelationAggregateInput
     donorEndorsements?: DonorEndorsementOrderByRelationAggregateInput
     documents?: NgoDocumentOrderByRelationAggregateInput
+    roles?: NgoRoleOrderByRelationAggregateInput
   }
 
   export type NgoWhereUniqueInput = Prisma.AtLeast<{
@@ -37652,6 +41875,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionListRelationFilter
     donorEndorsements?: DonorEndorsementListRelationFilter
     documents?: NgoDocumentListRelationFilter
+    roles?: NgoRoleListRelationFilter
   }, "id" | "userId">
 
   export type NgoOrderByWithAggregationInput = {
@@ -37729,6 +41953,7 @@ export namespace Prisma {
     spotlightVotes?: SpotlightVoteListRelationFilter
     campaigns?: CampaignListRelationFilter
     skillContributions?: SkillContributionListRelationFilter
+    roles?: NgoRoleListRelationFilter
   }
 
   export type ProjectOrderByWithRelationInput = {
@@ -37755,6 +41980,7 @@ export namespace Prisma {
     spotlightVotes?: SpotlightVoteOrderByRelationAggregateInput
     campaigns?: CampaignOrderByRelationAggregateInput
     skillContributions?: SkillContributionOrderByRelationAggregateInput
+    roles?: NgoRoleOrderByRelationAggregateInput
   }
 
   export type ProjectWhereUniqueInput = Prisma.AtLeast<{
@@ -37784,6 +42010,7 @@ export namespace Prisma {
     spotlightVotes?: SpotlightVoteListRelationFilter
     campaigns?: CampaignListRelationFilter
     skillContributions?: SkillContributionListRelationFilter
+    roles?: NgoRoleListRelationFilter
   }, "id">
 
   export type ProjectOrderByWithAggregationInput = {
@@ -39515,6 +43742,303 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"NgoDocument"> | Date | string
   }
 
+  export type NgoRoleWhereInput = {
+    AND?: NgoRoleWhereInput | NgoRoleWhereInput[]
+    OR?: NgoRoleWhereInput[]
+    NOT?: NgoRoleWhereInput | NgoRoleWhereInput[]
+    id?: StringFilter<"NgoRole"> | string
+    ngoId?: StringFilter<"NgoRole"> | string
+    projectId?: StringNullableFilter<"NgoRole"> | string | null
+    title?: StringFilter<"NgoRole"> | string
+    department?: StringNullableFilter<"NgoRole"> | string | null
+    roleType?: EnumRoleTypeFilter<"NgoRole"> | $Enums.RoleType
+    description?: StringFilter<"NgoRole"> | string
+    responsibilities?: StringFilter<"NgoRole"> | string
+    skillsRequired?: StringFilter<"NgoRole"> | string
+    timeCommitment?: StringFilter<"NgoRole"> | string
+    durationWeeks?: IntFilter<"NgoRole"> | number
+    isRemote?: BoolFilter<"NgoRole"> | boolean
+    location?: StringNullableFilter<"NgoRole"> | string | null
+    openings?: IntFilter<"NgoRole"> | number
+    status?: EnumRoleStatusFilter<"NgoRole"> | $Enums.RoleStatus
+    applicationDeadline?: DateTimeNullableFilter<"NgoRole"> | Date | string | null
+    startDate?: DateTimeNullableFilter<"NgoRole"> | Date | string | null
+    createdAt?: DateTimeFilter<"NgoRole"> | Date | string
+    updatedAt?: DateTimeFilter<"NgoRole"> | Date | string
+    ngo?: XOR<NgoScalarRelationFilter, NgoWhereInput>
+    project?: XOR<ProjectNullableScalarRelationFilter, ProjectWhereInput> | null
+    applications?: RoleApplicationListRelationFilter
+  }
+
+  export type NgoRoleOrderByWithRelationInput = {
+    id?: SortOrder
+    ngoId?: SortOrder
+    projectId?: SortOrderInput | SortOrder
+    title?: SortOrder
+    department?: SortOrderInput | SortOrder
+    roleType?: SortOrder
+    description?: SortOrder
+    responsibilities?: SortOrder
+    skillsRequired?: SortOrder
+    timeCommitment?: SortOrder
+    durationWeeks?: SortOrder
+    isRemote?: SortOrder
+    location?: SortOrderInput | SortOrder
+    openings?: SortOrder
+    status?: SortOrder
+    applicationDeadline?: SortOrderInput | SortOrder
+    startDate?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    ngo?: NgoOrderByWithRelationInput
+    project?: ProjectOrderByWithRelationInput
+    applications?: RoleApplicationOrderByRelationAggregateInput
+  }
+
+  export type NgoRoleWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: NgoRoleWhereInput | NgoRoleWhereInput[]
+    OR?: NgoRoleWhereInput[]
+    NOT?: NgoRoleWhereInput | NgoRoleWhereInput[]
+    ngoId?: StringFilter<"NgoRole"> | string
+    projectId?: StringNullableFilter<"NgoRole"> | string | null
+    title?: StringFilter<"NgoRole"> | string
+    department?: StringNullableFilter<"NgoRole"> | string | null
+    roleType?: EnumRoleTypeFilter<"NgoRole"> | $Enums.RoleType
+    description?: StringFilter<"NgoRole"> | string
+    responsibilities?: StringFilter<"NgoRole"> | string
+    skillsRequired?: StringFilter<"NgoRole"> | string
+    timeCommitment?: StringFilter<"NgoRole"> | string
+    durationWeeks?: IntFilter<"NgoRole"> | number
+    isRemote?: BoolFilter<"NgoRole"> | boolean
+    location?: StringNullableFilter<"NgoRole"> | string | null
+    openings?: IntFilter<"NgoRole"> | number
+    status?: EnumRoleStatusFilter<"NgoRole"> | $Enums.RoleStatus
+    applicationDeadline?: DateTimeNullableFilter<"NgoRole"> | Date | string | null
+    startDate?: DateTimeNullableFilter<"NgoRole"> | Date | string | null
+    createdAt?: DateTimeFilter<"NgoRole"> | Date | string
+    updatedAt?: DateTimeFilter<"NgoRole"> | Date | string
+    ngo?: XOR<NgoScalarRelationFilter, NgoWhereInput>
+    project?: XOR<ProjectNullableScalarRelationFilter, ProjectWhereInput> | null
+    applications?: RoleApplicationListRelationFilter
+  }, "id">
+
+  export type NgoRoleOrderByWithAggregationInput = {
+    id?: SortOrder
+    ngoId?: SortOrder
+    projectId?: SortOrderInput | SortOrder
+    title?: SortOrder
+    department?: SortOrderInput | SortOrder
+    roleType?: SortOrder
+    description?: SortOrder
+    responsibilities?: SortOrder
+    skillsRequired?: SortOrder
+    timeCommitment?: SortOrder
+    durationWeeks?: SortOrder
+    isRemote?: SortOrder
+    location?: SortOrderInput | SortOrder
+    openings?: SortOrder
+    status?: SortOrder
+    applicationDeadline?: SortOrderInput | SortOrder
+    startDate?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: NgoRoleCountOrderByAggregateInput
+    _avg?: NgoRoleAvgOrderByAggregateInput
+    _max?: NgoRoleMaxOrderByAggregateInput
+    _min?: NgoRoleMinOrderByAggregateInput
+    _sum?: NgoRoleSumOrderByAggregateInput
+  }
+
+  export type NgoRoleScalarWhereWithAggregatesInput = {
+    AND?: NgoRoleScalarWhereWithAggregatesInput | NgoRoleScalarWhereWithAggregatesInput[]
+    OR?: NgoRoleScalarWhereWithAggregatesInput[]
+    NOT?: NgoRoleScalarWhereWithAggregatesInput | NgoRoleScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"NgoRole"> | string
+    ngoId?: StringWithAggregatesFilter<"NgoRole"> | string
+    projectId?: StringNullableWithAggregatesFilter<"NgoRole"> | string | null
+    title?: StringWithAggregatesFilter<"NgoRole"> | string
+    department?: StringNullableWithAggregatesFilter<"NgoRole"> | string | null
+    roleType?: EnumRoleTypeWithAggregatesFilter<"NgoRole"> | $Enums.RoleType
+    description?: StringWithAggregatesFilter<"NgoRole"> | string
+    responsibilities?: StringWithAggregatesFilter<"NgoRole"> | string
+    skillsRequired?: StringWithAggregatesFilter<"NgoRole"> | string
+    timeCommitment?: StringWithAggregatesFilter<"NgoRole"> | string
+    durationWeeks?: IntWithAggregatesFilter<"NgoRole"> | number
+    isRemote?: BoolWithAggregatesFilter<"NgoRole"> | boolean
+    location?: StringNullableWithAggregatesFilter<"NgoRole"> | string | null
+    openings?: IntWithAggregatesFilter<"NgoRole"> | number
+    status?: EnumRoleStatusWithAggregatesFilter<"NgoRole"> | $Enums.RoleStatus
+    applicationDeadline?: DateTimeNullableWithAggregatesFilter<"NgoRole"> | Date | string | null
+    startDate?: DateTimeNullableWithAggregatesFilter<"NgoRole"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"NgoRole"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"NgoRole"> | Date | string
+  }
+
+  export type RoleApplicationWhereInput = {
+    AND?: RoleApplicationWhereInput | RoleApplicationWhereInput[]
+    OR?: RoleApplicationWhereInput[]
+    NOT?: RoleApplicationWhereInput | RoleApplicationWhereInput[]
+    id?: StringFilter<"RoleApplication"> | string
+    roleId?: StringFilter<"RoleApplication"> | string
+    applicantId?: StringFilter<"RoleApplication"> | string
+    coverNote?: StringFilter<"RoleApplication"> | string
+    linkedinUrl?: StringNullableFilter<"RoleApplication"> | string | null
+    portfolioUrl?: StringNullableFilter<"RoleApplication"> | string | null
+    status?: EnumApplicationStatusFilter<"RoleApplication"> | $Enums.ApplicationStatus
+    appliedAt?: DateTimeFilter<"RoleApplication"> | Date | string
+    reviewedAt?: DateTimeNullableFilter<"RoleApplication"> | Date | string | null
+    role?: XOR<NgoRoleScalarRelationFilter, NgoRoleWhereInput>
+    applicant?: XOR<UserScalarRelationFilter, UserWhereInput>
+    engagement?: XOR<RoleEngagementNullableScalarRelationFilter, RoleEngagementWhereInput> | null
+  }
+
+  export type RoleApplicationOrderByWithRelationInput = {
+    id?: SortOrder
+    roleId?: SortOrder
+    applicantId?: SortOrder
+    coverNote?: SortOrder
+    linkedinUrl?: SortOrderInput | SortOrder
+    portfolioUrl?: SortOrderInput | SortOrder
+    status?: SortOrder
+    appliedAt?: SortOrder
+    reviewedAt?: SortOrderInput | SortOrder
+    role?: NgoRoleOrderByWithRelationInput
+    applicant?: UserOrderByWithRelationInput
+    engagement?: RoleEngagementOrderByWithRelationInput
+  }
+
+  export type RoleApplicationWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    roleId_applicantId?: RoleApplicationRoleIdApplicantIdCompoundUniqueInput
+    AND?: RoleApplicationWhereInput | RoleApplicationWhereInput[]
+    OR?: RoleApplicationWhereInput[]
+    NOT?: RoleApplicationWhereInput | RoleApplicationWhereInput[]
+    roleId?: StringFilter<"RoleApplication"> | string
+    applicantId?: StringFilter<"RoleApplication"> | string
+    coverNote?: StringFilter<"RoleApplication"> | string
+    linkedinUrl?: StringNullableFilter<"RoleApplication"> | string | null
+    portfolioUrl?: StringNullableFilter<"RoleApplication"> | string | null
+    status?: EnumApplicationStatusFilter<"RoleApplication"> | $Enums.ApplicationStatus
+    appliedAt?: DateTimeFilter<"RoleApplication"> | Date | string
+    reviewedAt?: DateTimeNullableFilter<"RoleApplication"> | Date | string | null
+    role?: XOR<NgoRoleScalarRelationFilter, NgoRoleWhereInput>
+    applicant?: XOR<UserScalarRelationFilter, UserWhereInput>
+    engagement?: XOR<RoleEngagementNullableScalarRelationFilter, RoleEngagementWhereInput> | null
+  }, "id" | "roleId_applicantId">
+
+  export type RoleApplicationOrderByWithAggregationInput = {
+    id?: SortOrder
+    roleId?: SortOrder
+    applicantId?: SortOrder
+    coverNote?: SortOrder
+    linkedinUrl?: SortOrderInput | SortOrder
+    portfolioUrl?: SortOrderInput | SortOrder
+    status?: SortOrder
+    appliedAt?: SortOrder
+    reviewedAt?: SortOrderInput | SortOrder
+    _count?: RoleApplicationCountOrderByAggregateInput
+    _max?: RoleApplicationMaxOrderByAggregateInput
+    _min?: RoleApplicationMinOrderByAggregateInput
+  }
+
+  export type RoleApplicationScalarWhereWithAggregatesInput = {
+    AND?: RoleApplicationScalarWhereWithAggregatesInput | RoleApplicationScalarWhereWithAggregatesInput[]
+    OR?: RoleApplicationScalarWhereWithAggregatesInput[]
+    NOT?: RoleApplicationScalarWhereWithAggregatesInput | RoleApplicationScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"RoleApplication"> | string
+    roleId?: StringWithAggregatesFilter<"RoleApplication"> | string
+    applicantId?: StringWithAggregatesFilter<"RoleApplication"> | string
+    coverNote?: StringWithAggregatesFilter<"RoleApplication"> | string
+    linkedinUrl?: StringNullableWithAggregatesFilter<"RoleApplication"> | string | null
+    portfolioUrl?: StringNullableWithAggregatesFilter<"RoleApplication"> | string | null
+    status?: EnumApplicationStatusWithAggregatesFilter<"RoleApplication"> | $Enums.ApplicationStatus
+    appliedAt?: DateTimeWithAggregatesFilter<"RoleApplication"> | Date | string
+    reviewedAt?: DateTimeNullableWithAggregatesFilter<"RoleApplication"> | Date | string | null
+  }
+
+  export type RoleEngagementWhereInput = {
+    AND?: RoleEngagementWhereInput | RoleEngagementWhereInput[]
+    OR?: RoleEngagementWhereInput[]
+    NOT?: RoleEngagementWhereInput | RoleEngagementWhereInput[]
+    id?: StringFilter<"RoleEngagement"> | string
+    applicationId?: StringFilter<"RoleEngagement"> | string
+    startedAt?: DateTimeFilter<"RoleEngagement"> | Date | string
+    completedAt?: DateTimeNullableFilter<"RoleEngagement"> | Date | string | null
+    hoursLogged?: FloatFilter<"RoleEngagement"> | number
+    workSummary?: StringNullableFilter<"RoleEngagement"> | string | null
+    status?: EnumEngagementStatusFilter<"RoleEngagement"> | $Enums.EngagementStatus
+    ngoFeedback?: StringNullableFilter<"RoleEngagement"> | string | null
+    monetaryValue?: FloatNullableFilter<"RoleEngagement"> | number | null
+    skillContributionId?: StringNullableFilter<"RoleEngagement"> | string | null
+    application?: XOR<RoleApplicationScalarRelationFilter, RoleApplicationWhereInput>
+  }
+
+  export type RoleEngagementOrderByWithRelationInput = {
+    id?: SortOrder
+    applicationId?: SortOrder
+    startedAt?: SortOrder
+    completedAt?: SortOrderInput | SortOrder
+    hoursLogged?: SortOrder
+    workSummary?: SortOrderInput | SortOrder
+    status?: SortOrder
+    ngoFeedback?: SortOrderInput | SortOrder
+    monetaryValue?: SortOrderInput | SortOrder
+    skillContributionId?: SortOrderInput | SortOrder
+    application?: RoleApplicationOrderByWithRelationInput
+  }
+
+  export type RoleEngagementWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    applicationId?: string
+    AND?: RoleEngagementWhereInput | RoleEngagementWhereInput[]
+    OR?: RoleEngagementWhereInput[]
+    NOT?: RoleEngagementWhereInput | RoleEngagementWhereInput[]
+    startedAt?: DateTimeFilter<"RoleEngagement"> | Date | string
+    completedAt?: DateTimeNullableFilter<"RoleEngagement"> | Date | string | null
+    hoursLogged?: FloatFilter<"RoleEngagement"> | number
+    workSummary?: StringNullableFilter<"RoleEngagement"> | string | null
+    status?: EnumEngagementStatusFilter<"RoleEngagement"> | $Enums.EngagementStatus
+    ngoFeedback?: StringNullableFilter<"RoleEngagement"> | string | null
+    monetaryValue?: FloatNullableFilter<"RoleEngagement"> | number | null
+    skillContributionId?: StringNullableFilter<"RoleEngagement"> | string | null
+    application?: XOR<RoleApplicationScalarRelationFilter, RoleApplicationWhereInput>
+  }, "id" | "applicationId">
+
+  export type RoleEngagementOrderByWithAggregationInput = {
+    id?: SortOrder
+    applicationId?: SortOrder
+    startedAt?: SortOrder
+    completedAt?: SortOrderInput | SortOrder
+    hoursLogged?: SortOrder
+    workSummary?: SortOrderInput | SortOrder
+    status?: SortOrder
+    ngoFeedback?: SortOrderInput | SortOrder
+    monetaryValue?: SortOrderInput | SortOrder
+    skillContributionId?: SortOrderInput | SortOrder
+    _count?: RoleEngagementCountOrderByAggregateInput
+    _avg?: RoleEngagementAvgOrderByAggregateInput
+    _max?: RoleEngagementMaxOrderByAggregateInput
+    _min?: RoleEngagementMinOrderByAggregateInput
+    _sum?: RoleEngagementSumOrderByAggregateInput
+  }
+
+  export type RoleEngagementScalarWhereWithAggregatesInput = {
+    AND?: RoleEngagementScalarWhereWithAggregatesInput | RoleEngagementScalarWhereWithAggregatesInput[]
+    OR?: RoleEngagementScalarWhereWithAggregatesInput[]
+    NOT?: RoleEngagementScalarWhereWithAggregatesInput | RoleEngagementScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"RoleEngagement"> | string
+    applicationId?: StringWithAggregatesFilter<"RoleEngagement"> | string
+    startedAt?: DateTimeWithAggregatesFilter<"RoleEngagement"> | Date | string
+    completedAt?: DateTimeNullableWithAggregatesFilter<"RoleEngagement"> | Date | string | null
+    hoursLogged?: FloatWithAggregatesFilter<"RoleEngagement"> | number
+    workSummary?: StringNullableWithAggregatesFilter<"RoleEngagement"> | string | null
+    status?: EnumEngagementStatusWithAggregatesFilter<"RoleEngagement"> | $Enums.EngagementStatus
+    ngoFeedback?: StringNullableWithAggregatesFilter<"RoleEngagement"> | string | null
+    monetaryValue?: FloatNullableWithAggregatesFilter<"RoleEngagement"> | number | null
+    skillContributionId?: StringNullableWithAggregatesFilter<"RoleEngagement"> | string | null
+  }
+
   export type AccountCreateInput = {
     id?: string
     type: string
@@ -39745,6 +44269,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementCreateNestedManyWithoutDonorInput
     endorsementsGiven?: DonorEndorsementCreateNestedManyWithoutEndorserInput
     documents?: DonorDocumentCreateNestedManyWithoutUserInput
+    roleApplications?: RoleApplicationCreateNestedManyWithoutApplicantInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -39783,6 +44308,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementUncheckedCreateNestedManyWithoutDonorInput
     endorsementsGiven?: DonorEndorsementUncheckedCreateNestedManyWithoutEndorserInput
     documents?: DonorDocumentUncheckedCreateNestedManyWithoutUserInput
+    roleApplications?: RoleApplicationUncheckedCreateNestedManyWithoutApplicantInput
   }
 
   export type UserUpdateInput = {
@@ -39821,6 +44347,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementUpdateManyWithoutDonorNestedInput
     endorsementsGiven?: DonorEndorsementUpdateManyWithoutEndorserNestedInput
     documents?: DonorDocumentUpdateManyWithoutUserNestedInput
+    roleApplications?: RoleApplicationUpdateManyWithoutApplicantNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -39859,6 +44386,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementUncheckedUpdateManyWithoutDonorNestedInput
     endorsementsGiven?: DonorEndorsementUncheckedUpdateManyWithoutEndorserNestedInput
     documents?: DonorDocumentUncheckedUpdateManyWithoutUserNestedInput
+    roleApplications?: RoleApplicationUncheckedUpdateManyWithoutApplicantNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -39952,6 +44480,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionCreateNestedManyWithoutNgoInput
     donorEndorsements?: DonorEndorsementCreateNestedManyWithoutNgoInput
     documents?: NgoDocumentCreateNestedManyWithoutNgoInput
+    roles?: NgoRoleCreateNestedManyWithoutNgoInput
   }
 
   export type NgoUncheckedCreateInput = {
@@ -39979,6 +44508,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutNgoInput
     donorEndorsements?: DonorEndorsementUncheckedCreateNestedManyWithoutNgoInput
     documents?: NgoDocumentUncheckedCreateNestedManyWithoutNgoInput
+    roles?: NgoRoleUncheckedCreateNestedManyWithoutNgoInput
   }
 
   export type NgoUpdateInput = {
@@ -40006,6 +44536,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionUpdateManyWithoutNgoNestedInput
     donorEndorsements?: DonorEndorsementUpdateManyWithoutNgoNestedInput
     documents?: NgoDocumentUpdateManyWithoutNgoNestedInput
+    roles?: NgoRoleUpdateManyWithoutNgoNestedInput
   }
 
   export type NgoUncheckedUpdateInput = {
@@ -40033,6 +44564,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionUncheckedUpdateManyWithoutNgoNestedInput
     donorEndorsements?: DonorEndorsementUncheckedUpdateManyWithoutNgoNestedInput
     documents?: NgoDocumentUncheckedUpdateManyWithoutNgoNestedInput
+    roles?: NgoRoleUncheckedUpdateManyWithoutNgoNestedInput
   }
 
   export type NgoCreateManyInput = {
@@ -40117,6 +44649,7 @@ export namespace Prisma {
     spotlightVotes?: SpotlightVoteCreateNestedManyWithoutProjectInput
     campaigns?: CampaignCreateNestedManyWithoutProjectInput
     skillContributions?: SkillContributionCreateNestedManyWithoutProjectInput
+    roles?: NgoRoleCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUncheckedCreateInput = {
@@ -40142,6 +44675,7 @@ export namespace Prisma {
     spotlightVotes?: SpotlightVoteUncheckedCreateNestedManyWithoutProjectInput
     campaigns?: CampaignUncheckedCreateNestedManyWithoutProjectInput
     skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutProjectInput
+    roles?: NgoRoleUncheckedCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUpdateInput = {
@@ -40167,6 +44701,7 @@ export namespace Prisma {
     spotlightVotes?: SpotlightVoteUpdateManyWithoutProjectNestedInput
     campaigns?: CampaignUpdateManyWithoutProjectNestedInput
     skillContributions?: SkillContributionUpdateManyWithoutProjectNestedInput
+    roles?: NgoRoleUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateInput = {
@@ -40192,6 +44727,7 @@ export namespace Prisma {
     spotlightVotes?: SpotlightVoteUncheckedUpdateManyWithoutProjectNestedInput
     campaigns?: CampaignUncheckedUpdateManyWithoutProjectNestedInput
     skillContributions?: SkillContributionUncheckedUpdateManyWithoutProjectNestedInput
+    roles?: NgoRoleUncheckedUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectCreateManyInput = {
@@ -42024,6 +46560,338 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type NgoRoleCreateInput = {
+    id?: string
+    title: string
+    department?: string | null
+    roleType?: $Enums.RoleType
+    description: string
+    responsibilities: string
+    skillsRequired: string
+    timeCommitment: string
+    durationWeeks?: number
+    isRemote?: boolean
+    location?: string | null
+    openings?: number
+    status?: $Enums.RoleStatus
+    applicationDeadline?: Date | string | null
+    startDate?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    ngo: NgoCreateNestedOneWithoutRolesInput
+    project?: ProjectCreateNestedOneWithoutRolesInput
+    applications?: RoleApplicationCreateNestedManyWithoutRoleInput
+  }
+
+  export type NgoRoleUncheckedCreateInput = {
+    id?: string
+    ngoId: string
+    projectId?: string | null
+    title: string
+    department?: string | null
+    roleType?: $Enums.RoleType
+    description: string
+    responsibilities: string
+    skillsRequired: string
+    timeCommitment: string
+    durationWeeks?: number
+    isRemote?: boolean
+    location?: string | null
+    openings?: number
+    status?: $Enums.RoleStatus
+    applicationDeadline?: Date | string | null
+    startDate?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    applications?: RoleApplicationUncheckedCreateNestedManyWithoutRoleInput
+  }
+
+  export type NgoRoleUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    roleType?: EnumRoleTypeFieldUpdateOperationsInput | $Enums.RoleType
+    description?: StringFieldUpdateOperationsInput | string
+    responsibilities?: StringFieldUpdateOperationsInput | string
+    skillsRequired?: StringFieldUpdateOperationsInput | string
+    timeCommitment?: StringFieldUpdateOperationsInput | string
+    durationWeeks?: IntFieldUpdateOperationsInput | number
+    isRemote?: BoolFieldUpdateOperationsInput | boolean
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    openings?: IntFieldUpdateOperationsInput | number
+    status?: EnumRoleStatusFieldUpdateOperationsInput | $Enums.RoleStatus
+    applicationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ngo?: NgoUpdateOneRequiredWithoutRolesNestedInput
+    project?: ProjectUpdateOneWithoutRolesNestedInput
+    applications?: RoleApplicationUpdateManyWithoutRoleNestedInput
+  }
+
+  export type NgoRoleUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ngoId?: StringFieldUpdateOperationsInput | string
+    projectId?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: StringFieldUpdateOperationsInput | string
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    roleType?: EnumRoleTypeFieldUpdateOperationsInput | $Enums.RoleType
+    description?: StringFieldUpdateOperationsInput | string
+    responsibilities?: StringFieldUpdateOperationsInput | string
+    skillsRequired?: StringFieldUpdateOperationsInput | string
+    timeCommitment?: StringFieldUpdateOperationsInput | string
+    durationWeeks?: IntFieldUpdateOperationsInput | number
+    isRemote?: BoolFieldUpdateOperationsInput | boolean
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    openings?: IntFieldUpdateOperationsInput | number
+    status?: EnumRoleStatusFieldUpdateOperationsInput | $Enums.RoleStatus
+    applicationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    applications?: RoleApplicationUncheckedUpdateManyWithoutRoleNestedInput
+  }
+
+  export type NgoRoleCreateManyInput = {
+    id?: string
+    ngoId: string
+    projectId?: string | null
+    title: string
+    department?: string | null
+    roleType?: $Enums.RoleType
+    description: string
+    responsibilities: string
+    skillsRequired: string
+    timeCommitment: string
+    durationWeeks?: number
+    isRemote?: boolean
+    location?: string | null
+    openings?: number
+    status?: $Enums.RoleStatus
+    applicationDeadline?: Date | string | null
+    startDate?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type NgoRoleUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    roleType?: EnumRoleTypeFieldUpdateOperationsInput | $Enums.RoleType
+    description?: StringFieldUpdateOperationsInput | string
+    responsibilities?: StringFieldUpdateOperationsInput | string
+    skillsRequired?: StringFieldUpdateOperationsInput | string
+    timeCommitment?: StringFieldUpdateOperationsInput | string
+    durationWeeks?: IntFieldUpdateOperationsInput | number
+    isRemote?: BoolFieldUpdateOperationsInput | boolean
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    openings?: IntFieldUpdateOperationsInput | number
+    status?: EnumRoleStatusFieldUpdateOperationsInput | $Enums.RoleStatus
+    applicationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NgoRoleUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ngoId?: StringFieldUpdateOperationsInput | string
+    projectId?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: StringFieldUpdateOperationsInput | string
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    roleType?: EnumRoleTypeFieldUpdateOperationsInput | $Enums.RoleType
+    description?: StringFieldUpdateOperationsInput | string
+    responsibilities?: StringFieldUpdateOperationsInput | string
+    skillsRequired?: StringFieldUpdateOperationsInput | string
+    timeCommitment?: StringFieldUpdateOperationsInput | string
+    durationWeeks?: IntFieldUpdateOperationsInput | number
+    isRemote?: BoolFieldUpdateOperationsInput | boolean
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    openings?: IntFieldUpdateOperationsInput | number
+    status?: EnumRoleStatusFieldUpdateOperationsInput | $Enums.RoleStatus
+    applicationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RoleApplicationCreateInput = {
+    id?: string
+    coverNote: string
+    linkedinUrl?: string | null
+    portfolioUrl?: string | null
+    status?: $Enums.ApplicationStatus
+    appliedAt?: Date | string
+    reviewedAt?: Date | string | null
+    role: NgoRoleCreateNestedOneWithoutApplicationsInput
+    applicant: UserCreateNestedOneWithoutRoleApplicationsInput
+    engagement?: RoleEngagementCreateNestedOneWithoutApplicationInput
+  }
+
+  export type RoleApplicationUncheckedCreateInput = {
+    id?: string
+    roleId: string
+    applicantId: string
+    coverNote: string
+    linkedinUrl?: string | null
+    portfolioUrl?: string | null
+    status?: $Enums.ApplicationStatus
+    appliedAt?: Date | string
+    reviewedAt?: Date | string | null
+    engagement?: RoleEngagementUncheckedCreateNestedOneWithoutApplicationInput
+  }
+
+  export type RoleApplicationUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    coverNote?: StringFieldUpdateOperationsInput | string
+    linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    portfolioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
+    appliedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    role?: NgoRoleUpdateOneRequiredWithoutApplicationsNestedInput
+    applicant?: UserUpdateOneRequiredWithoutRoleApplicationsNestedInput
+    engagement?: RoleEngagementUpdateOneWithoutApplicationNestedInput
+  }
+
+  export type RoleApplicationUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    roleId?: StringFieldUpdateOperationsInput | string
+    applicantId?: StringFieldUpdateOperationsInput | string
+    coverNote?: StringFieldUpdateOperationsInput | string
+    linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    portfolioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
+    appliedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    engagement?: RoleEngagementUncheckedUpdateOneWithoutApplicationNestedInput
+  }
+
+  export type RoleApplicationCreateManyInput = {
+    id?: string
+    roleId: string
+    applicantId: string
+    coverNote: string
+    linkedinUrl?: string | null
+    portfolioUrl?: string | null
+    status?: $Enums.ApplicationStatus
+    appliedAt?: Date | string
+    reviewedAt?: Date | string | null
+  }
+
+  export type RoleApplicationUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    coverNote?: StringFieldUpdateOperationsInput | string
+    linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    portfolioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
+    appliedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type RoleApplicationUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    roleId?: StringFieldUpdateOperationsInput | string
+    applicantId?: StringFieldUpdateOperationsInput | string
+    coverNote?: StringFieldUpdateOperationsInput | string
+    linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    portfolioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
+    appliedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type RoleEngagementCreateInput = {
+    id?: string
+    startedAt?: Date | string
+    completedAt?: Date | string | null
+    hoursLogged?: number
+    workSummary?: string | null
+    status?: $Enums.EngagementStatus
+    ngoFeedback?: string | null
+    monetaryValue?: number | null
+    skillContributionId?: string | null
+    application: RoleApplicationCreateNestedOneWithoutEngagementInput
+  }
+
+  export type RoleEngagementUncheckedCreateInput = {
+    id?: string
+    applicationId: string
+    startedAt?: Date | string
+    completedAt?: Date | string | null
+    hoursLogged?: number
+    workSummary?: string | null
+    status?: $Enums.EngagementStatus
+    ngoFeedback?: string | null
+    monetaryValue?: number | null
+    skillContributionId?: string | null
+  }
+
+  export type RoleEngagementUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    hoursLogged?: FloatFieldUpdateOperationsInput | number
+    workSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumEngagementStatusFieldUpdateOperationsInput | $Enums.EngagementStatus
+    ngoFeedback?: NullableStringFieldUpdateOperationsInput | string | null
+    monetaryValue?: NullableFloatFieldUpdateOperationsInput | number | null
+    skillContributionId?: NullableStringFieldUpdateOperationsInput | string | null
+    application?: RoleApplicationUpdateOneRequiredWithoutEngagementNestedInput
+  }
+
+  export type RoleEngagementUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    applicationId?: StringFieldUpdateOperationsInput | string
+    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    hoursLogged?: FloatFieldUpdateOperationsInput | number
+    workSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumEngagementStatusFieldUpdateOperationsInput | $Enums.EngagementStatus
+    ngoFeedback?: NullableStringFieldUpdateOperationsInput | string | null
+    monetaryValue?: NullableFloatFieldUpdateOperationsInput | number | null
+    skillContributionId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type RoleEngagementCreateManyInput = {
+    id?: string
+    applicationId: string
+    startedAt?: Date | string
+    completedAt?: Date | string | null
+    hoursLogged?: number
+    workSummary?: string | null
+    status?: $Enums.EngagementStatus
+    ngoFeedback?: string | null
+    monetaryValue?: number | null
+    skillContributionId?: string | null
+  }
+
+  export type RoleEngagementUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    hoursLogged?: FloatFieldUpdateOperationsInput | number
+    workSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumEngagementStatusFieldUpdateOperationsInput | $Enums.EngagementStatus
+    ngoFeedback?: NullableStringFieldUpdateOperationsInput | string | null
+    monetaryValue?: NullableFloatFieldUpdateOperationsInput | number | null
+    skillContributionId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type RoleEngagementUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    applicationId?: StringFieldUpdateOperationsInput | string
+    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    hoursLogged?: FloatFieldUpdateOperationsInput | number
+    workSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumEngagementStatusFieldUpdateOperationsInput | $Enums.EngagementStatus
+    ngoFeedback?: NullableStringFieldUpdateOperationsInput | string | null
+    monetaryValue?: NullableFloatFieldUpdateOperationsInput | number | null
+    skillContributionId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -42355,6 +47223,12 @@ export namespace Prisma {
     none?: DonorDocumentWhereInput
   }
 
+  export type RoleApplicationListRelationFilter = {
+    every?: RoleApplicationWhereInput
+    some?: RoleApplicationWhereInput
+    none?: RoleApplicationWhereInput
+  }
+
   export type AccountOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -42404,6 +47278,10 @@ export namespace Prisma {
   }
 
   export type DonorDocumentOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type RoleApplicationOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -42539,6 +47417,12 @@ export namespace Prisma {
     none?: NgoDocumentWhereInput
   }
 
+  export type NgoRoleListRelationFilter = {
+    every?: NgoRoleWhereInput
+    some?: NgoRoleWhereInput
+    none?: NgoRoleWhereInput
+  }
+
   export type ProjectOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -42552,6 +47436,10 @@ export namespace Prisma {
   }
 
   export type NgoDocumentOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type NgoRoleOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -43863,6 +48751,255 @@ export namespace Prisma {
     fileSize?: SortOrder
   }
 
+  export type EnumRoleTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.RoleType | EnumRoleTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.RoleType[] | ListEnumRoleTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RoleType[] | ListEnumRoleTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumRoleTypeFilter<$PrismaModel> | $Enums.RoleType
+  }
+
+  export type EnumRoleStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.RoleStatus | EnumRoleStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.RoleStatus[] | ListEnumRoleStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RoleStatus[] | ListEnumRoleStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumRoleStatusFilter<$PrismaModel> | $Enums.RoleStatus
+  }
+
+  export type NgoRoleCountOrderByAggregateInput = {
+    id?: SortOrder
+    ngoId?: SortOrder
+    projectId?: SortOrder
+    title?: SortOrder
+    department?: SortOrder
+    roleType?: SortOrder
+    description?: SortOrder
+    responsibilities?: SortOrder
+    skillsRequired?: SortOrder
+    timeCommitment?: SortOrder
+    durationWeeks?: SortOrder
+    isRemote?: SortOrder
+    location?: SortOrder
+    openings?: SortOrder
+    status?: SortOrder
+    applicationDeadline?: SortOrder
+    startDate?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type NgoRoleAvgOrderByAggregateInput = {
+    durationWeeks?: SortOrder
+    openings?: SortOrder
+  }
+
+  export type NgoRoleMaxOrderByAggregateInput = {
+    id?: SortOrder
+    ngoId?: SortOrder
+    projectId?: SortOrder
+    title?: SortOrder
+    department?: SortOrder
+    roleType?: SortOrder
+    description?: SortOrder
+    responsibilities?: SortOrder
+    skillsRequired?: SortOrder
+    timeCommitment?: SortOrder
+    durationWeeks?: SortOrder
+    isRemote?: SortOrder
+    location?: SortOrder
+    openings?: SortOrder
+    status?: SortOrder
+    applicationDeadline?: SortOrder
+    startDate?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type NgoRoleMinOrderByAggregateInput = {
+    id?: SortOrder
+    ngoId?: SortOrder
+    projectId?: SortOrder
+    title?: SortOrder
+    department?: SortOrder
+    roleType?: SortOrder
+    description?: SortOrder
+    responsibilities?: SortOrder
+    skillsRequired?: SortOrder
+    timeCommitment?: SortOrder
+    durationWeeks?: SortOrder
+    isRemote?: SortOrder
+    location?: SortOrder
+    openings?: SortOrder
+    status?: SortOrder
+    applicationDeadline?: SortOrder
+    startDate?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type NgoRoleSumOrderByAggregateInput = {
+    durationWeeks?: SortOrder
+    openings?: SortOrder
+  }
+
+  export type EnumRoleTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.RoleType | EnumRoleTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.RoleType[] | ListEnumRoleTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RoleType[] | ListEnumRoleTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumRoleTypeWithAggregatesFilter<$PrismaModel> | $Enums.RoleType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumRoleTypeFilter<$PrismaModel>
+    _max?: NestedEnumRoleTypeFilter<$PrismaModel>
+  }
+
+  export type EnumRoleStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.RoleStatus | EnumRoleStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.RoleStatus[] | ListEnumRoleStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RoleStatus[] | ListEnumRoleStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumRoleStatusWithAggregatesFilter<$PrismaModel> | $Enums.RoleStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumRoleStatusFilter<$PrismaModel>
+    _max?: NestedEnumRoleStatusFilter<$PrismaModel>
+  }
+
+  export type EnumApplicationStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.ApplicationStatus | EnumApplicationStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ApplicationStatus[] | ListEnumApplicationStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ApplicationStatus[] | ListEnumApplicationStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumApplicationStatusFilter<$PrismaModel> | $Enums.ApplicationStatus
+  }
+
+  export type NgoRoleScalarRelationFilter = {
+    is?: NgoRoleWhereInput
+    isNot?: NgoRoleWhereInput
+  }
+
+  export type RoleEngagementNullableScalarRelationFilter = {
+    is?: RoleEngagementWhereInput | null
+    isNot?: RoleEngagementWhereInput | null
+  }
+
+  export type RoleApplicationRoleIdApplicantIdCompoundUniqueInput = {
+    roleId: string
+    applicantId: string
+  }
+
+  export type RoleApplicationCountOrderByAggregateInput = {
+    id?: SortOrder
+    roleId?: SortOrder
+    applicantId?: SortOrder
+    coverNote?: SortOrder
+    linkedinUrl?: SortOrder
+    portfolioUrl?: SortOrder
+    status?: SortOrder
+    appliedAt?: SortOrder
+    reviewedAt?: SortOrder
+  }
+
+  export type RoleApplicationMaxOrderByAggregateInput = {
+    id?: SortOrder
+    roleId?: SortOrder
+    applicantId?: SortOrder
+    coverNote?: SortOrder
+    linkedinUrl?: SortOrder
+    portfolioUrl?: SortOrder
+    status?: SortOrder
+    appliedAt?: SortOrder
+    reviewedAt?: SortOrder
+  }
+
+  export type RoleApplicationMinOrderByAggregateInput = {
+    id?: SortOrder
+    roleId?: SortOrder
+    applicantId?: SortOrder
+    coverNote?: SortOrder
+    linkedinUrl?: SortOrder
+    portfolioUrl?: SortOrder
+    status?: SortOrder
+    appliedAt?: SortOrder
+    reviewedAt?: SortOrder
+  }
+
+  export type EnumApplicationStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ApplicationStatus | EnumApplicationStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ApplicationStatus[] | ListEnumApplicationStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ApplicationStatus[] | ListEnumApplicationStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumApplicationStatusWithAggregatesFilter<$PrismaModel> | $Enums.ApplicationStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumApplicationStatusFilter<$PrismaModel>
+    _max?: NestedEnumApplicationStatusFilter<$PrismaModel>
+  }
+
+  export type EnumEngagementStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.EngagementStatus | EnumEngagementStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.EngagementStatus[] | ListEnumEngagementStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.EngagementStatus[] | ListEnumEngagementStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumEngagementStatusFilter<$PrismaModel> | $Enums.EngagementStatus
+  }
+
+  export type RoleApplicationScalarRelationFilter = {
+    is?: RoleApplicationWhereInput
+    isNot?: RoleApplicationWhereInput
+  }
+
+  export type RoleEngagementCountOrderByAggregateInput = {
+    id?: SortOrder
+    applicationId?: SortOrder
+    startedAt?: SortOrder
+    completedAt?: SortOrder
+    hoursLogged?: SortOrder
+    workSummary?: SortOrder
+    status?: SortOrder
+    ngoFeedback?: SortOrder
+    monetaryValue?: SortOrder
+    skillContributionId?: SortOrder
+  }
+
+  export type RoleEngagementAvgOrderByAggregateInput = {
+    hoursLogged?: SortOrder
+    monetaryValue?: SortOrder
+  }
+
+  export type RoleEngagementMaxOrderByAggregateInput = {
+    id?: SortOrder
+    applicationId?: SortOrder
+    startedAt?: SortOrder
+    completedAt?: SortOrder
+    hoursLogged?: SortOrder
+    workSummary?: SortOrder
+    status?: SortOrder
+    ngoFeedback?: SortOrder
+    monetaryValue?: SortOrder
+    skillContributionId?: SortOrder
+  }
+
+  export type RoleEngagementMinOrderByAggregateInput = {
+    id?: SortOrder
+    applicationId?: SortOrder
+    startedAt?: SortOrder
+    completedAt?: SortOrder
+    hoursLogged?: SortOrder
+    workSummary?: SortOrder
+    status?: SortOrder
+    ngoFeedback?: SortOrder
+    monetaryValue?: SortOrder
+    skillContributionId?: SortOrder
+  }
+
+  export type RoleEngagementSumOrderByAggregateInput = {
+    hoursLogged?: SortOrder
+    monetaryValue?: SortOrder
+  }
+
+  export type EnumEngagementStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.EngagementStatus | EnumEngagementStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.EngagementStatus[] | ListEnumEngagementStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.EngagementStatus[] | ListEnumEngagementStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumEngagementStatusWithAggregatesFilter<$PrismaModel> | $Enums.EngagementStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumEngagementStatusFilter<$PrismaModel>
+    _max?: NestedEnumEngagementStatusFilter<$PrismaModel>
+  }
+
   export type UserCreateNestedOneWithoutAccountsInput = {
     create?: XOR<UserCreateWithoutAccountsInput, UserUncheckedCreateWithoutAccountsInput>
     connectOrCreate?: UserCreateOrConnectWithoutAccountsInput
@@ -44022,6 +49159,13 @@ export namespace Prisma {
     connect?: DonorDocumentWhereUniqueInput | DonorDocumentWhereUniqueInput[]
   }
 
+  export type RoleApplicationCreateNestedManyWithoutApplicantInput = {
+    create?: XOR<RoleApplicationCreateWithoutApplicantInput, RoleApplicationUncheckedCreateWithoutApplicantInput> | RoleApplicationCreateWithoutApplicantInput[] | RoleApplicationUncheckedCreateWithoutApplicantInput[]
+    connectOrCreate?: RoleApplicationCreateOrConnectWithoutApplicantInput | RoleApplicationCreateOrConnectWithoutApplicantInput[]
+    createMany?: RoleApplicationCreateManyApplicantInputEnvelope
+    connect?: RoleApplicationWhereUniqueInput | RoleApplicationWhereUniqueInput[]
+  }
+
   export type AccountUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -44131,6 +49275,13 @@ export namespace Prisma {
     connectOrCreate?: DonorDocumentCreateOrConnectWithoutUserInput | DonorDocumentCreateOrConnectWithoutUserInput[]
     createMany?: DonorDocumentCreateManyUserInputEnvelope
     connect?: DonorDocumentWhereUniqueInput | DonorDocumentWhereUniqueInput[]
+  }
+
+  export type RoleApplicationUncheckedCreateNestedManyWithoutApplicantInput = {
+    create?: XOR<RoleApplicationCreateWithoutApplicantInput, RoleApplicationUncheckedCreateWithoutApplicantInput> | RoleApplicationCreateWithoutApplicantInput[] | RoleApplicationUncheckedCreateWithoutApplicantInput[]
+    connectOrCreate?: RoleApplicationCreateOrConnectWithoutApplicantInput | RoleApplicationCreateOrConnectWithoutApplicantInput[]
+    createMany?: RoleApplicationCreateManyApplicantInputEnvelope
+    connect?: RoleApplicationWhereUniqueInput | RoleApplicationWhereUniqueInput[]
   }
 
   export type NullableDateTimeFieldUpdateOperationsInput = {
@@ -44361,6 +49512,20 @@ export namespace Prisma {
     deleteMany?: DonorDocumentScalarWhereInput | DonorDocumentScalarWhereInput[]
   }
 
+  export type RoleApplicationUpdateManyWithoutApplicantNestedInput = {
+    create?: XOR<RoleApplicationCreateWithoutApplicantInput, RoleApplicationUncheckedCreateWithoutApplicantInput> | RoleApplicationCreateWithoutApplicantInput[] | RoleApplicationUncheckedCreateWithoutApplicantInput[]
+    connectOrCreate?: RoleApplicationCreateOrConnectWithoutApplicantInput | RoleApplicationCreateOrConnectWithoutApplicantInput[]
+    upsert?: RoleApplicationUpsertWithWhereUniqueWithoutApplicantInput | RoleApplicationUpsertWithWhereUniqueWithoutApplicantInput[]
+    createMany?: RoleApplicationCreateManyApplicantInputEnvelope
+    set?: RoleApplicationWhereUniqueInput | RoleApplicationWhereUniqueInput[]
+    disconnect?: RoleApplicationWhereUniqueInput | RoleApplicationWhereUniqueInput[]
+    delete?: RoleApplicationWhereUniqueInput | RoleApplicationWhereUniqueInput[]
+    connect?: RoleApplicationWhereUniqueInput | RoleApplicationWhereUniqueInput[]
+    update?: RoleApplicationUpdateWithWhereUniqueWithoutApplicantInput | RoleApplicationUpdateWithWhereUniqueWithoutApplicantInput[]
+    updateMany?: RoleApplicationUpdateManyWithWhereWithoutApplicantInput | RoleApplicationUpdateManyWithWhereWithoutApplicantInput[]
+    deleteMany?: RoleApplicationScalarWhereInput | RoleApplicationScalarWhereInput[]
+  }
+
   export type AccountUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -44581,6 +49746,20 @@ export namespace Prisma {
     deleteMany?: DonorDocumentScalarWhereInput | DonorDocumentScalarWhereInput[]
   }
 
+  export type RoleApplicationUncheckedUpdateManyWithoutApplicantNestedInput = {
+    create?: XOR<RoleApplicationCreateWithoutApplicantInput, RoleApplicationUncheckedCreateWithoutApplicantInput> | RoleApplicationCreateWithoutApplicantInput[] | RoleApplicationUncheckedCreateWithoutApplicantInput[]
+    connectOrCreate?: RoleApplicationCreateOrConnectWithoutApplicantInput | RoleApplicationCreateOrConnectWithoutApplicantInput[]
+    upsert?: RoleApplicationUpsertWithWhereUniqueWithoutApplicantInput | RoleApplicationUpsertWithWhereUniqueWithoutApplicantInput[]
+    createMany?: RoleApplicationCreateManyApplicantInputEnvelope
+    set?: RoleApplicationWhereUniqueInput | RoleApplicationWhereUniqueInput[]
+    disconnect?: RoleApplicationWhereUniqueInput | RoleApplicationWhereUniqueInput[]
+    delete?: RoleApplicationWhereUniqueInput | RoleApplicationWhereUniqueInput[]
+    connect?: RoleApplicationWhereUniqueInput | RoleApplicationWhereUniqueInput[]
+    update?: RoleApplicationUpdateWithWhereUniqueWithoutApplicantInput | RoleApplicationUpdateWithWhereUniqueWithoutApplicantInput[]
+    updateMany?: RoleApplicationUpdateManyWithWhereWithoutApplicantInput | RoleApplicationUpdateManyWithWhereWithoutApplicantInput[]
+    deleteMany?: RoleApplicationScalarWhereInput | RoleApplicationScalarWhereInput[]
+  }
+
   export type UserCreateNestedOneWithoutNgoInput = {
     create?: XOR<UserCreateWithoutNgoInput, UserUncheckedCreateWithoutNgoInput>
     connectOrCreate?: UserCreateOrConnectWithoutNgoInput
@@ -44636,6 +49815,13 @@ export namespace Prisma {
     connect?: NgoDocumentWhereUniqueInput | NgoDocumentWhereUniqueInput[]
   }
 
+  export type NgoRoleCreateNestedManyWithoutNgoInput = {
+    create?: XOR<NgoRoleCreateWithoutNgoInput, NgoRoleUncheckedCreateWithoutNgoInput> | NgoRoleCreateWithoutNgoInput[] | NgoRoleUncheckedCreateWithoutNgoInput[]
+    connectOrCreate?: NgoRoleCreateOrConnectWithoutNgoInput | NgoRoleCreateOrConnectWithoutNgoInput[]
+    createMany?: NgoRoleCreateManyNgoInputEnvelope
+    connect?: NgoRoleWhereUniqueInput | NgoRoleWhereUniqueInput[]
+  }
+
   export type ProjectUncheckedCreateNestedManyWithoutNgoInput = {
     create?: XOR<ProjectCreateWithoutNgoInput, ProjectUncheckedCreateWithoutNgoInput> | ProjectCreateWithoutNgoInput[] | ProjectUncheckedCreateWithoutNgoInput[]
     connectOrCreate?: ProjectCreateOrConnectWithoutNgoInput | ProjectCreateOrConnectWithoutNgoInput[]
@@ -44683,6 +49869,13 @@ export namespace Prisma {
     connectOrCreate?: NgoDocumentCreateOrConnectWithoutNgoInput | NgoDocumentCreateOrConnectWithoutNgoInput[]
     createMany?: NgoDocumentCreateManyNgoInputEnvelope
     connect?: NgoDocumentWhereUniqueInput | NgoDocumentWhereUniqueInput[]
+  }
+
+  export type NgoRoleUncheckedCreateNestedManyWithoutNgoInput = {
+    create?: XOR<NgoRoleCreateWithoutNgoInput, NgoRoleUncheckedCreateWithoutNgoInput> | NgoRoleCreateWithoutNgoInput[] | NgoRoleUncheckedCreateWithoutNgoInput[]
+    connectOrCreate?: NgoRoleCreateOrConnectWithoutNgoInput | NgoRoleCreateOrConnectWithoutNgoInput[]
+    createMany?: NgoRoleCreateManyNgoInputEnvelope
+    connect?: NgoRoleWhereUniqueInput | NgoRoleWhereUniqueInput[]
   }
 
   export type FloatFieldUpdateOperationsInput = {
@@ -44803,6 +49996,20 @@ export namespace Prisma {
     deleteMany?: NgoDocumentScalarWhereInput | NgoDocumentScalarWhereInput[]
   }
 
+  export type NgoRoleUpdateManyWithoutNgoNestedInput = {
+    create?: XOR<NgoRoleCreateWithoutNgoInput, NgoRoleUncheckedCreateWithoutNgoInput> | NgoRoleCreateWithoutNgoInput[] | NgoRoleUncheckedCreateWithoutNgoInput[]
+    connectOrCreate?: NgoRoleCreateOrConnectWithoutNgoInput | NgoRoleCreateOrConnectWithoutNgoInput[]
+    upsert?: NgoRoleUpsertWithWhereUniqueWithoutNgoInput | NgoRoleUpsertWithWhereUniqueWithoutNgoInput[]
+    createMany?: NgoRoleCreateManyNgoInputEnvelope
+    set?: NgoRoleWhereUniqueInput | NgoRoleWhereUniqueInput[]
+    disconnect?: NgoRoleWhereUniqueInput | NgoRoleWhereUniqueInput[]
+    delete?: NgoRoleWhereUniqueInput | NgoRoleWhereUniqueInput[]
+    connect?: NgoRoleWhereUniqueInput | NgoRoleWhereUniqueInput[]
+    update?: NgoRoleUpdateWithWhereUniqueWithoutNgoInput | NgoRoleUpdateWithWhereUniqueWithoutNgoInput[]
+    updateMany?: NgoRoleUpdateManyWithWhereWithoutNgoInput | NgoRoleUpdateManyWithWhereWithoutNgoInput[]
+    deleteMany?: NgoRoleScalarWhereInput | NgoRoleScalarWhereInput[]
+  }
+
   export type ProjectUncheckedUpdateManyWithoutNgoNestedInput = {
     create?: XOR<ProjectCreateWithoutNgoInput, ProjectUncheckedCreateWithoutNgoInput> | ProjectCreateWithoutNgoInput[] | ProjectUncheckedCreateWithoutNgoInput[]
     connectOrCreate?: ProjectCreateOrConnectWithoutNgoInput | ProjectCreateOrConnectWithoutNgoInput[]
@@ -44901,6 +50108,20 @@ export namespace Prisma {
     deleteMany?: NgoDocumentScalarWhereInput | NgoDocumentScalarWhereInput[]
   }
 
+  export type NgoRoleUncheckedUpdateManyWithoutNgoNestedInput = {
+    create?: XOR<NgoRoleCreateWithoutNgoInput, NgoRoleUncheckedCreateWithoutNgoInput> | NgoRoleCreateWithoutNgoInput[] | NgoRoleUncheckedCreateWithoutNgoInput[]
+    connectOrCreate?: NgoRoleCreateOrConnectWithoutNgoInput | NgoRoleCreateOrConnectWithoutNgoInput[]
+    upsert?: NgoRoleUpsertWithWhereUniqueWithoutNgoInput | NgoRoleUpsertWithWhereUniqueWithoutNgoInput[]
+    createMany?: NgoRoleCreateManyNgoInputEnvelope
+    set?: NgoRoleWhereUniqueInput | NgoRoleWhereUniqueInput[]
+    disconnect?: NgoRoleWhereUniqueInput | NgoRoleWhereUniqueInput[]
+    delete?: NgoRoleWhereUniqueInput | NgoRoleWhereUniqueInput[]
+    connect?: NgoRoleWhereUniqueInput | NgoRoleWhereUniqueInput[]
+    update?: NgoRoleUpdateWithWhereUniqueWithoutNgoInput | NgoRoleUpdateWithWhereUniqueWithoutNgoInput[]
+    updateMany?: NgoRoleUpdateManyWithWhereWithoutNgoInput | NgoRoleUpdateManyWithWhereWithoutNgoInput[]
+    deleteMany?: NgoRoleScalarWhereInput | NgoRoleScalarWhereInput[]
+  }
+
   export type NgoCreateNestedOneWithoutProjectsInput = {
     create?: XOR<NgoCreateWithoutProjectsInput, NgoUncheckedCreateWithoutProjectsInput>
     connectOrCreate?: NgoCreateOrConnectWithoutProjectsInput
@@ -44949,6 +50170,13 @@ export namespace Prisma {
     connect?: SkillContributionWhereUniqueInput | SkillContributionWhereUniqueInput[]
   }
 
+  export type NgoRoleCreateNestedManyWithoutProjectInput = {
+    create?: XOR<NgoRoleCreateWithoutProjectInput, NgoRoleUncheckedCreateWithoutProjectInput> | NgoRoleCreateWithoutProjectInput[] | NgoRoleUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: NgoRoleCreateOrConnectWithoutProjectInput | NgoRoleCreateOrConnectWithoutProjectInput[]
+    createMany?: NgoRoleCreateManyProjectInputEnvelope
+    connect?: NgoRoleWhereUniqueInput | NgoRoleWhereUniqueInput[]
+  }
+
   export type MilestoneUncheckedCreateNestedManyWithoutProjectInput = {
     create?: XOR<MilestoneCreateWithoutProjectInput, MilestoneUncheckedCreateWithoutProjectInput> | MilestoneCreateWithoutProjectInput[] | MilestoneUncheckedCreateWithoutProjectInput[]
     connectOrCreate?: MilestoneCreateOrConnectWithoutProjectInput | MilestoneCreateOrConnectWithoutProjectInput[]
@@ -44989,6 +50217,13 @@ export namespace Prisma {
     connectOrCreate?: SkillContributionCreateOrConnectWithoutProjectInput | SkillContributionCreateOrConnectWithoutProjectInput[]
     createMany?: SkillContributionCreateManyProjectInputEnvelope
     connect?: SkillContributionWhereUniqueInput | SkillContributionWhereUniqueInput[]
+  }
+
+  export type NgoRoleUncheckedCreateNestedManyWithoutProjectInput = {
+    create?: XOR<NgoRoleCreateWithoutProjectInput, NgoRoleUncheckedCreateWithoutProjectInput> | NgoRoleCreateWithoutProjectInput[] | NgoRoleUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: NgoRoleCreateOrConnectWithoutProjectInput | NgoRoleCreateOrConnectWithoutProjectInput[]
+    createMany?: NgoRoleCreateManyProjectInputEnvelope
+    connect?: NgoRoleWhereUniqueInput | NgoRoleWhereUniqueInput[]
   }
 
   export type EnumProjectCategoryFieldUpdateOperationsInput = {
@@ -45103,6 +50338,20 @@ export namespace Prisma {
     deleteMany?: SkillContributionScalarWhereInput | SkillContributionScalarWhereInput[]
   }
 
+  export type NgoRoleUpdateManyWithoutProjectNestedInput = {
+    create?: XOR<NgoRoleCreateWithoutProjectInput, NgoRoleUncheckedCreateWithoutProjectInput> | NgoRoleCreateWithoutProjectInput[] | NgoRoleUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: NgoRoleCreateOrConnectWithoutProjectInput | NgoRoleCreateOrConnectWithoutProjectInput[]
+    upsert?: NgoRoleUpsertWithWhereUniqueWithoutProjectInput | NgoRoleUpsertWithWhereUniqueWithoutProjectInput[]
+    createMany?: NgoRoleCreateManyProjectInputEnvelope
+    set?: NgoRoleWhereUniqueInput | NgoRoleWhereUniqueInput[]
+    disconnect?: NgoRoleWhereUniqueInput | NgoRoleWhereUniqueInput[]
+    delete?: NgoRoleWhereUniqueInput | NgoRoleWhereUniqueInput[]
+    connect?: NgoRoleWhereUniqueInput | NgoRoleWhereUniqueInput[]
+    update?: NgoRoleUpdateWithWhereUniqueWithoutProjectInput | NgoRoleUpdateWithWhereUniqueWithoutProjectInput[]
+    updateMany?: NgoRoleUpdateManyWithWhereWithoutProjectInput | NgoRoleUpdateManyWithWhereWithoutProjectInput[]
+    deleteMany?: NgoRoleScalarWhereInput | NgoRoleScalarWhereInput[]
+  }
+
   export type MilestoneUncheckedUpdateManyWithoutProjectNestedInput = {
     create?: XOR<MilestoneCreateWithoutProjectInput, MilestoneUncheckedCreateWithoutProjectInput> | MilestoneCreateWithoutProjectInput[] | MilestoneUncheckedCreateWithoutProjectInput[]
     connectOrCreate?: MilestoneCreateOrConnectWithoutProjectInput | MilestoneCreateOrConnectWithoutProjectInput[]
@@ -45185,6 +50434,20 @@ export namespace Prisma {
     update?: SkillContributionUpdateWithWhereUniqueWithoutProjectInput | SkillContributionUpdateWithWhereUniqueWithoutProjectInput[]
     updateMany?: SkillContributionUpdateManyWithWhereWithoutProjectInput | SkillContributionUpdateManyWithWhereWithoutProjectInput[]
     deleteMany?: SkillContributionScalarWhereInput | SkillContributionScalarWhereInput[]
+  }
+
+  export type NgoRoleUncheckedUpdateManyWithoutProjectNestedInput = {
+    create?: XOR<NgoRoleCreateWithoutProjectInput, NgoRoleUncheckedCreateWithoutProjectInput> | NgoRoleCreateWithoutProjectInput[] | NgoRoleUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: NgoRoleCreateOrConnectWithoutProjectInput | NgoRoleCreateOrConnectWithoutProjectInput[]
+    upsert?: NgoRoleUpsertWithWhereUniqueWithoutProjectInput | NgoRoleUpsertWithWhereUniqueWithoutProjectInput[]
+    createMany?: NgoRoleCreateManyProjectInputEnvelope
+    set?: NgoRoleWhereUniqueInput | NgoRoleWhereUniqueInput[]
+    disconnect?: NgoRoleWhereUniqueInput | NgoRoleWhereUniqueInput[]
+    delete?: NgoRoleWhereUniqueInput | NgoRoleWhereUniqueInput[]
+    connect?: NgoRoleWhereUniqueInput | NgoRoleWhereUniqueInput[]
+    update?: NgoRoleUpdateWithWhereUniqueWithoutProjectInput | NgoRoleUpdateWithWhereUniqueWithoutProjectInput[]
+    updateMany?: NgoRoleUpdateManyWithWhereWithoutProjectInput | NgoRoleUpdateManyWithWhereWithoutProjectInput[]
+    deleteMany?: NgoRoleScalarWhereInput | NgoRoleScalarWhereInput[]
   }
 
   export type ProjectCreateNestedOneWithoutMilestonesInput = {
@@ -45919,6 +51182,168 @@ export namespace Prisma {
     update?: XOR<XOR<NgoUpdateToOneWithWhereWithoutDocumentsInput, NgoUpdateWithoutDocumentsInput>, NgoUncheckedUpdateWithoutDocumentsInput>
   }
 
+  export type NgoCreateNestedOneWithoutRolesInput = {
+    create?: XOR<NgoCreateWithoutRolesInput, NgoUncheckedCreateWithoutRolesInput>
+    connectOrCreate?: NgoCreateOrConnectWithoutRolesInput
+    connect?: NgoWhereUniqueInput
+  }
+
+  export type ProjectCreateNestedOneWithoutRolesInput = {
+    create?: XOR<ProjectCreateWithoutRolesInput, ProjectUncheckedCreateWithoutRolesInput>
+    connectOrCreate?: ProjectCreateOrConnectWithoutRolesInput
+    connect?: ProjectWhereUniqueInput
+  }
+
+  export type RoleApplicationCreateNestedManyWithoutRoleInput = {
+    create?: XOR<RoleApplicationCreateWithoutRoleInput, RoleApplicationUncheckedCreateWithoutRoleInput> | RoleApplicationCreateWithoutRoleInput[] | RoleApplicationUncheckedCreateWithoutRoleInput[]
+    connectOrCreate?: RoleApplicationCreateOrConnectWithoutRoleInput | RoleApplicationCreateOrConnectWithoutRoleInput[]
+    createMany?: RoleApplicationCreateManyRoleInputEnvelope
+    connect?: RoleApplicationWhereUniqueInput | RoleApplicationWhereUniqueInput[]
+  }
+
+  export type RoleApplicationUncheckedCreateNestedManyWithoutRoleInput = {
+    create?: XOR<RoleApplicationCreateWithoutRoleInput, RoleApplicationUncheckedCreateWithoutRoleInput> | RoleApplicationCreateWithoutRoleInput[] | RoleApplicationUncheckedCreateWithoutRoleInput[]
+    connectOrCreate?: RoleApplicationCreateOrConnectWithoutRoleInput | RoleApplicationCreateOrConnectWithoutRoleInput[]
+    createMany?: RoleApplicationCreateManyRoleInputEnvelope
+    connect?: RoleApplicationWhereUniqueInput | RoleApplicationWhereUniqueInput[]
+  }
+
+  export type EnumRoleTypeFieldUpdateOperationsInput = {
+    set?: $Enums.RoleType
+  }
+
+  export type EnumRoleStatusFieldUpdateOperationsInput = {
+    set?: $Enums.RoleStatus
+  }
+
+  export type NgoUpdateOneRequiredWithoutRolesNestedInput = {
+    create?: XOR<NgoCreateWithoutRolesInput, NgoUncheckedCreateWithoutRolesInput>
+    connectOrCreate?: NgoCreateOrConnectWithoutRolesInput
+    upsert?: NgoUpsertWithoutRolesInput
+    connect?: NgoWhereUniqueInput
+    update?: XOR<XOR<NgoUpdateToOneWithWhereWithoutRolesInput, NgoUpdateWithoutRolesInput>, NgoUncheckedUpdateWithoutRolesInput>
+  }
+
+  export type ProjectUpdateOneWithoutRolesNestedInput = {
+    create?: XOR<ProjectCreateWithoutRolesInput, ProjectUncheckedCreateWithoutRolesInput>
+    connectOrCreate?: ProjectCreateOrConnectWithoutRolesInput
+    upsert?: ProjectUpsertWithoutRolesInput
+    disconnect?: ProjectWhereInput | boolean
+    delete?: ProjectWhereInput | boolean
+    connect?: ProjectWhereUniqueInput
+    update?: XOR<XOR<ProjectUpdateToOneWithWhereWithoutRolesInput, ProjectUpdateWithoutRolesInput>, ProjectUncheckedUpdateWithoutRolesInput>
+  }
+
+  export type RoleApplicationUpdateManyWithoutRoleNestedInput = {
+    create?: XOR<RoleApplicationCreateWithoutRoleInput, RoleApplicationUncheckedCreateWithoutRoleInput> | RoleApplicationCreateWithoutRoleInput[] | RoleApplicationUncheckedCreateWithoutRoleInput[]
+    connectOrCreate?: RoleApplicationCreateOrConnectWithoutRoleInput | RoleApplicationCreateOrConnectWithoutRoleInput[]
+    upsert?: RoleApplicationUpsertWithWhereUniqueWithoutRoleInput | RoleApplicationUpsertWithWhereUniqueWithoutRoleInput[]
+    createMany?: RoleApplicationCreateManyRoleInputEnvelope
+    set?: RoleApplicationWhereUniqueInput | RoleApplicationWhereUniqueInput[]
+    disconnect?: RoleApplicationWhereUniqueInput | RoleApplicationWhereUniqueInput[]
+    delete?: RoleApplicationWhereUniqueInput | RoleApplicationWhereUniqueInput[]
+    connect?: RoleApplicationWhereUniqueInput | RoleApplicationWhereUniqueInput[]
+    update?: RoleApplicationUpdateWithWhereUniqueWithoutRoleInput | RoleApplicationUpdateWithWhereUniqueWithoutRoleInput[]
+    updateMany?: RoleApplicationUpdateManyWithWhereWithoutRoleInput | RoleApplicationUpdateManyWithWhereWithoutRoleInput[]
+    deleteMany?: RoleApplicationScalarWhereInput | RoleApplicationScalarWhereInput[]
+  }
+
+  export type RoleApplicationUncheckedUpdateManyWithoutRoleNestedInput = {
+    create?: XOR<RoleApplicationCreateWithoutRoleInput, RoleApplicationUncheckedCreateWithoutRoleInput> | RoleApplicationCreateWithoutRoleInput[] | RoleApplicationUncheckedCreateWithoutRoleInput[]
+    connectOrCreate?: RoleApplicationCreateOrConnectWithoutRoleInput | RoleApplicationCreateOrConnectWithoutRoleInput[]
+    upsert?: RoleApplicationUpsertWithWhereUniqueWithoutRoleInput | RoleApplicationUpsertWithWhereUniqueWithoutRoleInput[]
+    createMany?: RoleApplicationCreateManyRoleInputEnvelope
+    set?: RoleApplicationWhereUniqueInput | RoleApplicationWhereUniqueInput[]
+    disconnect?: RoleApplicationWhereUniqueInput | RoleApplicationWhereUniqueInput[]
+    delete?: RoleApplicationWhereUniqueInput | RoleApplicationWhereUniqueInput[]
+    connect?: RoleApplicationWhereUniqueInput | RoleApplicationWhereUniqueInput[]
+    update?: RoleApplicationUpdateWithWhereUniqueWithoutRoleInput | RoleApplicationUpdateWithWhereUniqueWithoutRoleInput[]
+    updateMany?: RoleApplicationUpdateManyWithWhereWithoutRoleInput | RoleApplicationUpdateManyWithWhereWithoutRoleInput[]
+    deleteMany?: RoleApplicationScalarWhereInput | RoleApplicationScalarWhereInput[]
+  }
+
+  export type NgoRoleCreateNestedOneWithoutApplicationsInput = {
+    create?: XOR<NgoRoleCreateWithoutApplicationsInput, NgoRoleUncheckedCreateWithoutApplicationsInput>
+    connectOrCreate?: NgoRoleCreateOrConnectWithoutApplicationsInput
+    connect?: NgoRoleWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutRoleApplicationsInput = {
+    create?: XOR<UserCreateWithoutRoleApplicationsInput, UserUncheckedCreateWithoutRoleApplicationsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutRoleApplicationsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type RoleEngagementCreateNestedOneWithoutApplicationInput = {
+    create?: XOR<RoleEngagementCreateWithoutApplicationInput, RoleEngagementUncheckedCreateWithoutApplicationInput>
+    connectOrCreate?: RoleEngagementCreateOrConnectWithoutApplicationInput
+    connect?: RoleEngagementWhereUniqueInput
+  }
+
+  export type RoleEngagementUncheckedCreateNestedOneWithoutApplicationInput = {
+    create?: XOR<RoleEngagementCreateWithoutApplicationInput, RoleEngagementUncheckedCreateWithoutApplicationInput>
+    connectOrCreate?: RoleEngagementCreateOrConnectWithoutApplicationInput
+    connect?: RoleEngagementWhereUniqueInput
+  }
+
+  export type EnumApplicationStatusFieldUpdateOperationsInput = {
+    set?: $Enums.ApplicationStatus
+  }
+
+  export type NgoRoleUpdateOneRequiredWithoutApplicationsNestedInput = {
+    create?: XOR<NgoRoleCreateWithoutApplicationsInput, NgoRoleUncheckedCreateWithoutApplicationsInput>
+    connectOrCreate?: NgoRoleCreateOrConnectWithoutApplicationsInput
+    upsert?: NgoRoleUpsertWithoutApplicationsInput
+    connect?: NgoRoleWhereUniqueInput
+    update?: XOR<XOR<NgoRoleUpdateToOneWithWhereWithoutApplicationsInput, NgoRoleUpdateWithoutApplicationsInput>, NgoRoleUncheckedUpdateWithoutApplicationsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutRoleApplicationsNestedInput = {
+    create?: XOR<UserCreateWithoutRoleApplicationsInput, UserUncheckedCreateWithoutRoleApplicationsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutRoleApplicationsInput
+    upsert?: UserUpsertWithoutRoleApplicationsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutRoleApplicationsInput, UserUpdateWithoutRoleApplicationsInput>, UserUncheckedUpdateWithoutRoleApplicationsInput>
+  }
+
+  export type RoleEngagementUpdateOneWithoutApplicationNestedInput = {
+    create?: XOR<RoleEngagementCreateWithoutApplicationInput, RoleEngagementUncheckedCreateWithoutApplicationInput>
+    connectOrCreate?: RoleEngagementCreateOrConnectWithoutApplicationInput
+    upsert?: RoleEngagementUpsertWithoutApplicationInput
+    disconnect?: RoleEngagementWhereInput | boolean
+    delete?: RoleEngagementWhereInput | boolean
+    connect?: RoleEngagementWhereUniqueInput
+    update?: XOR<XOR<RoleEngagementUpdateToOneWithWhereWithoutApplicationInput, RoleEngagementUpdateWithoutApplicationInput>, RoleEngagementUncheckedUpdateWithoutApplicationInput>
+  }
+
+  export type RoleEngagementUncheckedUpdateOneWithoutApplicationNestedInput = {
+    create?: XOR<RoleEngagementCreateWithoutApplicationInput, RoleEngagementUncheckedCreateWithoutApplicationInput>
+    connectOrCreate?: RoleEngagementCreateOrConnectWithoutApplicationInput
+    upsert?: RoleEngagementUpsertWithoutApplicationInput
+    disconnect?: RoleEngagementWhereInput | boolean
+    delete?: RoleEngagementWhereInput | boolean
+    connect?: RoleEngagementWhereUniqueInput
+    update?: XOR<XOR<RoleEngagementUpdateToOneWithWhereWithoutApplicationInput, RoleEngagementUpdateWithoutApplicationInput>, RoleEngagementUncheckedUpdateWithoutApplicationInput>
+  }
+
+  export type RoleApplicationCreateNestedOneWithoutEngagementInput = {
+    create?: XOR<RoleApplicationCreateWithoutEngagementInput, RoleApplicationUncheckedCreateWithoutEngagementInput>
+    connectOrCreate?: RoleApplicationCreateOrConnectWithoutEngagementInput
+    connect?: RoleApplicationWhereUniqueInput
+  }
+
+  export type EnumEngagementStatusFieldUpdateOperationsInput = {
+    set?: $Enums.EngagementStatus
+  }
+
+  export type RoleApplicationUpdateOneRequiredWithoutEngagementNestedInput = {
+    create?: XOR<RoleApplicationCreateWithoutEngagementInput, RoleApplicationUncheckedCreateWithoutEngagementInput>
+    connectOrCreate?: RoleApplicationCreateOrConnectWithoutEngagementInput
+    upsert?: RoleApplicationUpsertWithoutEngagementInput
+    connect?: RoleApplicationWhereUniqueInput
+    update?: XOR<XOR<RoleApplicationUpdateToOneWithWhereWithoutEngagementInput, RoleApplicationUpdateWithoutEngagementInput>, RoleApplicationUncheckedUpdateWithoutEngagementInput>
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -46271,6 +51696,74 @@ export namespace Prisma {
     _max?: NestedEnumDisbursementStatusFilter<$PrismaModel>
   }
 
+  export type NestedEnumRoleTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.RoleType | EnumRoleTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.RoleType[] | ListEnumRoleTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RoleType[] | ListEnumRoleTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumRoleTypeFilter<$PrismaModel> | $Enums.RoleType
+  }
+
+  export type NestedEnumRoleStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.RoleStatus | EnumRoleStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.RoleStatus[] | ListEnumRoleStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RoleStatus[] | ListEnumRoleStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumRoleStatusFilter<$PrismaModel> | $Enums.RoleStatus
+  }
+
+  export type NestedEnumRoleTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.RoleType | EnumRoleTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.RoleType[] | ListEnumRoleTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RoleType[] | ListEnumRoleTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumRoleTypeWithAggregatesFilter<$PrismaModel> | $Enums.RoleType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumRoleTypeFilter<$PrismaModel>
+    _max?: NestedEnumRoleTypeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumRoleStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.RoleStatus | EnumRoleStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.RoleStatus[] | ListEnumRoleStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RoleStatus[] | ListEnumRoleStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumRoleStatusWithAggregatesFilter<$PrismaModel> | $Enums.RoleStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumRoleStatusFilter<$PrismaModel>
+    _max?: NestedEnumRoleStatusFilter<$PrismaModel>
+  }
+
+  export type NestedEnumApplicationStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.ApplicationStatus | EnumApplicationStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ApplicationStatus[] | ListEnumApplicationStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ApplicationStatus[] | ListEnumApplicationStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumApplicationStatusFilter<$PrismaModel> | $Enums.ApplicationStatus
+  }
+
+  export type NestedEnumApplicationStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ApplicationStatus | EnumApplicationStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ApplicationStatus[] | ListEnumApplicationStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ApplicationStatus[] | ListEnumApplicationStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumApplicationStatusWithAggregatesFilter<$PrismaModel> | $Enums.ApplicationStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumApplicationStatusFilter<$PrismaModel>
+    _max?: NestedEnumApplicationStatusFilter<$PrismaModel>
+  }
+
+  export type NestedEnumEngagementStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.EngagementStatus | EnumEngagementStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.EngagementStatus[] | ListEnumEngagementStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.EngagementStatus[] | ListEnumEngagementStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumEngagementStatusFilter<$PrismaModel> | $Enums.EngagementStatus
+  }
+
+  export type NestedEnumEngagementStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.EngagementStatus | EnumEngagementStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.EngagementStatus[] | ListEnumEngagementStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.EngagementStatus[] | ListEnumEngagementStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumEngagementStatusWithAggregatesFilter<$PrismaModel> | $Enums.EngagementStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumEngagementStatusFilter<$PrismaModel>
+    _max?: NestedEnumEngagementStatusFilter<$PrismaModel>
+  }
+
   export type UserCreateWithoutAccountsInput = {
     id?: string
     email: string
@@ -46306,6 +51799,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementCreateNestedManyWithoutDonorInput
     endorsementsGiven?: DonorEndorsementCreateNestedManyWithoutEndorserInput
     documents?: DonorDocumentCreateNestedManyWithoutUserInput
+    roleApplications?: RoleApplicationCreateNestedManyWithoutApplicantInput
   }
 
   export type UserUncheckedCreateWithoutAccountsInput = {
@@ -46343,6 +51837,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementUncheckedCreateNestedManyWithoutDonorInput
     endorsementsGiven?: DonorEndorsementUncheckedCreateNestedManyWithoutEndorserInput
     documents?: DonorDocumentUncheckedCreateNestedManyWithoutUserInput
+    roleApplications?: RoleApplicationUncheckedCreateNestedManyWithoutApplicantInput
   }
 
   export type UserCreateOrConnectWithoutAccountsInput = {
@@ -46396,6 +51891,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementUpdateManyWithoutDonorNestedInput
     endorsementsGiven?: DonorEndorsementUpdateManyWithoutEndorserNestedInput
     documents?: DonorDocumentUpdateManyWithoutUserNestedInput
+    roleApplications?: RoleApplicationUpdateManyWithoutApplicantNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -46433,6 +51929,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementUncheckedUpdateManyWithoutDonorNestedInput
     endorsementsGiven?: DonorEndorsementUncheckedUpdateManyWithoutEndorserNestedInput
     documents?: DonorDocumentUncheckedUpdateManyWithoutUserNestedInput
+    roleApplications?: RoleApplicationUncheckedUpdateManyWithoutApplicantNestedInput
   }
 
   export type UserCreateWithoutSessionsInput = {
@@ -46470,6 +51967,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementCreateNestedManyWithoutDonorInput
     endorsementsGiven?: DonorEndorsementCreateNestedManyWithoutEndorserInput
     documents?: DonorDocumentCreateNestedManyWithoutUserInput
+    roleApplications?: RoleApplicationCreateNestedManyWithoutApplicantInput
   }
 
   export type UserUncheckedCreateWithoutSessionsInput = {
@@ -46507,6 +52005,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementUncheckedCreateNestedManyWithoutDonorInput
     endorsementsGiven?: DonorEndorsementUncheckedCreateNestedManyWithoutEndorserInput
     documents?: DonorDocumentUncheckedCreateNestedManyWithoutUserInput
+    roleApplications?: RoleApplicationUncheckedCreateNestedManyWithoutApplicantInput
   }
 
   export type UserCreateOrConnectWithoutSessionsInput = {
@@ -46560,6 +52059,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementUpdateManyWithoutDonorNestedInput
     endorsementsGiven?: DonorEndorsementUpdateManyWithoutEndorserNestedInput
     documents?: DonorDocumentUpdateManyWithoutUserNestedInput
+    roleApplications?: RoleApplicationUpdateManyWithoutApplicantNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -46597,6 +52097,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementUncheckedUpdateManyWithoutDonorNestedInput
     endorsementsGiven?: DonorEndorsementUncheckedUpdateManyWithoutEndorserNestedInput
     documents?: DonorDocumentUncheckedUpdateManyWithoutUserNestedInput
+    roleApplications?: RoleApplicationUncheckedUpdateManyWithoutApplicantNestedInput
   }
 
   export type AccountCreateWithoutUserInput = {
@@ -46683,6 +52184,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionCreateNestedManyWithoutNgoInput
     donorEndorsements?: DonorEndorsementCreateNestedManyWithoutNgoInput
     documents?: NgoDocumentCreateNestedManyWithoutNgoInput
+    roles?: NgoRoleCreateNestedManyWithoutNgoInput
   }
 
   export type NgoUncheckedCreateWithoutUserInput = {
@@ -46709,6 +52211,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutNgoInput
     donorEndorsements?: DonorEndorsementUncheckedCreateNestedManyWithoutNgoInput
     documents?: NgoDocumentUncheckedCreateNestedManyWithoutNgoInput
+    roles?: NgoRoleUncheckedCreateNestedManyWithoutNgoInput
   }
 
   export type NgoCreateOrConnectWithoutUserInput = {
@@ -47106,6 +52609,40 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type RoleApplicationCreateWithoutApplicantInput = {
+    id?: string
+    coverNote: string
+    linkedinUrl?: string | null
+    portfolioUrl?: string | null
+    status?: $Enums.ApplicationStatus
+    appliedAt?: Date | string
+    reviewedAt?: Date | string | null
+    role: NgoRoleCreateNestedOneWithoutApplicationsInput
+    engagement?: RoleEngagementCreateNestedOneWithoutApplicationInput
+  }
+
+  export type RoleApplicationUncheckedCreateWithoutApplicantInput = {
+    id?: string
+    roleId: string
+    coverNote: string
+    linkedinUrl?: string | null
+    portfolioUrl?: string | null
+    status?: $Enums.ApplicationStatus
+    appliedAt?: Date | string
+    reviewedAt?: Date | string | null
+    engagement?: RoleEngagementUncheckedCreateNestedOneWithoutApplicationInput
+  }
+
+  export type RoleApplicationCreateOrConnectWithoutApplicantInput = {
+    where: RoleApplicationWhereUniqueInput
+    create: XOR<RoleApplicationCreateWithoutApplicantInput, RoleApplicationUncheckedCreateWithoutApplicantInput>
+  }
+
+  export type RoleApplicationCreateManyApplicantInputEnvelope = {
+    data: RoleApplicationCreateManyApplicantInput | RoleApplicationCreateManyApplicantInput[]
+    skipDuplicates?: boolean
+  }
+
   export type AccountUpsertWithWhereUniqueWithoutUserInput = {
     where: AccountWhereUniqueInput
     update: XOR<AccountUpdateWithoutUserInput, AccountUncheckedUpdateWithoutUserInput>
@@ -47201,6 +52738,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionUpdateManyWithoutNgoNestedInput
     donorEndorsements?: DonorEndorsementUpdateManyWithoutNgoNestedInput
     documents?: NgoDocumentUpdateManyWithoutNgoNestedInput
+    roles?: NgoRoleUpdateManyWithoutNgoNestedInput
   }
 
   export type NgoUncheckedUpdateWithoutUserInput = {
@@ -47227,6 +52765,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionUncheckedUpdateManyWithoutNgoNestedInput
     donorEndorsements?: DonorEndorsementUncheckedUpdateManyWithoutNgoNestedInput
     documents?: NgoDocumentUncheckedUpdateManyWithoutNgoNestedInput
+    roles?: NgoRoleUncheckedUpdateManyWithoutNgoNestedInput
   }
 
   export type DonationUpsertWithWhereUniqueWithoutUserInput = {
@@ -47591,6 +53130,37 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"DonorDocument"> | Date | string
   }
 
+  export type RoleApplicationUpsertWithWhereUniqueWithoutApplicantInput = {
+    where: RoleApplicationWhereUniqueInput
+    update: XOR<RoleApplicationUpdateWithoutApplicantInput, RoleApplicationUncheckedUpdateWithoutApplicantInput>
+    create: XOR<RoleApplicationCreateWithoutApplicantInput, RoleApplicationUncheckedCreateWithoutApplicantInput>
+  }
+
+  export type RoleApplicationUpdateWithWhereUniqueWithoutApplicantInput = {
+    where: RoleApplicationWhereUniqueInput
+    data: XOR<RoleApplicationUpdateWithoutApplicantInput, RoleApplicationUncheckedUpdateWithoutApplicantInput>
+  }
+
+  export type RoleApplicationUpdateManyWithWhereWithoutApplicantInput = {
+    where: RoleApplicationScalarWhereInput
+    data: XOR<RoleApplicationUpdateManyMutationInput, RoleApplicationUncheckedUpdateManyWithoutApplicantInput>
+  }
+
+  export type RoleApplicationScalarWhereInput = {
+    AND?: RoleApplicationScalarWhereInput | RoleApplicationScalarWhereInput[]
+    OR?: RoleApplicationScalarWhereInput[]
+    NOT?: RoleApplicationScalarWhereInput | RoleApplicationScalarWhereInput[]
+    id?: StringFilter<"RoleApplication"> | string
+    roleId?: StringFilter<"RoleApplication"> | string
+    applicantId?: StringFilter<"RoleApplication"> | string
+    coverNote?: StringFilter<"RoleApplication"> | string
+    linkedinUrl?: StringNullableFilter<"RoleApplication"> | string | null
+    portfolioUrl?: StringNullableFilter<"RoleApplication"> | string | null
+    status?: EnumApplicationStatusFilter<"RoleApplication"> | $Enums.ApplicationStatus
+    appliedAt?: DateTimeFilter<"RoleApplication"> | Date | string
+    reviewedAt?: DateTimeNullableFilter<"RoleApplication"> | Date | string | null
+  }
+
   export type UserCreateWithoutNgoInput = {
     id?: string
     email: string
@@ -47626,6 +53196,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementCreateNestedManyWithoutDonorInput
     endorsementsGiven?: DonorEndorsementCreateNestedManyWithoutEndorserInput
     documents?: DonorDocumentCreateNestedManyWithoutUserInput
+    roleApplications?: RoleApplicationCreateNestedManyWithoutApplicantInput
   }
 
   export type UserUncheckedCreateWithoutNgoInput = {
@@ -47663,6 +53234,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementUncheckedCreateNestedManyWithoutDonorInput
     endorsementsGiven?: DonorEndorsementUncheckedCreateNestedManyWithoutEndorserInput
     documents?: DonorDocumentUncheckedCreateNestedManyWithoutUserInput
+    roleApplications?: RoleApplicationUncheckedCreateNestedManyWithoutApplicantInput
   }
 
   export type UserCreateOrConnectWithoutNgoInput = {
@@ -47692,6 +53264,7 @@ export namespace Prisma {
     spotlightVotes?: SpotlightVoteCreateNestedManyWithoutProjectInput
     campaigns?: CampaignCreateNestedManyWithoutProjectInput
     skillContributions?: SkillContributionCreateNestedManyWithoutProjectInput
+    roles?: NgoRoleCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUncheckedCreateWithoutNgoInput = {
@@ -47716,6 +53289,7 @@ export namespace Prisma {
     spotlightVotes?: SpotlightVoteUncheckedCreateNestedManyWithoutProjectInput
     campaigns?: CampaignUncheckedCreateNestedManyWithoutProjectInput
     skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutProjectInput
+    roles?: NgoRoleUncheckedCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectCreateOrConnectWithoutNgoInput = {
@@ -47924,6 +53498,60 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type NgoRoleCreateWithoutNgoInput = {
+    id?: string
+    title: string
+    department?: string | null
+    roleType?: $Enums.RoleType
+    description: string
+    responsibilities: string
+    skillsRequired: string
+    timeCommitment: string
+    durationWeeks?: number
+    isRemote?: boolean
+    location?: string | null
+    openings?: number
+    status?: $Enums.RoleStatus
+    applicationDeadline?: Date | string | null
+    startDate?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    project?: ProjectCreateNestedOneWithoutRolesInput
+    applications?: RoleApplicationCreateNestedManyWithoutRoleInput
+  }
+
+  export type NgoRoleUncheckedCreateWithoutNgoInput = {
+    id?: string
+    projectId?: string | null
+    title: string
+    department?: string | null
+    roleType?: $Enums.RoleType
+    description: string
+    responsibilities: string
+    skillsRequired: string
+    timeCommitment: string
+    durationWeeks?: number
+    isRemote?: boolean
+    location?: string | null
+    openings?: number
+    status?: $Enums.RoleStatus
+    applicationDeadline?: Date | string | null
+    startDate?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    applications?: RoleApplicationUncheckedCreateNestedManyWithoutRoleInput
+  }
+
+  export type NgoRoleCreateOrConnectWithoutNgoInput = {
+    where: NgoRoleWhereUniqueInput
+    create: XOR<NgoRoleCreateWithoutNgoInput, NgoRoleUncheckedCreateWithoutNgoInput>
+  }
+
+  export type NgoRoleCreateManyNgoInputEnvelope = {
+    data: NgoRoleCreateManyNgoInput | NgoRoleCreateManyNgoInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserUpsertWithoutNgoInput = {
     update: XOR<UserUpdateWithoutNgoInput, UserUncheckedUpdateWithoutNgoInput>
     create: XOR<UserCreateWithoutNgoInput, UserUncheckedCreateWithoutNgoInput>
@@ -47970,6 +53598,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementUpdateManyWithoutDonorNestedInput
     endorsementsGiven?: DonorEndorsementUpdateManyWithoutEndorserNestedInput
     documents?: DonorDocumentUpdateManyWithoutUserNestedInput
+    roleApplications?: RoleApplicationUpdateManyWithoutApplicantNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNgoInput = {
@@ -48007,6 +53636,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementUncheckedUpdateManyWithoutDonorNestedInput
     endorsementsGiven?: DonorEndorsementUncheckedUpdateManyWithoutEndorserNestedInput
     documents?: DonorDocumentUncheckedUpdateManyWithoutUserNestedInput
+    roleApplications?: RoleApplicationUncheckedUpdateManyWithoutApplicantNestedInput
   }
 
   export type ProjectUpsertWithWhereUniqueWithoutNgoInput = {
@@ -48190,6 +53820,47 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"NgoDocument"> | Date | string
   }
 
+  export type NgoRoleUpsertWithWhereUniqueWithoutNgoInput = {
+    where: NgoRoleWhereUniqueInput
+    update: XOR<NgoRoleUpdateWithoutNgoInput, NgoRoleUncheckedUpdateWithoutNgoInput>
+    create: XOR<NgoRoleCreateWithoutNgoInput, NgoRoleUncheckedCreateWithoutNgoInput>
+  }
+
+  export type NgoRoleUpdateWithWhereUniqueWithoutNgoInput = {
+    where: NgoRoleWhereUniqueInput
+    data: XOR<NgoRoleUpdateWithoutNgoInput, NgoRoleUncheckedUpdateWithoutNgoInput>
+  }
+
+  export type NgoRoleUpdateManyWithWhereWithoutNgoInput = {
+    where: NgoRoleScalarWhereInput
+    data: XOR<NgoRoleUpdateManyMutationInput, NgoRoleUncheckedUpdateManyWithoutNgoInput>
+  }
+
+  export type NgoRoleScalarWhereInput = {
+    AND?: NgoRoleScalarWhereInput | NgoRoleScalarWhereInput[]
+    OR?: NgoRoleScalarWhereInput[]
+    NOT?: NgoRoleScalarWhereInput | NgoRoleScalarWhereInput[]
+    id?: StringFilter<"NgoRole"> | string
+    ngoId?: StringFilter<"NgoRole"> | string
+    projectId?: StringNullableFilter<"NgoRole"> | string | null
+    title?: StringFilter<"NgoRole"> | string
+    department?: StringNullableFilter<"NgoRole"> | string | null
+    roleType?: EnumRoleTypeFilter<"NgoRole"> | $Enums.RoleType
+    description?: StringFilter<"NgoRole"> | string
+    responsibilities?: StringFilter<"NgoRole"> | string
+    skillsRequired?: StringFilter<"NgoRole"> | string
+    timeCommitment?: StringFilter<"NgoRole"> | string
+    durationWeeks?: IntFilter<"NgoRole"> | number
+    isRemote?: BoolFilter<"NgoRole"> | boolean
+    location?: StringNullableFilter<"NgoRole"> | string | null
+    openings?: IntFilter<"NgoRole"> | number
+    status?: EnumRoleStatusFilter<"NgoRole"> | $Enums.RoleStatus
+    applicationDeadline?: DateTimeNullableFilter<"NgoRole"> | Date | string | null
+    startDate?: DateTimeNullableFilter<"NgoRole"> | Date | string | null
+    createdAt?: DateTimeFilter<"NgoRole"> | Date | string
+    updatedAt?: DateTimeFilter<"NgoRole"> | Date | string
+  }
+
   export type NgoCreateWithoutProjectsInput = {
     id?: string
     orgName: string
@@ -48214,6 +53885,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionCreateNestedManyWithoutNgoInput
     donorEndorsements?: DonorEndorsementCreateNestedManyWithoutNgoInput
     documents?: NgoDocumentCreateNestedManyWithoutNgoInput
+    roles?: NgoRoleCreateNestedManyWithoutNgoInput
   }
 
   export type NgoUncheckedCreateWithoutProjectsInput = {
@@ -48240,6 +53912,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutNgoInput
     donorEndorsements?: DonorEndorsementUncheckedCreateNestedManyWithoutNgoInput
     documents?: NgoDocumentUncheckedCreateNestedManyWithoutNgoInput
+    roles?: NgoRoleUncheckedCreateNestedManyWithoutNgoInput
   }
 
   export type NgoCreateOrConnectWithoutProjectsInput = {
@@ -48469,6 +54142,60 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type NgoRoleCreateWithoutProjectInput = {
+    id?: string
+    title: string
+    department?: string | null
+    roleType?: $Enums.RoleType
+    description: string
+    responsibilities: string
+    skillsRequired: string
+    timeCommitment: string
+    durationWeeks?: number
+    isRemote?: boolean
+    location?: string | null
+    openings?: number
+    status?: $Enums.RoleStatus
+    applicationDeadline?: Date | string | null
+    startDate?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    ngo: NgoCreateNestedOneWithoutRolesInput
+    applications?: RoleApplicationCreateNestedManyWithoutRoleInput
+  }
+
+  export type NgoRoleUncheckedCreateWithoutProjectInput = {
+    id?: string
+    ngoId: string
+    title: string
+    department?: string | null
+    roleType?: $Enums.RoleType
+    description: string
+    responsibilities: string
+    skillsRequired: string
+    timeCommitment: string
+    durationWeeks?: number
+    isRemote?: boolean
+    location?: string | null
+    openings?: number
+    status?: $Enums.RoleStatus
+    applicationDeadline?: Date | string | null
+    startDate?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    applications?: RoleApplicationUncheckedCreateNestedManyWithoutRoleInput
+  }
+
+  export type NgoRoleCreateOrConnectWithoutProjectInput = {
+    where: NgoRoleWhereUniqueInput
+    create: XOR<NgoRoleCreateWithoutProjectInput, NgoRoleUncheckedCreateWithoutProjectInput>
+  }
+
+  export type NgoRoleCreateManyProjectInputEnvelope = {
+    data: NgoRoleCreateManyProjectInput | NgoRoleCreateManyProjectInput[]
+    skipDuplicates?: boolean
+  }
+
   export type NgoUpsertWithoutProjectsInput = {
     update: XOR<NgoUpdateWithoutProjectsInput, NgoUncheckedUpdateWithoutProjectsInput>
     create: XOR<NgoCreateWithoutProjectsInput, NgoUncheckedCreateWithoutProjectsInput>
@@ -48504,6 +54231,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionUpdateManyWithoutNgoNestedInput
     donorEndorsements?: DonorEndorsementUpdateManyWithoutNgoNestedInput
     documents?: NgoDocumentUpdateManyWithoutNgoNestedInput
+    roles?: NgoRoleUpdateManyWithoutNgoNestedInput
   }
 
   export type NgoUncheckedUpdateWithoutProjectsInput = {
@@ -48530,6 +54258,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionUncheckedUpdateManyWithoutNgoNestedInput
     donorEndorsements?: DonorEndorsementUncheckedUpdateManyWithoutNgoNestedInput
     documents?: NgoDocumentUncheckedUpdateManyWithoutNgoNestedInput
+    roles?: NgoRoleUncheckedUpdateManyWithoutNgoNestedInput
   }
 
   export type MilestoneUpsertWithWhereUniqueWithoutProjectInput = {
@@ -48648,6 +54377,22 @@ export namespace Prisma {
     data: XOR<SkillContributionUpdateManyMutationInput, SkillContributionUncheckedUpdateManyWithoutProjectInput>
   }
 
+  export type NgoRoleUpsertWithWhereUniqueWithoutProjectInput = {
+    where: NgoRoleWhereUniqueInput
+    update: XOR<NgoRoleUpdateWithoutProjectInput, NgoRoleUncheckedUpdateWithoutProjectInput>
+    create: XOR<NgoRoleCreateWithoutProjectInput, NgoRoleUncheckedCreateWithoutProjectInput>
+  }
+
+  export type NgoRoleUpdateWithWhereUniqueWithoutProjectInput = {
+    where: NgoRoleWhereUniqueInput
+    data: XOR<NgoRoleUpdateWithoutProjectInput, NgoRoleUncheckedUpdateWithoutProjectInput>
+  }
+
+  export type NgoRoleUpdateManyWithWhereWithoutProjectInput = {
+    where: NgoRoleScalarWhereInput
+    data: XOR<NgoRoleUpdateManyMutationInput, NgoRoleUncheckedUpdateManyWithoutProjectInput>
+  }
+
   export type ProjectCreateWithoutMilestonesInput = {
     id?: string
     title: string
@@ -48670,6 +54415,7 @@ export namespace Prisma {
     spotlightVotes?: SpotlightVoteCreateNestedManyWithoutProjectInput
     campaigns?: CampaignCreateNestedManyWithoutProjectInput
     skillContributions?: SkillContributionCreateNestedManyWithoutProjectInput
+    roles?: NgoRoleCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUncheckedCreateWithoutMilestonesInput = {
@@ -48694,6 +54440,7 @@ export namespace Prisma {
     spotlightVotes?: SpotlightVoteUncheckedCreateNestedManyWithoutProjectInput
     campaigns?: CampaignUncheckedCreateNestedManyWithoutProjectInput
     skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutProjectInput
+    roles?: NgoRoleUncheckedCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectCreateOrConnectWithoutMilestonesInput = {
@@ -48823,6 +54570,7 @@ export namespace Prisma {
     spotlightVotes?: SpotlightVoteUpdateManyWithoutProjectNestedInput
     campaigns?: CampaignUpdateManyWithoutProjectNestedInput
     skillContributions?: SkillContributionUpdateManyWithoutProjectNestedInput
+    roles?: NgoRoleUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateWithoutMilestonesInput = {
@@ -48847,6 +54595,7 @@ export namespace Prisma {
     spotlightVotes?: SpotlightVoteUncheckedUpdateManyWithoutProjectNestedInput
     campaigns?: CampaignUncheckedUpdateManyWithoutProjectNestedInput
     skillContributions?: SkillContributionUncheckedUpdateManyWithoutProjectNestedInput
+    roles?: NgoRoleUncheckedUpdateManyWithoutProjectNestedInput
   }
 
   export type EvidenceFileUpsertWithWhereUniqueWithoutMilestoneInput = {
@@ -49165,6 +54914,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementCreateNestedManyWithoutDonorInput
     endorsementsGiven?: DonorEndorsementCreateNestedManyWithoutEndorserInput
     documents?: DonorDocumentCreateNestedManyWithoutUserInput
+    roleApplications?: RoleApplicationCreateNestedManyWithoutApplicantInput
   }
 
   export type UserUncheckedCreateWithoutDonationsInput = {
@@ -49202,6 +54952,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementUncheckedCreateNestedManyWithoutDonorInput
     endorsementsGiven?: DonorEndorsementUncheckedCreateNestedManyWithoutEndorserInput
     documents?: DonorDocumentUncheckedCreateNestedManyWithoutUserInput
+    roleApplications?: RoleApplicationUncheckedCreateNestedManyWithoutApplicantInput
   }
 
   export type UserCreateOrConnectWithoutDonationsInput = {
@@ -49231,6 +54982,7 @@ export namespace Prisma {
     spotlightVotes?: SpotlightVoteCreateNestedManyWithoutProjectInput
     campaigns?: CampaignCreateNestedManyWithoutProjectInput
     skillContributions?: SkillContributionCreateNestedManyWithoutProjectInput
+    roles?: NgoRoleCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUncheckedCreateWithoutDonationsInput = {
@@ -49255,6 +55007,7 @@ export namespace Prisma {
     spotlightVotes?: SpotlightVoteUncheckedCreateNestedManyWithoutProjectInput
     campaigns?: CampaignUncheckedCreateNestedManyWithoutProjectInput
     skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutProjectInput
+    roles?: NgoRoleUncheckedCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectCreateOrConnectWithoutDonationsInput = {
@@ -49333,6 +55086,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementUpdateManyWithoutDonorNestedInput
     endorsementsGiven?: DonorEndorsementUpdateManyWithoutEndorserNestedInput
     documents?: DonorDocumentUpdateManyWithoutUserNestedInput
+    roleApplications?: RoleApplicationUpdateManyWithoutApplicantNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDonationsInput = {
@@ -49370,6 +55124,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementUncheckedUpdateManyWithoutDonorNestedInput
     endorsementsGiven?: DonorEndorsementUncheckedUpdateManyWithoutEndorserNestedInput
     documents?: DonorDocumentUncheckedUpdateManyWithoutUserNestedInput
+    roleApplications?: RoleApplicationUncheckedUpdateManyWithoutApplicantNestedInput
   }
 
   export type ProjectUpsertWithoutDonationsInput = {
@@ -49405,6 +55160,7 @@ export namespace Prisma {
     spotlightVotes?: SpotlightVoteUpdateManyWithoutProjectNestedInput
     campaigns?: CampaignUpdateManyWithoutProjectNestedInput
     skillContributions?: SkillContributionUpdateManyWithoutProjectNestedInput
+    roles?: NgoRoleUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateWithoutDonationsInput = {
@@ -49429,6 +55185,7 @@ export namespace Prisma {
     spotlightVotes?: SpotlightVoteUncheckedUpdateManyWithoutProjectNestedInput
     campaigns?: CampaignUncheckedUpdateManyWithoutProjectNestedInput
     skillContributions?: SkillContributionUncheckedUpdateManyWithoutProjectNestedInput
+    roles?: NgoRoleUncheckedUpdateManyWithoutProjectNestedInput
   }
 
   export type BlockchainRecordUpsertWithoutDonationInput = {
@@ -49634,6 +55391,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionCreateNestedManyWithoutNgoInput
     donorEndorsements?: DonorEndorsementCreateNestedManyWithoutNgoInput
     documents?: NgoDocumentCreateNestedManyWithoutNgoInput
+    roles?: NgoRoleCreateNestedManyWithoutNgoInput
   }
 
   export type NgoUncheckedCreateWithoutExpensesInput = {
@@ -49660,6 +55418,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutNgoInput
     donorEndorsements?: DonorEndorsementUncheckedCreateNestedManyWithoutNgoInput
     documents?: NgoDocumentUncheckedCreateNestedManyWithoutNgoInput
+    roles?: NgoRoleUncheckedCreateNestedManyWithoutNgoInput
   }
 
   export type NgoCreateOrConnectWithoutExpensesInput = {
@@ -49689,6 +55448,7 @@ export namespace Prisma {
     spotlightVotes?: SpotlightVoteCreateNestedManyWithoutProjectInput
     campaigns?: CampaignCreateNestedManyWithoutProjectInput
     skillContributions?: SkillContributionCreateNestedManyWithoutProjectInput
+    roles?: NgoRoleCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUncheckedCreateWithoutExpensesInput = {
@@ -49713,6 +55473,7 @@ export namespace Prisma {
     spotlightVotes?: SpotlightVoteUncheckedCreateNestedManyWithoutProjectInput
     campaigns?: CampaignUncheckedCreateNestedManyWithoutProjectInput
     skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutProjectInput
+    roles?: NgoRoleUncheckedCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectCreateOrConnectWithoutExpensesInput = {
@@ -49755,6 +55516,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionUpdateManyWithoutNgoNestedInput
     donorEndorsements?: DonorEndorsementUpdateManyWithoutNgoNestedInput
     documents?: NgoDocumentUpdateManyWithoutNgoNestedInput
+    roles?: NgoRoleUpdateManyWithoutNgoNestedInput
   }
 
   export type NgoUncheckedUpdateWithoutExpensesInput = {
@@ -49781,6 +55543,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionUncheckedUpdateManyWithoutNgoNestedInput
     donorEndorsements?: DonorEndorsementUncheckedUpdateManyWithoutNgoNestedInput
     documents?: NgoDocumentUncheckedUpdateManyWithoutNgoNestedInput
+    roles?: NgoRoleUncheckedUpdateManyWithoutNgoNestedInput
   }
 
   export type ProjectUpsertWithoutExpensesInput = {
@@ -49816,6 +55579,7 @@ export namespace Prisma {
     spotlightVotes?: SpotlightVoteUpdateManyWithoutProjectNestedInput
     campaigns?: CampaignUpdateManyWithoutProjectNestedInput
     skillContributions?: SkillContributionUpdateManyWithoutProjectNestedInput
+    roles?: NgoRoleUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateWithoutExpensesInput = {
@@ -49840,6 +55604,7 @@ export namespace Prisma {
     spotlightVotes?: SpotlightVoteUncheckedUpdateManyWithoutProjectNestedInput
     campaigns?: CampaignUncheckedUpdateManyWithoutProjectNestedInput
     skillContributions?: SkillContributionUncheckedUpdateManyWithoutProjectNestedInput
+    roles?: NgoRoleUncheckedUpdateManyWithoutProjectNestedInput
   }
 
   export type DonationCreateWithoutBlockchainRecordInput = {
@@ -50017,6 +55782,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementCreateNestedManyWithoutDonorInput
     endorsementsGiven?: DonorEndorsementCreateNestedManyWithoutEndorserInput
     documents?: DonorDocumentCreateNestedManyWithoutUserInput
+    roleApplications?: RoleApplicationCreateNestedManyWithoutApplicantInput
   }
 
   export type UserUncheckedCreateWithoutRatingsInput = {
@@ -50054,6 +55820,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementUncheckedCreateNestedManyWithoutDonorInput
     endorsementsGiven?: DonorEndorsementUncheckedCreateNestedManyWithoutEndorserInput
     documents?: DonorDocumentUncheckedCreateNestedManyWithoutUserInput
+    roleApplications?: RoleApplicationUncheckedCreateNestedManyWithoutApplicantInput
   }
 
   export type UserCreateOrConnectWithoutRatingsInput = {
@@ -50085,6 +55852,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionCreateNestedManyWithoutNgoInput
     donorEndorsements?: DonorEndorsementCreateNestedManyWithoutNgoInput
     documents?: NgoDocumentCreateNestedManyWithoutNgoInput
+    roles?: NgoRoleCreateNestedManyWithoutNgoInput
   }
 
   export type NgoUncheckedCreateWithoutRatingsInput = {
@@ -50111,6 +55879,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutNgoInput
     donorEndorsements?: DonorEndorsementUncheckedCreateNestedManyWithoutNgoInput
     documents?: NgoDocumentUncheckedCreateNestedManyWithoutNgoInput
+    roles?: NgoRoleUncheckedCreateNestedManyWithoutNgoInput
   }
 
   export type NgoCreateOrConnectWithoutRatingsInput = {
@@ -50164,6 +55933,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementUpdateManyWithoutDonorNestedInput
     endorsementsGiven?: DonorEndorsementUpdateManyWithoutEndorserNestedInput
     documents?: DonorDocumentUpdateManyWithoutUserNestedInput
+    roleApplications?: RoleApplicationUpdateManyWithoutApplicantNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRatingsInput = {
@@ -50201,6 +55971,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementUncheckedUpdateManyWithoutDonorNestedInput
     endorsementsGiven?: DonorEndorsementUncheckedUpdateManyWithoutEndorserNestedInput
     documents?: DonorDocumentUncheckedUpdateManyWithoutUserNestedInput
+    roleApplications?: RoleApplicationUncheckedUpdateManyWithoutApplicantNestedInput
   }
 
   export type NgoUpsertWithoutRatingsInput = {
@@ -50238,6 +56009,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionUpdateManyWithoutNgoNestedInput
     donorEndorsements?: DonorEndorsementUpdateManyWithoutNgoNestedInput
     documents?: NgoDocumentUpdateManyWithoutNgoNestedInput
+    roles?: NgoRoleUpdateManyWithoutNgoNestedInput
   }
 
   export type NgoUncheckedUpdateWithoutRatingsInput = {
@@ -50264,6 +56036,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionUncheckedUpdateManyWithoutNgoNestedInput
     donorEndorsements?: DonorEndorsementUncheckedUpdateManyWithoutNgoNestedInput
     documents?: NgoDocumentUncheckedUpdateManyWithoutNgoNestedInput
+    roles?: NgoRoleUncheckedUpdateManyWithoutNgoNestedInput
   }
 
   export type UserCreateWithoutNotificationsInput = {
@@ -50301,6 +56074,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementCreateNestedManyWithoutDonorInput
     endorsementsGiven?: DonorEndorsementCreateNestedManyWithoutEndorserInput
     documents?: DonorDocumentCreateNestedManyWithoutUserInput
+    roleApplications?: RoleApplicationCreateNestedManyWithoutApplicantInput
   }
 
   export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -50338,6 +56112,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementUncheckedCreateNestedManyWithoutDonorInput
     endorsementsGiven?: DonorEndorsementUncheckedCreateNestedManyWithoutEndorserInput
     documents?: DonorDocumentUncheckedCreateNestedManyWithoutUserInput
+    roleApplications?: RoleApplicationUncheckedCreateNestedManyWithoutApplicantInput
   }
 
   export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -50391,6 +56166,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementUpdateManyWithoutDonorNestedInput
     endorsementsGiven?: DonorEndorsementUpdateManyWithoutEndorserNestedInput
     documents?: DonorDocumentUpdateManyWithoutUserNestedInput
+    roleApplications?: RoleApplicationUpdateManyWithoutApplicantNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -50428,6 +56204,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementUncheckedUpdateManyWithoutDonorNestedInput
     endorsementsGiven?: DonorEndorsementUncheckedUpdateManyWithoutEndorserNestedInput
     documents?: DonorDocumentUncheckedUpdateManyWithoutUserNestedInput
+    roleApplications?: RoleApplicationUncheckedUpdateManyWithoutApplicantNestedInput
   }
 
   export type UserCreateWithoutSpotlightVotesInput = {
@@ -50465,6 +56242,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementCreateNestedManyWithoutDonorInput
     endorsementsGiven?: DonorEndorsementCreateNestedManyWithoutEndorserInput
     documents?: DonorDocumentCreateNestedManyWithoutUserInput
+    roleApplications?: RoleApplicationCreateNestedManyWithoutApplicantInput
   }
 
   export type UserUncheckedCreateWithoutSpotlightVotesInput = {
@@ -50502,6 +56280,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementUncheckedCreateNestedManyWithoutDonorInput
     endorsementsGiven?: DonorEndorsementUncheckedCreateNestedManyWithoutEndorserInput
     documents?: DonorDocumentUncheckedCreateNestedManyWithoutUserInput
+    roleApplications?: RoleApplicationUncheckedCreateNestedManyWithoutApplicantInput
   }
 
   export type UserCreateOrConnectWithoutSpotlightVotesInput = {
@@ -50531,6 +56310,7 @@ export namespace Prisma {
     expenses?: ExpenseCreateNestedManyWithoutProjectInput
     campaigns?: CampaignCreateNestedManyWithoutProjectInput
     skillContributions?: SkillContributionCreateNestedManyWithoutProjectInput
+    roles?: NgoRoleCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUncheckedCreateWithoutSpotlightVotesInput = {
@@ -50555,6 +56335,7 @@ export namespace Prisma {
     expenses?: ExpenseUncheckedCreateNestedManyWithoutProjectInput
     campaigns?: CampaignUncheckedCreateNestedManyWithoutProjectInput
     skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutProjectInput
+    roles?: NgoRoleUncheckedCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectCreateOrConnectWithoutSpotlightVotesInput = {
@@ -50608,6 +56389,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementUpdateManyWithoutDonorNestedInput
     endorsementsGiven?: DonorEndorsementUpdateManyWithoutEndorserNestedInput
     documents?: DonorDocumentUpdateManyWithoutUserNestedInput
+    roleApplications?: RoleApplicationUpdateManyWithoutApplicantNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSpotlightVotesInput = {
@@ -50645,6 +56427,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementUncheckedUpdateManyWithoutDonorNestedInput
     endorsementsGiven?: DonorEndorsementUncheckedUpdateManyWithoutEndorserNestedInput
     documents?: DonorDocumentUncheckedUpdateManyWithoutUserNestedInput
+    roleApplications?: RoleApplicationUncheckedUpdateManyWithoutApplicantNestedInput
   }
 
   export type ProjectUpsertWithoutSpotlightVotesInput = {
@@ -50680,6 +56463,7 @@ export namespace Prisma {
     expenses?: ExpenseUpdateManyWithoutProjectNestedInput
     campaigns?: CampaignUpdateManyWithoutProjectNestedInput
     skillContributions?: SkillContributionUpdateManyWithoutProjectNestedInput
+    roles?: NgoRoleUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateWithoutSpotlightVotesInput = {
@@ -50704,6 +56488,7 @@ export namespace Prisma {
     expenses?: ExpenseUncheckedUpdateManyWithoutProjectNestedInput
     campaigns?: CampaignUncheckedUpdateManyWithoutProjectNestedInput
     skillContributions?: SkillContributionUncheckedUpdateManyWithoutProjectNestedInput
+    roles?: NgoRoleUncheckedUpdateManyWithoutProjectNestedInput
   }
 
   export type UserCreateWithoutCampaignsCreatedInput = {
@@ -50741,6 +56526,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementCreateNestedManyWithoutDonorInput
     endorsementsGiven?: DonorEndorsementCreateNestedManyWithoutEndorserInput
     documents?: DonorDocumentCreateNestedManyWithoutUserInput
+    roleApplications?: RoleApplicationCreateNestedManyWithoutApplicantInput
   }
 
   export type UserUncheckedCreateWithoutCampaignsCreatedInput = {
@@ -50778,6 +56564,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementUncheckedCreateNestedManyWithoutDonorInput
     endorsementsGiven?: DonorEndorsementUncheckedCreateNestedManyWithoutEndorserInput
     documents?: DonorDocumentUncheckedCreateNestedManyWithoutUserInput
+    roleApplications?: RoleApplicationUncheckedCreateNestedManyWithoutApplicantInput
   }
 
   export type UserCreateOrConnectWithoutCampaignsCreatedInput = {
@@ -50807,6 +56594,7 @@ export namespace Prisma {
     expenses?: ExpenseCreateNestedManyWithoutProjectInput
     spotlightVotes?: SpotlightVoteCreateNestedManyWithoutProjectInput
     skillContributions?: SkillContributionCreateNestedManyWithoutProjectInput
+    roles?: NgoRoleCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUncheckedCreateWithoutCampaignsInput = {
@@ -50831,6 +56619,7 @@ export namespace Prisma {
     expenses?: ExpenseUncheckedCreateNestedManyWithoutProjectInput
     spotlightVotes?: SpotlightVoteUncheckedCreateNestedManyWithoutProjectInput
     skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutProjectInput
+    roles?: NgoRoleUncheckedCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectCreateOrConnectWithoutCampaignsInput = {
@@ -50908,6 +56697,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementUpdateManyWithoutDonorNestedInput
     endorsementsGiven?: DonorEndorsementUpdateManyWithoutEndorserNestedInput
     documents?: DonorDocumentUpdateManyWithoutUserNestedInput
+    roleApplications?: RoleApplicationUpdateManyWithoutApplicantNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCampaignsCreatedInput = {
@@ -50945,6 +56735,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementUncheckedUpdateManyWithoutDonorNestedInput
     endorsementsGiven?: DonorEndorsementUncheckedUpdateManyWithoutEndorserNestedInput
     documents?: DonorDocumentUncheckedUpdateManyWithoutUserNestedInput
+    roleApplications?: RoleApplicationUncheckedUpdateManyWithoutApplicantNestedInput
   }
 
   export type ProjectUpsertWithoutCampaignsInput = {
@@ -50980,6 +56771,7 @@ export namespace Prisma {
     expenses?: ExpenseUpdateManyWithoutProjectNestedInput
     spotlightVotes?: SpotlightVoteUpdateManyWithoutProjectNestedInput
     skillContributions?: SkillContributionUpdateManyWithoutProjectNestedInput
+    roles?: NgoRoleUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateWithoutCampaignsInput = {
@@ -51004,6 +56796,7 @@ export namespace Prisma {
     expenses?: ExpenseUncheckedUpdateManyWithoutProjectNestedInput
     spotlightVotes?: SpotlightVoteUncheckedUpdateManyWithoutProjectNestedInput
     skillContributions?: SkillContributionUncheckedUpdateManyWithoutProjectNestedInput
+    roles?: NgoRoleUncheckedUpdateManyWithoutProjectNestedInput
   }
 
   export type CampaignContributorUpsertWithWhereUniqueWithoutCampaignInput = {
@@ -51090,6 +56883,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementCreateNestedManyWithoutDonorInput
     endorsementsGiven?: DonorEndorsementCreateNestedManyWithoutEndorserInput
     documents?: DonorDocumentCreateNestedManyWithoutUserInput
+    roleApplications?: RoleApplicationCreateNestedManyWithoutApplicantInput
   }
 
   export type UserUncheckedCreateWithoutCampaignContributionsInput = {
@@ -51127,6 +56921,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementUncheckedCreateNestedManyWithoutDonorInput
     endorsementsGiven?: DonorEndorsementUncheckedCreateNestedManyWithoutEndorserInput
     documents?: DonorDocumentUncheckedCreateNestedManyWithoutUserInput
+    roleApplications?: RoleApplicationUncheckedCreateNestedManyWithoutApplicantInput
   }
 
   export type UserCreateOrConnectWithoutCampaignContributionsInput = {
@@ -51219,6 +57014,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementUpdateManyWithoutDonorNestedInput
     endorsementsGiven?: DonorEndorsementUpdateManyWithoutEndorserNestedInput
     documents?: DonorDocumentUpdateManyWithoutUserNestedInput
+    roleApplications?: RoleApplicationUpdateManyWithoutApplicantNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCampaignContributionsInput = {
@@ -51256,6 +57052,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementUncheckedUpdateManyWithoutDonorNestedInput
     endorsementsGiven?: DonorEndorsementUncheckedUpdateManyWithoutEndorserNestedInput
     documents?: DonorDocumentUncheckedUpdateManyWithoutUserNestedInput
+    roleApplications?: RoleApplicationUncheckedUpdateManyWithoutApplicantNestedInput
   }
 
   export type UserCreateWithoutNgoSuggestionsInput = {
@@ -51293,6 +57090,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementCreateNestedManyWithoutDonorInput
     endorsementsGiven?: DonorEndorsementCreateNestedManyWithoutEndorserInput
     documents?: DonorDocumentCreateNestedManyWithoutUserInput
+    roleApplications?: RoleApplicationCreateNestedManyWithoutApplicantInput
   }
 
   export type UserUncheckedCreateWithoutNgoSuggestionsInput = {
@@ -51330,6 +57128,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementUncheckedCreateNestedManyWithoutDonorInput
     endorsementsGiven?: DonorEndorsementUncheckedCreateNestedManyWithoutEndorserInput
     documents?: DonorDocumentUncheckedCreateNestedManyWithoutUserInput
+    roleApplications?: RoleApplicationUncheckedCreateNestedManyWithoutApplicantInput
   }
 
   export type UserCreateOrConnectWithoutNgoSuggestionsInput = {
@@ -51383,6 +57182,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementUpdateManyWithoutDonorNestedInput
     endorsementsGiven?: DonorEndorsementUpdateManyWithoutEndorserNestedInput
     documents?: DonorDocumentUpdateManyWithoutUserNestedInput
+    roleApplications?: RoleApplicationUpdateManyWithoutApplicantNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNgoSuggestionsInput = {
@@ -51420,6 +57220,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementUncheckedUpdateManyWithoutDonorNestedInput
     endorsementsGiven?: DonorEndorsementUncheckedUpdateManyWithoutEndorserNestedInput
     documents?: DonorDocumentUncheckedUpdateManyWithoutUserNestedInput
+    roleApplications?: RoleApplicationUncheckedUpdateManyWithoutApplicantNestedInput
   }
 
   export type UserCreateWithoutReferralsMadeInput = {
@@ -51457,6 +57258,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementCreateNestedManyWithoutDonorInput
     endorsementsGiven?: DonorEndorsementCreateNestedManyWithoutEndorserInput
     documents?: DonorDocumentCreateNestedManyWithoutUserInput
+    roleApplications?: RoleApplicationCreateNestedManyWithoutApplicantInput
   }
 
   export type UserUncheckedCreateWithoutReferralsMadeInput = {
@@ -51494,6 +57296,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementUncheckedCreateNestedManyWithoutDonorInput
     endorsementsGiven?: DonorEndorsementUncheckedCreateNestedManyWithoutEndorserInput
     documents?: DonorDocumentUncheckedCreateNestedManyWithoutUserInput
+    roleApplications?: RoleApplicationUncheckedCreateNestedManyWithoutApplicantInput
   }
 
   export type UserCreateOrConnectWithoutReferralsMadeInput = {
@@ -51536,6 +57339,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementCreateNestedManyWithoutDonorInput
     endorsementsGiven?: DonorEndorsementCreateNestedManyWithoutEndorserInput
     documents?: DonorDocumentCreateNestedManyWithoutUserInput
+    roleApplications?: RoleApplicationCreateNestedManyWithoutApplicantInput
   }
 
   export type UserUncheckedCreateWithoutReferralsReceivedInput = {
@@ -51573,6 +57377,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementUncheckedCreateNestedManyWithoutDonorInput
     endorsementsGiven?: DonorEndorsementUncheckedCreateNestedManyWithoutEndorserInput
     documents?: DonorDocumentUncheckedCreateNestedManyWithoutUserInput
+    roleApplications?: RoleApplicationUncheckedCreateNestedManyWithoutApplicantInput
   }
 
   export type UserCreateOrConnectWithoutReferralsReceivedInput = {
@@ -51626,6 +57431,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementUpdateManyWithoutDonorNestedInput
     endorsementsGiven?: DonorEndorsementUpdateManyWithoutEndorserNestedInput
     documents?: DonorDocumentUpdateManyWithoutUserNestedInput
+    roleApplications?: RoleApplicationUpdateManyWithoutApplicantNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReferralsMadeInput = {
@@ -51663,6 +57469,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementUncheckedUpdateManyWithoutDonorNestedInput
     endorsementsGiven?: DonorEndorsementUncheckedUpdateManyWithoutEndorserNestedInput
     documents?: DonorDocumentUncheckedUpdateManyWithoutUserNestedInput
+    roleApplications?: RoleApplicationUncheckedUpdateManyWithoutApplicantNestedInput
   }
 
   export type UserUpsertWithoutReferralsReceivedInput = {
@@ -51711,6 +57518,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementUpdateManyWithoutDonorNestedInput
     endorsementsGiven?: DonorEndorsementUpdateManyWithoutEndorserNestedInput
     documents?: DonorDocumentUpdateManyWithoutUserNestedInput
+    roleApplications?: RoleApplicationUpdateManyWithoutApplicantNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReferralsReceivedInput = {
@@ -51748,6 +57556,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementUncheckedUpdateManyWithoutDonorNestedInput
     endorsementsGiven?: DonorEndorsementUncheckedUpdateManyWithoutEndorserNestedInput
     documents?: DonorDocumentUncheckedUpdateManyWithoutUserNestedInput
+    roleApplications?: RoleApplicationUncheckedUpdateManyWithoutApplicantNestedInput
   }
 
   export type NgoCreateWithoutBoardMembersInput = {
@@ -51774,6 +57583,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionCreateNestedManyWithoutNgoInput
     donorEndorsements?: DonorEndorsementCreateNestedManyWithoutNgoInput
     documents?: NgoDocumentCreateNestedManyWithoutNgoInput
+    roles?: NgoRoleCreateNestedManyWithoutNgoInput
   }
 
   export type NgoUncheckedCreateWithoutBoardMembersInput = {
@@ -51800,6 +57610,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutNgoInput
     donorEndorsements?: DonorEndorsementUncheckedCreateNestedManyWithoutNgoInput
     documents?: NgoDocumentUncheckedCreateNestedManyWithoutNgoInput
+    roles?: NgoRoleUncheckedCreateNestedManyWithoutNgoInput
   }
 
   export type NgoCreateOrConnectWithoutBoardMembersInput = {
@@ -51842,6 +57653,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionUpdateManyWithoutNgoNestedInput
     donorEndorsements?: DonorEndorsementUpdateManyWithoutNgoNestedInput
     documents?: NgoDocumentUpdateManyWithoutNgoNestedInput
+    roles?: NgoRoleUpdateManyWithoutNgoNestedInput
   }
 
   export type NgoUncheckedUpdateWithoutBoardMembersInput = {
@@ -51868,6 +57680,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionUncheckedUpdateManyWithoutNgoNestedInput
     donorEndorsements?: DonorEndorsementUncheckedUpdateManyWithoutNgoNestedInput
     documents?: NgoDocumentUncheckedUpdateManyWithoutNgoNestedInput
+    roles?: NgoRoleUncheckedUpdateManyWithoutNgoNestedInput
   }
 
   export type UserCreateWithoutSkillContributionsInput = {
@@ -51905,6 +57718,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementCreateNestedManyWithoutDonorInput
     endorsementsGiven?: DonorEndorsementCreateNestedManyWithoutEndorserInput
     documents?: DonorDocumentCreateNestedManyWithoutUserInput
+    roleApplications?: RoleApplicationCreateNestedManyWithoutApplicantInput
   }
 
   export type UserUncheckedCreateWithoutSkillContributionsInput = {
@@ -51942,6 +57756,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementUncheckedCreateNestedManyWithoutDonorInput
     endorsementsGiven?: DonorEndorsementUncheckedCreateNestedManyWithoutEndorserInput
     documents?: DonorDocumentUncheckedCreateNestedManyWithoutUserInput
+    roleApplications?: RoleApplicationUncheckedCreateNestedManyWithoutApplicantInput
   }
 
   export type UserCreateOrConnectWithoutSkillContributionsInput = {
@@ -51973,6 +57788,7 @@ export namespace Prisma {
     boardMembers?: BoardMemberCreateNestedManyWithoutNgoInput
     donorEndorsements?: DonorEndorsementCreateNestedManyWithoutNgoInput
     documents?: NgoDocumentCreateNestedManyWithoutNgoInput
+    roles?: NgoRoleCreateNestedManyWithoutNgoInput
   }
 
   export type NgoUncheckedCreateWithoutSkillContributionsInput = {
@@ -51999,6 +57815,7 @@ export namespace Prisma {
     boardMembers?: BoardMemberUncheckedCreateNestedManyWithoutNgoInput
     donorEndorsements?: DonorEndorsementUncheckedCreateNestedManyWithoutNgoInput
     documents?: NgoDocumentUncheckedCreateNestedManyWithoutNgoInput
+    roles?: NgoRoleUncheckedCreateNestedManyWithoutNgoInput
   }
 
   export type NgoCreateOrConnectWithoutSkillContributionsInput = {
@@ -52028,6 +57845,7 @@ export namespace Prisma {
     expenses?: ExpenseCreateNestedManyWithoutProjectInput
     spotlightVotes?: SpotlightVoteCreateNestedManyWithoutProjectInput
     campaigns?: CampaignCreateNestedManyWithoutProjectInput
+    roles?: NgoRoleCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUncheckedCreateWithoutSkillContributionsInput = {
@@ -52052,6 +57870,7 @@ export namespace Prisma {
     expenses?: ExpenseUncheckedCreateNestedManyWithoutProjectInput
     spotlightVotes?: SpotlightVoteUncheckedCreateNestedManyWithoutProjectInput
     campaigns?: CampaignUncheckedCreateNestedManyWithoutProjectInput
+    roles?: NgoRoleUncheckedCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectCreateOrConnectWithoutSkillContributionsInput = {
@@ -52124,6 +57943,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementUpdateManyWithoutDonorNestedInput
     endorsementsGiven?: DonorEndorsementUpdateManyWithoutEndorserNestedInput
     documents?: DonorDocumentUpdateManyWithoutUserNestedInput
+    roleApplications?: RoleApplicationUpdateManyWithoutApplicantNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSkillContributionsInput = {
@@ -52161,6 +57981,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementUncheckedUpdateManyWithoutDonorNestedInput
     endorsementsGiven?: DonorEndorsementUncheckedUpdateManyWithoutEndorserNestedInput
     documents?: DonorDocumentUncheckedUpdateManyWithoutUserNestedInput
+    roleApplications?: RoleApplicationUncheckedUpdateManyWithoutApplicantNestedInput
   }
 
   export type NgoUpsertWithoutSkillContributionsInput = {
@@ -52198,6 +58019,7 @@ export namespace Prisma {
     boardMembers?: BoardMemberUpdateManyWithoutNgoNestedInput
     donorEndorsements?: DonorEndorsementUpdateManyWithoutNgoNestedInput
     documents?: NgoDocumentUpdateManyWithoutNgoNestedInput
+    roles?: NgoRoleUpdateManyWithoutNgoNestedInput
   }
 
   export type NgoUncheckedUpdateWithoutSkillContributionsInput = {
@@ -52224,6 +58046,7 @@ export namespace Prisma {
     boardMembers?: BoardMemberUncheckedUpdateManyWithoutNgoNestedInput
     donorEndorsements?: DonorEndorsementUncheckedUpdateManyWithoutNgoNestedInput
     documents?: NgoDocumentUncheckedUpdateManyWithoutNgoNestedInput
+    roles?: NgoRoleUncheckedUpdateManyWithoutNgoNestedInput
   }
 
   export type ProjectUpsertWithoutSkillContributionsInput = {
@@ -52259,6 +58082,7 @@ export namespace Prisma {
     expenses?: ExpenseUpdateManyWithoutProjectNestedInput
     spotlightVotes?: SpotlightVoteUpdateManyWithoutProjectNestedInput
     campaigns?: CampaignUpdateManyWithoutProjectNestedInput
+    roles?: NgoRoleUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateWithoutSkillContributionsInput = {
@@ -52283,6 +58107,7 @@ export namespace Prisma {
     expenses?: ExpenseUncheckedUpdateManyWithoutProjectNestedInput
     spotlightVotes?: SpotlightVoteUncheckedUpdateManyWithoutProjectNestedInput
     campaigns?: CampaignUncheckedUpdateManyWithoutProjectNestedInput
+    roles?: NgoRoleUncheckedUpdateManyWithoutProjectNestedInput
   }
 
   export type SkillBlockchainRecordUpsertWithoutContributionInput = {
@@ -52425,6 +58250,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionCreateNestedManyWithoutDonorInput
     endorsementsGiven?: DonorEndorsementCreateNestedManyWithoutEndorserInput
     documents?: DonorDocumentCreateNestedManyWithoutUserInput
+    roleApplications?: RoleApplicationCreateNestedManyWithoutApplicantInput
   }
 
   export type UserUncheckedCreateWithoutEndorsementsReceivedInput = {
@@ -52462,6 +58288,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutDonorInput
     endorsementsGiven?: DonorEndorsementUncheckedCreateNestedManyWithoutEndorserInput
     documents?: DonorDocumentUncheckedCreateNestedManyWithoutUserInput
+    roleApplications?: RoleApplicationUncheckedCreateNestedManyWithoutApplicantInput
   }
 
   export type UserCreateOrConnectWithoutEndorsementsReceivedInput = {
@@ -52493,6 +58320,7 @@ export namespace Prisma {
     boardMembers?: BoardMemberCreateNestedManyWithoutNgoInput
     skillContributions?: SkillContributionCreateNestedManyWithoutNgoInput
     documents?: NgoDocumentCreateNestedManyWithoutNgoInput
+    roles?: NgoRoleCreateNestedManyWithoutNgoInput
   }
 
   export type NgoUncheckedCreateWithoutDonorEndorsementsInput = {
@@ -52519,6 +58347,7 @@ export namespace Prisma {
     boardMembers?: BoardMemberUncheckedCreateNestedManyWithoutNgoInput
     skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutNgoInput
     documents?: NgoDocumentUncheckedCreateNestedManyWithoutNgoInput
+    roles?: NgoRoleUncheckedCreateNestedManyWithoutNgoInput
   }
 
   export type NgoCreateOrConnectWithoutDonorEndorsementsInput = {
@@ -52561,6 +58390,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionCreateNestedManyWithoutDonorInput
     endorsementsReceived?: DonorEndorsementCreateNestedManyWithoutDonorInput
     documents?: DonorDocumentCreateNestedManyWithoutUserInput
+    roleApplications?: RoleApplicationCreateNestedManyWithoutApplicantInput
   }
 
   export type UserUncheckedCreateWithoutEndorsementsGivenInput = {
@@ -52598,6 +58428,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutDonorInput
     endorsementsReceived?: DonorEndorsementUncheckedCreateNestedManyWithoutDonorInput
     documents?: DonorDocumentUncheckedCreateNestedManyWithoutUserInput
+    roleApplications?: RoleApplicationUncheckedCreateNestedManyWithoutApplicantInput
   }
 
   export type UserCreateOrConnectWithoutEndorsementsGivenInput = {
@@ -52651,6 +58482,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionUpdateManyWithoutDonorNestedInput
     endorsementsGiven?: DonorEndorsementUpdateManyWithoutEndorserNestedInput
     documents?: DonorDocumentUpdateManyWithoutUserNestedInput
+    roleApplications?: RoleApplicationUpdateManyWithoutApplicantNestedInput
   }
 
   export type UserUncheckedUpdateWithoutEndorsementsReceivedInput = {
@@ -52688,6 +58520,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionUncheckedUpdateManyWithoutDonorNestedInput
     endorsementsGiven?: DonorEndorsementUncheckedUpdateManyWithoutEndorserNestedInput
     documents?: DonorDocumentUncheckedUpdateManyWithoutUserNestedInput
+    roleApplications?: RoleApplicationUncheckedUpdateManyWithoutApplicantNestedInput
   }
 
   export type NgoUpsertWithoutDonorEndorsementsInput = {
@@ -52725,6 +58558,7 @@ export namespace Prisma {
     boardMembers?: BoardMemberUpdateManyWithoutNgoNestedInput
     skillContributions?: SkillContributionUpdateManyWithoutNgoNestedInput
     documents?: NgoDocumentUpdateManyWithoutNgoNestedInput
+    roles?: NgoRoleUpdateManyWithoutNgoNestedInput
   }
 
   export type NgoUncheckedUpdateWithoutDonorEndorsementsInput = {
@@ -52751,6 +58585,7 @@ export namespace Prisma {
     boardMembers?: BoardMemberUncheckedUpdateManyWithoutNgoNestedInput
     skillContributions?: SkillContributionUncheckedUpdateManyWithoutNgoNestedInput
     documents?: NgoDocumentUncheckedUpdateManyWithoutNgoNestedInput
+    roles?: NgoRoleUncheckedUpdateManyWithoutNgoNestedInput
   }
 
   export type UserUpsertWithoutEndorsementsGivenInput = {
@@ -52799,6 +58634,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionUpdateManyWithoutDonorNestedInput
     endorsementsReceived?: DonorEndorsementUpdateManyWithoutDonorNestedInput
     documents?: DonorDocumentUpdateManyWithoutUserNestedInput
+    roleApplications?: RoleApplicationUpdateManyWithoutApplicantNestedInput
   }
 
   export type UserUncheckedUpdateWithoutEndorsementsGivenInput = {
@@ -52836,6 +58672,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionUncheckedUpdateManyWithoutDonorNestedInput
     endorsementsReceived?: DonorEndorsementUncheckedUpdateManyWithoutDonorNestedInput
     documents?: DonorDocumentUncheckedUpdateManyWithoutUserNestedInput
+    roleApplications?: RoleApplicationUncheckedUpdateManyWithoutApplicantNestedInput
   }
 
   export type UserCreateWithoutDocumentsInput = {
@@ -52873,6 +58710,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionCreateNestedManyWithoutDonorInput
     endorsementsReceived?: DonorEndorsementCreateNestedManyWithoutDonorInput
     endorsementsGiven?: DonorEndorsementCreateNestedManyWithoutEndorserInput
+    roleApplications?: RoleApplicationCreateNestedManyWithoutApplicantInput
   }
 
   export type UserUncheckedCreateWithoutDocumentsInput = {
@@ -52910,6 +58748,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutDonorInput
     endorsementsReceived?: DonorEndorsementUncheckedCreateNestedManyWithoutDonorInput
     endorsementsGiven?: DonorEndorsementUncheckedCreateNestedManyWithoutEndorserInput
+    roleApplications?: RoleApplicationUncheckedCreateNestedManyWithoutApplicantInput
   }
 
   export type UserCreateOrConnectWithoutDocumentsInput = {
@@ -52963,6 +58802,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionUpdateManyWithoutDonorNestedInput
     endorsementsReceived?: DonorEndorsementUpdateManyWithoutDonorNestedInput
     endorsementsGiven?: DonorEndorsementUpdateManyWithoutEndorserNestedInput
+    roleApplications?: RoleApplicationUpdateManyWithoutApplicantNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDocumentsInput = {
@@ -53000,6 +58840,7 @@ export namespace Prisma {
     skillContributions?: SkillContributionUncheckedUpdateManyWithoutDonorNestedInput
     endorsementsReceived?: DonorEndorsementUncheckedUpdateManyWithoutDonorNestedInput
     endorsementsGiven?: DonorEndorsementUncheckedUpdateManyWithoutEndorserNestedInput
+    roleApplications?: RoleApplicationUncheckedUpdateManyWithoutApplicantNestedInput
   }
 
   export type NgoCreateWithoutDocumentsInput = {
@@ -53026,6 +58867,7 @@ export namespace Prisma {
     boardMembers?: BoardMemberCreateNestedManyWithoutNgoInput
     skillContributions?: SkillContributionCreateNestedManyWithoutNgoInput
     donorEndorsements?: DonorEndorsementCreateNestedManyWithoutNgoInput
+    roles?: NgoRoleCreateNestedManyWithoutNgoInput
   }
 
   export type NgoUncheckedCreateWithoutDocumentsInput = {
@@ -53052,6 +58894,7 @@ export namespace Prisma {
     boardMembers?: BoardMemberUncheckedCreateNestedManyWithoutNgoInput
     skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutNgoInput
     donorEndorsements?: DonorEndorsementUncheckedCreateNestedManyWithoutNgoInput
+    roles?: NgoRoleUncheckedCreateNestedManyWithoutNgoInput
   }
 
   export type NgoCreateOrConnectWithoutDocumentsInput = {
@@ -53094,6 +58937,7 @@ export namespace Prisma {
     boardMembers?: BoardMemberUpdateManyWithoutNgoNestedInput
     skillContributions?: SkillContributionUpdateManyWithoutNgoNestedInput
     donorEndorsements?: DonorEndorsementUpdateManyWithoutNgoNestedInput
+    roles?: NgoRoleUpdateManyWithoutNgoNestedInput
   }
 
   export type NgoUncheckedUpdateWithoutDocumentsInput = {
@@ -53120,6 +58964,697 @@ export namespace Prisma {
     boardMembers?: BoardMemberUncheckedUpdateManyWithoutNgoNestedInput
     skillContributions?: SkillContributionUncheckedUpdateManyWithoutNgoNestedInput
     donorEndorsements?: DonorEndorsementUncheckedUpdateManyWithoutNgoNestedInput
+    roles?: NgoRoleUncheckedUpdateManyWithoutNgoNestedInput
+  }
+
+  export type NgoCreateWithoutRolesInput = {
+    id?: string
+    orgName: string
+    ein?: string | null
+    regNumber?: string | null
+    state?: string | null
+    country?: string | null
+    website?: string | null
+    description?: string | null
+    logoUrl?: string | null
+    trustScore?: number
+    status?: $Enums.NgoStatus
+    approvedAt?: Date | string | null
+    rejectReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    aiSummary?: string | null
+    user: UserCreateNestedOneWithoutNgoInput
+    projects?: ProjectCreateNestedManyWithoutNgoInput
+    expenses?: ExpenseCreateNestedManyWithoutNgoInput
+    ratings?: RatingCreateNestedManyWithoutNgoInput
+    boardMembers?: BoardMemberCreateNestedManyWithoutNgoInput
+    skillContributions?: SkillContributionCreateNestedManyWithoutNgoInput
+    donorEndorsements?: DonorEndorsementCreateNestedManyWithoutNgoInput
+    documents?: NgoDocumentCreateNestedManyWithoutNgoInput
+  }
+
+  export type NgoUncheckedCreateWithoutRolesInput = {
+    id?: string
+    userId: string
+    orgName: string
+    ein?: string | null
+    regNumber?: string | null
+    state?: string | null
+    country?: string | null
+    website?: string | null
+    description?: string | null
+    logoUrl?: string | null
+    trustScore?: number
+    status?: $Enums.NgoStatus
+    approvedAt?: Date | string | null
+    rejectReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    aiSummary?: string | null
+    projects?: ProjectUncheckedCreateNestedManyWithoutNgoInput
+    expenses?: ExpenseUncheckedCreateNestedManyWithoutNgoInput
+    ratings?: RatingUncheckedCreateNestedManyWithoutNgoInput
+    boardMembers?: BoardMemberUncheckedCreateNestedManyWithoutNgoInput
+    skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutNgoInput
+    donorEndorsements?: DonorEndorsementUncheckedCreateNestedManyWithoutNgoInput
+    documents?: NgoDocumentUncheckedCreateNestedManyWithoutNgoInput
+  }
+
+  export type NgoCreateOrConnectWithoutRolesInput = {
+    where: NgoWhereUniqueInput
+    create: XOR<NgoCreateWithoutRolesInput, NgoUncheckedCreateWithoutRolesInput>
+  }
+
+  export type ProjectCreateWithoutRolesInput = {
+    id?: string
+    title: string
+    description: string
+    category: $Enums.ProjectCategory
+    coverImage?: string | null
+    goalAmount: number
+    raisedAmount?: number
+    currency?: string
+    status?: $Enums.ProjectStatus
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    featured?: boolean
+    spotlightVoteCount?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    ngo: NgoCreateNestedOneWithoutProjectsInput
+    milestones?: MilestoneCreateNestedManyWithoutProjectInput
+    donations?: DonationCreateNestedManyWithoutProjectInput
+    expenses?: ExpenseCreateNestedManyWithoutProjectInput
+    spotlightVotes?: SpotlightVoteCreateNestedManyWithoutProjectInput
+    campaigns?: CampaignCreateNestedManyWithoutProjectInput
+    skillContributions?: SkillContributionCreateNestedManyWithoutProjectInput
+  }
+
+  export type ProjectUncheckedCreateWithoutRolesInput = {
+    id?: string
+    ngoId: string
+    title: string
+    description: string
+    category: $Enums.ProjectCategory
+    coverImage?: string | null
+    goalAmount: number
+    raisedAmount?: number
+    currency?: string
+    status?: $Enums.ProjectStatus
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    featured?: boolean
+    spotlightVoteCount?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    milestones?: MilestoneUncheckedCreateNestedManyWithoutProjectInput
+    donations?: DonationUncheckedCreateNestedManyWithoutProjectInput
+    expenses?: ExpenseUncheckedCreateNestedManyWithoutProjectInput
+    spotlightVotes?: SpotlightVoteUncheckedCreateNestedManyWithoutProjectInput
+    campaigns?: CampaignUncheckedCreateNestedManyWithoutProjectInput
+    skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutProjectInput
+  }
+
+  export type ProjectCreateOrConnectWithoutRolesInput = {
+    where: ProjectWhereUniqueInput
+    create: XOR<ProjectCreateWithoutRolesInput, ProjectUncheckedCreateWithoutRolesInput>
+  }
+
+  export type RoleApplicationCreateWithoutRoleInput = {
+    id?: string
+    coverNote: string
+    linkedinUrl?: string | null
+    portfolioUrl?: string | null
+    status?: $Enums.ApplicationStatus
+    appliedAt?: Date | string
+    reviewedAt?: Date | string | null
+    applicant: UserCreateNestedOneWithoutRoleApplicationsInput
+    engagement?: RoleEngagementCreateNestedOneWithoutApplicationInput
+  }
+
+  export type RoleApplicationUncheckedCreateWithoutRoleInput = {
+    id?: string
+    applicantId: string
+    coverNote: string
+    linkedinUrl?: string | null
+    portfolioUrl?: string | null
+    status?: $Enums.ApplicationStatus
+    appliedAt?: Date | string
+    reviewedAt?: Date | string | null
+    engagement?: RoleEngagementUncheckedCreateNestedOneWithoutApplicationInput
+  }
+
+  export type RoleApplicationCreateOrConnectWithoutRoleInput = {
+    where: RoleApplicationWhereUniqueInput
+    create: XOR<RoleApplicationCreateWithoutRoleInput, RoleApplicationUncheckedCreateWithoutRoleInput>
+  }
+
+  export type RoleApplicationCreateManyRoleInputEnvelope = {
+    data: RoleApplicationCreateManyRoleInput | RoleApplicationCreateManyRoleInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type NgoUpsertWithoutRolesInput = {
+    update: XOR<NgoUpdateWithoutRolesInput, NgoUncheckedUpdateWithoutRolesInput>
+    create: XOR<NgoCreateWithoutRolesInput, NgoUncheckedCreateWithoutRolesInput>
+    where?: NgoWhereInput
+  }
+
+  export type NgoUpdateToOneWithWhereWithoutRolesInput = {
+    where?: NgoWhereInput
+    data: XOR<NgoUpdateWithoutRolesInput, NgoUncheckedUpdateWithoutRolesInput>
+  }
+
+  export type NgoUpdateWithoutRolesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    orgName?: StringFieldUpdateOperationsInput | string
+    ein?: NullableStringFieldUpdateOperationsInput | string | null
+    regNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    trustScore?: FloatFieldUpdateOperationsInput | number
+    status?: EnumNgoStatusFieldUpdateOperationsInput | $Enums.NgoStatus
+    approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejectReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    user?: UserUpdateOneRequiredWithoutNgoNestedInput
+    projects?: ProjectUpdateManyWithoutNgoNestedInput
+    expenses?: ExpenseUpdateManyWithoutNgoNestedInput
+    ratings?: RatingUpdateManyWithoutNgoNestedInput
+    boardMembers?: BoardMemberUpdateManyWithoutNgoNestedInput
+    skillContributions?: SkillContributionUpdateManyWithoutNgoNestedInput
+    donorEndorsements?: DonorEndorsementUpdateManyWithoutNgoNestedInput
+    documents?: NgoDocumentUpdateManyWithoutNgoNestedInput
+  }
+
+  export type NgoUncheckedUpdateWithoutRolesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    orgName?: StringFieldUpdateOperationsInput | string
+    ein?: NullableStringFieldUpdateOperationsInput | string | null
+    regNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    trustScore?: FloatFieldUpdateOperationsInput | number
+    status?: EnumNgoStatusFieldUpdateOperationsInput | $Enums.NgoStatus
+    approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejectReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    projects?: ProjectUncheckedUpdateManyWithoutNgoNestedInput
+    expenses?: ExpenseUncheckedUpdateManyWithoutNgoNestedInput
+    ratings?: RatingUncheckedUpdateManyWithoutNgoNestedInput
+    boardMembers?: BoardMemberUncheckedUpdateManyWithoutNgoNestedInput
+    skillContributions?: SkillContributionUncheckedUpdateManyWithoutNgoNestedInput
+    donorEndorsements?: DonorEndorsementUncheckedUpdateManyWithoutNgoNestedInput
+    documents?: NgoDocumentUncheckedUpdateManyWithoutNgoNestedInput
+  }
+
+  export type ProjectUpsertWithoutRolesInput = {
+    update: XOR<ProjectUpdateWithoutRolesInput, ProjectUncheckedUpdateWithoutRolesInput>
+    create: XOR<ProjectCreateWithoutRolesInput, ProjectUncheckedCreateWithoutRolesInput>
+    where?: ProjectWhereInput
+  }
+
+  export type ProjectUpdateToOneWithWhereWithoutRolesInput = {
+    where?: ProjectWhereInput
+    data: XOR<ProjectUpdateWithoutRolesInput, ProjectUncheckedUpdateWithoutRolesInput>
+  }
+
+  export type ProjectUpdateWithoutRolesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    category?: EnumProjectCategoryFieldUpdateOperationsInput | $Enums.ProjectCategory
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
+    goalAmount?: FloatFieldUpdateOperationsInput | number
+    raisedAmount?: FloatFieldUpdateOperationsInput | number
+    currency?: StringFieldUpdateOperationsInput | string
+    status?: EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    featured?: BoolFieldUpdateOperationsInput | boolean
+    spotlightVoteCount?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ngo?: NgoUpdateOneRequiredWithoutProjectsNestedInput
+    milestones?: MilestoneUpdateManyWithoutProjectNestedInput
+    donations?: DonationUpdateManyWithoutProjectNestedInput
+    expenses?: ExpenseUpdateManyWithoutProjectNestedInput
+    spotlightVotes?: SpotlightVoteUpdateManyWithoutProjectNestedInput
+    campaigns?: CampaignUpdateManyWithoutProjectNestedInput
+    skillContributions?: SkillContributionUpdateManyWithoutProjectNestedInput
+  }
+
+  export type ProjectUncheckedUpdateWithoutRolesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ngoId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    category?: EnumProjectCategoryFieldUpdateOperationsInput | $Enums.ProjectCategory
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
+    goalAmount?: FloatFieldUpdateOperationsInput | number
+    raisedAmount?: FloatFieldUpdateOperationsInput | number
+    currency?: StringFieldUpdateOperationsInput | string
+    status?: EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    featured?: BoolFieldUpdateOperationsInput | boolean
+    spotlightVoteCount?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    milestones?: MilestoneUncheckedUpdateManyWithoutProjectNestedInput
+    donations?: DonationUncheckedUpdateManyWithoutProjectNestedInput
+    expenses?: ExpenseUncheckedUpdateManyWithoutProjectNestedInput
+    spotlightVotes?: SpotlightVoteUncheckedUpdateManyWithoutProjectNestedInput
+    campaigns?: CampaignUncheckedUpdateManyWithoutProjectNestedInput
+    skillContributions?: SkillContributionUncheckedUpdateManyWithoutProjectNestedInput
+  }
+
+  export type RoleApplicationUpsertWithWhereUniqueWithoutRoleInput = {
+    where: RoleApplicationWhereUniqueInput
+    update: XOR<RoleApplicationUpdateWithoutRoleInput, RoleApplicationUncheckedUpdateWithoutRoleInput>
+    create: XOR<RoleApplicationCreateWithoutRoleInput, RoleApplicationUncheckedCreateWithoutRoleInput>
+  }
+
+  export type RoleApplicationUpdateWithWhereUniqueWithoutRoleInput = {
+    where: RoleApplicationWhereUniqueInput
+    data: XOR<RoleApplicationUpdateWithoutRoleInput, RoleApplicationUncheckedUpdateWithoutRoleInput>
+  }
+
+  export type RoleApplicationUpdateManyWithWhereWithoutRoleInput = {
+    where: RoleApplicationScalarWhereInput
+    data: XOR<RoleApplicationUpdateManyMutationInput, RoleApplicationUncheckedUpdateManyWithoutRoleInput>
+  }
+
+  export type NgoRoleCreateWithoutApplicationsInput = {
+    id?: string
+    title: string
+    department?: string | null
+    roleType?: $Enums.RoleType
+    description: string
+    responsibilities: string
+    skillsRequired: string
+    timeCommitment: string
+    durationWeeks?: number
+    isRemote?: boolean
+    location?: string | null
+    openings?: number
+    status?: $Enums.RoleStatus
+    applicationDeadline?: Date | string | null
+    startDate?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    ngo: NgoCreateNestedOneWithoutRolesInput
+    project?: ProjectCreateNestedOneWithoutRolesInput
+  }
+
+  export type NgoRoleUncheckedCreateWithoutApplicationsInput = {
+    id?: string
+    ngoId: string
+    projectId?: string | null
+    title: string
+    department?: string | null
+    roleType?: $Enums.RoleType
+    description: string
+    responsibilities: string
+    skillsRequired: string
+    timeCommitment: string
+    durationWeeks?: number
+    isRemote?: boolean
+    location?: string | null
+    openings?: number
+    status?: $Enums.RoleStatus
+    applicationDeadline?: Date | string | null
+    startDate?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type NgoRoleCreateOrConnectWithoutApplicationsInput = {
+    where: NgoRoleWhereUniqueInput
+    create: XOR<NgoRoleCreateWithoutApplicationsInput, NgoRoleUncheckedCreateWithoutApplicationsInput>
+  }
+
+  export type UserCreateWithoutRoleApplicationsInput = {
+    id?: string
+    email: string
+    emailVerified?: Date | string | null
+    name?: string | null
+    image?: string | null
+    password?: string | null
+    role?: $Enums.Role
+    referralCode?: string | null
+    bio?: string | null
+    jobTitle?: string | null
+    company?: string | null
+    city?: string | null
+    linkedinUrl?: string | null
+    twitterUrl?: string | null
+    portfolioUrl?: string | null
+    skills?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    aiSummary?: string | null
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    ngo?: NgoCreateNestedOneWithoutUserInput
+    donations?: DonationCreateNestedManyWithoutUserInput
+    ratings?: RatingCreateNestedManyWithoutDonorInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    spotlightVotes?: SpotlightVoteCreateNestedManyWithoutUserInput
+    campaignsCreated?: CampaignCreateNestedManyWithoutCreatorInput
+    campaignContributions?: CampaignContributorCreateNestedManyWithoutUserInput
+    ngoSuggestions?: NgoSuggestionCreateNestedManyWithoutUserInput
+    referralsMade?: ReferralCreateNestedManyWithoutReferrerInput
+    referralsReceived?: ReferralCreateNestedManyWithoutReferredInput
+    skillContributions?: SkillContributionCreateNestedManyWithoutDonorInput
+    endorsementsReceived?: DonorEndorsementCreateNestedManyWithoutDonorInput
+    endorsementsGiven?: DonorEndorsementCreateNestedManyWithoutEndorserInput
+    documents?: DonorDocumentCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutRoleApplicationsInput = {
+    id?: string
+    email: string
+    emailVerified?: Date | string | null
+    name?: string | null
+    image?: string | null
+    password?: string | null
+    role?: $Enums.Role
+    referralCode?: string | null
+    bio?: string | null
+    jobTitle?: string | null
+    company?: string | null
+    city?: string | null
+    linkedinUrl?: string | null
+    twitterUrl?: string | null
+    portfolioUrl?: string | null
+    skills?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    aiSummary?: string | null
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    ngo?: NgoUncheckedCreateNestedOneWithoutUserInput
+    donations?: DonationUncheckedCreateNestedManyWithoutUserInput
+    ratings?: RatingUncheckedCreateNestedManyWithoutDonorInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    spotlightVotes?: SpotlightVoteUncheckedCreateNestedManyWithoutUserInput
+    campaignsCreated?: CampaignUncheckedCreateNestedManyWithoutCreatorInput
+    campaignContributions?: CampaignContributorUncheckedCreateNestedManyWithoutUserInput
+    ngoSuggestions?: NgoSuggestionUncheckedCreateNestedManyWithoutUserInput
+    referralsMade?: ReferralUncheckedCreateNestedManyWithoutReferrerInput
+    referralsReceived?: ReferralUncheckedCreateNestedManyWithoutReferredInput
+    skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutDonorInput
+    endorsementsReceived?: DonorEndorsementUncheckedCreateNestedManyWithoutDonorInput
+    endorsementsGiven?: DonorEndorsementUncheckedCreateNestedManyWithoutEndorserInput
+    documents?: DonorDocumentUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutRoleApplicationsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutRoleApplicationsInput, UserUncheckedCreateWithoutRoleApplicationsInput>
+  }
+
+  export type RoleEngagementCreateWithoutApplicationInput = {
+    id?: string
+    startedAt?: Date | string
+    completedAt?: Date | string | null
+    hoursLogged?: number
+    workSummary?: string | null
+    status?: $Enums.EngagementStatus
+    ngoFeedback?: string | null
+    monetaryValue?: number | null
+    skillContributionId?: string | null
+  }
+
+  export type RoleEngagementUncheckedCreateWithoutApplicationInput = {
+    id?: string
+    startedAt?: Date | string
+    completedAt?: Date | string | null
+    hoursLogged?: number
+    workSummary?: string | null
+    status?: $Enums.EngagementStatus
+    ngoFeedback?: string | null
+    monetaryValue?: number | null
+    skillContributionId?: string | null
+  }
+
+  export type RoleEngagementCreateOrConnectWithoutApplicationInput = {
+    where: RoleEngagementWhereUniqueInput
+    create: XOR<RoleEngagementCreateWithoutApplicationInput, RoleEngagementUncheckedCreateWithoutApplicationInput>
+  }
+
+  export type NgoRoleUpsertWithoutApplicationsInput = {
+    update: XOR<NgoRoleUpdateWithoutApplicationsInput, NgoRoleUncheckedUpdateWithoutApplicationsInput>
+    create: XOR<NgoRoleCreateWithoutApplicationsInput, NgoRoleUncheckedCreateWithoutApplicationsInput>
+    where?: NgoRoleWhereInput
+  }
+
+  export type NgoRoleUpdateToOneWithWhereWithoutApplicationsInput = {
+    where?: NgoRoleWhereInput
+    data: XOR<NgoRoleUpdateWithoutApplicationsInput, NgoRoleUncheckedUpdateWithoutApplicationsInput>
+  }
+
+  export type NgoRoleUpdateWithoutApplicationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    roleType?: EnumRoleTypeFieldUpdateOperationsInput | $Enums.RoleType
+    description?: StringFieldUpdateOperationsInput | string
+    responsibilities?: StringFieldUpdateOperationsInput | string
+    skillsRequired?: StringFieldUpdateOperationsInput | string
+    timeCommitment?: StringFieldUpdateOperationsInput | string
+    durationWeeks?: IntFieldUpdateOperationsInput | number
+    isRemote?: BoolFieldUpdateOperationsInput | boolean
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    openings?: IntFieldUpdateOperationsInput | number
+    status?: EnumRoleStatusFieldUpdateOperationsInput | $Enums.RoleStatus
+    applicationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ngo?: NgoUpdateOneRequiredWithoutRolesNestedInput
+    project?: ProjectUpdateOneWithoutRolesNestedInput
+  }
+
+  export type NgoRoleUncheckedUpdateWithoutApplicationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ngoId?: StringFieldUpdateOperationsInput | string
+    projectId?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: StringFieldUpdateOperationsInput | string
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    roleType?: EnumRoleTypeFieldUpdateOperationsInput | $Enums.RoleType
+    description?: StringFieldUpdateOperationsInput | string
+    responsibilities?: StringFieldUpdateOperationsInput | string
+    skillsRequired?: StringFieldUpdateOperationsInput | string
+    timeCommitment?: StringFieldUpdateOperationsInput | string
+    durationWeeks?: IntFieldUpdateOperationsInput | number
+    isRemote?: BoolFieldUpdateOperationsInput | boolean
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    openings?: IntFieldUpdateOperationsInput | number
+    status?: EnumRoleStatusFieldUpdateOperationsInput | $Enums.RoleStatus
+    applicationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserUpsertWithoutRoleApplicationsInput = {
+    update: XOR<UserUpdateWithoutRoleApplicationsInput, UserUncheckedUpdateWithoutRoleApplicationsInput>
+    create: XOR<UserCreateWithoutRoleApplicationsInput, UserUncheckedCreateWithoutRoleApplicationsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutRoleApplicationsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutRoleApplicationsInput, UserUncheckedUpdateWithoutRoleApplicationsInput>
+  }
+
+  export type UserUpdateWithoutRoleApplicationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    referralCode?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    portfolioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    skills?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    ngo?: NgoUpdateOneWithoutUserNestedInput
+    donations?: DonationUpdateManyWithoutUserNestedInput
+    ratings?: RatingUpdateManyWithoutDonorNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    spotlightVotes?: SpotlightVoteUpdateManyWithoutUserNestedInput
+    campaignsCreated?: CampaignUpdateManyWithoutCreatorNestedInput
+    campaignContributions?: CampaignContributorUpdateManyWithoutUserNestedInput
+    ngoSuggestions?: NgoSuggestionUpdateManyWithoutUserNestedInput
+    referralsMade?: ReferralUpdateManyWithoutReferrerNestedInput
+    referralsReceived?: ReferralUpdateManyWithoutReferredNestedInput
+    skillContributions?: SkillContributionUpdateManyWithoutDonorNestedInput
+    endorsementsReceived?: DonorEndorsementUpdateManyWithoutDonorNestedInput
+    endorsementsGiven?: DonorEndorsementUpdateManyWithoutEndorserNestedInput
+    documents?: DonorDocumentUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutRoleApplicationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    referralCode?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    portfolioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    skills?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    ngo?: NgoUncheckedUpdateOneWithoutUserNestedInput
+    donations?: DonationUncheckedUpdateManyWithoutUserNestedInput
+    ratings?: RatingUncheckedUpdateManyWithoutDonorNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    spotlightVotes?: SpotlightVoteUncheckedUpdateManyWithoutUserNestedInput
+    campaignsCreated?: CampaignUncheckedUpdateManyWithoutCreatorNestedInput
+    campaignContributions?: CampaignContributorUncheckedUpdateManyWithoutUserNestedInput
+    ngoSuggestions?: NgoSuggestionUncheckedUpdateManyWithoutUserNestedInput
+    referralsMade?: ReferralUncheckedUpdateManyWithoutReferrerNestedInput
+    referralsReceived?: ReferralUncheckedUpdateManyWithoutReferredNestedInput
+    skillContributions?: SkillContributionUncheckedUpdateManyWithoutDonorNestedInput
+    endorsementsReceived?: DonorEndorsementUncheckedUpdateManyWithoutDonorNestedInput
+    endorsementsGiven?: DonorEndorsementUncheckedUpdateManyWithoutEndorserNestedInput
+    documents?: DonorDocumentUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type RoleEngagementUpsertWithoutApplicationInput = {
+    update: XOR<RoleEngagementUpdateWithoutApplicationInput, RoleEngagementUncheckedUpdateWithoutApplicationInput>
+    create: XOR<RoleEngagementCreateWithoutApplicationInput, RoleEngagementUncheckedCreateWithoutApplicationInput>
+    where?: RoleEngagementWhereInput
+  }
+
+  export type RoleEngagementUpdateToOneWithWhereWithoutApplicationInput = {
+    where?: RoleEngagementWhereInput
+    data: XOR<RoleEngagementUpdateWithoutApplicationInput, RoleEngagementUncheckedUpdateWithoutApplicationInput>
+  }
+
+  export type RoleEngagementUpdateWithoutApplicationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    hoursLogged?: FloatFieldUpdateOperationsInput | number
+    workSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumEngagementStatusFieldUpdateOperationsInput | $Enums.EngagementStatus
+    ngoFeedback?: NullableStringFieldUpdateOperationsInput | string | null
+    monetaryValue?: NullableFloatFieldUpdateOperationsInput | number | null
+    skillContributionId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type RoleEngagementUncheckedUpdateWithoutApplicationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    hoursLogged?: FloatFieldUpdateOperationsInput | number
+    workSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumEngagementStatusFieldUpdateOperationsInput | $Enums.EngagementStatus
+    ngoFeedback?: NullableStringFieldUpdateOperationsInput | string | null
+    monetaryValue?: NullableFloatFieldUpdateOperationsInput | number | null
+    skillContributionId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type RoleApplicationCreateWithoutEngagementInput = {
+    id?: string
+    coverNote: string
+    linkedinUrl?: string | null
+    portfolioUrl?: string | null
+    status?: $Enums.ApplicationStatus
+    appliedAt?: Date | string
+    reviewedAt?: Date | string | null
+    role: NgoRoleCreateNestedOneWithoutApplicationsInput
+    applicant: UserCreateNestedOneWithoutRoleApplicationsInput
+  }
+
+  export type RoleApplicationUncheckedCreateWithoutEngagementInput = {
+    id?: string
+    roleId: string
+    applicantId: string
+    coverNote: string
+    linkedinUrl?: string | null
+    portfolioUrl?: string | null
+    status?: $Enums.ApplicationStatus
+    appliedAt?: Date | string
+    reviewedAt?: Date | string | null
+  }
+
+  export type RoleApplicationCreateOrConnectWithoutEngagementInput = {
+    where: RoleApplicationWhereUniqueInput
+    create: XOR<RoleApplicationCreateWithoutEngagementInput, RoleApplicationUncheckedCreateWithoutEngagementInput>
+  }
+
+  export type RoleApplicationUpsertWithoutEngagementInput = {
+    update: XOR<RoleApplicationUpdateWithoutEngagementInput, RoleApplicationUncheckedUpdateWithoutEngagementInput>
+    create: XOR<RoleApplicationCreateWithoutEngagementInput, RoleApplicationUncheckedCreateWithoutEngagementInput>
+    where?: RoleApplicationWhereInput
+  }
+
+  export type RoleApplicationUpdateToOneWithWhereWithoutEngagementInput = {
+    where?: RoleApplicationWhereInput
+    data: XOR<RoleApplicationUpdateWithoutEngagementInput, RoleApplicationUncheckedUpdateWithoutEngagementInput>
+  }
+
+  export type RoleApplicationUpdateWithoutEngagementInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    coverNote?: StringFieldUpdateOperationsInput | string
+    linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    portfolioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
+    appliedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    role?: NgoRoleUpdateOneRequiredWithoutApplicationsNestedInput
+    applicant?: UserUpdateOneRequiredWithoutRoleApplicationsNestedInput
+  }
+
+  export type RoleApplicationUncheckedUpdateWithoutEngagementInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    roleId?: StringFieldUpdateOperationsInput | string
+    applicantId?: StringFieldUpdateOperationsInput | string
+    coverNote?: StringFieldUpdateOperationsInput | string
+    linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    portfolioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
+    appliedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type AccountCreateManyUserInput = {
@@ -53267,6 +59802,17 @@ export namespace Prisma {
     fileSize: number
     fileData: string
     createdAt?: Date | string
+  }
+
+  export type RoleApplicationCreateManyApplicantInput = {
+    id?: string
+    roleId: string
+    coverNote: string
+    linkedinUrl?: string | null
+    portfolioUrl?: string | null
+    status?: $Enums.ApplicationStatus
+    appliedAt?: Date | string
+    reviewedAt?: Date | string | null
   }
 
   export type AccountUpdateWithoutUserInput = {
@@ -53716,6 +60262,41 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type RoleApplicationUpdateWithoutApplicantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    coverNote?: StringFieldUpdateOperationsInput | string
+    linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    portfolioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
+    appliedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    role?: NgoRoleUpdateOneRequiredWithoutApplicationsNestedInput
+    engagement?: RoleEngagementUpdateOneWithoutApplicationNestedInput
+  }
+
+  export type RoleApplicationUncheckedUpdateWithoutApplicantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    roleId?: StringFieldUpdateOperationsInput | string
+    coverNote?: StringFieldUpdateOperationsInput | string
+    linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    portfolioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
+    appliedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    engagement?: RoleEngagementUncheckedUpdateOneWithoutApplicationNestedInput
+  }
+
+  export type RoleApplicationUncheckedUpdateManyWithoutApplicantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    roleId?: StringFieldUpdateOperationsInput | string
+    coverNote?: StringFieldUpdateOperationsInput | string
+    linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    portfolioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
+    appliedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
   export type ProjectCreateManyNgoInput = {
     id?: string
     title: string
@@ -53801,6 +60382,27 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
+  export type NgoRoleCreateManyNgoInput = {
+    id?: string
+    projectId?: string | null
+    title: string
+    department?: string | null
+    roleType?: $Enums.RoleType
+    description: string
+    responsibilities: string
+    skillsRequired: string
+    timeCommitment: string
+    durationWeeks?: number
+    isRemote?: boolean
+    location?: string | null
+    openings?: number
+    status?: $Enums.RoleStatus
+    applicationDeadline?: Date | string | null
+    startDate?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type ProjectUpdateWithoutNgoInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
@@ -53823,6 +60425,7 @@ export namespace Prisma {
     spotlightVotes?: SpotlightVoteUpdateManyWithoutProjectNestedInput
     campaigns?: CampaignUpdateManyWithoutProjectNestedInput
     skillContributions?: SkillContributionUpdateManyWithoutProjectNestedInput
+    roles?: NgoRoleUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateWithoutNgoInput = {
@@ -53847,6 +60450,7 @@ export namespace Prisma {
     spotlightVotes?: SpotlightVoteUncheckedUpdateManyWithoutProjectNestedInput
     campaigns?: CampaignUncheckedUpdateManyWithoutProjectNestedInput
     skillContributions?: SkillContributionUncheckedUpdateManyWithoutProjectNestedInput
+    roles?: NgoRoleUncheckedUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateManyWithoutNgoInput = {
@@ -54070,6 +60674,71 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type NgoRoleUpdateWithoutNgoInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    roleType?: EnumRoleTypeFieldUpdateOperationsInput | $Enums.RoleType
+    description?: StringFieldUpdateOperationsInput | string
+    responsibilities?: StringFieldUpdateOperationsInput | string
+    skillsRequired?: StringFieldUpdateOperationsInput | string
+    timeCommitment?: StringFieldUpdateOperationsInput | string
+    durationWeeks?: IntFieldUpdateOperationsInput | number
+    isRemote?: BoolFieldUpdateOperationsInput | boolean
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    openings?: IntFieldUpdateOperationsInput | number
+    status?: EnumRoleStatusFieldUpdateOperationsInput | $Enums.RoleStatus
+    applicationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    project?: ProjectUpdateOneWithoutRolesNestedInput
+    applications?: RoleApplicationUpdateManyWithoutRoleNestedInput
+  }
+
+  export type NgoRoleUncheckedUpdateWithoutNgoInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    projectId?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: StringFieldUpdateOperationsInput | string
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    roleType?: EnumRoleTypeFieldUpdateOperationsInput | $Enums.RoleType
+    description?: StringFieldUpdateOperationsInput | string
+    responsibilities?: StringFieldUpdateOperationsInput | string
+    skillsRequired?: StringFieldUpdateOperationsInput | string
+    timeCommitment?: StringFieldUpdateOperationsInput | string
+    durationWeeks?: IntFieldUpdateOperationsInput | number
+    isRemote?: BoolFieldUpdateOperationsInput | boolean
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    openings?: IntFieldUpdateOperationsInput | number
+    status?: EnumRoleStatusFieldUpdateOperationsInput | $Enums.RoleStatus
+    applicationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    applications?: RoleApplicationUncheckedUpdateManyWithoutRoleNestedInput
+  }
+
+  export type NgoRoleUncheckedUpdateManyWithoutNgoInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    projectId?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: StringFieldUpdateOperationsInput | string
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    roleType?: EnumRoleTypeFieldUpdateOperationsInput | $Enums.RoleType
+    description?: StringFieldUpdateOperationsInput | string
+    responsibilities?: StringFieldUpdateOperationsInput | string
+    skillsRequired?: StringFieldUpdateOperationsInput | string
+    timeCommitment?: StringFieldUpdateOperationsInput | string
+    durationWeeks?: IntFieldUpdateOperationsInput | number
+    isRemote?: BoolFieldUpdateOperationsInput | boolean
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    openings?: IntFieldUpdateOperationsInput | number
+    status?: EnumRoleStatusFieldUpdateOperationsInput | $Enums.RoleStatus
+    applicationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type MilestoneCreateManyProjectInput = {
     id?: string
     name: string
@@ -54142,6 +60811,27 @@ export namespace Prisma {
     txHash?: string | null
     submittedAt?: Date | string
     approvedAt?: Date | string | null
+    updatedAt?: Date | string
+  }
+
+  export type NgoRoleCreateManyProjectInput = {
+    id?: string
+    ngoId: string
+    title: string
+    department?: string | null
+    roleType?: $Enums.RoleType
+    description: string
+    responsibilities: string
+    skillsRequired: string
+    timeCommitment: string
+    durationWeeks?: number
+    isRemote?: boolean
+    location?: string | null
+    openings?: number
+    status?: $Enums.RoleStatus
+    applicationDeadline?: Date | string | null
+    startDate?: Date | string | null
+    createdAt?: Date | string
     updatedAt?: Date | string
   }
 
@@ -54382,6 +61072,71 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type NgoRoleUpdateWithoutProjectInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    roleType?: EnumRoleTypeFieldUpdateOperationsInput | $Enums.RoleType
+    description?: StringFieldUpdateOperationsInput | string
+    responsibilities?: StringFieldUpdateOperationsInput | string
+    skillsRequired?: StringFieldUpdateOperationsInput | string
+    timeCommitment?: StringFieldUpdateOperationsInput | string
+    durationWeeks?: IntFieldUpdateOperationsInput | number
+    isRemote?: BoolFieldUpdateOperationsInput | boolean
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    openings?: IntFieldUpdateOperationsInput | number
+    status?: EnumRoleStatusFieldUpdateOperationsInput | $Enums.RoleStatus
+    applicationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ngo?: NgoUpdateOneRequiredWithoutRolesNestedInput
+    applications?: RoleApplicationUpdateManyWithoutRoleNestedInput
+  }
+
+  export type NgoRoleUncheckedUpdateWithoutProjectInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ngoId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    roleType?: EnumRoleTypeFieldUpdateOperationsInput | $Enums.RoleType
+    description?: StringFieldUpdateOperationsInput | string
+    responsibilities?: StringFieldUpdateOperationsInput | string
+    skillsRequired?: StringFieldUpdateOperationsInput | string
+    timeCommitment?: StringFieldUpdateOperationsInput | string
+    durationWeeks?: IntFieldUpdateOperationsInput | number
+    isRemote?: BoolFieldUpdateOperationsInput | boolean
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    openings?: IntFieldUpdateOperationsInput | number
+    status?: EnumRoleStatusFieldUpdateOperationsInput | $Enums.RoleStatus
+    applicationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    applications?: RoleApplicationUncheckedUpdateManyWithoutRoleNestedInput
+  }
+
+  export type NgoRoleUncheckedUpdateManyWithoutProjectInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ngoId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    roleType?: EnumRoleTypeFieldUpdateOperationsInput | $Enums.RoleType
+    description?: StringFieldUpdateOperationsInput | string
+    responsibilities?: StringFieldUpdateOperationsInput | string
+    skillsRequired?: StringFieldUpdateOperationsInput | string
+    timeCommitment?: StringFieldUpdateOperationsInput | string
+    durationWeeks?: IntFieldUpdateOperationsInput | number
+    isRemote?: BoolFieldUpdateOperationsInput | boolean
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    openings?: IntFieldUpdateOperationsInput | number
+    status?: EnumRoleStatusFieldUpdateOperationsInput | $Enums.RoleStatus
+    applicationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type EvidenceFileCreateManyMilestoneInput = {
     id?: string
     url: string
@@ -54480,6 +61235,52 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     amount?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RoleApplicationCreateManyRoleInput = {
+    id?: string
+    applicantId: string
+    coverNote: string
+    linkedinUrl?: string | null
+    portfolioUrl?: string | null
+    status?: $Enums.ApplicationStatus
+    appliedAt?: Date | string
+    reviewedAt?: Date | string | null
+  }
+
+  export type RoleApplicationUpdateWithoutRoleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    coverNote?: StringFieldUpdateOperationsInput | string
+    linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    portfolioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
+    appliedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    applicant?: UserUpdateOneRequiredWithoutRoleApplicationsNestedInput
+    engagement?: RoleEngagementUpdateOneWithoutApplicationNestedInput
+  }
+
+  export type RoleApplicationUncheckedUpdateWithoutRoleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    applicantId?: StringFieldUpdateOperationsInput | string
+    coverNote?: StringFieldUpdateOperationsInput | string
+    linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    portfolioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
+    appliedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    engagement?: RoleEngagementUncheckedUpdateOneWithoutApplicationNestedInput
+  }
+
+  export type RoleApplicationUncheckedUpdateManyWithoutRoleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    applicantId?: StringFieldUpdateOperationsInput | string
+    coverNote?: StringFieldUpdateOperationsInput | string
+    linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    portfolioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
+    appliedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
 

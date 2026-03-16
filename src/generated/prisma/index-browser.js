@@ -463,6 +463,53 @@ exports.Prisma.NgoDocumentScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.NgoRoleScalarFieldEnum = {
+  id: 'id',
+  ngoId: 'ngoId',
+  projectId: 'projectId',
+  title: 'title',
+  department: 'department',
+  roleType: 'roleType',
+  description: 'description',
+  responsibilities: 'responsibilities',
+  skillsRequired: 'skillsRequired',
+  timeCommitment: 'timeCommitment',
+  durationWeeks: 'durationWeeks',
+  isRemote: 'isRemote',
+  location: 'location',
+  openings: 'openings',
+  status: 'status',
+  applicationDeadline: 'applicationDeadline',
+  startDate: 'startDate',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.RoleApplicationScalarFieldEnum = {
+  id: 'id',
+  roleId: 'roleId',
+  applicantId: 'applicantId',
+  coverNote: 'coverNote',
+  linkedinUrl: 'linkedinUrl',
+  portfolioUrl: 'portfolioUrl',
+  status: 'status',
+  appliedAt: 'appliedAt',
+  reviewedAt: 'reviewedAt'
+};
+
+exports.Prisma.RoleEngagementScalarFieldEnum = {
+  id: 'id',
+  applicationId: 'applicationId',
+  startedAt: 'startedAt',
+  completedAt: 'completedAt',
+  hoursLogged: 'hoursLogged',
+  workSummary: 'workSummary',
+  status: 'status',
+  ngoFeedback: 'ngoFeedback',
+  monetaryValue: 'monetaryValue',
+  skillContributionId: 'skillContributionId'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -528,6 +575,32 @@ exports.DisbursementStatus = exports.$Enums.DisbursementStatus = {
   ESCALATED: 'ESCALATED'
 };
 
+exports.RoleType = exports.$Enums.RoleType = {
+  INTERNSHIP: 'INTERNSHIP',
+  CAREER_TRANSITION: 'CAREER_TRANSITION',
+  INTERIM: 'INTERIM',
+  VOLUNTEER: 'VOLUNTEER'
+};
+
+exports.RoleStatus = exports.$Enums.RoleStatus = {
+  OPEN: 'OPEN',
+  CLOSED: 'CLOSED',
+  FILLED: 'FILLED'
+};
+
+exports.ApplicationStatus = exports.$Enums.ApplicationStatus = {
+  PENDING: 'PENDING',
+  ACCEPTED: 'ACCEPTED',
+  REJECTED: 'REJECTED',
+  WITHDRAWN: 'WITHDRAWN'
+};
+
+exports.EngagementStatus = exports.$Enums.EngagementStatus = {
+  ACTIVE: 'ACTIVE',
+  COMPLETED: 'COMPLETED',
+  ABANDONED: 'ABANDONED'
+};
+
 exports.Prisma.ModelName = {
   Account: 'Account',
   Session: 'Session',
@@ -556,7 +629,10 @@ exports.Prisma.ModelName = {
   SkillBlockchainRecord: 'SkillBlockchainRecord',
   DonorEndorsement: 'DonorEndorsement',
   DonorDocument: 'DonorDocument',
-  NgoDocument: 'NgoDocument'
+  NgoDocument: 'NgoDocument',
+  NgoRole: 'NgoRole',
+  RoleApplication: 'RoleApplication',
+  RoleEngagement: 'RoleEngagement'
 };
 
 /**

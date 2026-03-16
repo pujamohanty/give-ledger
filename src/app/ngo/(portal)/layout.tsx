@@ -7,13 +7,14 @@ import SidebarNavItem from "@/components/SidebarNavItem";
 import SignOutButton from "@/components/SignOutButton";
 import {
   Leaf, LayoutDashboard, FolderOpen, DollarSign, Settings,
-  FileText, Upload, Clock, XCircle, Briefcase, Award, Linkedin, Building2,
+  FileText, Upload, Clock, XCircle, Briefcase, Award, Linkedin, Building2, ClipboardList,
 } from "lucide-react";
 
 const navItems = [
   { href: "/ngo/dashboard",       label: "Dashboard",           icon: LayoutDashboard },
   { href: "/ngo/org-profile",     label: "NGO Profile",         icon: Building2 },
   { href: "/ngo/projects",        label: "My Projects",         icon: FolderOpen },
+  { href: "/ngo/roles",           label: "Open Roles",          icon: ClipboardList },
   { href: "/ngo/submit-milestone", label: "Submit Evidence",    icon: Upload },
   { href: "/ngo/skills",          label: "Skill Contributions", icon: Briefcase },
   { href: "/ngo/recognition",     label: "Donor Recognition",   icon: Award },

@@ -128,6 +128,7 @@ model User {
   endorsementsGiven     DonorEndorsement[]    @relation("EndorsementsGiven")
   documents             DonorDocument[]
   aiSummary             String?               @db.Text // AI-generated profile narrative (cached)
+  roleApplications      RoleApplication[]
 }
 
 model Ngo {
@@ -156,6 +157,7 @@ model Ngo {
   donorEndorsements  DonorEndorsement[]
   documents          NgoDocument[]
   aiSummary          String?             @db.Text // AI-generated NGO profile narrative (cached)
+  roles              NgoRole[]
 }
 
 model Project {
@@ -182,6 +184,7 @@ model Project {
   spotlightVotes     SpotlightVote[]
   campaigns          Campaign[]
   skillContributions SkillContribution[]
+  roles              NgoRole[]
 }
 
 model Milestone {
@@ -495,4 +498,87 @@ model NgoDocument {
   caption   String?
   createdAt DateTime @default(now())
   ngo       Ngo      @relation(fields: [ngoId], references: [id], onDelete: Cascade)
+}
+
+// Open Roles System — NGO-posted skill/time contribution opportunities
+enum RoleType {
+  INTERNSHIP
+  CAREER_TRANSITION
+  INTERIM
+  VOLUNTEER
+}
+
+enum RoleStatus {
+  OPEN
+  CLOSED
+  FILLED
+}
+
+enum ApplicationStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+  WITHDRAWN
+}
+
+enum EngagementStatus {
+  ACTIVE
+  COMPLETED
+  ABANDONED
+}
+
+model NgoRole {
+  id                  String            @id @default(cuid())
+  ngoId               String
+  projectId           String? // optionally tied to a specific project
+  title               String
+  department          String?
+  roleType            RoleType          @default(VOLUNTEER)
+  description         String            @db.Text
+  responsibilities    String            @db.Text
+  skillsRequired      String // comma-separated: e.g. "Marketing,Design,Fundraising"
+  timeCommitment      String // e.g. "10 hours/week"
+  durationWeeks       Int               @default(4)
+  isRemote            Boolean           @default(true)
+  location            String?
+  openings            Int               @default(1)
+  status              RoleStatus        @default(OPEN)
+  applicationDeadline DateTime?
+  startDate           DateTime?
+  createdAt           DateTime          @default(now())
+  updatedAt           DateTime          @updatedAt
+  ngo                 Ngo               @relation(fields: [ngoId], references: [id], onDelete: Cascade)
+  project             Project?          @relation(fields: [projectId], references: [id])
+  applications        RoleApplication[]
+}
+
+model RoleApplication {
+  id           String            @id @default(cuid())
+  roleId       String
+  applicantId  String
+  coverNote    String            @db.Text
+  linkedinUrl  String?
+  portfolioUrl String?
+  status       ApplicationStatus @default(PENDING)
+  appliedAt    DateTime          @default(now())
+  reviewedAt   DateTime?
+  role         NgoRole           @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  applicant    User              @relation(fields: [applicantId], references: [id])
+  engagement   RoleEngagement?
+
+  @@unique([roleId, applicantId])
+}
+
+model RoleEngagement {
+  id                  String           @id @default(cuid())
+  applicationId       String           @unique
+  startedAt           DateTime         @default(now())
+  completedAt         DateTime?
+  hoursLogged         Float            @default(0)
+  workSummary         String?          @db.Text
+  status              EngagementStatus @default(ACTIVE)
+  ngoFeedback         String?          @db.Text
+  monetaryValue       Float? // assigned by NGO on completion
+  skillContributionId String? // linked SkillContribution record once completed
+  application         RoleApplication  @relation(fields: [applicationId], references: [id], onDelete: Cascade)
 }

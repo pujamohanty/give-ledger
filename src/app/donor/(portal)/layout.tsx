@@ -6,24 +6,26 @@ import SidebarNavItem from "@/components/SidebarNavItem";
 import SignOutButton from "@/components/SignOutButton";
 import {
   Leaf, LayoutDashboard, Heart, TrendingUp, Settings,
-  Search, Bell, Share2, Gift, Star, Globe, Briefcase, Award, Linkedin, UserCircle,
+  Search, Bell, Share2, Gift, Star, Globe, Briefcase, Award, Linkedin, UserCircle, ClipboardList,
 } from "lucide-react";
 
 const navItems = [
-  { href: "/donor/dashboard",  label: "Dashboard",          icon: LayoutDashboard },
-  { href: "/donor/profile",    label: "My Profile",          icon: UserCircle },
-  { href: "/donor/donations",  label: "My Donations",        icon: Heart },
-  { href: "/donor/impact",     label: "My Impact",           icon: TrendingUp },
-  { href: "/donor/skills",     label: "Skill Contributions", icon: Briefcase },
-  { href: "/donor/standing",   label: "NGO Standing",        icon: Award },
-  { href: "/donor/post-builder", label: "Post Builder",      icon: Linkedin },
-  { href: "/donor/credential", label: "My Credential",       icon: Award },
-  { href: "/projects",         label: "Browse Projects",     icon: Search },
-  { href: "/campaigns",        label: "Campaigns",           icon: Gift },
-  { href: "/donor/notifications", label: "Notifications",   icon: Bell },
-  { href: "/donor/referral",   label: "Invite Friends",      icon: Share2 },
-  { href: "/impact",           label: "Platform Impact",     icon: Globe },
-  { href: "/donor/settings",   label: "Settings",            icon: Settings },
+  { href: "/donor/dashboard",       label: "Dashboard",           icon: LayoutDashboard },
+  { href: "/donor/profile",         label: "My Profile",           icon: UserCircle },
+  { href: "/donor/donations",       label: "My Donations",         icon: Heart },
+  { href: "/donor/impact",          label: "My Impact",            icon: TrendingUp },
+  { href: "/donor/opportunities",   label: "My Opportunities",     icon: ClipboardList },
+  { href: "/donor/skills",          label: "Skill Contributions",  icon: Briefcase },
+  { href: "/donor/standing",        label: "NGO Standing",         icon: Award },
+  { href: "/donor/post-builder",    label: "Post Builder",         icon: Linkedin },
+  { href: "/donor/credential",      label: "My Credential",        icon: Award },
+  { href: "/projects",              label: "Browse Projects",      icon: Search },
+  { href: "/opportunities",         label: "Browse Opportunities", icon: ClipboardList },
+  { href: "/campaigns",             label: "Campaigns",            icon: Gift },
+  { href: "/donor/notifications",   label: "Notifications",        icon: Bell },
+  { href: "/donor/referral",        label: "Invite Friends",       icon: Share2 },
+  { href: "/impact",                label: "Platform Impact",      icon: Globe },
+  { href: "/donor/settings",        label: "Settings",             icon: Settings },
 ];
 
 export default async function DonorLayout({ children }: { children: React.ReactNode }) {
