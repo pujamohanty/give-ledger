@@ -533,6 +533,18 @@ exports.Prisma.ChallengeAcceptanceScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.SubscriptionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  plan: 'plan',
+  applicationsUsed: 'applicationsUsed',
+  stripePaymentId: 'stripePaymentId',
+  refundEligibleAt: 'refundEligibleAt',
+  purchasedAt: 'purchasedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -624,6 +636,12 @@ exports.EngagementStatus = exports.$Enums.EngagementStatus = {
   ABANDONED: 'ABANDONED'
 };
 
+exports.SubscriptionPlan = exports.$Enums.SubscriptionPlan = {
+  FREE: 'FREE',
+  BASIC: 'BASIC',
+  PRO: 'PRO'
+};
+
 exports.Prisma.ModelName = {
   Account: 'Account',
   Session: 'Session',
@@ -657,7 +675,8 @@ exports.Prisma.ModelName = {
   RoleApplication: 'RoleApplication',
   RoleEngagement: 'RoleEngagement',
   DonorChallenge: 'DonorChallenge',
-  ChallengeAcceptance: 'ChallengeAcceptance'
+  ChallengeAcceptance: 'ChallengeAcceptance',
+  Subscription: 'Subscription'
 };
 
 /**

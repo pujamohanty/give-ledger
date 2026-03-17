@@ -130,6 +130,7 @@ model User {
   aiSummary             String?               @db.Text // AI-generated profile narrative (cached)
   roleApplications      RoleApplication[]
   challenges            DonorChallenge[]
+  subscription          Subscription?
 }
 
 model Ngo {
@@ -616,4 +617,24 @@ model ChallengeAcceptance {
   name        String? // optional — visitor can say who they are
   createdAt   DateTime       @default(now())
   challenge   DonorChallenge @relation(fields: [challengeId], references: [id], onDelete: Cascade)
+}
+
+// Skill Contributor Pricing — access tiers for Open Roles
+enum SubscriptionPlan {
+  FREE
+  BASIC
+  PRO
+}
+
+model Subscription {
+  id               String           @id @default(cuid())
+  userId           String           @unique
+  plan             SubscriptionPlan @default(FREE)
+  applicationsUsed Int              @default(0)
+  stripePaymentId  String?
+  refundEligibleAt DateTime? // PRO only: purchasedAt + 18 months
+  purchasedAt      DateTime?
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+  user             User             @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
