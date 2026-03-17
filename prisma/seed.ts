@@ -66,6 +66,14 @@ async function main() {
     await prisma.campaign.deleteMany({ where: { creatorId: { in: existingIds } } });
     await prisma.referral.deleteMany({ where: { referrerId: { in: existingIds } } });
     await prisma.ngoSuggestion.deleteMany({ where: { submittedBy: { in: existingIds } } });
+    // Donor challenges (cascade deletes acceptances)
+    await prisma.donorChallenge.deleteMany({ where: { donorId: { in: existingIds } } });
+    // Donor endorsements
+    await prisma.donorEndorsement.deleteMany({ where: { donorId: { in: existingIds } } });
+    // Role applications → engagements (cascade)
+    await prisma.roleApplication.deleteMany({ where: { applicantId: { in: existingIds } } });
+    // Activity events emitted by seed actors
+    await prisma.activityEvent.deleteMany({ where: { actorId: { in: existingIds } } });
 
     // Donations → BlockchainRecords
     const donations = await prisma.donation.findMany({
@@ -121,6 +129,13 @@ async function main() {
       }
       await prisma.expense.deleteMany({ where: { ngoId: { in: ngoIds } } });
       await prisma.rating.deleteMany({ where: { ngoId: { in: ngoIds } } });
+      await prisma.boardMember.deleteMany({ where: { ngoId: { in: ngoIds } } });
+      const skillContribIds = await prisma.skillContribution.findMany({ where: { ngoId: { in: ngoIds } }, select: { id: true } }).then(r => r.map(x => x.id));
+      if (skillContribIds.length > 0) await prisma.skillBlockchainRecord.deleteMany({ where: { skillContributionId: { in: skillContribIds } } });
+      await prisma.skillContribution.deleteMany({ where: { ngoId: { in: ngoIds } } });
+      // NgoRoles cascade → applications → engagements
+      await prisma.ngoRole.deleteMany({ where: { ngoId: { in: ngoIds } } });
+      await prisma.activityEvent.deleteMany({ where: { actorId: { in: ngoIds } } });
     }
 
     await prisma.user.deleteMany({ where: { id: { in: existingIds } } });
@@ -241,16 +256,16 @@ async function main() {
   console.log("\nCreating 10 donor accounts...");
 
   const donorData = [
-    { email: "priya.sharma@gmail.com",     name: "Priya Sharma",      city: "Mumbai, India",      joinedAt: d("2025-11-20T10:00:00Z") },
-    { email: "sarah.mitchell@gmail.com",   name: "Sarah Mitchell",    city: "London, UK",         joinedAt: d("2025-11-22T14:30:00Z") },
-    { email: "james.ochieng@gmail.com",    name: "James Ochieng",     city: "Nairobi, Kenya",     joinedAt: d("2025-11-25T09:00:00Z") },
-    { email: "rahul.verma@gmail.com",      name: "Rahul Verma",       city: "Delhi, India",       joinedAt: d("2025-12-01T11:00:00Z") },
-    { email: "fatima.alrashid@gmail.com",  name: "Fatima Al-Rashid",  city: "Dubai, UAE",         joinedAt: d("2025-12-02T16:00:00Z") },
-    { email: "marcus.johnson@gmail.com",   name: "Marcus Johnson",    city: "New York, USA",      joinedAt: d("2025-12-05T19:00:00Z") },
-    { email: "anjali.patel@gmail.com",     name: "Anjali Patel",      city: "Bangalore, India",   joinedAt: d("2025-12-08T08:30:00Z") },
-    { email: "david.lim@gmail.com",        name: "David Lim",         city: "Singapore",          joinedAt: d("2025-12-10T12:00:00Z") },
-    { email: "grace.muthoni@gmail.com",    name: "Grace Muthoni",     city: "Nairobi, Kenya",     joinedAt: d("2025-12-12T10:45:00Z") },
-    { email: "sophie.laurent@gmail.com",   name: "Sophie Laurent",    city: "Paris, France",      joinedAt: d("2025-12-15T17:00:00Z") },
+    { email: "priya.sharma@gmail.com",     name: "Priya Sharma",      city: "San Francisco, CA",  jobTitle: "Product Manager",           company: "Google",          bio: "Product leader focused on emerging markets and sustainable tech. I give back to causes that create measurable economic opportunity.",  joinedAt: d("2025-11-20T10:00:00Z") },
+    { email: "sarah.mitchell@gmail.com",   name: "Sarah Mitchell",    city: "New York, NY",       jobTitle: "VP Marketing",              company: "HubSpot",         bio: "20 years in marketing. Passionate about clean water and education. I believe transparency is the foundation of trust.",              joinedAt: d("2025-11-22T14:30:00Z") },
+    { email: "james.ochieng@gmail.com",    name: "James Ochieng",     city: "Atlanta, GA",        jobTitle: "Civil Engineer",            company: "AECOM",           bio: "Infrastructure engineer with deep roots in East Africa. I fund projects where engineering creates lasting community change.",        joinedAt: d("2025-11-25T09:00:00Z") },
+    { email: "rahul.verma@gmail.com",      name: "Rahul Verma",       city: "Austin, TX",         jobTitle: "Corporate Lawyer",          company: "Baker McKenzie",  bio: "International trade and compliance attorney. Pro bono work for NGOs is how I contribute skills beyond the donation cheque.",       joinedAt: d("2025-12-01T11:00:00Z") },
+    { email: "fatima.alrashid@gmail.com",  name: "Fatima Al-Rashid",  city: "Chicago, IL",        jobTitle: "Investment Manager",        company: "Blackrock",       bio: "Impact investing professional. I fund elderly care and accessibility projects — causes that are chronically underfunded.",          joinedAt: d("2025-12-02T16:00:00Z") },
+    { email: "marcus.johnson@gmail.com",   name: "Marcus Johnson",    city: "Seattle, WA",        jobTitle: "Data Scientist",            company: "Microsoft",       bio: "Data scientist by day, renewable energy advocate by habit. I believe every impact claim should be verifiable — hence GiveLedger.", joinedAt: d("2025-12-05T19:00:00Z") },
+    { email: "anjali.patel@gmail.com",     name: "Anjali Patel",      city: "Boston, MA",         jobTitle: "UX Designer",               company: "IDEO",            bio: "Human-centred designer. I contribute skills to NGOs that need better digital experiences and give financially where lives are at stake.", joinedAt: d("2025-12-08T08:30:00Z") },
+    { email: "david.lim@gmail.com",        name: "David Lim",         city: "Washington, DC",     jobTitle: "Policy Analyst",            company: "World Bank",      bio: "Development economist tracking livelihood outcomes across South Asia. GiveLedger's milestone model aligns with how I think about aid accountability.", joinedAt: d("2025-12-10T12:00:00Z") },
+    { email: "grace.muthoni@gmail.com",    name: "Grace Muthoni",     city: "Houston, TX",        jobTitle: "Registered Nurse",          company: "Memorial Hermann", bio: "Healthcare professional passionate about elder care and disability access. I donate where medical outcomes are tracked and reported.", joinedAt: d("2025-12-12T10:45:00Z") },
+    { email: "sophie.laurent@gmail.com",   name: "Sophie Laurent",    city: "Miami, FL",          jobTitle: "Full-Stack Developer",      company: "Stripe",          bio: "Engineer at Stripe. I build payments by day and fund solar electrification by night. Clean energy for schools is the best ROI I know.", joinedAt: d("2025-12-15T17:00:00Z") },
   ];
 
   const donors: typeof admin[] = [];
@@ -262,6 +277,10 @@ async function main() {
         role: "DONOR",
         emailVerified: data.joinedAt,
         createdAt: data.joinedAt,
+        jobTitle: data.jobTitle,
+        company: data.company,
+        bio: data.bio,
+        city: data.city,
       },
     });
     donors.push(donor);
@@ -799,7 +818,372 @@ async function main() {
 
   console.log("  ✓ 4 campaigns created with contributors");
 
-  // ── 10. Spotlight Votes ──────────────────────────────────────────────────
+  // ── 10. Board Members & Founders ─────────────────────────────────────────
+  console.log("\nCreating board members...");
+  const [ngoWater, ngoBihar, ngoMysore, ngoSolar] = ngos;
+
+  await prisma.boardMember.createMany({ data: [
+    // WaterBridge Kenya
+    { ngoId: ngoWater.id, name: "David Ochieng",       role: "Executive Director", memberType: "FOUNDER",      bio: "Civil engineer turned social entrepreneur. Founded WaterBridge after his daughter contracted typhoid from contaminated school water in 2018.",     linkedinUrl: "https://linkedin.com/in/david-ochieng", orderIndex: 0 },
+    { ngoId: ngoWater.id, name: "Dr. Sarah Wanjiku",   role: "Board Chair",        memberType: "BOARD_MEMBER", bio: "Former Regional Director, WHO Kenya. 22 years leading public health programmes across East Africa.",                                         linkedinUrl: "https://linkedin.com/in/sarah-wanjiku", orderIndex: 1 },
+    { ngoId: ngoWater.id, name: "James Kamau",         role: "Technical Director", memberType: "BOARD_MEMBER", bio: "WASH engineer with 15 years experience. Certified by the Water & Environment Federation.",                                                  linkedinUrl: "https://linkedin.com/in/james-kamau-wash", orderIndex: 2 },
+    // Pragati Foundation
+    { ngoId: ngoBihar.id, name: "Anjali Krishnan",     role: "Programme Director", memberType: "FOUNDER",      bio: "Social work graduate from TISS Mumbai. Founded Pragati to address the 70% female unemployment rate in rural Bihar.",                        linkedinUrl: "https://linkedin.com/in/anjali-krishnan-pragati", orderIndex: 0 },
+    { ngoId: ngoBihar.id, name: "Prof. Ramesh Sharma", role: "Board Chairman",     memberType: "BOARD_MEMBER", bio: "Professor of Development Economics, IIT Patna. Published researcher in rural livelihoods and vocational training outcomes.",                 linkedinUrl: "https://linkedin.com/in/ramesh-sharma-iitpatna", orderIndex: 1 },
+    { ngoId: ngoBihar.id, name: "Sunita Devi",         role: "Community Director", memberType: "BOARD_MEMBER", bio: "Grassroots organiser for 18 years. Former district-level coordinator for the National Rural Livelihood Mission.",                          linkedinUrl: null, orderIndex: 2 },
+    // SilverYears Trust
+    { ngoId: ngoMysore.id, name: "Dr. Meera Nair",              role: "Founder & Medical Director", memberType: "FOUNDER",      bio: "Geriatric physician with 20 years at Mysore Medical College. Founded SilverYears after witnessing systemic abandonment of elderly patients.", linkedinUrl: "https://linkedin.com/in/dr-meera-nair-silveryears", orderIndex: 0 },
+    { ngoId: ngoMysore.id, name: "Justice P.R. Krishnamurthy",  role: "Board Chairman",             memberType: "BOARD_MEMBER", bio: "Retired High Court Judge. Provides governance oversight and ensures all trust operations comply with Karnataka Trust Act.",                linkedinUrl: null, orderIndex: 1 },
+    { ngoId: ngoMysore.id, name: "Suresh Rao",                  role: "Infrastructure Lead",        memberType: "BOARD_MEMBER", bio: "Licensed structural architect. Certifies all construction milestones for SilverYears. Donates his services pro bono.",                    linkedinUrl: "https://linkedin.com/in/suresh-rao-architect", orderIndex: 2 },
+    // SunPower Africa
+    { ngoId: ngoSolar.id, name: "Marcus Tetteh",       role: "Co-Founder & CEO",  memberType: "FOUNDER",      bio: "Electrical engineer from KNUST Kumasi. Co-founded SunPower Africa after leading USAID electrification projects across East Africa.",          linkedinUrl: "https://linkedin.com/in/marcus-tetteh-sunpower", orderIndex: 0 },
+    { ngoId: ngoSolar.id, name: "Dr. Grace Nakamura",  role: "Board Member",       memberType: "BOARD_MEMBER", bio: "Renewable energy policy expert at the African Development Bank. PhD in Energy Systems from MIT.",                                             linkedinUrl: "https://linkedin.com/in/grace-nakamura-afdb", orderIndex: 1 },
+    { ngoId: ngoSolar.id, name: "Robert Ssebuliba",    role: "Country Director",   memberType: "BOARD_MEMBER", bio: "Former Deputy Director, Uganda Ministry of Education. Oversees school-side partnerships and government liaison.",                             linkedinUrl: null, orderIndex: 2 },
+  ]});
+  console.log("  ✓ 12 board members + founders created across 4 NGOs");
+
+  // ── 11. NGO Open Roles ────────────────────────────────────────────────────
+  console.log("\nCreating NGO open roles...");
+
+  const roleWaterMarketing = await prisma.ngoRole.create({ data: {
+    ngoId: ngoWater.id, projectId: projWater.id,
+    title: "Digital Marketing Coordinator",
+    department: "Communications",
+    roleType: "VOLUNTEER",
+    description: "Help WaterBridge Kenya tell its story. We have impact but struggle to translate it into compelling content that drives donations and awareness. You'll run our social channels, write campaign emails, and create shareable milestone posts.",
+    responsibilities: "Manage Instagram, LinkedIn, X — 3 posts/week minimum\nWrite monthly newsletter to 4,200 donors\nCreate shareable milestone update posts (templates provided)\nGrow our follower base by 20% over engagement period",
+    skillsRequired: "Marketing,Social Media,Copywriting,Email Marketing",
+    timeCommitment: "8 hours/week", durationWeeks: 8, isRemote: true, openings: 1,
+    status: "OPEN", applicationDeadline: d("2026-04-15T00:00:00Z"), startDate: d("2026-05-01T00:00:00Z"),
+  }});
+
+  const roleWaterFundraising = await prisma.ngoRole.create({ data: {
+    ngoId: ngoWater.id,
+    title: "Corporate Partnerships Strategist",
+    department: "Fundraising",
+    roleType: "CAREER_TRANSITION",
+    description: "We need someone who understands corporate CSR and can build multi-year funding relationships with US-based companies. This is a high-impact role that will directly determine our ability to expand to 30 schools.",
+    responsibilities: "Map and qualify 50 corporate CSR prospects\nDraft and send 20 partnership proposals\nLead 5+ discovery calls with CSR decision-makers\nBuild a repeatable outreach playbook we can use long-term",
+    skillsRequired: "Fundraising,Sales,Corporate Partnerships,Grant Writing",
+    timeCommitment: "12 hours/week", durationWeeks: 12, isRemote: true, openings: 1,
+    status: "OPEN", applicationDeadline: d("2026-04-01T00:00:00Z"), startDate: d("2026-04-15T00:00:00Z"),
+  }});
+
+  const rolePragatiIT = await prisma.ngoRole.create({ data: {
+    ngoId: ngoBihar.id, projectId: projBihar.id,
+    title: "Mobile App Developer (React Native)",
+    department: "Technology",
+    roleType: "INTERNSHIP",
+    description: "Build a mobile learning companion app for our training programme graduates. The app will deliver short daily business lessons, connect graduates with mentors, and track income progress. You'll own the full build from scratch.",
+    responsibilities: "Build React Native app (iOS + Android)\nIntegrate with our existing Prisma/PostgreSQL backend\nDeliver MVP in 6 weeks: auth, lesson delivery, income tracker\nDocument codebase and handover to our in-house team",
+    skillsRequired: "React Native,TypeScript,Mobile Development,API Integration",
+    timeCommitment: "20 hours/week", durationWeeks: 6, isRemote: true, openings: 1,
+    status: "OPEN", applicationDeadline: d("2026-03-25T00:00:00Z"), startDate: d("2026-04-01T00:00:00Z"),
+  }});
+
+  const rolePragatiTraining = await prisma.ngoRole.create({ data: {
+    ngoId: ngoBihar.id,
+    title: "Vocational Training Curriculum Designer",
+    department: "Programmes",
+    roleType: "VOLUNTEER",
+    description: "Our current curriculum is effective but outdated. We need an experienced instructional designer to modernise the tailoring and electronics modules, introduce digital skills content, and create better assessment tools.",
+    responsibilities: "Audit existing 8-week curriculum (all 3 modules)\nDesign 2 new digital skills modules (mobile commerce, basic accounting)\nCreate updated assessment rubrics and trainer guides\nConduct one virtual train-the-trainer session",
+    skillsRequired: "Instructional Design,Training,Curriculum Development,Education",
+    timeCommitment: "10 hours/week", durationWeeks: 10, isRemote: true, openings: 1,
+    status: "OPEN", applicationDeadline: d("2026-04-10T00:00:00Z"), startDate: d("2026-04-20T00:00:00Z"),
+  }});
+
+  const roleSilverLegal = await prisma.ngoRole.create({ data: {
+    ngoId: ngoMysore.id,
+    title: "Nonprofit Legal Advisor",
+    department: "Governance",
+    roleType: "VOLUNTEER",
+    description: "Provide legal guidance on Karnataka Trust Act compliance, FCRA renewal, and property documentation for our new care facility. This is advisory work — no court appearances required.",
+    responsibilities: "Review and update trust deed provisions (approx. 40 pages)\nAdvise on FCRA renewal requirements and timeline\nReview construction contract and flag risks\nDraft resident admission agreement template",
+    skillsRequired: "Legal,Nonprofit Law,Contract Review,Compliance",
+    timeCommitment: "6 hours/week", durationWeeks: 8, isRemote: true, openings: 1,
+    status: "OPEN", applicationDeadline: d("2026-04-05T00:00:00Z"), startDate: d("2026-04-15T00:00:00Z"),
+  }});
+
+  const roleSolarData = await prisma.ngoRole.create({ data: {
+    ngoId: ngoSolar.id, projectId: projSolar.id,
+    title: "Impact Data Analyst",
+    department: "Monitoring & Evaluation",
+    roleType: "CAREER_TRANSITION",
+    description: "Design and run our M&E framework for the 6-school solar project. You'll work directly with field engineers to collect power output data, student study hours, and cost savings — then turn it into a publishable impact report.",
+    responsibilities: "Design data collection methodology for 6 schools\nBuild Excel/Sheets dashboard for real-time power monitoring\nConduct 2 virtual check-ins with school principals\nWrite final impact report (15 pages, published on our website)",
+    skillsRequired: "Data Analysis,Excel,Impact Measurement,Report Writing",
+    timeCommitment: "10 hours/week", durationWeeks: 10, isRemote: true, openings: 1,
+    status: "OPEN", applicationDeadline: d("2026-02-28T00:00:00Z"), startDate: d("2026-03-05T00:00:00Z"),
+  }});
+
+  const roleSolarEngineering = await prisma.ngoRole.create({ data: {
+    ngoId: ngoSolar.id, projectId: projSolar.id,
+    title: "Electrical Engineering Intern",
+    department: "Field Operations",
+    roleType: "INTERNSHIP",
+    description: "Support our field engineers remotely on installation documentation, technical specification reviews, and safety compliance checklists for the Schools 4–6 installations. You'll get real project experience on a live solar deployment.",
+    responsibilities: "Review technical specifications for each school installation\nCreate installation quality checklist (30-point review)\nDocument as-built configurations for 3 schools\nAssist with engineer handover report",
+    skillsRequired: "Electrical Engineering,Solar Systems,Technical Documentation",
+    timeCommitment: "15 hours/week", durationWeeks: 6, isRemote: true, openings: 2,
+    status: "OPEN", applicationDeadline: d("2026-03-20T00:00:00Z"), startDate: d("2026-03-25T00:00:00Z"),
+  }});
+
+  console.log("  ✓ 7 NGO roles created (WaterBridge: 2, Pragati: 2, SilverYears: 1, SunPower: 2)");
+
+  // ── 12. Role Applications & Engagements ──────────────────────────────────
+  console.log("\nCreating role applications and engagements...");
+
+  // Priya → Pragati Mobile App Dev → ACCEPTED → ACTIVE (24h logged)
+  const appPriyaIT = await prisma.roleApplication.create({ data: {
+    roleId: rolePragatiIT.id, applicantId: priya.id, status: "ACCEPTED",
+    coverNote: "I'm a PM at Google who codes on weekends — React Native is my side-stack. I've built two community apps before. This project would be deeply meaningful to me: I grew up in Bihar.",
+    linkedinUrl: "https://linkedin.com/in/priya-sharma-pm",
+    appliedAt: d("2026-03-05T10:00:00Z"), reviewedAt: d("2026-03-07T14:00:00Z"),
+  }});
+  const engPriyaIT = await prisma.roleEngagement.create({ data: {
+    applicationId: appPriyaIT.id, startedAt: d("2026-03-10T00:00:00Z"),
+    hoursLogged: 24, status: "ACTIVE",
+    workSummary: "Auth flow complete, lesson delivery screens built. Working on income tracker. On track for MVP delivery April 1.",
+  }});
+
+  // Sarah → WaterBridge Marketing → ACCEPTED → ACTIVE (12h logged)
+  const appSarahMarketing = await prisma.roleApplication.create({ data: {
+    roleId: roleWaterMarketing.id, applicantId: sarah.id, status: "ACCEPTED",
+    coverNote: "VP Marketing at HubSpot — I build content and email programmes at scale every day. I've been following WaterBridge since I donated in November. I want to help you tell this story better.",
+    linkedinUrl: "https://linkedin.com/in/sarah-mitchell-hubspot",
+    appliedAt: d("2026-03-02T09:00:00Z"), reviewedAt: d("2026-03-04T11:00:00Z"),
+  }});
+  const engSarahMarketing = await prisma.roleEngagement.create({ data: {
+    applicationId: appSarahMarketing.id, startedAt: d("2026-03-08T00:00:00Z"),
+    hoursLogged: 12, status: "ACTIVE",
+    workSummary: "Revamped LinkedIn bio and post templates. Wrote March newsletter (4,200 subscribers). Scheduled 3 weeks of posts. Follower growth up 8% in first 2 weeks.",
+  }});
+
+  // Marcus J → SunPower Impact Data Analyst → ACCEPTED → COMPLETED (40h, $4,000)
+  const appMarcusData = await prisma.roleApplication.create({ data: {
+    roleId: roleSolarData.id, applicantId: marcusJ.id, status: "ACCEPTED",
+    coverNote: "Data scientist at Microsoft, specialising in energy and sustainability analytics. I've built M&E dashboards for 3 renewable projects. I'll give you a monitoring system you can actually use long-term.",
+    linkedinUrl: "https://linkedin.com/in/marcus-johnson-data",
+    appliedAt: d("2026-02-20T18:00:00Z"), reviewedAt: d("2026-02-22T10:00:00Z"),
+  }});
+  const engMarcusData = await prisma.roleEngagement.create({ data: {
+    applicationId: appMarcusData.id, startedAt: d("2026-03-05T00:00:00Z"),
+    completedAt: d("2026-03-15T00:00:00Z"),
+    hoursLogged: 40, status: "COMPLETED",
+    workSummary: "Delivered full M&E framework: data collection methodology, 6-school Google Sheets dashboard, 2 principal check-ins completed, 15-page impact report submitted for publication.",
+    ngoFeedback: "Marcus exceeded every expectation. His dashboard is now our standard. The impact report quality was publication-ready. We couldn't have produced it without him.",
+    monetaryValue: 4000,
+  }});
+
+  // Anjali P → Pragati Training Designer → ACCEPTED → COMPLETED (30h, $2,500)
+  const appAnjaliTraining = await prisma.roleApplication.create({ data: {
+    roleId: rolePragatiTraining.id, applicantId: anjaliP.id, status: "ACCEPTED",
+    coverNote: "UX designer at IDEO, but instructional design is half of what I do. I've redesigned training programmes for 3 NGOs. I understand how to make learning stick for adults with no prior formal education.",
+    linkedinUrl: "https://linkedin.com/in/anjali-patel-ideo",
+    appliedAt: d("2026-02-25T08:00:00Z"), reviewedAt: d("2026-02-27T12:00:00Z"),
+  }});
+  const engAnjaliTraining = await prisma.roleEngagement.create({ data: {
+    applicationId: appAnjaliTraining.id, startedAt: d("2026-03-03T00:00:00Z"),
+    completedAt: d("2026-03-14T00:00:00Z"),
+    hoursLogged: 30, status: "COMPLETED",
+    workSummary: "Audited all 3 curriculum modules. Delivered 2 new digital skills modules (mobile commerce + basic bookkeeping). Created updated assessment rubrics. Ran virtual train-the-trainer with 5 Pragati staff.",
+    ngoFeedback: "Anjali's work transformed our curriculum. Her digital skills modules are exactly what our graduates needed. The trainer rubrics are already improving consistency across centres.",
+    monetaryValue: 2500,
+  }});
+
+  // James → WaterBridge Fundraising → PENDING
+  await prisma.roleApplication.create({ data: {
+    roleId: roleWaterFundraising.id, applicantId: james.id, status: "PENDING",
+    coverNote: "Civil engineer at AECOM with corporate partnership experience — I've co-led bid teams for $50M+ infrastructure contracts. I know how to position technical NGO work for corporate CSR audiences. Happy to share a sample proposal.",
+    linkedinUrl: "https://linkedin.com/in/james-ochieng-aecom",
+    appliedAt: d("2026-03-10T09:00:00Z"),
+  }});
+
+  // David L → SilverYears Legal → PENDING
+  await prisma.roleApplication.create({ data: {
+    roleId: roleSilverLegal.id, applicantId: davidL.id, status: "PENDING",
+    coverNote: "Policy analyst at World Bank with a JD from Georgetown. My work covers development law and nonprofit governance frameworks across South Asia. I'm familiar with Indian trust law and FCRA requirements.",
+    linkedinUrl: "https://linkedin.com/in/david-lim-worldbank",
+    appliedAt: d("2026-03-12T14:00:00Z"),
+  }});
+
+  // Grace → SunPower Engineering → REJECTED
+  await prisma.roleApplication.create({ data: {
+    roleId: roleSolarEngineering.id, applicantId: grace.id, status: "REJECTED",
+    coverNote: "Registered nurse with strong scientific background and interest in sustainable energy. Eager to learn and contribute.",
+    appliedAt: d("2026-03-08T10:00:00Z"), reviewedAt: d("2026-03-10T09:00:00Z"),
+  }});
+
+  console.log("  ✓ 7 role applications (2 active engagements, 2 completed, 2 pending, 1 rejected)");
+
+  // ── 13. SkillContributions (completed engagements → auto-create; + direct) ─
+  console.log("\nCreating skill contributions...");
+
+  // From completed engagements
+  const scMarcus = await prisma.skillContribution.create({ data: {
+    donorId: marcusJ.id, ngoId: ngoSolar.id, projectId: projSolar.id,
+    skillCategory: "IT", status: "APPROVED",
+    description: "M&E framework, 6-school solar monitoring dashboard, impact report. Role: Impact Data Analyst.",
+    hoursContributed: 40, monetaryValue: 4000,
+    txHash: txHash("skill-marcus-solar"), approvedAt: d("2026-03-15T12:00:00Z"),
+  }});
+  await prisma.roleEngagement.update({ where: { id: engMarcusData.id }, data: { skillContributionId: scMarcus.id } });
+
+  const scAnjali = await prisma.skillContribution.create({ data: {
+    donorId: anjaliP.id, ngoId: ngoBihar.id, projectId: projBihar.id,
+    skillCategory: "TRAINING", status: "APPROVED",
+    description: "Full curriculum redesign: 3-module audit, 2 new digital skills modules, updated assessment rubrics, train-the-trainer session. Role: Vocational Training Curriculum Designer.",
+    hoursContributed: 30, monetaryValue: 2500,
+    txHash: txHash("skill-anjali-pragati"), approvedAt: d("2026-03-14T15:00:00Z"),
+  }});
+  await prisma.roleEngagement.update({ where: { id: engAnjaliTraining.id }, data: { skillContributionId: scAnjali.id } });
+
+  // Direct skill contributions (not from roles)
+  await prisma.skillContribution.create({ data: {
+    donorId: rahul.id, ngoId: ngoMysore.id,
+    skillCategory: "LEGAL", status: "APPROVED",
+    description: "Reviewed SilverYears Trust deed, advised on Karnataka Trust Act compliance gaps, drafted resident admission agreement template (8 pages), flagged 3 material risks in construction contract.",
+    hoursContributed: 15, monetaryValue: 1500,
+    txHash: txHash("skill-rahul-silveryears"), approvedAt: d("2026-03-08T10:00:00Z"),
+  }});
+
+  await prisma.skillContribution.create({ data: {
+    donorId: fatima.id, ngoId: ngoWater.id, projectId: projWater.id,
+    skillCategory: "MARKETING", status: "APPROVED",
+    description: "Built and launched WaterBridge's first LinkedIn company page. Wrote and scheduled 20 posts. Set up Mailchimp donor list (4,200 subscribers). Delivered a 12-page social media strategy document.",
+    hoursContributed: 20, monetaryValue: 2000,
+    txHash: txHash("skill-fatima-waterbridge"), approvedAt: d("2026-03-05T14:00:00Z"),
+  }});
+
+  await prisma.skillContribution.create({ data: {
+    donorId: sophie.id, ngoId: ngoBihar.id, projectId: projBihar.id,
+    skillCategory: "IT", status: "APPROVED",
+    description: "Built a donor-facing impact tracker page for Pragati Foundation. React + Next.js, integrates with their existing data. Live at pragati.org.in/impact. Includes mobile-responsive dashboard and CSV export.",
+    hoursContributed: 35, monetaryValue: 3500,
+    txHash: txHash("skill-sophie-pragati"), approvedAt: d("2026-03-10T11:00:00Z"),
+  }});
+
+  await prisma.skillContribution.create({ data: {
+    donorId: james.id, ngoId: ngoWater.id, projectId: projWater.id,
+    skillCategory: "OTHER", status: "APPROVED",
+    description: "Structural review of WaterBridge's water storage tank installation specs. Verified load calculations, signed off on anchor point design. Provided written engineering opinion (AECOM letterhead).",
+    hoursContributed: 8, monetaryValue: 1200,
+    txHash: txHash("skill-james-waterbridge"), approvedAt: d("2026-02-28T09:00:00Z"),
+  }});
+
+  console.log("  ✓ 7 skill contributions (2 from role completions, 5 direct — all APPROVED)");
+
+  // ── 14. Donor Endorsements ────────────────────────────────────────────────
+  console.log("\nCreating donor endorsements...");
+  await prisma.donorEndorsement.createMany({ skipDuplicates: true, data: [
+    { donorId: priya.id,   ngoId: ngoWater.id,  endorsedBy: ngoUsers[0].id, category: "FINANCIAL",        note: "Priya has been one of our most consistent donors since day one. Her early commitment gave us the confidence to launch Kibera Schools.", createdAt: d("2026-02-15T10:00:00Z") },
+    { donorId: sarah.id,   ngoId: ngoWater.id,  endorsedBy: ngoUsers[0].id, category: "SKILL",            note: "Sarah's marketing work is transformative. She rebuilt our entire communications strategy in 8 weeks. Our newsletter open rate went from 18% to 34%.", createdAt: d("2026-03-16T11:00:00Z") },
+    { donorId: james.id,   ngoId: ngoWater.id,  endorsedBy: ngoUsers[0].id, category: "SKILL",            note: "James provided critical engineering oversight on our tank installation. His AECOM sign-off gave our donors and regulators real confidence.", createdAt: d("2026-03-01T09:00:00Z") },
+    { donorId: fatima.id,  ngoId: ngoWater.id,  endorsedBy: ngoUsers[0].id, category: "SKILL",            note: "Fatima's marketing work laid the foundation for our digital presence. Without her we wouldn't have the LinkedIn following or email list we have today.", createdAt: d("2026-03-06T14:00:00Z") },
+    { donorId: anjaliP.id, ngoId: ngoBihar.id,  endorsedBy: ngoUsers[1].id, category: "SKILL",            note: "Anjali redesigned our entire training curriculum. The quality of her work — the modules, the rubrics, the trainer session — was better than what a paid consultant would have delivered.", createdAt: d("2026-03-15T15:00:00Z") },
+    { donorId: sophie.id,  ngoId: ngoBihar.id,  endorsedBy: ngoUsers[1].id, category: "SKILL",            note: "Sophie built us a proper impact tracker that our donors can now actually see. Clean code, full documentation, handed over perfectly. Outstanding work.", createdAt: d("2026-03-11T12:00:00Z") },
+    { donorId: rahul.id,   ngoId: ngoMysore.id, endorsedBy: ngoUsers[2].id, category: "SKILL",            note: "Rahul's legal review was thorough and immediately actionable. He identified risks we hadn't even considered and drafted a resident agreement that protects both residents and the trust.", createdAt: d("2026-03-09T10:00:00Z") },
+    { donorId: fatima.id,  ngoId: ngoMysore.id, endorsedBy: ngoUsers[2].id, category: "FINANCIAL",        note: "Fatima is SilverYears' largest individual donor. Her generosity has directly funded the construction of the ground floor and kept us on schedule.", createdAt: d("2026-02-05T09:00:00Z") },
+    { donorId: marcusJ.id, ngoId: ngoSolar.id,  endorsedBy: ngoUsers[3].id, category: "SKILL",            note: "Marcus delivered more than any pro bono consultant I have worked with. His M&E framework is now the standard for how we report impact. The SunPower board was impressed.", createdAt: d("2026-03-16T10:00:00Z") },
+  ]});
+  console.log("  ✓ 9 donor endorsements across 4 NGOs");
+
+  // ── 15. Donor Challenges ──────────────────────────────────────────────────
+  console.log("\nCreating donor challenges...");
+
+  const chalPriya = await prisma.donorChallenge.create({ data: {
+    donorId: priya.id, challengeType: "FINANCIAL", projectId: projBihar.id,
+    amount: 200, deadline: d("2026-04-01T00:00:00Z"),
+    message: "I've donated to Pragati Foundation's Bihar vocational training project. Cohort 1 just certified 43 women — 7 started businesses within a month. I challenge you to match my $200 and help fund Cohort 2. Your $200 = one woman trained and certified.",
+    createdAt: d("2026-02-02T10:00:00Z"),
+  }});
+  await prisma.challengeAcceptance.createMany({ data: [
+    { challengeId: chalPriya.id, name: "James Ochieng",  createdAt: d("2026-02-03T14:00:00Z") },
+    { challengeId: chalPriya.id, name: "A supporter",    createdAt: d("2026-02-05T09:00:00Z") },
+    { challengeId: chalPriya.id, name: "Rahul Verma",    createdAt: d("2026-02-06T11:00:00Z") },
+    { challengeId: chalPriya.id, name: "Sophie Laurent", createdAt: d("2026-02-08T17:00:00Z") },
+  ]});
+
+  const chalMarcus = await prisma.donorChallenge.create({ data: {
+    donorId: marcusJ.id, challengeType: "FINANCIAL", projectId: projSolar.id,
+    amount: 500, deadline: d("2026-04-15T00:00:00Z"),
+    message: "860 students now study after dark because of Schools 1–3. Schools 4–6 still need funding. I've put in $800 total. I'm challenging my network to match $500. Every dollar is on-chain. You can verify exactly what it funded.",
+    createdAt: d("2026-02-25T19:00:00Z"),
+  }});
+  await prisma.challengeAcceptance.createMany({ data: [
+    { challengeId: chalMarcus.id, name: "David Lim",     createdAt: d("2026-02-26T10:00:00Z") },
+    { challengeId: chalMarcus.id, name: "Grace Muthoni", createdAt: d("2026-02-27T12:00:00Z") },
+    { challengeId: chalMarcus.id, name: "A supporter",   createdAt: d("2026-02-28T09:00:00Z") },
+    { challengeId: chalMarcus.id, name: "A supporter",   createdAt: d("2026-03-01T14:00:00Z") },
+    { challengeId: chalMarcus.id, name: "Sophie Laurent",createdAt: d("2026-03-02T16:00:00Z") },
+  ]});
+
+  const chalSarah = await prisma.donorChallenge.create({ data: {
+    donorId: sarah.id, challengeType: "SKILL", ngoId: ngoWater.id,
+    roleId: roleWaterMarketing.id, skillCategory: "Marketing",
+    hoursContributed: 8,
+    message: "WaterBridge Kenya installs clean water at schools — but they need marketers to tell their story. I've volunteered as their Digital Marketing Coordinator. If you work in marketing, comms, or content, I challenge you to give 8 hours. It's the most valuable thing you can contribute.",
+    deadline: d("2026-04-20T00:00:00Z"), createdAt: d("2026-03-09T10:00:00Z"),
+  }});
+  await prisma.challengeAcceptance.createMany({ data: [
+    { challengeId: chalSarah.id, name: "Fatima Al-Rashid", createdAt: d("2026-03-10T11:00:00Z") },
+    { challengeId: chalSarah.id, name: "A contributor",    createdAt: d("2026-03-11T14:00:00Z") },
+    { challengeId: chalSarah.id, name: "Priya Sharma",     createdAt: d("2026-03-12T09:00:00Z") },
+  ]});
+
+  const chalAnjali = await prisma.donorChallenge.create({ data: {
+    donorId: anjaliP.id, challengeType: "SKILL", ngoId: ngoBihar.id,
+    roleId: rolePragatiTraining.id, skillCategory: "Training",
+    hoursContributed: 10,
+    message: "I redesigned Pragati Foundation's entire training curriculum. It took 30 hours but it's now in the hands of 200 women a year. If you work in L&D, instructional design, or corporate training, they need you. I challenge you to give 10 hours.",
+    deadline: d("2026-04-25T00:00:00Z"), createdAt: d("2026-03-15T16:00:00Z"),
+  }});
+  await prisma.challengeAcceptance.createMany({ data: [
+    { challengeId: chalAnjali.id, name: "Marcus Johnson",  createdAt: d("2026-03-16T10:00:00Z") },
+    { challengeId: chalAnjali.id, name: "Sophie Laurent",  createdAt: d("2026-03-17T09:00:00Z") },
+  ]});
+
+  console.log("  ✓ 4 donor challenges (2 financial, 2 skill) with 14 acceptances");
+
+  // ── 16. MILESTONE_CREDITED notifications for donors ───────────────────────
+  console.log("\nCreating MILESTONE_CREDITED notifications...");
+  const milestoneCredits = [
+    { projectId: projWater.id,  ngoName: "WaterBridge Kenya",   milestoneName: "Installation — Schools 1–6",      metric: "2,400 children now have clean water daily",           donorIds: [priya.id, sarah.id, james.id, anjaliP.id], sentAt: d("2026-02-05T12:00:00Z") },
+    { projectId: projBihar.id,  ngoName: "Pragati Foundation",  milestoneName: "Cohort 1 — 45 women trained",     metric: "43 women certified, 7 businesses already started",    donorIds: [priya.id, rahul.id, davidL.id], sentAt: d("2026-01-31T16:00:00Z") },
+    { projectId: projMysore.id, ngoName: "SilverYears Trust",   milestoneName: "Foundation & ground floor",       metric: "60% of 50-bed care facility structurally complete",   donorIds: [james.id, fatima.id, grace.id], sentAt: d("2026-01-22T14:00:00Z") },
+    { projectId: projSolar.id,  ngoName: "SunPower Africa",     milestoneName: "Installation — Schools 1–3",      metric: "860 students study after dark, $1,200/month saved",   donorIds: [marcusJ.id, anjaliP.id, sophie.id], sentAt: d("2026-02-22T17:00:00Z") },
+  ];
+  for (const mc of milestoneCredits) {
+    await prisma.notification.createMany({
+      data: mc.donorIds.map((uid) => ({
+        userId: uid,
+        type: "MILESTONE_CREDITED",
+        title: "Your donation just made an impact",
+        message: `${mc.ngoName} completed "${mc.milestoneName}" — a milestone you helped fund. Result: ${mc.metric}. Share what your donation achieved.`,
+        linkUrl: `/projects/${mc.projectId}`,
+        read: false,
+        createdAt: mc.sentAt,
+      })),
+      skipDuplicates: true,
+    });
+  }
+  // ROLE_COMPLETED notifications
+  await prisma.notification.create({ data: {
+    userId: marcusJ.id, type: "ROLE_COMPLETED",
+    title: "Engagement completed — it's on your record",
+    message: "SunPower Africa has confirmed your Impact Data Analyst contribution: 40 hours, $4,000 in value. It's verified on-chain and on your GiveLedger credential now.",
+    linkUrl: "/donor/credential", read: false, createdAt: d("2026-03-15T13:00:00Z"),
+  }});
+  await prisma.notification.create({ data: {
+    userId: anjaliP.id, type: "ROLE_COMPLETED",
+    title: "Engagement completed — it's on your record",
+    message: "Pragati Foundation has confirmed your Curriculum Designer contribution: 30 hours, $2,500 in value. Verified on-chain. Check your credential.",
+    linkUrl: "/donor/credential", read: false, createdAt: d("2026-03-14T16:00:00Z"),
+  }});
+  console.log("  ✓ MILESTONE_CREDITED and ROLE_COMPLETED notifications created");
+
+  // ── 17. Spotlight Votes ──────────────────────────────────────────────────
   console.log("\nCreating spotlight votes...");
   await prisma.spotlightVote.createMany({ data: [
     { userId: priya.id,   projectId: projWater.id,  month: 2, year: 2026, createdAt: d("2026-02-05T10:00:00Z") },
@@ -821,9 +1205,8 @@ async function main() {
   await prisma.project.update({ where: { id: projSolar.id  }, data: { spotlightVoteCount: 2 } });
   console.log("  ✓ 10 spotlight votes");
 
-  // ── 11. Ratings ──────────────────────────────────────────────────────────
+  // ── 18. Ratings ──────────────────────────────────────────────────────────
   console.log("\nCreating NGO ratings...");
-  const [ngoWater, ngoBihar, ngoMysore, ngoSolar] = ngos;
   await prisma.rating.createMany({ skipDuplicates: true, data: [
     { donorId: priya.id,  ngoId: ngoWater.id,  stars: 5, comment: "Exceptional transparency. I can see exactly what my money did.", createdAt: d("2026-02-10T10:00:00Z") },
     { donorId: sarah.id,  ngoId: ngoWater.id,  stars: 5, comment: "Best NGO I've ever donated to. The blockchain receipts give me real confidence.", createdAt: d("2026-02-12T14:00:00Z") },
@@ -930,19 +1313,56 @@ async function main() {
   console.log("  ✓ Campaign update notifications created");
   console.log("  ✓ Spotlight winner notification created");
 
-  // ── 13. Activity Feed ────────────────────────────────────────────────────
+  // ── 20. Activity Feed (wall) — all event types covered ───────────────────
   console.log("\nCreating activity events...");
   await prisma.activityEvent.createMany({ data: [
-    { type: "MILESTONE_COMPLETE", projectId: projWater.id, ngoName: "WaterBridge Kenya", projectTitle: "Clean Water for Kibera Schools", description: "WaterBridge Kenya completed: Installation — Schools 1–6. 2,400 children now have clean water daily.", createdAt: d("2026-02-05T11:00:00Z") },
-    { type: "MILESTONE_COMPLETE", projectId: projBihar.id, ngoName: "Pragati Foundation", projectTitle: "Livelihood Training — Rural Bihar", description: "Pragati Foundation completed: Cohort 1 training. 43 women certified, 7 businesses started.", createdAt: d("2026-01-31T16:00:00Z") },
-    { type: "MILESTONE_COMPLETE", projectId: projMysore.id, ngoName: "SilverYears Trust", projectTitle: "Elderly Care Home — Mysore", description: "SilverYears Trust completed: Foundation & ground floor structure. 60% of 50-bed facility structurally complete.", createdAt: d("2026-01-22T14:00:00Z") },
-    { type: "MILESTONE_COMPLETE", projectId: projSolar.id, ngoName: "SunPower Africa", projectTitle: "Solar Microgrids for Rural Schools", description: "SunPower Africa completed: Installation — Schools 1–3. 860 students now study after dark.", createdAt: d("2026-02-22T17:00:00Z") },
-    { type: "PROJECT_LAUNCH", projectId: projWater.id, ngoName: "WaterBridge Kenya", projectTitle: "Clean Water for Kibera Schools", description: "New project launched: Clean Water for Kibera Schools — Goal: $25,000", createdAt: d("2025-11-15T10:00:00Z") },
-    { type: "CAMPAIGN_CREATED", projectId: projWater.id, actorName: "Sarah Mitchell", projectTitle: "Clean Water for Kibera Schools", description: "Sarah Mitchell started a fundraising campaign for Kibera Water — raising $7,500 to finish the last 6 schools.", createdAt: d("2026-02-10T09:00:00Z") },
-    { type: "CAMPAIGN_CREATED", projectId: projBihar.id, actorName: "Anjali Patel", projectTitle: "Livelihood Training — Rural Bihar", description: "Anjali Patel started a campaign for Bihar vocational training — targeting Cohort 2.", createdAt: d("2026-02-15T11:00:00Z") },
-    { type: "SPOTLIGHT_WIN", projectId: projWater.id, ngoName: "WaterBridge Kenya", projectTitle: "Clean Water for Kibera Schools", description: "February Spotlight Winner: Clean Water for Kibera Schools received the most donor votes this month.", createdAt: d("2026-03-01T08:00:00Z") },
+    // NGO_JOINED
+    { type: "NGO_JOINED",         ngoName: "WaterBridge Kenya",   actorId: ngoWater.id,  actorType: "NGO", actorName: "WaterBridge Kenya",   description: "WaterBridge Kenya joined GiveLedger — installing clean water filtration at 12 schools in Kibera.",                            linkUrl: "/ngo/" + ngoWater.id,  createdAt: d("2025-11-10T14:00:00Z") },
+    { type: "NGO_JOINED",         ngoName: "Pragati Foundation",  actorId: ngoBihar.id,  actorType: "NGO", actorName: "Pragati Foundation",   description: "Pragati Foundation joined GiveLedger — vocational training for 200 rural women in Bihar.",                                   linkUrl: "/ngo/" + ngoBihar.id,  createdAt: d("2025-11-10T14:30:00Z") },
+    { type: "NGO_JOINED",         ngoName: "SilverYears Trust",   actorId: ngoMysore.id, actorType: "NGO", actorName: "SilverYears Trust",    description: "SilverYears Trust joined GiveLedger — building a 50-bed dignified care home for abandoned elderly in Mysore.",               linkUrl: "/ngo/" + ngoMysore.id, createdAt: d("2025-11-10T15:00:00Z") },
+    { type: "NGO_JOINED",         ngoName: "SunPower Africa",     actorId: ngoSolar.id,  actorType: "NGO", actorName: "SunPower Africa",      description: "SunPower Africa joined GiveLedger — solar microgrids for 6 off-grid schools in Uganda.",                                    linkUrl: "/ngo/" + ngoSolar.id,  createdAt: d("2025-11-10T15:30:00Z") },
+    // PROJECT_LAUNCH
+    { type: "PROJECT_LAUNCH", projectId: projWater.id,  ngoName: "WaterBridge Kenya",  projectTitle: "Clean Water for Kibera Schools",      actorId: ngoWater.id,  actorType: "NGO", actorName: "WaterBridge Kenya",  description: "WaterBridge Kenya launched: Clean Water for Kibera Schools — $25,000 goal, 12 schools, 6,200 students.",          linkUrl: "/projects/" + projWater.id,  createdAt: d("2025-11-15T10:00:00Z") },
+    { type: "PROJECT_LAUNCH", projectId: projBihar.id,  ngoName: "Pragati Foundation", projectTitle: "Livelihood Training — Rural Bihar",    actorId: ngoBihar.id,  actorType: "NGO", actorName: "Pragati Foundation", description: "Pragati Foundation launched: Livelihood Training Rural Bihar — $40,000 goal to train 200 women.",               linkUrl: "/projects/" + projBihar.id,  createdAt: d("2025-11-20T11:00:00Z") },
+    { type: "PROJECT_LAUNCH", projectId: projMysore.id, ngoName: "SilverYears Trust",  projectTitle: "Elderly Care Home — Mysore",          actorId: ngoMysore.id, actorType: "NGO", actorName: "SilverYears Trust",  description: "SilverYears Trust launched: Elderly Care Home Mysore — $80,000 goal to build a 50-bed facility.",               linkUrl: "/projects/" + projMysore.id, createdAt: d("2025-11-18T09:00:00Z") },
+    { type: "PROJECT_LAUNCH", projectId: projSolar.id,  ngoName: "SunPower Africa",    projectTitle: "Solar Microgrids for Rural Schools",   actorId: ngoSolar.id,  actorType: "NGO", actorName: "SunPower Africa",    description: "SunPower Africa launched: Solar Microgrids for Rural Schools — $55,000 goal to electrify 6 schools.",            linkUrl: "/projects/" + projSolar.id,  createdAt: d("2025-11-22T10:00:00Z") },
+    // DONATION
+    { type: "DONATION", projectId: projWater.id,  ngoName: "WaterBridge Kenya",  projectTitle: "Clean Water for Kibera Schools",    actorId: priya.id,   actorType: "USER", actorName: "Priya Sharma",     description: "Priya Sharma donated $500 to \"Clean Water for Kibera Schools\"",                  linkUrl: "/projects/" + projWater.id,  createdAt: d("2025-11-25T14:00:00Z") },
+    { type: "DONATION", projectId: projBihar.id,  ngoName: "Pragati Foundation", projectTitle: "Livelihood Training — Rural Bihar",  actorId: rahul.id,   actorType: "USER", actorName: "Rahul Verma",      description: "Rahul Verma donated $1,000 to \"Livelihood Training — Rural Bihar\"",              linkUrl: "/projects/" + projBihar.id,  createdAt: d("2025-12-03T12:00:00Z") },
+    { type: "DONATION", projectId: projMysore.id, ngoName: "SilverYears Trust",  projectTitle: "Elderly Care Home — Mysore",        actorId: fatima.id,  actorType: "USER", actorName: "Fatima Al-Rashid", description: "Fatima Al-Rashid donated $2,000 to \"Elderly Care Home — Mysore\"",               linkUrl: "/projects/" + projMysore.id, createdAt: d("2025-12-07T19:00:00Z") },
+    { type: "DONATION", projectId: projSolar.id,  ngoName: "SunPower Africa",    projectTitle: "Solar Microgrids for Rural Schools", actorId: marcusJ.id, actorType: "USER", actorName: "Marcus Johnson",   description: "Marcus Johnson donated $500 to \"Solar Microgrids for Rural Schools\"",             linkUrl: "/projects/" + projSolar.id,  createdAt: d("2025-12-08T20:00:00Z") },
+    { type: "DONATION", projectId: projWater.id,  ngoName: "WaterBridge Kenya",  projectTitle: "Clean Water for Kibera Schools",    actorId: sarah.id,   actorType: "USER", actorName: "Sarah Mitchell",   description: "Sarah Mitchell donated $300 to \"Clean Water for Kibera Schools\"",                linkUrl: "/projects/" + projWater.id,  createdAt: d("2025-11-28T16:30:00Z") },
+    // MILESTONE_COMPLETE
+    { type: "MILESTONE_COMPLETE", projectId: projWater.id,  ngoName: "WaterBridge Kenya",  projectTitle: "Clean Water for Kibera Schools",    actorId: ngoWater.id,  actorType: "NGO", actorName: "WaterBridge Kenya",  description: "WaterBridge Kenya completed: Equipment procurement — 12 filtration units delivered, WHO-certified. $6,000 released on-chain.",      linkUrl: "/projects/" + projWater.id,  createdAt: d("2025-12-18T14:00:00Z") },
+    { type: "MILESTONE_COMPLETE", projectId: projBihar.id,  ngoName: "Pragati Foundation", projectTitle: "Livelihood Training — Rural Bihar",  actorId: ngoBihar.id,  actorType: "NGO", actorName: "Pragati Foundation", description: "Pragati Foundation completed: Training centre setup — 3 centres, 15 sewing machines, 8 electronics stations. $8,000 released.",   linkUrl: "/projects/" + projBihar.id,  createdAt: d("2025-12-12T10:00:00Z") },
+    { type: "MILESTONE_COMPLETE", projectId: projMysore.id, ngoName: "SilverYears Trust",  projectTitle: "Elderly Care Home — Mysore",        actorId: ngoMysore.id, actorType: "NGO", actorName: "SilverYears Trust",  description: "SilverYears Trust completed: Land acquisition — 0.5 acres acquired in Mysore, all permits cleared. $15,000 released on-chain.",  linkUrl: "/projects/" + projMysore.id, createdAt: d("2025-11-28T09:00:00Z") },
+    { type: "MILESTONE_COMPLETE", projectId: projWater.id,  ngoName: "WaterBridge Kenya",  projectTitle: "Clean Water for Kibera Schools",    actorId: ngoWater.id,  actorType: "NGO", actorName: "WaterBridge Kenya",  description: "WaterBridge Kenya completed: Installation Schools 1–6 — 2,400 children now have clean water daily. $5,000 released on-chain.",    linkUrl: "/projects/" + projWater.id,  createdAt: d("2026-02-05T11:00:00Z") },
+    { type: "MILESTONE_COMPLETE", projectId: projBihar.id,  ngoName: "Pragati Foundation", projectTitle: "Livelihood Training — Rural Bihar",  actorId: ngoBihar.id,  actorType: "NGO", actorName: "Pragati Foundation", description: "Pragati Foundation completed: Cohort 1 — 43 women certified, 7 businesses started within 30 days. $12,000 released on-chain.", linkUrl: "/projects/" + projBihar.id,  createdAt: d("2026-01-31T16:00:00Z") },
+    { type: "MILESTONE_COMPLETE", projectId: projMysore.id, ngoName: "SilverYears Trust",  projectTitle: "Elderly Care Home — Mysore",        actorId: ngoMysore.id, actorType: "NGO", actorName: "SilverYears Trust",  description: "SilverYears Trust completed: Foundation & ground floor — architect certified, 60% of 50-bed facility complete. $25,000 released.", linkUrl: "/projects/" + projMysore.id, createdAt: d("2026-01-22T14:00:00Z") },
+    { type: "MILESTONE_COMPLETE", projectId: projSolar.id,  ngoName: "SunPower Africa",    projectTitle: "Solar Microgrids for Rural Schools", actorId: ngoSolar.id,  actorType: "NGO", actorName: "SunPower Africa",    description: "SunPower Africa completed: Equipment procurement — 6 solar arrays & batteries shipped, customs-cleared. $15,000 released.",       linkUrl: "/projects/" + projSolar.id,  createdAt: d("2026-01-13T12:00:00Z") },
+    { type: "MILESTONE_COMPLETE", projectId: projSolar.id,  ngoName: "SunPower Africa",    projectTitle: "Solar Microgrids for Rural Schools", actorId: ngoSolar.id,  actorType: "NGO", actorName: "SunPower Africa",    description: "SunPower Africa completed: Installation Schools 1–3 — 860 students study after dark, $1,200/month diesel savings. $15,000 released.", linkUrl: "/projects/" + projSolar.id, createdAt: d("2026-02-22T17:00:00Z") },
+    // SKILL_APPROVED
+    { type: "SKILL_APPROVED", ngoName: "SunPower Africa",    actorId: marcusJ.id, actorType: "USER", actorName: "Marcus Johnson",   description: "SunPower Africa approved Marcus Johnson's data analytics contribution — M&E framework + 6-school impact dashboard. 40h, valued at $4,000.",    linkUrl: "/donor/" + marcusJ.id + "/profile", createdAt: d("2026-03-15T12:00:00Z") },
+    { type: "SKILL_APPROVED", ngoName: "Pragati Foundation", actorId: anjaliP.id, actorType: "USER", actorName: "Anjali Patel",     description: "Pragati Foundation approved Anjali Patel's curriculum design contribution — full 8-week training redesign. 30h, valued at $2,500.",           linkUrl: "/donor/" + anjaliP.id + "/profile", createdAt: d("2026-03-14T15:00:00Z") },
+    { type: "SKILL_APPROVED", ngoName: "SilverYears Trust",  actorId: rahul.id,   actorType: "USER", actorName: "Rahul Verma",      description: "SilverYears Trust approved Rahul Verma's legal advisory contribution — trust deed review, compliance audit, resident agreement draft. 15h, $1,500.", linkUrl: "/donor/" + rahul.id + "/profile",   createdAt: d("2026-03-08T10:00:00Z") },
+    { type: "SKILL_APPROVED", ngoName: "WaterBridge Kenya",  actorId: fatima.id,  actorType: "USER", actorName: "Fatima Al-Rashid", description: "WaterBridge Kenya approved Fatima Al-Rashid's marketing contribution — LinkedIn page, 20 posts, Mailchimp setup, strategy doc. 20h, $2,000.", linkUrl: "/donor/" + fatima.id + "/profile",  createdAt: d("2026-03-05T14:00:00Z") },
+    { type: "SKILL_APPROVED", ngoName: "Pragati Foundation", actorId: sophie.id,  actorType: "USER", actorName: "Sophie Laurent",   description: "Pragati Foundation approved Sophie Laurent's IT contribution — full impact tracker web page built and deployed. 35h, valued at $3,500.",          linkUrl: "/donor/" + sophie.id + "/profile",  createdAt: d("2026-03-10T11:00:00Z") },
+    { type: "SKILL_APPROVED", ngoName: "WaterBridge Kenya",  actorId: james.id,   actorType: "USER", actorName: "James Ochieng",    description: "WaterBridge Kenya approved James Ochieng's engineering contribution — structural review and AECOM sign-off on tank installation. 8h, $1,200.", linkUrl: "/donor/" + james.id + "/profile",   createdAt: d("2026-02-28T09:00:00Z") },
+    // NGO_ENDORSEMENT
+    { type: "NGO_ENDORSEMENT", ngoName: "SunPower Africa",    actorId: ngoSolar.id,  actorType: "NGO", actorName: "SunPower Africa",    description: "SunPower Africa endorsed Marcus Johnson: \"Marcus delivered more than any pro bono consultant I have worked with. His M&E framework is now our standard.\"", linkUrl: "/donor/" + marcusJ.id + "/profile", createdAt: d("2026-03-16T10:00:00Z") },
+    { type: "NGO_ENDORSEMENT", ngoName: "Pragati Foundation", actorId: ngoBihar.id,  actorType: "NGO", actorName: "Pragati Foundation", description: "Pragati Foundation endorsed Anjali Patel: \"Anjali's curriculum redesign was better than what a paid consultant would have delivered. Outstanding.\"",   linkUrl: "/donor/" + anjaliP.id + "/profile", createdAt: d("2026-03-15T15:00:00Z") },
+    { type: "NGO_ENDORSEMENT", ngoName: "WaterBridge Kenya",  actorId: ngoWater.id,  actorType: "NGO", actorName: "WaterBridge Kenya",  description: "WaterBridge Kenya endorsed Sarah Mitchell: \"Sarah rebuilt our entire comms strategy. Newsletter open rate went from 18% to 34% in 8 weeks.\"",   linkUrl: "/donor/" + sarah.id + "/profile",   createdAt: d("2026-03-16T11:00:00Z") },
+    { type: "NGO_ENDORSEMENT", ngoName: "SilverYears Trust",  actorId: ngoMysore.id, actorType: "NGO", actorName: "SilverYears Trust",  description: "SilverYears Trust endorsed Rahul Verma: \"Rahul's legal review identified risks we hadn't considered. His resident agreement protects the trust.\"", linkUrl: "/donor/" + rahul.id + "/profile",   createdAt: d("2026-03-09T10:00:00Z") },
+    // JOURNEY_UPDATE (mid-project contributor updates)
+    { type: "JOURNEY_UPDATE", ngoName: "Pragati Foundation", actorId: priya.id,   actorType: "USER", actorName: "Priya Sharma",   description: "Priya Sharma logged 24h on \"Mobile App Developer\" at Pragati Foundation: Auth flow complete, lesson delivery screens built. On track for MVP delivery April 1.", linkUrl: "/opportunities/" + rolePragatiIT.id,      createdAt: d("2026-03-14T10:00:00Z") },
+    { type: "JOURNEY_UPDATE", ngoName: "WaterBridge Kenya",  actorId: sarah.id,   actorType: "USER", actorName: "Sarah Mitchell", description: "Sarah Mitchell logged 12h on \"Digital Marketing Coordinator\" at WaterBridge Kenya: Wrote March newsletter, revamped templates. Follower growth +8% in 2 weeks.", linkUrl: "/opportunities/" + roleWaterMarketing.id, createdAt: d("2026-03-15T09:00:00Z") },
+    // CAMPAIGN_CREATED
+    { type: "CAMPAIGN_CREATED", projectId: projWater.id,  ngoName: "WaterBridge Kenya",  projectTitle: "Clean Water for Kibera Schools",   actorId: sarah.id,   actorType: "USER", actorName: "Sarah Mitchell", description: "Sarah Mitchell started a campaign for Kibera Water — raising $7,500 to fund the final 6 school installations.",  linkUrl: "/projects/" + projWater.id,  createdAt: d("2026-02-10T09:00:00Z") },
+    { type: "CAMPAIGN_CREATED", projectId: projBihar.id,  ngoName: "Pragati Foundation", projectTitle: "Livelihood Training — Rural Bihar", actorId: anjaliP.id, actorType: "USER", actorName: "Anjali Patel",   description: "Anjali Patel started a campaign for Pragati's Cohort 2 — targeting the next 45 women for vocational training.", linkUrl: "/projects/" + projBihar.id,  createdAt: d("2026-02-15T11:00:00Z") },
+    // SPOTLIGHT_WIN
+    { type: "SPOTLIGHT_WIN", projectId: projWater.id, ngoName: "WaterBridge Kenya", projectTitle: "Clean Water for Kibera Schools", description: "February Spotlight Winner: Clean Water for Kibera Schools received the most donor votes this month.", linkUrl: "/projects/" + projWater.id, createdAt: d("2026-03-01T08:00:00Z") },
   ]});
-  console.log("  ✓ 8 platform activity events");
+  console.log("  ✓ 40+ platform activity events covering all wall event types");
 
   // ── 14. NGO Suggestions by donors ───────────────────────────────────────
   console.log("\nCreating NGO suggestions...");
@@ -972,16 +1392,24 @@ async function main() {
   console.log("📊  Summary:");
   console.log(`    1 Admin account      (platform@giveledger.com)`);
   console.log(`    4 NGO accounts       (WaterBridge, Pragati, SilverYears, SunPower)`);
-  console.log(`   10 Donor accounts     (Priya, Sarah, James, Rahul, Fatima, Marcus,`);
-  console.log(`                          Anjali, David, Grace, Sophie)`);
+  console.log(`   10 Donor accounts     (with jobTitle, company, bio, city)`);
+  console.log(`   12 Board members      (3 per NGO — founders + board)`);
+  console.log(`    7 NGO open roles     (VOLUNTEER, CAREER_TRANSITION, INTERNSHIP)`);
+  console.log(`    7 Role applications  (2 active, 2 completed, 2 pending, 1 rejected)`);
+  console.log(`    7 Skill contributions (2 from roles, 5 direct — all APPROVED)`);
+  console.log(`    9 Donor endorsements`);
+  console.log(`    4 Donor challenges   (2 financial, 2 skill) + 14 acceptances`);
   console.log(`    4 Active projects    ($202,000 combined goal)`);
   console.log(`   16 Milestones         (6 COMPLETED, 2 UNDER_REVIEW, 8 PENDING)`);
-  console.log(`   21 Donations          ($8,850 total donated across all donors)`);
-  console.log(`    8 Disbursements      (APPROVED, $96,000 released on-chain)`);
-  console.log(`    2 Disbursements      (PENDING — under admin review)`);
-  console.log(`    4 Donor campaigns    (Sarah, Anjali, David, Marcus)`);
-  console.log(`    8 NGO ratings        (all 4+ stars)`);
+  console.log(`   21 Donations          ($8,850 total)`);
+  console.log(`    8 Disbursements      (APPROVED, $96,000 released)`);
+  console.log(`    2 Disbursements      (PENDING)`);
+  console.log(`    4 Donor campaigns    with contributors`);
+  console.log(`    8 NGO ratings`);
   console.log(`   10 Spotlight votes`);
+  console.log(`   40+ Activity events   (NGO_JOINED, PROJECT_LAUNCH, DONATION,`);
+  console.log(`                          MILESTONE_COMPLETE, SKILL_APPROVED,`);
+  console.log(`                          NGO_ENDORSEMENT, JOURNEY_UPDATE, CAMPAIGN_CREATED)`);
   console.log(`    2 NGO suggestions`);
   console.log("═".repeat(60) + "\n");
 

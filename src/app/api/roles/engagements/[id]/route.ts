@@ -42,6 +42,22 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
         workSummary: workSummary || engagement.workSummary,
       },
     });
+
+    // Emit wall event so mid-project updates appear on the activity wall
+    if (workSummary) {
+      await prisma.activityEvent.create({
+        data: {
+          type: "JOURNEY_UPDATE",
+          ngoName: ngo.orgName,
+          actorId: applicant.id,
+          actorType: "USER",
+          actorName: applicant.name ?? "A contributor",
+          description: `${applicant.name ?? "A contributor"} logged ${parseFloat(hours) || 0}h on "${role.title}" at ${ngo.orgName}: ${workSummary}`,
+          linkUrl: `/opportunities/${role.id}`,
+        },
+      }).catch(() => {});
+    }
+
     return NextResponse.json(updated);
   }
 

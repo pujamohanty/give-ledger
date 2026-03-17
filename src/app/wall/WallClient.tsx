@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
-import { Loader2, Heart, CheckCircle2, Rocket, Star, Briefcase, Users, ChevronRight } from "lucide-react";
+import { Loader2, Heart, CheckCircle2, Rocket, Star, Briefcase, Users, ChevronRight, TrendingUp } from "lucide-react";
 
 type ActivityEvent = {
   id: string;
@@ -37,6 +37,7 @@ const EVENT_CONFIG: Record<string, { icon: React.ElementType; bg: string; color:
   NGO_JOINED:        { icon: Users,         bg: "bg-amber-100",   color: "text-amber-600",   label: "NGO Joined" },
   NGO_ENDORSEMENT:   { icon: Star,          bg: "bg-amber-100",   color: "text-amber-600",   label: "Endorsement" },
   DONOR_ENDORSEMENT: { icon: Star,          bg: "bg-amber-100",   color: "text-amber-600",   label: "Endorsement" },
+  JOURNEY_UPDATE:    { icon: TrendingUp,    bg: "bg-teal-100",    color: "text-teal-600",    label: "In Progress" },
 };
 
 function EventCard({ event }: { event: ActivityEvent }) {
