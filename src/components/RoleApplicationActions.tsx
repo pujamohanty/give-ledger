@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, XCircle, Loader2, Clock, Star } from "lucide-react";
+import { CheckCircle, XCircle, Loader2, Clock, Star, Copy, Check, Linkedin, MessageCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 // ─── Accept / Reject an application ──────────────────────────────────────────
@@ -74,14 +74,20 @@ export function ApplicationActions({ applicationId, applicantName }: Application
 interface LogHoursProps {
   engagementId: string;
   currentHours: number;
+  roleTitle: string;
+  ngoName: string;
 }
 
-export function LogHoursButton({ engagementId, currentHours }: LogHoursProps) {
+export function LogHoursButton({ engagementId, currentHours, roleTitle, ngoName }: LogHoursProps) {
   const router = useRouter();
-  const [open, setOpen] = useState(false);
+  const [step, setStep] = useState<"idle" | "form" | "share">("idle");
   const [hours, setHours] = useState("2");
   const [workSummary, setWorkSummary] = useState("");
+  const [totalAfterSave, setTotalAfterSave] = useState(currentHours);
   const [loading, setLoading] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  const shareText = `${totalAfterSave}h logged and counting. I'm currently volunteering as ${roleTitle} for ${ngoName} through GiveLedger.${workSummary ? ` Latest: ${workSummary}` : ""} Skills matter as much as money.`;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -93,7 +99,8 @@ export function LogHoursButton({ engagementId, currentHours }: LogHoursProps) {
         body: JSON.stringify({ action: "logHours", hours, workSummary }),
       });
       if (res.ok) {
-        setOpen(false);
+        setTotalAfterSave((prev) => prev + (parseFloat(hours) || 0));
+        setStep("share");
         router.refresh();
       }
     } finally {
@@ -101,41 +108,107 @@ export function LogHoursButton({ engagementId, currentHours }: LogHoursProps) {
     }
   };
 
+  function handleCopy() {
+    const appUrl = typeof window !== "undefined" ? window.location.origin : "https://give-ledger.vercel.app";
+    navigator.clipboard.writeText(`${shareText}\n\n${appUrl}/opportunities`);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  }
+
+  function handleClose() {
+    setStep("idle");
+    setHours("2");
+    setWorkSummary("");
+    setCopied(false);
+  }
+
   return (
     <>
-      <Button size="sm" variant="outline" className="text-xs h-7 gap-1" onClick={() => setOpen(true)}>
+      <Button size="sm" variant="outline" className="text-xs h-7 gap-1" onClick={() => setStep("form")}>
         <Clock className="w-3 h-3" /> Log hours
       </Button>
 
-      {open && (
+      {step !== "idle" && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
           <div className="bg-white rounded-2xl shadow-xl w-full max-w-sm p-6">
-            <h3 className="font-semibold text-gray-900 text-sm mb-1">Log hours</h3>
-            <p className="text-xs text-gray-500 mb-4">Currently logged: {currentHours}h total</p>
-            <form onSubmit={handleSubmit} className="space-y-3">
-              <div>
-                <label className="block text-xs font-medium text-gray-700 mb-1">Hours to add *</label>
-                <input
-                  type="number" min="0.5" step="0.5" required
-                  className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
-                  value={hours} onChange={(e) => setHours(e.target.value)}
-                />
-              </div>
-              <div>
-                <label className="block text-xs font-medium text-gray-700 mb-1">What did you work on?</label>
-                <textarea
-                  rows={3} placeholder="Brief description of work completed..."
-                  className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-none"
-                  value={workSummary} onChange={(e) => setWorkSummary(e.target.value)}
-                />
-              </div>
-              <div className="flex gap-2 pt-1">
-                <Button type="button" variant="outline" className="flex-1 text-xs" onClick={() => setOpen(false)}>Cancel</Button>
-                <Button type="submit" disabled={loading} className="flex-1 text-xs gap-1">
-                  {loading && <Loader2 className="w-3 h-3 animate-spin" />} Save
-                </Button>
-              </div>
-            </form>
+
+            {step === "form" && (
+              <>
+                <h3 className="font-semibold text-gray-900 text-sm mb-1">Log hours</h3>
+                <p className="text-xs text-gray-500 mb-4">Currently logged: {currentHours}h total</p>
+                <form onSubmit={handleSubmit} className="space-y-3">
+                  <div>
+                    <label className="block text-xs font-medium text-gray-700 mb-1">Hours to add *</label>
+                    <input
+                      type="number" min="0.5" step="0.5" required
+                      className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                      value={hours} onChange={(e) => setHours(e.target.value)}
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-medium text-gray-700 mb-1">What did you work on?</label>
+                    <textarea
+                      rows={3} placeholder="Brief description of work completed..."
+                      className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-none"
+                      value={workSummary} onChange={(e) => setWorkSummary(e.target.value)}
+                    />
+                  </div>
+                  <div className="flex gap-2 pt-1">
+                    <Button type="button" variant="outline" className="flex-1 text-xs" onClick={handleClose}>Cancel</Button>
+                    <Button type="submit" disabled={loading} className="flex-1 text-xs gap-1">
+                      {loading && <Loader2 className="w-3 h-3 animate-spin" />} Save
+                    </Button>
+                  </div>
+                </form>
+              </>
+            )}
+
+            {step === "share" && (
+              <>
+                <div className="flex items-center gap-2 mb-4">
+                  <div className="w-9 h-9 rounded-full bg-emerald-100 flex items-center justify-center shrink-0">
+                    <CheckCircle className="w-4 h-4 text-emerald-600" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-gray-900">Hours logged!</p>
+                    <p className="text-xs text-gray-400">{totalAfterSave}h total on this engagement</p>
+                  </div>
+                </div>
+                <p className="text-xs text-gray-500 mb-3">Share a progress update with your network?</p>
+                <div className="bg-gray-50 border border-gray-100 rounded-xl p-3 mb-4 text-xs text-gray-600 leading-relaxed">
+                  {shareText}
+                </div>
+                <div className="space-y-2">
+                  <button
+                    onClick={handleCopy}
+                    className="w-full flex items-center gap-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium text-sm px-4 py-2.5 rounded-xl transition-colors"
+                  >
+                    {copied ? <Check className="w-4 h-4 text-emerald-500" /> : <Copy className="w-4 h-4" />}
+                    {copied ? "Copied!" : "Copy to clipboard"}
+                  </button>
+                  <a
+                    href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(`${typeof window !== "undefined" ? window.location.origin : "https://give-ledger.vercel.app"}/opportunities`)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full flex items-center gap-3 bg-[#0A66C2] hover:opacity-90 text-white font-medium text-sm px-4 py-2.5 rounded-xl transition-opacity"
+                  >
+                    <Linkedin className="w-4 h-4" /> Share on LinkedIn
+                  </a>
+                  <a
+                    href={`https://wa.me/?text=${encodeURIComponent(`${shareText}\n\n${typeof window !== "undefined" ? window.location.origin : "https://give-ledger.vercel.app"}/opportunities`)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full flex items-center gap-3 bg-[#25D366] hover:opacity-90 text-white font-medium text-sm px-4 py-2.5 rounded-xl transition-opacity"
+                  >
+                    <MessageCircle className="w-4 h-4" /> Share on WhatsApp
+                  </a>
+                  <button onClick={handleClose} className="w-full text-sm text-gray-400 hover:text-gray-600 py-1.5">
+                    Done
+                  </button>
+                </div>
+              </>
+            )}
+
           </div>
         </div>
       )}

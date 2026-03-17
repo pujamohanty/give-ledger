@@ -104,6 +104,26 @@ export async function POST(req: NextRequest) {
     },
   });
 
+  // Notify every donor who funded this project
+  const projectDonors = await prisma.donation.findMany({
+    where: { projectId: milestone.projectId },
+    select: { userId: true },
+    distinct: ["userId"],
+  });
+
+  if (projectDonors.length > 0) {
+    await prisma.notification.createMany({
+      data: projectDonors.map((d) => ({
+        userId: d.userId,
+        type: "MILESTONE_CREDITED",
+        title: "Your donation just made an impact",
+        message: `${milestone.project.ngo.orgName} completed "${milestone.name}" on "${milestone.project.title}" — a milestone you helped fund. Share what your donation achieved.`,
+        linkUrl: `/projects/${milestone.projectId}`,
+      })),
+      skipDuplicates: true,
+    });
+  }
+
   // Emit activity event
   await prisma.activityEvent.create({
     data: {

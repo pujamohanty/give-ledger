@@ -2,10 +2,11 @@
 import { useState } from "react";
 import Link from "next/link";
 import {
-  Bell, CheckCircle2, Zap, Star, Gift, X, Settings, ArrowRight,
+  Bell, CheckCircle2, Zap, Star, Gift, X, Settings, ArrowRight, TrendingUp, Briefcase,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import ShareJourneyButton from "@/components/ShareJourneyButton";
 
 type DbNotification = {
   id: string;
@@ -21,6 +22,10 @@ function getIconProps(type: string) {
   switch (type) {
     case "MILESTONE_COMPLETE":
       return { Icon: CheckCircle2, iconBg: "bg-emerald-100", iconColor: "text-emerald-600" };
+    case "MILESTONE_CREDITED":
+      return { Icon: TrendingUp, iconBg: "bg-emerald-100", iconColor: "text-emerald-600" };
+    case "ROLE_COMPLETED":
+      return { Icon: Briefcase, iconBg: "bg-violet-100", iconColor: "text-violet-600" };
     case "CAMPAIGN_UPDATE":
       return { Icon: Gift, iconBg: "bg-purple-100", iconColor: "text-purple-600" };
     case "SPOTLIGHT_WINNER":
@@ -37,12 +42,34 @@ function getIconProps(type: string) {
 function getLinkText(type: string) {
   switch (type) {
     case "MILESTONE_COMPLETE": return "See proof →";
+    case "MILESTONE_CREDITED": return "View project →";
+    case "ROLE_COMPLETED": return "View credential →";
     case "CAMPAIGN_UPDATE": return "View campaign →";
     case "SPOTLIGHT_WINNER": return "View project →";
     case "NEW_PROJECT": return "Browse projects →";
     case "REFERRAL_CONVERTED": return "See referrals →";
     default: return "View →";
   }
+}
+
+function getShareAction(n: DbNotification): { shareText: string; sharePath: string; variant: "emerald" | "violet"; label: string } | null {
+  if (n.type === "MILESTONE_CREDITED") {
+    return {
+      shareText: `A project I funded just hit a milestone. ${n.message}`,
+      sharePath: n.linkUrl || "/donor/donations",
+      variant: "emerald",
+      label: "Share your impact",
+    };
+  }
+  if (n.type === "ROLE_COMPLETED") {
+    return {
+      shareText: `My skill contribution was just verified on GiveLedger. ${n.message}`,
+      sharePath: n.linkUrl || "/donor/credential",
+      variant: "violet",
+      label: "Share this achievement",
+    };
+  }
+  return null;
 }
 
 function timeAgo(date: Date): string {
@@ -58,7 +85,9 @@ function timeAgo(date: Date): string {
 }
 
 const notificationPrefs = [
-  { id: "milestone", label: "Milestone completions", sub: "When a milestone on a project you fund is verified", enabled: true },
+  { id: "milestone_credited", label: "Milestones you funded", sub: "When a project you donated to completes a verified milestone", enabled: true },
+  { id: "role_completed", label: "Skill contribution verified", sub: "When an NGO confirms and endorses your skill contribution", enabled: true },
+  { id: "milestone", label: "General milestone completions", sub: "When any milestone on a project you follow is verified", enabled: true },
   { id: "campaign", label: "Campaign updates", sub: "Progress and new contributors to your campaigns", enabled: true },
   { id: "spotlight", label: "Monthly spotlight", sub: "When voting opens and a winner is announced", enabled: true },
   { id: "new_project", label: "New projects from your NGOs", sub: "When an NGO you've supported launches something new", enabled: false },
@@ -147,6 +176,7 @@ export default function NotificationsClient({ initialNotifications }: { initialN
           ) : (
             notifications.map((n) => {
               const { Icon, iconBg, iconColor } = getIconProps(n.type);
+              const shareAction = getShareAction(n);
               return (
                 <div
                   key={n.id}
@@ -172,6 +202,16 @@ export default function NotificationsClient({ initialNotifications }: { initialN
                         </Link>
                       )}
                     </div>
+                    {shareAction && (
+                      <div className="mt-3" onClick={(e) => e.stopPropagation()}>
+                        <ShareJourneyButton
+                          shareText={shareAction.shareText}
+                          sharePath={shareAction.sharePath}
+                          buttonLabel={shareAction.label}
+                          variant={shareAction.variant}
+                        />
+                      </div>
+                    )}
                   </div>
                   <button
                     onClick={(e) => { e.stopPropagation(); dismiss(n.id); }}

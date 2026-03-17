@@ -4,6 +4,7 @@ import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { Button } from "@/components/ui/button";
 import { LogHoursButton } from "@/components/RoleApplicationActions";
+import ShareJourneyButton from "@/components/ShareJourneyButton";
 import {
   Briefcase, Clock, CheckCircle, XCircle, Search,
   Star, ExternalLink, ChevronRight,
@@ -116,12 +117,21 @@ export default async function DonorOpportunitiesPage() {
                           : "recently"}
                         </span>
                       </div>
-                      {app.engagement && (
-                        <LogHoursButton
-                          engagementId={app.engagement.id}
-                          currentHours={app.engagement.hoursLogged}
+                      <div className="flex items-center gap-2">
+                        <ShareJourneyButton
+                          shareText={`${app.engagement?.hoursLogged ?? 0}h logged and counting. I'm currently volunteering as ${app.role.title} for ${app.role.ngo.orgName} through GiveLedger. Skills matter as much as money.`}
+                          sharePath={`/opportunities/${app.role.id}`}
+                          buttonLabel="Share update"
                         />
-                      )}
+                        {app.engagement && (
+                          <LogHoursButton
+                            engagementId={app.engagement.id}
+                            currentHours={app.engagement.hoursLogged}
+                            roleTitle={app.role.title}
+                            ngoName={app.role.ngo.orgName}
+                          />
+                        )}
+                      </div>
                     </div>
 
                     {app.engagement?.workSummary && (
@@ -200,12 +210,20 @@ export default async function DonorOpportunitiesPage() {
                           ? new Date(app.engagement.completedAt).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })
                           : ""}
                       </p>
-                      <Link
-                        href="/donor/credential"
-                        className="text-xs text-emerald-700 font-medium hover:underline flex items-center gap-1"
-                      >
-                        View on credential <ChevronRight className="w-3 h-3" />
-                      </Link>
+                      <div className="flex items-center gap-2">
+                        <ShareJourneyButton
+                          shareText={`I just completed ${app.engagement?.hoursLogged ?? 0} hours as ${app.role.title} for ${app.role.ngo.orgName} — verified on GiveLedger.${app.engagement?.monetaryValue ? ` Equivalent to $${app.engagement.monetaryValue.toLocaleString()} in professional services.` : ""} Proud to have contributed.`}
+                          sharePath="/donor/credential"
+                          buttonLabel="Share achievement"
+                          variant="emerald"
+                        />
+                        <Link
+                          href="/donor/credential"
+                          className="text-xs text-emerald-700 font-medium hover:underline flex items-center gap-1"
+                        >
+                          View on credential <ChevronRight className="w-3 h-3" />
+                        </Link>
+                      </div>
                     </div>
                   </div>
                 ))}
