@@ -33,6 +33,17 @@ type FeaturedProject = {
   ngo: { orgName: string };
 };
 
+type AllProject = {
+  id: string;
+  title: string;
+  category: string;
+  goalAmount: number;
+  raisedAmount: number;
+  ngo: { orgName: string };
+  milestoneCount: number;
+  createdAt: string;
+};
+
 type RecentNgo = {
   id: string;
   orgName: string;
@@ -45,6 +56,7 @@ type Props = {
   stats: { donors: number; ngos: number; projects: number; milestones: number };
   featuredProjects: FeaturedProject[];
   recentNgos: RecentNgo[];
+  allProjects: AllProject[];
   session: { name?: string | null; image?: string | null; role?: string } | null;
 };
 
@@ -101,7 +113,6 @@ const FILTERS = [
   { key: "DONATION", label: "Donations" },
   { key: "MILESTONE_COMPLETE", label: "Milestones" },
   { key: "PROJECT_LAUNCH", label: "Projects" },
-  { key: "NGO_JOINED", label: "NGOs" },
   { key: "SKILL_APPROVED", label: "Skills" },
 ];
 
@@ -421,8 +432,46 @@ function RightSidebar({ featuredProjects, recentNgos }: {
   );
 }
 
+/* ─── ProjectCard ────────────────────────────────────────────── */
+function ProjectCard({ project }: { project: AllProject }) {
+  const pct = project.goalAmount > 0
+    ? Math.min(100, Math.round((project.raisedAmount / project.goalAmount) * 100))
+    : 0;
+  const emoji = CATEGORY_EMOJI[project.category] ?? "🌱";
+
+  return (
+    <Link href={`/projects/${project.id}`}>
+      <article className="bg-white rounded-lg border border-[rgba(0,0,0,0.08)] shadow-[0_0_0_1px_rgba(0,0,0,0.06),0_2px_4px_rgba(0,0,0,0.04)] hover:shadow-[0_0_0_1px_rgba(0,0,0,0.10),0_4px_12px_rgba(0,0,0,0.07)] transition-all duration-150 p-4">
+        <div className="flex items-start gap-3">
+          <div className="w-11 h-11 rounded-lg bg-emerald-50 flex items-center justify-center text-xl shrink-0">
+            {emoji}
+          </div>
+          <div className="flex-1 min-w-0">
+            <p className="text-sm font-semibold text-gray-900 leading-snug">{project.title}</p>
+            <p className="text-xs text-gray-500 mt-0.5">{project.ngo.orgName}</p>
+            <div className="mt-2.5">
+              <div className="flex justify-between text-xs text-gray-500 mb-1">
+                <span>${project.raisedAmount.toLocaleString()} raised</span>
+                <span>{pct}% of ${project.goalAmount.toLocaleString()}</span>
+              </div>
+              <Progress value={pct} className="h-1.5" />
+            </div>
+            <div className="flex items-center gap-3 mt-2 text-xs text-gray-400">
+              <span className="inline-flex items-center gap-1">
+                <CheckCircle2 className="w-3 h-3 text-emerald-500" />
+                {project.milestoneCount} milestone{project.milestoneCount !== 1 ? "s" : ""}
+              </span>
+              <span className="text-emerald-600 font-medium">View project →</span>
+            </div>
+          </div>
+        </div>
+      </article>
+    </Link>
+  );
+}
+
 /* ─── Main Feed ──────────────────────────────────────────────── */
-function Feed({ initial, initialCursor }: { initial: ActivityEvent[]; initialCursor: string | null }) {
+function Feed({ initial, initialCursor, allProjects }: { initial: ActivityEvent[]; initialCursor: string | null; allProjects: AllProject[] }) {
   const [events, setEvents] = useState<ActivityEvent[]>(initial);
   const [cursor, setCursor] = useState<string | null>(initialCursor);
   const [loading, setLoading] = useState(false);
@@ -442,6 +491,7 @@ function Feed({ initial, initialCursor }: { initial: ActivityEvent[]; initialCur
     } catch { /* silent */ } finally { setLoading(false); }
   }, [cursor, loading]);
 
+  const showProjects = filter === "PROJECT_LAUNCH";
   const filtered = filter === "ALL" ? events : events.filter(e => e.type === filter);
 
   return (
@@ -461,14 +511,26 @@ function Feed({ initial, initialCursor }: { initial: ActivityEvent[]; initialCur
 
       {/* Feed */}
       <div className="space-y-3">
-        {filtered.length === 0 && (
-          <div className="bg-white rounded-lg border border-[rgba(0,0,0,0.08)] p-10 text-center text-gray-400 text-sm">
-            No activity for this filter yet.
-          </div>
+        {showProjects ? (
+          allProjects.length === 0 ? (
+            <div className="bg-white rounded-lg border border-[rgba(0,0,0,0.08)] p-10 text-center text-gray-400 text-sm">
+              No active projects yet.
+            </div>
+          ) : (
+            allProjects.map(p => <ProjectCard key={p.id} project={p} />)
+          )
+        ) : (
+          <>
+            {filtered.length === 0 && (
+              <div className="bg-white rounded-lg border border-[rgba(0,0,0,0.08)] p-10 text-center text-gray-400 text-sm">
+                No activity for this filter yet.
+              </div>
+            )}
+            {filtered.map(event => (
+              <EventCard key={event.id} event={event} />
+            ))}
+          </>
         )}
-        {filtered.map(event => (
-          <EventCard key={event.id} event={event} />
-        ))}
       </div>
 
       {/* Load more */}
@@ -495,7 +557,7 @@ function Feed({ initial, initialCursor }: { initial: ActivityEvent[]; initialCur
 }
 
 /* ─── Root export ────────────────────────────────────────────── */
-export default function HomeFeedClient({ initial, initialCursor, stats, featuredProjects, recentNgos, session }: Props) {
+export default function HomeFeedClient({ initial, initialCursor, stats, featuredProjects, recentNgos, allProjects, session }: Props) {
   return (
     <main className="max-w-6xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
       {/* Top banner for guests */}
@@ -527,7 +589,7 @@ export default function HomeFeedClient({ initial, initialCursor, stats, featured
 
         {/* Center feed */}
         <div>
-          <Feed initial={initial} initialCursor={initialCursor} />
+          <Feed initial={initial} initialCursor={initialCursor} allProjects={allProjects} />
         </div>
 
         {/* Right sidebar — hidden on mobile, shown on lg */}

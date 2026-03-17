@@ -13,7 +13,7 @@ export default async function HomePage() {
 
   const LIMIT = 20;
 
-  const [events, donorCount, ngoCount, projectCount, milestoneCount, featuredProjectsRaw, recentNgosRaw] =
+  const [events, donorCount, ngoCount, projectCount, milestoneCount, featuredProjectsRaw, recentNgosRaw, allProjectsRaw] =
     await Promise.all([
       prisma.activityEvent.findMany({ take: LIMIT + 1, orderBy: { createdAt: "desc" } }),
       prisma.user.count({ where: { role: "DONOR" } }),
@@ -30,6 +30,14 @@ export default async function HomePage() {
         take: 5,
         where: { status: "ACTIVE" },
         select: { id: true, orgName: true, description: true },
+        orderBy: { createdAt: "desc" },
+      }),
+      prisma.project.findMany({
+        where: { status: "ACTIVE" },
+        include: {
+          ngo: { select: { orgName: true } },
+          _count: { select: { milestones: true } },
+        },
         orderBy: { createdAt: "desc" },
       }),
     ]);
@@ -54,6 +62,16 @@ export default async function HomePage() {
           ngo: p.ngo,
         }))}
         recentNgos={recentNgosRaw}
+        allProjects={allProjectsRaw.map(p => ({
+          id: p.id,
+          title: p.title,
+          category: p.category,
+          goalAmount: p.goalAmount,
+          raisedAmount: p.raisedAmount,
+          ngo: p.ngo,
+          milestoneCount: p._count.milestones,
+          createdAt: p.createdAt.toISOString(),
+        }))}
         session={session?.user ? {
           name: session.user.name,
           image: session.user.image,
