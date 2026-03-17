@@ -5,7 +5,8 @@ import { formatCurrency } from "@/lib/utils";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
-import { Users, Droplets, BookOpen, Heart, Briefcase, CheckCircle2, ExternalLink } from "lucide-react";
+import { Users, Droplets, BookOpen, Heart, Briefcase, CheckCircle2, ExternalLink, Award } from "lucide-react";
+import ShareJourneyButton from "@/components/ShareJourneyButton";
 
 export default async function ImpactPage() {
   const session = await auth();
@@ -19,7 +20,7 @@ export default async function ImpactPage() {
         include: {
           ngo: true,
           milestones: {
-            include: { outputMarkers: true },
+            include: { outputMarkers: true, disbursement: true },
             orderBy: { orderIndex: "asc" },
           },
         },
@@ -54,6 +55,39 @@ export default async function ImpactPage() {
     }
   }
   const projects = Array.from(projectMap.values());
+
+  // Extract completed milestones across all funded projects (deduped) — permanent impact certificates
+  type FundedMilestone = {
+    id: string;
+    name: string;
+    completedAt: Date | null;
+    requiredAmount: number;
+    projectTitle: string;
+    projectId: string;
+    ngoName: string;
+    txHash: string | null;
+    outputMarkers: { label: string; value: string; unit: string | null }[];
+  };
+  const seenMilestones = new Set<string>();
+  const fundedMilestones: FundedMilestone[] = [];
+  for (const d of donations) {
+    for (const m of d.project.milestones) {
+      if (m.status === "COMPLETED" && !seenMilestones.has(m.id)) {
+        seenMilestones.add(m.id);
+        fundedMilestones.push({
+          id: m.id,
+          name: m.name,
+          completedAt: m.completedAt,
+          requiredAmount: m.requiredAmount,
+          projectTitle: d.project.title,
+          projectId: d.project.id,
+          ngoName: d.project.ngo.orgName,
+          txHash: m.disbursement?.txHash ?? null,
+          outputMarkers: m.outputMarkers,
+        });
+      }
+    }
+  }
 
   // Fetch skill contributions for this donor
   const skillContributions = await prisma.skillContribution.findMany({
@@ -124,6 +158,73 @@ export default async function ImpactPage() {
           </Card>
         ))}
       </div>
+
+      {/* Impact Certificates — permanent shareable milestone completions */}
+      {fundedMilestones.length > 0 && (
+        <div className="mb-8">
+          <div className="flex items-center gap-2 mb-4">
+            <Award className="w-4 h-4 text-emerald-600" />
+            <h2 className="font-semibold text-gray-900">Impact Certificates</h2>
+            <span className="text-xs text-gray-400 ml-1">{fundedMilestones.length} verified milestone{fundedMilestones.length !== 1 ? "s" : ""} you helped fund</span>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            {fundedMilestones.map((m) => {
+              const firstMarker = m.outputMarkers[0] ?? null;
+              const shareText = `I helped fund this. ${m.ngoName} completed "${m.name}" on "${m.projectTitle}"${firstMarker ? ` — ${firstMarker.label}: ${firstMarker.value}${firstMarker.unit ? ` ${firstMarker.unit}` : ""}` : ""}. Verified on-chain. My donation created real, traceable impact.`;
+              return (
+                <div key={m.id} className="border border-emerald-100 rounded-xl overflow-hidden bg-white">
+                  {/* Certificate header */}
+                  <div className="bg-emerald-50 px-4 py-2.5 flex items-center justify-between border-b border-emerald-100">
+                    <div className="flex items-center gap-1.5">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                      <span className="text-[10px] font-bold text-emerald-700 uppercase tracking-wide">Verified by {m.ngoName}</span>
+                    </div>
+                    <span className="text-[10px] text-gray-400">
+                      {m.completedAt ? new Date(m.completedAt).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }) : "Completed"}
+                    </span>
+                  </div>
+                  {/* Certificate body */}
+                  <div className="p-4">
+                    <p className="font-semibold text-gray-900 text-sm mb-0.5">{m.name}</p>
+                    <p className="text-xs text-emerald-700 mb-3">{m.projectTitle}</p>
+                    {firstMarker && (
+                      <div className="bg-gray-50 rounded-lg px-3 py-2 mb-3">
+                        <p className="text-xs text-gray-600">
+                          {firstMarker.label}:{" "}
+                          <span className="font-semibold text-gray-900">
+                            {firstMarker.value}{firstMarker.unit ? ` ${firstMarker.unit}` : ""}
+                          </span>
+                        </p>
+                      </div>
+                    )}
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <span className="text-xs text-gray-400">{formatCurrency(m.requiredAmount)} milestone</span>
+                        {m.txHash && (
+                          <a
+                            href={`https://polygonscan.com/tx/${m.txHash}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-xs text-emerald-600 hover:underline flex items-center gap-1"
+                          >
+                            <ExternalLink className="w-3 h-3" /> On-chain
+                          </a>
+                        )}
+                      </div>
+                      <ShareJourneyButton
+                        shareText={shareText}
+                        sharePath={`/projects/${m.projectId}`}
+                        buttonLabel="Share"
+                        variant="emerald"
+                      />
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
 
       {/* Per-project impact breakdown */}
       <div className="space-y-6">

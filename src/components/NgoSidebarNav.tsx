@@ -2,7 +2,7 @@
 import Link from "next/link";
 import {
   Leaf, LayoutDashboard, FolderOpen, DollarSign, Settings,
-  FileText, Upload, Briefcase, Award, Linkedin, Building2, ClipboardList,
+  FileText, Upload, Briefcase, Award, Linkedin, Building2, ClipboardList, Users,
 } from "lucide-react";
 import SidebarNavItem from "@/components/SidebarNavItem";
 import SignOutButton from "@/components/SignOutButton";
@@ -13,6 +13,7 @@ const navItems = [
   { href: "/ngo/projects",         label: "My Projects",         icon: FolderOpen      },
   { href: "/ngo/roles",            label: "Open Roles",          icon: ClipboardList   },
   { href: "/ngo/submit-milestone", label: "Submit Evidence",     icon: Upload          },
+  { href: "/ngo/contributors",     label: "Our Contributors",    icon: Users           },
   { href: "/ngo/skills",           label: "Skill Contributions", icon: Briefcase       },
   { href: "/ngo/recognition",      label: "Donor Recognition",   icon: Award           },
   { href: "/ngo/post-builder",     label: "Post Builder",        icon: Linkedin        },

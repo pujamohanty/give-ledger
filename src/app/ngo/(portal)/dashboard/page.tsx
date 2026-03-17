@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import {
   DollarSign, FolderOpen, Clock, CheckCircle2, AlertCircle, Plus,
-  ExternalLink, ArrowRight, TrendingUp,
+  ExternalLink, ArrowRight, TrendingUp, Users,
 } from "lucide-react";
 
 export default async function NgoDashboard() {
@@ -41,6 +41,17 @@ export default async function NgoDashboard() {
     orderBy: { createdAt: "desc" },
     take: 10,
   });
+
+  // Contributor counts for the summary card
+  const [uniqueDonorCount, skillContributorCount] = await Promise.all([
+    prisma.donation.groupBy({
+      by: ["userId"],
+      where: { project: { ngoId: ngo.id } },
+    }).then((rows) => rows.length),
+    prisma.skillContribution.count({
+      where: { ngoId: ngo.id, status: "APPROVED" },
+    }),
+  ]);
 
   // KPI calculations
   const allMilestones = ngo.projects.flatMap((p) => p.milestones);
@@ -292,6 +303,31 @@ export default async function NgoDashboard() {
                   ))}
                 </div>
               )}
+            </CardContent>
+          </Card>
+
+          {/* Contributors summary */}
+          <Card>
+            <CardContent className="p-5">
+              <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center gap-2">
+                  <Users className="w-4 h-4 text-emerald-600" />
+                  <p className="text-sm font-semibold text-gray-900">Our Contributors</p>
+                </div>
+                <Link href="/ngo/contributors" className="text-xs text-emerald-600 hover:underline flex items-center gap-1">
+                  View all <ArrowRight className="w-3 h-3" />
+                </Link>
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <Link href="/ngo/contributors?tab=financial" className="bg-emerald-50 rounded-lg p-3 text-center hover:bg-emerald-100 transition-colors">
+                  <p className="text-xl font-bold text-emerald-700">{uniqueDonorCount}</p>
+                  <p className="text-[11px] text-gray-500 mt-0.5">Financial Donors</p>
+                </Link>
+                <Link href="/ngo/contributors?tab=skill" className="bg-violet-50 rounded-lg p-3 text-center hover:bg-violet-100 transition-colors">
+                  <p className="text-xl font-bold text-violet-700">{skillContributorCount}</p>
+                  <p className="text-[11px] text-gray-500 mt-0.5">Skill Contributors</p>
+                </Link>
+              </div>
             </CardContent>
           </Card>
 
