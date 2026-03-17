@@ -138,9 +138,9 @@ export default async function CampaignsPage() {
                         <div className="flex items-start justify-between gap-4">
                           <div className="min-w-0">
                             <div className="flex items-center gap-2 mb-1.5">
-                              <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${catColor}`}>
+                              <Link href={`/projects?category=${c.project.category}`} className={`text-xs font-semibold px-2 py-0.5 rounded-full hover:opacity-80 transition-opacity ${catColor}`}>
                                 {catLabel}
-                              </span>
+                              </Link>
                             </div>
                             <Link href={`/campaigns/${c.id}`} className="font-semibold text-gray-900 leading-snug hover:underline">
                               {c.title}

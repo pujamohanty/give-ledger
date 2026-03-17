@@ -116,9 +116,9 @@ export default async function CampaignDetailPage({
             <Card className="border-0 shadow-sm">
               <CardContent className="p-6">
                 <div className="flex items-center gap-2 mb-4">
-                  <span className="text-xs font-semibold bg-purple-100 text-purple-700 px-2 py-0.5 rounded-full">
+                  <Link href={`/projects?category=${campaign.project.category}`} className="text-xs font-semibold bg-purple-100 text-purple-700 px-2 py-0.5 rounded-full hover:bg-purple-200 transition-colors">
                     {categoryLabel[campaign.project.category] ?? campaign.project.category}
-                  </span>
+                  </Link>
                   <span className="text-xs text-gray-400">Donor Campaign</span>
                 </div>
                 <h1 className="text-2xl font-bold text-gray-900 mb-3">{campaign.title}</h1>

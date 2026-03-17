@@ -73,7 +73,19 @@ export default async function SharePage({ params }: { params: Promise<{ mileston
         {/* Hero */}
         <div className="mb-8">
           <div className="flex items-center gap-2 mb-3">
-            <span className="text-xs font-semibold text-gray-500 uppercase tracking-wide">{milestone.project.category}</span>
+            <Link
+              href={`/projects?category=${milestone.project.category}`}
+              className="text-xs font-semibold text-gray-500 uppercase tracking-wide hover:text-emerald-700 transition-colors"
+            >
+              {{
+                INCOME_GENERATION: "Income Generation",
+                CHILD_CARE: "Child Care",
+                ELDERLY_CARE: "Elderly Care",
+                PHYSICALLY_DISABLED: "Accessibility",
+                PET_CARE: "Animal Welfare",
+                OTHER: "Other",
+              }[milestone.project.category] ?? milestone.project.category}
+            </Link>
             <span className="text-gray-300">·</span>
             <span className="text-xs text-gray-500">{milestone.project.ngo.orgName}</span>
           </div>

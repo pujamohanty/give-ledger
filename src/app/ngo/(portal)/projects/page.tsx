@@ -98,9 +98,9 @@ export default async function NgoProjectsPage() {
                           {cfg.label}
                         </span>
                       </div>
-                      <p className="text-xs text-emerald-700">
+                      <Link href={`/projects?category=${project.category}`} className="text-xs text-emerald-700 hover:underline">
                         {categoryLabel[project.category] ?? project.category}
-                      </p>
+                      </Link>
                     </div>
                     {pendingDisbursement > 0 && (
                       <div className="text-right shrink-0">
