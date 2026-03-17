@@ -172,12 +172,29 @@ function DonationModal({
   );
 }
 
-function SpotlightVoteButton() {
+function SpotlightVoteButton({ projectId }: { projectId: string }) {
   const [voted, setVoted] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  async function handleVote() {
+    if (voted || loading) return;
+    setLoading(true);
+    try {
+      const res = await fetch(`/api/projects/${projectId}/spotlight`, { method: "POST" });
+      if (res.status === 401) {
+        window.location.href = "/login";
+        return;
+      }
+      if (res.ok) setVoted(true);
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <button
-      onClick={() => setVoted(true)}
-      disabled={voted}
+      onClick={handleVote}
+      disabled={voted || loading}
       className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium border transition-all ${
         voted
           ? "bg-amber-50 border-amber-200 text-amber-700 cursor-default"
@@ -185,7 +202,7 @@ function SpotlightVoteButton() {
       }`}
     >
       <Star className={`w-4 h-4 ${voted ? "fill-amber-500 text-amber-500" : ""}`} />
-      {voted ? "Spotlight Vote Cast!" : "Vote for Spotlight"}
+      {loading ? "Saving…" : voted ? "Spotlight Vote Cast!" : "Vote for Spotlight"}
     </button>
   );
 }
@@ -270,7 +287,7 @@ export default function ProjectDetailClient({ project }: { project: ProjectDetai
                 <Button size="lg" className="flex-1" onClick={() => setDonationOpen(true)}>
                   Donate to This Project
                 </Button>
-                <SpotlightVoteButton />
+                <SpotlightVoteButton projectId={project.id} />
               </div>
               <div className="mt-3">
                 <Link href={`/campaigns/new?project=${project.id}`}>

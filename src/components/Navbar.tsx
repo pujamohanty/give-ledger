@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState, useRef, useEffect } from "react";
 import { signOut } from "next-auth/react";
 import { Menu, X, Leaf, ChevronDown, Search, LayoutDashboard, LogOut } from "lucide-react";
@@ -15,8 +16,10 @@ function initials(name: string | null | undefined) {
 }
 
 export default function Navbar({ session }: NavbarProps) {
+  const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -59,8 +62,14 @@ export default function Navbar({ session }: NavbarProps) {
           <input
             className="bg-transparent text-xs text-gray-700 placeholder:text-gray-400 outline-none w-full"
             placeholder="Search projects…"
-            readOnly
-            tabIndex={-1}
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && searchQuery.trim()) {
+                router.push(`/projects?q=${encodeURIComponent(searchQuery.trim())}`);
+                setSearchQuery("");
+              }
+            }}
           />
         </div>
 

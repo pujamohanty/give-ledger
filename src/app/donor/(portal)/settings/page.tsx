@@ -1,10 +1,46 @@
+import { redirect } from "next/navigation";
+import { auth } from "@/lib/auth";
+import { prisma } from "@/lib/prisma";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Bell, Shield, User } from "lucide-react";
 
-export default function SettingsPage() {
+async function saveProfile(formData: FormData) {
+  "use server";
+  const session = await auth();
+  if (!session?.user?.id) return;
+  const firstName = ((formData.get("firstName") as string) ?? "").trim();
+  const lastName = ((formData.get("lastName") as string) ?? "").trim();
+  const name = [firstName, lastName].filter(Boolean).join(" ");
+  if (name) {
+    await prisma.user.update({ where: { id: session.user.id }, data: { name } });
+  }
+  redirect("/donor/settings?saved=1");
+}
+
+export default async function SettingsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ saved?: string }>;
+}) {
+  const session = await auth();
+  if (!session?.user?.id) redirect("/login");
+
+  const { saved } = await searchParams;
+
+  const user = await prisma.user.findUnique({
+    where: { id: session.user.id },
+    select: { name: true, email: true, password: true },
+  });
+
+  const nameParts = (user?.name ?? "").trim().split(" ");
+  const firstName = nameParts[0] ?? "";
+  const lastName = nameParts.slice(1).join(" ");
+
+  const isGoogleUser = !user?.password;
+
   return (
     <div className="p-6 lg:p-8">
       <div className="mb-8">
@@ -24,22 +60,40 @@ export default function SettingsPage() {
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-1.5">
-                <Label htmlFor="firstName">First name</Label>
-                <Input id="firstName" placeholder="Puja" />
+            {saved && (
+              <div className="text-sm text-emerald-700 bg-emerald-50 border border-emerald-200 rounded-lg px-4 py-2">
+                Changes saved successfully.
+              </div>
+            )}
+            <form action={saveProfile} className="space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-1.5">
+                  <Label htmlFor="firstName">First name</Label>
+                  <Input id="firstName" name="firstName" defaultValue={firstName} placeholder="First name" />
+                </div>
+                <div className="space-y-1.5">
+                  <Label htmlFor="lastName">Last name</Label>
+                  <Input id="lastName" name="lastName" defaultValue={lastName} placeholder="Last name" />
+                </div>
               </div>
               <div className="space-y-1.5">
-                <Label htmlFor="lastName">Last name</Label>
-                <Input id="lastName" placeholder="Mohanty" />
+                <Label htmlFor="email">Email address</Label>
+                <Input
+                  id="email"
+                  type="email"
+                  value={user?.email ?? ""}
+                  disabled
+                  className="bg-gray-50 text-gray-500"
+                  readOnly
+                />
+                <p className="text-xs text-gray-400">
+                  {isGoogleUser
+                    ? "Email is managed by your Google account and cannot be changed here."
+                    : "Email cannot be changed here. Contact support if needed."}
+                </p>
               </div>
-            </div>
-            <div className="space-y-1.5">
-              <Label htmlFor="email">Email address</Label>
-              <Input id="email" type="email" placeholder="pujamohanty123@gmail.com" disabled className="bg-gray-50 text-gray-500" />
-              <p className="text-xs text-gray-400">Email is managed by your Google account and cannot be changed here.</p>
-            </div>
-            <Button className="mt-2">Save Changes</Button>
+              <Button type="submit" className="mt-2">Save Changes</Button>
+            </form>
           </CardContent>
         </Card>
 
@@ -84,7 +138,9 @@ export default function SettingsPage() {
             <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
               <div>
                 <p className="text-sm font-medium text-gray-900">Sign-in method</p>
-                <p className="text-xs text-gray-500 mt-0.5">Google OAuth — managed by Google</p>
+                <p className="text-xs text-gray-500 mt-0.5">
+                  {isGoogleUser ? "Google OAuth — managed by Google" : "Email & Password"}
+                </p>
               </div>
               <span className="text-xs font-medium text-emerald-700 bg-emerald-50 px-2 py-1 rounded-full">
                 Active

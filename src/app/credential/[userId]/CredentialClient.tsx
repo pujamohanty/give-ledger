@@ -321,9 +321,9 @@ export default function CredentialClient({ credential: c, isOwner, appUrl }: Pro
                   <Linkedin className="w-4 h-4" />
                   Open in LinkedIn
                 </a>
-                <Button variant="outline" size="sm" className="flex items-center gap-2 text-gray-500" disabled>
+                <Button variant="outline" size="sm" className="flex items-center gap-2 text-gray-500" onClick={() => window.print()}>
                   <Download className="w-3.5 h-3.5" />
-                  PDF (coming soon)
+                  Download PDF
                 </Button>
               </div>
             </div>
