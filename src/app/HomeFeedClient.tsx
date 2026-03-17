@@ -1,5 +1,5 @@
 "use client";
-import { useState, useCallback, useEffect, useRef } from "react";
+import { useState, useCallback, useEffect, useRef, type ReactNode } from "react";
 import Link from "next/link";
 import {
   Heart, CheckCircle2, Rocket, Star, Briefcase, Users,
@@ -259,6 +259,58 @@ function EventCard({ event }: { event: ActivityEvent }) {
         </button>
       </div>
     </article>
+  );
+}
+
+/* ─── SmartStickyRight ───────────────────────────────────────── */
+// Replicates Twitter/X right-sidebar scroll behaviour:
+//   • Scrolls with the page initially (moves with content)
+//   • Once the sidebar bottom hits the viewport bottom it freezes there
+//   • On scroll-up it moves back until the top hits the navbar, then freezes
+function SmartStickyRight({ children }: { children: ReactNode }) {
+  const innerRef = useRef<HTMLDivElement>(null);
+  const topRef   = useRef(52); // starts just below the 52px navbar
+  const prevY    = useRef(0);
+
+  useEffect(() => {
+    const NAV    = 52;   // navbar height in px
+    const BOTTOM = 16;   // gap to keep above viewport bottom
+
+    const onScroll = () => {
+      const el = innerRef.current;
+      if (!el) return;
+
+      const scrollY  = window.scrollY;
+      const delta    = scrollY - prevY.current;
+      prevY.current  = scrollY;
+
+      const elH  = el.offsetHeight;
+      const winH = window.innerHeight;
+
+      if (elH <= winH - NAV) {
+        // Sidebar fits in viewport — simple top-sticky
+        topRef.current = NAV;
+      } else {
+        // Sidebar taller than viewport — clamp between top and bottom
+        topRef.current -= delta;
+        topRef.current  = Math.min(topRef.current, NAV);                  // never above navbar
+        topRef.current  = Math.max(topRef.current, winH - elH - BOTTOM);  // never below viewport
+      }
+
+      el.style.top = `${topRef.current}px`;
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  return (
+    <div
+      ref={innerRef}
+      style={{ position: "sticky", top: "52px" }}
+    >
+      {children}
+    </div>
   );
 }
 
@@ -658,9 +710,11 @@ export default function HomeFeedClient({ initial, initialCursor, stats, featured
           <Feed initial={initial} initialCursor={initialCursor} allProjects={allProjects} />
         </div>
 
-        {/* Right sidebar — scrolls with the page */}
-        <div className="hidden lg:block self-start">
-          <RightSidebar featuredProjects={featuredProjects} recentNgos={recentNgos} openRoles={openRoles} />
+        {/* Right sidebar — Twitter/X-style scroll behaviour */}
+        <div className="hidden lg:block">
+          <SmartStickyRight>
+            <RightSidebar featuredProjects={featuredProjects} recentNgos={recentNgos} openRoles={openRoles} />
+          </SmartStickyRight>
         </div>
       </div>
     </main>
