@@ -58,6 +58,7 @@ export default async function NgoContributorsPage({
     }
   }
   const financialDonors = Array.from(donorMap.values()).sort((a, b) => b.totalDonated - a.totalDonated);
+  const totalFinancialRaised = financialDonors.reduce((sum, d) => sum + d.totalDonated, 0);
 
   // ── Skill contributors ───────────────────────────────────────────────────
   const skillContributions = await prisma.skillContribution.findMany({
@@ -68,6 +69,8 @@ export default async function NgoContributorsPage({
     },
     orderBy: { approvedAt: "desc" },
   });
+  const totalSkillValue = skillContributions.reduce((sum, c) => sum + (c.monetaryValue ?? 0), 0);
+  const totalSkillHours = skillContributions.reduce((sum, c) => sum + (c.hoursContributed ?? 0), 0);
 
   return (
     <div className="p-6 lg:p-8 max-w-4xl">
@@ -83,23 +86,34 @@ export default async function NgoContributorsPage({
       <div className="grid grid-cols-2 gap-4 mb-6">
         <Card>
           <CardContent className="p-5 flex items-center gap-4">
-            <div className="w-10 h-10 bg-emerald-50 rounded-lg flex items-center justify-center">
+            <div className="w-10 h-10 bg-emerald-50 rounded-lg flex items-center justify-center shrink-0">
               <DollarSign className="w-5 h-5 text-emerald-600" />
             </div>
             <div>
               <p className="text-2xl font-bold text-gray-900">{financialDonors.length}</p>
               <p className="text-xs text-gray-500">Financial Donors</p>
+              {totalFinancialRaised > 0 && (
+                <p className="text-xs text-emerald-700 font-semibold mt-0.5">{formatCurrency(totalFinancialRaised)} raised</p>
+              )}
             </div>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-5 flex items-center gap-4">
-            <div className="w-10 h-10 bg-violet-50 rounded-lg flex items-center justify-center">
+            <div className="w-10 h-10 bg-violet-50 rounded-lg flex items-center justify-center shrink-0">
               <Briefcase className="w-5 h-5 text-violet-600" />
             </div>
             <div>
               <p className="text-2xl font-bold text-gray-900">{skillContributions.length}</p>
               <p className="text-xs text-gray-500">Skill Contributors</p>
+              <div className="flex items-center gap-2 mt-0.5">
+                {totalSkillHours > 0 && (
+                  <p className="text-xs text-gray-500 font-medium">{totalSkillHours}h</p>
+                )}
+                {totalSkillValue > 0 && (
+                  <p className="text-xs text-violet-700 font-semibold">{formatCurrency(totalSkillValue)} value</p>
+                )}
+              </div>
             </div>
           </CardContent>
         </Card>

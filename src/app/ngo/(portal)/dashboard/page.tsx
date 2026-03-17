@@ -43,15 +43,18 @@ export default async function NgoDashboard() {
   });
 
   // Contributor counts for the summary card
-  const [uniqueDonorCount, skillContributorCount] = await Promise.all([
+  const [uniqueDonorCount, skillContributions] = await Promise.all([
     prisma.donation.groupBy({
       by: ["userId"],
       where: { project: { ngoId: ngo.id } },
     }).then((rows) => rows.length),
-    prisma.skillContribution.count({
+    prisma.skillContribution.findMany({
       where: { ngoId: ngo.id, status: "APPROVED" },
+      select: { monetaryValue: true },
     }),
   ]);
+  const skillContributorCount = skillContributions.length;
+  const totalSkillValue = skillContributions.reduce((sum, c) => sum + (c.monetaryValue ?? 0), 0);
 
   // KPI calculations
   const allMilestones = ngo.projects.flatMap((p) => p.milestones);
@@ -326,6 +329,9 @@ export default async function NgoDashboard() {
                 <Link href="/ngo/contributors?tab=skill" className="bg-violet-50 rounded-lg p-3 text-center hover:bg-violet-100 transition-colors">
                   <p className="text-xl font-bold text-violet-700">{skillContributorCount}</p>
                   <p className="text-[11px] text-gray-500 mt-0.5">Skill Contributors</p>
+                  {totalSkillValue > 0 && (
+                    <p className="text-[10px] text-violet-600 font-semibold mt-0.5">{formatCurrency(totalSkillValue)}</p>
+                  )}
                 </Link>
               </div>
             </CardContent>
