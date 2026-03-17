@@ -168,6 +168,16 @@ export type RoleApplication = $Result.DefaultSelection<Prisma.$RoleApplicationPa
  * 
  */
 export type RoleEngagement = $Result.DefaultSelection<Prisma.$RoleEngagementPayload>
+/**
+ * Model DonorChallenge
+ * 
+ */
+export type DonorChallenge = $Result.DefaultSelection<Prisma.$DonorChallengePayload>
+/**
+ * Model ChallengeAcceptance
+ * 
+ */
+export type ChallengeAcceptance = $Result.DefaultSelection<Prisma.$ChallengeAcceptancePayload>
 
 /**
  * Enums
@@ -758,6 +768,26 @@ export class PrismaClient<
     * ```
     */
   get roleEngagement(): Prisma.RoleEngagementDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.donorChallenge`: Exposes CRUD operations for the **DonorChallenge** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more DonorChallenges
+    * const donorChallenges = await prisma.donorChallenge.findMany()
+    * ```
+    */
+  get donorChallenge(): Prisma.DonorChallengeDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.challengeAcceptance`: Exposes CRUD operations for the **ChallengeAcceptance** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ChallengeAcceptances
+    * const challengeAcceptances = await prisma.challengeAcceptance.findMany()
+    * ```
+    */
+  get challengeAcceptance(): Prisma.ChallengeAcceptanceDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -1222,7 +1252,9 @@ export namespace Prisma {
     NgoDocument: 'NgoDocument',
     NgoRole: 'NgoRole',
     RoleApplication: 'RoleApplication',
-    RoleEngagement: 'RoleEngagement'
+    RoleEngagement: 'RoleEngagement',
+    DonorChallenge: 'DonorChallenge',
+    ChallengeAcceptance: 'ChallengeAcceptance'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1238,7 +1270,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "account" | "session" | "verificationToken" | "user" | "ngo" | "project" | "milestone" | "evidenceFile" | "outputMarker" | "donation" | "disbursement" | "expense" | "blockchainRecord" | "rating" | "platformSetting" | "notification" | "spotlightVote" | "campaign" | "campaignContributor" | "ngoSuggestion" | "referral" | "activityEvent" | "boardMember" | "skillContribution" | "skillBlockchainRecord" | "donorEndorsement" | "donorDocument" | "ngoDocument" | "ngoRole" | "roleApplication" | "roleEngagement"
+      modelProps: "account" | "session" | "verificationToken" | "user" | "ngo" | "project" | "milestone" | "evidenceFile" | "outputMarker" | "donation" | "disbursement" | "expense" | "blockchainRecord" | "rating" | "platformSetting" | "notification" | "spotlightVote" | "campaign" | "campaignContributor" | "ngoSuggestion" | "referral" | "activityEvent" | "boardMember" | "skillContribution" | "skillBlockchainRecord" | "donorEndorsement" | "donorDocument" | "ngoDocument" | "ngoRole" | "roleApplication" | "roleEngagement" | "donorChallenge" | "challengeAcceptance"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -3536,6 +3568,154 @@ export namespace Prisma {
           }
         }
       }
+      DonorChallenge: {
+        payload: Prisma.$DonorChallengePayload<ExtArgs>
+        fields: Prisma.DonorChallengeFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DonorChallengeFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DonorChallengePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DonorChallengeFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DonorChallengePayload>
+          }
+          findFirst: {
+            args: Prisma.DonorChallengeFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DonorChallengePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DonorChallengeFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DonorChallengePayload>
+          }
+          findMany: {
+            args: Prisma.DonorChallengeFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DonorChallengePayload>[]
+          }
+          create: {
+            args: Prisma.DonorChallengeCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DonorChallengePayload>
+          }
+          createMany: {
+            args: Prisma.DonorChallengeCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DonorChallengeCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DonorChallengePayload>[]
+          }
+          delete: {
+            args: Prisma.DonorChallengeDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DonorChallengePayload>
+          }
+          update: {
+            args: Prisma.DonorChallengeUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DonorChallengePayload>
+          }
+          deleteMany: {
+            args: Prisma.DonorChallengeDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DonorChallengeUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.DonorChallengeUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DonorChallengePayload>[]
+          }
+          upsert: {
+            args: Prisma.DonorChallengeUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DonorChallengePayload>
+          }
+          aggregate: {
+            args: Prisma.DonorChallengeAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDonorChallenge>
+          }
+          groupBy: {
+            args: Prisma.DonorChallengeGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DonorChallengeGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DonorChallengeCountArgs<ExtArgs>
+            result: $Utils.Optional<DonorChallengeCountAggregateOutputType> | number
+          }
+        }
+      }
+      ChallengeAcceptance: {
+        payload: Prisma.$ChallengeAcceptancePayload<ExtArgs>
+        fields: Prisma.ChallengeAcceptanceFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ChallengeAcceptanceFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChallengeAcceptancePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ChallengeAcceptanceFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChallengeAcceptancePayload>
+          }
+          findFirst: {
+            args: Prisma.ChallengeAcceptanceFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChallengeAcceptancePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ChallengeAcceptanceFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChallengeAcceptancePayload>
+          }
+          findMany: {
+            args: Prisma.ChallengeAcceptanceFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChallengeAcceptancePayload>[]
+          }
+          create: {
+            args: Prisma.ChallengeAcceptanceCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChallengeAcceptancePayload>
+          }
+          createMany: {
+            args: Prisma.ChallengeAcceptanceCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ChallengeAcceptanceCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChallengeAcceptancePayload>[]
+          }
+          delete: {
+            args: Prisma.ChallengeAcceptanceDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChallengeAcceptancePayload>
+          }
+          update: {
+            args: Prisma.ChallengeAcceptanceUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChallengeAcceptancePayload>
+          }
+          deleteMany: {
+            args: Prisma.ChallengeAcceptanceDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ChallengeAcceptanceUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ChallengeAcceptanceUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChallengeAcceptancePayload>[]
+          }
+          upsert: {
+            args: Prisma.ChallengeAcceptanceUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChallengeAcceptancePayload>
+          }
+          aggregate: {
+            args: Prisma.ChallengeAcceptanceAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateChallengeAcceptance>
+          }
+          groupBy: {
+            args: Prisma.ChallengeAcceptanceGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ChallengeAcceptanceGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ChallengeAcceptanceCountArgs<ExtArgs>
+            result: $Utils.Optional<ChallengeAcceptanceCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -3675,6 +3855,8 @@ export namespace Prisma {
     ngoRole?: NgoRoleOmit
     roleApplication?: RoleApplicationOmit
     roleEngagement?: RoleEngagementOmit
+    donorChallenge?: DonorChallengeOmit
+    challengeAcceptance?: ChallengeAcceptanceOmit
   }
 
   /* Types for Logging */
@@ -3771,6 +3953,7 @@ export namespace Prisma {
     endorsementsGiven: number
     documents: number
     roleApplications: number
+    challenges: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3790,6 +3973,7 @@ export namespace Prisma {
     endorsementsGiven?: boolean | UserCountOutputTypeCountEndorsementsGivenArgs
     documents?: boolean | UserCountOutputTypeCountDocumentsArgs
     roleApplications?: boolean | UserCountOutputTypeCountRoleApplicationsArgs
+    challenges?: boolean | UserCountOutputTypeCountChallengesArgs
   }
 
   // Custom InputTypes
@@ -3915,6 +4099,13 @@ export namespace Prisma {
     where?: RoleApplicationWhereInput
   }
 
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountChallengesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DonorChallengeWhereInput
+  }
+
 
   /**
    * Count Type NgoCountOutputType
@@ -4022,6 +4213,7 @@ export namespace Prisma {
     campaigns: number
     skillContributions: number
     roles: number
+    challenges: number
   }
 
   export type ProjectCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4032,6 +4224,7 @@ export namespace Prisma {
     campaigns?: boolean | ProjectCountOutputTypeCountCampaignsArgs
     skillContributions?: boolean | ProjectCountOutputTypeCountSkillContributionsArgs
     roles?: boolean | ProjectCountOutputTypeCountRolesArgs
+    challenges?: boolean | ProjectCountOutputTypeCountChallengesArgs
   }
 
   // Custom InputTypes
@@ -4092,6 +4285,13 @@ export namespace Prisma {
    */
   export type ProjectCountOutputTypeCountRolesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: NgoRoleWhereInput
+  }
+
+  /**
+   * ProjectCountOutputType without action
+   */
+  export type ProjectCountOutputTypeCountChallengesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DonorChallengeWhereInput
   }
 
 
@@ -4194,6 +4394,37 @@ export namespace Prisma {
    */
   export type NgoRoleCountOutputTypeCountApplicationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: RoleApplicationWhereInput
+  }
+
+
+  /**
+   * Count Type DonorChallengeCountOutputType
+   */
+
+  export type DonorChallengeCountOutputType = {
+    acceptances: number
+  }
+
+  export type DonorChallengeCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    acceptances?: boolean | DonorChallengeCountOutputTypeCountAcceptancesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * DonorChallengeCountOutputType without action
+   */
+  export type DonorChallengeCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DonorChallengeCountOutputType
+     */
+    select?: DonorChallengeCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * DonorChallengeCountOutputType without action
+   */
+  export type DonorChallengeCountOutputTypeCountAcceptancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ChallengeAcceptanceWhereInput
   }
 
 
@@ -7691,6 +7922,7 @@ export namespace Prisma {
     endorsementsGiven?: boolean | User$endorsementsGivenArgs<ExtArgs>
     documents?: boolean | User$documentsArgs<ExtArgs>
     roleApplications?: boolean | User$roleApplicationsArgs<ExtArgs>
+    challenges?: boolean | User$challengesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -7779,6 +8011,7 @@ export namespace Prisma {
     endorsementsGiven?: boolean | User$endorsementsGivenArgs<ExtArgs>
     documents?: boolean | User$documentsArgs<ExtArgs>
     roleApplications?: boolean | User$roleApplicationsArgs<ExtArgs>
+    challenges?: boolean | User$challengesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -7804,6 +8037,7 @@ export namespace Prisma {
       endorsementsGiven: Prisma.$DonorEndorsementPayload<ExtArgs>[]
       documents: Prisma.$DonorDocumentPayload<ExtArgs>[]
       roleApplications: Prisma.$RoleApplicationPayload<ExtArgs>[]
+      challenges: Prisma.$DonorChallengePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -8236,6 +8470,7 @@ export namespace Prisma {
     endorsementsGiven<T extends User$endorsementsGivenArgs<ExtArgs> = {}>(args?: Subset<T, User$endorsementsGivenArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DonorEndorsementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     documents<T extends User$documentsArgs<ExtArgs> = {}>(args?: Subset<T, User$documentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DonorDocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     roleApplications<T extends User$roleApplicationsArgs<ExtArgs> = {}>(args?: Subset<T, User$roleApplicationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RoleApplicationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    challenges<T extends User$challengesArgs<ExtArgs> = {}>(args?: Subset<T, User$challengesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DonorChallengePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -9072,6 +9307,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: RoleApplicationScalarFieldEnum | RoleApplicationScalarFieldEnum[]
+  }
+
+  /**
+   * User.challenges
+   */
+  export type User$challengesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DonorChallenge
+     */
+    select?: DonorChallengeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DonorChallenge
+     */
+    omit?: DonorChallengeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DonorChallengeInclude<ExtArgs> | null
+    where?: DonorChallengeWhereInput
+    orderBy?: DonorChallengeOrderByWithRelationInput | DonorChallengeOrderByWithRelationInput[]
+    cursor?: DonorChallengeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DonorChallengeScalarFieldEnum | DonorChallengeScalarFieldEnum[]
   }
 
   /**
@@ -10869,6 +11128,7 @@ export namespace Prisma {
     campaigns?: boolean | Project$campaignsArgs<ExtArgs>
     skillContributions?: boolean | Project$skillContributionsArgs<ExtArgs>
     roles?: boolean | Project$rolesArgs<ExtArgs>
+    challenges?: boolean | Project$challengesArgs<ExtArgs>
     _count?: boolean | ProjectCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["project"]>
 
@@ -10941,6 +11201,7 @@ export namespace Prisma {
     campaigns?: boolean | Project$campaignsArgs<ExtArgs>
     skillContributions?: boolean | Project$skillContributionsArgs<ExtArgs>
     roles?: boolean | Project$rolesArgs<ExtArgs>
+    challenges?: boolean | Project$challengesArgs<ExtArgs>
     _count?: boolean | ProjectCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ProjectIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -10961,6 +11222,7 @@ export namespace Prisma {
       campaigns: Prisma.$CampaignPayload<ExtArgs>[]
       skillContributions: Prisma.$SkillContributionPayload<ExtArgs>[]
       roles: Prisma.$NgoRolePayload<ExtArgs>[]
+      challenges: Prisma.$DonorChallengePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -11381,6 +11643,7 @@ export namespace Prisma {
     campaigns<T extends Project$campaignsArgs<ExtArgs> = {}>(args?: Subset<T, Project$campaignsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CampaignPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     skillContributions<T extends Project$skillContributionsArgs<ExtArgs> = {}>(args?: Subset<T, Project$skillContributionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SkillContributionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     roles<T extends Project$rolesArgs<ExtArgs> = {}>(args?: Subset<T, Project$rolesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NgoRolePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    challenges<T extends Project$challengesArgs<ExtArgs> = {}>(args?: Subset<T, Project$challengesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DonorChallengePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -11987,6 +12250,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: NgoRoleScalarFieldEnum | NgoRoleScalarFieldEnum[]
+  }
+
+  /**
+   * Project.challenges
+   */
+  export type Project$challengesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DonorChallenge
+     */
+    select?: DonorChallengeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DonorChallenge
+     */
+    omit?: DonorChallengeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DonorChallengeInclude<ExtArgs> | null
+    where?: DonorChallengeWhereInput
+    orderBy?: DonorChallengeOrderByWithRelationInput | DonorChallengeOrderByWithRelationInput[]
+    cursor?: DonorChallengeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DonorChallengeScalarFieldEnum | DonorChallengeScalarFieldEnum[]
   }
 
   /**
@@ -40681,6 +40968,2207 @@ export namespace Prisma {
 
 
   /**
+   * Model DonorChallenge
+   */
+
+  export type AggregateDonorChallenge = {
+    _count: DonorChallengeCountAggregateOutputType | null
+    _avg: DonorChallengeAvgAggregateOutputType | null
+    _sum: DonorChallengeSumAggregateOutputType | null
+    _min: DonorChallengeMinAggregateOutputType | null
+    _max: DonorChallengeMaxAggregateOutputType | null
+  }
+
+  export type DonorChallengeAvgAggregateOutputType = {
+    amount: number | null
+  }
+
+  export type DonorChallengeSumAggregateOutputType = {
+    amount: number | null
+  }
+
+  export type DonorChallengeMinAggregateOutputType = {
+    id: string | null
+    donorId: string | null
+    projectId: string | null
+    amount: number | null
+    message: string | null
+    deadline: Date | null
+    createdAt: Date | null
+  }
+
+  export type DonorChallengeMaxAggregateOutputType = {
+    id: string | null
+    donorId: string | null
+    projectId: string | null
+    amount: number | null
+    message: string | null
+    deadline: Date | null
+    createdAt: Date | null
+  }
+
+  export type DonorChallengeCountAggregateOutputType = {
+    id: number
+    donorId: number
+    projectId: number
+    amount: number
+    message: number
+    deadline: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type DonorChallengeAvgAggregateInputType = {
+    amount?: true
+  }
+
+  export type DonorChallengeSumAggregateInputType = {
+    amount?: true
+  }
+
+  export type DonorChallengeMinAggregateInputType = {
+    id?: true
+    donorId?: true
+    projectId?: true
+    amount?: true
+    message?: true
+    deadline?: true
+    createdAt?: true
+  }
+
+  export type DonorChallengeMaxAggregateInputType = {
+    id?: true
+    donorId?: true
+    projectId?: true
+    amount?: true
+    message?: true
+    deadline?: true
+    createdAt?: true
+  }
+
+  export type DonorChallengeCountAggregateInputType = {
+    id?: true
+    donorId?: true
+    projectId?: true
+    amount?: true
+    message?: true
+    deadline?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type DonorChallengeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DonorChallenge to aggregate.
+     */
+    where?: DonorChallengeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DonorChallenges to fetch.
+     */
+    orderBy?: DonorChallengeOrderByWithRelationInput | DonorChallengeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DonorChallengeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DonorChallenges from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DonorChallenges.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned DonorChallenges
+    **/
+    _count?: true | DonorChallengeCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: DonorChallengeAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: DonorChallengeSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DonorChallengeMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DonorChallengeMaxAggregateInputType
+  }
+
+  export type GetDonorChallengeAggregateType<T extends DonorChallengeAggregateArgs> = {
+        [P in keyof T & keyof AggregateDonorChallenge]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDonorChallenge[P]>
+      : GetScalarType<T[P], AggregateDonorChallenge[P]>
+  }
+
+
+
+
+  export type DonorChallengeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DonorChallengeWhereInput
+    orderBy?: DonorChallengeOrderByWithAggregationInput | DonorChallengeOrderByWithAggregationInput[]
+    by: DonorChallengeScalarFieldEnum[] | DonorChallengeScalarFieldEnum
+    having?: DonorChallengeScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DonorChallengeCountAggregateInputType | true
+    _avg?: DonorChallengeAvgAggregateInputType
+    _sum?: DonorChallengeSumAggregateInputType
+    _min?: DonorChallengeMinAggregateInputType
+    _max?: DonorChallengeMaxAggregateInputType
+  }
+
+  export type DonorChallengeGroupByOutputType = {
+    id: string
+    donorId: string
+    projectId: string
+    amount: number
+    message: string | null
+    deadline: Date | null
+    createdAt: Date
+    _count: DonorChallengeCountAggregateOutputType | null
+    _avg: DonorChallengeAvgAggregateOutputType | null
+    _sum: DonorChallengeSumAggregateOutputType | null
+    _min: DonorChallengeMinAggregateOutputType | null
+    _max: DonorChallengeMaxAggregateOutputType | null
+  }
+
+  type GetDonorChallengeGroupByPayload<T extends DonorChallengeGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DonorChallengeGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DonorChallengeGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DonorChallengeGroupByOutputType[P]>
+            : GetScalarType<T[P], DonorChallengeGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DonorChallengeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    donorId?: boolean
+    projectId?: boolean
+    amount?: boolean
+    message?: boolean
+    deadline?: boolean
+    createdAt?: boolean
+    donor?: boolean | UserDefaultArgs<ExtArgs>
+    project?: boolean | ProjectDefaultArgs<ExtArgs>
+    acceptances?: boolean | DonorChallenge$acceptancesArgs<ExtArgs>
+    _count?: boolean | DonorChallengeCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["donorChallenge"]>
+
+  export type DonorChallengeSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    donorId?: boolean
+    projectId?: boolean
+    amount?: boolean
+    message?: boolean
+    deadline?: boolean
+    createdAt?: boolean
+    donor?: boolean | UserDefaultArgs<ExtArgs>
+    project?: boolean | ProjectDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["donorChallenge"]>
+
+  export type DonorChallengeSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    donorId?: boolean
+    projectId?: boolean
+    amount?: boolean
+    message?: boolean
+    deadline?: boolean
+    createdAt?: boolean
+    donor?: boolean | UserDefaultArgs<ExtArgs>
+    project?: boolean | ProjectDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["donorChallenge"]>
+
+  export type DonorChallengeSelectScalar = {
+    id?: boolean
+    donorId?: boolean
+    projectId?: boolean
+    amount?: boolean
+    message?: boolean
+    deadline?: boolean
+    createdAt?: boolean
+  }
+
+  export type DonorChallengeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "donorId" | "projectId" | "amount" | "message" | "deadline" | "createdAt", ExtArgs["result"]["donorChallenge"]>
+  export type DonorChallengeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    donor?: boolean | UserDefaultArgs<ExtArgs>
+    project?: boolean | ProjectDefaultArgs<ExtArgs>
+    acceptances?: boolean | DonorChallenge$acceptancesArgs<ExtArgs>
+    _count?: boolean | DonorChallengeCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type DonorChallengeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    donor?: boolean | UserDefaultArgs<ExtArgs>
+    project?: boolean | ProjectDefaultArgs<ExtArgs>
+  }
+  export type DonorChallengeIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    donor?: boolean | UserDefaultArgs<ExtArgs>
+    project?: boolean | ProjectDefaultArgs<ExtArgs>
+  }
+
+  export type $DonorChallengePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "DonorChallenge"
+    objects: {
+      donor: Prisma.$UserPayload<ExtArgs>
+      project: Prisma.$ProjectPayload<ExtArgs>
+      acceptances: Prisma.$ChallengeAcceptancePayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      donorId: string
+      projectId: string
+      amount: number
+      message: string | null
+      deadline: Date | null
+      createdAt: Date
+    }, ExtArgs["result"]["donorChallenge"]>
+    composites: {}
+  }
+
+  type DonorChallengeGetPayload<S extends boolean | null | undefined | DonorChallengeDefaultArgs> = $Result.GetResult<Prisma.$DonorChallengePayload, S>
+
+  type DonorChallengeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<DonorChallengeFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DonorChallengeCountAggregateInputType | true
+    }
+
+  export interface DonorChallengeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['DonorChallenge'], meta: { name: 'DonorChallenge' } }
+    /**
+     * Find zero or one DonorChallenge that matches the filter.
+     * @param {DonorChallengeFindUniqueArgs} args - Arguments to find a DonorChallenge
+     * @example
+     * // Get one DonorChallenge
+     * const donorChallenge = await prisma.donorChallenge.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DonorChallengeFindUniqueArgs>(args: SelectSubset<T, DonorChallengeFindUniqueArgs<ExtArgs>>): Prisma__DonorChallengeClient<$Result.GetResult<Prisma.$DonorChallengePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one DonorChallenge that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {DonorChallengeFindUniqueOrThrowArgs} args - Arguments to find a DonorChallenge
+     * @example
+     * // Get one DonorChallenge
+     * const donorChallenge = await prisma.donorChallenge.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DonorChallengeFindUniqueOrThrowArgs>(args: SelectSubset<T, DonorChallengeFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DonorChallengeClient<$Result.GetResult<Prisma.$DonorChallengePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DonorChallenge that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DonorChallengeFindFirstArgs} args - Arguments to find a DonorChallenge
+     * @example
+     * // Get one DonorChallenge
+     * const donorChallenge = await prisma.donorChallenge.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DonorChallengeFindFirstArgs>(args?: SelectSubset<T, DonorChallengeFindFirstArgs<ExtArgs>>): Prisma__DonorChallengeClient<$Result.GetResult<Prisma.$DonorChallengePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DonorChallenge that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DonorChallengeFindFirstOrThrowArgs} args - Arguments to find a DonorChallenge
+     * @example
+     * // Get one DonorChallenge
+     * const donorChallenge = await prisma.donorChallenge.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DonorChallengeFindFirstOrThrowArgs>(args?: SelectSubset<T, DonorChallengeFindFirstOrThrowArgs<ExtArgs>>): Prisma__DonorChallengeClient<$Result.GetResult<Prisma.$DonorChallengePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more DonorChallenges that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DonorChallengeFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all DonorChallenges
+     * const donorChallenges = await prisma.donorChallenge.findMany()
+     * 
+     * // Get first 10 DonorChallenges
+     * const donorChallenges = await prisma.donorChallenge.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const donorChallengeWithIdOnly = await prisma.donorChallenge.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DonorChallengeFindManyArgs>(args?: SelectSubset<T, DonorChallengeFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DonorChallengePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a DonorChallenge.
+     * @param {DonorChallengeCreateArgs} args - Arguments to create a DonorChallenge.
+     * @example
+     * // Create one DonorChallenge
+     * const DonorChallenge = await prisma.donorChallenge.create({
+     *   data: {
+     *     // ... data to create a DonorChallenge
+     *   }
+     * })
+     * 
+     */
+    create<T extends DonorChallengeCreateArgs>(args: SelectSubset<T, DonorChallengeCreateArgs<ExtArgs>>): Prisma__DonorChallengeClient<$Result.GetResult<Prisma.$DonorChallengePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many DonorChallenges.
+     * @param {DonorChallengeCreateManyArgs} args - Arguments to create many DonorChallenges.
+     * @example
+     * // Create many DonorChallenges
+     * const donorChallenge = await prisma.donorChallenge.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DonorChallengeCreateManyArgs>(args?: SelectSubset<T, DonorChallengeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many DonorChallenges and returns the data saved in the database.
+     * @param {DonorChallengeCreateManyAndReturnArgs} args - Arguments to create many DonorChallenges.
+     * @example
+     * // Create many DonorChallenges
+     * const donorChallenge = await prisma.donorChallenge.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many DonorChallenges and only return the `id`
+     * const donorChallengeWithIdOnly = await prisma.donorChallenge.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DonorChallengeCreateManyAndReturnArgs>(args?: SelectSubset<T, DonorChallengeCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DonorChallengePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a DonorChallenge.
+     * @param {DonorChallengeDeleteArgs} args - Arguments to delete one DonorChallenge.
+     * @example
+     * // Delete one DonorChallenge
+     * const DonorChallenge = await prisma.donorChallenge.delete({
+     *   where: {
+     *     // ... filter to delete one DonorChallenge
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DonorChallengeDeleteArgs>(args: SelectSubset<T, DonorChallengeDeleteArgs<ExtArgs>>): Prisma__DonorChallengeClient<$Result.GetResult<Prisma.$DonorChallengePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one DonorChallenge.
+     * @param {DonorChallengeUpdateArgs} args - Arguments to update one DonorChallenge.
+     * @example
+     * // Update one DonorChallenge
+     * const donorChallenge = await prisma.donorChallenge.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DonorChallengeUpdateArgs>(args: SelectSubset<T, DonorChallengeUpdateArgs<ExtArgs>>): Prisma__DonorChallengeClient<$Result.GetResult<Prisma.$DonorChallengePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more DonorChallenges.
+     * @param {DonorChallengeDeleteManyArgs} args - Arguments to filter DonorChallenges to delete.
+     * @example
+     * // Delete a few DonorChallenges
+     * const { count } = await prisma.donorChallenge.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DonorChallengeDeleteManyArgs>(args?: SelectSubset<T, DonorChallengeDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DonorChallenges.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DonorChallengeUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many DonorChallenges
+     * const donorChallenge = await prisma.donorChallenge.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DonorChallengeUpdateManyArgs>(args: SelectSubset<T, DonorChallengeUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DonorChallenges and returns the data updated in the database.
+     * @param {DonorChallengeUpdateManyAndReturnArgs} args - Arguments to update many DonorChallenges.
+     * @example
+     * // Update many DonorChallenges
+     * const donorChallenge = await prisma.donorChallenge.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more DonorChallenges and only return the `id`
+     * const donorChallengeWithIdOnly = await prisma.donorChallenge.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends DonorChallengeUpdateManyAndReturnArgs>(args: SelectSubset<T, DonorChallengeUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DonorChallengePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one DonorChallenge.
+     * @param {DonorChallengeUpsertArgs} args - Arguments to update or create a DonorChallenge.
+     * @example
+     * // Update or create a DonorChallenge
+     * const donorChallenge = await prisma.donorChallenge.upsert({
+     *   create: {
+     *     // ... data to create a DonorChallenge
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the DonorChallenge we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DonorChallengeUpsertArgs>(args: SelectSubset<T, DonorChallengeUpsertArgs<ExtArgs>>): Prisma__DonorChallengeClient<$Result.GetResult<Prisma.$DonorChallengePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of DonorChallenges.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DonorChallengeCountArgs} args - Arguments to filter DonorChallenges to count.
+     * @example
+     * // Count the number of DonorChallenges
+     * const count = await prisma.donorChallenge.count({
+     *   where: {
+     *     // ... the filter for the DonorChallenges we want to count
+     *   }
+     * })
+    **/
+    count<T extends DonorChallengeCountArgs>(
+      args?: Subset<T, DonorChallengeCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DonorChallengeCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a DonorChallenge.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DonorChallengeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DonorChallengeAggregateArgs>(args: Subset<T, DonorChallengeAggregateArgs>): Prisma.PrismaPromise<GetDonorChallengeAggregateType<T>>
+
+    /**
+     * Group by DonorChallenge.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DonorChallengeGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DonorChallengeGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DonorChallengeGroupByArgs['orderBy'] }
+        : { orderBy?: DonorChallengeGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DonorChallengeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDonorChallengeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the DonorChallenge model
+   */
+  readonly fields: DonorChallengeFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for DonorChallenge.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DonorChallengeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    donor<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    project<T extends ProjectDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProjectDefaultArgs<ExtArgs>>): Prisma__ProjectClient<$Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    acceptances<T extends DonorChallenge$acceptancesArgs<ExtArgs> = {}>(args?: Subset<T, DonorChallenge$acceptancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChallengeAcceptancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the DonorChallenge model
+   */
+  interface DonorChallengeFieldRefs {
+    readonly id: FieldRef<"DonorChallenge", 'String'>
+    readonly donorId: FieldRef<"DonorChallenge", 'String'>
+    readonly projectId: FieldRef<"DonorChallenge", 'String'>
+    readonly amount: FieldRef<"DonorChallenge", 'Float'>
+    readonly message: FieldRef<"DonorChallenge", 'String'>
+    readonly deadline: FieldRef<"DonorChallenge", 'DateTime'>
+    readonly createdAt: FieldRef<"DonorChallenge", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * DonorChallenge findUnique
+   */
+  export type DonorChallengeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DonorChallenge
+     */
+    select?: DonorChallengeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DonorChallenge
+     */
+    omit?: DonorChallengeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DonorChallengeInclude<ExtArgs> | null
+    /**
+     * Filter, which DonorChallenge to fetch.
+     */
+    where: DonorChallengeWhereUniqueInput
+  }
+
+  /**
+   * DonorChallenge findUniqueOrThrow
+   */
+  export type DonorChallengeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DonorChallenge
+     */
+    select?: DonorChallengeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DonorChallenge
+     */
+    omit?: DonorChallengeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DonorChallengeInclude<ExtArgs> | null
+    /**
+     * Filter, which DonorChallenge to fetch.
+     */
+    where: DonorChallengeWhereUniqueInput
+  }
+
+  /**
+   * DonorChallenge findFirst
+   */
+  export type DonorChallengeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DonorChallenge
+     */
+    select?: DonorChallengeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DonorChallenge
+     */
+    omit?: DonorChallengeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DonorChallengeInclude<ExtArgs> | null
+    /**
+     * Filter, which DonorChallenge to fetch.
+     */
+    where?: DonorChallengeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DonorChallenges to fetch.
+     */
+    orderBy?: DonorChallengeOrderByWithRelationInput | DonorChallengeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DonorChallenges.
+     */
+    cursor?: DonorChallengeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DonorChallenges from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DonorChallenges.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DonorChallenges.
+     */
+    distinct?: DonorChallengeScalarFieldEnum | DonorChallengeScalarFieldEnum[]
+  }
+
+  /**
+   * DonorChallenge findFirstOrThrow
+   */
+  export type DonorChallengeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DonorChallenge
+     */
+    select?: DonorChallengeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DonorChallenge
+     */
+    omit?: DonorChallengeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DonorChallengeInclude<ExtArgs> | null
+    /**
+     * Filter, which DonorChallenge to fetch.
+     */
+    where?: DonorChallengeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DonorChallenges to fetch.
+     */
+    orderBy?: DonorChallengeOrderByWithRelationInput | DonorChallengeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DonorChallenges.
+     */
+    cursor?: DonorChallengeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DonorChallenges from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DonorChallenges.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DonorChallenges.
+     */
+    distinct?: DonorChallengeScalarFieldEnum | DonorChallengeScalarFieldEnum[]
+  }
+
+  /**
+   * DonorChallenge findMany
+   */
+  export type DonorChallengeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DonorChallenge
+     */
+    select?: DonorChallengeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DonorChallenge
+     */
+    omit?: DonorChallengeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DonorChallengeInclude<ExtArgs> | null
+    /**
+     * Filter, which DonorChallenges to fetch.
+     */
+    where?: DonorChallengeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DonorChallenges to fetch.
+     */
+    orderBy?: DonorChallengeOrderByWithRelationInput | DonorChallengeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing DonorChallenges.
+     */
+    cursor?: DonorChallengeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DonorChallenges from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DonorChallenges.
+     */
+    skip?: number
+    distinct?: DonorChallengeScalarFieldEnum | DonorChallengeScalarFieldEnum[]
+  }
+
+  /**
+   * DonorChallenge create
+   */
+  export type DonorChallengeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DonorChallenge
+     */
+    select?: DonorChallengeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DonorChallenge
+     */
+    omit?: DonorChallengeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DonorChallengeInclude<ExtArgs> | null
+    /**
+     * The data needed to create a DonorChallenge.
+     */
+    data: XOR<DonorChallengeCreateInput, DonorChallengeUncheckedCreateInput>
+  }
+
+  /**
+   * DonorChallenge createMany
+   */
+  export type DonorChallengeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many DonorChallenges.
+     */
+    data: DonorChallengeCreateManyInput | DonorChallengeCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * DonorChallenge createManyAndReturn
+   */
+  export type DonorChallengeCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DonorChallenge
+     */
+    select?: DonorChallengeSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DonorChallenge
+     */
+    omit?: DonorChallengeOmit<ExtArgs> | null
+    /**
+     * The data used to create many DonorChallenges.
+     */
+    data: DonorChallengeCreateManyInput | DonorChallengeCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DonorChallengeIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * DonorChallenge update
+   */
+  export type DonorChallengeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DonorChallenge
+     */
+    select?: DonorChallengeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DonorChallenge
+     */
+    omit?: DonorChallengeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DonorChallengeInclude<ExtArgs> | null
+    /**
+     * The data needed to update a DonorChallenge.
+     */
+    data: XOR<DonorChallengeUpdateInput, DonorChallengeUncheckedUpdateInput>
+    /**
+     * Choose, which DonorChallenge to update.
+     */
+    where: DonorChallengeWhereUniqueInput
+  }
+
+  /**
+   * DonorChallenge updateMany
+   */
+  export type DonorChallengeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update DonorChallenges.
+     */
+    data: XOR<DonorChallengeUpdateManyMutationInput, DonorChallengeUncheckedUpdateManyInput>
+    /**
+     * Filter which DonorChallenges to update
+     */
+    where?: DonorChallengeWhereInput
+    /**
+     * Limit how many DonorChallenges to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * DonorChallenge updateManyAndReturn
+   */
+  export type DonorChallengeUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DonorChallenge
+     */
+    select?: DonorChallengeSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DonorChallenge
+     */
+    omit?: DonorChallengeOmit<ExtArgs> | null
+    /**
+     * The data used to update DonorChallenges.
+     */
+    data: XOR<DonorChallengeUpdateManyMutationInput, DonorChallengeUncheckedUpdateManyInput>
+    /**
+     * Filter which DonorChallenges to update
+     */
+    where?: DonorChallengeWhereInput
+    /**
+     * Limit how many DonorChallenges to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DonorChallengeIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * DonorChallenge upsert
+   */
+  export type DonorChallengeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DonorChallenge
+     */
+    select?: DonorChallengeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DonorChallenge
+     */
+    omit?: DonorChallengeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DonorChallengeInclude<ExtArgs> | null
+    /**
+     * The filter to search for the DonorChallenge to update in case it exists.
+     */
+    where: DonorChallengeWhereUniqueInput
+    /**
+     * In case the DonorChallenge found by the `where` argument doesn't exist, create a new DonorChallenge with this data.
+     */
+    create: XOR<DonorChallengeCreateInput, DonorChallengeUncheckedCreateInput>
+    /**
+     * In case the DonorChallenge was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DonorChallengeUpdateInput, DonorChallengeUncheckedUpdateInput>
+  }
+
+  /**
+   * DonorChallenge delete
+   */
+  export type DonorChallengeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DonorChallenge
+     */
+    select?: DonorChallengeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DonorChallenge
+     */
+    omit?: DonorChallengeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DonorChallengeInclude<ExtArgs> | null
+    /**
+     * Filter which DonorChallenge to delete.
+     */
+    where: DonorChallengeWhereUniqueInput
+  }
+
+  /**
+   * DonorChallenge deleteMany
+   */
+  export type DonorChallengeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DonorChallenges to delete
+     */
+    where?: DonorChallengeWhereInput
+    /**
+     * Limit how many DonorChallenges to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * DonorChallenge.acceptances
+   */
+  export type DonorChallenge$acceptancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChallengeAcceptance
+     */
+    select?: ChallengeAcceptanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChallengeAcceptance
+     */
+    omit?: ChallengeAcceptanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChallengeAcceptanceInclude<ExtArgs> | null
+    where?: ChallengeAcceptanceWhereInput
+    orderBy?: ChallengeAcceptanceOrderByWithRelationInput | ChallengeAcceptanceOrderByWithRelationInput[]
+    cursor?: ChallengeAcceptanceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ChallengeAcceptanceScalarFieldEnum | ChallengeAcceptanceScalarFieldEnum[]
+  }
+
+  /**
+   * DonorChallenge without action
+   */
+  export type DonorChallengeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DonorChallenge
+     */
+    select?: DonorChallengeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DonorChallenge
+     */
+    omit?: DonorChallengeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DonorChallengeInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ChallengeAcceptance
+   */
+
+  export type AggregateChallengeAcceptance = {
+    _count: ChallengeAcceptanceCountAggregateOutputType | null
+    _min: ChallengeAcceptanceMinAggregateOutputType | null
+    _max: ChallengeAcceptanceMaxAggregateOutputType | null
+  }
+
+  export type ChallengeAcceptanceMinAggregateOutputType = {
+    id: string | null
+    challengeId: string | null
+    name: string | null
+    createdAt: Date | null
+  }
+
+  export type ChallengeAcceptanceMaxAggregateOutputType = {
+    id: string | null
+    challengeId: string | null
+    name: string | null
+    createdAt: Date | null
+  }
+
+  export type ChallengeAcceptanceCountAggregateOutputType = {
+    id: number
+    challengeId: number
+    name: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type ChallengeAcceptanceMinAggregateInputType = {
+    id?: true
+    challengeId?: true
+    name?: true
+    createdAt?: true
+  }
+
+  export type ChallengeAcceptanceMaxAggregateInputType = {
+    id?: true
+    challengeId?: true
+    name?: true
+    createdAt?: true
+  }
+
+  export type ChallengeAcceptanceCountAggregateInputType = {
+    id?: true
+    challengeId?: true
+    name?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type ChallengeAcceptanceAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ChallengeAcceptance to aggregate.
+     */
+    where?: ChallengeAcceptanceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ChallengeAcceptances to fetch.
+     */
+    orderBy?: ChallengeAcceptanceOrderByWithRelationInput | ChallengeAcceptanceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ChallengeAcceptanceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ChallengeAcceptances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ChallengeAcceptances.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ChallengeAcceptances
+    **/
+    _count?: true | ChallengeAcceptanceCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ChallengeAcceptanceMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ChallengeAcceptanceMaxAggregateInputType
+  }
+
+  export type GetChallengeAcceptanceAggregateType<T extends ChallengeAcceptanceAggregateArgs> = {
+        [P in keyof T & keyof AggregateChallengeAcceptance]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateChallengeAcceptance[P]>
+      : GetScalarType<T[P], AggregateChallengeAcceptance[P]>
+  }
+
+
+
+
+  export type ChallengeAcceptanceGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ChallengeAcceptanceWhereInput
+    orderBy?: ChallengeAcceptanceOrderByWithAggregationInput | ChallengeAcceptanceOrderByWithAggregationInput[]
+    by: ChallengeAcceptanceScalarFieldEnum[] | ChallengeAcceptanceScalarFieldEnum
+    having?: ChallengeAcceptanceScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ChallengeAcceptanceCountAggregateInputType | true
+    _min?: ChallengeAcceptanceMinAggregateInputType
+    _max?: ChallengeAcceptanceMaxAggregateInputType
+  }
+
+  export type ChallengeAcceptanceGroupByOutputType = {
+    id: string
+    challengeId: string
+    name: string | null
+    createdAt: Date
+    _count: ChallengeAcceptanceCountAggregateOutputType | null
+    _min: ChallengeAcceptanceMinAggregateOutputType | null
+    _max: ChallengeAcceptanceMaxAggregateOutputType | null
+  }
+
+  type GetChallengeAcceptanceGroupByPayload<T extends ChallengeAcceptanceGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ChallengeAcceptanceGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ChallengeAcceptanceGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ChallengeAcceptanceGroupByOutputType[P]>
+            : GetScalarType<T[P], ChallengeAcceptanceGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ChallengeAcceptanceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    challengeId?: boolean
+    name?: boolean
+    createdAt?: boolean
+    challenge?: boolean | DonorChallengeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["challengeAcceptance"]>
+
+  export type ChallengeAcceptanceSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    challengeId?: boolean
+    name?: boolean
+    createdAt?: boolean
+    challenge?: boolean | DonorChallengeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["challengeAcceptance"]>
+
+  export type ChallengeAcceptanceSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    challengeId?: boolean
+    name?: boolean
+    createdAt?: boolean
+    challenge?: boolean | DonorChallengeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["challengeAcceptance"]>
+
+  export type ChallengeAcceptanceSelectScalar = {
+    id?: boolean
+    challengeId?: boolean
+    name?: boolean
+    createdAt?: boolean
+  }
+
+  export type ChallengeAcceptanceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "challengeId" | "name" | "createdAt", ExtArgs["result"]["challengeAcceptance"]>
+  export type ChallengeAcceptanceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    challenge?: boolean | DonorChallengeDefaultArgs<ExtArgs>
+  }
+  export type ChallengeAcceptanceIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    challenge?: boolean | DonorChallengeDefaultArgs<ExtArgs>
+  }
+  export type ChallengeAcceptanceIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    challenge?: boolean | DonorChallengeDefaultArgs<ExtArgs>
+  }
+
+  export type $ChallengeAcceptancePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ChallengeAcceptance"
+    objects: {
+      challenge: Prisma.$DonorChallengePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      challengeId: string
+      name: string | null
+      createdAt: Date
+    }, ExtArgs["result"]["challengeAcceptance"]>
+    composites: {}
+  }
+
+  type ChallengeAcceptanceGetPayload<S extends boolean | null | undefined | ChallengeAcceptanceDefaultArgs> = $Result.GetResult<Prisma.$ChallengeAcceptancePayload, S>
+
+  type ChallengeAcceptanceCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ChallengeAcceptanceFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ChallengeAcceptanceCountAggregateInputType | true
+    }
+
+  export interface ChallengeAcceptanceDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ChallengeAcceptance'], meta: { name: 'ChallengeAcceptance' } }
+    /**
+     * Find zero or one ChallengeAcceptance that matches the filter.
+     * @param {ChallengeAcceptanceFindUniqueArgs} args - Arguments to find a ChallengeAcceptance
+     * @example
+     * // Get one ChallengeAcceptance
+     * const challengeAcceptance = await prisma.challengeAcceptance.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ChallengeAcceptanceFindUniqueArgs>(args: SelectSubset<T, ChallengeAcceptanceFindUniqueArgs<ExtArgs>>): Prisma__ChallengeAcceptanceClient<$Result.GetResult<Prisma.$ChallengeAcceptancePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ChallengeAcceptance that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ChallengeAcceptanceFindUniqueOrThrowArgs} args - Arguments to find a ChallengeAcceptance
+     * @example
+     * // Get one ChallengeAcceptance
+     * const challengeAcceptance = await prisma.challengeAcceptance.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ChallengeAcceptanceFindUniqueOrThrowArgs>(args: SelectSubset<T, ChallengeAcceptanceFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ChallengeAcceptanceClient<$Result.GetResult<Prisma.$ChallengeAcceptancePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ChallengeAcceptance that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChallengeAcceptanceFindFirstArgs} args - Arguments to find a ChallengeAcceptance
+     * @example
+     * // Get one ChallengeAcceptance
+     * const challengeAcceptance = await prisma.challengeAcceptance.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ChallengeAcceptanceFindFirstArgs>(args?: SelectSubset<T, ChallengeAcceptanceFindFirstArgs<ExtArgs>>): Prisma__ChallengeAcceptanceClient<$Result.GetResult<Prisma.$ChallengeAcceptancePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ChallengeAcceptance that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChallengeAcceptanceFindFirstOrThrowArgs} args - Arguments to find a ChallengeAcceptance
+     * @example
+     * // Get one ChallengeAcceptance
+     * const challengeAcceptance = await prisma.challengeAcceptance.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ChallengeAcceptanceFindFirstOrThrowArgs>(args?: SelectSubset<T, ChallengeAcceptanceFindFirstOrThrowArgs<ExtArgs>>): Prisma__ChallengeAcceptanceClient<$Result.GetResult<Prisma.$ChallengeAcceptancePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ChallengeAcceptances that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChallengeAcceptanceFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ChallengeAcceptances
+     * const challengeAcceptances = await prisma.challengeAcceptance.findMany()
+     * 
+     * // Get first 10 ChallengeAcceptances
+     * const challengeAcceptances = await prisma.challengeAcceptance.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const challengeAcceptanceWithIdOnly = await prisma.challengeAcceptance.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ChallengeAcceptanceFindManyArgs>(args?: SelectSubset<T, ChallengeAcceptanceFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChallengeAcceptancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ChallengeAcceptance.
+     * @param {ChallengeAcceptanceCreateArgs} args - Arguments to create a ChallengeAcceptance.
+     * @example
+     * // Create one ChallengeAcceptance
+     * const ChallengeAcceptance = await prisma.challengeAcceptance.create({
+     *   data: {
+     *     // ... data to create a ChallengeAcceptance
+     *   }
+     * })
+     * 
+     */
+    create<T extends ChallengeAcceptanceCreateArgs>(args: SelectSubset<T, ChallengeAcceptanceCreateArgs<ExtArgs>>): Prisma__ChallengeAcceptanceClient<$Result.GetResult<Prisma.$ChallengeAcceptancePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ChallengeAcceptances.
+     * @param {ChallengeAcceptanceCreateManyArgs} args - Arguments to create many ChallengeAcceptances.
+     * @example
+     * // Create many ChallengeAcceptances
+     * const challengeAcceptance = await prisma.challengeAcceptance.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ChallengeAcceptanceCreateManyArgs>(args?: SelectSubset<T, ChallengeAcceptanceCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ChallengeAcceptances and returns the data saved in the database.
+     * @param {ChallengeAcceptanceCreateManyAndReturnArgs} args - Arguments to create many ChallengeAcceptances.
+     * @example
+     * // Create many ChallengeAcceptances
+     * const challengeAcceptance = await prisma.challengeAcceptance.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ChallengeAcceptances and only return the `id`
+     * const challengeAcceptanceWithIdOnly = await prisma.challengeAcceptance.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ChallengeAcceptanceCreateManyAndReturnArgs>(args?: SelectSubset<T, ChallengeAcceptanceCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChallengeAcceptancePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a ChallengeAcceptance.
+     * @param {ChallengeAcceptanceDeleteArgs} args - Arguments to delete one ChallengeAcceptance.
+     * @example
+     * // Delete one ChallengeAcceptance
+     * const ChallengeAcceptance = await prisma.challengeAcceptance.delete({
+     *   where: {
+     *     // ... filter to delete one ChallengeAcceptance
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ChallengeAcceptanceDeleteArgs>(args: SelectSubset<T, ChallengeAcceptanceDeleteArgs<ExtArgs>>): Prisma__ChallengeAcceptanceClient<$Result.GetResult<Prisma.$ChallengeAcceptancePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ChallengeAcceptance.
+     * @param {ChallengeAcceptanceUpdateArgs} args - Arguments to update one ChallengeAcceptance.
+     * @example
+     * // Update one ChallengeAcceptance
+     * const challengeAcceptance = await prisma.challengeAcceptance.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ChallengeAcceptanceUpdateArgs>(args: SelectSubset<T, ChallengeAcceptanceUpdateArgs<ExtArgs>>): Prisma__ChallengeAcceptanceClient<$Result.GetResult<Prisma.$ChallengeAcceptancePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ChallengeAcceptances.
+     * @param {ChallengeAcceptanceDeleteManyArgs} args - Arguments to filter ChallengeAcceptances to delete.
+     * @example
+     * // Delete a few ChallengeAcceptances
+     * const { count } = await prisma.challengeAcceptance.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ChallengeAcceptanceDeleteManyArgs>(args?: SelectSubset<T, ChallengeAcceptanceDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ChallengeAcceptances.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChallengeAcceptanceUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ChallengeAcceptances
+     * const challengeAcceptance = await prisma.challengeAcceptance.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ChallengeAcceptanceUpdateManyArgs>(args: SelectSubset<T, ChallengeAcceptanceUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ChallengeAcceptances and returns the data updated in the database.
+     * @param {ChallengeAcceptanceUpdateManyAndReturnArgs} args - Arguments to update many ChallengeAcceptances.
+     * @example
+     * // Update many ChallengeAcceptances
+     * const challengeAcceptance = await prisma.challengeAcceptance.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more ChallengeAcceptances and only return the `id`
+     * const challengeAcceptanceWithIdOnly = await prisma.challengeAcceptance.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ChallengeAcceptanceUpdateManyAndReturnArgs>(args: SelectSubset<T, ChallengeAcceptanceUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChallengeAcceptancePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one ChallengeAcceptance.
+     * @param {ChallengeAcceptanceUpsertArgs} args - Arguments to update or create a ChallengeAcceptance.
+     * @example
+     * // Update or create a ChallengeAcceptance
+     * const challengeAcceptance = await prisma.challengeAcceptance.upsert({
+     *   create: {
+     *     // ... data to create a ChallengeAcceptance
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ChallengeAcceptance we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ChallengeAcceptanceUpsertArgs>(args: SelectSubset<T, ChallengeAcceptanceUpsertArgs<ExtArgs>>): Prisma__ChallengeAcceptanceClient<$Result.GetResult<Prisma.$ChallengeAcceptancePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of ChallengeAcceptances.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChallengeAcceptanceCountArgs} args - Arguments to filter ChallengeAcceptances to count.
+     * @example
+     * // Count the number of ChallengeAcceptances
+     * const count = await prisma.challengeAcceptance.count({
+     *   where: {
+     *     // ... the filter for the ChallengeAcceptances we want to count
+     *   }
+     * })
+    **/
+    count<T extends ChallengeAcceptanceCountArgs>(
+      args?: Subset<T, ChallengeAcceptanceCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ChallengeAcceptanceCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ChallengeAcceptance.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChallengeAcceptanceAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ChallengeAcceptanceAggregateArgs>(args: Subset<T, ChallengeAcceptanceAggregateArgs>): Prisma.PrismaPromise<GetChallengeAcceptanceAggregateType<T>>
+
+    /**
+     * Group by ChallengeAcceptance.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChallengeAcceptanceGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ChallengeAcceptanceGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ChallengeAcceptanceGroupByArgs['orderBy'] }
+        : { orderBy?: ChallengeAcceptanceGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ChallengeAcceptanceGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetChallengeAcceptanceGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ChallengeAcceptance model
+   */
+  readonly fields: ChallengeAcceptanceFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ChallengeAcceptance.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ChallengeAcceptanceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    challenge<T extends DonorChallengeDefaultArgs<ExtArgs> = {}>(args?: Subset<T, DonorChallengeDefaultArgs<ExtArgs>>): Prisma__DonorChallengeClient<$Result.GetResult<Prisma.$DonorChallengePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ChallengeAcceptance model
+   */
+  interface ChallengeAcceptanceFieldRefs {
+    readonly id: FieldRef<"ChallengeAcceptance", 'String'>
+    readonly challengeId: FieldRef<"ChallengeAcceptance", 'String'>
+    readonly name: FieldRef<"ChallengeAcceptance", 'String'>
+    readonly createdAt: FieldRef<"ChallengeAcceptance", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ChallengeAcceptance findUnique
+   */
+  export type ChallengeAcceptanceFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChallengeAcceptance
+     */
+    select?: ChallengeAcceptanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChallengeAcceptance
+     */
+    omit?: ChallengeAcceptanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChallengeAcceptanceInclude<ExtArgs> | null
+    /**
+     * Filter, which ChallengeAcceptance to fetch.
+     */
+    where: ChallengeAcceptanceWhereUniqueInput
+  }
+
+  /**
+   * ChallengeAcceptance findUniqueOrThrow
+   */
+  export type ChallengeAcceptanceFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChallengeAcceptance
+     */
+    select?: ChallengeAcceptanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChallengeAcceptance
+     */
+    omit?: ChallengeAcceptanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChallengeAcceptanceInclude<ExtArgs> | null
+    /**
+     * Filter, which ChallengeAcceptance to fetch.
+     */
+    where: ChallengeAcceptanceWhereUniqueInput
+  }
+
+  /**
+   * ChallengeAcceptance findFirst
+   */
+  export type ChallengeAcceptanceFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChallengeAcceptance
+     */
+    select?: ChallengeAcceptanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChallengeAcceptance
+     */
+    omit?: ChallengeAcceptanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChallengeAcceptanceInclude<ExtArgs> | null
+    /**
+     * Filter, which ChallengeAcceptance to fetch.
+     */
+    where?: ChallengeAcceptanceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ChallengeAcceptances to fetch.
+     */
+    orderBy?: ChallengeAcceptanceOrderByWithRelationInput | ChallengeAcceptanceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ChallengeAcceptances.
+     */
+    cursor?: ChallengeAcceptanceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ChallengeAcceptances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ChallengeAcceptances.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ChallengeAcceptances.
+     */
+    distinct?: ChallengeAcceptanceScalarFieldEnum | ChallengeAcceptanceScalarFieldEnum[]
+  }
+
+  /**
+   * ChallengeAcceptance findFirstOrThrow
+   */
+  export type ChallengeAcceptanceFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChallengeAcceptance
+     */
+    select?: ChallengeAcceptanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChallengeAcceptance
+     */
+    omit?: ChallengeAcceptanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChallengeAcceptanceInclude<ExtArgs> | null
+    /**
+     * Filter, which ChallengeAcceptance to fetch.
+     */
+    where?: ChallengeAcceptanceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ChallengeAcceptances to fetch.
+     */
+    orderBy?: ChallengeAcceptanceOrderByWithRelationInput | ChallengeAcceptanceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ChallengeAcceptances.
+     */
+    cursor?: ChallengeAcceptanceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ChallengeAcceptances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ChallengeAcceptances.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ChallengeAcceptances.
+     */
+    distinct?: ChallengeAcceptanceScalarFieldEnum | ChallengeAcceptanceScalarFieldEnum[]
+  }
+
+  /**
+   * ChallengeAcceptance findMany
+   */
+  export type ChallengeAcceptanceFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChallengeAcceptance
+     */
+    select?: ChallengeAcceptanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChallengeAcceptance
+     */
+    omit?: ChallengeAcceptanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChallengeAcceptanceInclude<ExtArgs> | null
+    /**
+     * Filter, which ChallengeAcceptances to fetch.
+     */
+    where?: ChallengeAcceptanceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ChallengeAcceptances to fetch.
+     */
+    orderBy?: ChallengeAcceptanceOrderByWithRelationInput | ChallengeAcceptanceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ChallengeAcceptances.
+     */
+    cursor?: ChallengeAcceptanceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ChallengeAcceptances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ChallengeAcceptances.
+     */
+    skip?: number
+    distinct?: ChallengeAcceptanceScalarFieldEnum | ChallengeAcceptanceScalarFieldEnum[]
+  }
+
+  /**
+   * ChallengeAcceptance create
+   */
+  export type ChallengeAcceptanceCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChallengeAcceptance
+     */
+    select?: ChallengeAcceptanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChallengeAcceptance
+     */
+    omit?: ChallengeAcceptanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChallengeAcceptanceInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ChallengeAcceptance.
+     */
+    data: XOR<ChallengeAcceptanceCreateInput, ChallengeAcceptanceUncheckedCreateInput>
+  }
+
+  /**
+   * ChallengeAcceptance createMany
+   */
+  export type ChallengeAcceptanceCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ChallengeAcceptances.
+     */
+    data: ChallengeAcceptanceCreateManyInput | ChallengeAcceptanceCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ChallengeAcceptance createManyAndReturn
+   */
+  export type ChallengeAcceptanceCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChallengeAcceptance
+     */
+    select?: ChallengeAcceptanceSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChallengeAcceptance
+     */
+    omit?: ChallengeAcceptanceOmit<ExtArgs> | null
+    /**
+     * The data used to create many ChallengeAcceptances.
+     */
+    data: ChallengeAcceptanceCreateManyInput | ChallengeAcceptanceCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChallengeAcceptanceIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ChallengeAcceptance update
+   */
+  export type ChallengeAcceptanceUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChallengeAcceptance
+     */
+    select?: ChallengeAcceptanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChallengeAcceptance
+     */
+    omit?: ChallengeAcceptanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChallengeAcceptanceInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ChallengeAcceptance.
+     */
+    data: XOR<ChallengeAcceptanceUpdateInput, ChallengeAcceptanceUncheckedUpdateInput>
+    /**
+     * Choose, which ChallengeAcceptance to update.
+     */
+    where: ChallengeAcceptanceWhereUniqueInput
+  }
+
+  /**
+   * ChallengeAcceptance updateMany
+   */
+  export type ChallengeAcceptanceUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ChallengeAcceptances.
+     */
+    data: XOR<ChallengeAcceptanceUpdateManyMutationInput, ChallengeAcceptanceUncheckedUpdateManyInput>
+    /**
+     * Filter which ChallengeAcceptances to update
+     */
+    where?: ChallengeAcceptanceWhereInput
+    /**
+     * Limit how many ChallengeAcceptances to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ChallengeAcceptance updateManyAndReturn
+   */
+  export type ChallengeAcceptanceUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChallengeAcceptance
+     */
+    select?: ChallengeAcceptanceSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChallengeAcceptance
+     */
+    omit?: ChallengeAcceptanceOmit<ExtArgs> | null
+    /**
+     * The data used to update ChallengeAcceptances.
+     */
+    data: XOR<ChallengeAcceptanceUpdateManyMutationInput, ChallengeAcceptanceUncheckedUpdateManyInput>
+    /**
+     * Filter which ChallengeAcceptances to update
+     */
+    where?: ChallengeAcceptanceWhereInput
+    /**
+     * Limit how many ChallengeAcceptances to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChallengeAcceptanceIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ChallengeAcceptance upsert
+   */
+  export type ChallengeAcceptanceUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChallengeAcceptance
+     */
+    select?: ChallengeAcceptanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChallengeAcceptance
+     */
+    omit?: ChallengeAcceptanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChallengeAcceptanceInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ChallengeAcceptance to update in case it exists.
+     */
+    where: ChallengeAcceptanceWhereUniqueInput
+    /**
+     * In case the ChallengeAcceptance found by the `where` argument doesn't exist, create a new ChallengeAcceptance with this data.
+     */
+    create: XOR<ChallengeAcceptanceCreateInput, ChallengeAcceptanceUncheckedCreateInput>
+    /**
+     * In case the ChallengeAcceptance was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ChallengeAcceptanceUpdateInput, ChallengeAcceptanceUncheckedUpdateInput>
+  }
+
+  /**
+   * ChallengeAcceptance delete
+   */
+  export type ChallengeAcceptanceDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChallengeAcceptance
+     */
+    select?: ChallengeAcceptanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChallengeAcceptance
+     */
+    omit?: ChallengeAcceptanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChallengeAcceptanceInclude<ExtArgs> | null
+    /**
+     * Filter which ChallengeAcceptance to delete.
+     */
+    where: ChallengeAcceptanceWhereUniqueInput
+  }
+
+  /**
+   * ChallengeAcceptance deleteMany
+   */
+  export type ChallengeAcceptanceDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ChallengeAcceptances to delete
+     */
+    where?: ChallengeAcceptanceWhereInput
+    /**
+     * Limit how many ChallengeAcceptances to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ChallengeAcceptance without action
+   */
+  export type ChallengeAcceptanceDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChallengeAcceptance
+     */
+    select?: ChallengeAcceptanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChallengeAcceptance
+     */
+    omit?: ChallengeAcceptanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChallengeAcceptanceInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -41177,6 +43665,29 @@ export namespace Prisma {
   export type RoleEngagementScalarFieldEnum = (typeof RoleEngagementScalarFieldEnum)[keyof typeof RoleEngagementScalarFieldEnum]
 
 
+  export const DonorChallengeScalarFieldEnum: {
+    id: 'id',
+    donorId: 'donorId',
+    projectId: 'projectId',
+    amount: 'amount',
+    message: 'message',
+    deadline: 'deadline',
+    createdAt: 'createdAt'
+  };
+
+  export type DonorChallengeScalarFieldEnum = (typeof DonorChallengeScalarFieldEnum)[keyof typeof DonorChallengeScalarFieldEnum]
+
+
+  export const ChallengeAcceptanceScalarFieldEnum: {
+    id: 'id',
+    challengeId: 'challengeId',
+    name: 'name',
+    createdAt: 'createdAt'
+  };
+
+  export type ChallengeAcceptanceScalarFieldEnum = (typeof ChallengeAcceptanceScalarFieldEnum)[keyof typeof ChallengeAcceptanceScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -41652,6 +44163,7 @@ export namespace Prisma {
     endorsementsGiven?: DonorEndorsementListRelationFilter
     documents?: DonorDocumentListRelationFilter
     roleApplications?: RoleApplicationListRelationFilter
+    challenges?: DonorChallengeListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -41691,6 +44203,7 @@ export namespace Prisma {
     endorsementsGiven?: DonorEndorsementOrderByRelationAggregateInput
     documents?: DonorDocumentOrderByRelationAggregateInput
     roleApplications?: RoleApplicationOrderByRelationAggregateInput
+    challenges?: DonorChallengeOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -41733,6 +44246,7 @@ export namespace Prisma {
     endorsementsGiven?: DonorEndorsementListRelationFilter
     documents?: DonorDocumentListRelationFilter
     roleApplications?: RoleApplicationListRelationFilter
+    challenges?: DonorChallengeListRelationFilter
   }, "id" | "email" | "referralCode">
 
   export type UserOrderByWithAggregationInput = {
@@ -41954,6 +44468,7 @@ export namespace Prisma {
     campaigns?: CampaignListRelationFilter
     skillContributions?: SkillContributionListRelationFilter
     roles?: NgoRoleListRelationFilter
+    challenges?: DonorChallengeListRelationFilter
   }
 
   export type ProjectOrderByWithRelationInput = {
@@ -41981,6 +44496,7 @@ export namespace Prisma {
     campaigns?: CampaignOrderByRelationAggregateInput
     skillContributions?: SkillContributionOrderByRelationAggregateInput
     roles?: NgoRoleOrderByRelationAggregateInput
+    challenges?: DonorChallengeOrderByRelationAggregateInput
   }
 
   export type ProjectWhereUniqueInput = Prisma.AtLeast<{
@@ -42011,6 +44527,7 @@ export namespace Prisma {
     campaigns?: CampaignListRelationFilter
     skillContributions?: SkillContributionListRelationFilter
     roles?: NgoRoleListRelationFilter
+    challenges?: DonorChallengeListRelationFilter
   }, "id">
 
   export type ProjectOrderByWithAggregationInput = {
@@ -44039,6 +46556,129 @@ export namespace Prisma {
     skillContributionId?: StringNullableWithAggregatesFilter<"RoleEngagement"> | string | null
   }
 
+  export type DonorChallengeWhereInput = {
+    AND?: DonorChallengeWhereInput | DonorChallengeWhereInput[]
+    OR?: DonorChallengeWhereInput[]
+    NOT?: DonorChallengeWhereInput | DonorChallengeWhereInput[]
+    id?: StringFilter<"DonorChallenge"> | string
+    donorId?: StringFilter<"DonorChallenge"> | string
+    projectId?: StringFilter<"DonorChallenge"> | string
+    amount?: FloatFilter<"DonorChallenge"> | number
+    message?: StringNullableFilter<"DonorChallenge"> | string | null
+    deadline?: DateTimeNullableFilter<"DonorChallenge"> | Date | string | null
+    createdAt?: DateTimeFilter<"DonorChallenge"> | Date | string
+    donor?: XOR<UserScalarRelationFilter, UserWhereInput>
+    project?: XOR<ProjectScalarRelationFilter, ProjectWhereInput>
+    acceptances?: ChallengeAcceptanceListRelationFilter
+  }
+
+  export type DonorChallengeOrderByWithRelationInput = {
+    id?: SortOrder
+    donorId?: SortOrder
+    projectId?: SortOrder
+    amount?: SortOrder
+    message?: SortOrderInput | SortOrder
+    deadline?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    donor?: UserOrderByWithRelationInput
+    project?: ProjectOrderByWithRelationInput
+    acceptances?: ChallengeAcceptanceOrderByRelationAggregateInput
+  }
+
+  export type DonorChallengeWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: DonorChallengeWhereInput | DonorChallengeWhereInput[]
+    OR?: DonorChallengeWhereInput[]
+    NOT?: DonorChallengeWhereInput | DonorChallengeWhereInput[]
+    donorId?: StringFilter<"DonorChallenge"> | string
+    projectId?: StringFilter<"DonorChallenge"> | string
+    amount?: FloatFilter<"DonorChallenge"> | number
+    message?: StringNullableFilter<"DonorChallenge"> | string | null
+    deadline?: DateTimeNullableFilter<"DonorChallenge"> | Date | string | null
+    createdAt?: DateTimeFilter<"DonorChallenge"> | Date | string
+    donor?: XOR<UserScalarRelationFilter, UserWhereInput>
+    project?: XOR<ProjectScalarRelationFilter, ProjectWhereInput>
+    acceptances?: ChallengeAcceptanceListRelationFilter
+  }, "id">
+
+  export type DonorChallengeOrderByWithAggregationInput = {
+    id?: SortOrder
+    donorId?: SortOrder
+    projectId?: SortOrder
+    amount?: SortOrder
+    message?: SortOrderInput | SortOrder
+    deadline?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: DonorChallengeCountOrderByAggregateInput
+    _avg?: DonorChallengeAvgOrderByAggregateInput
+    _max?: DonorChallengeMaxOrderByAggregateInput
+    _min?: DonorChallengeMinOrderByAggregateInput
+    _sum?: DonorChallengeSumOrderByAggregateInput
+  }
+
+  export type DonorChallengeScalarWhereWithAggregatesInput = {
+    AND?: DonorChallengeScalarWhereWithAggregatesInput | DonorChallengeScalarWhereWithAggregatesInput[]
+    OR?: DonorChallengeScalarWhereWithAggregatesInput[]
+    NOT?: DonorChallengeScalarWhereWithAggregatesInput | DonorChallengeScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"DonorChallenge"> | string
+    donorId?: StringWithAggregatesFilter<"DonorChallenge"> | string
+    projectId?: StringWithAggregatesFilter<"DonorChallenge"> | string
+    amount?: FloatWithAggregatesFilter<"DonorChallenge"> | number
+    message?: StringNullableWithAggregatesFilter<"DonorChallenge"> | string | null
+    deadline?: DateTimeNullableWithAggregatesFilter<"DonorChallenge"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"DonorChallenge"> | Date | string
+  }
+
+  export type ChallengeAcceptanceWhereInput = {
+    AND?: ChallengeAcceptanceWhereInput | ChallengeAcceptanceWhereInput[]
+    OR?: ChallengeAcceptanceWhereInput[]
+    NOT?: ChallengeAcceptanceWhereInput | ChallengeAcceptanceWhereInput[]
+    id?: StringFilter<"ChallengeAcceptance"> | string
+    challengeId?: StringFilter<"ChallengeAcceptance"> | string
+    name?: StringNullableFilter<"ChallengeAcceptance"> | string | null
+    createdAt?: DateTimeFilter<"ChallengeAcceptance"> | Date | string
+    challenge?: XOR<DonorChallengeScalarRelationFilter, DonorChallengeWhereInput>
+  }
+
+  export type ChallengeAcceptanceOrderByWithRelationInput = {
+    id?: SortOrder
+    challengeId?: SortOrder
+    name?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    challenge?: DonorChallengeOrderByWithRelationInput
+  }
+
+  export type ChallengeAcceptanceWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ChallengeAcceptanceWhereInput | ChallengeAcceptanceWhereInput[]
+    OR?: ChallengeAcceptanceWhereInput[]
+    NOT?: ChallengeAcceptanceWhereInput | ChallengeAcceptanceWhereInput[]
+    challengeId?: StringFilter<"ChallengeAcceptance"> | string
+    name?: StringNullableFilter<"ChallengeAcceptance"> | string | null
+    createdAt?: DateTimeFilter<"ChallengeAcceptance"> | Date | string
+    challenge?: XOR<DonorChallengeScalarRelationFilter, DonorChallengeWhereInput>
+  }, "id">
+
+  export type ChallengeAcceptanceOrderByWithAggregationInput = {
+    id?: SortOrder
+    challengeId?: SortOrder
+    name?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: ChallengeAcceptanceCountOrderByAggregateInput
+    _max?: ChallengeAcceptanceMaxOrderByAggregateInput
+    _min?: ChallengeAcceptanceMinOrderByAggregateInput
+  }
+
+  export type ChallengeAcceptanceScalarWhereWithAggregatesInput = {
+    AND?: ChallengeAcceptanceScalarWhereWithAggregatesInput | ChallengeAcceptanceScalarWhereWithAggregatesInput[]
+    OR?: ChallengeAcceptanceScalarWhereWithAggregatesInput[]
+    NOT?: ChallengeAcceptanceScalarWhereWithAggregatesInput | ChallengeAcceptanceScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ChallengeAcceptance"> | string
+    challengeId?: StringWithAggregatesFilter<"ChallengeAcceptance"> | string
+    name?: StringNullableWithAggregatesFilter<"ChallengeAcceptance"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"ChallengeAcceptance"> | Date | string
+  }
+
   export type AccountCreateInput = {
     id?: string
     type: string
@@ -44270,6 +46910,7 @@ export namespace Prisma {
     endorsementsGiven?: DonorEndorsementCreateNestedManyWithoutEndorserInput
     documents?: DonorDocumentCreateNestedManyWithoutUserInput
     roleApplications?: RoleApplicationCreateNestedManyWithoutApplicantInput
+    challenges?: DonorChallengeCreateNestedManyWithoutDonorInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -44309,6 +46950,7 @@ export namespace Prisma {
     endorsementsGiven?: DonorEndorsementUncheckedCreateNestedManyWithoutEndorserInput
     documents?: DonorDocumentUncheckedCreateNestedManyWithoutUserInput
     roleApplications?: RoleApplicationUncheckedCreateNestedManyWithoutApplicantInput
+    challenges?: DonorChallengeUncheckedCreateNestedManyWithoutDonorInput
   }
 
   export type UserUpdateInput = {
@@ -44348,6 +46990,7 @@ export namespace Prisma {
     endorsementsGiven?: DonorEndorsementUpdateManyWithoutEndorserNestedInput
     documents?: DonorDocumentUpdateManyWithoutUserNestedInput
     roleApplications?: RoleApplicationUpdateManyWithoutApplicantNestedInput
+    challenges?: DonorChallengeUpdateManyWithoutDonorNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -44387,6 +47030,7 @@ export namespace Prisma {
     endorsementsGiven?: DonorEndorsementUncheckedUpdateManyWithoutEndorserNestedInput
     documents?: DonorDocumentUncheckedUpdateManyWithoutUserNestedInput
     roleApplications?: RoleApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+    challenges?: DonorChallengeUncheckedUpdateManyWithoutDonorNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -44650,6 +47294,7 @@ export namespace Prisma {
     campaigns?: CampaignCreateNestedManyWithoutProjectInput
     skillContributions?: SkillContributionCreateNestedManyWithoutProjectInput
     roles?: NgoRoleCreateNestedManyWithoutProjectInput
+    challenges?: DonorChallengeCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUncheckedCreateInput = {
@@ -44676,6 +47321,7 @@ export namespace Prisma {
     campaigns?: CampaignUncheckedCreateNestedManyWithoutProjectInput
     skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutProjectInput
     roles?: NgoRoleUncheckedCreateNestedManyWithoutProjectInput
+    challenges?: DonorChallengeUncheckedCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUpdateInput = {
@@ -44702,6 +47348,7 @@ export namespace Prisma {
     campaigns?: CampaignUpdateManyWithoutProjectNestedInput
     skillContributions?: SkillContributionUpdateManyWithoutProjectNestedInput
     roles?: NgoRoleUpdateManyWithoutProjectNestedInput
+    challenges?: DonorChallengeUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateInput = {
@@ -44728,6 +47375,7 @@ export namespace Prisma {
     campaigns?: CampaignUncheckedUpdateManyWithoutProjectNestedInput
     skillContributions?: SkillContributionUncheckedUpdateManyWithoutProjectNestedInput
     roles?: NgoRoleUncheckedUpdateManyWithoutProjectNestedInput
+    challenges?: DonorChallengeUncheckedUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectCreateManyInput = {
@@ -46892,6 +49540,126 @@ export namespace Prisma {
     skillContributionId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
+  export type DonorChallengeCreateInput = {
+    id?: string
+    amount: number
+    message?: string | null
+    deadline?: Date | string | null
+    createdAt?: Date | string
+    donor: UserCreateNestedOneWithoutChallengesInput
+    project: ProjectCreateNestedOneWithoutChallengesInput
+    acceptances?: ChallengeAcceptanceCreateNestedManyWithoutChallengeInput
+  }
+
+  export type DonorChallengeUncheckedCreateInput = {
+    id?: string
+    donorId: string
+    projectId: string
+    amount: number
+    message?: string | null
+    deadline?: Date | string | null
+    createdAt?: Date | string
+    acceptances?: ChallengeAcceptanceUncheckedCreateNestedManyWithoutChallengeInput
+  }
+
+  export type DonorChallengeUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    amount?: FloatFieldUpdateOperationsInput | number
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    deadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    donor?: UserUpdateOneRequiredWithoutChallengesNestedInput
+    project?: ProjectUpdateOneRequiredWithoutChallengesNestedInput
+    acceptances?: ChallengeAcceptanceUpdateManyWithoutChallengeNestedInput
+  }
+
+  export type DonorChallengeUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    donorId?: StringFieldUpdateOperationsInput | string
+    projectId?: StringFieldUpdateOperationsInput | string
+    amount?: FloatFieldUpdateOperationsInput | number
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    deadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    acceptances?: ChallengeAcceptanceUncheckedUpdateManyWithoutChallengeNestedInput
+  }
+
+  export type DonorChallengeCreateManyInput = {
+    id?: string
+    donorId: string
+    projectId: string
+    amount: number
+    message?: string | null
+    deadline?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type DonorChallengeUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    amount?: FloatFieldUpdateOperationsInput | number
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    deadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DonorChallengeUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    donorId?: StringFieldUpdateOperationsInput | string
+    projectId?: StringFieldUpdateOperationsInput | string
+    amount?: FloatFieldUpdateOperationsInput | number
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    deadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ChallengeAcceptanceCreateInput = {
+    id?: string
+    name?: string | null
+    createdAt?: Date | string
+    challenge: DonorChallengeCreateNestedOneWithoutAcceptancesInput
+  }
+
+  export type ChallengeAcceptanceUncheckedCreateInput = {
+    id?: string
+    challengeId: string
+    name?: string | null
+    createdAt?: Date | string
+  }
+
+  export type ChallengeAcceptanceUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    challenge?: DonorChallengeUpdateOneRequiredWithoutAcceptancesNestedInput
+  }
+
+  export type ChallengeAcceptanceUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    challengeId?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ChallengeAcceptanceCreateManyInput = {
+    id?: string
+    challengeId: string
+    name?: string | null
+    createdAt?: Date | string
+  }
+
+  export type ChallengeAcceptanceUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ChallengeAcceptanceUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    challengeId?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -47229,6 +49997,12 @@ export namespace Prisma {
     none?: RoleApplicationWhereInput
   }
 
+  export type DonorChallengeListRelationFilter = {
+    every?: DonorChallengeWhereInput
+    some?: DonorChallengeWhereInput
+    none?: DonorChallengeWhereInput
+  }
+
   export type AccountOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -47282,6 +50056,10 @@ export namespace Prisma {
   }
 
   export type RoleApplicationOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type DonorChallengeOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -49000,6 +51778,80 @@ export namespace Prisma {
     _max?: NestedEnumEngagementStatusFilter<$PrismaModel>
   }
 
+  export type ChallengeAcceptanceListRelationFilter = {
+    every?: ChallengeAcceptanceWhereInput
+    some?: ChallengeAcceptanceWhereInput
+    none?: ChallengeAcceptanceWhereInput
+  }
+
+  export type ChallengeAcceptanceOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type DonorChallengeCountOrderByAggregateInput = {
+    id?: SortOrder
+    donorId?: SortOrder
+    projectId?: SortOrder
+    amount?: SortOrder
+    message?: SortOrder
+    deadline?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type DonorChallengeAvgOrderByAggregateInput = {
+    amount?: SortOrder
+  }
+
+  export type DonorChallengeMaxOrderByAggregateInput = {
+    id?: SortOrder
+    donorId?: SortOrder
+    projectId?: SortOrder
+    amount?: SortOrder
+    message?: SortOrder
+    deadline?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type DonorChallengeMinOrderByAggregateInput = {
+    id?: SortOrder
+    donorId?: SortOrder
+    projectId?: SortOrder
+    amount?: SortOrder
+    message?: SortOrder
+    deadline?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type DonorChallengeSumOrderByAggregateInput = {
+    amount?: SortOrder
+  }
+
+  export type DonorChallengeScalarRelationFilter = {
+    is?: DonorChallengeWhereInput
+    isNot?: DonorChallengeWhereInput
+  }
+
+  export type ChallengeAcceptanceCountOrderByAggregateInput = {
+    id?: SortOrder
+    challengeId?: SortOrder
+    name?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type ChallengeAcceptanceMaxOrderByAggregateInput = {
+    id?: SortOrder
+    challengeId?: SortOrder
+    name?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type ChallengeAcceptanceMinOrderByAggregateInput = {
+    id?: SortOrder
+    challengeId?: SortOrder
+    name?: SortOrder
+    createdAt?: SortOrder
+  }
+
   export type UserCreateNestedOneWithoutAccountsInput = {
     create?: XOR<UserCreateWithoutAccountsInput, UserUncheckedCreateWithoutAccountsInput>
     connectOrCreate?: UserCreateOrConnectWithoutAccountsInput
@@ -49166,6 +52018,13 @@ export namespace Prisma {
     connect?: RoleApplicationWhereUniqueInput | RoleApplicationWhereUniqueInput[]
   }
 
+  export type DonorChallengeCreateNestedManyWithoutDonorInput = {
+    create?: XOR<DonorChallengeCreateWithoutDonorInput, DonorChallengeUncheckedCreateWithoutDonorInput> | DonorChallengeCreateWithoutDonorInput[] | DonorChallengeUncheckedCreateWithoutDonorInput[]
+    connectOrCreate?: DonorChallengeCreateOrConnectWithoutDonorInput | DonorChallengeCreateOrConnectWithoutDonorInput[]
+    createMany?: DonorChallengeCreateManyDonorInputEnvelope
+    connect?: DonorChallengeWhereUniqueInput | DonorChallengeWhereUniqueInput[]
+  }
+
   export type AccountUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -49282,6 +52141,13 @@ export namespace Prisma {
     connectOrCreate?: RoleApplicationCreateOrConnectWithoutApplicantInput | RoleApplicationCreateOrConnectWithoutApplicantInput[]
     createMany?: RoleApplicationCreateManyApplicantInputEnvelope
     connect?: RoleApplicationWhereUniqueInput | RoleApplicationWhereUniqueInput[]
+  }
+
+  export type DonorChallengeUncheckedCreateNestedManyWithoutDonorInput = {
+    create?: XOR<DonorChallengeCreateWithoutDonorInput, DonorChallengeUncheckedCreateWithoutDonorInput> | DonorChallengeCreateWithoutDonorInput[] | DonorChallengeUncheckedCreateWithoutDonorInput[]
+    connectOrCreate?: DonorChallengeCreateOrConnectWithoutDonorInput | DonorChallengeCreateOrConnectWithoutDonorInput[]
+    createMany?: DonorChallengeCreateManyDonorInputEnvelope
+    connect?: DonorChallengeWhereUniqueInput | DonorChallengeWhereUniqueInput[]
   }
 
   export type NullableDateTimeFieldUpdateOperationsInput = {
@@ -49526,6 +52392,20 @@ export namespace Prisma {
     deleteMany?: RoleApplicationScalarWhereInput | RoleApplicationScalarWhereInput[]
   }
 
+  export type DonorChallengeUpdateManyWithoutDonorNestedInput = {
+    create?: XOR<DonorChallengeCreateWithoutDonorInput, DonorChallengeUncheckedCreateWithoutDonorInput> | DonorChallengeCreateWithoutDonorInput[] | DonorChallengeUncheckedCreateWithoutDonorInput[]
+    connectOrCreate?: DonorChallengeCreateOrConnectWithoutDonorInput | DonorChallengeCreateOrConnectWithoutDonorInput[]
+    upsert?: DonorChallengeUpsertWithWhereUniqueWithoutDonorInput | DonorChallengeUpsertWithWhereUniqueWithoutDonorInput[]
+    createMany?: DonorChallengeCreateManyDonorInputEnvelope
+    set?: DonorChallengeWhereUniqueInput | DonorChallengeWhereUniqueInput[]
+    disconnect?: DonorChallengeWhereUniqueInput | DonorChallengeWhereUniqueInput[]
+    delete?: DonorChallengeWhereUniqueInput | DonorChallengeWhereUniqueInput[]
+    connect?: DonorChallengeWhereUniqueInput | DonorChallengeWhereUniqueInput[]
+    update?: DonorChallengeUpdateWithWhereUniqueWithoutDonorInput | DonorChallengeUpdateWithWhereUniqueWithoutDonorInput[]
+    updateMany?: DonorChallengeUpdateManyWithWhereWithoutDonorInput | DonorChallengeUpdateManyWithWhereWithoutDonorInput[]
+    deleteMany?: DonorChallengeScalarWhereInput | DonorChallengeScalarWhereInput[]
+  }
+
   export type AccountUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -49758,6 +52638,20 @@ export namespace Prisma {
     update?: RoleApplicationUpdateWithWhereUniqueWithoutApplicantInput | RoleApplicationUpdateWithWhereUniqueWithoutApplicantInput[]
     updateMany?: RoleApplicationUpdateManyWithWhereWithoutApplicantInput | RoleApplicationUpdateManyWithWhereWithoutApplicantInput[]
     deleteMany?: RoleApplicationScalarWhereInput | RoleApplicationScalarWhereInput[]
+  }
+
+  export type DonorChallengeUncheckedUpdateManyWithoutDonorNestedInput = {
+    create?: XOR<DonorChallengeCreateWithoutDonorInput, DonorChallengeUncheckedCreateWithoutDonorInput> | DonorChallengeCreateWithoutDonorInput[] | DonorChallengeUncheckedCreateWithoutDonorInput[]
+    connectOrCreate?: DonorChallengeCreateOrConnectWithoutDonorInput | DonorChallengeCreateOrConnectWithoutDonorInput[]
+    upsert?: DonorChallengeUpsertWithWhereUniqueWithoutDonorInput | DonorChallengeUpsertWithWhereUniqueWithoutDonorInput[]
+    createMany?: DonorChallengeCreateManyDonorInputEnvelope
+    set?: DonorChallengeWhereUniqueInput | DonorChallengeWhereUniqueInput[]
+    disconnect?: DonorChallengeWhereUniqueInput | DonorChallengeWhereUniqueInput[]
+    delete?: DonorChallengeWhereUniqueInput | DonorChallengeWhereUniqueInput[]
+    connect?: DonorChallengeWhereUniqueInput | DonorChallengeWhereUniqueInput[]
+    update?: DonorChallengeUpdateWithWhereUniqueWithoutDonorInput | DonorChallengeUpdateWithWhereUniqueWithoutDonorInput[]
+    updateMany?: DonorChallengeUpdateManyWithWhereWithoutDonorInput | DonorChallengeUpdateManyWithWhereWithoutDonorInput[]
+    deleteMany?: DonorChallengeScalarWhereInput | DonorChallengeScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutNgoInput = {
@@ -50177,6 +53071,13 @@ export namespace Prisma {
     connect?: NgoRoleWhereUniqueInput | NgoRoleWhereUniqueInput[]
   }
 
+  export type DonorChallengeCreateNestedManyWithoutProjectInput = {
+    create?: XOR<DonorChallengeCreateWithoutProjectInput, DonorChallengeUncheckedCreateWithoutProjectInput> | DonorChallengeCreateWithoutProjectInput[] | DonorChallengeUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: DonorChallengeCreateOrConnectWithoutProjectInput | DonorChallengeCreateOrConnectWithoutProjectInput[]
+    createMany?: DonorChallengeCreateManyProjectInputEnvelope
+    connect?: DonorChallengeWhereUniqueInput | DonorChallengeWhereUniqueInput[]
+  }
+
   export type MilestoneUncheckedCreateNestedManyWithoutProjectInput = {
     create?: XOR<MilestoneCreateWithoutProjectInput, MilestoneUncheckedCreateWithoutProjectInput> | MilestoneCreateWithoutProjectInput[] | MilestoneUncheckedCreateWithoutProjectInput[]
     connectOrCreate?: MilestoneCreateOrConnectWithoutProjectInput | MilestoneCreateOrConnectWithoutProjectInput[]
@@ -50224,6 +53125,13 @@ export namespace Prisma {
     connectOrCreate?: NgoRoleCreateOrConnectWithoutProjectInput | NgoRoleCreateOrConnectWithoutProjectInput[]
     createMany?: NgoRoleCreateManyProjectInputEnvelope
     connect?: NgoRoleWhereUniqueInput | NgoRoleWhereUniqueInput[]
+  }
+
+  export type DonorChallengeUncheckedCreateNestedManyWithoutProjectInput = {
+    create?: XOR<DonorChallengeCreateWithoutProjectInput, DonorChallengeUncheckedCreateWithoutProjectInput> | DonorChallengeCreateWithoutProjectInput[] | DonorChallengeUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: DonorChallengeCreateOrConnectWithoutProjectInput | DonorChallengeCreateOrConnectWithoutProjectInput[]
+    createMany?: DonorChallengeCreateManyProjectInputEnvelope
+    connect?: DonorChallengeWhereUniqueInput | DonorChallengeWhereUniqueInput[]
   }
 
   export type EnumProjectCategoryFieldUpdateOperationsInput = {
@@ -50352,6 +53260,20 @@ export namespace Prisma {
     deleteMany?: NgoRoleScalarWhereInput | NgoRoleScalarWhereInput[]
   }
 
+  export type DonorChallengeUpdateManyWithoutProjectNestedInput = {
+    create?: XOR<DonorChallengeCreateWithoutProjectInput, DonorChallengeUncheckedCreateWithoutProjectInput> | DonorChallengeCreateWithoutProjectInput[] | DonorChallengeUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: DonorChallengeCreateOrConnectWithoutProjectInput | DonorChallengeCreateOrConnectWithoutProjectInput[]
+    upsert?: DonorChallengeUpsertWithWhereUniqueWithoutProjectInput | DonorChallengeUpsertWithWhereUniqueWithoutProjectInput[]
+    createMany?: DonorChallengeCreateManyProjectInputEnvelope
+    set?: DonorChallengeWhereUniqueInput | DonorChallengeWhereUniqueInput[]
+    disconnect?: DonorChallengeWhereUniqueInput | DonorChallengeWhereUniqueInput[]
+    delete?: DonorChallengeWhereUniqueInput | DonorChallengeWhereUniqueInput[]
+    connect?: DonorChallengeWhereUniqueInput | DonorChallengeWhereUniqueInput[]
+    update?: DonorChallengeUpdateWithWhereUniqueWithoutProjectInput | DonorChallengeUpdateWithWhereUniqueWithoutProjectInput[]
+    updateMany?: DonorChallengeUpdateManyWithWhereWithoutProjectInput | DonorChallengeUpdateManyWithWhereWithoutProjectInput[]
+    deleteMany?: DonorChallengeScalarWhereInput | DonorChallengeScalarWhereInput[]
+  }
+
   export type MilestoneUncheckedUpdateManyWithoutProjectNestedInput = {
     create?: XOR<MilestoneCreateWithoutProjectInput, MilestoneUncheckedCreateWithoutProjectInput> | MilestoneCreateWithoutProjectInput[] | MilestoneUncheckedCreateWithoutProjectInput[]
     connectOrCreate?: MilestoneCreateOrConnectWithoutProjectInput | MilestoneCreateOrConnectWithoutProjectInput[]
@@ -50448,6 +53370,20 @@ export namespace Prisma {
     update?: NgoRoleUpdateWithWhereUniqueWithoutProjectInput | NgoRoleUpdateWithWhereUniqueWithoutProjectInput[]
     updateMany?: NgoRoleUpdateManyWithWhereWithoutProjectInput | NgoRoleUpdateManyWithWhereWithoutProjectInput[]
     deleteMany?: NgoRoleScalarWhereInput | NgoRoleScalarWhereInput[]
+  }
+
+  export type DonorChallengeUncheckedUpdateManyWithoutProjectNestedInput = {
+    create?: XOR<DonorChallengeCreateWithoutProjectInput, DonorChallengeUncheckedCreateWithoutProjectInput> | DonorChallengeCreateWithoutProjectInput[] | DonorChallengeUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: DonorChallengeCreateOrConnectWithoutProjectInput | DonorChallengeCreateOrConnectWithoutProjectInput[]
+    upsert?: DonorChallengeUpsertWithWhereUniqueWithoutProjectInput | DonorChallengeUpsertWithWhereUniqueWithoutProjectInput[]
+    createMany?: DonorChallengeCreateManyProjectInputEnvelope
+    set?: DonorChallengeWhereUniqueInput | DonorChallengeWhereUniqueInput[]
+    disconnect?: DonorChallengeWhereUniqueInput | DonorChallengeWhereUniqueInput[]
+    delete?: DonorChallengeWhereUniqueInput | DonorChallengeWhereUniqueInput[]
+    connect?: DonorChallengeWhereUniqueInput | DonorChallengeWhereUniqueInput[]
+    update?: DonorChallengeUpdateWithWhereUniqueWithoutProjectInput | DonorChallengeUpdateWithWhereUniqueWithoutProjectInput[]
+    updateMany?: DonorChallengeUpdateManyWithWhereWithoutProjectInput | DonorChallengeUpdateManyWithWhereWithoutProjectInput[]
+    deleteMany?: DonorChallengeScalarWhereInput | DonorChallengeScalarWhereInput[]
   }
 
   export type ProjectCreateNestedOneWithoutMilestonesInput = {
@@ -51344,6 +54280,90 @@ export namespace Prisma {
     update?: XOR<XOR<RoleApplicationUpdateToOneWithWhereWithoutEngagementInput, RoleApplicationUpdateWithoutEngagementInput>, RoleApplicationUncheckedUpdateWithoutEngagementInput>
   }
 
+  export type UserCreateNestedOneWithoutChallengesInput = {
+    create?: XOR<UserCreateWithoutChallengesInput, UserUncheckedCreateWithoutChallengesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutChallengesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type ProjectCreateNestedOneWithoutChallengesInput = {
+    create?: XOR<ProjectCreateWithoutChallengesInput, ProjectUncheckedCreateWithoutChallengesInput>
+    connectOrCreate?: ProjectCreateOrConnectWithoutChallengesInput
+    connect?: ProjectWhereUniqueInput
+  }
+
+  export type ChallengeAcceptanceCreateNestedManyWithoutChallengeInput = {
+    create?: XOR<ChallengeAcceptanceCreateWithoutChallengeInput, ChallengeAcceptanceUncheckedCreateWithoutChallengeInput> | ChallengeAcceptanceCreateWithoutChallengeInput[] | ChallengeAcceptanceUncheckedCreateWithoutChallengeInput[]
+    connectOrCreate?: ChallengeAcceptanceCreateOrConnectWithoutChallengeInput | ChallengeAcceptanceCreateOrConnectWithoutChallengeInput[]
+    createMany?: ChallengeAcceptanceCreateManyChallengeInputEnvelope
+    connect?: ChallengeAcceptanceWhereUniqueInput | ChallengeAcceptanceWhereUniqueInput[]
+  }
+
+  export type ChallengeAcceptanceUncheckedCreateNestedManyWithoutChallengeInput = {
+    create?: XOR<ChallengeAcceptanceCreateWithoutChallengeInput, ChallengeAcceptanceUncheckedCreateWithoutChallengeInput> | ChallengeAcceptanceCreateWithoutChallengeInput[] | ChallengeAcceptanceUncheckedCreateWithoutChallengeInput[]
+    connectOrCreate?: ChallengeAcceptanceCreateOrConnectWithoutChallengeInput | ChallengeAcceptanceCreateOrConnectWithoutChallengeInput[]
+    createMany?: ChallengeAcceptanceCreateManyChallengeInputEnvelope
+    connect?: ChallengeAcceptanceWhereUniqueInput | ChallengeAcceptanceWhereUniqueInput[]
+  }
+
+  export type UserUpdateOneRequiredWithoutChallengesNestedInput = {
+    create?: XOR<UserCreateWithoutChallengesInput, UserUncheckedCreateWithoutChallengesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutChallengesInput
+    upsert?: UserUpsertWithoutChallengesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutChallengesInput, UserUpdateWithoutChallengesInput>, UserUncheckedUpdateWithoutChallengesInput>
+  }
+
+  export type ProjectUpdateOneRequiredWithoutChallengesNestedInput = {
+    create?: XOR<ProjectCreateWithoutChallengesInput, ProjectUncheckedCreateWithoutChallengesInput>
+    connectOrCreate?: ProjectCreateOrConnectWithoutChallengesInput
+    upsert?: ProjectUpsertWithoutChallengesInput
+    connect?: ProjectWhereUniqueInput
+    update?: XOR<XOR<ProjectUpdateToOneWithWhereWithoutChallengesInput, ProjectUpdateWithoutChallengesInput>, ProjectUncheckedUpdateWithoutChallengesInput>
+  }
+
+  export type ChallengeAcceptanceUpdateManyWithoutChallengeNestedInput = {
+    create?: XOR<ChallengeAcceptanceCreateWithoutChallengeInput, ChallengeAcceptanceUncheckedCreateWithoutChallengeInput> | ChallengeAcceptanceCreateWithoutChallengeInput[] | ChallengeAcceptanceUncheckedCreateWithoutChallengeInput[]
+    connectOrCreate?: ChallengeAcceptanceCreateOrConnectWithoutChallengeInput | ChallengeAcceptanceCreateOrConnectWithoutChallengeInput[]
+    upsert?: ChallengeAcceptanceUpsertWithWhereUniqueWithoutChallengeInput | ChallengeAcceptanceUpsertWithWhereUniqueWithoutChallengeInput[]
+    createMany?: ChallengeAcceptanceCreateManyChallengeInputEnvelope
+    set?: ChallengeAcceptanceWhereUniqueInput | ChallengeAcceptanceWhereUniqueInput[]
+    disconnect?: ChallengeAcceptanceWhereUniqueInput | ChallengeAcceptanceWhereUniqueInput[]
+    delete?: ChallengeAcceptanceWhereUniqueInput | ChallengeAcceptanceWhereUniqueInput[]
+    connect?: ChallengeAcceptanceWhereUniqueInput | ChallengeAcceptanceWhereUniqueInput[]
+    update?: ChallengeAcceptanceUpdateWithWhereUniqueWithoutChallengeInput | ChallengeAcceptanceUpdateWithWhereUniqueWithoutChallengeInput[]
+    updateMany?: ChallengeAcceptanceUpdateManyWithWhereWithoutChallengeInput | ChallengeAcceptanceUpdateManyWithWhereWithoutChallengeInput[]
+    deleteMany?: ChallengeAcceptanceScalarWhereInput | ChallengeAcceptanceScalarWhereInput[]
+  }
+
+  export type ChallengeAcceptanceUncheckedUpdateManyWithoutChallengeNestedInput = {
+    create?: XOR<ChallengeAcceptanceCreateWithoutChallengeInput, ChallengeAcceptanceUncheckedCreateWithoutChallengeInput> | ChallengeAcceptanceCreateWithoutChallengeInput[] | ChallengeAcceptanceUncheckedCreateWithoutChallengeInput[]
+    connectOrCreate?: ChallengeAcceptanceCreateOrConnectWithoutChallengeInput | ChallengeAcceptanceCreateOrConnectWithoutChallengeInput[]
+    upsert?: ChallengeAcceptanceUpsertWithWhereUniqueWithoutChallengeInput | ChallengeAcceptanceUpsertWithWhereUniqueWithoutChallengeInput[]
+    createMany?: ChallengeAcceptanceCreateManyChallengeInputEnvelope
+    set?: ChallengeAcceptanceWhereUniqueInput | ChallengeAcceptanceWhereUniqueInput[]
+    disconnect?: ChallengeAcceptanceWhereUniqueInput | ChallengeAcceptanceWhereUniqueInput[]
+    delete?: ChallengeAcceptanceWhereUniqueInput | ChallengeAcceptanceWhereUniqueInput[]
+    connect?: ChallengeAcceptanceWhereUniqueInput | ChallengeAcceptanceWhereUniqueInput[]
+    update?: ChallengeAcceptanceUpdateWithWhereUniqueWithoutChallengeInput | ChallengeAcceptanceUpdateWithWhereUniqueWithoutChallengeInput[]
+    updateMany?: ChallengeAcceptanceUpdateManyWithWhereWithoutChallengeInput | ChallengeAcceptanceUpdateManyWithWhereWithoutChallengeInput[]
+    deleteMany?: ChallengeAcceptanceScalarWhereInput | ChallengeAcceptanceScalarWhereInput[]
+  }
+
+  export type DonorChallengeCreateNestedOneWithoutAcceptancesInput = {
+    create?: XOR<DonorChallengeCreateWithoutAcceptancesInput, DonorChallengeUncheckedCreateWithoutAcceptancesInput>
+    connectOrCreate?: DonorChallengeCreateOrConnectWithoutAcceptancesInput
+    connect?: DonorChallengeWhereUniqueInput
+  }
+
+  export type DonorChallengeUpdateOneRequiredWithoutAcceptancesNestedInput = {
+    create?: XOR<DonorChallengeCreateWithoutAcceptancesInput, DonorChallengeUncheckedCreateWithoutAcceptancesInput>
+    connectOrCreate?: DonorChallengeCreateOrConnectWithoutAcceptancesInput
+    upsert?: DonorChallengeUpsertWithoutAcceptancesInput
+    connect?: DonorChallengeWhereUniqueInput
+    update?: XOR<XOR<DonorChallengeUpdateToOneWithWhereWithoutAcceptancesInput, DonorChallengeUpdateWithoutAcceptancesInput>, DonorChallengeUncheckedUpdateWithoutAcceptancesInput>
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -51800,6 +54820,7 @@ export namespace Prisma {
     endorsementsGiven?: DonorEndorsementCreateNestedManyWithoutEndorserInput
     documents?: DonorDocumentCreateNestedManyWithoutUserInput
     roleApplications?: RoleApplicationCreateNestedManyWithoutApplicantInput
+    challenges?: DonorChallengeCreateNestedManyWithoutDonorInput
   }
 
   export type UserUncheckedCreateWithoutAccountsInput = {
@@ -51838,6 +54859,7 @@ export namespace Prisma {
     endorsementsGiven?: DonorEndorsementUncheckedCreateNestedManyWithoutEndorserInput
     documents?: DonorDocumentUncheckedCreateNestedManyWithoutUserInput
     roleApplications?: RoleApplicationUncheckedCreateNestedManyWithoutApplicantInput
+    challenges?: DonorChallengeUncheckedCreateNestedManyWithoutDonorInput
   }
 
   export type UserCreateOrConnectWithoutAccountsInput = {
@@ -51892,6 +54914,7 @@ export namespace Prisma {
     endorsementsGiven?: DonorEndorsementUpdateManyWithoutEndorserNestedInput
     documents?: DonorDocumentUpdateManyWithoutUserNestedInput
     roleApplications?: RoleApplicationUpdateManyWithoutApplicantNestedInput
+    challenges?: DonorChallengeUpdateManyWithoutDonorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -51930,6 +54953,7 @@ export namespace Prisma {
     endorsementsGiven?: DonorEndorsementUncheckedUpdateManyWithoutEndorserNestedInput
     documents?: DonorDocumentUncheckedUpdateManyWithoutUserNestedInput
     roleApplications?: RoleApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+    challenges?: DonorChallengeUncheckedUpdateManyWithoutDonorNestedInput
   }
 
   export type UserCreateWithoutSessionsInput = {
@@ -51968,6 +54992,7 @@ export namespace Prisma {
     endorsementsGiven?: DonorEndorsementCreateNestedManyWithoutEndorserInput
     documents?: DonorDocumentCreateNestedManyWithoutUserInput
     roleApplications?: RoleApplicationCreateNestedManyWithoutApplicantInput
+    challenges?: DonorChallengeCreateNestedManyWithoutDonorInput
   }
 
   export type UserUncheckedCreateWithoutSessionsInput = {
@@ -52006,6 +55031,7 @@ export namespace Prisma {
     endorsementsGiven?: DonorEndorsementUncheckedCreateNestedManyWithoutEndorserInput
     documents?: DonorDocumentUncheckedCreateNestedManyWithoutUserInput
     roleApplications?: RoleApplicationUncheckedCreateNestedManyWithoutApplicantInput
+    challenges?: DonorChallengeUncheckedCreateNestedManyWithoutDonorInput
   }
 
   export type UserCreateOrConnectWithoutSessionsInput = {
@@ -52060,6 +55086,7 @@ export namespace Prisma {
     endorsementsGiven?: DonorEndorsementUpdateManyWithoutEndorserNestedInput
     documents?: DonorDocumentUpdateManyWithoutUserNestedInput
     roleApplications?: RoleApplicationUpdateManyWithoutApplicantNestedInput
+    challenges?: DonorChallengeUpdateManyWithoutDonorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -52098,6 +55125,7 @@ export namespace Prisma {
     endorsementsGiven?: DonorEndorsementUncheckedUpdateManyWithoutEndorserNestedInput
     documents?: DonorDocumentUncheckedUpdateManyWithoutUserNestedInput
     roleApplications?: RoleApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+    challenges?: DonorChallengeUncheckedUpdateManyWithoutDonorNestedInput
   }
 
   export type AccountCreateWithoutUserInput = {
@@ -52643,6 +55671,36 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type DonorChallengeCreateWithoutDonorInput = {
+    id?: string
+    amount: number
+    message?: string | null
+    deadline?: Date | string | null
+    createdAt?: Date | string
+    project: ProjectCreateNestedOneWithoutChallengesInput
+    acceptances?: ChallengeAcceptanceCreateNestedManyWithoutChallengeInput
+  }
+
+  export type DonorChallengeUncheckedCreateWithoutDonorInput = {
+    id?: string
+    projectId: string
+    amount: number
+    message?: string | null
+    deadline?: Date | string | null
+    createdAt?: Date | string
+    acceptances?: ChallengeAcceptanceUncheckedCreateNestedManyWithoutChallengeInput
+  }
+
+  export type DonorChallengeCreateOrConnectWithoutDonorInput = {
+    where: DonorChallengeWhereUniqueInput
+    create: XOR<DonorChallengeCreateWithoutDonorInput, DonorChallengeUncheckedCreateWithoutDonorInput>
+  }
+
+  export type DonorChallengeCreateManyDonorInputEnvelope = {
+    data: DonorChallengeCreateManyDonorInput | DonorChallengeCreateManyDonorInput[]
+    skipDuplicates?: boolean
+  }
+
   export type AccountUpsertWithWhereUniqueWithoutUserInput = {
     where: AccountWhereUniqueInput
     update: XOR<AccountUpdateWithoutUserInput, AccountUncheckedUpdateWithoutUserInput>
@@ -53161,6 +56219,35 @@ export namespace Prisma {
     reviewedAt?: DateTimeNullableFilter<"RoleApplication"> | Date | string | null
   }
 
+  export type DonorChallengeUpsertWithWhereUniqueWithoutDonorInput = {
+    where: DonorChallengeWhereUniqueInput
+    update: XOR<DonorChallengeUpdateWithoutDonorInput, DonorChallengeUncheckedUpdateWithoutDonorInput>
+    create: XOR<DonorChallengeCreateWithoutDonorInput, DonorChallengeUncheckedCreateWithoutDonorInput>
+  }
+
+  export type DonorChallengeUpdateWithWhereUniqueWithoutDonorInput = {
+    where: DonorChallengeWhereUniqueInput
+    data: XOR<DonorChallengeUpdateWithoutDonorInput, DonorChallengeUncheckedUpdateWithoutDonorInput>
+  }
+
+  export type DonorChallengeUpdateManyWithWhereWithoutDonorInput = {
+    where: DonorChallengeScalarWhereInput
+    data: XOR<DonorChallengeUpdateManyMutationInput, DonorChallengeUncheckedUpdateManyWithoutDonorInput>
+  }
+
+  export type DonorChallengeScalarWhereInput = {
+    AND?: DonorChallengeScalarWhereInput | DonorChallengeScalarWhereInput[]
+    OR?: DonorChallengeScalarWhereInput[]
+    NOT?: DonorChallengeScalarWhereInput | DonorChallengeScalarWhereInput[]
+    id?: StringFilter<"DonorChallenge"> | string
+    donorId?: StringFilter<"DonorChallenge"> | string
+    projectId?: StringFilter<"DonorChallenge"> | string
+    amount?: FloatFilter<"DonorChallenge"> | number
+    message?: StringNullableFilter<"DonorChallenge"> | string | null
+    deadline?: DateTimeNullableFilter<"DonorChallenge"> | Date | string | null
+    createdAt?: DateTimeFilter<"DonorChallenge"> | Date | string
+  }
+
   export type UserCreateWithoutNgoInput = {
     id?: string
     email: string
@@ -53197,6 +56284,7 @@ export namespace Prisma {
     endorsementsGiven?: DonorEndorsementCreateNestedManyWithoutEndorserInput
     documents?: DonorDocumentCreateNestedManyWithoutUserInput
     roleApplications?: RoleApplicationCreateNestedManyWithoutApplicantInput
+    challenges?: DonorChallengeCreateNestedManyWithoutDonorInput
   }
 
   export type UserUncheckedCreateWithoutNgoInput = {
@@ -53235,6 +56323,7 @@ export namespace Prisma {
     endorsementsGiven?: DonorEndorsementUncheckedCreateNestedManyWithoutEndorserInput
     documents?: DonorDocumentUncheckedCreateNestedManyWithoutUserInput
     roleApplications?: RoleApplicationUncheckedCreateNestedManyWithoutApplicantInput
+    challenges?: DonorChallengeUncheckedCreateNestedManyWithoutDonorInput
   }
 
   export type UserCreateOrConnectWithoutNgoInput = {
@@ -53265,6 +56354,7 @@ export namespace Prisma {
     campaigns?: CampaignCreateNestedManyWithoutProjectInput
     skillContributions?: SkillContributionCreateNestedManyWithoutProjectInput
     roles?: NgoRoleCreateNestedManyWithoutProjectInput
+    challenges?: DonorChallengeCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUncheckedCreateWithoutNgoInput = {
@@ -53290,6 +56380,7 @@ export namespace Prisma {
     campaigns?: CampaignUncheckedCreateNestedManyWithoutProjectInput
     skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutProjectInput
     roles?: NgoRoleUncheckedCreateNestedManyWithoutProjectInput
+    challenges?: DonorChallengeUncheckedCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectCreateOrConnectWithoutNgoInput = {
@@ -53599,6 +56690,7 @@ export namespace Prisma {
     endorsementsGiven?: DonorEndorsementUpdateManyWithoutEndorserNestedInput
     documents?: DonorDocumentUpdateManyWithoutUserNestedInput
     roleApplications?: RoleApplicationUpdateManyWithoutApplicantNestedInput
+    challenges?: DonorChallengeUpdateManyWithoutDonorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNgoInput = {
@@ -53637,6 +56729,7 @@ export namespace Prisma {
     endorsementsGiven?: DonorEndorsementUncheckedUpdateManyWithoutEndorserNestedInput
     documents?: DonorDocumentUncheckedUpdateManyWithoutUserNestedInput
     roleApplications?: RoleApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+    challenges?: DonorChallengeUncheckedUpdateManyWithoutDonorNestedInput
   }
 
   export type ProjectUpsertWithWhereUniqueWithoutNgoInput = {
@@ -54196,6 +57289,36 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type DonorChallengeCreateWithoutProjectInput = {
+    id?: string
+    amount: number
+    message?: string | null
+    deadline?: Date | string | null
+    createdAt?: Date | string
+    donor: UserCreateNestedOneWithoutChallengesInput
+    acceptances?: ChallengeAcceptanceCreateNestedManyWithoutChallengeInput
+  }
+
+  export type DonorChallengeUncheckedCreateWithoutProjectInput = {
+    id?: string
+    donorId: string
+    amount: number
+    message?: string | null
+    deadline?: Date | string | null
+    createdAt?: Date | string
+    acceptances?: ChallengeAcceptanceUncheckedCreateNestedManyWithoutChallengeInput
+  }
+
+  export type DonorChallengeCreateOrConnectWithoutProjectInput = {
+    where: DonorChallengeWhereUniqueInput
+    create: XOR<DonorChallengeCreateWithoutProjectInput, DonorChallengeUncheckedCreateWithoutProjectInput>
+  }
+
+  export type DonorChallengeCreateManyProjectInputEnvelope = {
+    data: DonorChallengeCreateManyProjectInput | DonorChallengeCreateManyProjectInput[]
+    skipDuplicates?: boolean
+  }
+
   export type NgoUpsertWithoutProjectsInput = {
     update: XOR<NgoUpdateWithoutProjectsInput, NgoUncheckedUpdateWithoutProjectsInput>
     create: XOR<NgoCreateWithoutProjectsInput, NgoUncheckedCreateWithoutProjectsInput>
@@ -54393,6 +57516,22 @@ export namespace Prisma {
     data: XOR<NgoRoleUpdateManyMutationInput, NgoRoleUncheckedUpdateManyWithoutProjectInput>
   }
 
+  export type DonorChallengeUpsertWithWhereUniqueWithoutProjectInput = {
+    where: DonorChallengeWhereUniqueInput
+    update: XOR<DonorChallengeUpdateWithoutProjectInput, DonorChallengeUncheckedUpdateWithoutProjectInput>
+    create: XOR<DonorChallengeCreateWithoutProjectInput, DonorChallengeUncheckedCreateWithoutProjectInput>
+  }
+
+  export type DonorChallengeUpdateWithWhereUniqueWithoutProjectInput = {
+    where: DonorChallengeWhereUniqueInput
+    data: XOR<DonorChallengeUpdateWithoutProjectInput, DonorChallengeUncheckedUpdateWithoutProjectInput>
+  }
+
+  export type DonorChallengeUpdateManyWithWhereWithoutProjectInput = {
+    where: DonorChallengeScalarWhereInput
+    data: XOR<DonorChallengeUpdateManyMutationInput, DonorChallengeUncheckedUpdateManyWithoutProjectInput>
+  }
+
   export type ProjectCreateWithoutMilestonesInput = {
     id?: string
     title: string
@@ -54416,6 +57555,7 @@ export namespace Prisma {
     campaigns?: CampaignCreateNestedManyWithoutProjectInput
     skillContributions?: SkillContributionCreateNestedManyWithoutProjectInput
     roles?: NgoRoleCreateNestedManyWithoutProjectInput
+    challenges?: DonorChallengeCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUncheckedCreateWithoutMilestonesInput = {
@@ -54441,6 +57581,7 @@ export namespace Prisma {
     campaigns?: CampaignUncheckedCreateNestedManyWithoutProjectInput
     skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutProjectInput
     roles?: NgoRoleUncheckedCreateNestedManyWithoutProjectInput
+    challenges?: DonorChallengeUncheckedCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectCreateOrConnectWithoutMilestonesInput = {
@@ -54571,6 +57712,7 @@ export namespace Prisma {
     campaigns?: CampaignUpdateManyWithoutProjectNestedInput
     skillContributions?: SkillContributionUpdateManyWithoutProjectNestedInput
     roles?: NgoRoleUpdateManyWithoutProjectNestedInput
+    challenges?: DonorChallengeUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateWithoutMilestonesInput = {
@@ -54596,6 +57738,7 @@ export namespace Prisma {
     campaigns?: CampaignUncheckedUpdateManyWithoutProjectNestedInput
     skillContributions?: SkillContributionUncheckedUpdateManyWithoutProjectNestedInput
     roles?: NgoRoleUncheckedUpdateManyWithoutProjectNestedInput
+    challenges?: DonorChallengeUncheckedUpdateManyWithoutProjectNestedInput
   }
 
   export type EvidenceFileUpsertWithWhereUniqueWithoutMilestoneInput = {
@@ -54915,6 +58058,7 @@ export namespace Prisma {
     endorsementsGiven?: DonorEndorsementCreateNestedManyWithoutEndorserInput
     documents?: DonorDocumentCreateNestedManyWithoutUserInput
     roleApplications?: RoleApplicationCreateNestedManyWithoutApplicantInput
+    challenges?: DonorChallengeCreateNestedManyWithoutDonorInput
   }
 
   export type UserUncheckedCreateWithoutDonationsInput = {
@@ -54953,6 +58097,7 @@ export namespace Prisma {
     endorsementsGiven?: DonorEndorsementUncheckedCreateNestedManyWithoutEndorserInput
     documents?: DonorDocumentUncheckedCreateNestedManyWithoutUserInput
     roleApplications?: RoleApplicationUncheckedCreateNestedManyWithoutApplicantInput
+    challenges?: DonorChallengeUncheckedCreateNestedManyWithoutDonorInput
   }
 
   export type UserCreateOrConnectWithoutDonationsInput = {
@@ -54983,6 +58128,7 @@ export namespace Prisma {
     campaigns?: CampaignCreateNestedManyWithoutProjectInput
     skillContributions?: SkillContributionCreateNestedManyWithoutProjectInput
     roles?: NgoRoleCreateNestedManyWithoutProjectInput
+    challenges?: DonorChallengeCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUncheckedCreateWithoutDonationsInput = {
@@ -55008,6 +58154,7 @@ export namespace Prisma {
     campaigns?: CampaignUncheckedCreateNestedManyWithoutProjectInput
     skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutProjectInput
     roles?: NgoRoleUncheckedCreateNestedManyWithoutProjectInput
+    challenges?: DonorChallengeUncheckedCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectCreateOrConnectWithoutDonationsInput = {
@@ -55087,6 +58234,7 @@ export namespace Prisma {
     endorsementsGiven?: DonorEndorsementUpdateManyWithoutEndorserNestedInput
     documents?: DonorDocumentUpdateManyWithoutUserNestedInput
     roleApplications?: RoleApplicationUpdateManyWithoutApplicantNestedInput
+    challenges?: DonorChallengeUpdateManyWithoutDonorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDonationsInput = {
@@ -55125,6 +58273,7 @@ export namespace Prisma {
     endorsementsGiven?: DonorEndorsementUncheckedUpdateManyWithoutEndorserNestedInput
     documents?: DonorDocumentUncheckedUpdateManyWithoutUserNestedInput
     roleApplications?: RoleApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+    challenges?: DonorChallengeUncheckedUpdateManyWithoutDonorNestedInput
   }
 
   export type ProjectUpsertWithoutDonationsInput = {
@@ -55161,6 +58310,7 @@ export namespace Prisma {
     campaigns?: CampaignUpdateManyWithoutProjectNestedInput
     skillContributions?: SkillContributionUpdateManyWithoutProjectNestedInput
     roles?: NgoRoleUpdateManyWithoutProjectNestedInput
+    challenges?: DonorChallengeUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateWithoutDonationsInput = {
@@ -55186,6 +58336,7 @@ export namespace Prisma {
     campaigns?: CampaignUncheckedUpdateManyWithoutProjectNestedInput
     skillContributions?: SkillContributionUncheckedUpdateManyWithoutProjectNestedInput
     roles?: NgoRoleUncheckedUpdateManyWithoutProjectNestedInput
+    challenges?: DonorChallengeUncheckedUpdateManyWithoutProjectNestedInput
   }
 
   export type BlockchainRecordUpsertWithoutDonationInput = {
@@ -55449,6 +58600,7 @@ export namespace Prisma {
     campaigns?: CampaignCreateNestedManyWithoutProjectInput
     skillContributions?: SkillContributionCreateNestedManyWithoutProjectInput
     roles?: NgoRoleCreateNestedManyWithoutProjectInput
+    challenges?: DonorChallengeCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUncheckedCreateWithoutExpensesInput = {
@@ -55474,6 +58626,7 @@ export namespace Prisma {
     campaigns?: CampaignUncheckedCreateNestedManyWithoutProjectInput
     skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutProjectInput
     roles?: NgoRoleUncheckedCreateNestedManyWithoutProjectInput
+    challenges?: DonorChallengeUncheckedCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectCreateOrConnectWithoutExpensesInput = {
@@ -55580,6 +58733,7 @@ export namespace Prisma {
     campaigns?: CampaignUpdateManyWithoutProjectNestedInput
     skillContributions?: SkillContributionUpdateManyWithoutProjectNestedInput
     roles?: NgoRoleUpdateManyWithoutProjectNestedInput
+    challenges?: DonorChallengeUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateWithoutExpensesInput = {
@@ -55605,6 +58759,7 @@ export namespace Prisma {
     campaigns?: CampaignUncheckedUpdateManyWithoutProjectNestedInput
     skillContributions?: SkillContributionUncheckedUpdateManyWithoutProjectNestedInput
     roles?: NgoRoleUncheckedUpdateManyWithoutProjectNestedInput
+    challenges?: DonorChallengeUncheckedUpdateManyWithoutProjectNestedInput
   }
 
   export type DonationCreateWithoutBlockchainRecordInput = {
@@ -55783,6 +58938,7 @@ export namespace Prisma {
     endorsementsGiven?: DonorEndorsementCreateNestedManyWithoutEndorserInput
     documents?: DonorDocumentCreateNestedManyWithoutUserInput
     roleApplications?: RoleApplicationCreateNestedManyWithoutApplicantInput
+    challenges?: DonorChallengeCreateNestedManyWithoutDonorInput
   }
 
   export type UserUncheckedCreateWithoutRatingsInput = {
@@ -55821,6 +58977,7 @@ export namespace Prisma {
     endorsementsGiven?: DonorEndorsementUncheckedCreateNestedManyWithoutEndorserInput
     documents?: DonorDocumentUncheckedCreateNestedManyWithoutUserInput
     roleApplications?: RoleApplicationUncheckedCreateNestedManyWithoutApplicantInput
+    challenges?: DonorChallengeUncheckedCreateNestedManyWithoutDonorInput
   }
 
   export type UserCreateOrConnectWithoutRatingsInput = {
@@ -55934,6 +59091,7 @@ export namespace Prisma {
     endorsementsGiven?: DonorEndorsementUpdateManyWithoutEndorserNestedInput
     documents?: DonorDocumentUpdateManyWithoutUserNestedInput
     roleApplications?: RoleApplicationUpdateManyWithoutApplicantNestedInput
+    challenges?: DonorChallengeUpdateManyWithoutDonorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRatingsInput = {
@@ -55972,6 +59130,7 @@ export namespace Prisma {
     endorsementsGiven?: DonorEndorsementUncheckedUpdateManyWithoutEndorserNestedInput
     documents?: DonorDocumentUncheckedUpdateManyWithoutUserNestedInput
     roleApplications?: RoleApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+    challenges?: DonorChallengeUncheckedUpdateManyWithoutDonorNestedInput
   }
 
   export type NgoUpsertWithoutRatingsInput = {
@@ -56075,6 +59234,7 @@ export namespace Prisma {
     endorsementsGiven?: DonorEndorsementCreateNestedManyWithoutEndorserInput
     documents?: DonorDocumentCreateNestedManyWithoutUserInput
     roleApplications?: RoleApplicationCreateNestedManyWithoutApplicantInput
+    challenges?: DonorChallengeCreateNestedManyWithoutDonorInput
   }
 
   export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -56113,6 +59273,7 @@ export namespace Prisma {
     endorsementsGiven?: DonorEndorsementUncheckedCreateNestedManyWithoutEndorserInput
     documents?: DonorDocumentUncheckedCreateNestedManyWithoutUserInput
     roleApplications?: RoleApplicationUncheckedCreateNestedManyWithoutApplicantInput
+    challenges?: DonorChallengeUncheckedCreateNestedManyWithoutDonorInput
   }
 
   export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -56167,6 +59328,7 @@ export namespace Prisma {
     endorsementsGiven?: DonorEndorsementUpdateManyWithoutEndorserNestedInput
     documents?: DonorDocumentUpdateManyWithoutUserNestedInput
     roleApplications?: RoleApplicationUpdateManyWithoutApplicantNestedInput
+    challenges?: DonorChallengeUpdateManyWithoutDonorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -56205,6 +59367,7 @@ export namespace Prisma {
     endorsementsGiven?: DonorEndorsementUncheckedUpdateManyWithoutEndorserNestedInput
     documents?: DonorDocumentUncheckedUpdateManyWithoutUserNestedInput
     roleApplications?: RoleApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+    challenges?: DonorChallengeUncheckedUpdateManyWithoutDonorNestedInput
   }
 
   export type UserCreateWithoutSpotlightVotesInput = {
@@ -56243,6 +59406,7 @@ export namespace Prisma {
     endorsementsGiven?: DonorEndorsementCreateNestedManyWithoutEndorserInput
     documents?: DonorDocumentCreateNestedManyWithoutUserInput
     roleApplications?: RoleApplicationCreateNestedManyWithoutApplicantInput
+    challenges?: DonorChallengeCreateNestedManyWithoutDonorInput
   }
 
   export type UserUncheckedCreateWithoutSpotlightVotesInput = {
@@ -56281,6 +59445,7 @@ export namespace Prisma {
     endorsementsGiven?: DonorEndorsementUncheckedCreateNestedManyWithoutEndorserInput
     documents?: DonorDocumentUncheckedCreateNestedManyWithoutUserInput
     roleApplications?: RoleApplicationUncheckedCreateNestedManyWithoutApplicantInput
+    challenges?: DonorChallengeUncheckedCreateNestedManyWithoutDonorInput
   }
 
   export type UserCreateOrConnectWithoutSpotlightVotesInput = {
@@ -56311,6 +59476,7 @@ export namespace Prisma {
     campaigns?: CampaignCreateNestedManyWithoutProjectInput
     skillContributions?: SkillContributionCreateNestedManyWithoutProjectInput
     roles?: NgoRoleCreateNestedManyWithoutProjectInput
+    challenges?: DonorChallengeCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUncheckedCreateWithoutSpotlightVotesInput = {
@@ -56336,6 +59502,7 @@ export namespace Prisma {
     campaigns?: CampaignUncheckedCreateNestedManyWithoutProjectInput
     skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutProjectInput
     roles?: NgoRoleUncheckedCreateNestedManyWithoutProjectInput
+    challenges?: DonorChallengeUncheckedCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectCreateOrConnectWithoutSpotlightVotesInput = {
@@ -56390,6 +59557,7 @@ export namespace Prisma {
     endorsementsGiven?: DonorEndorsementUpdateManyWithoutEndorserNestedInput
     documents?: DonorDocumentUpdateManyWithoutUserNestedInput
     roleApplications?: RoleApplicationUpdateManyWithoutApplicantNestedInput
+    challenges?: DonorChallengeUpdateManyWithoutDonorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSpotlightVotesInput = {
@@ -56428,6 +59596,7 @@ export namespace Prisma {
     endorsementsGiven?: DonorEndorsementUncheckedUpdateManyWithoutEndorserNestedInput
     documents?: DonorDocumentUncheckedUpdateManyWithoutUserNestedInput
     roleApplications?: RoleApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+    challenges?: DonorChallengeUncheckedUpdateManyWithoutDonorNestedInput
   }
 
   export type ProjectUpsertWithoutSpotlightVotesInput = {
@@ -56464,6 +59633,7 @@ export namespace Prisma {
     campaigns?: CampaignUpdateManyWithoutProjectNestedInput
     skillContributions?: SkillContributionUpdateManyWithoutProjectNestedInput
     roles?: NgoRoleUpdateManyWithoutProjectNestedInput
+    challenges?: DonorChallengeUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateWithoutSpotlightVotesInput = {
@@ -56489,6 +59659,7 @@ export namespace Prisma {
     campaigns?: CampaignUncheckedUpdateManyWithoutProjectNestedInput
     skillContributions?: SkillContributionUncheckedUpdateManyWithoutProjectNestedInput
     roles?: NgoRoleUncheckedUpdateManyWithoutProjectNestedInput
+    challenges?: DonorChallengeUncheckedUpdateManyWithoutProjectNestedInput
   }
 
   export type UserCreateWithoutCampaignsCreatedInput = {
@@ -56527,6 +59698,7 @@ export namespace Prisma {
     endorsementsGiven?: DonorEndorsementCreateNestedManyWithoutEndorserInput
     documents?: DonorDocumentCreateNestedManyWithoutUserInput
     roleApplications?: RoleApplicationCreateNestedManyWithoutApplicantInput
+    challenges?: DonorChallengeCreateNestedManyWithoutDonorInput
   }
 
   export type UserUncheckedCreateWithoutCampaignsCreatedInput = {
@@ -56565,6 +59737,7 @@ export namespace Prisma {
     endorsementsGiven?: DonorEndorsementUncheckedCreateNestedManyWithoutEndorserInput
     documents?: DonorDocumentUncheckedCreateNestedManyWithoutUserInput
     roleApplications?: RoleApplicationUncheckedCreateNestedManyWithoutApplicantInput
+    challenges?: DonorChallengeUncheckedCreateNestedManyWithoutDonorInput
   }
 
   export type UserCreateOrConnectWithoutCampaignsCreatedInput = {
@@ -56595,6 +59768,7 @@ export namespace Prisma {
     spotlightVotes?: SpotlightVoteCreateNestedManyWithoutProjectInput
     skillContributions?: SkillContributionCreateNestedManyWithoutProjectInput
     roles?: NgoRoleCreateNestedManyWithoutProjectInput
+    challenges?: DonorChallengeCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUncheckedCreateWithoutCampaignsInput = {
@@ -56620,6 +59794,7 @@ export namespace Prisma {
     spotlightVotes?: SpotlightVoteUncheckedCreateNestedManyWithoutProjectInput
     skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutProjectInput
     roles?: NgoRoleUncheckedCreateNestedManyWithoutProjectInput
+    challenges?: DonorChallengeUncheckedCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectCreateOrConnectWithoutCampaignsInput = {
@@ -56698,6 +59873,7 @@ export namespace Prisma {
     endorsementsGiven?: DonorEndorsementUpdateManyWithoutEndorserNestedInput
     documents?: DonorDocumentUpdateManyWithoutUserNestedInput
     roleApplications?: RoleApplicationUpdateManyWithoutApplicantNestedInput
+    challenges?: DonorChallengeUpdateManyWithoutDonorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCampaignsCreatedInput = {
@@ -56736,6 +59912,7 @@ export namespace Prisma {
     endorsementsGiven?: DonorEndorsementUncheckedUpdateManyWithoutEndorserNestedInput
     documents?: DonorDocumentUncheckedUpdateManyWithoutUserNestedInput
     roleApplications?: RoleApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+    challenges?: DonorChallengeUncheckedUpdateManyWithoutDonorNestedInput
   }
 
   export type ProjectUpsertWithoutCampaignsInput = {
@@ -56772,6 +59949,7 @@ export namespace Prisma {
     spotlightVotes?: SpotlightVoteUpdateManyWithoutProjectNestedInput
     skillContributions?: SkillContributionUpdateManyWithoutProjectNestedInput
     roles?: NgoRoleUpdateManyWithoutProjectNestedInput
+    challenges?: DonorChallengeUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateWithoutCampaignsInput = {
@@ -56797,6 +59975,7 @@ export namespace Prisma {
     spotlightVotes?: SpotlightVoteUncheckedUpdateManyWithoutProjectNestedInput
     skillContributions?: SkillContributionUncheckedUpdateManyWithoutProjectNestedInput
     roles?: NgoRoleUncheckedUpdateManyWithoutProjectNestedInput
+    challenges?: DonorChallengeUncheckedUpdateManyWithoutProjectNestedInput
   }
 
   export type CampaignContributorUpsertWithWhereUniqueWithoutCampaignInput = {
@@ -56884,6 +60063,7 @@ export namespace Prisma {
     endorsementsGiven?: DonorEndorsementCreateNestedManyWithoutEndorserInput
     documents?: DonorDocumentCreateNestedManyWithoutUserInput
     roleApplications?: RoleApplicationCreateNestedManyWithoutApplicantInput
+    challenges?: DonorChallengeCreateNestedManyWithoutDonorInput
   }
 
   export type UserUncheckedCreateWithoutCampaignContributionsInput = {
@@ -56922,6 +60102,7 @@ export namespace Prisma {
     endorsementsGiven?: DonorEndorsementUncheckedCreateNestedManyWithoutEndorserInput
     documents?: DonorDocumentUncheckedCreateNestedManyWithoutUserInput
     roleApplications?: RoleApplicationUncheckedCreateNestedManyWithoutApplicantInput
+    challenges?: DonorChallengeUncheckedCreateNestedManyWithoutDonorInput
   }
 
   export type UserCreateOrConnectWithoutCampaignContributionsInput = {
@@ -57015,6 +60196,7 @@ export namespace Prisma {
     endorsementsGiven?: DonorEndorsementUpdateManyWithoutEndorserNestedInput
     documents?: DonorDocumentUpdateManyWithoutUserNestedInput
     roleApplications?: RoleApplicationUpdateManyWithoutApplicantNestedInput
+    challenges?: DonorChallengeUpdateManyWithoutDonorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCampaignContributionsInput = {
@@ -57053,6 +60235,7 @@ export namespace Prisma {
     endorsementsGiven?: DonorEndorsementUncheckedUpdateManyWithoutEndorserNestedInput
     documents?: DonorDocumentUncheckedUpdateManyWithoutUserNestedInput
     roleApplications?: RoleApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+    challenges?: DonorChallengeUncheckedUpdateManyWithoutDonorNestedInput
   }
 
   export type UserCreateWithoutNgoSuggestionsInput = {
@@ -57091,6 +60274,7 @@ export namespace Prisma {
     endorsementsGiven?: DonorEndorsementCreateNestedManyWithoutEndorserInput
     documents?: DonorDocumentCreateNestedManyWithoutUserInput
     roleApplications?: RoleApplicationCreateNestedManyWithoutApplicantInput
+    challenges?: DonorChallengeCreateNestedManyWithoutDonorInput
   }
 
   export type UserUncheckedCreateWithoutNgoSuggestionsInput = {
@@ -57129,6 +60313,7 @@ export namespace Prisma {
     endorsementsGiven?: DonorEndorsementUncheckedCreateNestedManyWithoutEndorserInput
     documents?: DonorDocumentUncheckedCreateNestedManyWithoutUserInput
     roleApplications?: RoleApplicationUncheckedCreateNestedManyWithoutApplicantInput
+    challenges?: DonorChallengeUncheckedCreateNestedManyWithoutDonorInput
   }
 
   export type UserCreateOrConnectWithoutNgoSuggestionsInput = {
@@ -57183,6 +60368,7 @@ export namespace Prisma {
     endorsementsGiven?: DonorEndorsementUpdateManyWithoutEndorserNestedInput
     documents?: DonorDocumentUpdateManyWithoutUserNestedInput
     roleApplications?: RoleApplicationUpdateManyWithoutApplicantNestedInput
+    challenges?: DonorChallengeUpdateManyWithoutDonorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNgoSuggestionsInput = {
@@ -57221,6 +60407,7 @@ export namespace Prisma {
     endorsementsGiven?: DonorEndorsementUncheckedUpdateManyWithoutEndorserNestedInput
     documents?: DonorDocumentUncheckedUpdateManyWithoutUserNestedInput
     roleApplications?: RoleApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+    challenges?: DonorChallengeUncheckedUpdateManyWithoutDonorNestedInput
   }
 
   export type UserCreateWithoutReferralsMadeInput = {
@@ -57259,6 +60446,7 @@ export namespace Prisma {
     endorsementsGiven?: DonorEndorsementCreateNestedManyWithoutEndorserInput
     documents?: DonorDocumentCreateNestedManyWithoutUserInput
     roleApplications?: RoleApplicationCreateNestedManyWithoutApplicantInput
+    challenges?: DonorChallengeCreateNestedManyWithoutDonorInput
   }
 
   export type UserUncheckedCreateWithoutReferralsMadeInput = {
@@ -57297,6 +60485,7 @@ export namespace Prisma {
     endorsementsGiven?: DonorEndorsementUncheckedCreateNestedManyWithoutEndorserInput
     documents?: DonorDocumentUncheckedCreateNestedManyWithoutUserInput
     roleApplications?: RoleApplicationUncheckedCreateNestedManyWithoutApplicantInput
+    challenges?: DonorChallengeUncheckedCreateNestedManyWithoutDonorInput
   }
 
   export type UserCreateOrConnectWithoutReferralsMadeInput = {
@@ -57340,6 +60529,7 @@ export namespace Prisma {
     endorsementsGiven?: DonorEndorsementCreateNestedManyWithoutEndorserInput
     documents?: DonorDocumentCreateNestedManyWithoutUserInput
     roleApplications?: RoleApplicationCreateNestedManyWithoutApplicantInput
+    challenges?: DonorChallengeCreateNestedManyWithoutDonorInput
   }
 
   export type UserUncheckedCreateWithoutReferralsReceivedInput = {
@@ -57378,6 +60568,7 @@ export namespace Prisma {
     endorsementsGiven?: DonorEndorsementUncheckedCreateNestedManyWithoutEndorserInput
     documents?: DonorDocumentUncheckedCreateNestedManyWithoutUserInput
     roleApplications?: RoleApplicationUncheckedCreateNestedManyWithoutApplicantInput
+    challenges?: DonorChallengeUncheckedCreateNestedManyWithoutDonorInput
   }
 
   export type UserCreateOrConnectWithoutReferralsReceivedInput = {
@@ -57432,6 +60623,7 @@ export namespace Prisma {
     endorsementsGiven?: DonorEndorsementUpdateManyWithoutEndorserNestedInput
     documents?: DonorDocumentUpdateManyWithoutUserNestedInput
     roleApplications?: RoleApplicationUpdateManyWithoutApplicantNestedInput
+    challenges?: DonorChallengeUpdateManyWithoutDonorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReferralsMadeInput = {
@@ -57470,6 +60662,7 @@ export namespace Prisma {
     endorsementsGiven?: DonorEndorsementUncheckedUpdateManyWithoutEndorserNestedInput
     documents?: DonorDocumentUncheckedUpdateManyWithoutUserNestedInput
     roleApplications?: RoleApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+    challenges?: DonorChallengeUncheckedUpdateManyWithoutDonorNestedInput
   }
 
   export type UserUpsertWithoutReferralsReceivedInput = {
@@ -57519,6 +60712,7 @@ export namespace Prisma {
     endorsementsGiven?: DonorEndorsementUpdateManyWithoutEndorserNestedInput
     documents?: DonorDocumentUpdateManyWithoutUserNestedInput
     roleApplications?: RoleApplicationUpdateManyWithoutApplicantNestedInput
+    challenges?: DonorChallengeUpdateManyWithoutDonorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReferralsReceivedInput = {
@@ -57557,6 +60751,7 @@ export namespace Prisma {
     endorsementsGiven?: DonorEndorsementUncheckedUpdateManyWithoutEndorserNestedInput
     documents?: DonorDocumentUncheckedUpdateManyWithoutUserNestedInput
     roleApplications?: RoleApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+    challenges?: DonorChallengeUncheckedUpdateManyWithoutDonorNestedInput
   }
 
   export type NgoCreateWithoutBoardMembersInput = {
@@ -57719,6 +60914,7 @@ export namespace Prisma {
     endorsementsGiven?: DonorEndorsementCreateNestedManyWithoutEndorserInput
     documents?: DonorDocumentCreateNestedManyWithoutUserInput
     roleApplications?: RoleApplicationCreateNestedManyWithoutApplicantInput
+    challenges?: DonorChallengeCreateNestedManyWithoutDonorInput
   }
 
   export type UserUncheckedCreateWithoutSkillContributionsInput = {
@@ -57757,6 +60953,7 @@ export namespace Prisma {
     endorsementsGiven?: DonorEndorsementUncheckedCreateNestedManyWithoutEndorserInput
     documents?: DonorDocumentUncheckedCreateNestedManyWithoutUserInput
     roleApplications?: RoleApplicationUncheckedCreateNestedManyWithoutApplicantInput
+    challenges?: DonorChallengeUncheckedCreateNestedManyWithoutDonorInput
   }
 
   export type UserCreateOrConnectWithoutSkillContributionsInput = {
@@ -57846,6 +61043,7 @@ export namespace Prisma {
     spotlightVotes?: SpotlightVoteCreateNestedManyWithoutProjectInput
     campaigns?: CampaignCreateNestedManyWithoutProjectInput
     roles?: NgoRoleCreateNestedManyWithoutProjectInput
+    challenges?: DonorChallengeCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUncheckedCreateWithoutSkillContributionsInput = {
@@ -57871,6 +61069,7 @@ export namespace Prisma {
     spotlightVotes?: SpotlightVoteUncheckedCreateNestedManyWithoutProjectInput
     campaigns?: CampaignUncheckedCreateNestedManyWithoutProjectInput
     roles?: NgoRoleUncheckedCreateNestedManyWithoutProjectInput
+    challenges?: DonorChallengeUncheckedCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectCreateOrConnectWithoutSkillContributionsInput = {
@@ -57944,6 +61143,7 @@ export namespace Prisma {
     endorsementsGiven?: DonorEndorsementUpdateManyWithoutEndorserNestedInput
     documents?: DonorDocumentUpdateManyWithoutUserNestedInput
     roleApplications?: RoleApplicationUpdateManyWithoutApplicantNestedInput
+    challenges?: DonorChallengeUpdateManyWithoutDonorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSkillContributionsInput = {
@@ -57982,6 +61182,7 @@ export namespace Prisma {
     endorsementsGiven?: DonorEndorsementUncheckedUpdateManyWithoutEndorserNestedInput
     documents?: DonorDocumentUncheckedUpdateManyWithoutUserNestedInput
     roleApplications?: RoleApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+    challenges?: DonorChallengeUncheckedUpdateManyWithoutDonorNestedInput
   }
 
   export type NgoUpsertWithoutSkillContributionsInput = {
@@ -58083,6 +61284,7 @@ export namespace Prisma {
     spotlightVotes?: SpotlightVoteUpdateManyWithoutProjectNestedInput
     campaigns?: CampaignUpdateManyWithoutProjectNestedInput
     roles?: NgoRoleUpdateManyWithoutProjectNestedInput
+    challenges?: DonorChallengeUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateWithoutSkillContributionsInput = {
@@ -58108,6 +61310,7 @@ export namespace Prisma {
     spotlightVotes?: SpotlightVoteUncheckedUpdateManyWithoutProjectNestedInput
     campaigns?: CampaignUncheckedUpdateManyWithoutProjectNestedInput
     roles?: NgoRoleUncheckedUpdateManyWithoutProjectNestedInput
+    challenges?: DonorChallengeUncheckedUpdateManyWithoutProjectNestedInput
   }
 
   export type SkillBlockchainRecordUpsertWithoutContributionInput = {
@@ -58251,6 +61454,7 @@ export namespace Prisma {
     endorsementsGiven?: DonorEndorsementCreateNestedManyWithoutEndorserInput
     documents?: DonorDocumentCreateNestedManyWithoutUserInput
     roleApplications?: RoleApplicationCreateNestedManyWithoutApplicantInput
+    challenges?: DonorChallengeCreateNestedManyWithoutDonorInput
   }
 
   export type UserUncheckedCreateWithoutEndorsementsReceivedInput = {
@@ -58289,6 +61493,7 @@ export namespace Prisma {
     endorsementsGiven?: DonorEndorsementUncheckedCreateNestedManyWithoutEndorserInput
     documents?: DonorDocumentUncheckedCreateNestedManyWithoutUserInput
     roleApplications?: RoleApplicationUncheckedCreateNestedManyWithoutApplicantInput
+    challenges?: DonorChallengeUncheckedCreateNestedManyWithoutDonorInput
   }
 
   export type UserCreateOrConnectWithoutEndorsementsReceivedInput = {
@@ -58391,6 +61596,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementCreateNestedManyWithoutDonorInput
     documents?: DonorDocumentCreateNestedManyWithoutUserInput
     roleApplications?: RoleApplicationCreateNestedManyWithoutApplicantInput
+    challenges?: DonorChallengeCreateNestedManyWithoutDonorInput
   }
 
   export type UserUncheckedCreateWithoutEndorsementsGivenInput = {
@@ -58429,6 +61635,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementUncheckedCreateNestedManyWithoutDonorInput
     documents?: DonorDocumentUncheckedCreateNestedManyWithoutUserInput
     roleApplications?: RoleApplicationUncheckedCreateNestedManyWithoutApplicantInput
+    challenges?: DonorChallengeUncheckedCreateNestedManyWithoutDonorInput
   }
 
   export type UserCreateOrConnectWithoutEndorsementsGivenInput = {
@@ -58483,6 +61690,7 @@ export namespace Prisma {
     endorsementsGiven?: DonorEndorsementUpdateManyWithoutEndorserNestedInput
     documents?: DonorDocumentUpdateManyWithoutUserNestedInput
     roleApplications?: RoleApplicationUpdateManyWithoutApplicantNestedInput
+    challenges?: DonorChallengeUpdateManyWithoutDonorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutEndorsementsReceivedInput = {
@@ -58521,6 +61729,7 @@ export namespace Prisma {
     endorsementsGiven?: DonorEndorsementUncheckedUpdateManyWithoutEndorserNestedInput
     documents?: DonorDocumentUncheckedUpdateManyWithoutUserNestedInput
     roleApplications?: RoleApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+    challenges?: DonorChallengeUncheckedUpdateManyWithoutDonorNestedInput
   }
 
   export type NgoUpsertWithoutDonorEndorsementsInput = {
@@ -58635,6 +61844,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementUpdateManyWithoutDonorNestedInput
     documents?: DonorDocumentUpdateManyWithoutUserNestedInput
     roleApplications?: RoleApplicationUpdateManyWithoutApplicantNestedInput
+    challenges?: DonorChallengeUpdateManyWithoutDonorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutEndorsementsGivenInput = {
@@ -58673,6 +61883,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementUncheckedUpdateManyWithoutDonorNestedInput
     documents?: DonorDocumentUncheckedUpdateManyWithoutUserNestedInput
     roleApplications?: RoleApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+    challenges?: DonorChallengeUncheckedUpdateManyWithoutDonorNestedInput
   }
 
   export type UserCreateWithoutDocumentsInput = {
@@ -58711,6 +61922,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementCreateNestedManyWithoutDonorInput
     endorsementsGiven?: DonorEndorsementCreateNestedManyWithoutEndorserInput
     roleApplications?: RoleApplicationCreateNestedManyWithoutApplicantInput
+    challenges?: DonorChallengeCreateNestedManyWithoutDonorInput
   }
 
   export type UserUncheckedCreateWithoutDocumentsInput = {
@@ -58749,6 +61961,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementUncheckedCreateNestedManyWithoutDonorInput
     endorsementsGiven?: DonorEndorsementUncheckedCreateNestedManyWithoutEndorserInput
     roleApplications?: RoleApplicationUncheckedCreateNestedManyWithoutApplicantInput
+    challenges?: DonorChallengeUncheckedCreateNestedManyWithoutDonorInput
   }
 
   export type UserCreateOrConnectWithoutDocumentsInput = {
@@ -58803,6 +62016,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementUpdateManyWithoutDonorNestedInput
     endorsementsGiven?: DonorEndorsementUpdateManyWithoutEndorserNestedInput
     roleApplications?: RoleApplicationUpdateManyWithoutApplicantNestedInput
+    challenges?: DonorChallengeUpdateManyWithoutDonorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDocumentsInput = {
@@ -58841,6 +62055,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementUncheckedUpdateManyWithoutDonorNestedInput
     endorsementsGiven?: DonorEndorsementUncheckedUpdateManyWithoutEndorserNestedInput
     roleApplications?: RoleApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+    challenges?: DonorChallengeUncheckedUpdateManyWithoutDonorNestedInput
   }
 
   export type NgoCreateWithoutDocumentsInput = {
@@ -59049,6 +62264,7 @@ export namespace Prisma {
     spotlightVotes?: SpotlightVoteCreateNestedManyWithoutProjectInput
     campaigns?: CampaignCreateNestedManyWithoutProjectInput
     skillContributions?: SkillContributionCreateNestedManyWithoutProjectInput
+    challenges?: DonorChallengeCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUncheckedCreateWithoutRolesInput = {
@@ -59074,6 +62290,7 @@ export namespace Prisma {
     spotlightVotes?: SpotlightVoteUncheckedCreateNestedManyWithoutProjectInput
     campaigns?: CampaignUncheckedCreateNestedManyWithoutProjectInput
     skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutProjectInput
+    challenges?: DonorChallengeUncheckedCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectCreateOrConnectWithoutRolesInput = {
@@ -59214,6 +62431,7 @@ export namespace Prisma {
     spotlightVotes?: SpotlightVoteUpdateManyWithoutProjectNestedInput
     campaigns?: CampaignUpdateManyWithoutProjectNestedInput
     skillContributions?: SkillContributionUpdateManyWithoutProjectNestedInput
+    challenges?: DonorChallengeUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateWithoutRolesInput = {
@@ -59239,6 +62457,7 @@ export namespace Prisma {
     spotlightVotes?: SpotlightVoteUncheckedUpdateManyWithoutProjectNestedInput
     campaigns?: CampaignUncheckedUpdateManyWithoutProjectNestedInput
     skillContributions?: SkillContributionUncheckedUpdateManyWithoutProjectNestedInput
+    challenges?: DonorChallengeUncheckedUpdateManyWithoutProjectNestedInput
   }
 
   export type RoleApplicationUpsertWithWhereUniqueWithoutRoleInput = {
@@ -59342,6 +62561,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementCreateNestedManyWithoutDonorInput
     endorsementsGiven?: DonorEndorsementCreateNestedManyWithoutEndorserInput
     documents?: DonorDocumentCreateNestedManyWithoutUserInput
+    challenges?: DonorChallengeCreateNestedManyWithoutDonorInput
   }
 
   export type UserUncheckedCreateWithoutRoleApplicationsInput = {
@@ -59380,6 +62600,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementUncheckedCreateNestedManyWithoutDonorInput
     endorsementsGiven?: DonorEndorsementUncheckedCreateNestedManyWithoutEndorserInput
     documents?: DonorDocumentUncheckedCreateNestedManyWithoutUserInput
+    challenges?: DonorChallengeUncheckedCreateNestedManyWithoutDonorInput
   }
 
   export type UserCreateOrConnectWithoutRoleApplicationsInput = {
@@ -59518,6 +62739,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementUpdateManyWithoutDonorNestedInput
     endorsementsGiven?: DonorEndorsementUpdateManyWithoutEndorserNestedInput
     documents?: DonorDocumentUpdateManyWithoutUserNestedInput
+    challenges?: DonorChallengeUpdateManyWithoutDonorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRoleApplicationsInput = {
@@ -59556,6 +62778,7 @@ export namespace Prisma {
     endorsementsReceived?: DonorEndorsementUncheckedUpdateManyWithoutDonorNestedInput
     endorsementsGiven?: DonorEndorsementUncheckedUpdateManyWithoutEndorserNestedInput
     documents?: DonorDocumentUncheckedUpdateManyWithoutUserNestedInput
+    challenges?: DonorChallengeUncheckedUpdateManyWithoutDonorNestedInput
   }
 
   export type RoleEngagementUpsertWithoutApplicationInput = {
@@ -59655,6 +62878,402 @@ export namespace Prisma {
     status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
     appliedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type UserCreateWithoutChallengesInput = {
+    id?: string
+    email: string
+    emailVerified?: Date | string | null
+    name?: string | null
+    image?: string | null
+    password?: string | null
+    role?: $Enums.Role
+    referralCode?: string | null
+    bio?: string | null
+    jobTitle?: string | null
+    company?: string | null
+    city?: string | null
+    linkedinUrl?: string | null
+    twitterUrl?: string | null
+    portfolioUrl?: string | null
+    skills?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    aiSummary?: string | null
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    ngo?: NgoCreateNestedOneWithoutUserInput
+    donations?: DonationCreateNestedManyWithoutUserInput
+    ratings?: RatingCreateNestedManyWithoutDonorInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    spotlightVotes?: SpotlightVoteCreateNestedManyWithoutUserInput
+    campaignsCreated?: CampaignCreateNestedManyWithoutCreatorInput
+    campaignContributions?: CampaignContributorCreateNestedManyWithoutUserInput
+    ngoSuggestions?: NgoSuggestionCreateNestedManyWithoutUserInput
+    referralsMade?: ReferralCreateNestedManyWithoutReferrerInput
+    referralsReceived?: ReferralCreateNestedManyWithoutReferredInput
+    skillContributions?: SkillContributionCreateNestedManyWithoutDonorInput
+    endorsementsReceived?: DonorEndorsementCreateNestedManyWithoutDonorInput
+    endorsementsGiven?: DonorEndorsementCreateNestedManyWithoutEndorserInput
+    documents?: DonorDocumentCreateNestedManyWithoutUserInput
+    roleApplications?: RoleApplicationCreateNestedManyWithoutApplicantInput
+  }
+
+  export type UserUncheckedCreateWithoutChallengesInput = {
+    id?: string
+    email: string
+    emailVerified?: Date | string | null
+    name?: string | null
+    image?: string | null
+    password?: string | null
+    role?: $Enums.Role
+    referralCode?: string | null
+    bio?: string | null
+    jobTitle?: string | null
+    company?: string | null
+    city?: string | null
+    linkedinUrl?: string | null
+    twitterUrl?: string | null
+    portfolioUrl?: string | null
+    skills?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    aiSummary?: string | null
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    ngo?: NgoUncheckedCreateNestedOneWithoutUserInput
+    donations?: DonationUncheckedCreateNestedManyWithoutUserInput
+    ratings?: RatingUncheckedCreateNestedManyWithoutDonorInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    spotlightVotes?: SpotlightVoteUncheckedCreateNestedManyWithoutUserInput
+    campaignsCreated?: CampaignUncheckedCreateNestedManyWithoutCreatorInput
+    campaignContributions?: CampaignContributorUncheckedCreateNestedManyWithoutUserInput
+    ngoSuggestions?: NgoSuggestionUncheckedCreateNestedManyWithoutUserInput
+    referralsMade?: ReferralUncheckedCreateNestedManyWithoutReferrerInput
+    referralsReceived?: ReferralUncheckedCreateNestedManyWithoutReferredInput
+    skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutDonorInput
+    endorsementsReceived?: DonorEndorsementUncheckedCreateNestedManyWithoutDonorInput
+    endorsementsGiven?: DonorEndorsementUncheckedCreateNestedManyWithoutEndorserInput
+    documents?: DonorDocumentUncheckedCreateNestedManyWithoutUserInput
+    roleApplications?: RoleApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  }
+
+  export type UserCreateOrConnectWithoutChallengesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutChallengesInput, UserUncheckedCreateWithoutChallengesInput>
+  }
+
+  export type ProjectCreateWithoutChallengesInput = {
+    id?: string
+    title: string
+    description: string
+    category: $Enums.ProjectCategory
+    coverImage?: string | null
+    goalAmount: number
+    raisedAmount?: number
+    currency?: string
+    status?: $Enums.ProjectStatus
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    featured?: boolean
+    spotlightVoteCount?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    ngo: NgoCreateNestedOneWithoutProjectsInput
+    milestones?: MilestoneCreateNestedManyWithoutProjectInput
+    donations?: DonationCreateNestedManyWithoutProjectInput
+    expenses?: ExpenseCreateNestedManyWithoutProjectInput
+    spotlightVotes?: SpotlightVoteCreateNestedManyWithoutProjectInput
+    campaigns?: CampaignCreateNestedManyWithoutProjectInput
+    skillContributions?: SkillContributionCreateNestedManyWithoutProjectInput
+    roles?: NgoRoleCreateNestedManyWithoutProjectInput
+  }
+
+  export type ProjectUncheckedCreateWithoutChallengesInput = {
+    id?: string
+    ngoId: string
+    title: string
+    description: string
+    category: $Enums.ProjectCategory
+    coverImage?: string | null
+    goalAmount: number
+    raisedAmount?: number
+    currency?: string
+    status?: $Enums.ProjectStatus
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    featured?: boolean
+    spotlightVoteCount?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    milestones?: MilestoneUncheckedCreateNestedManyWithoutProjectInput
+    donations?: DonationUncheckedCreateNestedManyWithoutProjectInput
+    expenses?: ExpenseUncheckedCreateNestedManyWithoutProjectInput
+    spotlightVotes?: SpotlightVoteUncheckedCreateNestedManyWithoutProjectInput
+    campaigns?: CampaignUncheckedCreateNestedManyWithoutProjectInput
+    skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutProjectInput
+    roles?: NgoRoleUncheckedCreateNestedManyWithoutProjectInput
+  }
+
+  export type ProjectCreateOrConnectWithoutChallengesInput = {
+    where: ProjectWhereUniqueInput
+    create: XOR<ProjectCreateWithoutChallengesInput, ProjectUncheckedCreateWithoutChallengesInput>
+  }
+
+  export type ChallengeAcceptanceCreateWithoutChallengeInput = {
+    id?: string
+    name?: string | null
+    createdAt?: Date | string
+  }
+
+  export type ChallengeAcceptanceUncheckedCreateWithoutChallengeInput = {
+    id?: string
+    name?: string | null
+    createdAt?: Date | string
+  }
+
+  export type ChallengeAcceptanceCreateOrConnectWithoutChallengeInput = {
+    where: ChallengeAcceptanceWhereUniqueInput
+    create: XOR<ChallengeAcceptanceCreateWithoutChallengeInput, ChallengeAcceptanceUncheckedCreateWithoutChallengeInput>
+  }
+
+  export type ChallengeAcceptanceCreateManyChallengeInputEnvelope = {
+    data: ChallengeAcceptanceCreateManyChallengeInput | ChallengeAcceptanceCreateManyChallengeInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UserUpsertWithoutChallengesInput = {
+    update: XOR<UserUpdateWithoutChallengesInput, UserUncheckedUpdateWithoutChallengesInput>
+    create: XOR<UserCreateWithoutChallengesInput, UserUncheckedCreateWithoutChallengesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutChallengesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutChallengesInput, UserUncheckedUpdateWithoutChallengesInput>
+  }
+
+  export type UserUpdateWithoutChallengesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    referralCode?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    portfolioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    skills?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    ngo?: NgoUpdateOneWithoutUserNestedInput
+    donations?: DonationUpdateManyWithoutUserNestedInput
+    ratings?: RatingUpdateManyWithoutDonorNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    spotlightVotes?: SpotlightVoteUpdateManyWithoutUserNestedInput
+    campaignsCreated?: CampaignUpdateManyWithoutCreatorNestedInput
+    campaignContributions?: CampaignContributorUpdateManyWithoutUserNestedInput
+    ngoSuggestions?: NgoSuggestionUpdateManyWithoutUserNestedInput
+    referralsMade?: ReferralUpdateManyWithoutReferrerNestedInput
+    referralsReceived?: ReferralUpdateManyWithoutReferredNestedInput
+    skillContributions?: SkillContributionUpdateManyWithoutDonorNestedInput
+    endorsementsReceived?: DonorEndorsementUpdateManyWithoutDonorNestedInput
+    endorsementsGiven?: DonorEndorsementUpdateManyWithoutEndorserNestedInput
+    documents?: DonorDocumentUpdateManyWithoutUserNestedInput
+    roleApplications?: RoleApplicationUpdateManyWithoutApplicantNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutChallengesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    referralCode?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    portfolioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    skills?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    ngo?: NgoUncheckedUpdateOneWithoutUserNestedInput
+    donations?: DonationUncheckedUpdateManyWithoutUserNestedInput
+    ratings?: RatingUncheckedUpdateManyWithoutDonorNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    spotlightVotes?: SpotlightVoteUncheckedUpdateManyWithoutUserNestedInput
+    campaignsCreated?: CampaignUncheckedUpdateManyWithoutCreatorNestedInput
+    campaignContributions?: CampaignContributorUncheckedUpdateManyWithoutUserNestedInput
+    ngoSuggestions?: NgoSuggestionUncheckedUpdateManyWithoutUserNestedInput
+    referralsMade?: ReferralUncheckedUpdateManyWithoutReferrerNestedInput
+    referralsReceived?: ReferralUncheckedUpdateManyWithoutReferredNestedInput
+    skillContributions?: SkillContributionUncheckedUpdateManyWithoutDonorNestedInput
+    endorsementsReceived?: DonorEndorsementUncheckedUpdateManyWithoutDonorNestedInput
+    endorsementsGiven?: DonorEndorsementUncheckedUpdateManyWithoutEndorserNestedInput
+    documents?: DonorDocumentUncheckedUpdateManyWithoutUserNestedInput
+    roleApplications?: RoleApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  }
+
+  export type ProjectUpsertWithoutChallengesInput = {
+    update: XOR<ProjectUpdateWithoutChallengesInput, ProjectUncheckedUpdateWithoutChallengesInput>
+    create: XOR<ProjectCreateWithoutChallengesInput, ProjectUncheckedCreateWithoutChallengesInput>
+    where?: ProjectWhereInput
+  }
+
+  export type ProjectUpdateToOneWithWhereWithoutChallengesInput = {
+    where?: ProjectWhereInput
+    data: XOR<ProjectUpdateWithoutChallengesInput, ProjectUncheckedUpdateWithoutChallengesInput>
+  }
+
+  export type ProjectUpdateWithoutChallengesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    category?: EnumProjectCategoryFieldUpdateOperationsInput | $Enums.ProjectCategory
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
+    goalAmount?: FloatFieldUpdateOperationsInput | number
+    raisedAmount?: FloatFieldUpdateOperationsInput | number
+    currency?: StringFieldUpdateOperationsInput | string
+    status?: EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    featured?: BoolFieldUpdateOperationsInput | boolean
+    spotlightVoteCount?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ngo?: NgoUpdateOneRequiredWithoutProjectsNestedInput
+    milestones?: MilestoneUpdateManyWithoutProjectNestedInput
+    donations?: DonationUpdateManyWithoutProjectNestedInput
+    expenses?: ExpenseUpdateManyWithoutProjectNestedInput
+    spotlightVotes?: SpotlightVoteUpdateManyWithoutProjectNestedInput
+    campaigns?: CampaignUpdateManyWithoutProjectNestedInput
+    skillContributions?: SkillContributionUpdateManyWithoutProjectNestedInput
+    roles?: NgoRoleUpdateManyWithoutProjectNestedInput
+  }
+
+  export type ProjectUncheckedUpdateWithoutChallengesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ngoId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    category?: EnumProjectCategoryFieldUpdateOperationsInput | $Enums.ProjectCategory
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
+    goalAmount?: FloatFieldUpdateOperationsInput | number
+    raisedAmount?: FloatFieldUpdateOperationsInput | number
+    currency?: StringFieldUpdateOperationsInput | string
+    status?: EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    featured?: BoolFieldUpdateOperationsInput | boolean
+    spotlightVoteCount?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    milestones?: MilestoneUncheckedUpdateManyWithoutProjectNestedInput
+    donations?: DonationUncheckedUpdateManyWithoutProjectNestedInput
+    expenses?: ExpenseUncheckedUpdateManyWithoutProjectNestedInput
+    spotlightVotes?: SpotlightVoteUncheckedUpdateManyWithoutProjectNestedInput
+    campaigns?: CampaignUncheckedUpdateManyWithoutProjectNestedInput
+    skillContributions?: SkillContributionUncheckedUpdateManyWithoutProjectNestedInput
+    roles?: NgoRoleUncheckedUpdateManyWithoutProjectNestedInput
+  }
+
+  export type ChallengeAcceptanceUpsertWithWhereUniqueWithoutChallengeInput = {
+    where: ChallengeAcceptanceWhereUniqueInput
+    update: XOR<ChallengeAcceptanceUpdateWithoutChallengeInput, ChallengeAcceptanceUncheckedUpdateWithoutChallengeInput>
+    create: XOR<ChallengeAcceptanceCreateWithoutChallengeInput, ChallengeAcceptanceUncheckedCreateWithoutChallengeInput>
+  }
+
+  export type ChallengeAcceptanceUpdateWithWhereUniqueWithoutChallengeInput = {
+    where: ChallengeAcceptanceWhereUniqueInput
+    data: XOR<ChallengeAcceptanceUpdateWithoutChallengeInput, ChallengeAcceptanceUncheckedUpdateWithoutChallengeInput>
+  }
+
+  export type ChallengeAcceptanceUpdateManyWithWhereWithoutChallengeInput = {
+    where: ChallengeAcceptanceScalarWhereInput
+    data: XOR<ChallengeAcceptanceUpdateManyMutationInput, ChallengeAcceptanceUncheckedUpdateManyWithoutChallengeInput>
+  }
+
+  export type ChallengeAcceptanceScalarWhereInput = {
+    AND?: ChallengeAcceptanceScalarWhereInput | ChallengeAcceptanceScalarWhereInput[]
+    OR?: ChallengeAcceptanceScalarWhereInput[]
+    NOT?: ChallengeAcceptanceScalarWhereInput | ChallengeAcceptanceScalarWhereInput[]
+    id?: StringFilter<"ChallengeAcceptance"> | string
+    challengeId?: StringFilter<"ChallengeAcceptance"> | string
+    name?: StringNullableFilter<"ChallengeAcceptance"> | string | null
+    createdAt?: DateTimeFilter<"ChallengeAcceptance"> | Date | string
+  }
+
+  export type DonorChallengeCreateWithoutAcceptancesInput = {
+    id?: string
+    amount: number
+    message?: string | null
+    deadline?: Date | string | null
+    createdAt?: Date | string
+    donor: UserCreateNestedOneWithoutChallengesInput
+    project: ProjectCreateNestedOneWithoutChallengesInput
+  }
+
+  export type DonorChallengeUncheckedCreateWithoutAcceptancesInput = {
+    id?: string
+    donorId: string
+    projectId: string
+    amount: number
+    message?: string | null
+    deadline?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type DonorChallengeCreateOrConnectWithoutAcceptancesInput = {
+    where: DonorChallengeWhereUniqueInput
+    create: XOR<DonorChallengeCreateWithoutAcceptancesInput, DonorChallengeUncheckedCreateWithoutAcceptancesInput>
+  }
+
+  export type DonorChallengeUpsertWithoutAcceptancesInput = {
+    update: XOR<DonorChallengeUpdateWithoutAcceptancesInput, DonorChallengeUncheckedUpdateWithoutAcceptancesInput>
+    create: XOR<DonorChallengeCreateWithoutAcceptancesInput, DonorChallengeUncheckedCreateWithoutAcceptancesInput>
+    where?: DonorChallengeWhereInput
+  }
+
+  export type DonorChallengeUpdateToOneWithWhereWithoutAcceptancesInput = {
+    where?: DonorChallengeWhereInput
+    data: XOR<DonorChallengeUpdateWithoutAcceptancesInput, DonorChallengeUncheckedUpdateWithoutAcceptancesInput>
+  }
+
+  export type DonorChallengeUpdateWithoutAcceptancesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    amount?: FloatFieldUpdateOperationsInput | number
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    deadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    donor?: UserUpdateOneRequiredWithoutChallengesNestedInput
+    project?: ProjectUpdateOneRequiredWithoutChallengesNestedInput
+  }
+
+  export type DonorChallengeUncheckedUpdateWithoutAcceptancesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    donorId?: StringFieldUpdateOperationsInput | string
+    projectId?: StringFieldUpdateOperationsInput | string
+    amount?: FloatFieldUpdateOperationsInput | number
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    deadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AccountCreateManyUserInput = {
@@ -59813,6 +63432,15 @@ export namespace Prisma {
     status?: $Enums.ApplicationStatus
     appliedAt?: Date | string
     reviewedAt?: Date | string | null
+  }
+
+  export type DonorChallengeCreateManyDonorInput = {
+    id?: string
+    projectId: string
+    amount: number
+    message?: string | null
+    deadline?: Date | string | null
+    createdAt?: Date | string
   }
 
   export type AccountUpdateWithoutUserInput = {
@@ -60297,6 +63925,35 @@ export namespace Prisma {
     reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
+  export type DonorChallengeUpdateWithoutDonorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    amount?: FloatFieldUpdateOperationsInput | number
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    deadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    project?: ProjectUpdateOneRequiredWithoutChallengesNestedInput
+    acceptances?: ChallengeAcceptanceUpdateManyWithoutChallengeNestedInput
+  }
+
+  export type DonorChallengeUncheckedUpdateWithoutDonorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    projectId?: StringFieldUpdateOperationsInput | string
+    amount?: FloatFieldUpdateOperationsInput | number
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    deadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    acceptances?: ChallengeAcceptanceUncheckedUpdateManyWithoutChallengeNestedInput
+  }
+
+  export type DonorChallengeUncheckedUpdateManyWithoutDonorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    projectId?: StringFieldUpdateOperationsInput | string
+    amount?: FloatFieldUpdateOperationsInput | number
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    deadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type ProjectCreateManyNgoInput = {
     id?: string
     title: string
@@ -60426,6 +64083,7 @@ export namespace Prisma {
     campaigns?: CampaignUpdateManyWithoutProjectNestedInput
     skillContributions?: SkillContributionUpdateManyWithoutProjectNestedInput
     roles?: NgoRoleUpdateManyWithoutProjectNestedInput
+    challenges?: DonorChallengeUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateWithoutNgoInput = {
@@ -60451,6 +64109,7 @@ export namespace Prisma {
     campaigns?: CampaignUncheckedUpdateManyWithoutProjectNestedInput
     skillContributions?: SkillContributionUncheckedUpdateManyWithoutProjectNestedInput
     roles?: NgoRoleUncheckedUpdateManyWithoutProjectNestedInput
+    challenges?: DonorChallengeUncheckedUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateManyWithoutNgoInput = {
@@ -60835,6 +64494,15 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type DonorChallengeCreateManyProjectInput = {
+    id?: string
+    donorId: string
+    amount: number
+    message?: string | null
+    deadline?: Date | string | null
+    createdAt?: Date | string
+  }
+
   export type MilestoneUpdateWithoutProjectInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
@@ -61137,6 +64805,35 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type DonorChallengeUpdateWithoutProjectInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    amount?: FloatFieldUpdateOperationsInput | number
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    deadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    donor?: UserUpdateOneRequiredWithoutChallengesNestedInput
+    acceptances?: ChallengeAcceptanceUpdateManyWithoutChallengeNestedInput
+  }
+
+  export type DonorChallengeUncheckedUpdateWithoutProjectInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    donorId?: StringFieldUpdateOperationsInput | string
+    amount?: FloatFieldUpdateOperationsInput | number
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    deadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    acceptances?: ChallengeAcceptanceUncheckedUpdateManyWithoutChallengeNestedInput
+  }
+
+  export type DonorChallengeUncheckedUpdateManyWithoutProjectInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    donorId?: StringFieldUpdateOperationsInput | string
+    amount?: FloatFieldUpdateOperationsInput | number
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    deadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type EvidenceFileCreateManyMilestoneInput = {
     id?: string
     url: string
@@ -61281,6 +64978,30 @@ export namespace Prisma {
     status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
     appliedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type ChallengeAcceptanceCreateManyChallengeInput = {
+    id?: string
+    name?: string | null
+    createdAt?: Date | string
+  }
+
+  export type ChallengeAcceptanceUpdateWithoutChallengeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ChallengeAcceptanceUncheckedUpdateWithoutChallengeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ChallengeAcceptanceUncheckedUpdateManyWithoutChallengeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

@@ -129,6 +129,7 @@ model User {
   documents             DonorDocument[]
   aiSummary             String?               @db.Text // AI-generated profile narrative (cached)
   roleApplications      RoleApplication[]
+  challenges            DonorChallenge[]
 }
 
 model Ngo {
@@ -185,6 +186,7 @@ model Project {
   campaigns          Campaign[]
   skillContributions SkillContribution[]
   roles              NgoRole[]
+  challenges         DonorChallenge[]
 }
 
 model Milestone {
@@ -581,4 +583,26 @@ model RoleEngagement {
   monetaryValue       Float? // assigned by NGO on completion
   skillContributionId String? // linked SkillContribution record once completed
   application         RoleApplication  @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+}
+
+// Donor Challenge — viral giving loop
+model DonorChallenge {
+  id          String                @id @default(cuid())
+  donorId     String
+  projectId   String
+  amount      Float
+  message     String?               @db.Text
+  deadline    DateTime?
+  createdAt   DateTime              @default(now())
+  donor       User                  @relation(fields: [donorId], references: [id], onDelete: Cascade)
+  project     Project               @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  acceptances ChallengeAcceptance[]
+}
+
+model ChallengeAcceptance {
+  id          String         @id @default(cuid())
+  challengeId String
+  name        String? // optional — visitor can say who they are
+  createdAt   DateTime       @default(now())
+  challenge   DonorChallenge @relation(fields: [challengeId], references: [id], onDelete: Cascade)
 }

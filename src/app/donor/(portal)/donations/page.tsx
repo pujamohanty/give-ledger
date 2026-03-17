@@ -5,6 +5,7 @@ import { formatCurrency, formatDate } from "@/lib/utils";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ExternalLink, DollarSign, TrendingUp, Calendar } from "lucide-react";
+import CreateChallengeButton from "@/components/CreateChallengeButton";
 
 export default async function DonationsPage() {
   const session = await auth();
@@ -118,9 +119,16 @@ export default async function DonationsPage() {
                           </div>
                         )}
                       </div>
-                      <span className="text-lg font-bold text-emerald-700 shrink-0">
-                        +{formatCurrency(d.amount)}
-                      </span>
+                      <div className="flex flex-col items-end gap-2 shrink-0">
+                        <span className="text-lg font-bold text-emerald-700">
+                          +{formatCurrency(d.amount)}
+                        </span>
+                        <CreateChallengeButton
+                          projectId={d.projectId}
+                          projectTitle={d.project.title}
+                          defaultAmount={d.amount}
+                        />
+                      </div>
                     </div>
                   </div>
                 );

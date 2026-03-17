@@ -510,6 +510,23 @@ exports.Prisma.RoleEngagementScalarFieldEnum = {
   skillContributionId: 'skillContributionId'
 };
 
+exports.Prisma.DonorChallengeScalarFieldEnum = {
+  id: 'id',
+  donorId: 'donorId',
+  projectId: 'projectId',
+  amount: 'amount',
+  message: 'message',
+  deadline: 'deadline',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.ChallengeAcceptanceScalarFieldEnum = {
+  id: 'id',
+  challengeId: 'challengeId',
+  name: 'name',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -632,7 +649,9 @@ exports.Prisma.ModelName = {
   NgoDocument: 'NgoDocument',
   NgoRole: 'NgoRole',
   RoleApplication: 'RoleApplication',
-  RoleEngagement: 'RoleEngagement'
+  RoleEngagement: 'RoleEngagement',
+  DonorChallenge: 'DonorChallenge',
+  ChallengeAcceptance: 'ChallengeAcceptance'
 };
 
 /**
