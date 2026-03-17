@@ -698,9 +698,9 @@ export default function HomeFeedClient({ initial, initialCursor, stats, featured
         </div>
       )}
 
-      {/* 3-column layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-[260px_1fr_260px] gap-5 items-start">
-        {/* Left sidebar */}
+      {/* 3-column layout — no items-start so right column stretches with feed */}
+      <div className="grid grid-cols-1 lg:grid-cols-[260px_1fr_260px] gap-5">
+        {/* Left sidebar — self-start so it doesn't stretch */}
         <div className="hidden lg:block sticky top-20 self-start">
           <LeftSidebar session={session} stats={stats} />
         </div>
@@ -710,8 +710,8 @@ export default function HomeFeedClient({ initial, initialCursor, stats, featured
           <Feed initial={initial} initialCursor={initialCursor} allProjects={allProjects} />
         </div>
 
-        {/* Right sidebar — Twitter/X-style scroll behaviour */}
-        <div className="hidden lg:block">
+        {/* Right sidebar — column stretches with feed, SmartStickyRight handles positioning */}
+        <div className="hidden lg:block relative">
           <SmartStickyRight>
             <RightSidebar featuredProjects={featuredProjects} recentNgos={recentNgos} openRoles={openRoles} />
           </SmartStickyRight>
