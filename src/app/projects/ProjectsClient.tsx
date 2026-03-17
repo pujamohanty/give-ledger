@@ -9,6 +9,7 @@ import { Search, SlidersHorizontal } from "lucide-react";
 export type ProjectSummary = {
   id: string;
   title: string;
+  ngoId: string;
   ngoName: string;
   category: string;
   description: string;
@@ -169,8 +170,12 @@ export default function ProjectsClient({ projects }: { projects: ProjectSummary[
                         {project.daysLeft > 0 ? `${project.daysLeft} days left` : "Ending soon"}
                       </span>
                     </div>
-                    <h3 className="font-semibold text-gray-900 mb-1 text-sm leading-snug">{project.title}</h3>
-                    <p className="text-xs text-emerald-700 font-medium mb-3">{project.ngoName}</p>
+                    <Link href={`/projects/${project.id}`} className="font-semibold text-gray-900 mb-1 text-sm leading-snug hover:underline block">
+                      {project.title}
+                    </Link>
+                    <Link href={`/ngo/${project.ngoId}`} className="text-xs text-emerald-700 font-medium mb-3 hover:underline block">
+                      {project.ngoName}
+                    </Link>
                     <p className="text-sm text-gray-500 mb-4 line-clamp-2">{project.description}</p>
                     <Progress value={pct} className="mb-2" />
                     <div className="flex justify-between text-xs text-gray-500 mb-4">

@@ -222,10 +222,22 @@ function EventCard({ event }: { event: ActivityEvent }) {
             </div>
             <div className="min-w-0">
               {event.projectTitle && (
-                <p className="text-xs font-semibold text-gray-800 truncate">{event.projectTitle}</p>
+                event.projectId ? (
+                  <Link href={`/projects/${event.projectId}`} className="text-xs font-semibold text-gray-800 truncate block hover:underline hover:text-emerald-700">
+                    {event.projectTitle}
+                  </Link>
+                ) : (
+                  <p className="text-xs font-semibold text-gray-800 truncate">{event.projectTitle}</p>
+                )
               )}
               {event.ngoName && (
-                <p className="text-xs text-gray-500 truncate">{event.ngoName}</p>
+                event.actorType === "NGO" && event.actorId ? (
+                  <Link href={`/ngo/${event.actorId}`} className="text-xs text-gray-500 truncate block hover:underline hover:text-gray-700">
+                    {event.ngoName}
+                  </Link>
+                ) : (
+                  <p className="text-xs text-gray-500 truncate">{event.ngoName}</p>
+                )
               )}
             </div>
             {event.linkUrl && (

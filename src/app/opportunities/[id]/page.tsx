@@ -94,7 +94,9 @@ export default async function OpportunityDetailPage({ params }: { params: Promis
                   {role.ngo.orgName.slice(0, 2).toUpperCase()}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-xs text-gray-500 mb-0.5">{role.ngo.orgName}</p>
+                  <Link href={`/ngo/${role.ngo.id}`} className="text-xs text-gray-500 mb-0.5 hover:underline hover:text-emerald-700 block">
+                    {role.ngo.orgName}
+                  </Link>
                   <h1 className="text-xl font-bold text-gray-900">{role.title}</h1>
                   {role.department && <p className="text-sm text-gray-500 mt-0.5">{role.department}</p>}
                 </div>
@@ -255,7 +257,9 @@ export default async function OpportunityDetailPage({ params }: { params: Promis
                   {role.ngo.orgName.slice(0, 2).toUpperCase()}
                 </div>
                 <div>
-                  <p className="text-sm font-semibold text-gray-900">{role.ngo.orgName}</p>
+                  <Link href={`/ngo/${role.ngo.id}`} className="text-sm font-semibold text-gray-900 hover:underline hover:text-emerald-700">
+                    {role.ngo.orgName}
+                  </Link>
                   {role.ngo.state && (
                     <p className="text-[11px] text-gray-500 flex items-center gap-1">
                       <MapPin className="w-3 h-3" /> {role.ngo.state}, US

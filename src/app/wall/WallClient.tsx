@@ -58,10 +58,39 @@ function EventCard({ event }: { event: ActivityEvent }) {
             <span className="text-xs text-gray-400 whitespace-nowrap shrink-0">{timeAgo(event.createdAt)}</span>
           </div>
           <p className="text-sm text-gray-800 mt-1.5 leading-relaxed">{event.description}</p>
-          {(event.ngoName || event.projectTitle) && (
-            <p className="text-xs text-gray-400 mt-1">
-              {[event.ngoName, event.projectTitle].filter(Boolean).join(" · ")}
-            </p>
+          {(event.actorName || event.ngoName || event.projectTitle) && (
+            <div className="flex items-center gap-1.5 flex-wrap mt-1 text-xs text-gray-400">
+              {event.actorName && event.actorId && (
+                <Link
+                  href={event.actorType === "NGO" ? `/ngo/${event.actorId}` : `/donor/${event.actorId}/profile`}
+                  className="font-medium text-gray-600 hover:text-gray-900 hover:underline"
+                >
+                  {event.actorName}
+                </Link>
+              )}
+              {event.actorName && event.actorId && (event.ngoName || event.projectTitle) && (
+                <span className="text-gray-300">·</span>
+              )}
+              {event.ngoName && (
+                event.actorType === "NGO" && event.actorId ? (
+                  <Link href={`/ngo/${event.actorId}`} className="hover:text-gray-600 hover:underline">
+                    {event.ngoName}
+                  </Link>
+                ) : (
+                  <span>{event.ngoName}</span>
+                )
+              )}
+              {event.ngoName && event.projectTitle && <span className="text-gray-300">·</span>}
+              {event.projectTitle && (
+                event.projectId ? (
+                  <Link href={`/projects/${event.projectId}`} className="hover:text-gray-600 hover:underline">
+                    {event.projectTitle}
+                  </Link>
+                ) : (
+                  <span>{event.projectTitle}</span>
+                )
+              )}
+            </div>
           )}
           {event.linkUrl && (
             <Link

@@ -30,13 +30,13 @@ export default async function CampaignsPage() {
 
   const campaigns = await prisma.campaign.findMany({
     include: {
-      creator: { select: { name: true } },
+      creator: { select: { id: true, name: true } },
       project: {
         select: {
           id: true,
           title: true,
           category: true,
-          ngo: { select: { orgName: true } },
+          ngo: { select: { id: true, orgName: true } },
         },
       },
       contributors: { select: { id: true } },
@@ -142,9 +142,18 @@ export default async function CampaignsPage() {
                                 {catLabel}
                               </span>
                             </div>
-                            <h3 className="font-semibold text-gray-900 leading-snug">{c.title}</h3>
+                            <Link href={`/campaigns/${c.id}`} className="font-semibold text-gray-900 leading-snug hover:underline">
+                              {c.title}
+                            </Link>
                             <p className="text-sm text-gray-500 mt-0.5">
-                              by {c.creator.name ?? "Anonymous"} · {c.project.ngo.orgName}
+                              by{" "}
+                              <Link href={`/donor/${c.creator.id}/profile`} className="font-medium text-gray-700 hover:underline">
+                                {c.creator.name ?? "Anonymous"}
+                              </Link>
+                              {" · "}
+                              <Link href={`/ngo/${c.project.ngo.id}`} className="font-medium text-gray-700 hover:underline">
+                                {c.project.ngo.orgName}
+                              </Link>
                             </p>
                             {c.description && (
                               <p className="text-sm text-gray-600 mt-2 line-clamp-2">{c.description}</p>

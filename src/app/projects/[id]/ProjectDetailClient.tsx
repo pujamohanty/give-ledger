@@ -241,7 +241,9 @@ export default function ProjectDetailClient({ project }: { project: ProjectDetai
                 </span>
               </div>
               <h1 className="text-2xl font-bold text-gray-900 mb-1">{project.title}</h1>
-              <p className="text-emerald-700 font-medium text-sm mb-4">{project.ngo.orgName}</p>
+              <Link href={`/ngo/${project.ngo.id}`} className="text-emerald-700 font-medium text-sm mb-4 hover:underline block">
+                {project.ngo.orgName}
+              </Link>
               <Progress value={pct} className="mb-3" />
               <div className="flex justify-between text-sm text-gray-500 mb-4">
                 <span className="font-bold text-gray-900 text-lg">${project.raisedAmount.toLocaleString()}</span>
@@ -287,7 +289,9 @@ export default function ProjectDetailClient({ project }: { project: ProjectDetai
                   {project.ngo.orgName[0]}
                 </div>
                 <div>
-                  <h2 className="font-bold text-gray-900">{project.ngo.orgName}</h2>
+                  <Link href={`/ngo/${project.ngo.id}`} className="font-bold text-gray-900 hover:underline">
+                    {project.ngo.orgName}
+                  </Link>
                   <div className="flex items-center gap-4 mt-1 text-xs text-gray-500">
                     <span className="flex items-center gap-1">
                       <CalendarDays className="w-3 h-3" />Est. {project.ngo.foundedYear}
@@ -626,9 +630,12 @@ export default function ProjectDetailClient({ project }: { project: ProjectDetai
                           </div>
                           {/* Info */}
                           <div className="flex-1 min-w-0">
-                            <p className={`text-xs font-semibold truncate ${i === 0 ? "text-amber-900" : "text-gray-800"}`}>
+                            <Link
+                              href={`/donor/${d.id}/profile`}
+                              className={`text-xs font-semibold truncate block hover:underline ${i === 0 ? "text-amber-900" : "text-gray-800"}`}
+                            >
                               {d.name}
-                            </p>
+                            </Link>
                             {(d.jobTitle || d.company) && (
                               <p className="text-[10px] text-gray-400 truncate">
                                 {[d.jobTitle, d.company].filter(Boolean).join(", ")}
@@ -667,7 +674,9 @@ export default function ProjectDetailClient({ project }: { project: ProjectDetai
                           </div>
                           {/* Info */}
                           <div className="flex-1 min-w-0">
-                            <p className="text-xs font-semibold text-gray-800 truncate">{c.name}</p>
+                            <Link href={`/donor/${c.id}/profile`} className="text-xs font-semibold text-gray-800 truncate block hover:underline">
+                              {c.name}
+                            </Link>
                             {(c.jobTitle || c.company) && (
                               <p className="text-[10px] text-gray-400 truncate">
                                 {[c.jobTitle, c.company].filter(Boolean).join(", ")}

@@ -9,7 +9,7 @@ export default async function ProjectsPage() {
   const projects = await prisma.project.findMany({
     where: { status: "ACTIVE" },
     include: {
-      ngo: { select: { orgName: true } },
+      ngo: { select: { id: true, orgName: true } },
       donations: { select: { userId: true } },
     },
     orderBy: { createdAt: "desc" },
@@ -20,6 +20,7 @@ export default async function ProjectsPage() {
   const projectData = projects.map((p) => ({
     id: p.id,
     title: p.title,
+    ngoId: p.ngo.id,
     ngoName: p.ngo.orgName,
     category: p.category,
     description: p.description,

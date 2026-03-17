@@ -55,7 +55,7 @@ export default async function CampaignDetailPage({
         },
       },
       contributors: {
-        include: { user: { select: { name: true } } },
+        include: { user: { select: { id: true, name: true } } },
         orderBy: { createdAt: "desc" },
         take: 10,
       },
@@ -128,10 +128,20 @@ export default async function CampaignDetailPage({
                   </div>
                   <div>
                     <p className="text-sm font-medium text-gray-900">
-                      Campaign by {campaign.creator.name ?? "Anonymous"}
+                      Campaign by{" "}
+                      <Link href={`/donor/${campaign.creator.id}/profile`} className="hover:underline text-emerald-700">
+                        {campaign.creator.name ?? "Anonymous"}
+                      </Link>
                     </p>
                     <p className="text-xs text-gray-500">
-                      For: {campaign.project.ngo.orgName} · {campaign.project.title}
+                      For:{" "}
+                      <Link href={`/ngo/${campaign.project.ngo.id}`} className="hover:underline text-gray-700">
+                        {campaign.project.ngo.orgName}
+                      </Link>
+                      {" · "}
+                      <Link href={`/projects/${campaign.projectId}`} className="hover:underline text-gray-700">
+                        {campaign.project.title}
+                      </Link>
                     </p>
                   </div>
                 </div>
@@ -175,7 +185,11 @@ export default async function CampaignDetailPage({
               <Card className="border-0 shadow-sm">
                 <CardContent className="p-6">
                   <h2 className="font-bold text-gray-900 mb-4">
-                    Why {campaign.creator.name ?? "this donor"} is running this
+                    Why{" "}
+                    <Link href={`/donor/${campaign.creator.id}/profile`} className="hover:underline text-emerald-700">
+                      {campaign.creator.name ?? "this donor"}
+                    </Link>
+                    {" "}is running this
                   </h2>
                   <p className="text-gray-600 text-sm leading-relaxed whitespace-pre-line">
                     {campaign.description}
@@ -265,9 +279,9 @@ export default async function CampaignDetailPage({
                             {(c.user.name ?? "A").charAt(0).toUpperCase()}
                           </div>
                           <div>
-                            <p className="text-sm font-medium text-gray-900">
+                            <Link href={`/donor/${c.user.id}/profile`} className="text-sm font-medium text-gray-900 hover:underline">
                               {c.user.name ?? "Anonymous"}
-                            </p>
+                            </Link>
                             <p className="text-xs text-gray-400">{timeAgo(c.createdAt)}</p>
                           </div>
                         </div>
