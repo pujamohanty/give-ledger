@@ -26,6 +26,25 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
     return NextResponse.json({ error: "You have already applied to this role" }, { status: 409 });
   }
 
+  // Enforce subscription plan limits
+  const subscription = await prisma.subscription.findUnique({
+    where: { userId: session.user.id },
+  });
+  const plan = subscription?.plan ?? "FREE";
+
+  if (plan === "FREE") {
+    return NextResponse.json(
+      { error: "Upgrade required", code: "UPGRADE_REQUIRED" },
+      { status: 403 }
+    );
+  }
+  if (plan === "BASIC" && (subscription?.applicationsUsed ?? 0) >= 50) {
+    return NextResponse.json(
+      { error: "Application limit reached", code: "LIMIT_REACHED" },
+      { status: 403 }
+    );
+  }
+
   const body = await req.json();
   const { coverNote, linkedinUrl, portfolioUrl } = body;
 
@@ -43,6 +62,14 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
       status: "PENDING",
     },
   });
+
+  // Increment usage count for BASIC plan
+  if (plan === "BASIC" && subscription) {
+    await prisma.subscription.update({
+      where: { userId: session.user.id },
+      data: { applicationsUsed: { increment: 1 } },
+    });
+  }
 
   // Notify NGO
   const ngo = await prisma.ngo.findUnique({ where: { id: role.ngoId } });

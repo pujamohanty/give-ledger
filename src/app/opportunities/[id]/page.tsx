@@ -6,7 +6,7 @@ import Navbar from "@/components/Navbar";
 import RoleApplyButton from "@/components/RoleApplyButton";
 import {
   Briefcase, Clock, Users, MapPin, Wifi, ArrowLeft,
-  Building2, CheckCircle, Calendar, Star,
+  Building2, CheckCircle, Calendar, Star, Lock,
 } from "lucide-react";
 
 const roleTypeLabels: Record<string, { label: string; color: string; description: string }> = {
@@ -53,18 +53,29 @@ export default async function OpportunityDetailPage({ params }: { params: Promis
 
   if (!role) notFound();
 
-  // Check if logged-in donor already applied
+  // Check if logged-in donor already applied + subscription status
   let alreadyApplied = false;
   let donorProfile: { linkedinUrl?: string | null; portfolioUrl?: string | null } | null = null;
+  let subscriptionPlan: string = "FREE";
+  let appsUsed = 0;
   if (session?.user?.role === "DONOR") {
-    const existing = await prisma.roleApplication.findUnique({
-      where: { roleId_applicantId: { roleId: id, applicantId: session.user.id } },
-    });
+    const [existing, sub, profile] = await Promise.all([
+      prisma.roleApplication.findUnique({
+        where: { roleId_applicantId: { roleId: id, applicantId: session.user.id } },
+      }),
+      prisma.subscription.findUnique({
+        where: { userId: session.user.id },
+        select: { plan: true, applicationsUsed: true },
+      }),
+      prisma.user.findUnique({
+        where: { id: session.user.id },
+        select: { linkedinUrl: true, portfolioUrl: true },
+      }),
+    ]);
     alreadyApplied = !!existing;
-    donorProfile = await prisma.user.findUnique({
-      where: { id: session.user.id },
-      select: { linkedinUrl: true, portfolioUrl: true },
-    });
+    subscriptionPlan = sub?.plan ?? "FREE";
+    appsUsed = sub?.applicationsUsed ?? 0;
+    donorProfile = profile;
   }
 
   const typeInfo = roleTypeLabels[role.roleType] ?? roleTypeLabels.VOLUNTEER;
@@ -233,6 +244,26 @@ export default async function OpportunityDetailPage({ params }: { params: Promis
                 </div>
               ) : session.user.role !== "DONOR" ? (
                 <p className="text-xs text-gray-500 text-center">Only donors can apply to roles.</p>
+              ) : subscriptionPlan === "FREE" ? (
+                <div className="space-y-2">
+                  <div className="flex items-center justify-center gap-2 bg-gray-50 border border-gray-200 rounded-xl p-3 mb-3">
+                    <Lock className="w-4 h-4 text-gray-400 shrink-0" />
+                    <p className="text-xs text-gray-500 text-center">A paid plan is required to apply to roles.</p>
+                  </div>
+                  <Link href="/pricing" className="block w-full text-center bg-emerald-700 text-white text-sm font-semibold py-2.5 rounded-lg hover:bg-emerald-800 transition-colors">
+                    View plans — from $10
+                  </Link>
+                </div>
+              ) : subscriptionPlan === "BASIC" && appsUsed >= 50 ? (
+                <div className="space-y-2">
+                  <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 text-center">
+                    <p className="text-sm font-medium text-amber-800">Application limit reached</p>
+                    <p className="text-xs text-amber-600 mt-1">You&apos;ve used all 50 Basic applications. Upgrade to Pro for unlimited access.</p>
+                  </div>
+                  <Link href="/pricing" className="block w-full text-center bg-violet-600 text-white text-sm font-semibold py-2.5 rounded-lg hover:bg-violet-700 transition-colors">
+                    Upgrade to Pro — $25
+                  </Link>
+                </div>
               ) : (
                 <RoleApplyButton
                   roleId={role.id}

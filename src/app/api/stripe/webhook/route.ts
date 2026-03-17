@@ -27,6 +27,41 @@ export async function POST(req: NextRequest) {
   if (event.type === "checkout.session.completed") {
     const session = event.data.object;
     const metadata = (session as { metadata?: Record<string, string> }).metadata ?? {};
+
+    // ── Subscription payment ──────────────────────────────────────────
+    if (metadata.type === "subscription") {
+      const { plan, userId } = metadata;
+      if (!plan || !userId) {
+        return NextResponse.json({ error: "Missing subscription metadata" }, { status: 400 });
+      }
+
+      const sessionObj = session as { payment_intent?: string };
+      const refundEligibleAt =
+        plan === "PRO"
+          ? new Date(Date.now() + 18 * 30 * 24 * 60 * 60 * 1000)
+          : null;
+
+      await prisma.subscription.upsert({
+        where: { userId },
+        update: {
+          plan: plan as "BASIC" | "PRO",
+          stripePaymentId: sessionObj.payment_intent as string,
+          refundEligibleAt,
+          purchasedAt: new Date(),
+        },
+        create: {
+          userId,
+          plan: plan as "BASIC" | "PRO",
+          stripePaymentId: sessionObj.payment_intent as string,
+          refundEligibleAt,
+          purchasedAt: new Date(),
+        },
+      });
+
+      return NextResponse.json({ received: true });
+    }
+
+    // ── Donation payment ──────────────────────────────────────────────
     const { projectId, userId } = metadata;
 
     if (!projectId || !userId) {

@@ -33,7 +33,12 @@ export default async function NgoRoleDetailPage({ params }: { params: Promise<{ 
       applications: {
         include: {
           applicant: {
-            select: { id: true, name: true, email: true, image: true, jobTitle: true, company: true, city: true, linkedinUrl: true, portfolioUrl: true },
+            select: {
+              id: true, name: true, email: true, image: true,
+              jobTitle: true, company: true, city: true,
+              linkedinUrl: true, portfolioUrl: true,
+              subscription: { select: { plan: true } },
+            },
           },
           engagement: true,
         },
@@ -44,7 +49,14 @@ export default async function NgoRoleDetailPage({ params }: { params: Promise<{ 
 
   if (!role) notFound();
 
-  const pending   = role.applications.filter((a) => a.status === "PENDING");
+  const pending   = role.applications
+    .filter((a) => a.status === "PENDING")
+    .sort((a, b) => {
+      // PRO applicants appear first
+      const aIsPro = a.applicant.subscription?.plan === "PRO" ? 0 : 1;
+      const bIsPro = b.applicant.subscription?.plan === "PRO" ? 0 : 1;
+      return aIsPro - bIsPro;
+    });
   const accepted  = role.applications.filter((a) => a.status === "ACCEPTED");
   const active    = accepted.filter((a) => a.engagement?.status === "ACTIVE");
   const completed = accepted.filter((a) => a.engagement?.status === "COMPLETED");
@@ -115,7 +127,14 @@ export default async function NgoRoleDetailPage({ params }: { params: Promise<{ 
                         {app.applicant.name?.slice(0, 2).toUpperCase() ?? "?"}
                       </div>
                       <div>
-                        <p className="text-sm font-semibold text-gray-900">{app.applicant.name ?? "Applicant"}</p>
+                        <p className="text-sm font-semibold text-gray-900 flex items-center gap-1.5">
+                          {app.applicant.name ?? "Applicant"}
+                          {app.applicant.subscription?.plan === "PRO" && (
+                            <span className="text-[9px] font-bold bg-violet-600 text-white px-1.5 py-0.5 rounded-full leading-tight">
+                              PRO
+                            </span>
+                          )}
+                        </p>
                         <p className="text-[11px] text-gray-500">
                           {[app.applicant.jobTitle, app.applicant.company].filter(Boolean).join(" · ")}
                           {app.applicant.city && <span className="ml-1">· {app.applicant.city}</span>}
