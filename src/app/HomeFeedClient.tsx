@@ -658,8 +658,8 @@ export default function HomeFeedClient({ initial, initialCursor, stats, featured
           <Feed initial={initial} initialCursor={initialCursor} allProjects={allProjects} />
         </div>
 
-        {/* Right sidebar */}
-        <div className="hidden lg:block sticky top-20 self-start">
+        {/* Right sidebar — scrolls with the page */}
+        <div className="hidden lg:block self-start">
           <RightSidebar featuredProjects={featuredProjects} recentNgos={recentNgos} openRoles={openRoles} />
         </div>
       </div>
