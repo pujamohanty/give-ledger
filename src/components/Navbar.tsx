@@ -59,7 +59,7 @@ export default function Navbar({ session }: NavbarProps) {
           {[
             { href: "/projects", label: "Projects" },
             { href: "/campaigns", label: "Campaigns" },
-            { href: "/opportunities", label: "Opportunities" },
+            { href: "/opportunities", label: "Open Roles" },
             { href: "/wall", label: "Activity" },
             { href: "/impact", label: "Impact" },
           ].map((item) => (
@@ -121,7 +121,7 @@ export default function Navbar({ session }: NavbarProps) {
           {[
             { href: "/projects", label: "Projects" },
             { href: "/campaigns", label: "Campaigns" },
-            { href: "/opportunities", label: "Opportunities" },
+            { href: "/opportunities", label: "Open Roles" },
             { href: "/wall", label: "Activity" },
             { href: "/impact", label: "Impact" },
             { href: "/suggest-ngo", label: "Suggest an NGO" },

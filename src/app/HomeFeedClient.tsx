@@ -377,18 +377,18 @@ function LeftSidebar({ session, stats }: {
         <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">Platform Impact</h3>
         <div className="space-y-3">
           {[
-            { icon: Users, label: "Active Donors", value: stats.donors.toLocaleString(), color: "text-rose-500" },
-            { icon: Landmark, label: "Verified NGOs", value: stats.ngos.toLocaleString(), color: "text-amber-500" },
-            { icon: BookOpen, label: "Projects", value: stats.projects.toLocaleString(), color: "text-blue-500" },
-            { icon: CheckCircle2, label: "Milestones Proven", value: stats.milestones.toLocaleString(), color: "text-emerald-500" },
-          ].map(({ icon: Icon, label, value, color }) => (
-            <div key={label} className="flex items-center justify-between">
+            { icon: Users,       label: "Active Donors",    value: stats.donors.toLocaleString(),     color: "text-rose-500",    href: "/donors"   },
+            { icon: Landmark,    label: "Verified NGOs",    value: stats.ngos.toLocaleString(),       color: "text-amber-500",   href: "/ngos"     },
+            { icon: BookOpen,    label: "Projects",         value: stats.projects.toLocaleString(),   color: "text-blue-500",    href: "/projects" },
+            { icon: CheckCircle2,label: "Milestones Proven",value: stats.milestones.toLocaleString(), color: "text-emerald-500", href: "/impact"   },
+          ].map(({ icon: Icon, label, value, color, href }) => (
+            <Link key={label} href={href} className="flex items-center justify-between hover:bg-gray-50 rounded-lg px-1 -mx-1 py-0.5 transition-colors group">
               <div className="flex items-center gap-2">
                 <Icon className={`w-4 h-4 ${color}`} />
-                <span className="text-xs text-gray-600">{label}</span>
+                <span className="text-xs text-gray-600 group-hover:text-emerald-700 transition-colors">{label}</span>
               </div>
-              <span className="text-sm font-bold text-gray-900">{value}</span>
-            </div>
+              <span className="text-sm font-bold text-gray-900 group-hover:text-emerald-700 transition-colors">{value}</span>
+            </Link>
           ))}
         </div>
       </div>
