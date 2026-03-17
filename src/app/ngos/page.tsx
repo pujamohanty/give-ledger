@@ -60,7 +60,6 @@ export default async function NgosPage() {
       _count: {
         select: {
           projects: true,
-          donations: true,
         },
       },
     },
@@ -124,6 +123,7 @@ export default async function NgosPage() {
                     <TrendingUp className="w-3.5 h-3.5 text-emerald-400" />
                     {ngo._count.projects} project{ngo._count.projects !== 1 ? "s" : ""}
                   </span>
+
                   {activeProjects > 0 && (
                     <span className="flex items-center gap-1">
                       <Users className="w-3.5 h-3.5 text-blue-400" />
