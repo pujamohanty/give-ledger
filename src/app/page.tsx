@@ -1,7 +1,9 @@
 import Link from "next/link";
+import type { Session } from "next-auth";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import Navbar from "@/components/Navbar";
+import HomeFeedClient from "./HomeFeedClient";
 import {
   ArrowRight, CheckCircle2, Briefcase, DollarSign, Clock,
   Shield, Star, Zap, Crown, Award, TrendingUp, Users,
@@ -9,28 +11,33 @@ import {
   ExternalLink, RotateCcw, Globe,
 } from "lucide-react";
 
-/* ─── Category labels ─────────────────────────────────────── */
+export const metadata = {
+  title: "GiveLedger — Contribute Skills, Money or Time to Verified NGOs",
+  description:
+    "GiveLedger connects skilled professionals with verified US nonprofits. Every engagement is NGO-confirmed, blockchain-recorded, and counts as certified professional experience.",
+};
+
+/* ─── Category / role-type labels ────────────────────────── */
 const categoryLabels: Record<string, string> = {
-  INCOME_GENERATION:  "Income Generation",
-  CHILD_CARE:         "Child Care",
-  ELDERLY_CARE:       "Elderly Care",
-  PHYSICALLY_DISABLED:"Disabled Support",
-  PET_CARE:           "Pet Care",
-  OTHER:              "Other",
+  INCOME_GENERATION:   "Income Generation",
+  CHILD_CARE:          "Child Care",
+  ELDERLY_CARE:        "Elderly Care",
+  PHYSICALLY_DISABLED: "Disabled Support",
+  PET_CARE:            "Pet Care",
+  OTHER:               "Other",
 };
 
 const roleTypeLabels: Record<string, { label: string; color: string }> = {
-  INTERNSHIP:        { label: "Internship",        color: "bg-blue-50 text-blue-700" },
-  CAREER_TRANSITION: { label: "Career Transition",  color: "bg-purple-50 text-purple-700" },
-  INTERIM:           { label: "Interim Role",        color: "bg-amber-50 text-amber-700" },
-  VOLUNTEER:         { label: "Volunteer",            color: "bg-emerald-50 text-emerald-700" },
+  INTERNSHIP:        { label: "Internship",       color: "bg-blue-50 text-blue-700" },
+  CAREER_TRANSITION: { label: "Career Transition", color: "bg-purple-50 text-purple-700" },
+  INTERIM:           { label: "Interim Role",      color: "bg-amber-50 text-amber-700" },
+  VOLUNTEER:         { label: "Volunteer",          color: "bg-emerald-50 text-emerald-700" },
 };
 
-/* ─── Mock credential card used as "screenshot" ──────────── */
+/* ─── CSS UI mockups used as "screenshots" ───────────────── */
 function CredentialMockup() {
   return (
     <div className="bg-white rounded-2xl border border-gray-200 shadow-xl overflow-hidden w-full max-w-sm">
-      {/* Browser chrome */}
       <div className="bg-gray-100 px-3 py-2 flex items-center gap-2 border-b border-gray-200">
         <div className="flex gap-1.5">
           <div className="w-2.5 h-2.5 rounded-full bg-red-400" />
@@ -41,7 +48,6 @@ function CredentialMockup() {
           give-ledger.vercel.app/credential/...
         </div>
       </div>
-      {/* Credential content */}
       <div className="p-5">
         <div className="flex items-center gap-2 mb-4">
           <div className="w-8 h-8 bg-emerald-700 rounded-lg flex items-center justify-center">
@@ -53,7 +59,6 @@ function CredentialMockup() {
           </div>
           <BadgeCheck className="w-4 h-4 text-emerald-500 ml-auto" />
         </div>
-
         <div className="flex items-center gap-3 mb-4 pb-4 border-b border-gray-100">
           <div className="w-10 h-10 rounded-full bg-violet-100 flex items-center justify-center text-sm font-bold text-violet-700">
             SR
@@ -63,12 +68,11 @@ function CredentialMockup() {
             <p className="text-[10px] text-gray-400">Marketing Director · San Francisco, CA</p>
           </div>
         </div>
-
         <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-wide mb-2">Verified Contributions</p>
         <div className="space-y-2">
           {[
             { org: "WaterBridge Foundation", role: "Marketing Strategy Lead", hours: "48h", value: "$1,200", cat: "MARKETING" },
-            { org: "Pragati Foundation", role: "Brand Identity Redesign", hours: "32h", value: "$960", cat: "DESIGN" },
+            { org: "Pragati Foundation",     role: "Brand Identity Redesign", hours: "32h", value: "$960",   cat: "DESIGN" },
           ].map((c) => (
             <div key={c.org} className="bg-emerald-50 border border-emerald-100 rounded-xl p-2.5">
               <div className="flex items-center justify-between mb-1">
@@ -83,7 +87,6 @@ function CredentialMockup() {
             </div>
           ))}
         </div>
-
         <div className="mt-3 flex items-center gap-1.5 bg-gray-50 rounded-lg px-2.5 py-1.5">
           <Shield className="w-3 h-3 text-emerald-600 shrink-0" />
           <p className="text-[8px] text-gray-500">Verified on Polygon · 2 on-chain records</p>
@@ -93,7 +96,6 @@ function CredentialMockup() {
   );
 }
 
-/* ─── Mock opportunity card ───────────────────────────────── */
 function OpportunityMockup() {
   return (
     <div className="bg-white rounded-2xl border border-gray-200 shadow-xl overflow-hidden w-full max-w-xs">
@@ -111,19 +113,17 @@ function OpportunityMockup() {
         <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-wide mb-2">Open Roles</p>
         <div className="space-y-2">
           {[
-            { title: "Digital Marketing Lead", org: "Pragati Foundation", type: "Career Transition", remote: true, hours: "10h/week", color: "bg-purple-50 text-purple-700" },
-            { title: "Legal Compliance Review", org: "WaterBridge Kenya", type: "Internship", remote: true, hours: "6h/week", color: "bg-blue-50 text-blue-700" },
-            { title: "Financial Model Audit", org: "SilverYears Trust", type: "Interim Role", remote: false, hours: "15h/week", color: "bg-amber-50 text-amber-700" },
+            { title: "Digital Marketing Lead",  org: "Pragati Foundation",  type: "Career Transition", remote: true,  hours: "10h/week", color: "bg-purple-50 text-purple-700" },
+            { title: "Legal Compliance Review", org: "WaterBridge Kenya",   type: "Internship",        remote: true,  hours: "6h/week",  color: "bg-blue-50 text-blue-700"   },
+            { title: "Financial Model Audit",   org: "SilverYears Trust",   type: "Interim Role",      remote: false, hours: "15h/week", color: "bg-amber-50 text-amber-700"  },
           ].map((r) => (
-            <div key={r.title} className="border border-gray-100 rounded-xl p-2.5 hover:border-gray-200">
+            <div key={r.title} className="border border-gray-100 rounded-xl p-2.5">
               <div className="flex items-start justify-between gap-2">
                 <div className="min-w-0">
                   <p className="text-[11px] font-semibold text-gray-900 truncate">{r.title}</p>
                   <p className="text-[9px] text-gray-400">{r.org}</p>
                 </div>
-                <span className={`shrink-0 text-[8px] font-semibold px-1.5 py-0.5 rounded-full ${r.color}`}>
-                  {r.type}
-                </span>
+                <span className={`shrink-0 text-[8px] font-semibold px-1.5 py-0.5 rounded-full ${r.color}`}>{r.type}</span>
               </div>
               <div className="flex gap-2 mt-1.5 text-[9px] text-gray-400">
                 <span className="flex items-center gap-0.5"><Clock className="w-2.5 h-2.5" /> {r.hours}</span>
@@ -139,7 +139,6 @@ function OpportunityMockup() {
   );
 }
 
-/* ─── Mock milestone verification card ───────────────────── */
 function MilestoneMockup() {
   return (
     <div className="bg-white rounded-2xl border border-gray-200 shadow-xl overflow-hidden w-full max-w-xs">
@@ -182,10 +181,8 @@ function MilestoneMockup() {
   );
 }
 
-/* ─── Page ────────────────────────────────────────────────── */
-export default async function HomePage() {
-  const session = await auth();
-
+/* ─── Landing page (logged-out) ──────────────────────────── */
+async function LandingPage({ session }: { session: Session | null }) {
   const [
     donorCount,
     ngoCount,
@@ -197,26 +194,17 @@ export default async function HomePage() {
     prisma.user.count({ where: { role: "DONOR" } }),
     prisma.ngo.count({ where: { status: "ACTIVE" } }),
     prisma.milestone.count({ where: { status: "COMPLETED" } }),
-    prisma.disbursement.aggregate({
-      where: { status: "APPROVED" },
-      _sum: { requestedAmount: true },
-    }),
+    prisma.disbursement.aggregate({ where: { status: "APPROVED" }, _sum: { requestedAmount: true } }),
     prisma.ngoRole.findMany({
       take: 6,
       where: { status: "OPEN" },
-      include: {
-        ngo: { select: { id: true, orgName: true, state: true } },
-        _count: { select: { applications: true } },
-      },
+      include: { ngo: { select: { id: true, orgName: true, state: true } }, _count: { select: { applications: true } } },
       orderBy: { createdAt: "desc" },
     }),
     prisma.project.findMany({
       take: 3,
       where: { status: "ACTIVE" },
-      include: {
-        ngo: { select: { orgName: true } },
-        _count: { select: { milestones: true, donations: true } },
-      },
+      include: { ngo: { select: { orgName: true } }, _count: { select: { milestones: true, donations: true } } },
       orderBy: { raisedAmount: "desc" },
     }),
   ]);
@@ -227,20 +215,14 @@ export default async function HomePage() {
     <div className="min-h-screen bg-white">
       <Navbar session={session} />
 
-      {/* ──────────────────────────────────────────────────────── */}
-      {/* 1. HERO                                                  */}
-      {/* ──────────────────────────────────────────────────────── */}
+      {/* ── Hero ── */}
       <section className="relative overflow-hidden bg-[#052e16] text-white">
-        {/* Subtle grid overlay */}
         <div className="absolute inset-0 opacity-10"
           style={{ backgroundImage: "radial-gradient(circle at 1px 1px, rgba(255,255,255,0.4) 1px, transparent 0)", backgroundSize: "32px 32px" }}
         />
-        {/* Gradient fade bottom */}
         <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#052e16] to-transparent" />
-
         <div className="relative max-w-6xl mx-auto px-4 sm:px-6 pt-16 pb-20">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Left copy */}
             <div>
               <div className="inline-flex items-center gap-2 bg-emerald-900/50 border border-emerald-700/40 rounded-full px-3 py-1.5 text-xs text-emerald-300 mb-6">
                 <Zap className="w-3 h-3" />
@@ -258,27 +240,18 @@ export default async function HomePage() {
                 certified professional experience.
               </p>
               <div className="flex flex-wrap gap-3">
-                <Link
-                  href="/opportunities"
-                  className="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-white font-semibold px-6 py-3 rounded-xl text-sm transition-colors"
-                >
+                <Link href="/opportunities" className="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-white font-semibold px-6 py-3 rounded-xl text-sm transition-colors">
                   Browse Open Roles <ArrowRight className="w-4 h-4" />
                 </Link>
-                <Link
-                  href="/pricing"
-                  className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white font-medium px-6 py-3 rounded-xl text-sm transition-colors border border-white/20"
-                >
+                <Link href="/pricing" className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white font-medium px-6 py-3 rounded-xl text-sm transition-colors border border-white/20">
                   View Plans — from $10
                 </Link>
               </div>
               <p className="text-xs text-gray-500 mt-4">
                 Already have an account?{" "}
-                <Link href={session ? (session.user?.role === "NGO" ? "/ngo/dashboard" : "/donor/dashboard") : "/login"} className="text-emerald-400 hover:underline">
-                  {session ? "Go to your dashboard" : "Sign in"}
-                </Link>
+                <Link href="/login" className="text-emerald-400 hover:underline">Sign in</Link>
               </p>
             </div>
-            {/* Right — credential mockup */}
             <div className="hidden lg:flex justify-center">
               <CredentialMockup />
             </div>
@@ -286,16 +259,14 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ──────────────────────────────────────────────────────── */}
-      {/* 2. LIVE STATS BAR                                        */}
-      {/* ──────────────────────────────────────────────────────── */}
+      {/* ── Live stats bar ── */}
       <section className="bg-emerald-700 text-white py-5">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 grid grid-cols-2 sm:grid-cols-4 gap-6 text-center">
           {[
             { value: `$${(totalDisbursed / 1000).toFixed(0)}k+`, label: "Disbursed to NGOs" },
-            { value: `${milestoneCount}`, label: "Milestones verified" },
-            { value: `${ngoCount}`, label: "Active nonprofits" },
-            { value: `${donorCount}+`, label: "Contributors joined" },
+            { value: `${milestoneCount}`,                          label: "Milestones verified" },
+            { value: `${ngoCount}`,                                label: "Active nonprofits" },
+            { value: `${donorCount}+`,                             label: "Contributors joined" },
           ].map((s) => (
             <div key={s.label}>
               <p className="text-2xl font-extrabold">{s.value}</p>
@@ -305,9 +276,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ──────────────────────────────────────────────────────── */}
-      {/* 3. THREE CONTRIBUTION TYPES                              */}
-      {/* ──────────────────────────────────────────────────────── */}
+      {/* ── Three contribution types ── */}
       <section className="py-20 bg-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-12">
@@ -319,96 +288,61 @@ export default async function HomePage() {
               earns the same public credit, the same on-chain record, and the same credential.
             </p>
           </div>
-
           <div className="grid sm:grid-cols-3 gap-6">
-            {/* Skills — featured */}
-            <div className="relative bg-emerald-700 text-white rounded-2xl p-6 sm:col-span-1 order-first">
+            <div className="relative bg-emerald-700 text-white rounded-2xl p-6">
               <div className="absolute top-4 right-4">
-                <span className="text-[10px] font-bold bg-emerald-500 text-white px-2 py-0.5 rounded-full">
-                  Highlighted
-                </span>
+                <span className="text-[10px] font-bold bg-emerald-500 text-white px-2 py-0.5 rounded-full">Highlighted</span>
               </div>
               <Briefcase className="w-8 h-8 text-emerald-300 mb-4" />
               <h3 className="text-lg font-bold mb-2">Skill Contribution</h3>
               <p className="text-emerald-100 text-sm leading-relaxed mb-4">
-                Apply your expertise — marketing, legal, IT, design, fundraising — directly to
-                NGO projects. The NGO confirms delivery and assigns a monetary value.
+                Apply your expertise — marketing, legal, IT, design, fundraising — directly to NGO projects.
+                The NGO confirms delivery and assigns a monetary value.
               </p>
               <ul className="space-y-2 mb-6">
-                {[
-                  "Certified professional experience",
-                  "NGO-assigned monetary value",
-                  "On-chain record on Polygon",
-                  "Counts toward GiveLedger Credential",
-                ].map((f) => (
+                {["Certified professional experience", "NGO-assigned monetary value", "On-chain record on Polygon", "Counts toward GiveLedger Credential"].map((f) => (
                   <li key={f} className="flex items-start gap-2 text-xs text-emerald-100">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-300 shrink-0 mt-0.5" />
-                    {f}
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-300 shrink-0 mt-0.5" />{f}
                   </li>
                 ))}
               </ul>
-              <Link
-                href="/opportunities"
-                className="inline-flex items-center gap-2 bg-white text-emerald-700 font-semibold px-4 py-2.5 rounded-xl text-xs hover:bg-emerald-50 transition-colors"
-              >
+              <Link href="/opportunities" className="inline-flex items-center gap-2 bg-white text-emerald-700 font-semibold px-4 py-2.5 rounded-xl text-xs hover:bg-emerald-50 transition-colors">
                 Browse open roles <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </div>
-
-            {/* Money */}
             <div className="bg-gray-50 border border-gray-200 rounded-2xl p-6">
               <DollarSign className="w-8 h-8 text-gray-400 mb-4" />
               <h3 className="text-lg font-bold text-gray-900 mb-2">Financial Donation</h3>
               <p className="text-gray-500 text-sm leading-relaxed mb-4">
-                Donate to projects where every dollar is milestone-locked. Funds only release
-                when verified evidence of completion is submitted. Every transaction on-chain.
+                Donate to projects where every dollar is milestone-locked. Funds only release when
+                verified evidence of completion is submitted. Every transaction on-chain.
               </p>
               <ul className="space-y-2 mb-6">
-                {[
-                  "Milestone-locked fund release",
-                  "Stripe-powered checkout",
-                  "Polygon blockchain record",
-                  "Permanent impact certificate",
-                ].map((f) => (
+                {["Milestone-locked fund release", "Stripe-powered checkout", "Polygon blockchain record", "Permanent impact certificate"].map((f) => (
                   <li key={f} className="flex items-start gap-2 text-xs text-gray-500">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5" />
-                    {f}
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5" />{f}
                   </li>
                 ))}
               </ul>
-              <Link
-                href="/projects"
-                className="inline-flex items-center gap-2 border border-gray-200 text-gray-700 font-medium px-4 py-2.5 rounded-xl text-xs hover:bg-gray-100 transition-colors"
-              >
+              <Link href="/projects" className="inline-flex items-center gap-2 border border-gray-200 text-gray-700 font-medium px-4 py-2.5 rounded-xl text-xs hover:bg-gray-100 transition-colors">
                 Browse projects <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </div>
-
-            {/* Time */}
             <div className="bg-gray-50 border border-gray-200 rounded-2xl p-6">
               <Clock className="w-8 h-8 text-gray-400 mb-4" />
               <h3 className="text-lg font-bold text-gray-900 mb-2">Time Volunteering</h3>
               <p className="text-gray-500 text-sm leading-relaxed mb-4">
-                No specific skill required — contribute your time to NGO operations,
-                community events, or field programmes. Every hour is logged and verified.
+                Contribute your time to NGO operations, community events, or field programmes.
+                Every hour is logged and verified by the NGO.
               </p>
               <ul className="space-y-2 mb-6">
-                {[
-                  "Log hours directly on platform",
-                  "NGO confirms time donated",
-                  "Visible on public profile",
-                  "Same credential as skill contributors",
-                ].map((f) => (
+                {["Log hours directly on platform", "NGO confirms time donated", "Visible on public profile", "Same credential as skill contributors"].map((f) => (
                   <li key={f} className="flex items-start gap-2 text-xs text-gray-500">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5" />
-                    {f}
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5" />{f}
                   </li>
                 ))}
               </ul>
-              <Link
-                href="/opportunities"
-                className="inline-flex items-center gap-2 border border-gray-200 text-gray-700 font-medium px-4 py-2.5 rounded-xl text-xs hover:bg-gray-100 transition-colors"
-              >
+              <Link href="/opportunities" className="inline-flex items-center gap-2 border border-gray-200 text-gray-700 font-medium px-4 py-2.5 rounded-xl text-xs hover:bg-gray-100 transition-colors">
                 Volunteer opportunities <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </div>
@@ -416,54 +350,27 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ──────────────────────────────────────────────────────── */}
-      {/* 4. HOW SKILL CONTRIBUTION WORKS                          */}
-      {/* ──────────────────────────────────────────────────────── */}
+      {/* ── How skill contribution works ── */}
       <section className="py-20 bg-[#f8faf9]">
         <div className="max-w-5xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-14">
             <div className="inline-block bg-emerald-100 text-emerald-700 text-xs font-semibold px-3 py-1 rounded-full mb-3">
               For skill contributors
             </div>
-            <h2 className="text-3xl font-bold text-gray-900 mb-3">
-              How it works — five steps
-            </h2>
+            <h2 className="text-3xl font-bold text-gray-900 mb-3">How it works — five steps</h2>
             <p className="text-gray-500 text-sm max-w-xl mx-auto">
               From first click to a credential on your LinkedIn profile in as little as one project.
             </p>
           </div>
-
           <div className="relative">
-            {/* Connecting line */}
             <div className="hidden sm:block absolute left-1/2 top-6 bottom-6 w-px bg-emerald-100 -translate-x-1/2" />
-
             <div className="space-y-8 sm:space-y-0 sm:grid sm:grid-cols-5 sm:gap-4">
               {[
-                {
-                  step: 1, icon: Globe,
-                  title: "Browse roles",
-                  desc: "Filter by skill category, role type (internship, career transition, interim, volunteer), and commitment.",
-                },
-                {
-                  step: 2, icon: Briefcase,
-                  title: "Apply with cover note",
-                  desc: "Submit your cover note and links. Basic plan: up to 50 applications. Pro plan: unlimited.",
-                },
-                {
-                  step: 3, icon: Users,
-                  title: "NGO reviews & accepts",
-                  desc: "The NGO reviews your application. PRO contributors appear first in the review queue.",
-                },
-                {
-                  step: 4, icon: CheckCircle2,
-                  title: "Deliver & log hours",
-                  desc: "Work with the NGO team. Log hours as you go. The NGO confirms delivery and assigns a monetary value.",
-                },
-                {
-                  step: 5, icon: Award,
-                  title: "Credential issued",
-                  desc: "An NGO-verified, on-chain contribution record appears on your GiveLedger Credential — ready to share.",
-                },
+                { step: 1, icon: Globe,         title: "Browse roles",         desc: "Filter by skill category, role type (internship, career transition, interim, volunteer), and time commitment." },
+                { step: 2, icon: Briefcase,     title: "Apply with cover note", desc: "Submit your cover note and links. Basic plan: up to 50 applications. Pro plan: unlimited." },
+                { step: 3, icon: Users,         title: "NGO reviews & accepts", desc: "The NGO reviews your application. PRO contributors appear first in the review queue." },
+                { step: 4, icon: CheckCircle2,  title: "Deliver & log hours",   desc: "Work with the NGO team. Log hours as you go. The NGO confirms delivery and assigns a monetary value." },
+                { step: 5, icon: Award,         title: "Credential issued",     desc: "An NGO-verified, on-chain contribution record appears on your GiveLedger Credential — ready to share." },
               ].map((s) => (
                 <div key={s.step} className="relative flex flex-col items-center text-center">
                   <div className="relative z-10 w-12 h-12 rounded-full bg-emerald-700 text-white flex items-center justify-center mb-3 shadow-lg">
@@ -476,35 +383,26 @@ export default async function HomePage() {
               ))}
             </div>
           </div>
-
           <div className="mt-12 text-center">
-            <Link
-              href="/opportunities"
-              className="inline-flex items-center gap-2 bg-emerald-700 text-white font-semibold px-8 py-3.5 rounded-xl text-sm hover:bg-emerald-800 transition-colors"
-            >
+            <Link href="/opportunities" className="inline-flex items-center gap-2 bg-emerald-700 text-white font-semibold px-8 py-3.5 rounded-xl text-sm hover:bg-emerald-800 transition-colors">
               See all open roles <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
         </div>
       </section>
 
-      {/* ──────────────────────────────────────────────────────── */}
-      {/* 5. LIVE OPEN ROLES                                       */}
-      {/* ──────────────────────────────────────────────────────── */}
+      {/* ── Live open roles ── */}
       <section className="py-20 bg-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6">
           <div className="flex items-end justify-between mb-8">
             <div>
               <h2 className="text-2xl font-bold text-gray-900">Open roles right now</h2>
-              <p className="text-gray-500 text-sm mt-1">
-                Verified nonprofits actively looking for skilled contributors.
-              </p>
+              <p className="text-gray-500 text-sm mt-1">Verified nonprofits actively looking for skilled contributors.</p>
             </div>
             <Link href="/opportunities" className="text-sm text-emerald-700 font-medium hover:underline flex items-center gap-1">
               View all <ChevronRight className="w-4 h-4" />
             </Link>
           </div>
-
           {openRoles.length === 0 ? (
             <div className="text-center py-16 bg-gray-50 rounded-2xl border border-dashed border-gray-200">
               <Briefcase className="w-10 h-10 text-gray-300 mx-auto mb-3" />
@@ -516,9 +414,7 @@ export default async function HomePage() {
                 const typeInfo = roleTypeLabels[role.roleType] ?? roleTypeLabels.VOLUNTEER;
                 const skills = role.skillsRequired.split(",").map((s) => s.trim()).filter(Boolean);
                 return (
-                  <Link
-                    key={role.id}
-                    href={`/opportunities/${role.id}`}
+                  <Link key={role.id} href={`/opportunities/${role.id}`}
                     className="group bg-white border border-gray-200 rounded-xl p-5 hover:border-emerald-300 hover:shadow-md transition-all flex flex-col gap-3"
                   >
                     <div className="flex items-start justify-between gap-2">
@@ -528,14 +424,10 @@ export default async function HomePage() {
                         </div>
                         <div className="min-w-0">
                           <p className="text-[10px] text-gray-400 truncate">{role.ngo.orgName}</p>
-                          <p className="text-sm font-semibold text-gray-900 truncate group-hover:text-emerald-700 transition-colors">
-                            {role.title}
-                          </p>
+                          <p className="text-sm font-semibold text-gray-900 truncate group-hover:text-emerald-700 transition-colors">{role.title}</p>
                         </div>
                       </div>
-                      <span className={`shrink-0 text-[9px] font-semibold px-2 py-0.5 rounded-full ${typeInfo.color}`}>
-                        {typeInfo.label}
-                      </span>
+                      <span className={`shrink-0 text-[9px] font-semibold px-2 py-0.5 rounded-full ${typeInfo.color}`}>{typeInfo.label}</span>
                     </div>
                     <div className="flex flex-wrap gap-x-3 gap-y-1 text-[10px] text-gray-400">
                       <span className="flex items-center gap-0.5"><Clock className="w-3 h-3" /> {role.timeCommitment}</span>
@@ -551,9 +443,7 @@ export default async function HomePage() {
                         {skills.slice(0, 3).map((s) => (
                           <span key={s} className="text-[9px] bg-gray-100 text-gray-500 px-2 py-0.5 rounded-full">{s}</span>
                         ))}
-                        {skills.length > 3 && (
-                          <span className="text-[9px] text-gray-400">+{skills.length - 3} more</span>
-                        )}
+                        {skills.length > 3 && <span className="text-[9px] text-gray-400">+{skills.length - 3} more</span>}
                       </div>
                     )}
                   </Link>
@@ -564,47 +454,22 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ──────────────────────────────────────────────────────── */}
-      {/* 6. WHAT YOU GET — side-by-side with opportunity mockup   */}
-      {/* ──────────────────────────────────────────────────────── */}
+      {/* ── What you get ── */}
       <section className="py-20 bg-[#f8faf9]">
         <div className="max-w-5xl mx-auto px-4 sm:px-6">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Copy */}
             <div>
-              <div className="inline-block bg-violet-100 text-violet-700 text-xs font-semibold px-3 py-1 rounded-full mb-4">
-                What you receive
-              </div>
+              <div className="inline-block bg-violet-100 text-violet-700 text-xs font-semibold px-3 py-1 rounded-full mb-4">What you receive</div>
               <h2 className="text-3xl font-bold text-gray-900 mb-5">
                 More than volunteering.<br />
                 <span className="text-emerald-700">A career asset.</span>
               </h2>
               <div className="space-y-5">
                 {[
-                  {
-                    icon: Award,
-                    color: "text-violet-600 bg-violet-50",
-                    title: "GiveLedger Credential",
-                    desc: "An exportable credential formatted for LinkedIn certification. Lists every verified engagement, monetary value, and on-chain proof. Not a volunteering note — a specific, certified record of professional work.",
-                  },
-                  {
-                    icon: TrendingUp,
-                    color: "text-emerald-600 bg-emerald-50",
-                    title: "NGO-assigned monetary value",
-                    desc: "The NGO knows what your work is worth in their context. They assign a dollar value to your contribution — $200, $1,000, $5,000. That number appears on your credential and public profile.",
-                  },
-                  {
-                    icon: Users,
-                    color: "text-blue-600 bg-blue-50",
-                    title: "Access to NGO networks",
-                    desc: "NGO boards and leadership include business leaders, community changemakers, and philanthropists. Your contribution earns proximity to these networks — on-platform and off.",
-                  },
-                  {
-                    icon: Shield,
-                    color: "text-amber-600 bg-amber-50",
-                    title: "Blockchain-verified proof",
-                    desc: "Every engagement is recorded on Polygon. Every claim on your credential is verifiable by anyone, anywhere. No one can dispute a record that exists on-chain.",
-                  },
+                  { icon: Award,     color: "text-violet-600 bg-violet-50",  title: "GiveLedger Credential",        desc: "Formatted for LinkedIn certification. Lists every verified engagement, monetary value, and on-chain proof. Not a volunteering note — a specific, certified record of professional work." },
+                  { icon: TrendingUp,color: "text-emerald-600 bg-emerald-50",title: "NGO-assigned monetary value",   desc: "The NGO knows what your work is worth. They assign a dollar value to your contribution — that number appears on your credential and public profile." },
+                  { icon: Users,     color: "text-blue-600 bg-blue-50",      title: "Access to NGO networks",       desc: "NGO boards include business leaders, community changemakers, and philanthropists. Your contribution earns proximity to these networks." },
+                  { icon: Shield,    color: "text-amber-600 bg-amber-50",    title: "Blockchain-verified proof",    desc: "Every engagement recorded on Polygon. Every claim on your credential verifiable by anyone, anywhere, forever." },
                 ].map((item) => (
                   <div key={item.title} className="flex items-start gap-4">
                     <div className={`w-10 h-10 rounded-xl ${item.color} flex items-center justify-center shrink-0`}>
@@ -618,17 +483,12 @@ export default async function HomePage() {
                 ))}
               </div>
             </div>
-            {/* Mockup */}
-            <div className="hidden lg:flex justify-center">
-              <OpportunityMockup />
-            </div>
+            <div className="hidden lg:flex justify-center"><OpportunityMockup /></div>
           </div>
         </div>
       </section>
 
-      {/* ──────────────────────────────────────────────────────── */}
-      {/* 7. PRICING CALLOUT                                       */}
-      {/* ──────────────────────────────────────────────────────── */}
+      {/* ── Pricing callout ── */}
       <section className="py-16 bg-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6">
           <div className="bg-gradient-to-br from-emerald-700 to-emerald-900 rounded-3xl p-8 sm:p-10">
@@ -636,59 +496,26 @@ export default async function HomePage() {
               <div className="text-white">
                 <h2 className="text-2xl font-bold mb-3">Start contributing today</h2>
                 <p className="text-emerald-100 text-sm leading-relaxed mb-6">
-                  Choose a plan that matches your ambition. One-time fee, no subscription.
-                  Pro plan includes a 100% refund after 18 months if you complete one engagement.
+                  One-time fee, no subscription. Pro plan includes a 100% refund after 18 months if you complete one engagement.
                 </p>
-                <Link
-                  href="/pricing"
-                  className="inline-flex items-center gap-2 bg-white text-emerald-700 font-semibold px-6 py-3 rounded-xl text-sm hover:bg-emerald-50 transition-colors"
-                >
+                <Link href="/pricing" className="inline-flex items-center gap-2 bg-white text-emerald-700 font-semibold px-6 py-3 rounded-xl text-sm hover:bg-emerald-50 transition-colors">
                   See full pricing <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
               <div className="grid grid-cols-3 gap-3">
                 {[
-                  {
-                    plan: "Free",
-                    price: "$0",
-                    features: ["Browse all roles", "View NGO profiles", "Public credential"],
-                    icon: Globe,
-                    iconColor: "text-white",
-                    bg: "bg-emerald-800/50",
-                    border: "border-emerald-700",
-                  },
-                  {
-                    plan: "Basic",
-                    price: "$10",
-                    features: ["Apply to 50 roles", "Cover note submission", "Engagement tracking"],
-                    icon: Zap,
-                    iconColor: "text-yellow-300",
-                    bg: "bg-emerald-800/50",
-                    border: "border-emerald-600",
-                  },
-                  {
-                    plan: "Pro",
-                    price: "$25",
-                    features: ["Unlimited applies", "Priority listing", "18-month refund"],
-                    icon: Crown,
-                    iconColor: "text-violet-300",
-                    bg: "bg-violet-900/40",
-                    border: "border-violet-500",
-                    highlight: true,
-                  },
+                  { plan: "Free",  price: "$0",  features: ["Browse all roles", "View NGO profiles", "Public credential"],            icon: Globe,  iconColor: "text-white",         bg: "bg-emerald-800/50", border: "border-emerald-700" },
+                  { plan: "Basic", price: "$10", features: ["Apply to 50 roles", "Cover note submission", "Engagement tracking"],     icon: Zap,    iconColor: "text-yellow-300",    bg: "bg-emerald-800/50", border: "border-emerald-600" },
+                  { plan: "Pro",   price: "$25", features: ["Unlimited applies", "Priority listing", "18-month refund"],             icon: Crown,  iconColor: "text-violet-300",    bg: "bg-violet-900/40",  border: "border-violet-500",  highlight: true },
                 ].map((p) => (
-                  <div
-                    key={p.plan}
-                    className={`${p.bg} border ${p.border} rounded-2xl p-4 text-white flex flex-col gap-2 ${p.highlight ? "ring-2 ring-violet-400/50" : ""}`}
-                  >
+                  <div key={p.plan} className={`${p.bg} border ${p.border} rounded-2xl p-4 text-white flex flex-col gap-2 ${p.highlight ? "ring-2 ring-violet-400/50" : ""}`}>
                     <p.icon className={`w-5 h-5 ${p.iconColor} mb-1`} />
                     <p className="text-sm font-bold">{p.plan}</p>
                     <p className="text-xl font-extrabold">{p.price}</p>
                     <ul className="space-y-1.5 mt-1">
                       {p.features.map((f) => (
                         <li key={f} className="flex items-start gap-1.5 text-[10px] text-emerald-100">
-                          <CheckCircle2 className="w-3 h-3 text-emerald-300 shrink-0 mt-0.5" />
-                          {f}
+                          <CheckCircle2 className="w-3 h-3 text-emerald-300 shrink-0 mt-0.5" />{f}
                         </li>
                       ))}
                     </ul>
@@ -700,36 +527,27 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ──────────────────────────────────────────────────────── */}
-      {/* 8. FINANCIAL DONORS — secondary section                  */}
-      {/* ──────────────────────────────────────────────────────── */}
+      {/* ── Financial donors ── */}
       <section className="py-20 bg-[#f8faf9]">
         <div className="max-w-5xl mx-auto px-4 sm:px-6">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Mockup */}
-            <div className="hidden lg:flex justify-center">
-              <MilestoneMockup />
-            </div>
-            {/* Copy */}
+            <div className="hidden lg:flex justify-center"><MilestoneMockup /></div>
             <div>
-              <div className="inline-block bg-emerald-100 text-emerald-700 text-xs font-semibold px-3 py-1 rounded-full mb-4">
-                Financial donors
-              </div>
+              <div className="inline-block bg-emerald-100 text-emerald-700 text-xs font-semibold px-3 py-1 rounded-full mb-4">Financial donors</div>
               <h2 className="text-3xl font-bold text-gray-900 mb-5">
                 Know exactly where<br />
                 <span className="text-emerald-700">your money went.</span>
               </h2>
               <p className="text-gray-500 text-sm leading-relaxed mb-6">
-                Every donation on GiveLedger is milestone-locked. Funds stay in escrow until
-                the NGO submits verified evidence of completion. When a milestone is verified,
-                the release is recorded on the Polygon blockchain — permanently, publicly, and
-                without any admin in the loop.
+                Every donation is milestone-locked. Funds stay in escrow until the NGO submits
+                verified evidence of completion. When a milestone is verified, the release is
+                recorded on Polygon — permanently, publicly, without any admin in the loop.
               </p>
               <div className="space-y-3 mb-6">
                 {[
-                  { icon: Landmark, label: "Milestone-locked funding", desc: "Funds release only on verified completion — no up-front lump sum to NGOs." },
-                  { icon: Shield, label: "On-chain transparency", desc: "Every disbursement recorded on Polygon. Every transaction verifiable forever." },
-                  { icon: Star, label: "Impact certificates", desc: "When a milestone you funded completes, you receive a permanent Impact Certificate." },
+                  { icon: Landmark, label: "Milestone-locked funding",  desc: "Funds release only on verified completion — not before." },
+                  { icon: Shield,   label: "On-chain transparency",      desc: "Every disbursement on Polygon. Auditable by anyone, forever." },
+                  { icon: Star,     label: "Impact certificates",        desc: "When a milestone you funded completes, you receive a permanent Impact Certificate." },
                 ].map((item) => (
                   <div key={item.label} className="flex items-start gap-3">
                     <div className="w-9 h-9 bg-emerald-50 rounded-xl flex items-center justify-center shrink-0">
@@ -742,10 +560,7 @@ export default async function HomePage() {
                   </div>
                 ))}
               </div>
-              <Link
-                href="/projects"
-                className="inline-flex items-center gap-2 bg-emerald-700 text-white font-semibold px-6 py-3 rounded-xl text-sm hover:bg-emerald-800 transition-colors"
-              >
+              <Link href="/projects" className="inline-flex items-center gap-2 bg-emerald-700 text-white font-semibold px-6 py-3 rounded-xl text-sm hover:bg-emerald-800 transition-colors">
                 Browse projects <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
@@ -753,9 +568,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ──────────────────────────────────────────────────────── */}
-      {/* 9. FEATURED PROJECTS                                     */}
-      {/* ──────────────────────────────────────────────────────── */}
+      {/* ── Featured projects ── */}
       {featuredProjects.length > 0 && (
         <section className="py-20 bg-white">
           <div className="max-w-5xl mx-auto px-4 sm:px-6">
@@ -772,9 +585,7 @@ export default async function HomePage() {
               {featuredProjects.map((project) => {
                 const pct = Math.min(100, (project.raisedAmount / project.goalAmount) * 100);
                 return (
-                  <Link
-                    key={project.id}
-                    href={`/projects/${project.id}`}
+                  <Link key={project.id} href={`/projects/${project.id}`}
                     className="group bg-white border border-gray-200 rounded-xl p-5 hover:border-emerald-300 hover:shadow-md transition-all"
                   >
                     <div className="flex items-center gap-2 mb-3">
@@ -783,9 +594,7 @@ export default async function HomePage() {
                       </div>
                       <p className="text-[10px] text-gray-400 truncate">{project.ngo.orgName}</p>
                     </div>
-                    <p className="text-sm font-semibold text-gray-900 mb-1 group-hover:text-emerald-700 transition-colors line-clamp-2">
-                      {project.title}
-                    </p>
+                    <p className="text-sm font-semibold text-gray-900 mb-1 group-hover:text-emerald-700 transition-colors line-clamp-2">{project.title}</p>
                     <span className="inline-block text-[9px] bg-gray-100 text-gray-500 px-2 py-0.5 rounded-full mb-3">
                       {categoryLabels[project.category] ?? project.category}
                     </span>
@@ -796,7 +605,7 @@ export default async function HomePage() {
                       <span>${project.raisedAmount.toLocaleString()} raised</span>
                       <span>{pct.toFixed(0)}%</span>
                     </div>
-                    <p className="text-[10px] text-gray-400 mt-1">{project._count.milestones} milestones</p>
+                    <p className="text-[10px] text-gray-400 mt-1">{project._count.milestones} milestones · {project._count.donations} donors</p>
                   </Link>
                 );
               })}
@@ -805,9 +614,7 @@ export default async function HomePage() {
         </section>
       )}
 
-      {/* ──────────────────────────────────────────────────────── */}
-      {/* 10. FOR NGOs                                             */}
-      {/* ──────────────────────────────────────────────────────── */}
+      {/* ── For NGOs ── */}
       <section className="py-20 bg-[#052e16] text-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -820,10 +627,9 @@ export default async function HomePage() {
                 <span className="text-emerald-400">milestone funding.</span>
               </h2>
               <p className="text-gray-300 text-sm leading-relaxed mb-6">
-                GiveLedger only works for NGOs that are willing to operate transparently.
-                Every milestone you set is public. Every fund release is triggered by verified evidence.
-                That transparency is what makes donors trust you — and what attracts skilled contributors
-                who want to work with credible organisations.
+                GiveLedger only works for NGOs willing to operate transparently. Every milestone
+                you set is public. Every fund release is triggered by verified evidence. That
+                transparency is what attracts both financial donors and skilled contributors.
               </p>
               <div className="space-y-3 mb-8">
                 {[
@@ -839,26 +645,20 @@ export default async function HomePage() {
                 ))}
               </div>
               <div className="flex gap-3 flex-wrap">
-                <Link
-                  href="/signup"
-                  className="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-white font-semibold px-6 py-3 rounded-xl text-sm transition-colors"
-                >
+                <Link href="/signup" className="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-white font-semibold px-6 py-3 rounded-xl text-sm transition-colors">
                   Apply as an NGO <ArrowRight className="w-4 h-4" />
                 </Link>
-                <Link
-                  href="/ngos"
-                  className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white font-medium px-6 py-3 rounded-xl text-sm transition-colors border border-white/20"
-                >
+                <Link href="/ngos" className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white font-medium px-6 py-3 rounded-xl text-sm transition-colors border border-white/20">
                   Browse NGOs
                 </Link>
               </div>
             </div>
             <div className="grid grid-cols-2 gap-4">
               {[
-                { label: "Milestone-locked", desc: "Funds release only when you prove completion — not before.", icon: Shield },
-                { label: "Skill recruitment", desc: "Post roles and attract verified professional contributors at no cost.", icon: Briefcase },
-                { label: "On-chain record", desc: "Every disbursement on Polygon. Auditable by anyone, anywhere, forever.", icon: Globe },
-                { label: "Trust score", desc: "Your score grows with every completed, verified milestone — transparent to all donors.", icon: TrendingUp },
+                { label: "Milestone-locked",  desc: "Funds release only when you prove completion — not before.",                    icon: Shield    },
+                { label: "Skill recruitment", desc: "Post roles and attract verified professional contributors at no cost.",          icon: Briefcase },
+                { label: "On-chain record",   desc: "Every disbursement on Polygon. Auditable by anyone, anywhere, forever.",        icon: Globe     },
+                { label: "Trust score",       desc: "Your score grows with every completed, verified milestone — transparent to all.", icon: TrendingUp},
               ].map((item) => (
                 <div key={item.label} className="bg-emerald-900/40 border border-emerald-800/60 rounded-xl p-4">
                   <item.icon className="w-5 h-5 text-emerald-400 mb-2" />
@@ -871,35 +671,25 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ──────────────────────────────────────────────────────── */}
-      {/* 11. PRO REFUND CALLOUT                                   */}
-      {/* ──────────────────────────────────────────────────────── */}
+      {/* ── Pro refund callout ── */}
       <section className="py-14 bg-white border-t border-gray-100">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
           <div className="inline-flex items-center gap-2 bg-violet-50 border border-violet-100 rounded-full px-4 py-2 text-sm text-violet-700 mb-6">
             <RotateCcw className="w-4 h-4" />
             Pro plan: 100% refund after 18 months if you complete one engagement
           </div>
-          <h2 className="text-2xl font-bold text-gray-900 mb-3">
-            We want to enable you — not charge you.
-          </h2>
+          <h2 className="text-2xl font-bold text-gray-900 mb-3">We want to enable you — not charge you.</h2>
           <p className="text-gray-500 text-sm leading-relaxed mb-6 max-w-lg mx-auto">
             The $25 Pro plan is not a subscription — it&apos;s a one-time access fee that comes back
-            to you in full if you complete at least one engagement within 18 months. If you
-            contribute, you get your money back. It&apos;s that simple.
+            to you in full if you complete at least one engagement within 18 months.
           </p>
-          <Link
-            href="/pricing"
-            className="inline-flex items-center gap-2 bg-violet-600 hover:bg-violet-700 text-white font-semibold px-8 py-3.5 rounded-xl text-sm transition-colors"
-          >
+          <Link href="/pricing" className="inline-flex items-center gap-2 bg-violet-600 hover:bg-violet-700 text-white font-semibold px-8 py-3.5 rounded-xl text-sm transition-colors">
             Learn more about Pro <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
       </section>
 
-      {/* ──────────────────────────────────────────────────────── */}
-      {/* 12. FINAL CTA                                            */}
-      {/* ──────────────────────────────────────────────────────── */}
+      {/* ── Final CTA ── */}
       <section className="py-20 bg-emerald-700 text-white">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
           <h2 className="text-3xl font-bold mb-4">
@@ -910,25 +700,17 @@ export default async function HomePage() {
             that proves every hour you gave — and every outcome it produced.
           </p>
           <div className="flex flex-wrap gap-3 justify-center">
-            <Link
-              href="/signup"
-              className="inline-flex items-center gap-2 bg-white text-emerald-700 font-bold px-8 py-3.5 rounded-xl text-sm hover:bg-emerald-50 transition-colors"
-            >
+            <Link href="/signup" className="inline-flex items-center gap-2 bg-white text-emerald-700 font-bold px-8 py-3.5 rounded-xl text-sm hover:bg-emerald-50 transition-colors">
               Create a free account <ArrowRight className="w-4 h-4" />
             </Link>
-            <Link
-              href="/opportunities"
-              className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white font-medium px-8 py-3.5 rounded-xl text-sm transition-colors border border-emerald-500"
-            >
+            <Link href="/opportunities" className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white font-medium px-8 py-3.5 rounded-xl text-sm transition-colors border border-emerald-500">
               Browse open roles
             </Link>
           </div>
         </div>
       </section>
 
-      {/* ──────────────────────────────────────────────────────── */}
-      {/* FOOTER                                                   */}
-      {/* ──────────────────────────────────────────────────────── */}
+      {/* ── Footer ── */}
       <footer className="bg-gray-900 text-gray-400 py-10">
         <div className="max-w-5xl mx-auto px-4 sm:px-6">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
@@ -941,25 +723,104 @@ export default async function HomePage() {
             </div>
             <div className="flex flex-wrap gap-5 text-xs">
               {[
-                { href: "/projects", label: "Projects" },
-                { href: "/opportunities", label: "Open Roles" },
-                { href: "/pricing", label: "Pricing" },
-                { href: "/ngos", label: "NGOs" },
-                { href: "/impact", label: "Impact" },
-                { href: "/wall", label: "Activity" },
-                { href: "/suggest-ngo", label: "Suggest an NGO" },
+                { href: "/projects",   label: "Projects"        },
+                { href: "/opportunities", label: "Open Roles"   },
+                { href: "/pricing",    label: "Pricing"         },
+                { href: "/ngos",       label: "NGOs"            },
+                { href: "/impact",     label: "Impact"          },
+                { href: "/wall",       label: "Activity"        },
+                { href: "/suggest-ngo",label: "Suggest an NGO"  },
               ].map((l) => (
-                <Link key={l.href} href={l.href} className="hover:text-white transition-colors">
-                  {l.label}
-                </Link>
+                <Link key={l.href} href={l.href} className="hover:text-white transition-colors">{l.label}</Link>
               ))}
             </div>
           </div>
           <div className="border-t border-gray-800 mt-8 pt-6 text-[11px] text-gray-600">
-            GiveLedger is a platform for verified giving. All disbursements recorded on Polygon. Not a financial institution. 501(c)(3) NGO status required for participation.
+            GiveLedger is a platform for verified giving. All disbursements recorded on Polygon.
+            Not a financial institution. 501(c)(3) NGO status required for participation.
           </div>
         </div>
       </footer>
     </div>
   );
+}
+
+/* ─── Feed page (logged-in) ──────────────────────────────── */
+async function FeedPage({ session }: { session: Session | null }) {
+  const LIMIT = 20;
+
+  const [events, donorCount, ngoCount, projectCount, milestoneCount, featuredProjectsRaw, recentNgosRaw, allProjectsRaw, openRolesRaw] =
+    await Promise.all([
+      prisma.activityEvent.findMany({ take: LIMIT + 1, orderBy: { createdAt: "desc" } }),
+      prisma.user.count({ where: { role: "DONOR" } }),
+      prisma.ngo.count({ where: { status: "ACTIVE" } }),
+      prisma.project.count(),
+      prisma.milestone.count({ where: { status: "COMPLETED" } }),
+      prisma.project.findMany({
+        take: 3,
+        where: { status: "ACTIVE" },
+        include: { ngo: { select: { orgName: true } } },
+        orderBy: { raisedAmount: "desc" },
+      }),
+      prisma.ngo.findMany({
+        take: 5,
+        where: { status: "ACTIVE" },
+        select: { id: true, orgName: true, description: true },
+        orderBy: { createdAt: "desc" },
+      }),
+      prisma.project.findMany({
+        where: { status: "ACTIVE" },
+        include: { ngo: { select: { orgName: true } }, _count: { select: { milestones: true } } },
+        orderBy: { createdAt: "desc" },
+      }),
+      prisma.ngoRole.findMany({
+        take: 4,
+        where: { status: "OPEN" },
+        include: { ngo: { select: { id: true, orgName: true } } },
+        orderBy: { createdAt: "desc" },
+      }),
+    ]);
+
+  const hasMore = events.length > LIMIT;
+  const items   = hasMore ? events.slice(0, LIMIT) : events;
+  const nextCursor = hasMore ? items[items.length - 1].id : null;
+
+  return (
+    <div className="min-h-screen bg-[#f3f2ef]">
+      <Navbar session={session} />
+      <HomeFeedClient
+        initial={items.map((e) => ({ ...e, createdAt: e.createdAt.toISOString() }))}
+        initialCursor={nextCursor}
+        stats={{ donors: donorCount, ngos: ngoCount, projects: projectCount, milestones: milestoneCount }}
+        featuredProjects={featuredProjectsRaw.map((p) => ({
+          id: p.id, title: p.title, category: p.category,
+          goalAmount: p.goalAmount, raisedAmount: p.raisedAmount, ngo: p.ngo,
+        }))}
+        recentNgos={recentNgosRaw}
+        openRoles={openRolesRaw.map((r) => ({
+          id: r.id, title: r.title, roleType: r.roleType,
+          timeCommitment: r.timeCommitment, isRemote: r.isRemote,
+          ngo: { id: r.ngo.id, orgName: r.ngo.orgName },
+        }))}
+        allProjects={allProjectsRaw.map((p) => ({
+          id: p.id, title: p.title, category: p.category,
+          goalAmount: p.goalAmount, raisedAmount: p.raisedAmount, ngo: p.ngo,
+          milestoneCount: p._count.milestones,
+          createdAt: p.createdAt.toISOString(),
+        }))}
+        session={session?.user ? {
+          name: session.user.name,
+          image: session.user.image,
+          role: (session.user as { role?: string }).role,
+        } : null}
+      />
+    </div>
+  );
+}
+
+/* ─── Root page — branches on session ───────────────────── */
+export default async function HomePage() {
+  const session = await auth();
+  if (session?.user) return <FeedPage session={session} />;
+  return <LandingPage session={session} />;
 }
