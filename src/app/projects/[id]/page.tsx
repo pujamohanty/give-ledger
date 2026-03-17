@@ -30,29 +30,40 @@ export default async function ProjectDetailPage({
   const { id } = await params;
   const session = await auth();
 
-  const project = await prisma.project.findUnique({
-    where: { id },
-    include: {
-      ngo: {
-        include: { boardMembers: { orderBy: { orderIndex: "asc" } } },
-      },
-      milestones: {
-        include: {
-          outputMarkers: true,
-          evidenceFiles: true,
-          disbursement: {
-            include: { blockchainRecord: true },
-          },
+  const [project, allDonations, skillContributors] = await Promise.all([
+    prisma.project.findUnique({
+      where: { id },
+      include: {
+        ngo: {
+          include: { boardMembers: { orderBy: { orderIndex: "asc" } } },
         },
-        orderBy: { orderIndex: "asc" },
+        milestones: {
+          include: {
+            outputMarkers: true,
+            evidenceFiles: true,
+            disbursement: {
+              include: { blockchainRecord: true },
+            },
+          },
+          orderBy: { orderIndex: "asc" },
+        },
       },
-      donations: {
-        include: { user: { select: { name: true } } },
-        orderBy: { createdAt: "desc" },
-        take: 5,
+    }),
+    prisma.donation.findMany({
+      where: { projectId: id },
+      include: {
+        user: { select: { id: true, name: true, jobTitle: true, company: true } },
       },
-    },
-  });
+      orderBy: { createdAt: "asc" },
+    }),
+    prisma.skillContribution.findMany({
+      where: { projectId: id, status: "APPROVED" },
+      include: {
+        donor: { select: { id: true, name: true, jobTitle: true, company: true } },
+      },
+      orderBy: { approvedAt: "desc" },
+    }),
+  ]);
 
   if (!project) notFound();
 
@@ -61,7 +72,28 @@ export default async function ProjectDetailPage({
     ? Math.max(0, Math.floor((new Date(project.endDate).getTime() - now) / (1000 * 60 * 60 * 24)))
     : 30;
 
-  const donorCount = new Set(project.donations.map((d) => d.userId)).size;
+  // Build financial leaderboard — group by donor, sort by total donated desc
+  const donorMap = new Map<string, {
+    id: string; name: string; jobTitle: string | null; company: string | null;
+    total: number; firstAt: Date;
+  }>();
+  for (const d of allDonations) {
+    const ex = donorMap.get(d.userId);
+    if (ex) {
+      ex.total += d.amount;
+    } else {
+      donorMap.set(d.userId, {
+        id: d.user.id, name: d.user.name ?? "Anonymous",
+        jobTitle: d.user.jobTitle, company: d.user.company,
+        total: d.amount, firstAt: new Date(d.createdAt),
+      });
+    }
+  }
+  const financialLeaderboard = Array.from(donorMap.values())
+    .sort((a, b) => b.total - a.total)
+    .slice(0, 15);
+
+  const donorCount = donorMap.size;
 
   const projectData = {
     id: project.id,
@@ -118,10 +150,15 @@ export default async function ProjectDetailPage({
         })),
       };
     }),
-    recentDonations: project.donations.map((d) => ({
-      name: d.user.name ?? "Anonymous",
-      amount: d.amount,
-      createdAt: d.createdAt,
+    financialLeaderboard,
+    skillContributors: skillContributors.map((c) => ({
+      id: c.donorId,
+      name: c.donor.name ?? "Anonymous",
+      jobTitle: c.donor.jobTitle,
+      company: c.donor.company,
+      skillCategory: c.skillCategory,
+      hoursContributed: c.hoursContributed,
+      monetaryValue: c.monetaryValue,
     })),
   };
 

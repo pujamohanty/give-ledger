@@ -7,6 +7,7 @@ import { Progress } from "@/components/ui/progress";
 import {
   CheckCircle2, Circle, ExternalLink, Shield, Clock, Users, ArrowLeft,
   CreditCard, X, Star, Gift, FileText, Camera, Globe, CalendarDays, Linkedin,
+  Crown, Briefcase,
 } from "lucide-react";
 import ShareMilestoneCard from "@/components/ShareMilestoneCard";
 
@@ -50,10 +51,22 @@ export type ProjectDetail = {
     evidenceFiles: Array<{ fileName: string; fileType: string; url: string }>;
     outputMarkers: Array<{ label: string; value: string; unit: string | null }>;
   }>;
-  recentDonations: Array<{
+  financialLeaderboard: Array<{
+    id: string;
     name: string;
-    amount: number;
-    createdAt: Date;
+    jobTitle: string | null;
+    company: string | null;
+    total: number;
+    firstAt: Date;
+  }>;
+  skillContributors: Array<{
+    id: string;
+    name: string;
+    jobTitle: string | null;
+    company: string | null;
+    skillCategory: string;
+    hoursContributed: number | null;
+    monetaryValue: number | null;
   }>;
 };
 
@@ -168,15 +181,10 @@ function SpotlightVoteButton() {
   );
 }
 
-function timeAgo(date: Date): string {
-  const seconds = Math.floor((Date.now() - new Date(date).getTime()) / 1000);
-  if (seconds < 3600) return `${Math.floor(seconds / 60)}m ago`;
-  if (seconds < 86400) return `${Math.floor(seconds / 3600)}h ago`;
-  return `${Math.floor(seconds / 86400)}d ago`;
-}
 
 export default function ProjectDetailClient({ project }: { project: ProjectDetail }) {
   const [donationOpen, setDonationOpen] = useState(false);
+  const [supportersTab, setSupportersTab] = useState<"financial" | "skills">("financial");
 
   const pct = project.goalAmount > 0
     ? Math.round((project.raisedAmount / project.goalAmount) * 100)
@@ -550,26 +558,140 @@ export default function ProjectDetailClient({ project }: { project: ProjectDetai
 
           <Card>
             <CardContent className="p-5">
-              <h3 className="font-semibold text-gray-900 mb-4">Recent Supporters</h3>
-              {project.recentDonations.length === 0 ? (
-                <p className="text-sm text-gray-400">Be the first to donate!</p>
-              ) : (
-                <div className="space-y-3">
-                  {project.recentDonations.map((d, i) => (
-                    <div key={i} className="flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <div className="w-7 h-7 rounded-full bg-emerald-100 flex items-center justify-center text-xs font-bold text-emerald-700">
-                          {d.name[0]}
+              {/* Header */}
+              <div className="flex items-center justify-between mb-3">
+                <h3 className="font-semibold text-gray-900">Supporters</h3>
+                <span className="text-xs text-gray-400">
+                  {project.financialLeaderboard.length + project.skillContributors.length} total
+                </span>
+              </div>
+
+              {/* Tab switcher */}
+              <div className="flex gap-1 mb-4 bg-gray-100 p-0.5 rounded-lg">
+                <button
+                  onClick={() => setSupportersTab("financial")}
+                  className={`flex-1 text-xs font-medium py-1.5 rounded-md transition-colors ${
+                    supportersTab === "financial"
+                      ? "bg-white text-gray-900 shadow-sm"
+                      : "text-gray-500 hover:text-gray-700"
+                  }`}
+                >
+                  Financial
+                  {project.financialLeaderboard.length > 0 && (
+                    <span className="ml-1 text-gray-400">{project.financialLeaderboard.length}</span>
+                  )}
+                </button>
+                <button
+                  onClick={() => setSupportersTab("skills")}
+                  className={`flex-1 text-xs font-medium py-1.5 rounded-md transition-colors ${
+                    supportersTab === "skills"
+                      ? "bg-white text-gray-900 shadow-sm"
+                      : "text-gray-500 hover:text-gray-700"
+                  }`}
+                >
+                  Skills
+                  {project.skillContributors.length > 0 && (
+                    <span className="ml-1 text-gray-400">{project.skillContributors.length}</span>
+                  )}
+                </button>
+              </div>
+
+              {/* Financial leaderboard */}
+              {supportersTab === "financial" && (
+                <>
+                  {project.financialLeaderboard.length === 0 ? (
+                    <p className="text-sm text-gray-400 text-center py-4">Be the first to donate!</p>
+                  ) : (
+                    <div className="space-y-2">
+                      {project.financialLeaderboard.map((d, i) => (
+                        <div
+                          key={d.id}
+                          className={`flex items-center gap-2.5 p-2 rounded-lg ${
+                            i === 0 ? "bg-amber-50 border border-amber-100" : ""
+                          }`}
+                        >
+                          {/* Rank */}
+                          <div className="w-5 shrink-0 text-center">
+                            {i === 0 ? (
+                              <Crown className="w-4 h-4 text-amber-500 mx-auto" />
+                            ) : (
+                              <span className="text-[11px] font-bold text-gray-300">#{i + 1}</span>
+                            )}
+                          </div>
+                          {/* Avatar */}
+                          <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold shrink-0 ${
+                            i === 0 ? "bg-amber-200 text-amber-800" : "bg-emerald-100 text-emerald-700"
+                          }`}>
+                            {d.name.charAt(0).toUpperCase()}
+                          </div>
+                          {/* Info */}
+                          <div className="flex-1 min-w-0">
+                            <p className={`text-xs font-semibold truncate ${i === 0 ? "text-amber-900" : "text-gray-800"}`}>
+                              {d.name}
+                            </p>
+                            {(d.jobTitle || d.company) && (
+                              <p className="text-[10px] text-gray-400 truncate">
+                                {[d.jobTitle, d.company].filter(Boolean).join(", ")}
+                              </p>
+                            )}
+                          </div>
+                          {/* Amount */}
+                          <span className={`text-xs font-bold shrink-0 ${i === 0 ? "text-amber-700" : "text-emerald-700"}`}>
+                            ${d.total.toLocaleString()}
+                          </span>
                         </div>
-                        <div>
-                          <p className="text-sm text-gray-700">{d.name}</p>
-                          <p className="text-xs text-gray-400">{timeAgo(d.createdAt)}</p>
-                        </div>
-                      </div>
-                      <span className="text-sm font-semibold text-emerald-700">${d.amount}</span>
+                      ))}
                     </div>
-                  ))}
-                </div>
+                  )}
+                </>
+              )}
+
+              {/* Skills leaderboard */}
+              {supportersTab === "skills" && (
+                <>
+                  {project.skillContributors.length === 0 ? (
+                    <div className="text-center py-4">
+                      <Briefcase className="w-7 h-7 text-gray-200 mx-auto mb-2" />
+                      <p className="text-xs text-gray-400">No skill contributors yet.</p>
+                      <Link href="/opportunities" className="text-xs text-emerald-600 hover:underline mt-1 inline-block">
+                        Browse open roles →
+                      </Link>
+                    </div>
+                  ) : (
+                    <div className="space-y-2">
+                      {project.skillContributors.map((c) => (
+                        <div key={c.id} className="flex items-start gap-2.5 p-2 rounded-lg bg-violet-50 border border-violet-100">
+                          {/* Avatar */}
+                          <div className="w-7 h-7 rounded-full bg-violet-200 flex items-center justify-center text-xs font-bold text-violet-800 shrink-0">
+                            {c.name.charAt(0).toUpperCase()}
+                          </div>
+                          {/* Info */}
+                          <div className="flex-1 min-w-0">
+                            <p className="text-xs font-semibold text-gray-800 truncate">{c.name}</p>
+                            {(c.jobTitle || c.company) && (
+                              <p className="text-[10px] text-gray-400 truncate">
+                                {[c.jobTitle, c.company].filter(Boolean).join(", ")}
+                              </p>
+                            )}
+                            <div className="flex items-center gap-1.5 mt-1 flex-wrap">
+                              <span className="text-[10px] font-semibold text-violet-700 bg-violet-100 px-1.5 py-0.5 rounded-full">
+                                {c.skillCategory}
+                              </span>
+                              {c.hoursContributed != null && (
+                                <span className="text-[10px] text-gray-500">{c.hoursContributed}h</span>
+                              )}
+                              {c.monetaryValue != null && (
+                                <span className="text-[10px] font-semibold text-violet-700">
+                                  ${c.monetaryValue.toLocaleString()} value
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </>
               )}
             </CardContent>
           </Card>
