@@ -5,7 +5,7 @@ import {
   Heart, CheckCircle2, Rocket, Star, Briefcase, Users,
   Loader2, TrendingUp, Landmark, BookOpen, Globe,
   ChevronRight, ArrowRight, Share2, PartyPopper,
-  LayoutDashboard, HandCoins, BadgeCheck, Leaf,
+  LayoutDashboard, HandCoins, BadgeCheck, Leaf, ClipboardList,
 } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 
@@ -88,10 +88,16 @@ const EVENT_CONFIG: Record<string, {
     border: "border-l-yellow-400", badge: "bg-yellow-100 text-yellow-700",
     label: "Endorsement", verb: "received an endorsement",
   },
+  SKILL_OFFER: {
+    icon: ClipboardList, bg: "bg-teal-100", color: "text-teal-600",
+    border: "border-l-teal-400", badge: "bg-teal-100 text-teal-700",
+    label: "Open Role", verb: "posted an open role",
+  },
 };
 
 const FILTERS = [
   { key: "ALL", label: "All" },
+  { key: "SKILL_OFFER", label: "Open Roles" },
   { key: "DONATION", label: "Donations" },
   { key: "MILESTONE_COMPLETE", label: "Milestones" },
   { key: "PROJECT_LAUNCH", label: "Projects" },
