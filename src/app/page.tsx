@@ -13,7 +13,7 @@ export default async function HomePage() {
 
   const LIMIT = 20;
 
-  const [events, donorCount, ngoCount, projectCount, milestoneCount, featuredProjectsRaw, recentNgosRaw, allProjectsRaw] =
+  const [events, donorCount, ngoCount, projectCount, milestoneCount, featuredProjectsRaw, recentNgosRaw, allProjectsRaw, openRolesRaw] =
     await Promise.all([
       prisma.activityEvent.findMany({ take: LIMIT + 1, orderBy: { createdAt: "desc" } }),
       prisma.user.count({ where: { role: "DONOR" } }),
@@ -40,6 +40,12 @@ export default async function HomePage() {
         },
         orderBy: { createdAt: "desc" },
       }),
+      prisma.ngoRole.findMany({
+        take: 4,
+        where: { status: "OPEN" },
+        include: { ngo: { select: { id: true, orgName: true } } },
+        orderBy: { createdAt: "desc" },
+      }),
     ]);
 
   const hasMore = events.length > LIMIT;
@@ -62,6 +68,14 @@ export default async function HomePage() {
           ngo: p.ngo,
         }))}
         recentNgos={recentNgosRaw}
+        openRoles={openRolesRaw.map(r => ({
+          id: r.id,
+          title: r.title,
+          roleType: r.roleType,
+          timeCommitment: r.timeCommitment,
+          isRemote: r.isRemote,
+          ngo: { id: r.ngo.id, orgName: r.ngo.orgName },
+        }))}
         allProjects={allProjectsRaw.map(p => ({
           id: p.id,
           title: p.title,

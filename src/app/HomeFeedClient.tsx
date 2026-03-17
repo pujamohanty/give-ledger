@@ -50,6 +50,15 @@ type RecentNgo = {
   description: string | null;
 };
 
+type OpenRole = {
+  id: string;
+  title: string;
+  roleType: string;
+  timeCommitment: string;
+  isRemote: boolean;
+  ngo: { id: string; orgName: string };
+};
+
 type Props = {
   initial: ActivityEvent[];
   initialCursor: string | null;
@@ -57,6 +66,7 @@ type Props = {
   featuredProjects: FeaturedProject[];
   recentNgos: RecentNgo[];
   allProjects: AllProject[];
+  openRoles: OpenRole[];
   session: { name?: string | null; image?: string | null; role?: string } | null;
 };
 
@@ -350,13 +360,64 @@ function LeftSidebar({ session, stats }: {
   );
 }
 
+const ROLE_TYPE_LABEL: Record<string, string> = {
+  INTERNSHIP: "Internship",
+  CAREER_TRANSITION: "Career Transition",
+  INTERIM: "Interim",
+  VOLUNTEER: "Volunteer",
+};
+
+const ROLE_TYPE_COLOR: Record<string, string> = {
+  INTERNSHIP: "bg-blue-50 text-blue-700",
+  CAREER_TRANSITION: "bg-violet-50 text-violet-700",
+  INTERIM: "bg-amber-50 text-amber-700",
+  VOLUNTEER: "bg-emerald-50 text-emerald-700",
+};
+
 /* ─── Right Sidebar ──────────────────────────────────────────── */
-function RightSidebar({ featuredProjects, recentNgos }: {
+function RightSidebar({ featuredProjects, recentNgos, openRoles }: {
   featuredProjects: FeaturedProject[];
   recentNgos: RecentNgo[];
+  openRoles: OpenRole[];
 }) {
   return (
     <aside className="space-y-4">
+      {/* Open Roles */}
+      {openRoles.length > 0 && (
+        <div className="bg-white rounded-lg border border-[rgba(0,0,0,0.08)] shadow-[0_0_0_1px_rgba(0,0,0,0.06),0_2px_4px_rgba(0,0,0,0.04)] p-4">
+          <div className="flex items-center justify-between mb-3">
+            <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wider">Open Roles</h3>
+            <Link href="/opportunities" className="text-xs text-emerald-600 font-semibold hover:underline">See all</Link>
+          </div>
+          <div className="space-y-3">
+            {openRoles.map(role => (
+              <Link key={role.id} href={`/opportunities/${role.id}`} className="block group">
+                <div className="flex items-start gap-2.5">
+                  <div className="w-8 h-8 rounded-lg bg-teal-50 flex items-center justify-center shrink-0 group-hover:bg-teal-100 transition-colors mt-0.5">
+                    <ClipboardList className="w-4 h-4 text-teal-600" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-xs font-semibold text-gray-900 group-hover:text-emerald-700 transition-colors leading-snug truncate">
+                      {role.title}
+                    </p>
+                    <p className="text-xs text-gray-400 truncate">{role.ngo.orgName}</p>
+                    <div className="flex items-center gap-1.5 mt-1 flex-wrap">
+                      <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded-full ${ROLE_TYPE_COLOR[role.roleType] ?? "bg-gray-100 text-gray-600"}`}>
+                        {ROLE_TYPE_LABEL[role.roleType] ?? role.roleType}
+                      </span>
+                      <span className="text-[10px] text-gray-400">{role.timeCommitment}</span>
+                      {role.isRemote && (
+                        <span className="text-[10px] text-gray-400">· Remote</span>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* Featured Projects */}
       <div className="bg-white rounded-lg border border-[rgba(0,0,0,0.08)] shadow-[0_0_0_1px_rgba(0,0,0,0.06),0_2px_4px_rgba(0,0,0,0.04)] p-4">
         <div className="flex items-center justify-between mb-3">
@@ -557,7 +618,7 @@ function Feed({ initial, initialCursor, allProjects }: { initial: ActivityEvent[
 }
 
 /* ─── Root export ────────────────────────────────────────────── */
-export default function HomeFeedClient({ initial, initialCursor, stats, featuredProjects, recentNgos, allProjects, session }: Props) {
+export default function HomeFeedClient({ initial, initialCursor, stats, featuredProjects, recentNgos, allProjects, openRoles, session }: Props) {
   return (
     <main className="max-w-6xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
       {/* Top banner for guests */}
@@ -595,7 +656,7 @@ export default function HomeFeedClient({ initial, initialCursor, stats, featured
         {/* Right sidebar — hidden on mobile, shown on lg */}
         <div className="hidden lg:block">
           <div className="sticky top-20">
-            <RightSidebar featuredProjects={featuredProjects} recentNgos={recentNgos} />
+            <RightSidebar featuredProjects={featuredProjects} recentNgos={recentNgos} openRoles={openRoles} />
           </div>
         </div>
       </div>
