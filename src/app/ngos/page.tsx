@@ -51,7 +51,7 @@ export default async function NgosPage() {
       orgName: true,
       description: true,
       state: true,
-      is501c3: true,
+      ein: true,
       trustScore: true,
       projects: {
         where: { status: "ACTIVE" },
@@ -143,9 +143,9 @@ export default async function NgosPage() {
                   <span className="flex items-center gap-1 text-[10px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full w-fit">
                     <Shield className="w-3 h-3" /> Verified NGO
                   </span>
-                  {ngo.is501c3 && (
+                  {ngo.ein && (
                     <span className="text-[10px] font-semibold text-blue-700 bg-blue-50 px-2 py-0.5 rounded-full">
-                      501(c)(3)
+                      EIN Verified
                     </span>
                   )}
                 </div>
