@@ -1,5 +1,5 @@
 "use client";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import Link from "next/link";
 import {
   Heart, CheckCircle2, Rocket, Star, Briefcase, Users,
@@ -537,6 +537,7 @@ function Feed({ initial, initialCursor, allProjects }: { initial: ActivityEvent[
   const [cursor, setCursor] = useState<string | null>(initialCursor);
   const [loading, setLoading] = useState(false);
   const [filter, setFilter] = useState("ALL");
+  const sentinelRef = useRef<HTMLDivElement>(null);
 
   const loadMore = useCallback(async () => {
     if (!cursor || loading) return;
@@ -551,6 +552,19 @@ function Feed({ initial, initialCursor, allProjects }: { initial: ActivityEvent[
       setCursor(data.nextCursor);
     } catch { /* silent */ } finally { setLoading(false); }
   }, [cursor, loading]);
+
+  // Infinite scroll — fire loadMore when the sentinel enters the viewport
+  useEffect(() => {
+    if (filter !== "ALL") return;
+    const el = sentinelRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      (entries) => { if (entries[0].isIntersecting) loadMore(); },
+      { rootMargin: "200px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [filter, loadMore]);
 
   const showProjects = filter === "PROJECT_LAUNCH";
   const filtered = filter === "ALL" ? events : events.filter(e => e.type === filter);
@@ -594,22 +608,15 @@ function Feed({ initial, initialCursor, allProjects }: { initial: ActivityEvent[
         )}
       </div>
 
-      {/* Load more */}
-      {cursor && filter === "ALL" && (
-        <div className="text-center mt-4">
-          <button
-            onClick={loadMore}
-            disabled={loading}
-            className="inline-flex items-center gap-2 text-sm text-emerald-700 font-semibold border border-emerald-600 bg-white rounded-full px-6 py-2 hover:bg-emerald-50 disabled:opacity-50 transition-colors"
-          >
-            {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : null}
-            {loading ? "Loading…" : "Load more activity"}
-          </button>
+      {/* Infinite scroll sentinel — visible only on All tab */}
+      {filter === "ALL" && (
+        <div ref={sentinelRef} className="h-8 flex items-center justify-center mt-2">
+          {loading && <Loader2 className="w-4 h-4 animate-spin text-gray-400" />}
         </div>
       )}
 
-      {!cursor && events.length > 0 && (
-        <p className="text-center text-xs text-gray-400 mt-4 py-2">
+      {!cursor && filter === "ALL" && events.length > 0 && (
+        <p className="text-center text-xs text-gray-400 pb-4">
           You&apos;re all caught up · {events.length} events
         </p>
       )}
@@ -640,12 +647,10 @@ export default function HomeFeedClient({ initial, initialCursor, stats, featured
       )}
 
       {/* 3-column layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-[260px_1fr_260px] gap-5">
-        {/* Left sidebar — hidden on mobile, shown on lg */}
-        <div className="hidden lg:block">
-          <div className="sticky top-20">
-            <LeftSidebar session={session} stats={stats} />
-          </div>
+      <div className="grid grid-cols-1 lg:grid-cols-[260px_1fr_260px] gap-5 items-start">
+        {/* Left sidebar */}
+        <div className="hidden lg:block sticky top-20 self-start">
+          <LeftSidebar session={session} stats={stats} />
         </div>
 
         {/* Center feed */}
@@ -653,11 +658,9 @@ export default function HomeFeedClient({ initial, initialCursor, stats, featured
           <Feed initial={initial} initialCursor={initialCursor} allProjects={allProjects} />
         </div>
 
-        {/* Right sidebar — hidden on mobile, shown on lg */}
-        <div className="hidden lg:block">
-          <div className="sticky top-20">
-            <RightSidebar featuredProjects={featuredProjects} recentNgos={recentNgos} openRoles={openRoles} />
-          </div>
+        {/* Right sidebar */}
+        <div className="hidden lg:block sticky top-20 self-start">
+          <RightSidebar featuredProjects={featuredProjects} recentNgos={recentNgos} openRoles={openRoles} />
         </div>
       </div>
     </main>
