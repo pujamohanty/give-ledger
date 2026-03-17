@@ -29421,6 +29421,7 @@ export namespace Prisma {
     id: string | null
     type: string | null
     projectId: string | null
+    ngoId: string | null
     ngoName: string | null
     projectTitle: string | null
     actorName: string | null
@@ -29437,6 +29438,7 @@ export namespace Prisma {
     id: string | null
     type: string | null
     projectId: string | null
+    ngoId: string | null
     ngoName: string | null
     projectTitle: string | null
     actorName: string | null
@@ -29453,6 +29455,7 @@ export namespace Prisma {
     id: number
     type: number
     projectId: number
+    ngoId: number
     ngoName: number
     projectTitle: number
     actorName: number
@@ -29471,6 +29474,7 @@ export namespace Prisma {
     id?: true
     type?: true
     projectId?: true
+    ngoId?: true
     ngoName?: true
     projectTitle?: true
     actorName?: true
@@ -29487,6 +29491,7 @@ export namespace Prisma {
     id?: true
     type?: true
     projectId?: true
+    ngoId?: true
     ngoName?: true
     projectTitle?: true
     actorName?: true
@@ -29503,6 +29508,7 @@ export namespace Prisma {
     id?: true
     type?: true
     projectId?: true
+    ngoId?: true
     ngoName?: true
     projectTitle?: true
     actorName?: true
@@ -29592,6 +29598,7 @@ export namespace Prisma {
     id: string
     type: string
     projectId: string | null
+    ngoId: string | null
     ngoName: string | null
     projectTitle: string | null
     actorName: string | null
@@ -29625,6 +29632,7 @@ export namespace Prisma {
     id?: boolean
     type?: boolean
     projectId?: boolean
+    ngoId?: boolean
     ngoName?: boolean
     projectTitle?: boolean
     actorName?: boolean
@@ -29641,6 +29649,7 @@ export namespace Prisma {
     id?: boolean
     type?: boolean
     projectId?: boolean
+    ngoId?: boolean
     ngoName?: boolean
     projectTitle?: boolean
     actorName?: boolean
@@ -29657,6 +29666,7 @@ export namespace Prisma {
     id?: boolean
     type?: boolean
     projectId?: boolean
+    ngoId?: boolean
     ngoName?: boolean
     projectTitle?: boolean
     actorName?: boolean
@@ -29673,6 +29683,7 @@ export namespace Prisma {
     id?: boolean
     type?: boolean
     projectId?: boolean
+    ngoId?: boolean
     ngoName?: boolean
     projectTitle?: boolean
     actorName?: boolean
@@ -29685,7 +29696,7 @@ export namespace Prisma {
     createdAt?: boolean
   }
 
-  export type ActivityEventOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "type" | "projectId" | "ngoName" | "projectTitle" | "actorName" | "actorId" | "actorType" | "imageUrl" | "description" | "linkUrl" | "metadata" | "createdAt", ExtArgs["result"]["activityEvent"]>
+  export type ActivityEventOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "type" | "projectId" | "ngoId" | "ngoName" | "projectTitle" | "actorName" | "actorId" | "actorType" | "imageUrl" | "description" | "linkUrl" | "metadata" | "createdAt", ExtArgs["result"]["activityEvent"]>
 
   export type $ActivityEventPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "ActivityEvent"
@@ -29694,6 +29705,7 @@ export namespace Prisma {
       id: string
       type: string
       projectId: string | null
+      ngoId: string | null
       ngoName: string | null
       projectTitle: string | null
       actorName: string | null
@@ -30130,6 +30142,7 @@ export namespace Prisma {
     readonly id: FieldRef<"ActivityEvent", 'String'>
     readonly type: FieldRef<"ActivityEvent", 'String'>
     readonly projectId: FieldRef<"ActivityEvent", 'String'>
+    readonly ngoId: FieldRef<"ActivityEvent", 'String'>
     readonly ngoName: FieldRef<"ActivityEvent", 'String'>
     readonly projectTitle: FieldRef<"ActivityEvent", 'String'>
     readonly actorName: FieldRef<"ActivityEvent", 'String'>
@@ -43657,6 +43670,7 @@ export namespace Prisma {
     id: 'id',
     type: 'type',
     projectId: 'projectId',
+    ngoId: 'ngoId',
     ngoName: 'ngoName',
     projectTitle: 'projectTitle',
     actorName: 'actorName',
@@ -45865,6 +45879,7 @@ export namespace Prisma {
     id?: StringFilter<"ActivityEvent"> | string
     type?: StringFilter<"ActivityEvent"> | string
     projectId?: StringNullableFilter<"ActivityEvent"> | string | null
+    ngoId?: StringNullableFilter<"ActivityEvent"> | string | null
     ngoName?: StringNullableFilter<"ActivityEvent"> | string | null
     projectTitle?: StringNullableFilter<"ActivityEvent"> | string | null
     actorName?: StringNullableFilter<"ActivityEvent"> | string | null
@@ -45881,6 +45896,7 @@ export namespace Prisma {
     id?: SortOrder
     type?: SortOrder
     projectId?: SortOrderInput | SortOrder
+    ngoId?: SortOrderInput | SortOrder
     ngoName?: SortOrderInput | SortOrder
     projectTitle?: SortOrderInput | SortOrder
     actorName?: SortOrderInput | SortOrder
@@ -45900,6 +45916,7 @@ export namespace Prisma {
     NOT?: ActivityEventWhereInput | ActivityEventWhereInput[]
     type?: StringFilter<"ActivityEvent"> | string
     projectId?: StringNullableFilter<"ActivityEvent"> | string | null
+    ngoId?: StringNullableFilter<"ActivityEvent"> | string | null
     ngoName?: StringNullableFilter<"ActivityEvent"> | string | null
     projectTitle?: StringNullableFilter<"ActivityEvent"> | string | null
     actorName?: StringNullableFilter<"ActivityEvent"> | string | null
@@ -45916,6 +45933,7 @@ export namespace Prisma {
     id?: SortOrder
     type?: SortOrder
     projectId?: SortOrderInput | SortOrder
+    ngoId?: SortOrderInput | SortOrder
     ngoName?: SortOrderInput | SortOrder
     projectTitle?: SortOrderInput | SortOrder
     actorName?: SortOrderInput | SortOrder
@@ -45938,6 +45956,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"ActivityEvent"> | string
     type?: StringWithAggregatesFilter<"ActivityEvent"> | string
     projectId?: StringNullableWithAggregatesFilter<"ActivityEvent"> | string | null
+    ngoId?: StringNullableWithAggregatesFilter<"ActivityEvent"> | string | null
     ngoName?: StringNullableWithAggregatesFilter<"ActivityEvent"> | string | null
     projectTitle?: StringNullableWithAggregatesFilter<"ActivityEvent"> | string | null
     actorName?: StringNullableWithAggregatesFilter<"ActivityEvent"> | string | null
@@ -48801,6 +48820,7 @@ export namespace Prisma {
     id?: string
     type: string
     projectId?: string | null
+    ngoId?: string | null
     ngoName?: string | null
     projectTitle?: string | null
     actorName?: string | null
@@ -48817,6 +48837,7 @@ export namespace Prisma {
     id?: string
     type: string
     projectId?: string | null
+    ngoId?: string | null
     ngoName?: string | null
     projectTitle?: string | null
     actorName?: string | null
@@ -48833,6 +48854,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     projectId?: NullableStringFieldUpdateOperationsInput | string | null
+    ngoId?: NullableStringFieldUpdateOperationsInput | string | null
     ngoName?: NullableStringFieldUpdateOperationsInput | string | null
     projectTitle?: NullableStringFieldUpdateOperationsInput | string | null
     actorName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -48849,6 +48871,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     projectId?: NullableStringFieldUpdateOperationsInput | string | null
+    ngoId?: NullableStringFieldUpdateOperationsInput | string | null
     ngoName?: NullableStringFieldUpdateOperationsInput | string | null
     projectTitle?: NullableStringFieldUpdateOperationsInput | string | null
     actorName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -48865,6 +48888,7 @@ export namespace Prisma {
     id?: string
     type: string
     projectId?: string | null
+    ngoId?: string | null
     ngoName?: string | null
     projectTitle?: string | null
     actorName?: string | null
@@ -48881,6 +48905,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     projectId?: NullableStringFieldUpdateOperationsInput | string | null
+    ngoId?: NullableStringFieldUpdateOperationsInput | string | null
     ngoName?: NullableStringFieldUpdateOperationsInput | string | null
     projectTitle?: NullableStringFieldUpdateOperationsInput | string | null
     actorName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -48897,6 +48922,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     projectId?: NullableStringFieldUpdateOperationsInput | string | null
+    ngoId?: NullableStringFieldUpdateOperationsInput | string | null
     ngoName?: NullableStringFieldUpdateOperationsInput | string | null
     projectTitle?: NullableStringFieldUpdateOperationsInput | string | null
     actorName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -51448,6 +51474,7 @@ export namespace Prisma {
     id?: SortOrder
     type?: SortOrder
     projectId?: SortOrder
+    ngoId?: SortOrder
     ngoName?: SortOrder
     projectTitle?: SortOrder
     actorName?: SortOrder
@@ -51464,6 +51491,7 @@ export namespace Prisma {
     id?: SortOrder
     type?: SortOrder
     projectId?: SortOrder
+    ngoId?: SortOrder
     ngoName?: SortOrder
     projectTitle?: SortOrder
     actorName?: SortOrder
@@ -51480,6 +51508,7 @@ export namespace Prisma {
     id?: SortOrder
     type?: SortOrder
     projectId?: SortOrder
+    ngoId?: SortOrder
     ngoName?: SortOrder
     projectTitle?: SortOrder
     actorName?: SortOrder

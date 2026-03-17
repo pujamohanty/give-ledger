@@ -380,6 +380,7 @@ exports.Prisma.ActivityEventScalarFieldEnum = {
   id: 'id',
   type: 'type',
   projectId: 'projectId',
+  ngoId: 'ngoId',
   ngoName: 'ngoName',
   projectTitle: 'projectTitle',
   actorName: 'actorName',

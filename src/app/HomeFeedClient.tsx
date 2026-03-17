@@ -14,6 +14,7 @@ type ActivityEvent = {
   id: string;
   type: string;
   projectId: string | null;
+  ngoId: string | null;
   ngoName: string | null;
   projectTitle: string | null;
   actorName: string | null;
@@ -193,9 +194,18 @@ function EventCard({ event }: { event: ActivityEvent }) {
             </div>
             <div>
               <div className="flex items-center gap-2 flex-wrap">
-                <span className="font-semibold text-gray-900 text-sm leading-tight">
-                  {event.actorName ?? "Someone"}
-                </span>
+                {event.actorId ? (
+                  <Link
+                    href={event.actorType === "NGO" ? `/ngo/${event.actorId}` : `/donor/${event.actorId}/profile`}
+                    className="font-semibold text-gray-900 text-sm leading-tight hover:underline"
+                  >
+                    {event.actorName ?? "Someone"}
+                  </Link>
+                ) : (
+                  <span className="font-semibold text-gray-900 text-sm leading-tight">
+                    {event.actorName ?? "Someone"}
+                  </span>
+                )}
                 <span className="text-xs text-gray-400 font-normal">
                   · {roleLabel(event.actorType)}
                 </span>
@@ -231,8 +241,8 @@ function EventCard({ event }: { event: ActivityEvent }) {
                 )
               )}
               {event.ngoName && (
-                event.actorType === "NGO" && event.actorId ? (
-                  <Link href={`/ngo/${event.actorId}`} className="text-xs text-gray-500 truncate block hover:underline hover:text-gray-700">
+                event.ngoId ? (
+                  <Link href={`/ngo/${event.ngoId}`} className="text-xs text-gray-500 truncate block hover:underline hover:text-gray-700">
                     {event.ngoName}
                   </Link>
                 ) : (

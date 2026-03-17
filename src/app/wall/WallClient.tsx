@@ -7,6 +7,7 @@ type ActivityEvent = {
   id: string;
   type: string;
   projectId: string | null;
+  ngoId: string | null;
   ngoName: string | null;
   projectTitle: string | null;
   actorName: string | null;
@@ -72,8 +73,8 @@ function EventCard({ event }: { event: ActivityEvent }) {
                 <span className="text-gray-300">·</span>
               )}
               {event.ngoName && (
-                event.actorType === "NGO" && event.actorId ? (
-                  <Link href={`/ngo/${event.actorId}`} className="hover:text-gray-600 hover:underline">
+                event.ngoId ? (
+                  <Link href={`/ngo/${event.ngoId}`} className="hover:text-gray-600 hover:underline">
                     {event.ngoName}
                   </Link>
                 ) : (

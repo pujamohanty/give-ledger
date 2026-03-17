@@ -401,6 +401,7 @@ model ActivityEvent {
   id           String   @id @default(cuid())
   type         String // MILESTONE_COMPLETE | DONATION | PROJECT_LAUNCH | CAMPAIGN_CREATED | SPOTLIGHT_WIN | SKILL_APPROVED | NGO_JOINED | NGO_ENDORSEMENT | DONOR_ENDORSEMENT | SKILL_OFFER
   projectId    String?
+  ngoId        String? // always the NGO's id, regardless of who the actor is
   ngoName      String?
   projectTitle String?
   actorName    String?
