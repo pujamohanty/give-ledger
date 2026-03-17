@@ -49,8 +49,8 @@ const categoryEmoji: Record<string, string> = {
 
 type SortOption = "newest" | "most-funded" | "ending-soon";
 
-export default function ProjectsClient({ projects }: { projects: ProjectSummary[] }) {
-  const [activeCategory, setActiveCategory] = useState("ALL");
+export default function ProjectsClient({ projects, initialCategory = "ALL" }: { projects: ProjectSummary[]; initialCategory?: string }) {
+  const [activeCategory, setActiveCategory] = useState(initialCategory);
   const [query, setQuery] = useState("");
   const [sort, setSort] = useState<SortOption>("most-funded");
   const [sortOpen, setSortOpen] = useState(false);
@@ -118,8 +118,9 @@ export default function ProjectsClient({ projects }: { projects: ProjectSummary[
 
           <div className="flex gap-2 mt-4 overflow-x-auto pb-1">
             {categories.map((cat) => (
-              <button
+              <Link
                 key={cat.id}
+                href={cat.id === "ALL" ? "/projects" : `/projects?category=${cat.id}`}
                 onClick={() => setActiveCategory(cat.id)}
                 className={`flex-shrink-0 px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
                   activeCategory === cat.id
@@ -128,7 +129,7 @@ export default function ProjectsClient({ projects }: { projects: ProjectSummary[
                 }`}
               >
                 {cat.label}
-              </button>
+              </Link>
             ))}
           </div>
         </div>
@@ -163,9 +164,13 @@ export default function ProjectsClient({ projects }: { projects: ProjectSummary[
                   </div>
                   <CardContent className="p-5">
                     <div className="flex items-center justify-between mb-2">
-                      <span className="inline-flex items-center rounded-full bg-gray-100 text-gray-700 px-2.5 py-0.5 text-xs font-semibold">
+                      <Link
+                        href={`/projects?category=${project.category}`}
+                        onClick={() => setActiveCategory(project.category)}
+                        className="inline-flex items-center rounded-full bg-gray-100 text-gray-700 px-2.5 py-0.5 text-xs font-semibold hover:bg-emerald-100 hover:text-emerald-700 transition-colors"
+                      >
                         {categoryLabel[project.category] ?? project.category}
-                      </span>
+                      </Link>
                       <span className="text-xs text-gray-400">
                         {project.daysLeft > 0 ? `${project.daysLeft} days left` : "Ending soon"}
                       </span>

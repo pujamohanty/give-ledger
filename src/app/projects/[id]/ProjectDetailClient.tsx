@@ -11,6 +11,15 @@ import {
 } from "lucide-react";
 import ShareMilestoneCard from "@/components/ShareMilestoneCard";
 
+const categoryLabel: Record<string, string> = {
+  INCOME_GENERATION: "Income Generation",
+  CHILD_CARE: "Child Care",
+  ELDERLY_CARE: "Elderly Care",
+  PHYSICALLY_DISABLED: "Accessibility",
+  PET_CARE: "Animal Welfare",
+  OTHER: "Other",
+};
+
 export type BoardMemberPreview = {
   id: string;
   name: string;
@@ -236,9 +245,12 @@ export default function ProjectDetailClient({ project }: { project: ProjectDetai
             </div>
             <CardContent className="p-6">
               <div className="flex items-center gap-2 mb-3">
-                <span className="inline-flex items-center rounded-full bg-gray-100 text-gray-700 px-2.5 py-0.5 text-xs font-semibold">
-                  {project.category}
-                </span>
+                <Link
+                  href={`/projects?category=${project.category}`}
+                  className="inline-flex items-center rounded-full bg-gray-100 text-gray-700 px-2.5 py-0.5 text-xs font-semibold hover:bg-emerald-100 hover:text-emerald-700 transition-colors"
+                >
+                  {categoryLabel[project.category] ?? project.category}
+                </Link>
               </div>
               <h1 className="text-2xl font-bold text-gray-900 mb-1">{project.title}</h1>
               <Link href={`/ngo/${project.ngo.id}`} className="text-emerald-700 font-medium text-sm mb-4 hover:underline block">

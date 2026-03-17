@@ -3,8 +3,14 @@ import { prisma } from "@/lib/prisma";
 import Navbar from "@/components/Navbar";
 import ProjectsClient from "./ProjectsClient";
 
-export default async function ProjectsPage() {
+export default async function ProjectsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ category?: string }>;
+}) {
   const session = await auth();
+  const { category } = await searchParams;
+  const initialCategory = category?.toUpperCase() ?? "ALL";
 
   const projects = await prisma.project.findMany({
     where: { status: "ACTIVE" },
@@ -35,7 +41,7 @@ export default async function ProjectsPage() {
   return (
     <div className="min-h-screen bg-[#f3f2ef]">
       <Navbar session={session} />
-      <ProjectsClient projects={projectData} />
+      <ProjectsClient projects={projectData} initialCategory={initialCategory} />
     </div>
   );
 }
