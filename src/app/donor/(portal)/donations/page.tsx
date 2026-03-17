@@ -124,6 +124,7 @@ export default async function DonationsPage() {
                           +{formatCurrency(d.amount)}
                         </span>
                         <CreateChallengeButton
+                          type="financial"
                           projectId={d.projectId}
                           projectTitle={d.project.title}
                           defaultAmount={d.amount}

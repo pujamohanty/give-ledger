@@ -513,8 +513,13 @@ exports.Prisma.RoleEngagementScalarFieldEnum = {
 exports.Prisma.DonorChallengeScalarFieldEnum = {
   id: 'id',
   donorId: 'donorId',
+  challengeType: 'challengeType',
   projectId: 'projectId',
   amount: 'amount',
+  ngoId: 'ngoId',
+  roleId: 'roleId',
+  skillCategory: 'skillCategory',
+  hoursContributed: 'hoursContributed',
   message: 'message',
   deadline: 'deadline',
   createdAt: 'createdAt'

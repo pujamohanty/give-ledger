@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import CreateChallengeButton from "@/components/CreateChallengeButton";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -330,6 +331,17 @@ export default function SkillsClient({ ngos, initialContributions }: Props) {
                               <ExternalLink className="w-3 h-3" />
                               View on Polygon
                             </a>
+                          )}
+                          {c.status === "APPROVED" && (
+                            <div className="pt-1 border-t border-gray-100">
+                              <CreateChallengeButton
+                                type="skill"
+                                ngoId={c.ngoId}
+                                ngoName={c.ngoName}
+                                skillCategory={c.skillCategory}
+                                hoursContributed={c.hoursContributed ?? undefined}
+                              />
+                            </div>
                           )}
                           {c.status === "REJECTED" && (
                             <div className="flex items-center gap-1.5 text-xs text-red-600">

@@ -159,6 +159,7 @@ model Ngo {
   documents          NgoDocument[]
   aiSummary          String?             @db.Text // AI-generated NGO profile narrative (cached)
   roles              NgoRole[]
+  challenges         DonorChallenge[]
 }
 
 model Project {
@@ -585,18 +586,27 @@ model RoleEngagement {
   application         RoleApplication  @relation(fields: [applicationId], references: [id], onDelete: Cascade)
 }
 
-// Donor Challenge — viral giving loop
+// Donor Challenge — viral giving + skill loop
 model DonorChallenge {
-  id          String                @id @default(cuid())
-  donorId     String
-  projectId   String
-  amount      Float
-  message     String?               @db.Text
-  deadline    DateTime?
-  createdAt   DateTime              @default(now())
-  donor       User                  @relation(fields: [donorId], references: [id], onDelete: Cascade)
-  project     Project               @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  acceptances ChallengeAcceptance[]
+  id               String                @id @default(cuid())
+  donorId          String
+  challengeType    String                @default("FINANCIAL") // FINANCIAL | SKILL
+  // Financial challenge fields
+  projectId        String?
+  amount           Float?
+  // Skill challenge fields
+  ngoId            String?
+  roleId           String? // optional: specific NgoRole to apply to
+  skillCategory    String?
+  hoursContributed Float?
+  // Shared
+  message          String?               @db.Text
+  deadline         DateTime?
+  createdAt        DateTime              @default(now())
+  donor            User                  @relation(fields: [donorId], references: [id], onDelete: Cascade)
+  project          Project?              @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  ngo              Ngo?                  @relation(fields: [ngoId], references: [id], onDelete: Cascade)
+  acceptances      ChallengeAcceptance[]
 }
 
 model ChallengeAcceptance {
