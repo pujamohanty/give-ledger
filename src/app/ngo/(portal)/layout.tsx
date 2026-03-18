@@ -7,19 +7,25 @@ import { Clock, XCircle } from "lucide-react";
 import SignOutButton from "@/components/SignOutButton";
 
 export default async function NgoLayout({ children }: { children: React.ReactNode }) {
-  // Wrap auth() in try-catch: a stale/malformed JWT cookie throws JWEInvalid.
-  // Redirect to NextAuth's signout endpoint which clears all auth cookies,
-  // then sends the user back to /login with a clean slate.
   let session;
   try {
     session = await auth();
   } catch (err) {
-    // Re-throw Next.js redirect errors � they must propagate, not be swallowed
-    if (err && typeof err === "object" && "digest" in err &&
-        typeof (err as { digest: string }).digest === "string" &&
-        (err as { digest: string }).digest.startsWith("NEXT_REDIRECT")) {
+    // Re-throw Next.js redirect errors so they propagate correctly.
+    // Next.js redirect() works by throwing a special error with a digest
+    // starting with "NEXT_REDIRECT". If we swallow it here, the redirect
+    // never happens and the user gets signed out instead.
+    if (
+      err &&
+      typeof err === "object" &&
+      "digest" in err &&
+      typeof (err as { digest: string }).digest === "string" &&
+      (err as { digest: string }).digest.startsWith("NEXT_REDIRECT")
+    ) {
       throw err;
     }
+    // Any other error (e.g. JWEInvalid from a stale/malformed JWT cookie)
+    // clears all auth cookies and sends the user back to login with a clean slate.
     redirect("/api/auth/signout?callbackUrl=/login");
   }
   if (!session) redirect("/login");
@@ -40,7 +46,7 @@ export default async function NgoLayout({ children }: { children: React.ReactNod
   const orgName = ngo.orgName;
   const initials = orgName.trim().split(" ").map((p: string) => p[0]).slice(0, 2).join("").toUpperCase();
 
-  /* ── Pending gate ── */
+  /* Pending gate */
   if (ngo.status === "PENDING") {
     return (
       <div className="min-h-screen bg-[#f3f2ef] flex items-center justify-center px-4">
@@ -53,7 +59,7 @@ export default async function NgoLayout({ children }: { children: React.ReactNod
             Your NGO account is being reviewed by the GiveLedger team.
           </p>
           <p className="text-xs text-gray-400 mb-6">
-            We verify all NGOs before granting portal access. This typically takes 24–48 hours.
+            We verify all NGOs before granting portal access. This typically takes 24-48 hours.
           </p>
           <div className="bg-amber-50 border border-amber-100 rounded-lg p-4 text-left text-sm text-amber-800 mb-6">
             <p className="font-semibold mb-2 text-xs uppercase tracking-wide">What happens next</p>
@@ -69,7 +75,7 @@ export default async function NgoLayout({ children }: { children: React.ReactNod
     );
   }
 
-  /* ── Rejected gate ── */
+  /* Rejected gate */
   if (ngo.status === "REJECTED") {
     return (
       <div className="min-h-screen bg-[#f3f2ef] flex items-center justify-center px-4">

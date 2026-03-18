@@ -8,12 +8,21 @@ export default async function DonorLayout({ children }: { children: React.ReactN
   try {
     session = await auth();
   } catch (err) {
-    // Re-throw Next.js redirect errors — they must propagate, not be swallowed
-    if (err && typeof err === "object" && "digest" in err &&
-        typeof (err as { digest: string }).digest === "string" &&
-        (err as { digest: string }).digest.startsWith("NEXT_REDIRECT")) {
+    // Re-throw Next.js redirect errors so they propagate correctly.
+    // Next.js redirect() works by throwing a special error with a digest
+    // starting with "NEXT_REDIRECT". If we swallow it here, the redirect
+    // never happens and the user gets signed out instead.
+    if (
+      err &&
+      typeof err === "object" &&
+      "digest" in err &&
+      typeof (err as { digest: string }).digest === "string" &&
+      (err as { digest: string }).digest.startsWith("NEXT_REDIRECT")
+    ) {
       throw err;
     }
+    // Any other error (e.g. JWEInvalid from a stale/malformed JWT cookie)
+    // clears all auth cookies and sends the user back to login with a clean slate.
     redirect("/api/auth/signout?callbackUrl=/login");
   }
   if (!session) redirect("/login");
