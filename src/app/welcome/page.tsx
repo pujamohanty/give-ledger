@@ -141,7 +141,7 @@ export default async function WelcomePage() {
                   description="Attract skilled professionals — marketers, engineers, lawyers — who contribute for free in exchange for a verified credential."
                 />
                 <StepCard
-                  href="/wall"
+                  href="/"
                   icon={<Rss className="w-5 h-5 text-sky-400" />}
                   iconBg="bg-sky-500/15"
                   borderHover="hover:border-sky-500/50"
@@ -184,7 +184,7 @@ export default async function WelcomePage() {
                   description="Add your skills, experience, and links to stand out to NGOs."
                 />
                 <StepCard
-                  href="/wall"
+                  href="/"
                   icon={<Rss className="w-5 h-5 text-sky-400" />}
                   iconBg="bg-sky-500/15"
                   borderHover="hover:border-sky-500/50"
