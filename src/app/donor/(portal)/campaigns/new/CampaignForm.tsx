@@ -4,6 +4,7 @@ import Link from "next/link";
 import {
   ArrowLeft, DollarSign, Briefcase, CheckCircle2, ChevronRight,
   Users, Clock, Wifi, MapPin, Share2, Copy, Check, Linkedin, MessageCircle, Mail,
+  Search, X, ChevronDown, ChevronUp,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import PlatformShareModal from "@/components/PlatformShareModal";
@@ -36,7 +37,7 @@ function buildShareText(
 }
 
 export default function CampaignForm({ projects }: { projects: ProjectForCampaign[] }) {
-  const [campaignType, setCampaignType] = useState<"financial" | "skill">("financial");
+  const [campaignType, setCampaignType] = useState<"financial" | "skill">("skill");
   const [selectedProjectId, setSelectedProjectId] = useState("");
   const [selectedRoleIds, setSelectedRoleIds] = useState<string[]>([]);
   const [form, setForm] = useState({ title: "", description: "", goal: "", daysRunning: "30" });
@@ -44,6 +45,10 @@ export default function CampaignForm({ projects }: { projects: ProjectForCampaig
   const [result, setResult] = useState<{ campaignId: string; title: string; projectTitle: string } | null>(null);
   const [copied, setCopied] = useState<string | null>(null);
   const [shareRoleId, setShareRoleId] = useState<string | null>(null);
+  // Project picker modal
+  const [projectPickerOpen, setProjectPickerOpen] = useState(false);
+  const [pickerSearch, setPickerSearch] = useState("");
+  const [expandedProjectId, setExpandedProjectId] = useState<string | null>(null);
 
   const selectedProject = projects.find((p) => p.id === selectedProjectId) ?? null;
   const openRoles = selectedProject?.roles ?? [];
@@ -231,59 +236,216 @@ export default function CampaignForm({ projects }: { projects: ProjectForCampaig
             <p className="text-sm font-semibold text-gray-900 mb-1">
               Choose a project <span className="text-red-500">*</span>
             </p>
-            <p className="text-[11px] text-gray-400 mb-3">
+            <p className="text-[11px] text-gray-400 mb-4">
               {campaignType === "skill"
-                ? "Only projects with open roles are shown — your campaign will invite professionals to fill those roles."
+                ? "Browse projects with open roles — your campaign will invite professionals to fill them."
                 : "All funds go directly to this project, milestone-locked on GiveLedger."}
             </p>
-            <div className="space-y-2">
-              {projects
-                .filter((p) => campaignType !== "skill" || p.roles.length > 0)
-                .map((p) => {
-                  const fundPct = pct(p.raisedAmount, p.goalAmount);
-                  const selected = selectedProjectId === p.id;
-                  return (
-                    <button
-                      key={p.id}
-                      type="button"
-                      onClick={() => { setSelectedProjectId(p.id); setSelectedRoleIds([]); }}
-                      className={`w-full flex items-center gap-4 p-4 rounded-xl border-2 text-left transition-all ${
-                        selected
-                          ? campaignType === "skill" ? "border-violet-400 bg-violet-50" : "border-purple-400 bg-purple-50"
-                          : "border-gray-200 hover:border-gray-300"
-                      }`}
-                    >
-                      <div className={`w-9 h-9 rounded-lg flex items-center justify-center shrink-0 text-xs font-bold text-white ${selected ? (campaignType === "skill" ? "bg-violet-600" : "bg-purple-600") : "bg-gray-400"}`}>
-                        {p.ngoName.slice(0, 2).toUpperCase()}
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-sm font-semibold text-gray-900 truncate">{p.title}</p>
-                        <p className="text-[11px] text-gray-500">{p.ngoName}</p>
-                        <div className="flex items-center gap-3 mt-1.5">
-                          <div className="flex-1 bg-gray-200 rounded-full h-1.5 max-w-[120px]">
-                            <div className={`h-1.5 rounded-full ${selected ? (campaignType === "skill" ? "bg-violet-500" : "bg-purple-500") : "bg-gray-400"}`} style={{ width: `${fundPct}%` }} />
+
+            {/* Selected project summary or placeholder */}
+            {selectedProject ? (
+              <div className={`flex items-center gap-3 p-4 rounded-xl border-2 mb-3 ${campaignType === "skill" ? "border-violet-400 bg-violet-50" : "border-purple-400 bg-purple-50"}`}>
+                <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 text-sm font-bold text-white ${campaignType === "skill" ? "bg-violet-600" : "bg-purple-600"}`}>
+                  {selectedProject.ngoName.slice(0, 2).toUpperCase()}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-semibold text-gray-900 truncate">{selectedProject.title}</p>
+                  <p className="text-[11px] text-gray-500">{selectedProject.ngoName}</p>
+                  <div className="flex items-center gap-3 mt-1">
+                    <span className="text-[10px] text-gray-400">{pct(selectedProject.raisedAmount, selectedProject.goalAmount)}% funded</span>
+                    {selectedProject.roles.length > 0 && (
+                      <span className="text-[10px] text-violet-600 font-medium">{selectedProject.roles.length} open role{selectedProject.roles.length !== 1 ? "s" : ""}</span>
+                    )}
+                  </div>
+                </div>
+                <Check className={`w-5 h-5 shrink-0 ${campaignType === "skill" ? "text-violet-500" : "text-purple-500"}`} />
+              </div>
+            ) : (
+              <div className="flex items-center gap-3 p-4 rounded-xl border-2 border-dashed border-gray-200 mb-3">
+                <div className="w-10 h-10 rounded-xl bg-gray-100 flex items-center justify-center shrink-0">
+                  <Briefcase className="w-4 h-4 text-gray-400" />
+                </div>
+                <p className="text-sm text-gray-400">No project selected yet</p>
+              </div>
+            )}
+
+            <button
+              type="button"
+              onClick={() => { setProjectPickerOpen(true); setPickerSearch(""); setExpandedProjectId(null); }}
+              className={`w-full flex items-center justify-center gap-2 py-2.5 rounded-xl border-2 text-sm font-semibold transition-colors ${
+                campaignType === "skill"
+                  ? "border-violet-300 text-violet-700 hover:bg-violet-50"
+                  : "border-purple-300 text-purple-700 hover:bg-purple-50"
+              }`}
+            >
+              <Search className="w-4 h-4" />
+              {selectedProject ? "Change project" : "Browse all projects"}
+            </button>
+          </div>
+
+          {/* ── Project picker modal ─────────────────────────────────────────── */}
+          {projectPickerOpen && (
+            <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4">
+              {/* Backdrop */}
+              <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setProjectPickerOpen(false)} />
+
+              {/* Modal */}
+              <div className="relative bg-white w-full sm:max-w-2xl rounded-t-2xl sm:rounded-2xl shadow-2xl z-10 flex flex-col max-h-[90vh]">
+                {/* Header */}
+                <div className="flex items-center justify-between px-5 pt-5 pb-4 border-b border-gray-100 shrink-0">
+                  <div>
+                    <h2 className="font-bold text-gray-900">Browse Projects</h2>
+                    <p className="text-xs text-gray-400 mt-0.5">
+                      {campaignType === "skill" ? "Showing projects with open roles" : "All active projects on GiveLedger"}
+                    </p>
+                  </div>
+                  <button onClick={() => setProjectPickerOpen(false)} className="p-1.5 rounded-full hover:bg-gray-100 transition-colors">
+                    <X className="w-4 h-4 text-gray-500" />
+                  </button>
+                </div>
+
+                {/* Search */}
+                <div className="px-5 py-3 border-b border-gray-100 shrink-0">
+                  <div className="relative">
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                    <input
+                      type="text"
+                      placeholder="Search projects or NGOs…"
+                      value={pickerSearch}
+                      onChange={(e) => setPickerSearch(e.target.value)}
+                      className="w-full h-10 rounded-xl border border-gray-200 pl-9 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-violet-400"
+                      autoFocus
+                    />
+                  </div>
+                </div>
+
+                {/* Project list */}
+                <div className="overflow-y-auto flex-1 px-4 py-3 space-y-2">
+                  {projects
+                    .filter((p) => {
+                      if (campaignType === "skill" && p.roles.length === 0) return false;
+                      if (!pickerSearch.trim()) return true;
+                      const q = pickerSearch.toLowerCase();
+                      return p.title.toLowerCase().includes(q) || p.ngoName.toLowerCase().includes(q);
+                    })
+                    .map((p) => {
+                      const fundPct = pct(p.raisedAmount, p.goalAmount);
+                      const isExpanded = expandedProjectId === p.id;
+                      const isSelected = selectedProjectId === p.id;
+                      return (
+                        <div key={p.id} className={`rounded-xl border-2 overflow-hidden transition-colors ${isSelected ? (campaignType === "skill" ? "border-violet-400" : "border-purple-400") : "border-gray-200"}`}>
+                          {/* Project header row */}
+                          <div className="flex items-center gap-3 p-4">
+                            <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 text-sm font-bold text-white ${isSelected ? (campaignType === "skill" ? "bg-violet-600" : "bg-purple-600") : "bg-gray-400"}`}>
+                              {p.ngoName.slice(0, 2).toUpperCase()}
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <p className="text-sm font-semibold text-gray-900 truncate">{p.title}</p>
+                              <p className="text-[11px] text-gray-500 truncate">{p.ngoName}</p>
+                              <div className="flex items-center gap-3 mt-1.5">
+                                <div className="flex-1 bg-gray-200 rounded-full h-1.5 max-w-[100px]">
+                                  <div className="h-1.5 rounded-full bg-emerald-500" style={{ width: `${fundPct}%` }} />
+                                </div>
+                                <span className="text-[10px] text-gray-400">{fundPct}% funded</span>
+                                {p.roles.length > 0 && (
+                                  <span className="text-[10px] font-semibold text-violet-600">{p.roles.length} open role{p.roles.length !== 1 ? "s" : ""}</span>
+                                )}
+                              </div>
+                            </div>
+                            <div className="flex items-center gap-2 shrink-0">
+                              {p.roles.length > 0 && (
+                                <button
+                                  type="button"
+                                  onClick={() => setExpandedProjectId(isExpanded ? null : p.id)}
+                                  className="p-1.5 rounded-lg hover:bg-gray-100 text-gray-400 transition-colors"
+                                >
+                                  {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                                </button>
+                              )}
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  setSelectedProjectId(p.id);
+                                  setSelectedRoleIds([]);
+                                  setProjectPickerOpen(false);
+                                }}
+                                className={`text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors ${
+                                  isSelected
+                                    ? campaignType === "skill" ? "bg-violet-600 text-white" : "bg-purple-600 text-white"
+                                    : campaignType === "skill" ? "border border-violet-300 text-violet-700 hover:bg-violet-50" : "border border-purple-300 text-purple-700 hover:bg-purple-50"
+                                }`}
+                              >
+                                {isSelected ? "Selected" : "Select"}
+                              </button>
+                            </div>
                           </div>
-                          <span className="text-[10px] text-gray-400">{fundPct}% funded</span>
-                          {p.roles.length > 0 && (
-                            <span className="text-[10px] text-violet-600 font-medium">{p.roles.length} open role{p.roles.length !== 1 ? "s" : ""}</span>
+
+                          {/* Expanded roles */}
+                          {isExpanded && p.roles.length > 0 && (
+                            <div className="border-t border-gray-100 bg-gray-50 px-4 py-3 space-y-2">
+                              <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-wide mb-2">Open Roles</p>
+                              {p.roles.map((role) => (
+                                <div key={role.id} className="bg-white border border-gray-200 rounded-xl p-3">
+                                  <div className="flex items-start gap-2 flex-wrap">
+                                    <p className="text-xs font-semibold text-gray-900 flex-1">{role.title}</p>
+                                    <span className="text-[10px] font-semibold bg-violet-100 text-violet-700 px-2 py-0.5 rounded-full">
+                                      {ROLE_TYPE_LABELS[role.roleType] ?? role.roleType}
+                                    </span>
+                                  </div>
+                                  <div className="flex items-center gap-3 mt-1.5 text-[10px] text-gray-400 flex-wrap">
+                                    <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> {role.timeCommitment}</span>
+                                    <span>{role.durationWeeks}w</span>
+                                    <span className="flex items-center gap-1">
+                                      {role.isRemote ? <><Wifi className="w-3 h-3" /> Remote</> : <><MapPin className="w-3 h-3" /> On-site</>}
+                                    </span>
+                                  </div>
+                                  <p className="text-[10px] text-gray-400 mt-1 truncate">
+                                    {role.skillsRequired.split(",").slice(0, 4).map((s) => s.trim()).join(" · ")}
+                                  </p>
+                                </div>
+                              ))}
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  setSelectedProjectId(p.id);
+                                  setSelectedRoleIds([]);
+                                  setProjectPickerOpen(false);
+                                }}
+                                className={`w-full mt-1 py-2 rounded-xl text-sm font-semibold transition-colors ${
+                                  campaignType === "skill"
+                                    ? "bg-violet-600 hover:bg-violet-700 text-white"
+                                    : "bg-purple-600 hover:bg-purple-700 text-white"
+                                }`}
+                              >
+                                Select this project
+                              </button>
+                            </div>
                           )}
                         </div>
-                      </div>
-                      <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 transition-colors ${selected ? (campaignType === "skill" ? "border-violet-500 bg-violet-500" : "border-purple-500 bg-purple-500") : "border-gray-300"}`}>
-                        {selected && <Check className="w-3 h-3 text-white" />}
-                      </div>
-                    </button>
-                  );
-                })}
-              {campaignType === "skill" && projects.every((p) => p.roles.length === 0) && (
-                <div className="text-center py-8 text-gray-400">
-                  <Briefcase className="w-8 h-8 mx-auto mb-2 opacity-30" />
-                  <p className="text-sm">No projects have open roles right now.</p>
-                  <p className="text-xs mt-1">Switch to a Financial campaign or check back later.</p>
+                      );
+                    })}
+
+                  {/* Empty state */}
+                  {projects.filter((p) => {
+                    if (campaignType === "skill" && p.roles.length === 0) return false;
+                    if (!pickerSearch.trim()) return true;
+                    const q = pickerSearch.toLowerCase();
+                    return p.title.toLowerCase().includes(q) || p.ngoName.toLowerCase().includes(q);
+                  }).length === 0 && (
+                    <div className="text-center py-12 text-gray-400">
+                      <Briefcase className="w-10 h-10 mx-auto mb-3 opacity-30" />
+                      <p className="text-sm font-medium">
+                        {pickerSearch ? "No projects match your search" : "No projects with open roles right now"}
+                      </p>
+                      {campaignType === "skill" && !pickerSearch && (
+                        <p className="text-xs mt-1">Switch to a Financial campaign to see all projects.</p>
+                      )}
+                    </div>
+                  )}
                 </div>
-              )}
+              </div>
             </div>
-          </div>
+          )}
 
           {/* ── Skill: Role invitations ─────────────────────────────────────── */}
           {campaignType === "skill" && selectedProject && hasRoles && (
