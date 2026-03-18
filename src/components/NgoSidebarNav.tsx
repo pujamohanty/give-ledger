@@ -1,26 +1,110 @@
 "use client";
 import Link from "next/link";
+import { useState } from "react";
+import { usePathname } from "next/navigation";
 import {
   Leaf, LayoutDashboard, FolderOpen, DollarSign, Settings,
-  FileText, Upload, Briefcase, Award, Linkedin, Building2, ClipboardList, Users,
+  FileText, Upload, Briefcase, Award, Linkedin, Building2,
+  ClipboardList, Users, ChevronDown,
 } from "lucide-react";
-import SidebarNavItem from "@/components/SidebarNavItem";
+import { cn } from "@/lib/utils";
 import SignOutButton from "@/components/SignOutButton";
 
-const navItems = [
-  { href: "/ngo/dashboard",        label: "Dashboard",           icon: LayoutDashboard },
-  { href: "/ngo/org-profile",      label: "NGO Profile",         icon: Building2       },
-  { href: "/ngo/projects",         label: "My Projects",         icon: FolderOpen      },
-  { href: "/ngo/roles",            label: "Open Roles",          icon: ClipboardList   },
-  { href: "/ngo/submit-milestone", label: "Submit Evidence",     icon: Upload          },
-  { href: "/ngo/contributors",     label: "Our Contributors",    icon: Users           },
-  { href: "/ngo/skills",           label: "Skill Contributions", icon: Briefcase       },
-  { href: "/ngo/recognition",      label: "Donor Recognition",   icon: Award           },
-  { href: "/ngo/post-builder",     label: "Post Builder",        icon: Linkedin        },
-  { href: "/ngo/finances",         label: "Finances",            icon: DollarSign      },
-  { href: "/ngo/reports",          label: "Reports",             icon: FileText        },
-  { href: "/ngo/settings",         label: "Settings",            icon: Settings        },
+type NavItem  = { href: string; label: string; icon: React.ElementType };
+type NavGroup = { label: string; items: NavItem[] };
+
+const navGroups: NavGroup[] = [
+  {
+    label: "Projects & Funding",
+    items: [
+      { href: "/ngo/projects",         label: "My Projects",         icon: FolderOpen    },
+      { href: "/ngo/submit-milestone", label: "Submit Evidence",     icon: Upload        },
+      { href: "/ngo/finances",         label: "Finances",            icon: DollarSign    },
+      { href: "/ngo/reports",          label: "Reports",             icon: FileText      },
+    ],
+  },
+  {
+    label: "Talent",
+    items: [
+      { href: "/ngo/roles",            label: "Open Roles",          icon: ClipboardList },
+      { href: "/ngo/skills",           label: "Skill Contributions", icon: Briefcase     },
+      { href: "/ngo/contributors",     label: "Our Contributors",    icon: Users         },
+    ],
+  },
+  {
+    label: "Community",
+    items: [
+      { href: "/ngo/recognition",      label: "Donor Recognition",   icon: Award         },
+      { href: "/ngo/post-builder",     label: "Post Builder",        icon: Linkedin      },
+    ],
+  },
+  {
+    label: "Organisation",
+    items: [
+      { href: "/ngo/org-profile",      label: "NGO Profile",         icon: Building2     },
+      { href: "/ngo/settings",         label: "Settings",            icon: Settings      },
+    ],
+  },
 ];
+
+function NavLink({ href, label, icon: Icon }: NavItem) {
+  const pathname = usePathname();
+  const active = pathname === href || (href !== "/" && pathname.startsWith(href));
+
+  return (
+    <Link
+      href={href}
+      className={cn(
+        "flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors group",
+        active
+          ? "bg-emerald-50 text-emerald-700"
+          : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+      )}
+    >
+      <Icon
+        className={cn(
+          "w-4 h-4 shrink-0 transition-colors",
+          active ? "text-emerald-600" : "text-gray-400 group-hover:text-gray-600"
+        )}
+      />
+      <span className="truncate">{label}</span>
+      {active && <div className="ml-auto w-1.5 h-1.5 rounded-full bg-emerald-600 shrink-0" />}
+    </Link>
+  );
+}
+
+function CollapsibleGroup({ label, items }: NavGroup) {
+  const pathname = usePathname();
+  const hasActive = items.some(
+    (item) => pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href))
+  );
+  const [open, setOpen] = useState(hasActive || label === "Projects & Funding");
+
+  return (
+    <div>
+      <button
+        onClick={() => setOpen((v) => !v)}
+        className="w-full flex items-center justify-between px-3 py-1.5 rounded-lg text-xs font-semibold uppercase tracking-wider text-gray-400 hover:text-gray-600 hover:bg-gray-50 transition-colors"
+      >
+        {label}
+        <ChevronDown
+          className={cn(
+            "w-3.5 h-3.5 transition-transform duration-200",
+            open ? "rotate-0" : "-rotate-90"
+          )}
+        />
+      </button>
+
+      {open && (
+        <div className="mt-0.5 space-y-0.5">
+          {items.map((item) => (
+            <NavLink key={item.href} {...item} />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
 
 interface Props {
   orgName: string;
@@ -28,6 +112,9 @@ interface Props {
 }
 
 export default function NgoSidebarNav({ orgName, initials }: Props) {
+  const pathname = usePathname();
+  const dashActive = pathname === "/ngo/dashboard";
+
   return (
     <aside className="hidden lg:flex w-60 flex-col bg-white border-r border-[rgba(0,0,0,0.08)] fixed h-full overflow-y-auto z-30">
       {/* Logo */}
@@ -57,10 +144,32 @@ export default function NgoSidebarNav({ orgName, initials }: Props) {
       </div>
 
       {/* Nav */}
-      <nav className="flex-1 px-3 py-3 space-y-0.5 overflow-y-auto">
-        {navItems.map((item) => (
-          <SidebarNavItem key={item.href} href={item.href} label={item.label} icon={item.icon} />
-        ))}
+      <nav className="flex-1 px-3 py-3 space-y-1 overflow-y-auto">
+        {/* Dashboard — always visible, not in a group */}
+        <Link
+          href="/ngo/dashboard"
+          className={cn(
+            "flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors group",
+            dashActive
+              ? "bg-emerald-50 text-emerald-700"
+              : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+          )}
+        >
+          <LayoutDashboard
+            className={cn(
+              "w-4 h-4 shrink-0 transition-colors",
+              dashActive ? "text-emerald-600" : "text-gray-400 group-hover:text-gray-600"
+            )}
+          />
+          <span className="truncate">Dashboard</span>
+          {dashActive && <div className="ml-auto w-1.5 h-1.5 rounded-full bg-emerald-600 shrink-0" />}
+        </Link>
+
+        <div className="pt-1 space-y-1">
+          {navGroups.map((group) => (
+            <CollapsibleGroup key={group.label} {...group} />
+          ))}
+        </div>
       </nav>
 
       {/* Footer */}
