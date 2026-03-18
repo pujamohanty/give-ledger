@@ -42,7 +42,6 @@ export default async function DonorNewCampaignPage() {
       },
     },
     orderBy: { createdAt: "desc" },
-    take: 12,
   });
 
   const projects: ProjectForCampaign[] = rawProjects.map((p) => ({

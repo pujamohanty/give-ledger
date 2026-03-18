@@ -49,6 +49,8 @@ export default function CampaignForm({ projects }: { projects: ProjectForCampaig
   const [projectPickerOpen, setProjectPickerOpen] = useState(false);
   const [pickerSearch, setPickerSearch] = useState("");
   const [expandedProjectId, setExpandedProjectId] = useState<string | null>(null);
+  const [pickerPage, setPickerPage] = useState(0);
+  const PICKER_PAGE_SIZE = 5;
 
   const selectedProject = projects.find((p) => p.id === selectedProjectId) ?? null;
   const openRoles = selectedProject?.roles ?? [];
@@ -271,7 +273,7 @@ export default function CampaignForm({ projects }: { projects: ProjectForCampaig
 
             <button
               type="button"
-              onClick={() => { setProjectPickerOpen(true); setPickerSearch(""); setExpandedProjectId(null); }}
+              onClick={() => { setProjectPickerOpen(true); setPickerSearch(""); setExpandedProjectId(null); setPickerPage(0); }}
               className={`w-full flex items-center justify-center gap-2 py-2.5 rounded-xl border-2 text-sm font-semibold transition-colors ${
                 campaignType === "skill"
                   ? "border-violet-300 text-violet-700 hover:bg-violet-50"
@@ -312,7 +314,7 @@ export default function CampaignForm({ projects }: { projects: ProjectForCampaig
                       type="text"
                       placeholder="Search projects or NGOs…"
                       value={pickerSearch}
-                      onChange={(e) => setPickerSearch(e.target.value)}
+                      onChange={(e) => { setPickerSearch(e.target.value); setPickerPage(0); }}
                       className="w-full h-10 rounded-xl border border-gray-200 pl-9 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-violet-400"
                       autoFocus
                     />
@@ -321,14 +323,29 @@ export default function CampaignForm({ projects }: { projects: ProjectForCampaig
 
                 {/* Project list */}
                 <div className="overflow-y-auto flex-1 px-4 py-3 space-y-2">
-                  {projects
-                    .filter((p) => {
+                  {(() => {
+                    const filtered = projects.filter((p) => {
                       if (campaignType === "skill" && p.roles.length === 0) return false;
                       if (!pickerSearch.trim()) return true;
                       const q = pickerSearch.toLowerCase();
                       return p.title.toLowerCase().includes(q) || p.ngoName.toLowerCase().includes(q);
-                    })
-                    .map((p) => {
+                    });
+                    const totalPages = Math.ceil(filtered.length / PICKER_PAGE_SIZE);
+                    const paginated = filtered.slice(pickerPage * PICKER_PAGE_SIZE, (pickerPage + 1) * PICKER_PAGE_SIZE);
+                    return (
+                      <>
+                        {paginated.length === 0 && (
+                          <div className="text-center py-12 text-gray-400">
+                            <Briefcase className="w-10 h-10 mx-auto mb-3 opacity-30" />
+                            <p className="text-sm font-medium">
+                              {pickerSearch ? "No projects match your search" : "No projects with open roles right now"}
+                            </p>
+                            {campaignType === "skill" && !pickerSearch && (
+                              <p className="text-xs mt-1">Switch to a Financial campaign to see all projects.</p>
+                            )}
+                          </div>
+                        )}
+                        {paginated.map((p) => {
                       const fundPct = pct(p.raisedAmount, p.goalAmount);
                       const isExpanded = expandedProjectId === p.id;
                       const isSelected = selectedProjectId === p.id;
@@ -423,25 +440,35 @@ export default function CampaignForm({ projects }: { projects: ProjectForCampaig
                           )}
                         </div>
                       );
-                    })}
+                        })}
 
-                  {/* Empty state */}
-                  {projects.filter((p) => {
-                    if (campaignType === "skill" && p.roles.length === 0) return false;
-                    if (!pickerSearch.trim()) return true;
-                    const q = pickerSearch.toLowerCase();
-                    return p.title.toLowerCase().includes(q) || p.ngoName.toLowerCase().includes(q);
-                  }).length === 0 && (
-                    <div className="text-center py-12 text-gray-400">
-                      <Briefcase className="w-10 h-10 mx-auto mb-3 opacity-30" />
-                      <p className="text-sm font-medium">
-                        {pickerSearch ? "No projects match your search" : "No projects with open roles right now"}
-                      </p>
-                      {campaignType === "skill" && !pickerSearch && (
-                        <p className="text-xs mt-1">Switch to a Financial campaign to see all projects.</p>
-                      )}
-                    </div>
-                  )}
+                        {/* Pagination controls */}
+                        {totalPages > 1 && (
+                          <div className="flex items-center justify-between pt-2 pb-1">
+                            <button
+                              type="button"
+                              onClick={() => { setPickerPage((p) => Math.max(0, p - 1)); setExpandedProjectId(null); }}
+                              disabled={pickerPage === 0}
+                              className="flex items-center gap-1.5 text-xs font-semibold text-gray-500 hover:text-gray-800 disabled:opacity-30 disabled:cursor-not-allowed transition-colors px-3 py-2 rounded-lg hover:bg-gray-100"
+                            >
+                              <ChevronDown className="w-3.5 h-3.5 rotate-90" /> Previous
+                            </button>
+                            <span className="text-xs text-gray-400">
+                              Page {pickerPage + 1} of {totalPages} · {filtered.length} project{filtered.length !== 1 ? "s" : ""}
+                            </span>
+                            <button
+                              type="button"
+                              onClick={() => { setPickerPage((p) => Math.min(totalPages - 1, p + 1)); setExpandedProjectId(null); }}
+                              disabled={pickerPage >= totalPages - 1}
+                              className="flex items-center gap-1.5 text-xs font-semibold text-gray-500 hover:text-gray-800 disabled:opacity-30 disabled:cursor-not-allowed transition-colors px-3 py-2 rounded-lg hover:bg-gray-100"
+                            >
+                              Next <ChevronDown className="w-3.5 h-3.5 -rotate-90" />
+                            </button>
+                          </div>
+                        )}
+                      </>
+                    );
+                  })()}
                 </div>
               </div>
             </div>
