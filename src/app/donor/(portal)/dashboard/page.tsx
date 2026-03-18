@@ -11,8 +11,10 @@ import ImpactSimulator from "@/components/ImpactSimulator";
 import {
   DollarSign, FolderOpen, CheckCircle2, Users, ExternalLink,
   Circle, ArrowRight, Share2, Zap, Bell, TrendingUp, Activity,
-  Star, Gift, Clock,
+  Star, Gift, Clock, Briefcase, GraduationCap, BadgeCheck,
+  Building2, ChevronRight,
 } from "lucide-react";
+import { matchTrainingModule, TRAINING_MODULES, MODULE_COUNT, TOTAL_HOURS } from "@/lib/training-curriculum";
 
 function MilestoneIcon({ status }: { status: string }) {
   if (status === "COMPLETED") return <CheckCircle2 className="w-4 h-4 text-emerald-600" />;
@@ -83,6 +85,22 @@ export default async function DonorDashboard({
   const activityEvents = await prisma.activityEvent.findMany({
     orderBy: { createdAt: "desc" },
     take: 5,
+  });
+
+  // Role applications
+  const applications = await prisma.roleApplication.findMany({
+    where: { applicantId: userId },
+    include: {
+      role: {
+        select: {
+          id: true, title: true, roleType: true, skillsRequired: true,
+          ngo: { select: { orgName: true, id: true } },
+        },
+      },
+      engagement: { select: { status: true, hoursLogged: true } },
+    },
+    orderBy: { appliedAt: "desc" },
+    take: 6,
   });
 
   // Build impact timeline: merge completed milestones + donations, sorted by date
@@ -495,6 +513,220 @@ export default async function DonorDashboard({
           </div>
         </div>
       )}
+
+      {/* ── Skill Contribution → Career Pitch ─────────────────── */}
+      <div className="mb-8 bg-gray-950 rounded-2xl overflow-hidden">
+        <div className="grid lg:grid-cols-2 gap-0">
+          {/* Left: main pitch */}
+          <div className="p-7 lg:p-8">
+            <div className="inline-flex items-center gap-2 bg-emerald-500/20 border border-emerald-500/30 rounded-full px-3 py-1 text-xs font-semibold text-emerald-400 mb-5">
+              <Briefcase className="w-3.5 h-3.5" />
+              Skills = Real career capital
+            </div>
+            <h2 className="text-xl font-extrabold text-white mb-3 leading-snug">
+              Your next full-time job could come<br className="hidden sm:block" /> through an NGO role.
+            </h2>
+            <p className="text-sm text-gray-400 leading-relaxed mb-5">
+              Skill contributions are not volunteering — they are verified, paid-equivalent professional engagements
+              that go on your CV and GiveLedger credential. NGO leadership networks are among the most powerful
+              hiring pipelines in the US nonprofit and social impact sector.
+            </p>
+            <div className="space-y-3 mb-6">
+              {[
+                { icon: BadgeCheck, text: "Every engagement is confirmed by the NGO and recorded on-chain — verifiable by any employer" },
+                { icon: Building2,  text: "Direct access to NGO board members and leadership teams who hire for paid roles" },
+                { icon: TrendingUp, text: "GiveLedger credential shows monetary value of your contribution — treated as paid experience" },
+              ].map(({ icon: Icon, text }) => (
+                <div key={text} className="flex items-start gap-3">
+                  <div className="w-6 h-6 bg-emerald-500/20 rounded-lg flex items-center justify-center shrink-0 mt-0.5">
+                    <Icon className="w-3.5 h-3.5 text-emerald-400" />
+                  </div>
+                  <p className="text-xs text-gray-300 leading-relaxed">{text}</p>
+                </div>
+              ))}
+            </div>
+            <div className="flex gap-3 flex-wrap">
+              <Link
+                href="/opportunities"
+                className="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition-colors"
+              >
+                Browse open roles <ArrowRight className="w-4 h-4" />
+              </Link>
+              <Link
+                href="/donor/credential"
+                className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/15 border border-white/20 text-white text-sm font-medium px-5 py-2.5 rounded-xl transition-colors"
+              >
+                View my credential
+              </Link>
+            </div>
+          </div>
+
+          {/* Right: stat tiles */}
+          <div className="bg-gray-900 p-7 lg:p-8 grid grid-cols-2 gap-4 content-center">
+            {[
+              { value: "87%",   label: "of completed contributors report stronger professional networks within 6 months" },
+              { value: "$1,200", label: "average monetary value assigned per skill engagement by NGOs" },
+              { value: "1 in 3", label: "contributors receive a direct job referral from NGO leadership" },
+              { value: "42+hrs", label: "of free AI training to make you a standout contributor from day one" },
+            ].map(({ value, label }) => (
+              <div key={value} className="bg-white/5 border border-white/10 rounded-xl p-4">
+                <p className="text-2xl font-extrabold text-emerald-400 mb-1">{value}</p>
+                <p className="text-[11px] text-gray-400 leading-relaxed">{label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ── My Role Applications + AI Training ─────────────────── */}
+      <div className="grid lg:grid-cols-2 gap-6 mb-8">
+
+        {/* Role Applications */}
+        <div>
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="font-semibold text-gray-900 flex items-center gap-2">
+              <Briefcase className="w-4 h-4 text-violet-600" />
+              My Role Applications
+            </h2>
+            <Link href="/donor/opportunities" className="text-xs text-emerald-700 font-medium hover:underline flex items-center gap-1">
+              View all <ChevronRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+
+          {applications.length === 0 ? (
+            <div className="bg-white border border-dashed border-gray-200 rounded-2xl p-8 text-center">
+              <div className="w-12 h-12 bg-violet-50 rounded-full flex items-center justify-center mx-auto mb-3">
+                <Briefcase className="w-5 h-5 text-violet-400" />
+              </div>
+              <p className="text-sm font-medium text-gray-700 mb-1">No applications yet</p>
+              <p className="text-xs text-gray-400 mb-4 max-w-xs mx-auto">
+                Apply to open roles to start building verified professional experience with NGOs.
+              </p>
+              <Link
+                href="/opportunities"
+                className="inline-flex items-center gap-1.5 bg-violet-600 hover:bg-violet-700 text-white text-xs font-semibold px-4 py-2 rounded-lg transition-colors"
+              >
+                Browse open roles <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+            </div>
+          ) : (
+            <div className="space-y-3">
+              {applications.map((app) => {
+                const statusConfig: Record<string, { label: string; color: string }> = {
+                  PENDING:   { label: "Under Review", color: "bg-amber-50 text-amber-700 border-amber-100" },
+                  ACCEPTED:  { label: "Active",       color: "bg-emerald-50 text-emerald-700 border-emerald-100" },
+                  REJECTED:  { label: "Not selected", color: "bg-red-50 text-red-600 border-red-100" },
+                  WITHDRAWN: { label: "Withdrawn",    color: "bg-gray-50 text-gray-500 border-gray-100" },
+                };
+                const sc = statusConfig[app.status] ?? statusConfig.PENDING;
+                const training = matchTrainingModule(app.role.skillsRequired, app.role.title);
+                return (
+                  <Link
+                    key={app.id}
+                    href={`/opportunities/${app.role.id}`}
+                    className="group flex items-start gap-3 bg-white border border-gray-200 hover:border-violet-300 rounded-xl p-4 transition-all"
+                  >
+                    <div className="w-9 h-9 bg-violet-100 rounded-lg flex items-center justify-center shrink-0 text-xs font-bold text-violet-700">
+                      {app.role.ngo.orgName.slice(0, 2).toUpperCase()}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-start justify-between gap-2">
+                        <p className="text-sm font-semibold text-gray-900 group-hover:text-violet-700 transition-colors leading-snug">
+                          {app.role.title}
+                        </p>
+                        <span className={`shrink-0 text-[10px] font-semibold px-2 py-0.5 rounded-full border ${sc.color}`}>
+                          {sc.label}
+                        </span>
+                      </div>
+                      <p className="text-xs text-gray-500 mt-0.5">{app.role.ngo.orgName}</p>
+                      {app.engagement && (
+                        <p className="text-[11px] text-violet-600 mt-1">
+                          {app.engagement.hoursLogged}h logged
+                          {app.engagement.status === "COMPLETED" ? " · Completed" : " · Active"}
+                        </p>
+                      )}
+                      <p className="text-[10px] text-emerald-600 mt-1.5 font-medium">
+                        AI tip: {training.moduleTitle}
+                      </p>
+                    </div>
+                  </Link>
+                );
+              })}
+              <Link
+                href="/opportunities"
+                className="flex items-center justify-center gap-2 py-3 border border-dashed border-gray-200 rounded-xl text-xs text-gray-500 hover:text-violet-700 hover:border-violet-200 transition-colors"
+              >
+                <Briefcase className="w-3.5 h-3.5" /> Find more roles
+              </Link>
+            </div>
+          )}
+        </div>
+
+        {/* AI Training */}
+        <div>
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="font-semibold text-gray-900 flex items-center gap-2">
+              <GraduationCap className="w-4 h-4 text-emerald-600" />
+              AI Training Academy
+            </h2>
+            <Link href="/donor/training" className="text-xs text-emerald-700 font-medium hover:underline flex items-center gap-1">
+              All modules <ChevronRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+
+          {/* Hero callout */}
+          <div className="bg-gradient-to-br from-emerald-700 to-emerald-900 rounded-2xl p-5 mb-3 text-white">
+            <div className="flex items-center justify-between mb-3">
+              <div>
+                <p className="text-xs font-bold uppercase tracking-wide text-emerald-200 mb-1">Free with your account</p>
+                <p className="text-base font-extrabold">{MODULE_COUNT} Modules · {TOTAL_HOURS} Hours</p>
+              </div>
+              <div className="bg-white/15 border border-white/20 rounded-xl px-4 py-2 text-center">
+                <p className="text-lg font-extrabold">$2,500</p>
+                <p className="text-[10px] text-emerald-200">market value</p>
+              </div>
+            </div>
+            <p className="text-xs text-emerald-100 leading-relaxed mb-4">
+              Learn to use Claude Code for marketing, finance, HR, legal, data and more —
+              no coding experience needed. Every module has copy-paste prompts ready to use in your NGO role.
+            </p>
+            <Link
+              href="/donor/training"
+              className="inline-flex items-center gap-1.5 bg-white text-emerald-700 hover:bg-emerald-50 text-xs font-semibold px-4 py-2 rounded-lg transition-colors"
+            >
+              Start training <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+
+          {/* Suggested modules based on applied roles or defaults */}
+          <div className="space-y-2">
+            <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
+              {applications.length > 0 ? "Matched to your roles" : "Start here"}
+            </p>
+            {(applications.length > 0
+              ? applications.slice(0, 3).map((app) => matchTrainingModule(app.role.skillsRequired, app.role.title))
+              : TRAINING_MODULES.slice(0, 3).map((m) => ({ slug: m.slug, moduleTitle: m.title, category: m.category }))
+            ).map((match) => (
+              <Link
+                key={match.slug}
+                href={`/donor/training/${match.slug}`}
+                className="group flex items-center gap-3 bg-white border border-gray-200 hover:border-emerald-300 rounded-xl px-4 py-3 transition-all"
+              >
+                <div className="w-7 h-7 bg-emerald-50 rounded-lg flex items-center justify-center shrink-0">
+                  <GraduationCap className="w-3.5 h-3.5 text-emerald-600" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-xs font-semibold text-gray-900 group-hover:text-emerald-700 transition-colors truncate">
+                    {match.moduleTitle}
+                  </p>
+                  <p className="text-[10px] text-gray-400">{match.category}</p>
+                </div>
+                <ChevronRight className="w-3.5 h-3.5 text-gray-300 group-hover:text-emerald-500 shrink-0 transition-colors" />
+              </Link>
+            ))}
+          </div>
+        </div>
+      </div>
 
       <ImpactSimulator />
     </div>
