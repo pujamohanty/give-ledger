@@ -246,7 +246,7 @@ export default async function DonorDashboard({
             </div>
           </div>
         </Link>
-        <Link href="/campaigns/new" className="group">
+        <Link href="/donor/campaigns/new" className="group">
           <div className="flex items-center gap-3 p-4 bg-purple-50 rounded-xl border border-purple-100 hover:border-purple-300 transition-colors">
             <Gift className="w-5 h-5 text-purple-600" />
             <div>

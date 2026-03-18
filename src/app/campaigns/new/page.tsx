@@ -1,10 +1,6 @@
-import { Suspense } from "react";
-import NewCampaignForm from "./NewCampaignForm";
+import { redirect } from "next/navigation";
 
+// Campaign creation lives in the donor portal so the sidebar stays visible.
 export default function NewCampaignPage() {
-  return (
-    <Suspense fallback={<div className="min-h-screen bg-gray-50 flex items-center justify-center"><p className="text-gray-400">Loading...</p></div>}>
-      <NewCampaignForm />
-    </Suspense>
-  );
+  redirect("/donor/campaigns/new");
 }
