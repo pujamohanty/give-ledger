@@ -854,6 +854,7 @@ async function main() {
     responsibilities: "Manage Instagram, LinkedIn, X — 3 posts/week minimum\nWrite monthly newsletter to 4,200 donors\nCreate shareable milestone update posts (templates provided)\nGrow our follower base by 20% over engagement period",
     skillsRequired: "Marketing,Social Media,Copywriting,Email Marketing",
     timeCommitment: "8 hours/week", durationWeeks: 8, isRemote: true, openings: 1,
+    // Volunteer — unpaid
     status: "OPEN", applicationDeadline: d("2026-04-15T00:00:00Z"), startDate: d("2026-05-01T00:00:00Z"),
   }});
 
@@ -866,6 +867,7 @@ async function main() {
     responsibilities: "Map and qualify 50 corporate CSR prospects\nDraft and send 20 partnership proposals\nLead 5+ discovery calls with CSR decision-makers\nBuild a repeatable outreach playbook we can use long-term",
     skillsRequired: "Fundraising,Sales,Corporate Partnerships,Grant Writing",
     timeCommitment: "12 hours/week", durationWeeks: 12, isRemote: true, openings: 1,
+    salaryMin: 55000, salaryMax: 75000, // USD/yr annualised equivalent for part-time engagement
     status: "OPEN", applicationDeadline: d("2026-04-01T00:00:00Z"), startDate: d("2026-04-15T00:00:00Z"),
   }});
 
@@ -878,6 +880,7 @@ async function main() {
     responsibilities: "Build React Native app (iOS + Android)\nIntegrate with our existing Prisma/PostgreSQL backend\nDeliver MVP in 6 weeks: auth, lesson delivery, income tracker\nDocument codebase and handover to our in-house team",
     skillsRequired: "React Native,TypeScript,Mobile Development,API Integration",
     timeCommitment: "20 hours/week", durationWeeks: 6, isRemote: true, openings: 1,
+    salaryMin: 28000, salaryMax: 45000, // USD/yr annualised internship stipend
     status: "OPEN", applicationDeadline: d("2026-03-25T00:00:00Z"), startDate: d("2026-04-01T00:00:00Z"),
   }});
 
@@ -890,6 +893,7 @@ async function main() {
     responsibilities: "Audit existing 8-week curriculum (all 3 modules)\nDesign 2 new digital skills modules (mobile commerce, basic accounting)\nCreate updated assessment rubrics and trainer guides\nConduct one virtual train-the-trainer session",
     skillsRequired: "Instructional Design,Training,Curriculum Development,Education",
     timeCommitment: "10 hours/week", durationWeeks: 10, isRemote: true, openings: 1,
+    // Volunteer — unpaid
     status: "OPEN", applicationDeadline: d("2026-04-10T00:00:00Z"), startDate: d("2026-04-20T00:00:00Z"),
   }});
 
@@ -902,6 +906,7 @@ async function main() {
     responsibilities: "Review and update trust deed provisions (approx. 40 pages)\nAdvise on FCRA renewal requirements and timeline\nReview construction contract and flag risks\nDraft resident admission agreement template",
     skillsRequired: "Legal,Nonprofit Law,Contract Review,Compliance",
     timeCommitment: "6 hours/week", durationWeeks: 8, isRemote: true, openings: 1,
+    // Volunteer — unpaid (advisory, pro bono)
     status: "OPEN", applicationDeadline: d("2026-04-05T00:00:00Z"), startDate: d("2026-04-15T00:00:00Z"),
   }});
 
@@ -914,6 +919,7 @@ async function main() {
     responsibilities: "Design data collection methodology for 6 schools\nBuild Excel/Sheets dashboard for real-time power monitoring\nConduct 2 virtual check-ins with school principals\nWrite final impact report (15 pages, published on our website)",
     skillsRequired: "Data Analysis,Excel,Impact Measurement,Report Writing",
     timeCommitment: "10 hours/week", durationWeeks: 10, isRemote: true, openings: 1,
+    salaryMin: 48000, salaryMax: 65000, // USD/yr annualised equivalent for part-time engagement
     status: "OPEN", applicationDeadline: d("2026-02-28T00:00:00Z"), startDate: d("2026-03-05T00:00:00Z"),
   }});
 
@@ -926,6 +932,7 @@ async function main() {
     responsibilities: "Review technical specifications for each school installation\nCreate installation quality checklist (30-point review)\nDocument as-built configurations for 3 schools\nAssist with engineer handover report",
     skillsRequired: "Electrical Engineering,Solar Systems,Technical Documentation",
     timeCommitment: "15 hours/week", durationWeeks: 6, isRemote: true, openings: 2,
+    salaryMin: 32000, salaryMax: 48000, // USD/yr annualised internship stipend
     status: "OPEN", applicationDeadline: d("2026-03-20T00:00:00Z"), startDate: d("2026-03-25T00:00:00Z"),
   }});
 
