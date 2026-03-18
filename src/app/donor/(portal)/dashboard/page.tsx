@@ -12,9 +12,19 @@ import {
   DollarSign, FolderOpen, CheckCircle2, Users, ExternalLink,
   Circle, ArrowRight, Share2, Bell, TrendingUp,
   Star, Gift, Clock, Briefcase, GraduationCap, BadgeCheck,
-  Building2, ChevronRight,
+  Building2, ChevronRight, Megaphone,
 } from "lucide-react";
 import { matchTrainingModule, TRAINING_MODULES, MODULE_COUNT, TOTAL_HOURS } from "@/lib/training-curriculum";
+
+function parseCampaignType(description: string | null) {
+  return (description ?? "").startsWith("[SKILL CAMPAIGN]") ? "skill" : "financial";
+}
+
+function daysRemaining(endsAt: Date | null) {
+  if (!endsAt) return null;
+  const diff = Math.ceil((endsAt.getTime() - Date.now()) / 86400000);
+  return diff;
+}
 
 function MilestoneIcon({ status }: { status: string }) {
   if (status === "COMPLETED") return <CheckCircle2 className="w-4 h-4 text-emerald-600" />;
@@ -80,6 +90,14 @@ export default async function DonorDashboard({
     take: 5,
   });
   const unreadCount = notifications.filter((n) => !n.read).length;
+
+  // Campaigns created by this donor
+  const myCampaigns = await prisma.campaign.findMany({
+    where: { creatorId: userId },
+    include: { project: { select: { title: true, ngo: { select: { orgName: true } } } } },
+    orderBy: { createdAt: "desc" },
+    take: 5,
+  });
 
   // Role applications
   const applications = await prisma.roleApplication.findMany({
@@ -273,6 +291,116 @@ export default async function DonorDashboard({
             </div>
           </div>
         </Link>
+      </div>
+
+      {/* ── My Campaigns ──────────────────────────────────────────────── */}
+      <div className="mb-6">
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="font-semibold text-gray-900 flex items-center gap-2">
+            <Megaphone className="w-4 h-4 text-purple-600" />
+            My Campaigns
+          </h2>
+          <div className="flex items-center gap-3">
+            <Link href="/campaigns" className="text-xs text-gray-500 hover:text-gray-800 font-medium flex items-center gap-1">
+              All campaigns <ChevronRight className="w-3.5 h-3.5" />
+            </Link>
+            <Link
+              href="/donor/campaigns/new"
+              className="text-xs font-semibold text-purple-700 bg-purple-50 hover:bg-purple-100 border border-purple-200 px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1"
+            >
+              + New
+            </Link>
+          </div>
+        </div>
+
+        {myCampaigns.length === 0 ? (
+          <div className="bg-white border border-dashed border-gray-200 rounded-2xl p-7 flex items-center gap-5">
+            <div className="w-12 h-12 bg-purple-50 rounded-full flex items-center justify-center shrink-0">
+              <Megaphone className="w-5 h-5 text-purple-400" />
+            </div>
+            <div className="flex-1">
+              <p className="text-sm font-medium text-gray-700 mb-0.5">No campaigns yet</p>
+              <p className="text-xs text-gray-400">Start a campaign to fundraise or mobilise professionals for a project you care about.</p>
+            </div>
+            <Link
+              href="/donor/campaigns/new"
+              className="shrink-0 inline-flex items-center gap-1.5 bg-purple-600 hover:bg-purple-700 text-white text-xs font-semibold px-4 py-2 rounded-lg transition-colors"
+            >
+              Start a campaign <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+        ) : (
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            {myCampaigns.map((c) => {
+              const type = parseCampaignType(c.description);
+              const fundPct = c.goalAmount > 0 ? Math.min(Math.round((c.raisedAmount / c.goalAmount) * 100), 100) : 0;
+              const days = daysRemaining(c.endsAt);
+              const isExpired = days !== null && days <= 0;
+              return (
+                <Link
+                  key={c.id}
+                  href={`/campaigns/${c.id}`}
+                  className="group bg-white border border-gray-200 hover:border-purple-300 rounded-2xl p-4 transition-all block"
+                >
+                  <div className="flex items-start justify-between gap-2 mb-3">
+                    <div className="flex items-center gap-1.5">
+                      <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full border ${
+                        type === "skill"
+                          ? "bg-violet-50 text-violet-700 border-violet-200"
+                          : "bg-purple-50 text-purple-700 border-purple-200"
+                      }`}>
+                        {type === "skill" ? "Skill" : "Financial"}
+                      </span>
+                      {isExpired && (
+                        <span className="text-[10px] font-semibold bg-gray-100 text-gray-500 border border-gray-200 px-2 py-0.5 rounded-full">Ended</span>
+                      )}
+                    </div>
+                    {days !== null && !isExpired && (
+                      <span className="text-[10px] text-gray-400 shrink-0">{days}d left</span>
+                    )}
+                  </div>
+
+                  <p className="text-sm font-semibold text-gray-900 group-hover:text-purple-700 transition-colors leading-snug mb-1 line-clamp-2">
+                    {c.title}
+                  </p>
+                  <p className="text-[11px] text-gray-500 mb-3 truncate">
+                    {c.project.ngo.orgName} · {c.project.title}
+                  </p>
+
+                  {type === "financial" ? (
+                    <>
+                      <div className="flex justify-between text-[10px] text-gray-400 mb-1">
+                        <span>${c.raisedAmount.toLocaleString()} raised</span>
+                        <span>{fundPct}%</span>
+                      </div>
+                      <div className="w-full bg-gray-100 rounded-full h-1.5">
+                        <div className="h-1.5 rounded-full bg-purple-500 transition-all" style={{ width: `${fundPct}%` }} />
+                      </div>
+                      <p className="text-[10px] text-gray-400 mt-1">Goal: ${c.goalAmount.toLocaleString()}</p>
+                    </>
+                  ) : (
+                    <div className="bg-violet-50 border border-violet-100 rounded-lg px-3 py-2">
+                      <p className="text-[10px] text-violet-600 font-medium">
+                        Skill mobilisation · ${c.goalAmount.toLocaleString()} target value
+                      </p>
+                    </div>
+                  )}
+                </Link>
+              );
+            })}
+
+            {/* "See all" tile if more campaigns exist */}
+            {myCampaigns.length === 5 && (
+              <Link
+                href="/campaigns"
+                className="flex flex-col items-center justify-center gap-2 bg-gray-50 border border-dashed border-gray-200 hover:border-purple-300 rounded-2xl p-4 text-center transition-colors min-h-[140px]"
+              >
+                <Megaphone className="w-6 h-6 text-gray-300" />
+                <p className="text-xs font-semibold text-gray-500 hover:text-purple-700">View all campaigns</p>
+              </Link>
+            )}
+          </div>
+        )}
       </div>
 
       {/* ── Skills = Real career capital — ELEVATED ─────────────────── */}
