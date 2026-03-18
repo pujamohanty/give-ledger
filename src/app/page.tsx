@@ -454,6 +454,107 @@ async function LandingPage({ session }: { session: Session | null }) {
         </div>
       </section>
 
+      {/* ── NGO Sector Scale ── */}
+      <section className="py-20 bg-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="text-center mb-14">
+            <span className="inline-block text-xs font-semibold text-emerald-700 bg-emerald-50 border border-emerald-100 px-3 py-1 rounded-full mb-4">
+              The sector you are joining
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-4">
+              $2.8 trillion. 1.54 million organisations.<br className="hidden sm:block" /> Chronically short on talent.
+            </h2>
+            <p className="text-gray-500 text-base max-w-2xl mx-auto">
+              The US nonprofit sector is the third-largest employer in the country — bigger than construction, finance, or manufacturing.
+              Every one of these organisations runs on professional skills. Most cannot afford market rates to hire them.
+            </p>
+          </div>
+
+          {/* Macro stats */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
+            {[
+              { stat: "$2.8T",     label: "Total sector assets",        sub: "Larger than the entire UK economy" },
+              { stat: "1.54M",     label: "Registered nonprofits",      sub: "IRS-recognised organisations in the US" },
+              { stat: "12.3M",     label: "Paid employees",             sub: "10% of the entire US private workforce" },
+              { stat: "$167B",     label: "Annual volunteer labour",    sub: "Equivalent market value per year" },
+            ].map((s) => (
+              <div key={s.stat} className="bg-gray-50 rounded-2xl p-5 text-center">
+                <p className="text-3xl font-extrabold text-emerald-700 mb-1">{s.stat}</p>
+                <p className="text-sm font-semibold text-gray-800 mb-1">{s.label}</p>
+                <p className="text-[11px] text-gray-400">{s.sub}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* Skills grid */}
+          <div className="mb-12">
+            <p className="text-center text-sm font-semibold text-gray-400 uppercase tracking-widest mb-8">
+              High-technology skills NGOs urgently need
+            </p>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+              {[
+                { field: "Software Engineering",  detail: "Custom CRMs, donor portals, programme tracking systems",      color: "bg-blue-50 border-blue-100 text-blue-800" },
+                { field: "Data & Analytics",       detail: "Impact measurement, outcome tracking, grant reporting dashboards", color: "bg-violet-50 border-violet-100 text-violet-800" },
+                { field: "Cybersecurity",          detail: "Donor PII protection, compliance audits, incident response",  color: "bg-red-50 border-red-100 text-red-800" },
+                { field: "UX / Product Design",    detail: "Accessible donor interfaces, mobile apps, service design",   color: "bg-pink-50 border-pink-100 text-pink-800" },
+                { field: "Digital Marketing",      detail: "SEO, Google Ad Grants ($120K/yr), email and social campaigns", color: "bg-amber-50 border-amber-100 text-amber-800" },
+                { field: "Finance & Accounting",   detail: "GAAP compliance, audit prep, grant financial management",    color: "bg-emerald-50 border-emerald-100 text-emerald-800" },
+                { field: "Legal & Compliance",     detail: "Contract review, 501(c)(3) governance, IP and employment law", color: "bg-cyan-50 border-cyan-100 text-cyan-800" },
+                { field: "Strategy & Operations",  detail: "Theory of change, logic models, programme evaluation",       color: "bg-indigo-50 border-indigo-100 text-indigo-800" },
+                { field: "Communications & PR",    detail: "Annual reports, media relations, donor communications",      color: "bg-orange-50 border-orange-100 text-orange-800" },
+                { field: "HR & People Ops",        detail: "Volunteer management, staff development, DEI programmes",    color: "bg-teal-50 border-teal-100 text-teal-800" },
+                { field: "AI & Automation",        detail: "Chatbots for service delivery, grant-writing tools, reporting", color: "bg-purple-50 border-purple-100 text-purple-800" },
+                { field: "Project Management",     detail: "PMO setup, agile delivery, cross-programme coordination",    color: "bg-lime-50 border-lime-100 text-lime-800" },
+              ].map((s) => (
+                <div key={s.field} className={`rounded-xl border p-3.5 ${s.color}`}>
+                  <p className="text-xs font-bold mb-1">{s.field}</p>
+                  <p className="text-[10px] leading-snug opacity-80">{s.detail}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Sub-sectors */}
+          <div className="bg-gray-50 rounded-2xl p-8">
+            <p className="text-sm font-semibold text-gray-500 uppercase tracking-widest text-center mb-6">
+              Range of organisations
+            </p>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 text-center">
+              {[
+                { sector: "Healthcare & Hospitals",   share: "30%", icon: "🏥" },
+                { sector: "Education & Research",     share: "25%", icon: "📚" },
+                { sector: "Human Services",           share: "15%", icon: "🤝" },
+                { sector: "Environment & Climate",    share: "8%",  icon: "🌿" },
+                { sector: "Arts & Culture",           share: "6%",  icon: "🎨" },
+                { sector: "International Relief",     share: "5%",  icon: "🌍" },
+              ].map((s) => (
+                <div key={s.sector} className="flex flex-col items-center gap-2">
+                  <span className="text-2xl">{s.icon}</span>
+                  <p className="text-lg font-extrabold text-gray-900">{s.share}</p>
+                  <p className="text-[11px] text-gray-500 leading-tight">{s.sector}</p>
+                </div>
+              ))}
+            </div>
+            <p className="text-center text-xs text-gray-400 mt-6">
+              Source: National Center for Charitable Statistics · IRS Business Master File · Independent Sector 2023
+            </p>
+          </div>
+
+          {/* CTA bridge */}
+          <div className="mt-12 text-center">
+            <p className="text-base text-gray-600 max-w-xl mx-auto mb-5">
+              Your skills can fill that gap — and get you a verified, blockchain-backed credential that proves it.
+            </p>
+            <Link
+              href="/opportunities"
+              className="inline-flex items-center gap-2 bg-emerald-700 hover:bg-emerald-800 text-white text-sm font-semibold px-6 py-3 rounded-full transition-colors"
+            >
+              Browse open roles <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* ── What you get ── */}
       <section className="py-20 bg-[#f8faf9]">
         <div className="max-w-5xl mx-auto px-4 sm:px-6">
@@ -613,107 +714,6 @@ async function LandingPage({ session }: { session: Session | null }) {
           </div>
         </section>
       )}
-
-      {/* ── NGO Sector Scale ── */}
-      <section className="py-20 bg-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <div className="text-center mb-14">
-            <span className="inline-block text-xs font-semibold text-emerald-700 bg-emerald-50 border border-emerald-100 px-3 py-1 rounded-full mb-4">
-              The sector you are joining
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-4">
-              $2.8 trillion. 1.54 million organisations.<br className="hidden sm:block" /> Chronically short on talent.
-            </h2>
-            <p className="text-gray-500 text-base max-w-2xl mx-auto">
-              The US nonprofit sector is the third-largest employer in the country — bigger than construction, finance, or manufacturing.
-              Every one of these organisations runs on professional skills. Most cannot afford market rates to hire them.
-            </p>
-          </div>
-
-          {/* Macro stats */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
-            {[
-              { stat: "$2.8T",     label: "Total sector assets",        sub: "Larger than the entire UK economy" },
-              { stat: "1.54M",     label: "Registered nonprofits",      sub: "IRS-recognised organisations in the US" },
-              { stat: "12.3M",     label: "Paid employees",             sub: "10% of the entire US private workforce" },
-              { stat: "$167B",     label: "Annual volunteer labour",    sub: "Equivalent market value per year" },
-            ].map((s) => (
-              <div key={s.stat} className="bg-gray-50 rounded-2xl p-5 text-center">
-                <p className="text-3xl font-extrabold text-emerald-700 mb-1">{s.stat}</p>
-                <p className="text-sm font-semibold text-gray-800 mb-1">{s.label}</p>
-                <p className="text-[11px] text-gray-400">{s.sub}</p>
-              </div>
-            ))}
-          </div>
-
-          {/* Skills grid */}
-          <div className="mb-12">
-            <p className="text-center text-sm font-semibold text-gray-400 uppercase tracking-widest mb-8">
-              High-technology skills NGOs urgently need
-            </p>
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-              {[
-                { field: "Software Engineering",  detail: "Custom CRMs, donor portals, programme tracking systems",      color: "bg-blue-50 border-blue-100 text-blue-800" },
-                { field: "Data & Analytics",       detail: "Impact measurement, outcome tracking, grant reporting dashboards", color: "bg-violet-50 border-violet-100 text-violet-800" },
-                { field: "Cybersecurity",          detail: "Donor PII protection, compliance audits, incident response",  color: "bg-red-50 border-red-100 text-red-800" },
-                { field: "UX / Product Design",    detail: "Accessible donor interfaces, mobile apps, service design",   color: "bg-pink-50 border-pink-100 text-pink-800" },
-                { field: "Digital Marketing",      detail: "SEO, Google Ad Grants ($120K/yr), email and social campaigns", color: "bg-amber-50 border-amber-100 text-amber-800" },
-                { field: "Finance & Accounting",   detail: "GAAP compliance, audit prep, grant financial management",    color: "bg-emerald-50 border-emerald-100 text-emerald-800" },
-                { field: "Legal & Compliance",     detail: "Contract review, 501(c)(3) governance, IP and employment law", color: "bg-cyan-50 border-cyan-100 text-cyan-800" },
-                { field: "Strategy & Operations",  detail: "Theory of change, logic models, programme evaluation",       color: "bg-indigo-50 border-indigo-100 text-indigo-800" },
-                { field: "Communications & PR",    detail: "Annual reports, media relations, donor communications",      color: "bg-orange-50 border-orange-100 text-orange-800" },
-                { field: "HR & People Ops",        detail: "Volunteer management, staff development, DEI programmes",    color: "bg-teal-50 border-teal-100 text-teal-800" },
-                { field: "AI & Automation",        detail: "Chatbots for service delivery, grant-writing tools, reporting", color: "bg-purple-50 border-purple-100 text-purple-800" },
-                { field: "Project Management",     detail: "PMO setup, agile delivery, cross-programme coordination",    color: "bg-lime-50 border-lime-100 text-lime-800" },
-              ].map((s) => (
-                <div key={s.field} className={`rounded-xl border p-3.5 ${s.color}`}>
-                  <p className="text-xs font-bold mb-1">{s.field}</p>
-                  <p className="text-[10px] leading-snug opacity-80">{s.detail}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Sub-sectors */}
-          <div className="bg-gray-50 rounded-2xl p-8">
-            <p className="text-sm font-semibold text-gray-500 uppercase tracking-widest text-center mb-6">
-              Range of organisations
-            </p>
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 text-center">
-              {[
-                { sector: "Healthcare & Hospitals",   share: "30%", icon: "🏥" },
-                { sector: "Education & Research",     share: "25%", icon: "📚" },
-                { sector: "Human Services",           share: "15%", icon: "🤝" },
-                { sector: "Environment & Climate",    share: "8%",  icon: "🌿" },
-                { sector: "Arts & Culture",           share: "6%",  icon: "🎨" },
-                { sector: "International Relief",     share: "5%",  icon: "🌍" },
-              ].map((s) => (
-                <div key={s.sector} className="flex flex-col items-center gap-2">
-                  <span className="text-2xl">{s.icon}</span>
-                  <p className="text-lg font-extrabold text-gray-900">{s.share}</p>
-                  <p className="text-[11px] text-gray-500 leading-tight">{s.sector}</p>
-                </div>
-              ))}
-            </div>
-            <p className="text-center text-xs text-gray-400 mt-6">
-              Source: National Center for Charitable Statistics · IRS Business Master File · Independent Sector 2023
-            </p>
-          </div>
-
-          {/* CTA bridge */}
-          <div className="mt-12 text-center">
-            <p className="text-base text-gray-600 max-w-xl mx-auto mb-5">
-              Your skills can fill that gap — and get you a verified, blockchain-backed credential that proves it.
-            </p>
-            <Link
-              href="/opportunities"
-              className="inline-flex items-center gap-2 bg-emerald-700 hover:bg-emerald-800 text-white text-sm font-semibold px-6 py-3 rounded-full transition-colors"
-            >
-              Browse open roles <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
-        </div>
-      </section>
 
       {/* ── For NGOs ── */}
       <section className="py-20 bg-[#052e16] text-white">
