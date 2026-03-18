@@ -1,15 +1,60 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { auth } from "@/lib/auth";
-import { Leaf, Search, BookOpen, User, Rss, CheckCircle2 } from "lucide-react";
+import {
+  Leaf, CheckCircle2,
+  // Donor icons
+  Search, BookOpen, User, Rss,
+  // NGO icons
+  Building2, FolderPlus, Users, BarChart3,
+} from "lucide-react";
 
+// ─── Shared card component ────────────────────────────────────────────────────
+function StepCard({
+  href,
+  icon,
+  iconBg,
+  borderHover,
+  title,
+  description,
+  badge,
+}: {
+  href: string;
+  icon: React.ReactNode;
+  iconBg: string;
+  borderHover: string;
+  title: string;
+  description: string;
+  badge?: React.ReactNode;
+}) {
+  return (
+    <Link
+      href={href}
+      className={`group flex items-start gap-4 px-5 py-4 rounded-xl border border-white/[0.1] bg-white/[0.04] hover:bg-white/[0.08] ${borderHover} transition-all`}
+    >
+      <div className={`w-10 h-10 rounded-lg ${iconBg} flex items-center justify-center shrink-0 mt-0.5`}>
+        {icon}
+      </div>
+      <div className="flex-1 min-w-0">
+        <p className="font-semibold text-white text-sm">{title}</p>
+        <p className="text-xs text-gray-500 mt-0.5 leading-relaxed">{description}</p>
+        {badge && <div className="mt-2.5">{badge}</div>}
+      </div>
+      <span className="text-gray-600 group-hover:text-white transition-colors text-lg leading-none mt-0.5 shrink-0">
+        →
+      </span>
+    </Link>
+  );
+}
+
+// ─── Page ─────────────────────────────────────────────────────────────────────
 export default async function WelcomePage() {
   const session = await auth();
   if (!session) redirect("/login");
 
-  const firstName = session.user.name?.split(" ")[0] ?? "there";
   const isNgo = session.user.role === "NGO";
   const dashboardHref = isNgo ? "/ngo/dashboard" : "/donor/dashboard";
+  const firstName = session.user.name?.split(" ")[0] ?? "there";
 
   return (
     <div className="min-h-screen bg-black text-white flex flex-col">
@@ -32,7 +77,7 @@ export default async function WelcomePage() {
 
       {/* Main */}
       <main className="flex-1 flex flex-col items-center justify-center px-4 py-12">
-        {/* Progress dots — all filled (account ready) */}
+        {/* Progress dots */}
         <div className="flex items-center gap-2 mb-8">
           <div className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
           <div className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
@@ -44,13 +89,14 @@ export default async function WelcomePage() {
           <CheckCircle2 className="w-8 h-8 text-white" strokeWidth={2.5} />
         </div>
 
-        {/* Heading */}
-        <h1 className="text-[2.5rem] font-bold text-white leading-tight mb-3">
+        {/* Heading + subtitle — different per role */}
+        <h1 className="text-[2.5rem] font-bold text-white leading-tight mb-3 text-center">
           You&apos;re in{firstName !== "there" ? `, ${firstName}` : ""}!
         </h1>
-        <p className="text-gray-400 text-center text-[15px] max-w-[380px] leading-relaxed mb-10">
-          Your account is ready. Here&apos;s what to do while you wait for NGO
-          responses.
+        <p className="text-gray-400 text-center text-[15px] max-w-[400px] leading-relaxed mb-10">
+          {isNgo
+            ? "Your NGO account is ready. Set up your profile and start raising milestone-locked funding."
+            : "Your account is ready. Here\u2019s what to do while you wait for NGO responses."}
         </p>
 
         {/* Cards */}
@@ -60,96 +106,97 @@ export default async function WelcomePage() {
           </p>
 
           <div className="space-y-2.5">
-            {/* Browse open roles */}
-            <Link
-              href="/opportunities"
-              className="group flex items-center gap-4 px-5 py-4 rounded-xl border border-white/[0.1] bg-white/[0.04] hover:bg-white/[0.08] hover:border-emerald-500/50 transition-all"
-            >
-              <div className="w-10 h-10 rounded-lg bg-emerald-500/15 flex items-center justify-center shrink-0">
-                <Search className="w-5 h-5 text-emerald-400" />
-              </div>
-              <div className="flex-1 min-w-0">
-                <p className="font-semibold text-white text-sm">Browse open roles</p>
-                <p className="text-xs text-gray-500 mt-0.5">
-                  Find roles that match your skills and apply
-                </p>
-              </div>
-              <span className="text-gray-600 group-hover:text-white transition-colors text-lg leading-none">
-                →
-              </span>
-            </Link>
-
-            {/* AI Training */}
-            <Link
-              href="/donor/training"
-              className="group flex items-start gap-4 px-5 py-4 rounded-xl border border-white/[0.1] bg-white/[0.04] hover:bg-white/[0.08] hover:border-violet-500/50 transition-all"
-            >
-              <div className="w-10 h-10 rounded-lg bg-violet-500/15 flex items-center justify-center shrink-0 mt-0.5">
-                <BookOpen className="w-5 h-5 text-violet-400" />
-              </div>
-              <div className="flex-1 min-w-0">
-                <p className="font-semibold text-white text-sm">
-                  Start the AI Training Academy
-                </p>
-                <p className="text-xs text-gray-500 mt-0.5">
-                  Free 42+ hour curriculum — upskill while you wait for responses
-                </p>
-                <div className="mt-2.5 inline-flex items-center bg-violet-500/20 rounded-lg px-3 py-1.5">
-                  <span className="text-[11px] text-violet-300 leading-relaxed">
-                    80+ lessons · $2,500 market value · No coding required
-                  </span>
-                </div>
-              </div>
-              <span className="text-gray-600 group-hover:text-white transition-colors text-lg leading-none mt-0.5">
-                →
-              </span>
-            </Link>
-
-            {/* Complete profile */}
-            <Link
-              href="/donor/profile"
-              className="group flex items-center gap-4 px-5 py-4 rounded-xl border border-white/[0.1] bg-white/[0.04] hover:bg-white/[0.08] hover:border-emerald-500/50 transition-all"
-            >
-              <div className="w-10 h-10 rounded-lg bg-emerald-500/15 flex items-center justify-center shrink-0">
-                <User className="w-5 h-5 text-emerald-400" />
-              </div>
-              <div className="flex-1 min-w-0">
-                <p className="font-semibold text-white text-sm">
-                  Complete your profile
-                </p>
-                <p className="text-xs text-gray-500 mt-0.5">
-                  Add your skills, experience, and links to stand out
-                </p>
-              </div>
-              <span className="text-gray-600 group-hover:text-white transition-colors text-lg leading-none">
-                →
-              </span>
-            </Link>
-
-            {/* Activity feed */}
-            <Link
-              href="/wall"
-              className="group flex items-center gap-4 px-5 py-4 rounded-xl border border-white/[0.1] bg-white/[0.04] hover:bg-white/[0.08] hover:border-sky-500/50 transition-all"
-            >
-              <div className="w-10 h-10 rounded-lg bg-sky-500/15 flex items-center justify-center shrink-0">
-                <Rss className="w-5 h-5 text-sky-400" />
-              </div>
-              <div className="flex-1 min-w-0">
-                <p className="font-semibold text-white text-sm">
-                  Explore the activity feed
-                </p>
-                <p className="text-xs text-gray-500 mt-0.5">
-                  See donations, milestones, and skill contributions happening right now
-                </p>
-              </div>
-              <span className="text-gray-600 group-hover:text-white transition-colors text-lg leading-none">
-                →
-              </span>
-            </Link>
+            {isNgo ? (
+              // ── NGO steps ────────────────────────────────────────────────
+              <>
+                <StepCard
+                  href="/ngo/org-profile"
+                  icon={<Building2 className="w-5 h-5 text-emerald-400" />}
+                  iconBg="bg-emerald-500/15"
+                  borderHover="hover:border-emerald-500/50"
+                  title="Complete your NGO profile"
+                  description="Add your organisation description, EIN, state, founder bios, and logo so donors can trust you."
+                />
+                <StepCard
+                  href="/ngo/projects/new"
+                  icon={<FolderPlus className="w-5 h-5 text-amber-400" />}
+                  iconBg="bg-amber-500/15"
+                  borderHover="hover:border-amber-500/50"
+                  title="Create your first project"
+                  description="Define your goal, set milestones with fund release amounts, and go live to attract donors."
+                  badge={
+                    <div className="inline-flex items-center bg-amber-500/20 rounded-lg px-3 py-1.5">
+                      <span className="text-[11px] text-amber-300 leading-relaxed">
+                        Funds only release when milestones are verified · On-chain proof
+                      </span>
+                    </div>
+                  }
+                />
+                <StepCard
+                  href="/ngo/roles/new"
+                  icon={<Users className="w-5 h-5 text-violet-400" />}
+                  iconBg="bg-violet-500/15"
+                  borderHover="hover:border-violet-500/50"
+                  title="Post an open role"
+                  description="Attract skilled professionals — marketers, engineers, lawyers — who contribute for free in exchange for a verified credential."
+                />
+                <StepCard
+                  href="/wall"
+                  icon={<Rss className="w-5 h-5 text-sky-400" />}
+                  iconBg="bg-sky-500/15"
+                  borderHover="hover:border-sky-500/50"
+                  title="Explore the activity feed"
+                  description="See donations, milestones, and skill contributions happening across the platform right now."
+                />
+              </>
+            ) : (
+              // ── Donor steps ───────────────────────────────────────────────
+              <>
+                <StepCard
+                  href="/opportunities"
+                  icon={<Search className="w-5 h-5 text-emerald-400" />}
+                  iconBg="bg-emerald-500/15"
+                  borderHover="hover:border-emerald-500/50"
+                  title="Browse open roles"
+                  description="Find roles that match your skills and apply to contribute professionally."
+                />
+                <StepCard
+                  href="/donor/training"
+                  icon={<BookOpen className="w-5 h-5 text-violet-400" />}
+                  iconBg="bg-violet-500/15"
+                  borderHover="hover:border-violet-500/50"
+                  title="Start the AI Training Academy"
+                  description="Free 42+ hour curriculum — upskill while you wait for responses."
+                  badge={
+                    <div className="inline-flex items-center bg-violet-500/20 rounded-lg px-3 py-1.5">
+                      <span className="text-[11px] text-violet-300 leading-relaxed">
+                        80+ lessons · $2,500 market value · No coding required
+                      </span>
+                    </div>
+                  }
+                />
+                <StepCard
+                  href="/donor/profile"
+                  icon={<User className="w-5 h-5 text-emerald-400" />}
+                  iconBg="bg-emerald-500/15"
+                  borderHover="hover:border-emerald-500/50"
+                  title="Complete your profile"
+                  description="Add your skills, experience, and links to stand out to NGOs."
+                />
+                <StepCard
+                  href="/wall"
+                  icon={<Rss className="w-5 h-5 text-sky-400" />}
+                  iconBg="bg-sky-500/15"
+                  borderHover="hover:border-sky-500/50"
+                  title="Explore the activity feed"
+                  description="See donations, milestones, and skill contributions happening right now."
+                />
+              </>
+            )}
           </div>
         </div>
 
-        {/* Skip link */}
+        {/* Skip */}
         <Link
           href={dashboardHref}
           className="mt-10 text-xs text-gray-700 hover:text-gray-400 transition-colors"

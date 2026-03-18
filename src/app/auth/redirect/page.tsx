@@ -30,7 +30,7 @@ export default async function AuthRedirectPage({
     redirect("/ngo/dashboard");
   }
 
-  if (actualRole === "NGO") redirect("/ngo/dashboard");
+  if (actualRole === "NGO") redirect("/welcome");
   if (actualRole === "ADMIN") redirect("/admin/dashboard");
   redirect("/welcome");
 }
