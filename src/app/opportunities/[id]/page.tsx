@@ -91,7 +91,7 @@ export default async function OpportunityDetailPage({ params }: { params: Promis
 
         {/* Back */}
         <Link href="/opportunities" className="inline-flex items-center gap-1.5 text-xs text-gray-500 hover:text-gray-800 mb-6 transition-colors">
-          <ArrowLeft className="w-3.5 h-3.5" /> All opportunities
+          <ArrowLeft className="w-3.5 h-3.5" /> All roles
         </Link>
 
         <div className="grid lg:grid-cols-3 gap-6">

@@ -15,6 +15,39 @@ function initials(name: string | null | undefined) {
   return p.length === 1 ? p[0][0].toUpperCase() : (p[0][0] + p[p.length - 1][0]).toUpperCase();
 }
 
+const NAV_ITEMS = [
+  {
+    href: "/projects",
+    label: "Projects",
+    tip: "Browse verified NGO projects with milestone-locked funding",
+  },
+  {
+    href: "/campaigns",
+    label: "Campaigns",
+    tip: "Donor-led fundraising campaigns for causes you care about",
+  },
+  {
+    href: "/opportunities",
+    label: "Open Roles",
+    tip: "Contribute your professional skills to NGOs — verified on your credential",
+  },
+  {
+    href: "/pricing",
+    label: "Pricing",
+    tip: "Free to explore. Paid plans unlock role applications and priority listing",
+  },
+  {
+    href: "/wall",
+    label: "Activity",
+    tip: "Live feed of donations, milestones, endorsements and skill contributions",
+  },
+  {
+    href: "/impact",
+    label: "Impact",
+    tip: "Platform-wide verified impact — funds disbursed, milestones completed, NGOs reached",
+  },
+];
+
 export default function Navbar({ session }: NavbarProps) {
   const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -78,21 +111,23 @@ export default function Navbar({ session }: NavbarProps) {
 
         {/* Desktop nav links */}
         <div className="hidden md:flex items-center gap-0.5">
-          {[
-            { href: "/projects", label: "Projects" },
-            { href: "/campaigns", label: "Campaigns" },
-            { href: "/opportunities", label: "Open Roles" },
-            { href: "/pricing", label: "Pricing" },
-            { href: "/wall", label: "Activity" },
-            { href: "/impact", label: "Impact" },
-          ].map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="flex flex-col items-center gap-0.5 px-3 py-1 text-gray-500 hover:text-gray-900 text-xs font-medium rounded transition-colors group"
-            >
-              <span className="group-hover:text-gray-900 transition-colors">{item.label}</span>
-            </Link>
+          {NAV_ITEMS.map((item) => (
+            <div key={item.href} className="relative group">
+              <Link
+                href={item.href}
+                className="flex flex-col items-center gap-0.5 px-3 py-1 text-gray-500 hover:text-gray-900 text-xs font-medium rounded transition-colors"
+              >
+                <span>{item.label}</span>
+              </Link>
+              {/* Tooltip */}
+              <div className="pointer-events-none absolute top-full left-1/2 -translate-x-1/2 mt-2 w-56 bg-gray-900 text-white text-[11px] leading-snug rounded-lg px-3 py-2 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-150 z-50">
+                {item.tip}
+                {/* Arrow */}
+                <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-1.5 overflow-hidden">
+                  <div className="w-2 h-2 bg-gray-900 rotate-45 translate-y-1 mx-auto" />
+                </div>
+              </div>
+            </div>
           ))}
 
           {/* Divider */}
@@ -166,24 +201,24 @@ export default function Navbar({ session }: NavbarProps) {
       {/* Mobile menu */}
       {mobileOpen && (
         <div className="md:hidden border-t border-gray-100 bg-white px-4 py-3 space-y-1 shadow-md">
-          {[
-            { href: "/projects", label: "Projects" },
-            { href: "/campaigns", label: "Campaigns" },
-            { href: "/opportunities", label: "Open Roles" },
-            { href: "/pricing", label: "Pricing" },
-            { href: "/wall", label: "Activity" },
-            { href: "/impact", label: "Impact" },
-            { href: "/suggest-ngo", label: "Suggest an NGO" },
-          ].map((item) => (
+          {NAV_ITEMS.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className="block text-sm text-gray-700 hover:text-emerald-700 py-2 px-2 rounded hover:bg-gray-50"
+              className="block py-2 px-2 rounded hover:bg-gray-50"
               onClick={() => setMobileOpen(false)}
             >
-              {item.label}
+              <p className="text-sm text-gray-700 hover:text-emerald-700 font-medium">{item.label}</p>
+              <p className="text-[11px] text-gray-400 mt-0.5">{item.tip}</p>
             </Link>
           ))}
+          <Link
+            href="/suggest-ngo"
+            className="block text-sm text-gray-700 hover:text-emerald-700 py-2 px-2 rounded hover:bg-gray-50"
+            onClick={() => setMobileOpen(false)}
+          >
+            Suggest an NGO
+          </Link>
           <div className="pt-2 border-t border-gray-100 flex gap-2">
             {session ? (
               <Link href={portalHref} className="flex-1 text-center text-sm font-semibold bg-emerald-700 text-white py-2 rounded-full">

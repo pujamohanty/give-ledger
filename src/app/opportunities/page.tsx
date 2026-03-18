@@ -49,7 +49,7 @@ export default async function OpportunitiesPage({
 
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">Open Opportunities</h1>
+          <h1 className="text-2xl font-bold text-gray-900 mb-2">Open Roles</h1>
           <p className="text-sm text-gray-500 max-w-xl">
             Contribute your skills and time to verified nonprofits. Every completed engagement is recorded
             on your GiveLedger profile — count it as professional experience, a career pivot, or an
