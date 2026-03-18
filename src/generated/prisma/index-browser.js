@@ -479,6 +479,8 @@ exports.Prisma.NgoRoleScalarFieldEnum = {
   isRemote: 'isRemote',
   location: 'location',
   openings: 'openings',
+  salaryMin: 'salaryMin',
+  salaryMax: 'salaryMax',
   status: 'status',
   applicationDeadline: 'applicationDeadline',
   startDate: 'startDate',

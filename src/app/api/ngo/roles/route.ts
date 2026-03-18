@@ -43,7 +43,7 @@ export async function POST(req: NextRequest) {
   const {
     title, department, roleType, projectId, description, responsibilities,
     skillsRequired, timeCommitment, durationWeeks, isRemote, location,
-    openings, applicationDeadline, startDate,
+    openings, applicationDeadline, startDate, salaryMin, salaryMax,
   } = body;
 
   if (!title || !roleType || !description || !responsibilities || !skillsRequired || !timeCommitment) {
@@ -65,6 +65,8 @@ export async function POST(req: NextRequest) {
       isRemote: isRemote !== false,
       location: location || null,
       openings: parseInt(openings) || 1,
+      salaryMin: salaryMin ? parseInt(salaryMin) : null,
+      salaryMax: salaryMax ? parseInt(salaryMax) : null,
       applicationDeadline: applicationDeadline ? new Date(applicationDeadline) : null,
       startDate: startDate ? new Date(startDate) : null,
       status: "OPEN",

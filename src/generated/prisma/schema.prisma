@@ -547,6 +547,8 @@ model NgoRole {
   isRemote            Boolean           @default(true)
   location            String?
   openings            Int               @default(1)
+  salaryMin           Int? // USD/year for paid roles; null = volunteer / unpaid
+  salaryMax           Int?
   status              RoleStatus        @default(OPEN)
   applicationDeadline DateTime?
   startDate           DateTime?

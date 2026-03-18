@@ -37522,11 +37522,15 @@ export namespace Prisma {
   export type NgoRoleAvgAggregateOutputType = {
     durationWeeks: number | null
     openings: number | null
+    salaryMin: number | null
+    salaryMax: number | null
   }
 
   export type NgoRoleSumAggregateOutputType = {
     durationWeeks: number | null
     openings: number | null
+    salaryMin: number | null
+    salaryMax: number | null
   }
 
   export type NgoRoleMinAggregateOutputType = {
@@ -37544,6 +37548,8 @@ export namespace Prisma {
     isRemote: boolean | null
     location: string | null
     openings: number | null
+    salaryMin: number | null
+    salaryMax: number | null
     status: $Enums.RoleStatus | null
     applicationDeadline: Date | null
     startDate: Date | null
@@ -37566,6 +37572,8 @@ export namespace Prisma {
     isRemote: boolean | null
     location: string | null
     openings: number | null
+    salaryMin: number | null
+    salaryMax: number | null
     status: $Enums.RoleStatus | null
     applicationDeadline: Date | null
     startDate: Date | null
@@ -37588,6 +37596,8 @@ export namespace Prisma {
     isRemote: number
     location: number
     openings: number
+    salaryMin: number
+    salaryMax: number
     status: number
     applicationDeadline: number
     startDate: number
@@ -37600,11 +37610,15 @@ export namespace Prisma {
   export type NgoRoleAvgAggregateInputType = {
     durationWeeks?: true
     openings?: true
+    salaryMin?: true
+    salaryMax?: true
   }
 
   export type NgoRoleSumAggregateInputType = {
     durationWeeks?: true
     openings?: true
+    salaryMin?: true
+    salaryMax?: true
   }
 
   export type NgoRoleMinAggregateInputType = {
@@ -37622,6 +37636,8 @@ export namespace Prisma {
     isRemote?: true
     location?: true
     openings?: true
+    salaryMin?: true
+    salaryMax?: true
     status?: true
     applicationDeadline?: true
     startDate?: true
@@ -37644,6 +37660,8 @@ export namespace Prisma {
     isRemote?: true
     location?: true
     openings?: true
+    salaryMin?: true
+    salaryMax?: true
     status?: true
     applicationDeadline?: true
     startDate?: true
@@ -37666,6 +37684,8 @@ export namespace Prisma {
     isRemote?: true
     location?: true
     openings?: true
+    salaryMin?: true
+    salaryMax?: true
     status?: true
     applicationDeadline?: true
     startDate?: true
@@ -37775,6 +37795,8 @@ export namespace Prisma {
     isRemote: boolean
     location: string | null
     openings: number
+    salaryMin: number | null
+    salaryMax: number | null
     status: $Enums.RoleStatus
     applicationDeadline: Date | null
     startDate: Date | null
@@ -37816,6 +37838,8 @@ export namespace Prisma {
     isRemote?: boolean
     location?: boolean
     openings?: boolean
+    salaryMin?: boolean
+    salaryMax?: boolean
     status?: boolean
     applicationDeadline?: boolean
     startDate?: boolean
@@ -37842,6 +37866,8 @@ export namespace Prisma {
     isRemote?: boolean
     location?: boolean
     openings?: boolean
+    salaryMin?: boolean
+    salaryMax?: boolean
     status?: boolean
     applicationDeadline?: boolean
     startDate?: boolean
@@ -37866,6 +37892,8 @@ export namespace Prisma {
     isRemote?: boolean
     location?: boolean
     openings?: boolean
+    salaryMin?: boolean
+    salaryMax?: boolean
     status?: boolean
     applicationDeadline?: boolean
     startDate?: boolean
@@ -37890,6 +37918,8 @@ export namespace Prisma {
     isRemote?: boolean
     location?: boolean
     openings?: boolean
+    salaryMin?: boolean
+    salaryMax?: boolean
     status?: boolean
     applicationDeadline?: boolean
     startDate?: boolean
@@ -37897,7 +37927,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type NgoRoleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "ngoId" | "projectId" | "title" | "department" | "roleType" | "description" | "responsibilities" | "skillsRequired" | "timeCommitment" | "durationWeeks" | "isRemote" | "location" | "openings" | "status" | "applicationDeadline" | "startDate" | "createdAt" | "updatedAt", ExtArgs["result"]["ngoRole"]>
+  export type NgoRoleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "ngoId" | "projectId" | "title" | "department" | "roleType" | "description" | "responsibilities" | "skillsRequired" | "timeCommitment" | "durationWeeks" | "isRemote" | "location" | "openings" | "salaryMin" | "salaryMax" | "status" | "applicationDeadline" | "startDate" | "createdAt" | "updatedAt", ExtArgs["result"]["ngoRole"]>
   export type NgoRoleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     ngo?: boolean | NgoDefaultArgs<ExtArgs>
     project?: boolean | NgoRole$projectArgs<ExtArgs>
@@ -37935,6 +37965,8 @@ export namespace Prisma {
       isRemote: boolean
       location: string | null
       openings: number
+      salaryMin: number | null
+      salaryMax: number | null
       status: $Enums.RoleStatus
       applicationDeadline: Date | null
       startDate: Date | null
@@ -38380,6 +38412,8 @@ export namespace Prisma {
     readonly isRemote: FieldRef<"NgoRole", 'Boolean'>
     readonly location: FieldRef<"NgoRole", 'String'>
     readonly openings: FieldRef<"NgoRole", 'Int'>
+    readonly salaryMin: FieldRef<"NgoRole", 'Int'>
+    readonly salaryMax: FieldRef<"NgoRole", 'Int'>
     readonly status: FieldRef<"NgoRole", 'RoleStatus'>
     readonly applicationDeadline: FieldRef<"NgoRole", 'DateTime'>
     readonly startDate: FieldRef<"NgoRole", 'DateTime'>
@@ -45061,6 +45095,8 @@ export namespace Prisma {
     isRemote: 'isRemote',
     location: 'location',
     openings: 'openings',
+    salaryMin: 'salaryMin',
+    salaryMax: 'salaryMax',
     status: 'status',
     applicationDeadline: 'applicationDeadline',
     startDate: 'startDate',
@@ -47759,6 +47795,8 @@ export namespace Prisma {
     isRemote?: BoolFilter<"NgoRole"> | boolean
     location?: StringNullableFilter<"NgoRole"> | string | null
     openings?: IntFilter<"NgoRole"> | number
+    salaryMin?: IntNullableFilter<"NgoRole"> | number | null
+    salaryMax?: IntNullableFilter<"NgoRole"> | number | null
     status?: EnumRoleStatusFilter<"NgoRole"> | $Enums.RoleStatus
     applicationDeadline?: DateTimeNullableFilter<"NgoRole"> | Date | string | null
     startDate?: DateTimeNullableFilter<"NgoRole"> | Date | string | null
@@ -47784,6 +47822,8 @@ export namespace Prisma {
     isRemote?: SortOrder
     location?: SortOrderInput | SortOrder
     openings?: SortOrder
+    salaryMin?: SortOrderInput | SortOrder
+    salaryMax?: SortOrderInput | SortOrder
     status?: SortOrder
     applicationDeadline?: SortOrderInput | SortOrder
     startDate?: SortOrderInput | SortOrder
@@ -47812,6 +47852,8 @@ export namespace Prisma {
     isRemote?: BoolFilter<"NgoRole"> | boolean
     location?: StringNullableFilter<"NgoRole"> | string | null
     openings?: IntFilter<"NgoRole"> | number
+    salaryMin?: IntNullableFilter<"NgoRole"> | number | null
+    salaryMax?: IntNullableFilter<"NgoRole"> | number | null
     status?: EnumRoleStatusFilter<"NgoRole"> | $Enums.RoleStatus
     applicationDeadline?: DateTimeNullableFilter<"NgoRole"> | Date | string | null
     startDate?: DateTimeNullableFilter<"NgoRole"> | Date | string | null
@@ -47837,6 +47879,8 @@ export namespace Prisma {
     isRemote?: SortOrder
     location?: SortOrderInput | SortOrder
     openings?: SortOrder
+    salaryMin?: SortOrderInput | SortOrder
+    salaryMax?: SortOrderInput | SortOrder
     status?: SortOrder
     applicationDeadline?: SortOrderInput | SortOrder
     startDate?: SortOrderInput | SortOrder
@@ -47867,6 +47911,8 @@ export namespace Prisma {
     isRemote?: BoolWithAggregatesFilter<"NgoRole"> | boolean
     location?: StringNullableWithAggregatesFilter<"NgoRole"> | string | null
     openings?: IntWithAggregatesFilter<"NgoRole"> | number
+    salaryMin?: IntNullableWithAggregatesFilter<"NgoRole"> | number | null
+    salaryMax?: IntNullableWithAggregatesFilter<"NgoRole"> | number | null
     status?: EnumRoleStatusWithAggregatesFilter<"NgoRole"> | $Enums.RoleStatus
     applicationDeadline?: DateTimeNullableWithAggregatesFilter<"NgoRole"> | Date | string | null
     startDate?: DateTimeNullableWithAggregatesFilter<"NgoRole"> | Date | string | null
@@ -50823,6 +50869,8 @@ export namespace Prisma {
     isRemote?: boolean
     location?: string | null
     openings?: number
+    salaryMin?: number | null
+    salaryMax?: number | null
     status?: $Enums.RoleStatus
     applicationDeadline?: Date | string | null
     startDate?: Date | string | null
@@ -50848,6 +50896,8 @@ export namespace Prisma {
     isRemote?: boolean
     location?: string | null
     openings?: number
+    salaryMin?: number | null
+    salaryMax?: number | null
     status?: $Enums.RoleStatus
     applicationDeadline?: Date | string | null
     startDate?: Date | string | null
@@ -50869,6 +50919,8 @@ export namespace Prisma {
     isRemote?: BoolFieldUpdateOperationsInput | boolean
     location?: NullableStringFieldUpdateOperationsInput | string | null
     openings?: IntFieldUpdateOperationsInput | number
+    salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
+    salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
     status?: EnumRoleStatusFieldUpdateOperationsInput | $Enums.RoleStatus
     applicationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -50894,6 +50946,8 @@ export namespace Prisma {
     isRemote?: BoolFieldUpdateOperationsInput | boolean
     location?: NullableStringFieldUpdateOperationsInput | string | null
     openings?: IntFieldUpdateOperationsInput | number
+    salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
+    salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
     status?: EnumRoleStatusFieldUpdateOperationsInput | $Enums.RoleStatus
     applicationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -50917,6 +50971,8 @@ export namespace Prisma {
     isRemote?: boolean
     location?: string | null
     openings?: number
+    salaryMin?: number | null
+    salaryMax?: number | null
     status?: $Enums.RoleStatus
     applicationDeadline?: Date | string | null
     startDate?: Date | string | null
@@ -50937,6 +50993,8 @@ export namespace Prisma {
     isRemote?: BoolFieldUpdateOperationsInput | boolean
     location?: NullableStringFieldUpdateOperationsInput | string | null
     openings?: IntFieldUpdateOperationsInput | number
+    salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
+    salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
     status?: EnumRoleStatusFieldUpdateOperationsInput | $Enums.RoleStatus
     applicationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -50959,6 +51017,8 @@ export namespace Prisma {
     isRemote?: BoolFieldUpdateOperationsInput | boolean
     location?: NullableStringFieldUpdateOperationsInput | string | null
     openings?: IntFieldUpdateOperationsInput | number
+    salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
+    salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
     status?: EnumRoleStatusFieldUpdateOperationsInput | $Enums.RoleStatus
     applicationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -53285,6 +53345,8 @@ export namespace Prisma {
     isRemote?: SortOrder
     location?: SortOrder
     openings?: SortOrder
+    salaryMin?: SortOrder
+    salaryMax?: SortOrder
     status?: SortOrder
     applicationDeadline?: SortOrder
     startDate?: SortOrder
@@ -53295,6 +53357,8 @@ export namespace Prisma {
   export type NgoRoleAvgOrderByAggregateInput = {
     durationWeeks?: SortOrder
     openings?: SortOrder
+    salaryMin?: SortOrder
+    salaryMax?: SortOrder
   }
 
   export type NgoRoleMaxOrderByAggregateInput = {
@@ -53312,6 +53376,8 @@ export namespace Prisma {
     isRemote?: SortOrder
     location?: SortOrder
     openings?: SortOrder
+    salaryMin?: SortOrder
+    salaryMax?: SortOrder
     status?: SortOrder
     applicationDeadline?: SortOrder
     startDate?: SortOrder
@@ -53334,6 +53400,8 @@ export namespace Prisma {
     isRemote?: SortOrder
     location?: SortOrder
     openings?: SortOrder
+    salaryMin?: SortOrder
+    salaryMax?: SortOrder
     status?: SortOrder
     applicationDeadline?: SortOrder
     startDate?: SortOrder
@@ -53344,6 +53412,8 @@ export namespace Prisma {
   export type NgoRoleSumOrderByAggregateInput = {
     durationWeeks?: SortOrder
     openings?: SortOrder
+    salaryMin?: SortOrder
+    salaryMax?: SortOrder
   }
 
   export type EnumRoleTypeWithAggregatesFilter<$PrismaModel = never> = {
@@ -58623,6 +58693,8 @@ export namespace Prisma {
     isRemote?: boolean
     location?: string | null
     openings?: number
+    salaryMin?: number | null
+    salaryMax?: number | null
     status?: $Enums.RoleStatus
     applicationDeadline?: Date | string | null
     startDate?: Date | string | null
@@ -58646,6 +58718,8 @@ export namespace Prisma {
     isRemote?: boolean
     location?: string | null
     openings?: number
+    salaryMin?: number | null
+    salaryMax?: number | null
     status?: $Enums.RoleStatus
     applicationDeadline?: Date | string | null
     startDate?: Date | string | null
@@ -59010,6 +59084,8 @@ export namespace Prisma {
     isRemote?: BoolFilter<"NgoRole"> | boolean
     location?: StringNullableFilter<"NgoRole"> | string | null
     openings?: IntFilter<"NgoRole"> | number
+    salaryMin?: IntNullableFilter<"NgoRole"> | number | null
+    salaryMax?: IntNullableFilter<"NgoRole"> | number | null
     status?: EnumRoleStatusFilter<"NgoRole"> | $Enums.RoleStatus
     applicationDeadline?: DateTimeNullableFilter<"NgoRole"> | Date | string | null
     startDate?: DateTimeNullableFilter<"NgoRole"> | Date | string | null
@@ -59329,6 +59405,8 @@ export namespace Prisma {
     isRemote?: boolean
     location?: string | null
     openings?: number
+    salaryMin?: number | null
+    salaryMax?: number | null
     status?: $Enums.RoleStatus
     applicationDeadline?: Date | string | null
     startDate?: Date | string | null
@@ -59352,6 +59430,8 @@ export namespace Prisma {
     isRemote?: boolean
     location?: string | null
     openings?: number
+    salaryMin?: number | null
+    salaryMax?: number | null
     status?: $Enums.RoleStatus
     applicationDeadline?: Date | string | null
     startDate?: Date | string | null
@@ -64662,6 +64742,8 @@ export namespace Prisma {
     isRemote?: boolean
     location?: string | null
     openings?: number
+    salaryMin?: number | null
+    salaryMax?: number | null
     status?: $Enums.RoleStatus
     applicationDeadline?: Date | string | null
     startDate?: Date | string | null
@@ -64686,6 +64768,8 @@ export namespace Prisma {
     isRemote?: boolean
     location?: string | null
     openings?: number
+    salaryMin?: number | null
+    salaryMax?: number | null
     status?: $Enums.RoleStatus
     applicationDeadline?: Date | string | null
     startDate?: Date | string | null
@@ -64836,6 +64920,8 @@ export namespace Prisma {
     isRemote?: BoolFieldUpdateOperationsInput | boolean
     location?: NullableStringFieldUpdateOperationsInput | string | null
     openings?: IntFieldUpdateOperationsInput | number
+    salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
+    salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
     status?: EnumRoleStatusFieldUpdateOperationsInput | $Enums.RoleStatus
     applicationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -64860,6 +64946,8 @@ export namespace Prisma {
     isRemote?: BoolFieldUpdateOperationsInput | boolean
     location?: NullableStringFieldUpdateOperationsInput | string | null
     openings?: IntFieldUpdateOperationsInput | number
+    salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
+    salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
     status?: EnumRoleStatusFieldUpdateOperationsInput | $Enums.RoleStatus
     applicationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -66578,6 +66666,8 @@ export namespace Prisma {
     isRemote?: boolean
     location?: string | null
     openings?: number
+    salaryMin?: number | null
+    salaryMax?: number | null
     status?: $Enums.RoleStatus
     applicationDeadline?: Date | string | null
     startDate?: Date | string | null
@@ -66885,6 +66975,8 @@ export namespace Prisma {
     isRemote?: BoolFieldUpdateOperationsInput | boolean
     location?: NullableStringFieldUpdateOperationsInput | string | null
     openings?: IntFieldUpdateOperationsInput | number
+    salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
+    salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
     status?: EnumRoleStatusFieldUpdateOperationsInput | $Enums.RoleStatus
     applicationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -66908,6 +67000,8 @@ export namespace Prisma {
     isRemote?: BoolFieldUpdateOperationsInput | boolean
     location?: NullableStringFieldUpdateOperationsInput | string | null
     openings?: IntFieldUpdateOperationsInput | number
+    salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
+    salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
     status?: EnumRoleStatusFieldUpdateOperationsInput | $Enums.RoleStatus
     applicationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -66930,6 +67024,8 @@ export namespace Prisma {
     isRemote?: BoolFieldUpdateOperationsInput | boolean
     location?: NullableStringFieldUpdateOperationsInput | string | null
     openings?: IntFieldUpdateOperationsInput | number
+    salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
+    salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
     status?: EnumRoleStatusFieldUpdateOperationsInput | $Enums.RoleStatus
     applicationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -67070,6 +67166,8 @@ export namespace Prisma {
     isRemote?: boolean
     location?: string | null
     openings?: number
+    salaryMin?: number | null
+    salaryMax?: number | null
     status?: $Enums.RoleStatus
     applicationDeadline?: Date | string | null
     startDate?: Date | string | null
@@ -67341,6 +67439,8 @@ export namespace Prisma {
     isRemote?: BoolFieldUpdateOperationsInput | boolean
     location?: NullableStringFieldUpdateOperationsInput | string | null
     openings?: IntFieldUpdateOperationsInput | number
+    salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
+    salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
     status?: EnumRoleStatusFieldUpdateOperationsInput | $Enums.RoleStatus
     applicationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -67364,6 +67464,8 @@ export namespace Prisma {
     isRemote?: BoolFieldUpdateOperationsInput | boolean
     location?: NullableStringFieldUpdateOperationsInput | string | null
     openings?: IntFieldUpdateOperationsInput | number
+    salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
+    salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
     status?: EnumRoleStatusFieldUpdateOperationsInput | $Enums.RoleStatus
     applicationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -67386,6 +67488,8 @@ export namespace Prisma {
     isRemote?: BoolFieldUpdateOperationsInput | boolean
     location?: NullableStringFieldUpdateOperationsInput | string | null
     openings?: IntFieldUpdateOperationsInput | number
+    salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
+    salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
     status?: EnumRoleStatusFieldUpdateOperationsInput | $Enums.RoleStatus
     applicationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null

@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
-import { Briefcase, Clock, Users, MapPin, Wifi, ChevronRight, Search } from "lucide-react";
+import { Briefcase, Clock, Users, MapPin, Wifi, ChevronRight, Search, DollarSign, GraduationCap } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import { auth } from "@/lib/auth";
+import { matchTrainingModule } from "@/lib/training-curriculum";
 
 const roleTypeLabels: Record<string, { label: string; color: string }> = {
   INTERNSHIP:        { label: "Internship",        color: "bg-blue-50 text-blue-700 border-blue-100" },
@@ -105,6 +106,16 @@ export default async function OpportunitiesPage({
               const typeInfo = roleTypeLabels[role.roleType] ?? roleTypeLabels.VOLUNTEER;
               const skills = role.skillsRequired.split(",").map((s) => s.trim()).filter(Boolean);
               const spotsLeft = role.openings - role._count.applications;
+              const trainingMatch = matchTrainingModule(role.skillsRequired, role.title);
+
+              const salaryLabel =
+                role.salaryMin && role.salaryMax
+                  ? `$${(role.salaryMin / 1000).toFixed(0)}k – $${(role.salaryMax / 1000).toFixed(0)}k / yr`
+                  : role.salaryMin
+                  ? `From $${(role.salaryMin / 1000).toFixed(0)}k / yr`
+                  : role.salaryMax
+                  ? `Up to $${(role.salaryMax / 1000).toFixed(0)}k / yr`
+                  : null;
 
               return (
                 <Link
@@ -149,6 +160,11 @@ export default async function OpportunitiesPage({
                         <Users className="w-3 h-3" /> {spotsLeft} spot{spotsLeft !== 1 ? "s" : ""} left
                       </span>
                     )}
+                    {salaryLabel && (
+                      <span className="flex items-center gap-1 text-emerald-700 font-semibold">
+                        <DollarSign className="w-3 h-3" /> {salaryLabel}
+                      </span>
+                    )}
                   </div>
 
                   {/* Skills */}
@@ -173,6 +189,17 @@ export default async function OpportunitiesPage({
                       Project: {role.project.title}
                     </p>
                   )}
+
+                  {/* AI Training nudge */}
+                  <div className="flex items-center gap-1.5 bg-emerald-50 border border-emerald-100 rounded-lg px-3 py-2 mt-1">
+                    <GraduationCap className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                    <p className="text-[11px] text-emerald-700 leading-snug flex-1">
+                      AI can help you excel in this role.{" "}
+                      <span className="font-semibold underline underline-offset-2">
+                        {trainingMatch.moduleTitle}
+                      </span>
+                    </p>
+                  </div>
 
                   <div className="flex items-center justify-end mt-auto">
                     <span className="text-xs text-gray-400 group-hover:text-emerald-600 flex items-center gap-1 transition-colors">

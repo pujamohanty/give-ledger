@@ -1151,3 +1151,35 @@ export const LEVEL_ORDER: Record<Level, number> = {
   Intermediate: 1,
   Advanced: 2,
 };
+
+/* ─── Skill → module matcher ─────────────────────────────── */
+
+const SKILL_MODULE_MAP: Array<{ keywords: string[]; slug: string }> = [
+  { keywords: ["marketing", "content", "social media", "brand", "communications", "copywriting", "email", "newsletter", "advertising", "pr", "public relations", "fundraising"], slug: "marketing-workflows" },
+  { keywords: ["finance", "accounting", "budget", "financial", "bookkeeping", "audit", "cash flow", "quickbooks", "payroll", "tax", "grant"], slug: "finance-workflows" },
+  { keywords: ["operations", "project management", "logistics", "planning", "process", "workflow", "vendor", "procurement", "supply chain", "facilities"], slug: "operations-workflows" },
+  { keywords: ["hr", "human resources", "recruitment", "hiring", "talent", "training", "onboarding", "people", "culture", "performance", "volunteer management"], slug: "hr-people-workflows" },
+  { keywords: ["legal", "compliance", "policy", "contract", "bylaws", "nonprofit law", "governance", "regulatory", "foia", "501c3"], slug: "legal-compliance-workflows" },
+  { keywords: ["data", "analytics", "research", "measurement", "impact", "evaluation", "reporting", "survey", "statistics", "database", "excel", "tableau"], slug: "data-impact-measurement" },
+  { keywords: ["technology", "software", "web", "development", "it", "digital", "automation", "api", "integration", "cybersecurity", "cloud", "app", "platform"], slug: "product-technology" },
+  { keywords: ["strategy", "leadership", "executive", "board", "ceo", "director", "management", "transformation", "change management", "ai strategy"], slug: "ai-leadership-strategy" },
+  { keywords: ["design", "graphic", "ux", "ui", "visual", "photography", "video", "illustration", "branding"], slug: "marketing-workflows" },
+  { keywords: ["writing", "editing", "documentation", "technical writing", "report"], slug: "operations-workflows" },
+];
+
+/**
+ * Given a role's skills CSV string and title, returns the most relevant
+ * training module (slug + title + category). Falls back to the first beginner module.
+ */
+export function matchTrainingModule(skillsCsv: string, roleTitle: string): { slug: string; moduleTitle: string; category: string } {
+  const haystack = `${skillsCsv} ${roleTitle}`.toLowerCase();
+  for (const { keywords, slug } of SKILL_MODULE_MAP) {
+    if (keywords.some((kw) => haystack.includes(kw))) {
+      const mod = TRAINING_MODULES.find((m) => m.slug === slug);
+      if (mod) return { slug: mod.slug, moduleTitle: mod.title, category: mod.category };
+    }
+  }
+  // Default: fundamentals
+  const fallback = TRAINING_MODULES[0];
+  return { slug: fallback.slug, moduleTitle: fallback.title, category: fallback.category };
+}

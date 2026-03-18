@@ -7,8 +7,9 @@ import RoleApplyButton from "@/components/RoleApplyButton";
 import RoleChatBot from "@/components/RoleChatBot";
 import {
   Briefcase, Clock, Users, MapPin, Wifi, ArrowLeft,
-  Building2, CheckCircle, Calendar, Star, Lock,
+  Building2, CheckCircle, Calendar, Star, Lock, DollarSign, GraduationCap, ArrowRight,
 } from "lucide-react";
+import { matchTrainingModule } from "@/lib/training-curriculum";
 
 const roleTypeLabels: Record<string, { label: string; color: string; description: string }> = {
   INTERNSHIP: {
@@ -84,6 +85,17 @@ export default async function OpportunityDetailPage({ params }: { params: Promis
   const spotsLeft = Math.max(0, role.openings - role._count.applications);
   const isOpen = role.status === "OPEN" && spotsLeft > 0;
 
+  const salaryLabel =
+    role.salaryMin && role.salaryMax
+      ? `$${role.salaryMin.toLocaleString()} – $${role.salaryMax.toLocaleString()} / year`
+      : role.salaryMin
+      ? `From $${role.salaryMin.toLocaleString()} / year`
+      : role.salaryMax
+      ? `Up to $${role.salaryMax.toLocaleString()} / year`
+      : null;
+
+  const trainingMatch = matchTrainingModule(role.skillsRequired, role.title);
+
   return (
     <>
       <Navbar session={session} />
@@ -134,6 +146,11 @@ export default async function OpportunityDetailPage({ params }: { params: Promis
                 <span className="inline-flex items-center gap-1 text-xs text-gray-500 bg-gray-100 px-2.5 py-1 rounded-full">
                   <Users className="w-3 h-3" /> {role.openings} opening{role.openings !== 1 ? "s" : ""}
                 </span>
+                {salaryLabel && (
+                  <span className="inline-flex items-center gap-1 text-xs font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-1 rounded-full">
+                    <DollarSign className="w-3 h-3" /> {salaryLabel}
+                  </span>
+                )}
               </div>
 
               {/* Type description */}
@@ -167,6 +184,35 @@ export default async function OpportunityDetailPage({ params }: { params: Promis
                 </div>
               </div>
             )}
+
+            {/* AI Training callout */}
+            <div className="bg-gradient-to-r from-emerald-700 to-emerald-800 rounded-xl p-5 text-white">
+              <div className="flex items-start gap-3">
+                <div className="w-9 h-9 bg-white/15 rounded-lg flex items-center justify-center shrink-0">
+                  <GraduationCap className="w-5 h-5 text-white" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-xs font-bold uppercase tracking-wide text-emerald-200 mb-1">
+                    Free AI Training — included with your account
+                  </p>
+                  <p className="text-sm font-semibold text-white mb-1">
+                    Use AI to accelerate your work in this role
+                  </p>
+                  <p className="text-xs text-emerald-100 leading-relaxed mb-3">
+                    Our training module <strong className="text-white">{trainingMatch.moduleTitle}</strong> shows
+                    you exactly how to use Claude Code for {trainingMatch.category.toLowerCase()} tasks —
+                    saving hours of work and making you a standout contributor.
+                  </p>
+                  <Link
+                    href={`/donor/training/${trainingMatch.slug}`}
+                    className="inline-flex items-center gap-1.5 bg-white text-emerald-700 hover:bg-emerald-50 text-xs font-semibold px-4 py-2 rounded-lg transition-colors"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    Start learning — free <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
+                </div>
+              </div>
+            </div>
 
             {/* Linked project */}
             {role.project && (

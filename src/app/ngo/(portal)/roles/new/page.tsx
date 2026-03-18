@@ -29,6 +29,7 @@ export default function NewRolePage() {
     description: "", responsibilities: "", timeCommitment: "",
     durationWeeks: "4", isRemote: true, location: "",
     openings: "1", applicationDeadline: "", startDate: "",
+    salaryMin: "", salaryMax: "",
   });
   const [skills, setSkills] = useState<string[]>([]);
   const [skillInput, setSkillInput] = useState("");
@@ -298,6 +299,24 @@ export default function NewRolePage() {
                 <Label>Start date</Label>
                 <Input type="date" className="mt-1"
                   value={form.startDate} onChange={(e) => set("startDate", e.target.value)} />
+              </div>
+            </div>
+
+            {/* Salary (optional — leave blank for unpaid/volunteer roles) */}
+            <div>
+              <Label>Salary / stipend (USD/year) — optional</Label>
+              <p className="text-[11px] text-gray-400 mb-2">Leave blank for unpaid or volunteer roles.</p>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <Input type="number" min="0" placeholder="Min e.g. 40000" className="mt-1"
+                    value={form.salaryMin} onChange={(e) => set("salaryMin", e.target.value)} />
+                  <p className="text-[10px] text-gray-400 mt-1">Minimum USD/year</p>
+                </div>
+                <div>
+                  <Input type="number" min="0" placeholder="Max e.g. 65000" className="mt-1"
+                    value={form.salaryMax} onChange={(e) => set("salaryMax", e.target.value)} />
+                  <p className="text-[10px] text-gray-400 mt-1">Maximum USD/year</p>
+                </div>
               </div>
             </div>
           </CardContent>
