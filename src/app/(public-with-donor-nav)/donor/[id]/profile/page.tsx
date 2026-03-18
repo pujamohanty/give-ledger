@@ -3,9 +3,11 @@ import { prisma } from "@/lib/prisma";
 import {
   Linkedin, Twitter, Globe, MapPin, Briefcase, CheckCircle2,
   ExternalLink, Building2, FileText, Heart, TrendingUp,
+  ArrowLeft, Award, ChevronRight,
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import Link from "next/link";
+import Navbar from "@/components/Navbar";
 
 export default async function DonorPublicProfilePage({
   params,
@@ -37,8 +39,8 @@ export default async function DonorPublicProfilePage({
           hoursContributed: true,
           monetaryValue: true,
           approvedAt: true,
-          ngo: { select: { orgName: true } },
-          project: { select: { title: true } },
+          ngo: { select: { id: true, orgName: true } },
+          project: { select: { id: true, title: true } },
         },
         orderBy: { approvedAt: "desc" },
         take: 10,
@@ -74,15 +76,33 @@ export default async function DonorPublicProfilePage({
 
   return (
     <div className="min-h-screen bg-[#f3f2ef]">
-      {/* Header bar */}
-      <div className="bg-white border-b border-gray-100 px-4 py-3">
-        <div className="max-w-3xl mx-auto flex items-center justify-between">
-          <Link href="/" className="text-emerald-700 font-bold text-lg">GiveLedger</Link>
-          <span className="text-xs text-gray-400 bg-gray-100 px-3 py-1 rounded-full">Donor Profile</span>
-        </div>
-      </div>
+      <Navbar />
 
-      <div className="max-w-3xl mx-auto px-4 py-10 space-y-6">
+      <div className="max-w-3xl mx-auto px-4 py-8 space-y-6">
+
+        {/* Breadcrumb + actions */}
+        <div className="flex items-center justify-between">
+          <Link
+            href="/donors"
+            className="flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-800 transition-colors"
+          >
+            <ArrowLeft className="w-4 h-4" /> All Donors
+          </Link>
+          <div className="flex items-center gap-2">
+            <Link
+              href={`/donor/${id}/impact`}
+              className="flex items-center gap-1.5 text-sm font-semibold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 px-3 py-1.5 rounded-lg transition-colors"
+            >
+              <Award className="w-4 h-4" /> View Impact
+            </Link>
+            <Link
+              href={`/credential/${id}`}
+              className="flex items-center gap-1.5 text-sm font-semibold text-violet-700 bg-violet-50 hover:bg-violet-100 border border-violet-200 px-3 py-1.5 rounded-lg transition-colors"
+            >
+              <CheckCircle2 className="w-4 h-4" /> Credential
+            </Link>
+          </div>
+        </div>
 
         {/* Identity card */}
         <Card>
@@ -224,8 +244,18 @@ export default async function DonorPublicProfilePage({
                       <div className="flex items-start justify-between gap-2">
                         <div>
                           <p className="text-sm font-semibold text-gray-900">{c.skillCategory}</p>
-                          <p className="text-xs text-gray-500">
-                            {c.ngo.orgName}{c.project ? ` · ${c.project.title}` : ""}
+                          <p className="text-xs text-gray-500 flex items-center gap-1 flex-wrap">
+                            <Link href={`/ngo/${c.ngo.id}`} className="hover:text-emerald-700 hover:underline transition-colors">
+                              {c.ngo.orgName}
+                            </Link>
+                            {c.project && (
+                              <>
+                                <span>·</span>
+                                <Link href={`/projects/${c.project.id}`} className="hover:text-emerald-700 hover:underline transition-colors">
+                                  {c.project.title}
+                                </Link>
+                              </>
+                            )}
                           </p>
                         </div>
                         <div className="text-right flex-shrink-0">
@@ -258,20 +288,29 @@ export default async function DonorPublicProfilePage({
               <h2 className="text-sm font-semibold text-gray-900 mb-4 flex items-center gap-2">
                 <Heart className="w-4 h-4 text-rose-500" /> Recent Donations
               </h2>
-              <div className="space-y-3">
+              <div className="space-y-2">
                 {user.donations.map((d) => (
-                  <div key={d.id} className="flex items-center justify-between">
+                  <Link
+                    key={d.id}
+                    href={`/projects/${d.project.id}`}
+                    className="group flex items-center justify-between p-3 rounded-xl border border-gray-100 hover:border-rose-200 hover:bg-rose-50/30 transition-colors"
+                  >
                     <div className="min-w-0">
-                      <p className="text-sm text-gray-700 truncate">{d.project.title}</p>
+                      <p className="text-sm font-medium text-gray-800 group-hover:text-rose-700 truncate transition-colors">
+                        {d.project.title}
+                      </p>
                       <p className="text-xs text-gray-400">{d.project.ngo.orgName}</p>
                     </div>
-                    <div className="text-right shrink-0 ml-4">
-                      <p className="text-sm font-semibold text-rose-600">${d.amount.toLocaleString()}</p>
-                      <p className="text-xs text-gray-400">
-                        {new Date(d.createdAt).toLocaleDateString("en-US", { month: "short", year: "numeric" })}
-                      </p>
+                    <div className="text-right shrink-0 ml-4 flex items-center gap-2">
+                      <div>
+                        <p className="text-sm font-semibold text-rose-600">${d.amount.toLocaleString()}</p>
+                        <p className="text-xs text-gray-400">
+                          {new Date(d.createdAt).toLocaleDateString("en-US", { month: "short", year: "numeric" })}
+                        </p>
+                      </div>
+                      <ChevronRight className="w-4 h-4 text-gray-300 group-hover:text-rose-400 shrink-0" />
                     </div>
-                  </div>
+                  </Link>
                 ))}
               </div>
             </CardContent>

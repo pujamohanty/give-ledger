@@ -7,7 +7,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import {
   Heart, Briefcase, Award, CheckCircle2, ExternalLink,
-  Globe, Target, Users, Linkedin,
+  Globe, Target, Users, Linkedin, ArrowLeft,
 } from "lucide-react";
 
 function formatCurrency(n: number) {
@@ -127,8 +127,18 @@ export default async function PublicDonorImpactPage({
     <div className="min-h-screen bg-gray-50">
       <Navbar session={session} />
 
+      {/* Breadcrumb */}
+      <div className="max-w-3xl mx-auto px-4 pt-5 sm:px-6 lg:px-8">
+        <Link
+          href={`/donor/${id}/profile`}
+          className="inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-800 transition-colors"
+        >
+          <ArrowLeft className="w-4 h-4" /> Back to Profile
+        </Link>
+      </div>
+
       {/* Hero */}
-      <div className="bg-white border-b border-gray-100">
+      <div className="bg-white border-b border-gray-100 mt-4">
         <div className="max-w-3xl mx-auto px-4 py-10 sm:px-6 lg:px-8">
           <div className="flex items-center gap-5">
             {user.image ? (
