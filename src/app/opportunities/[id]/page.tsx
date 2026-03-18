@@ -206,7 +206,6 @@ export default async function OpportunityDetailPage({ params }: { params: Promis
                   <Link
                     href={`/donor/training/${trainingMatch.slug}`}
                     className="inline-flex items-center gap-1.5 bg-white text-emerald-700 hover:bg-emerald-50 text-xs font-semibold px-4 py-2 rounded-lg transition-colors"
-                    onClick={(e) => e.stopPropagation()}
                   >
                     Start learning — free <ArrowRight className="w-3.5 h-3.5" />
                   </Link>
