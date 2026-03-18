@@ -1,5 +1,11 @@
 import { auth } from "@/lib/auth";
+import { prisma } from "@/lib/prisma";
 import DonorSidebarNav from "@/components/DonorSidebarNav";
+import NgoSidebarNav from "@/components/NgoSidebarNav";
+
+function initials(name: string) {
+  return name.trim().split(" ").map((p) => p[0]).slice(0, 2).join("").toUpperCase();
+}
 
 export default async function PublicWithDonorNavLayout({
   children,
@@ -14,28 +20,32 @@ export default async function PublicWithDonorNavLayout({
     // not logged in or invalid token — treat as guest
   }
 
-  const isDonor = session?.user?.role === "DONOR";
+  const role = session?.user?.role;
 
-  if (isDonor) {
+  if (role === "DONOR") {
     const userName = session!.user.name ?? "Donor";
-    const initials = userName
-      .trim()
-      .split(" ")
-      .map((p: string) => p[0])
-      .slice(0, 2)
-      .join("")
-      .toUpperCase();
-
     return (
       <div className="min-h-screen bg-[#f3f2ef] flex">
-        <DonorSidebarNav userName={userName} initials={initials} />
-        <main className="flex-1 lg:ml-60 min-h-screen">
-          {children}
-        </main>
+        <DonorSidebarNav userName={userName} initials={initials(userName)} />
+        <main className="flex-1 lg:ml-60 min-h-screen">{children}</main>
       </div>
     );
   }
 
-  // Not a donor (guest, NGO, admin) — render normally with no sidebar
+  if (role === "NGO") {
+    const ngo = await prisma.ngo.findUnique({
+      where: { userId: session!.user.id },
+      select: { orgName: true },
+    });
+    const orgName = ngo?.orgName ?? session!.user.name ?? "NGO";
+    return (
+      <div className="min-h-screen bg-[#f3f2ef] flex">
+        <NgoSidebarNav orgName={orgName} initials={initials(orgName)} />
+        <main className="flex-1 lg:ml-60 min-h-screen">{children}</main>
+      </div>
+    );
+  }
+
+  // Guest or admin — render page normally with no sidebar
   return <>{children}</>;
 }
