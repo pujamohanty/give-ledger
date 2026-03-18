@@ -1,25 +1,41 @@
 "use client";
 import Link from "next/link";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useState, Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { signIn } from "next-auth/react";
-import { Leaf, Chrome, Eye, EyeOff, Loader2 } from "lucide-react";
+import { Leaf, Chrome, Eye, EyeOff, Loader2, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-export default function LoginPage() {
+// Map NextAuth error codes to human-readable messages
+const AUTH_ERRORS: Record<string, string> = {
+  CredentialsSignin:       "Incorrect email or password. Please try again.",
+  OAuthAccountNotLinked:   "This email is already registered with a different sign-in method. Try signing in with Google.",
+  OAuthSignin:             "Could not sign in with Google. Please try again.",
+  OAuthCallback:           "Google sign-in was cancelled or failed. Please try again.",
+  SessionRequired:         "Please sign in to continue.",
+  Default:                 "Something went wrong. Please try again.",
+};
+
+function LoginForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const urlError = searchParams.get("error");
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [formError, setFormError] = useState("");
+
+  // Show URL-level auth errors (from NextAuth's server-side redirect)
+  const displayError = formError || (urlError ? (AUTH_ERRORS[urlError] ?? AUTH_ERRORS.Default) : "");
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setError("");
+    setFormError("");
     setLoading(true);
 
     const result = await signIn("credentials", {
@@ -31,10 +47,14 @@ export default function LoginPage() {
     setLoading(false);
 
     if (!result?.ok) {
-      setError("Incorrect email or password. Please try again.");
+      // Map the error code to a friendly message
+      const code = result?.error ?? "Default";
+      setFormError(AUTH_ERRORS[code] ?? AUTH_ERRORS.Default);
       return;
     }
 
+    // Credentials verified — do a full browser navigation so the new
+    // JWT cookie is sent with the next request (bypasses Next.js router cache)
     window.location.href = "/auth/redirect";
   }
 
@@ -92,8 +112,11 @@ export default function LoginPage() {
                 </div>
               </div>
 
-              {error && (
-                <p className="text-sm text-red-600 bg-red-50 rounded-lg px-3 py-2">{error}</p>
+              {displayError && (
+                <div className="flex items-start gap-2 text-sm text-red-700 bg-red-50 border border-red-100 rounded-lg px-3 py-2.5">
+                  <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
+                  <span>{displayError}</span>
+                </div>
               )}
 
               <Button
@@ -143,5 +166,14 @@ export default function LoginPage() {
         </p>
       </div>
     </div>
+  );
+}
+
+// Suspense wrapper is required by Next.js when useSearchParams is used in a page
+export default function LoginPage() {
+  return (
+    <Suspense>
+      <LoginForm />
+    </Suspense>
   );
 }

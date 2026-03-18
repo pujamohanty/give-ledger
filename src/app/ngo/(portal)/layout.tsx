@@ -13,7 +13,13 @@ export default async function NgoLayout({ children }: { children: React.ReactNod
   let session;
   try {
     session = await auth();
-  } catch {
+  } catch (err) {
+    // Re-throw Next.js redirect errors — they must propagate, not be swallowed
+    if (err && typeof err === "object" && "digest" in err &&
+        typeof (err as { digest: string }).digest === "string" &&
+        (err as { digest: string }).digest.startsWith("NEXT_REDIRECT")) {
+      throw err;
+    }
     redirect("/api/auth/signout?callbackUrl=/login");
   }
   if (!session) redirect("/login");

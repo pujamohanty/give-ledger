@@ -20,20 +20,31 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) return null;
 
-        const user = await prisma.user.findUnique({
-          where: { email: credentials.email as string },
-        });
+        try {
+          // Use findFirst + mode: insensitive so email casing at signup vs login never mismatches
+          const user = await prisma.user.findFirst({
+            where: {
+              email: {
+                equals: (credentials.email as string).trim(),
+                mode: "insensitive",
+              },
+            },
+          });
 
-        // Reject if user doesn't exist or signed up via Google (no password)
-        if (!user || !user.password) return null;
+          // No account, or account was created via Google (no password)
+          if (!user || !user.password) return null;
 
-        const valid = await bcrypt.compare(
-          credentials.password as string,
-          user.password
-        );
-        if (!valid) return null;
+          const valid = await bcrypt.compare(
+            credentials.password as string,
+            user.password
+          );
+          if (!valid) return null;
 
-        return user;
+          return user;
+        } catch {
+          // DB error during authorize — fail gracefully, never throw
+          return null;
+        }
       },
     }),
   ],
@@ -58,6 +69,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   },
   pages: {
     signIn: "/login",
-    error: "/login",
+    // Do NOT set error: "/login" — that silently redirects to a blank login
+    // form with no error message, making the user think they're in a loop.
+    // Without this, NextAuth will show its own error page for unexpected errors.
   },
 });
