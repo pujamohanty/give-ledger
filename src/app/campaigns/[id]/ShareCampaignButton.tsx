@@ -1,38 +1,46 @@
 "use client";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Share2, Check } from "lucide-react";
+import { Share2 } from "lucide-react";
+import PlatformShareModal from "@/components/PlatformShareModal";
 
-export default function ShareCampaignButton({ campaignId, title }: { campaignId: string; title: string }) {
-  const [copied, setCopied] = useState(false);
+interface Props {
+  campaignId: string;
+  title: string;
+  isSkill?: boolean;
+  projectTitle?: string;
+}
 
-  const handleShare = async () => {
-    const url = `${window.location.origin}/campaigns/${campaignId}`;
-    const text = `Support this campaign: "${title}" — every dollar is milestone-locked and verified on-chain. ${url}`;
+export default function ShareCampaignButton({ campaignId, title, isSkill = false, projectTitle }: Props) {
+  const [open, setOpen] = useState(false);
+  const url = typeof window !== "undefined"
+    ? `${window.location.origin}/campaigns/${campaignId}`
+    : `https://give-ledger.vercel.app/campaigns/${campaignId}`;
 
-    if (navigator.share) {
-      try {
-        await navigator.share({ title, text, url });
-        return;
-      } catch {
-        // fall through to clipboard copy
-      }
-    }
-
-    await navigator.clipboard.writeText(url);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
+  const text = isSkill
+    ? `I'm running a skill campaign for "${projectTitle ?? title}" on GiveLedger. They need professionals to contribute their skills — it's recorded as verified work experience on your credential, not just volunteering. See the open roles:`
+    : `Support my campaign: "${title}" — every dollar is milestone-locked and verified on-chain. See how donations become real outcomes:`;
 
   return (
-    <Button
-      variant="outline"
-      size="sm"
-      className="w-full gap-2"
-      onClick={handleShare}
-    >
-      {copied ? <Check className="w-4 h-4 text-emerald-600" /> : <Share2 className="w-4 h-4" />}
-      {copied ? "Link Copied!" : "Share This Campaign"}
-    </Button>
+    <>
+      <Button
+        variant="outline"
+        size="sm"
+        className="w-full gap-2"
+        onClick={() => setOpen(true)}
+      >
+        <Share2 className="w-4 h-4" />
+        Share This Campaign
+      </Button>
+
+      <PlatformShareModal
+        open={open}
+        onClose={() => setOpen(false)}
+        url={url}
+        title={title}
+        text={text}
+        showInvite={isSkill}
+      />
+    </>
   );
 }

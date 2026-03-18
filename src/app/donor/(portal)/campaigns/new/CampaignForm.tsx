@@ -3,9 +3,10 @@ import { useState } from "react";
 import Link from "next/link";
 import {
   ArrowLeft, DollarSign, Briefcase, CheckCircle2, ChevronRight,
-  Users, Clock, Wifi, MapPin, Share2, Copy, Check,
+  Users, Clock, Wifi, MapPin, Share2, Copy, Check, Linkedin, MessageCircle, Mail,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import PlatformShareModal from "@/components/PlatformShareModal";
 import type { ProjectForCampaign } from "./page";
 
 const ROLE_TYPE_LABELS: Record<string, string> = {
@@ -42,6 +43,7 @@ export default function CampaignForm({ projects }: { projects: ProjectForCampaig
   const [submitting, setSubmitting] = useState(false);
   const [result, setResult] = useState<{ campaignId: string; title: string; projectTitle: string } | null>(null);
   const [copied, setCopied] = useState<string | null>(null);
+  const [shareRoleId, setShareRoleId] = useState<string | null>(null);
 
   const selectedProject = projects.find((p) => p.id === selectedProjectId) ?? null;
   const openRoles = selectedProject?.roles ?? [];
@@ -431,54 +433,85 @@ export default function CampaignForm({ projects }: { projects: ProjectForCampaig
             </div>
           </div>
 
-          {/* ── Skill: invite message preview ──────────────────────────────── */}
+          {/* ── Skill: one-tap invite buttons per role ─────────────────────── */}
           {campaignType === "skill" && selectedRoleIds.length > 0 && form.title && (
             <div className="bg-white border border-gray-200 rounded-2xl p-5">
               <p className="text-sm font-semibold text-gray-900 mb-1 flex items-center gap-2">
                 <Share2 className="w-4 h-4 text-violet-600" />
-                Ready-to-send invite messages
+                Invite your network — one tap per platform
               </p>
               <p className="text-[11px] text-gray-400 mb-4">
-                Copy these messages to share each role with your network. You can use them after launching.
+                Each button opens the app with your invite message pre-filled. Just tap Send.
               </p>
               <div className="space-y-3">
                 {selectedRoleIds.slice(0, 3).map((roleId) => {
                   const role = openRoles.find((r) => r.id === roleId);
                   if (!role) return null;
                   const msgs = buildShareText(form.title, selectedProject!.title, role.title, roleId, origin);
+                  const roleUrl = `${origin}/opportunities/${roleId}`;
+                  const liUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(roleUrl)}&title=${encodeURIComponent(role.title)}&summary=${encodeURIComponent(msgs.linkedin)}&source=GiveLedger`;
+                  const waUrl = `https://wa.me/?text=${encodeURIComponent(msgs.whatsapp)}`;
+                  const mailUrl = `mailto:?subject=${encodeURIComponent(`Skill opportunity: ${role.title}`)}&body=${encodeURIComponent(msgs.email)}`;
                   return (
-                    <div key={roleId} className="border border-gray-100 rounded-xl overflow-hidden">
-                      <div className="bg-gray-50 px-4 py-2.5 flex items-center justify-between">
-                        <p className="text-xs font-semibold text-gray-700">{role.title}</p>
-                        <span className="text-[10px] text-violet-600 font-medium">{ROLE_TYPE_LABELS[role.roleType]}</span>
+                    <div key={roleId} className="border border-violet-100 rounded-xl overflow-hidden">
+                      <div className="bg-violet-50 px-4 py-2.5 flex items-center justify-between">
+                        <p className="text-xs font-semibold text-violet-800">{role.title}</p>
+                        <div className="flex items-center gap-1.5">
+                          <span className="text-[10px] text-violet-500 font-medium">{ROLE_TYPE_LABELS[role.roleType]}</span>
+                          <button
+                            type="button"
+                            onClick={() => setShareRoleId(roleId)}
+                            className="text-[10px] text-violet-600 underline hover:text-violet-800"
+                          >
+                            preview
+                          </button>
+                        </div>
                       </div>
-                      <div className="divide-y divide-gray-100">
-                        {[
-                          { key: `li-${roleId}`, label: "LinkedIn", text: msgs.linkedin },
-                          { key: `wa-${roleId}`, label: "WhatsApp", text: msgs.whatsapp },
-                        ].map(({ key, label, text }) => (
-                          <div key={key} className="px-4 py-3 flex items-start gap-3">
-                            <div className="flex-1 min-w-0">
-                              <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-wide mb-1">{label}</p>
-                              <p className="text-[11px] text-gray-600 leading-relaxed line-clamp-2">{text}</p>
-                            </div>
-                            <button
-                              type="button"
-                              onClick={() => copyText(text, key)}
-                              className="shrink-0 mt-1 p-1.5 rounded-lg border border-gray-200 hover:bg-gray-100 transition-colors"
-                            >
-                              {copied === key
-                                ? <Check className="w-3.5 h-3.5 text-emerald-600" />
-                                : <Copy className="w-3.5 h-3.5 text-gray-400" />
-                              }
-                            </button>
-                          </div>
-                        ))}
+                      <div className="px-4 py-3 grid grid-cols-3 gap-2">
+                        <a
+                          href={waUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center justify-center gap-1.5 bg-[#25D366] hover:bg-[#20bd5a] text-white text-xs font-semibold py-2 rounded-lg transition-colors"
+                        >
+                          <MessageCircle className="w-3.5 h-3.5" /> WhatsApp
+                        </a>
+                        <a
+                          href={liUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center justify-center gap-1.5 bg-[#0A66C2] hover:bg-[#0958a8] text-white text-xs font-semibold py-2 rounded-lg transition-colors"
+                        >
+                          <Linkedin className="w-3.5 h-3.5" /> LinkedIn
+                        </a>
+                        <a
+                          href={mailUrl}
+                          className="flex items-center justify-center gap-1.5 bg-gray-700 hover:bg-gray-800 text-white text-xs font-semibold py-2 rounded-lg transition-colors"
+                        >
+                          <Mail className="w-3.5 h-3.5" /> Email
+                        </a>
                       </div>
                     </div>
                   );
                 })}
               </div>
+              {/* Full share modal for previewing per-role message */}
+              {shareRoleId && (() => {
+                const role = openRoles.find((r) => r.id === shareRoleId);
+                if (!role) return null;
+                const msgs = buildShareText(form.title, selectedProject!.title, role.title, shareRoleId, origin);
+                return (
+                  <PlatformShareModal
+                    open={true}
+                    onClose={() => setShareRoleId(null)}
+                    url={`${origin}/opportunities/${shareRoleId}`}
+                    title={role.title}
+                    text={msgs.linkedin}
+                    emailBody={msgs.email}
+                    showInvite={true}
+                  />
+                );
+              })()}
             </div>
           )}
 
