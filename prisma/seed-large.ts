@@ -63,6 +63,27 @@ const GOAL_AMOUNTS = [10000,25000,50000,75000,100000,150000,200000,250000,300000
 
 const DONATION_AMOUNTS = [25,50,100,150,250,500,750,1000,2500,5000];
 
+const SKILL_CATEGORIES = [
+  "Marketing","Software Engineering","Data & Analytics","Legal","Finance",
+  "Operations","HR","UX Design","Project Management","Communications",
+  "Cybersecurity","Strategy",
+];
+
+const SKILL_DESCRIPTIONS = [
+  "Contributed professional expertise to support NGO marketing and outreach initiatives.",
+  "Provided software development and technical consulting for digital infrastructure.",
+  "Delivered data analysis and reporting to support impact measurement.",
+  "Offered pro bono legal guidance on compliance, contracts, and governance.",
+  "Provided financial modelling, budgeting, and grant-writing support.",
+  "Supported operations planning, logistics coordination, and process improvement.",
+  "Assisted with HR policies, volunteer coordination, and team development.",
+  "Designed user-facing materials, presentations, and brand assets.",
+  "Led project planning, timeline management, and stakeholder coordination.",
+  "Developed communications strategy, press releases, and donor messaging.",
+  "Reviewed cybersecurity posture and recommended protective measures.",
+  "Contributed strategic planning, board facilitation, and impact frameworks.",
+];
+
 // 60 project title bases → cycles to produce 1200 unique titles
 const PROJECT_TITLE_BASES = [
   "Clean Water Access","Youth Skills Training","Women's Economic Empowerment","Senior Wellness",
@@ -283,7 +304,7 @@ async function main() {
   console.log(`\n  ✓ ${milestoneData.length.toLocaleString()} milestones created`);
 
   // ── Step 6: Create Donations (8–15 per project) ────────────────────────────
-  console.log("Step 6/6 — Creating donations...");
+  console.log("Step 6/7 — Creating donations...");
   const donors = await prisma.user.findMany({
     where: { email: { startsWith: "donor", endsWith: "@test.com" }, role: "DONOR" },
     select: { id: true },
@@ -319,13 +340,43 @@ async function main() {
   }
   console.log(`\n  ✓ ${donationData.length.toLocaleString()} donations created`);
 
+  // ── Step 7: Create ~7,500 SkillContributions ───────────────────────────────
+  console.log("Step 7/7 — Creating skill contributions (~7,500)...");
+
+  // Fetch NGO ids in the same order used above
+  const ngoIds = ngos.map((n) => n.id);
+
+  // Every other donor (indices 0, 2, 4, …) = 7,500 skill contributors
+  const skillDonors = donors.filter((_, i) => i % 2 === 0);
+
+  const skillData = skillDonors.map((d, i) => ({
+    donorId: d.id,
+    ngoId: ngoIds[i % ngoIds.length],
+    projectId: projects[i % projects.length].id,
+    skillCategory: SKILL_CATEGORIES[i % SKILL_CATEGORIES.length],
+    description: SKILL_DESCRIPTIONS[i % SKILL_DESCRIPTIONS.length],
+    hoursContributed: 10 + (i % 71),                          // 10 – 80 hrs
+    monetaryValue: (10 + (i % 71)) * (50 + (i % 51)),        // $500 – $6,480
+    status: "APPROVED",
+    approvedAt: new Date(),
+  }));
+
+  inserted = 0;
+  for (const batch of chunk(skillData, 1000)) {
+    await prisma.skillContribution.createMany({ data: batch, skipDuplicates: true });
+    inserted += batch.length;
+    process.stdout.write(`\r  ${inserted.toLocaleString()} / ${skillData.length.toLocaleString()}`);
+  }
+  console.log(`\n  ✓ ${skillData.length.toLocaleString()} skill contributions created`);
+
   // ── Summary ────────────────────────────────────────────────────────────────
   console.log("\n✅ Large seed complete!");
-  console.log(`   Donors:     15,000  (donor1@test.com … donor15000@test.com)`);
-  console.log(`   NGOs:        2,500  (ngo1@test.com … ngo2500@test.com)`);
-  console.log(`   Projects:    1,200`);
-  console.log(`   Milestones:  ${milestoneData.length.toLocaleString()}`);
-  console.log(`   Donations:   ${donationData.length.toLocaleString()}`);
+  console.log(`   Donors:             15,000  (donor1@test.com … donor15000@test.com)`);
+  console.log(`   NGOs:                2,500  (ngo1@test.com … ngo2500@test.com)`);
+  console.log(`   Projects:            1,200`);
+  console.log(`   Milestones:          ${milestoneData.length.toLocaleString()}`);
+  console.log(`   Donations:           ${donationData.length.toLocaleString()}`);
+  console.log(`   Skill Contributors:  ${skillData.length.toLocaleString()} (50% of donor pool)`);
   console.log(`   Password for all accounts: Test1234!`);
 }
 

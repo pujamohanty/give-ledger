@@ -7,7 +7,7 @@ import { Progress } from "@/components/ui/progress";
 import {
   CheckCircle2, Circle, ExternalLink, Shield, Clock, Users, ArrowLeft,
   CreditCard, X, Star, Gift, FileText, Camera, Globe, CalendarDays, Linkedin,
-  Crown, Briefcase,
+  Crown, Briefcase, DollarSign, ChevronRight, MapPin, Timer,
 } from "lucide-react";
 import ShareMilestoneCard from "@/components/ShareMilestoneCard";
 
@@ -18,6 +18,18 @@ const categoryLabel: Record<string, string> = {
   PHYSICALLY_DISABLED: "Accessibility",
   PET_CARE: "Animal Welfare",
   OTHER: "Other",
+};
+
+export type NgoRolePreview = {
+  id: string;
+  title: string;
+  roleType: string;
+  timeCommitment: string;
+  skillsRequired: string;
+  isRemote: boolean;
+  salaryMin: number | null;
+  salaryMax: number | null;
+  durationWeeks: number;
 };
 
 export type BoardMemberPreview = {
@@ -77,6 +89,7 @@ export type ProjectDetail = {
     hoursContributed: number | null;
     monetaryValue: number | null;
   }>;
+  ngoRoles: NgoRolePreview[];
 };
 
 const suggestedAmounts = [25, 50, 100, 250, 500];
@@ -172,6 +185,344 @@ function DonationModal({
   );
 }
 
+// ─── Contribution Choice Modal ───────────────────────────────────────────────
+function ContributionChoiceModal({
+  onClose,
+  onFinancial,
+  onSkill,
+  hasRoles,
+}: {
+  onClose: () => void;
+  onFinancial: () => void;
+  onSkill: () => void;
+  hasRoles: boolean;
+}) {
+  return (
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4">
+      <Card className="w-full max-w-sm shadow-2xl">
+        <CardContent className="p-6">
+          <div className="flex items-center justify-between mb-2">
+            <h3 className="font-bold text-gray-900">How would you like to contribute?</h3>
+            <button onClick={onClose} className="text-gray-400 hover:text-gray-600">
+              <X className="w-5 h-5" />
+            </button>
+          </div>
+          <p className="text-xs text-gray-500 mb-5">
+            GiveLedger recognises money, skills, and time as equal forms of giving — all credited equally.
+          </p>
+          <div className="space-y-3">
+            {/* Financial */}
+            <button
+              onClick={onFinancial}
+              className="w-full flex items-center gap-4 p-4 rounded-xl border-2 border-emerald-200 bg-emerald-50 hover:border-emerald-400 hover:bg-emerald-100 transition-all text-left group"
+            >
+              <div className="w-10 h-10 rounded-full bg-emerald-600 flex items-center justify-center shrink-0">
+                <DollarSign className="w-5 h-5 text-white" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="font-semibold text-gray-900 text-sm">Financial Donation</p>
+                <p className="text-xs text-gray-500 mt-0.5">
+                  Milestone-locked — funds release only when deliverables are verified on-chain.
+                </p>
+              </div>
+              <ChevronRight className="w-4 h-4 text-emerald-600 shrink-0 group-hover:translate-x-0.5 transition-transform" />
+            </button>
+
+            {/* Skill */}
+            <button
+              onClick={onSkill}
+              disabled={!hasRoles}
+              className={`w-full flex items-center gap-4 p-4 rounded-xl border-2 transition-all text-left group ${
+                hasRoles
+                  ? "border-violet-200 bg-violet-50 hover:border-violet-400 hover:bg-violet-100"
+                  : "border-gray-100 bg-gray-50 opacity-60 cursor-not-allowed"
+              }`}
+            >
+              <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 ${hasRoles ? "bg-violet-600" : "bg-gray-300"}`}>
+                <Briefcase className="w-5 h-5 text-white" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="font-semibold text-gray-900 text-sm">Skill Contribution</p>
+                <p className="text-xs text-gray-500 mt-0.5">
+                  {hasRoles
+                    ? "Apply for an open role — contribute your professional skills and earn a verified credential."
+                    : "No open roles at this time. Check back later or donate financially."}
+                </p>
+              </div>
+              {hasRoles && (
+                <ChevronRight className="w-4 h-4 text-violet-600 shrink-0 group-hover:translate-x-0.5 transition-transform" />
+              )}
+            </button>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
+
+// ─── Skill Contribution Modal ─────────────────────────────────────────────────
+const roleTypeLabel: Record<string, string> = {
+  VOLUNTEER: "Volunteer",
+  INTERNSHIP: "Internship",
+  CAREER_TRANSITION: "Career Transition",
+  INTERIM: "Interim",
+};
+
+function SkillContributionModal({
+  ngoName,
+  roles,
+  onClose,
+}: {
+  ngoName: string;
+  roles: NgoRolePreview[];
+  onClose: () => void;
+}) {
+  const [selectedRole, setSelectedRole] = useState<NgoRolePreview | null>(null);
+  const [hours, setHours] = useState<number>(10);
+  const [coverNote, setCoverNote] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState("");
+
+  // Hourly rate: use midpoint of salary range / 2080 working hours, else $50 default
+  const hourlyRate = selectedRole
+    ? selectedRole.salaryMin && selectedRole.salaryMax
+      ? Math.round(((selectedRole.salaryMin + selectedRole.salaryMax) / 2) / 2080)
+      : selectedRole.salaryMin
+      ? Math.round(selectedRole.salaryMin / 2080)
+      : 50
+    : 50;
+  const estimatedValue = Math.round(hours * hourlyRate);
+
+  const handleApply = async () => {
+    if (!selectedRole) return;
+    setLoading(true);
+    setError("");
+    try {
+      const res = await fetch(`/api/roles/${selectedRole.id}/apply`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ coverNote: coverNote || `I'd like to contribute ${hours} hours of my ${selectedRole.skillsRequired.split(",")[0]} skills to this project.` }),
+      });
+      if (res.status === 401) {
+        window.location.href = "/login";
+        return;
+      }
+      if (res.status === 403) {
+        const data = await res.json();
+        setError(data.error === "UPGRADE_REQUIRED"
+          ? "You need a BASIC or PRO plan to apply for roles."
+          : "You've reached your application limit. Upgrade to PRO for unlimited applications.");
+        setLoading(false);
+        return;
+      }
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        setError(data.error || "Something went wrong. Please try again.");
+        setLoading(false);
+        return;
+      }
+      setSubmitted(true);
+    } catch {
+      setError("Network error. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (submitted) {
+    return (
+      <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4">
+        <Card className="w-full max-w-md shadow-2xl">
+          <CardContent className="p-8 text-center">
+            <div className="w-14 h-14 bg-violet-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <CheckCircle2 className="w-7 h-7 text-violet-600" />
+            </div>
+            <h3 className="font-bold text-gray-900 mb-2">Application Submitted!</h3>
+            <p className="text-sm text-gray-500 mb-1">
+              You applied for <strong>{selectedRole?.title}</strong> at {ngoName}.
+            </p>
+            <p className="text-xs text-gray-400 mb-1">Estimated contribution value</p>
+            <p className="text-2xl font-bold text-violet-700 mb-5">
+              ${estimatedValue.toLocaleString()}
+            </p>
+            <p className="text-xs text-gray-500 mb-6">
+              The NGO will review your application. Once accepted, your work will be tracked, credited on your GiveLedger profile, and recorded on-chain.
+            </p>
+            <div className="flex gap-3">
+              <Button variant="outline" onClick={onClose} className="flex-1">Close</Button>
+              <Button
+                onClick={() => { window.location.href = "/donor/opportunities"; }}
+                className="flex-1 bg-violet-600 hover:bg-violet-700 text-white"
+              >
+                View My Applications
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
+  return (
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4">
+      <Card className="w-full max-w-lg shadow-2xl max-h-[90vh] flex flex-col">
+        <CardContent className="p-6 flex flex-col h-full overflow-hidden">
+          {/* Header */}
+          <div className="flex items-center justify-between mb-4 shrink-0">
+            <div>
+              <h3 className="font-bold text-gray-900">Contribute Your Skills</h3>
+              <p className="text-xs text-gray-500">{ngoName} · {roles.length} open role{roles.length !== 1 ? "s" : ""}</p>
+            </div>
+            <button onClick={onClose} className="text-gray-400 hover:text-gray-600">
+              <X className="w-5 h-5" />
+            </button>
+          </div>
+
+          {/* Role list or detail */}
+          {!selectedRole ? (
+            <div className="flex-1 overflow-y-auto space-y-2 pr-1">
+              {roles.map((role) => (
+                <button
+                  key={role.id}
+                  onClick={() => setSelectedRole(role)}
+                  className="w-full text-left p-4 rounded-xl border border-gray-200 hover:border-violet-400 hover:bg-violet-50 transition-all group"
+                >
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="flex-1 min-w-0">
+                      <p className="font-semibold text-sm text-gray-900 group-hover:text-violet-800">{role.title}</p>
+                      <div className="flex items-center gap-2 mt-1 flex-wrap">
+                        <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded-full bg-violet-100 text-violet-700">
+                          {roleTypeLabel[role.roleType] ?? role.roleType}
+                        </span>
+                        <span className="flex items-center gap-1 text-[10px] text-gray-500">
+                          <Timer className="w-3 h-3" />{role.timeCommitment}
+                        </span>
+                        <span className="flex items-center gap-1 text-[10px] text-gray-500">
+                          <MapPin className="w-3 h-3" />{role.isRemote ? "Remote" : "On-site"}
+                        </span>
+                        {role.salaryMin ? (
+                          <span className="text-[10px] font-semibold text-emerald-700">
+                            ${role.salaryMin.toLocaleString()}{role.salaryMax ? `–$${role.salaryMax.toLocaleString()}` : "+"}/yr
+                          </span>
+                        ) : (
+                          <span className="text-[10px] text-gray-400">Volunteer</span>
+                        )}
+                      </div>
+                      {role.skillsRequired && (
+                        <p className="text-[10px] text-gray-400 mt-1 truncate">
+                          Skills: {role.skillsRequired}
+                        </p>
+                      )}
+                    </div>
+                    <ChevronRight className="w-4 h-4 text-gray-300 group-hover:text-violet-500 shrink-0 mt-1" />
+                  </div>
+                </button>
+              ))}
+            </div>
+          ) : (
+            <div className="flex-1 overflow-y-auto pr-1">
+              {/* Back */}
+              <button
+                onClick={() => { setSelectedRole(null); setError(""); }}
+                className="flex items-center gap-1 text-xs text-gray-500 hover:text-gray-800 mb-4 transition-colors"
+              >
+                <ArrowLeft className="w-3.5 h-3.5" /> All roles
+              </button>
+
+              {/* Selected role summary */}
+              <div className="bg-violet-50 rounded-xl p-4 mb-4">
+                <p className="font-semibold text-violet-900 text-sm">{selectedRole.title}</p>
+                <div className="flex items-center gap-2 mt-1 flex-wrap">
+                  <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded-full bg-violet-200 text-violet-700">
+                    {roleTypeLabel[selectedRole.roleType] ?? selectedRole.roleType}
+                  </span>
+                  <span className="text-[10px] text-violet-700">{selectedRole.timeCommitment}</span>
+                  <span className="text-[10px] text-violet-700">{selectedRole.isRemote ? "Remote" : "On-site"}</span>
+                  <span className="text-[10px] text-violet-600">{selectedRole.durationWeeks} weeks</span>
+                </div>
+              </div>
+
+              {/* Hours input */}
+              <div className="mb-4">
+                <label className="text-xs font-medium text-gray-700 block mb-1.5">
+                  How many hours do you plan to contribute?
+                </label>
+                <div className="flex items-center gap-3">
+                  <input
+                    type="number"
+                    min="1"
+                    max="500"
+                    value={hours}
+                    onChange={(e) => setHours(Math.max(1, parseInt(e.target.value) || 1))}
+                    className="w-24 h-10 rounded-lg border border-gray-200 px-3 text-sm text-center focus:outline-none focus:ring-2 focus:ring-violet-500"
+                  />
+                  <span className="text-sm text-gray-500">hours</span>
+                </div>
+              </div>
+
+              {/* Estimated value */}
+              <div className="bg-emerald-50 rounded-xl p-4 mb-4 flex items-center gap-3">
+                <div>
+                  <p className="text-xs text-gray-500">Estimated contribution value</p>
+                  <p className="text-xl font-bold text-emerald-700">${estimatedValue.toLocaleString()}</p>
+                  <p className="text-[10px] text-gray-400 mt-0.5">
+                    Based on ${hourlyRate}/hr market rate · Credited on your GiveLedger profile &amp; CV
+                  </p>
+                </div>
+              </div>
+
+              {/* Cover note */}
+              <div className="mb-4">
+                <label className="text-xs font-medium text-gray-700 block mb-1.5">
+                  Brief message to the NGO <span className="text-gray-400 font-normal">(optional)</span>
+                </label>
+                <textarea
+                  rows={3}
+                  placeholder={`I'd like to contribute my ${selectedRole.skillsRequired.split(",")[0]} skills to help with this project...`}
+                  value={coverNote}
+                  onChange={(e) => setCoverNote(e.target.value)}
+                  className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500 resize-none"
+                />
+              </div>
+
+              {error && (
+                <div className="text-xs text-red-600 bg-red-50 rounded-lg px-3 py-2 mb-3">
+                  {error}{" "}
+                  {error.includes("plan") && (
+                    <Link href="/pricing" className="underline font-medium">View plans →</Link>
+                  )}
+                </div>
+              )}
+
+              <div className="bg-violet-950 rounded-xl p-3 mb-4">
+                <p className="text-xs text-violet-200 leading-relaxed">
+                  Once accepted by the NGO, your contribution will be tracked, a verified credential issued to your profile, and the value recorded on-chain.
+                </p>
+              </div>
+            </div>
+          )}
+
+          {/* Action buttons */}
+          {selectedRole && (
+            <div className="shrink-0 pt-3 border-t border-gray-100">
+              <Button
+                onClick={handleApply}
+                disabled={loading}
+                className="w-full bg-violet-600 hover:bg-violet-700 text-white gap-2"
+                size="lg"
+              >
+                <Briefcase className="w-4 h-4" />
+                {loading ? "Submitting application..." : `Apply — Contribute ${hours}h ($${estimatedValue.toLocaleString()} value)`}
+              </Button>
+            </div>
+          )}
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
+
 function SpotlightVoteButton({ projectId }: { projectId: string }) {
   const [voted, setVoted] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -209,8 +560,14 @@ function SpotlightVoteButton({ projectId }: { projectId: string }) {
 
 
 export default function ProjectDetailClient({ project }: { project: ProjectDetail }) {
+  const [choiceOpen, setChoiceOpen] = useState(false);
   const [donationOpen, setDonationOpen] = useState(false);
+  const [skillOpen, setSkillOpen] = useState(false);
   const [supportersTab, setSupportersTab] = useState<"financial" | "skills">("financial");
+
+  function openContribute() { setChoiceOpen(true); }
+  function onChooseFinancial() { setChoiceOpen(false); setDonationOpen(true); }
+  function onChooseSkill() { setChoiceOpen(false); setSkillOpen(true); }
 
   const pct = project.goalAmount > 0
     ? Math.round((project.raisedAmount / project.goalAmount) * 100)
@@ -238,11 +595,26 @@ export default function ProjectDetailClient({ project }: { project: ProjectDetai
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      {choiceOpen && (
+        <ContributionChoiceModal
+          onClose={() => setChoiceOpen(false)}
+          onFinancial={onChooseFinancial}
+          onSkill={onChooseSkill}
+          hasRoles={project.ngoRoles.length > 0}
+        />
+      )}
       {donationOpen && (
         <DonationModal
           projectTitle={project.title}
           projectId={project.id}
           onClose={() => setDonationOpen(false)}
+        />
+      )}
+      {skillOpen && (
+        <SkillContributionModal
+          ngoName={project.ngo.orgName}
+          roles={project.ngoRoles}
+          onClose={() => setSkillOpen(false)}
         />
       )}
 
@@ -284,8 +656,8 @@ export default function ProjectDetailClient({ project }: { project: ProjectDetai
                 <span className="flex items-center gap-1 text-emerald-700"><Shield className="w-4 h-4" />Verified NGO</span>
               </div>
               <div className="flex gap-3">
-                <Button size="lg" className="flex-1" onClick={() => setDonationOpen(true)}>
-                  Donate to This Project
+                <Button size="lg" className="flex-1" onClick={openContribute}>
+                  Contribute to This Project
                 </Button>
                 <SpotlightVoteButton projectId={project.id} />
               </div>
@@ -773,8 +1145,8 @@ export default function ProjectDetailClient({ project }: { project: ProjectDetai
             </Card>
           )}
 
-          <Button size="lg" className="w-full" onClick={() => setDonationOpen(true)}>
-            Donate Now
+          <Button size="lg" className="w-full" onClick={openContribute}>
+            Contribute Now
           </Button>
         </div>
       </div>

@@ -35,7 +35,18 @@ export default async function ProjectDetailPage({
       where: { id },
       include: {
         ngo: {
-          include: { boardMembers: { orderBy: { orderIndex: "asc" } } },
+          include: {
+            boardMembers: { orderBy: { orderIndex: "asc" } },
+            roles: {
+              where: { status: "OPEN" },
+              select: {
+                id: true, title: true, roleType: true, timeCommitment: true,
+                skillsRequired: true, isRemote: true, salaryMin: true, salaryMax: true,
+                durationWeeks: true,
+              },
+              take: 12,
+            },
+          },
         },
         milestones: {
           include: {
@@ -150,6 +161,17 @@ export default async function ProjectDetailPage({
         })),
       };
     }),
+    ngoRoles: project.ngo.roles.map((r) => ({
+      id: r.id,
+      title: r.title,
+      roleType: r.roleType as string,
+      timeCommitment: r.timeCommitment,
+      skillsRequired: r.skillsRequired,
+      isRemote: r.isRemote,
+      salaryMin: r.salaryMin,
+      salaryMax: r.salaryMax,
+      durationWeeks: r.durationWeeks,
+    })),
     financialLeaderboard,
     skillContributors: skillContributors.map((c) => ({
       id: c.donorId,
