@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import {
   Globe, MapPin, Users, Target, CheckCircle, Linkedin, ExternalLink,
-  Star, FileText, Image as ImageIcon, Sparkles,
+  Star, FileText, Image as ImageIcon, Sparkles, ArrowLeft,
 } from "lucide-react";
 
 function formatCurrency(amount: number) {
@@ -68,7 +68,7 @@ export default async function NgoProfilePage({
         orderBy: { createdAt: "desc" },
       },
       ratings: {
-        include: { donor: { select: { name: true } } },
+        include: { donor: { select: { id: true, name: true } } },
         orderBy: { createdAt: "desc" },
         take: 5,
       },
@@ -103,8 +103,18 @@ export default async function NgoProfilePage({
     <div className="min-h-screen bg-gray-50">
       <Navbar session={session} />
 
+      {/* Breadcrumb */}
+      <div className="max-w-5xl mx-auto px-4 pt-5 sm:px-6 lg:px-8">
+        <Link
+          href="/ngos"
+          className="inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-800 transition-colors"
+        >
+          <ArrowLeft className="w-4 h-4" /> All NGOs
+        </Link>
+      </div>
+
       {/* Hero */}
-      <div className="bg-white border-b border-gray-100">
+      <div className="bg-white border-b border-gray-100 mt-4">
         <div className="max-w-5xl mx-auto px-4 py-10 sm:px-6 lg:px-8">
           <div className="flex items-start gap-6">
             {ngo.logoUrl ? (
@@ -383,7 +393,12 @@ export default async function NgoProfilePage({
                   {ngo.ratings.slice(0, 3).map((r) => (
                     <div key={r.id} className="space-y-1">
                       <div className="flex items-center justify-between">
-                        <p className="text-xs font-medium text-gray-700">{r.donor.name ?? "Anonymous"}</p>
+                        <Link
+                          href={`/donor/${r.donor.id}/profile`}
+                          className="text-xs font-medium text-gray-700 hover:text-emerald-700 hover:underline transition-colors"
+                        >
+                          {r.donor.name ?? "Anonymous"}
+                        </Link>
                         <div className="flex">
                           {Array.from({ length: 5 }).map((_, i) => (
                             <Star
