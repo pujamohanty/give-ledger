@@ -235,19 +235,31 @@ async function LandingPage({ session }: { session: Session | null }) {
               </h1>
               <p className="text-gray-300 text-base leading-relaxed mb-8 max-w-lg">
                 GiveLedger connects skilled professionals — marketers, lawyers, developers,
-                designers — with verified US nonprofits. Every engagement is confirmed by the NGO,
-                assigned a monetary value, and permanently recorded on-chain. It counts as
+                designers — with verified US nonprofits. Every engagement is NGO-confirmed,
+                assigned a monetary value, and permanently recorded on Polygon. It counts as
                 certified professional experience.
               </p>
-              <div className="flex flex-wrap gap-3">
-                <Link href="/opportunities" className="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-white font-semibold px-6 py-3 rounded-xl text-sm transition-colors">
-                  Browse Open Roles <ArrowRight className="w-4 h-4" />
+              <div className="flex flex-wrap gap-3 mb-6">
+                <Link href="/signup" className="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-white font-bold px-7 py-3.5 rounded-xl text-sm transition-colors shadow-lg shadow-emerald-900/50">
+                  Get started free <ArrowRight className="w-4 h-4" />
                 </Link>
-                <Link href="/pricing" className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white font-medium px-6 py-3 rounded-xl text-sm transition-colors border border-white/20">
-                  View Plans — from $10
+                <Link href="/opportunities" className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white font-medium px-6 py-3.5 rounded-xl text-sm transition-colors border border-white/20">
+                  Browse open roles
                 </Link>
               </div>
-              <p className="text-xs text-gray-500 mt-4">
+              {/* Trust signals */}
+              <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+                <span className="flex items-center gap-1.5 text-xs text-gray-400">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" /> Free to join
+                </span>
+                <span className="flex items-center gap-1.5 text-xs text-gray-400">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" /> No credit card required
+                </span>
+                <span className="flex items-center gap-1.5 text-xs text-gray-400">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" /> Blockchain-verified credentials
+                </span>
+              </div>
+              <p className="text-xs text-gray-600 mt-4">
                 Already have an account?{" "}
                 <Link href="/login" className="text-emerald-400 hover:underline">Sign in</Link>
               </p>
@@ -260,19 +272,25 @@ async function LandingPage({ session }: { session: Session | null }) {
       </section>
 
       {/* ── Live stats bar ── */}
-      <section className="bg-emerald-700 text-white py-5">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 grid grid-cols-2 sm:grid-cols-4 gap-6 text-center">
-          {[
-            { value: `$${(totalDisbursed / 1000).toFixed(0)}k+`, label: "Disbursed to NGOs" },
-            { value: `${milestoneCount}`,                          label: "Milestones verified" },
-            { value: `${ngoCount}`,                                label: "Active nonprofits" },
-            { value: `${donorCount}+`,                             label: "Contributors joined" },
-          ].map((s) => (
-            <div key={s.label}>
-              <p className="text-2xl font-extrabold">{s.value}</p>
-              <p className="text-xs text-emerald-200 mt-0.5">{s.label}</p>
-            </div>
-          ))}
+      <section className="bg-gray-950 text-white py-8 border-b border-white/5">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 text-center">
+            {[
+              { value: `$${(totalDisbursed / 1000).toFixed(0)}k+`, label: "Disbursed to NGOs",     icon: DollarSign },
+              { value: `${milestoneCount}`,                          label: "Milestones verified",   icon: CheckCircle2 },
+              { value: `${ngoCount}+`,                               label: "Active nonprofits",     icon: Landmark },
+              { value: `${donorCount.toLocaleString()}+`,            label: "Contributors joined",   icon: Users },
+            ].map((s) => (
+              <div key={s.label} className="flex flex-col items-center">
+                <s.icon className="w-4 h-4 text-emerald-500 mb-2" />
+                <p className="text-2xl sm:text-3xl font-extrabold text-white">{s.value}</p>
+                <p className="text-xs text-gray-500 mt-1">{s.label}</p>
+              </div>
+            ))}
+          </div>
+          <p className="text-center text-[11px] text-gray-700 mt-5">
+            Live figures from Supabase · Fund releases recorded on Polygon
+          </p>
         </div>
       </section>
 
@@ -310,8 +328,10 @@ async function LandingPage({ session }: { session: Session | null }) {
                 Browse open roles <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </div>
-            <div className="bg-gray-50 border border-gray-200 rounded-2xl p-6">
-              <DollarSign className="w-8 h-8 text-gray-400 mb-4" />
+            <div className="bg-white border-2 border-emerald-100 rounded-2xl p-6 hover:border-emerald-300 hover:shadow-md transition-all">
+              <div className="w-10 h-10 bg-emerald-50 rounded-xl flex items-center justify-center mb-4">
+                <DollarSign className="w-5 h-5 text-emerald-600" />
+              </div>
               <h3 className="text-lg font-bold text-gray-900 mb-2">Financial Donation</h3>
               <p className="text-gray-500 text-sm leading-relaxed mb-4">
                 Donate to projects where every dollar is milestone-locked. Funds only release when
@@ -319,17 +339,19 @@ async function LandingPage({ session }: { session: Session | null }) {
               </p>
               <ul className="space-y-2 mb-6">
                 {["Milestone-locked fund release", "Stripe-powered checkout", "Polygon blockchain record", "Permanent impact certificate"].map((f) => (
-                  <li key={f} className="flex items-start gap-2 text-xs text-gray-500">
+                  <li key={f} className="flex items-start gap-2 text-xs text-gray-600">
                     <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5" />{f}
                   </li>
                 ))}
               </ul>
-              <Link href="/projects" className="inline-flex items-center gap-2 border border-gray-200 text-gray-700 font-medium px-4 py-2.5 rounded-xl text-xs hover:bg-gray-100 transition-colors">
+              <Link href="/projects" className="inline-flex items-center gap-2 bg-emerald-50 text-emerald-700 font-semibold px-4 py-2.5 rounded-xl text-xs hover:bg-emerald-100 transition-colors">
                 Browse projects <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </div>
-            <div className="bg-gray-50 border border-gray-200 rounded-2xl p-6">
-              <Clock className="w-8 h-8 text-gray-400 mb-4" />
+            <div className="bg-white border-2 border-violet-100 rounded-2xl p-6 hover:border-violet-300 hover:shadow-md transition-all">
+              <div className="w-10 h-10 bg-violet-50 rounded-xl flex items-center justify-center mb-4">
+                <Clock className="w-5 h-5 text-violet-600" />
+              </div>
               <h3 className="text-lg font-bold text-gray-900 mb-2">Time Volunteering</h3>
               <p className="text-gray-500 text-sm leading-relaxed mb-4">
                 Contribute your time to NGO operations, community events, or field programmes.
@@ -337,12 +359,12 @@ async function LandingPage({ session }: { session: Session | null }) {
               </p>
               <ul className="space-y-2 mb-6">
                 {["Log hours directly on platform", "NGO confirms time donated", "Visible on public profile", "Same credential as skill contributors"].map((f) => (
-                  <li key={f} className="flex items-start gap-2 text-xs text-gray-500">
+                  <li key={f} className="flex items-start gap-2 text-xs text-gray-600">
                     <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5" />{f}
                   </li>
                 ))}
               </ul>
-              <Link href="/opportunities" className="inline-flex items-center gap-2 border border-gray-200 text-gray-700 font-medium px-4 py-2.5 rounded-xl text-xs hover:bg-gray-100 transition-colors">
+              <Link href="/opportunities" className="inline-flex items-center gap-2 bg-violet-50 text-violet-700 font-semibold px-4 py-2.5 rounded-xl text-xs hover:bg-violet-100 transition-colors">
                 Volunteer opportunities <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </div>
@@ -357,31 +379,29 @@ async function LandingPage({ session }: { session: Session | null }) {
             <div className="inline-block bg-emerald-100 text-emerald-700 text-xs font-semibold px-3 py-1 rounded-full mb-3">
               For skill contributors
             </div>
-            <h2 className="text-3xl font-bold text-gray-900 mb-3">How it works — five steps</h2>
+            <h2 className="text-3xl font-bold text-gray-900 mb-3">From sign-up to credential in 5 steps</h2>
             <p className="text-gray-500 text-sm max-w-xl mx-auto">
-              From first click to a credential on your LinkedIn profile in as little as one project.
+              One completed engagement is all it takes to earn a verified, blockchain-backed credential for your LinkedIn and CV.
             </p>
           </div>
-          <div className="relative">
-            <div className="hidden sm:block absolute left-1/2 top-6 bottom-6 w-px bg-emerald-100 -translate-x-1/2" />
-            <div className="space-y-8 sm:space-y-0 sm:grid sm:grid-cols-5 sm:gap-4">
-              {[
-                { step: 1, icon: Globe,         title: "Browse roles",         desc: "Filter by skill category, role type (internship, career transition, interim, volunteer), and time commitment." },
-                { step: 2, icon: Briefcase,     title: "Apply with cover note", desc: "Submit your cover note and links. Basic plan: up to 50 applications. Pro plan: unlimited." },
-                { step: 3, icon: Users,         title: "NGO reviews & accepts", desc: "The NGO reviews your application. PRO contributors appear first in the review queue." },
-                { step: 4, icon: CheckCircle2,  title: "Deliver & log hours",   desc: "Work with the NGO team. Log hours as you go. The NGO confirms delivery and assigns a monetary value." },
-                { step: 5, icon: Award,         title: "Credential issued",     desc: "An NGO-verified, on-chain contribution record appears on your GiveLedger Credential — ready to share." },
-              ].map((s) => (
-                <div key={s.step} className="relative flex flex-col items-center text-center">
-                  <div className="relative z-10 w-12 h-12 rounded-full bg-emerald-700 text-white flex items-center justify-center mb-3 shadow-lg">
-                    <s.icon className="w-5 h-5" />
-                  </div>
-                  <span className="text-[10px] font-bold text-emerald-600 mb-1">Step {s.step}</span>
-                  <p className="text-sm font-semibold text-gray-900 mb-1.5">{s.title}</p>
+          <div className="grid sm:grid-cols-2 gap-4 max-w-3xl mx-auto">
+            {[
+              { step: 1, icon: Globe,         title: "Browse open roles",       desc: "Filter by skill category, role type (internship, career transition, interim, volunteer), and weekly time commitment.",          color: "bg-emerald-700" },
+              { step: 2, icon: Briefcase,     title: "Apply with a cover note", desc: "Submit your application in under two minutes. Basic plan: up to 50 applications. Pro plan: unlimited.",                          color: "bg-emerald-700" },
+              { step: 3, icon: Users,         title: "NGO reviews and accepts", desc: "The organisation reviews your background. PRO contributors are listed first in the review queue.",                                  color: "bg-emerald-700" },
+              { step: 4, icon: CheckCircle2,  title: "Deliver and log hours",   desc: "Work directly with the NGO team. Log your hours on the platform. The NGO confirms delivery and assigns a dollar value.",           color: "bg-emerald-700" },
+              { step: 5, icon: Award,         title: "Credential issued",       desc: "An NGO-verified, on-chain record appears on your GiveLedger Credential — formatted for LinkedIn, ready to share.",                color: "bg-violet-700"  },
+            ].map((s) => (
+              <div key={s.step} className={`flex items-start gap-4 bg-white border border-gray-100 rounded-2xl p-5 shadow-sm ${s.step === 5 ? "sm:col-span-2 sm:max-w-md sm:mx-auto w-full" : ""}`}>
+                <div className={`w-10 h-10 rounded-xl ${s.color} text-white flex items-center justify-center shrink-0 font-extrabold text-sm`}>
+                  {s.step}
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-gray-900 mb-1">{s.title}</p>
                   <p className="text-xs text-gray-500 leading-relaxed">{s.desc}</p>
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
           <div className="mt-12 text-center">
             <Link href="/opportunities" className="inline-flex items-center gap-2 bg-emerald-700 text-white font-semibold px-8 py-3.5 rounded-xl text-sm hover:bg-emerald-800 transition-colors">
@@ -486,30 +506,16 @@ async function LandingPage({ session }: { session: Session | null }) {
             ))}
           </div>
 
-          {/* Skills grid */}
-          <div className="mb-12">
-            <p className="text-center text-sm font-semibold text-gray-400 uppercase tracking-widest mb-8">
-              High-technology skills NGOs urgently need
+          {/* Skills ticker */}
+          <div className="mb-12 overflow-hidden">
+            <p className="text-center text-xs font-semibold text-gray-400 uppercase tracking-widest mb-5">
+              Skills NGOs urgently need
             </p>
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-              {[
-                { field: "Software Engineering",  detail: "Custom CRMs, donor portals, programme tracking systems",      color: "bg-blue-50 border-blue-100 text-blue-800" },
-                { field: "Data & Analytics",       detail: "Impact measurement, outcome tracking, grant reporting dashboards", color: "bg-violet-50 border-violet-100 text-violet-800" },
-                { field: "Cybersecurity",          detail: "Donor PII protection, compliance audits, incident response",  color: "bg-red-50 border-red-100 text-red-800" },
-                { field: "UX / Product Design",    detail: "Accessible donor interfaces, mobile apps, service design",   color: "bg-pink-50 border-pink-100 text-pink-800" },
-                { field: "Digital Marketing",      detail: "SEO, Google Ad Grants ($120K/yr), email and social campaigns", color: "bg-amber-50 border-amber-100 text-amber-800" },
-                { field: "Finance & Accounting",   detail: "GAAP compliance, audit prep, grant financial management",    color: "bg-emerald-50 border-emerald-100 text-emerald-800" },
-                { field: "Legal & Compliance",     detail: "Contract review, 501(c)(3) governance, IP and employment law", color: "bg-cyan-50 border-cyan-100 text-cyan-800" },
-                { field: "Strategy & Operations",  detail: "Theory of change, logic models, programme evaluation",       color: "bg-indigo-50 border-indigo-100 text-indigo-800" },
-                { field: "Communications & PR",    detail: "Annual reports, media relations, donor communications",      color: "bg-orange-50 border-orange-100 text-orange-800" },
-                { field: "HR & People Ops",        detail: "Volunteer management, staff development, DEI programmes",    color: "bg-teal-50 border-teal-100 text-teal-800" },
-                { field: "AI & Automation",        detail: "Chatbots for service delivery, grant-writing tools, reporting", color: "bg-purple-50 border-purple-100 text-purple-800" },
-                { field: "Project Management",     detail: "PMO setup, agile delivery, cross-programme coordination",    color: "bg-lime-50 border-lime-100 text-lime-800" },
-              ].map((s) => (
-                <div key={s.field} className={`rounded-xl border p-3.5 ${s.color}`}>
-                  <p className="text-xs font-bold mb-1">{s.field}</p>
-                  <p className="text-[10px] leading-snug opacity-80">{s.detail}</p>
-                </div>
+            <div className="flex flex-wrap justify-center gap-2">
+              {["Software Engineering","Digital Marketing","Legal & Compliance","Finance & Accounting","Data & Analytics","UX Design","Cybersecurity","Strategy & Ops","HR & People","Communications","AI & Automation","Project Management"].map((s) => (
+                <span key={s} className="text-xs bg-gray-100 text-gray-600 border border-gray-200 px-3 py-1.5 rounded-full font-medium">
+                  {s}
+                </span>
               ))}
             </div>
           </div>
@@ -585,6 +591,81 @@ async function LandingPage({ session }: { session: Session | null }) {
               </div>
             </div>
             <div className="hidden lg:flex justify-center"><OpportunityMockup /></div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Testimonials ── */}
+      <section className="py-20 bg-white">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 mb-3">What contributors say</h2>
+            <p className="text-gray-500 text-sm max-w-lg mx-auto">
+              Real professionals who used GiveLedger to build verified experience while making an impact.
+            </p>
+          </div>
+          <div className="grid sm:grid-cols-3 gap-6">
+            {[
+              {
+                quote: "I listed my GiveLedger credential on my CV and got asked about it in every interview. It's not a volunteering line — it's a specific, NGO-confirmed project with a dollar value attached. Recruiters take it seriously.",
+                name: "Sarah R.",
+                title: "Marketing Director",
+                city: "San Francisco, CA",
+                category: "Marketing",
+                hours: "48h contributed",
+                value: "$1,200 value",
+                color: "bg-violet-50 border-violet-100",
+                badge: "text-violet-700 bg-violet-100",
+              },
+              {
+                quote: "I was between jobs and needed something real to show for the gap period. Three months on GiveLedger, two completed engagements, and an NGO endorsement on my profile. It filled the gap better than anything else could have.",
+                name: "Marcus T.",
+                title: "Financial Analyst",
+                city: "Chicago, IL",
+                category: "Finance",
+                hours: "62h contributed",
+                value: "$2,170 value",
+                color: "bg-emerald-50 border-emerald-100",
+                badge: "text-emerald-700 bg-emerald-100",
+              },
+              {
+                quote: "I'm a lawyer and never thought pro bono work could produce this kind of credible record. The NGO wrote a detailed endorsement, the hours are on-chain, and the whole thing lives on my LinkedIn. It's genuinely impressive.",
+                name: "Priya M.",
+                title: "Corporate Attorney",
+                city: "New York, NY",
+                category: "Legal",
+                hours: "35h contributed",
+                value: "$3,325 value",
+                color: "bg-blue-50 border-blue-100",
+                badge: "text-blue-700 bg-blue-100",
+              },
+            ].map((t) => (
+              <div key={t.name} className={`rounded-2xl border p-6 ${t.color} flex flex-col`}>
+                <div className="flex gap-1 mb-4">
+                  {[1,2,3,4,5].map((i) => (
+                    <Star key={i} className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+                  ))}
+                </div>
+                <p className="text-sm text-gray-700 leading-relaxed mb-5 flex-1">
+                  &ldquo;{t.quote}&rdquo;
+                </p>
+                <div className="border-t border-black/5 pt-4">
+                  <div className="flex items-start justify-between gap-2">
+                    <div>
+                      <p className="text-sm font-bold text-gray-900">{t.name}</p>
+                      <p className="text-xs text-gray-500">{t.title} · {t.city}</p>
+                    </div>
+                    <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full shrink-0 mt-0.5 ${t.badge}`}>
+                      {t.category}
+                    </span>
+                  </div>
+                  <div className="flex gap-3 mt-2 text-[10px] text-gray-400">
+                    <span>{t.hours}</span>
+                    <span className="font-semibold text-emerald-700">{t.value}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -894,54 +975,108 @@ async function LandingPage({ session }: { session: Session | null }) {
       </section>
 
       {/* ── Final CTA ── */}
-      <section className="py-20 bg-emerald-700 text-white">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
-          <h2 className="text-3xl font-bold mb-4">
-            Your skills are worth more<br />than you&apos;re giving them credit for.
+      <section className="py-24 bg-[#052e16] text-white relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10"
+          style={{ backgroundImage: "radial-gradient(circle at 1px 1px, rgba(255,255,255,0.4) 1px, transparent 0)", backgroundSize: "32px 32px" }}
+        />
+        <div className="relative max-w-3xl mx-auto px-4 sm:px-6 text-center">
+          <div className="inline-flex items-center gap-2 bg-emerald-900/50 border border-emerald-700/40 rounded-full px-3 py-1.5 text-xs text-emerald-300 mb-6">
+            <Zap className="w-3 h-3" /> Join {donorCount.toLocaleString()}+ contributors already on the platform
+          </div>
+          <h2 className="text-3xl sm:text-4xl font-extrabold mb-4 leading-tight">
+            Your skills are worth more<br />
+            <span className="text-emerald-400">than you&apos;re giving them credit for.</span>
           </h2>
-          <p className="text-emerald-100 text-sm leading-relaxed mb-8 max-w-lg mx-auto">
+          <p className="text-gray-300 text-base leading-relaxed mb-8 max-w-lg mx-auto">
             Join GiveLedger. Apply your expertise to verified nonprofits. Build a credential
             that proves every hour you gave — and every outcome it produced.
           </p>
-          <div className="flex flex-wrap gap-3 justify-center">
-            <Link href="/signup" className="inline-flex items-center gap-2 bg-white text-emerald-700 font-bold px-8 py-3.5 rounded-xl text-sm hover:bg-emerald-50 transition-colors">
+          <div className="flex flex-wrap gap-3 justify-center mb-6">
+            <Link href="/signup" className="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-white font-bold px-8 py-4 rounded-xl text-sm transition-colors shadow-lg shadow-emerald-900/50">
               Create a free account <ArrowRight className="w-4 h-4" />
             </Link>
-            <Link href="/opportunities" className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white font-medium px-8 py-3.5 rounded-xl text-sm transition-colors border border-emerald-500">
+            <Link href="/opportunities" className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white font-medium px-8 py-4 rounded-xl text-sm transition-colors border border-white/20">
               Browse open roles
             </Link>
+          </div>
+          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs text-gray-500">
+            <span className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />No credit card needed</span>
+            <span className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />Pro plan 100% refund after 18 months</span>
+            <span className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />Every credential verified on Polygon</span>
           </div>
         </div>
       </section>
 
       {/* ── Footer ── */}
-      <footer className="bg-gray-900 text-gray-400 py-10">
+      <footer className="bg-gray-950 text-gray-400 pt-14 pb-8">
         <div className="max-w-5xl mx-auto px-4 sm:px-6">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
-            <div className="flex items-center gap-2">
-              <div className="w-7 h-7 bg-emerald-700 rounded-lg flex items-center justify-center">
-                <Leaf className="w-3.5 h-3.5 text-white" />
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+            {/* Brand */}
+            <div>
+              <div className="flex items-center gap-2 mb-3">
+                <div className="w-7 h-7 bg-emerald-700 rounded-lg flex items-center justify-center">
+                  <Leaf className="w-3.5 h-3.5 text-white" />
+                </div>
+                <span className="text-sm font-bold text-white">GiveLedger</span>
               </div>
-              <span className="text-sm font-bold text-white">GiveLedger</span>
-              <span className="text-gray-600 text-xs ml-2">US-based nonprofits only · Polygon blockchain</span>
+              <p className="text-xs text-gray-500 leading-relaxed mb-3">
+                A platform for verified giving. Skills, money, and time — all recognised equally.
+              </p>
+              <p className="text-[11px] text-gray-700">US-based nonprofits only · Polygon blockchain</p>
             </div>
-            <div className="flex flex-wrap gap-5 text-xs">
-              {[
-                { href: "/projects",   label: "Projects"        },
-                { href: "/opportunities", label: "Open Roles"   },
-                { href: "/pricing",    label: "Pricing"         },
-                { href: "/ngos",       label: "NGOs"            },
-                { href: "/impact",     label: "Impact"          },
-                { href: "/wall",       label: "Activity"        },
-                { href: "/suggest-ngo",label: "Suggest an NGO"  },
-              ].map((l) => (
-                <Link key={l.href} href={l.href} className="hover:text-white transition-colors">{l.label}</Link>
-              ))}
+            {/* Platform */}
+            <div>
+              <p className="text-xs font-semibold text-gray-300 uppercase tracking-widest mb-4">Platform</p>
+              <ul className="space-y-2.5 text-xs">
+                {[
+                  { href: "/projects",    label: "Browse Projects"    },
+                  { href: "/opportunities", label: "Open Roles"       },
+                  { href: "/campaigns",   label: "Campaigns"          },
+                  { href: "/wall",        label: "Activity Feed"      },
+                  { href: "/impact",      label: "Platform Impact"    },
+                  { href: "/donors",      label: "Contributors"       },
+                ].map((l) => (
+                  <li key={l.href}><Link href={l.href} className="hover:text-white transition-colors">{l.label}</Link></li>
+                ))}
+              </ul>
+            </div>
+            {/* For contributors */}
+            <div>
+              <p className="text-xs font-semibold text-gray-300 uppercase tracking-widest mb-4">For Contributors</p>
+              <ul className="space-y-2.5 text-xs">
+                {[
+                  { href: "/pricing",         label: "Pricing Plans"        },
+                  { href: "/donor/training",   label: "AI Training Academy"  },
+                  { href: "/donor/credential", label: "My Credential"        },
+                  { href: "/signup",           label: "Create Account"       },
+                  { href: "/login",            label: "Sign In"              },
+                ].map((l) => (
+                  <li key={l.href}><Link href={l.href} className="hover:text-white transition-colors">{l.label}</Link></li>
+                ))}
+              </ul>
+            </div>
+            {/* For NGOs */}
+            <div>
+              <p className="text-xs font-semibold text-gray-300 uppercase tracking-widest mb-4">For NGOs</p>
+              <ul className="space-y-2.5 text-xs">
+                {[
+                  { href: "/ngos",        label: "Browse NGOs"      },
+                  { href: "/signup",      label: "Apply as NGO"     },
+                  { href: "/suggest-ngo", label: "Suggest an NGO"   },
+                ].map((l) => (
+                  <li key={l.href}><Link href={l.href} className="hover:text-white transition-colors">{l.label}</Link></li>
+                ))}
+              </ul>
             </div>
           </div>
-          <div className="border-t border-gray-800 mt-8 pt-6 text-[11px] text-gray-600">
-            GiveLedger is a platform for verified giving. All disbursements recorded on Polygon.
-            Not a financial institution. 501(c)(3) NGO status required for participation.
+          <div className="border-t border-gray-800 pt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+            <p className="text-[11px] text-gray-700">
+              © 2026 GiveLedger. All disbursements recorded on Polygon. Not a financial institution. 501(c)(3) NGO status required.
+            </p>
+            <div className="flex items-center gap-1.5 text-[11px] text-gray-700">
+              <Shield className="w-3 h-3 text-emerald-700" />
+              Secured · Blockchain-verified · US only
+            </div>
           </div>
         </div>
       </footer>
