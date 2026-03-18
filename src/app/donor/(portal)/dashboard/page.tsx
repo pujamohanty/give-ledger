@@ -242,13 +242,22 @@ export default async function DonorDashboard({
       </div>
 
       {/* Quick actions */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-8">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
+        <Link href="/opportunities" className="group">
+          <div className="flex items-center gap-3 p-4 bg-emerald-50 rounded-xl border border-emerald-100 hover:border-emerald-300 transition-colors">
+            <Briefcase className="w-5 h-5 text-emerald-600" />
+            <div>
+              <p className="text-sm font-semibold text-emerald-900">Contribute Skills</p>
+              <p className="text-xs text-emerald-600">Land a job via NGO work</p>
+            </div>
+          </div>
+        </Link>
         <Link href="/campaigns/new" className="group">
           <div className="flex items-center gap-3 p-4 bg-purple-50 rounded-xl border border-purple-100 hover:border-purple-300 transition-colors">
             <Gift className="w-5 h-5 text-purple-600" />
             <div>
               <p className="text-sm font-semibold text-purple-900">Start a Campaign</p>
-              <p className="text-xs text-purple-600">Fundraise for a project you love</p>
+              <p className="text-xs text-purple-600">Fundraise for a project</p>
             </div>
           </div>
         </Link>
@@ -256,8 +265,8 @@ export default async function DonorDashboard({
           <div className="flex items-center gap-3 p-4 bg-amber-50 rounded-xl border border-amber-100 hover:border-amber-300 transition-colors">
             <Star className="w-5 h-5 text-amber-600" />
             <div>
-              <p className="text-sm font-semibold text-amber-900">Cast Spotlight Vote</p>
-              <p className="text-xs text-amber-600">Vote for a project to feature this month</p>
+              <p className="text-sm font-semibold text-amber-900">Spotlight Vote</p>
+              <p className="text-xs text-amber-600">Feature a project</p>
             </div>
           </div>
         </Link>
@@ -266,7 +275,7 @@ export default async function DonorDashboard({
             <Share2 className="w-5 h-5 text-blue-600" />
             <div>
               <p className="text-sm font-semibold text-blue-900">Invite Friends</p>
-              <p className="text-xs text-blue-600">Share GiveLedger with your network</p>
+              <p className="text-xs text-blue-600">Share GiveLedger</p>
             </div>
           </div>
         </Link>
@@ -365,55 +374,115 @@ export default async function DonorDashboard({
           )}
         </div>
 
-        {/* Right column */}
-        <div className="space-y-5">
-          {/* Activity Feed */}
-          <Card>
-            <CardHeader className="pb-3">
-              <CardTitle className="text-base flex items-center gap-2">
-                <Activity className="w-4 h-4 text-gray-500" />
-                Platform Activity
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="p-0">
-              {activityEvents.length === 0 ? (
-                <div className="px-5 py-6 text-center text-gray-400 text-xs">No recent activity</div>
-              ) : (
-                <div className="divide-y divide-gray-50">
-                  {activityEvents.map((item) => (
-                    <div key={item.id} className="flex items-start gap-3 px-5 py-3">
-                      <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 ${
-                        item.type === "MILESTONE_COMPLETE" ? "bg-emerald-50" :
-                        item.type === "PROJECT_LAUNCH" ? "bg-blue-50" : "bg-purple-50"
-                      }`}>
-                        {item.type === "MILESTONE_COMPLETE" ? (
-                          <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                        ) : item.type === "PROJECT_LAUNCH" ? (
-                          <Zap className="w-4 h-4 text-blue-600" />
-                        ) : (
-                          <Gift className="w-4 h-4 text-purple-600" />
-                        )}
+        {/* Right sidebar — Role Applications + AI Training + Impact */}
+        <div className="space-y-4">
+
+          {/* My Role Applications */}
+          <div className="bg-white border border-gray-200 rounded-2xl overflow-hidden">
+            <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100">
+              <h3 className="text-sm font-semibold text-gray-900 flex items-center gap-2">
+                <Briefcase className="w-4 h-4 text-violet-600" />
+                My Applications
+              </h3>
+              <Link href="/donor/opportunities" className="text-xs text-emerald-700 font-medium hover:underline">
+                View all
+              </Link>
+            </div>
+            {applications.length === 0 ? (
+              <div className="px-4 py-5 text-center">
+                <p className="text-xs text-gray-500 mb-3">
+                  No applications yet. Apply to an NGO role to build verified professional experience.
+                </p>
+                <Link
+                  href="/opportunities"
+                  className="inline-flex items-center gap-1.5 bg-violet-600 hover:bg-violet-700 text-white text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors"
+                >
+                  Browse roles <ArrowRight className="w-3 h-3" />
+                </Link>
+              </div>
+            ) : (
+              <div className="divide-y divide-gray-50">
+                {applications.slice(0, 4).map((app) => {
+                  const statusConfig: Record<string, { label: string; dot: string }> = {
+                    PENDING:   { label: "Under Review", dot: "bg-amber-400" },
+                    ACCEPTED:  { label: "Active",       dot: "bg-emerald-500" },
+                    REJECTED:  { label: "Not selected", dot: "bg-red-400" },
+                    WITHDRAWN: { label: "Withdrawn",    dot: "bg-gray-300" },
+                  };
+                  const sc = statusConfig[app.status] ?? statusConfig.PENDING;
+                  const training = matchTrainingModule(app.role.skillsRequired, app.role.title);
+                  return (
+                    <Link key={app.id} href={`/opportunities/${app.role.id}`} className="flex items-start gap-3 px-4 py-3 hover:bg-gray-50 transition-colors group">
+                      <div className="w-7 h-7 bg-violet-100 rounded-lg flex items-center justify-center shrink-0 text-[10px] font-bold text-violet-700 mt-0.5">
+                        {app.role.ngo.orgName.slice(0, 2).toUpperCase()}
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-xs text-gray-800 leading-snug">{item.description}</p>
-                        {item.projectTitle && (
-                          <p className="text-xs text-gray-400 mt-0.5">{item.projectTitle}</p>
-                        )}
-                        <p className="text-xs text-gray-300 mt-1">{formatDate(item.createdAt)}</p>
+                        <p className="text-xs font-semibold text-gray-900 group-hover:text-violet-700 transition-colors truncate">{app.role.title}</p>
+                        <p className="text-[10px] text-gray-400 truncate">{app.role.ngo.orgName}</p>
+                        <div className="flex items-center gap-1.5 mt-1">
+                          <div className={`w-1.5 h-1.5 rounded-full shrink-0 ${sc.dot}`} />
+                          <span className="text-[10px] text-gray-500">{sc.label}</span>
+                          {app.engagement && (
+                            <span className="text-[10px] text-violet-600 font-medium">· {app.engagement.hoursLogged}h logged</span>
+                          )}
+                        </div>
+                        <p className="text-[10px] text-emerald-600 mt-0.5 truncate">AI: {training.moduleTitle}</p>
                       </div>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </CardContent>
-          </Card>
+                    </Link>
+                  );
+                })}
+                {applications.length === 0 || (
+                  <Link href="/opportunities" className="flex items-center justify-center gap-1.5 px-4 py-2.5 text-xs text-gray-400 hover:text-violet-700 transition-colors">
+                    <Briefcase className="w-3 h-3" /> Find more roles
+                  </Link>
+                )}
+              </div>
+            )}
+          </div>
+
+          {/* AI Training */}
+          <div className="bg-gradient-to-br from-emerald-700 to-emerald-900 rounded-2xl p-4 text-white">
+            <div className="flex items-center justify-between mb-2">
+              <div className="flex items-center gap-2">
+                <GraduationCap className="w-4 h-4 text-emerald-300" />
+                <p className="text-xs font-bold text-white">AI Training Academy</p>
+              </div>
+              <span className="text-[10px] font-bold bg-white/15 border border-white/20 px-2 py-0.5 rounded-full text-emerald-100">Free</span>
+            </div>
+            <p className="text-[11px] text-emerald-100 leading-relaxed mb-3">
+              {MODULE_COUNT} modules · {TOTAL_HOURS} hours · $2,500 value. Learn Claude Code for marketing,
+              finance, legal, HR and more — no coding needed.
+            </p>
+            <div className="space-y-1.5 mb-3">
+              {(applications.length > 0
+                ? applications.slice(0, 2).map((app) => matchTrainingModule(app.role.skillsRequired, app.role.title))
+                : TRAINING_MODULES.slice(0, 2).map((m) => ({ slug: m.slug, moduleTitle: m.title, category: m.category }))
+              ).map((match) => (
+                <Link
+                  key={match.slug}
+                  href={`/donor/training/${match.slug}`}
+                  className="flex items-center gap-2 bg-white/10 hover:bg-white/20 rounded-lg px-3 py-2 transition-colors group"
+                >
+                  <div className="w-1.5 h-1.5 rounded-full bg-emerald-300 shrink-0" />
+                  <span className="text-[11px] text-emerald-50 flex-1 truncate">{match.moduleTitle}</span>
+                  <ChevronRight className="w-3 h-3 text-emerald-300 shrink-0" />
+                </Link>
+              ))}
+            </div>
+            <Link
+              href="/donor/training"
+              className="block text-center bg-white text-emerald-700 hover:bg-emerald-50 text-xs font-semibold py-2 rounded-lg transition-colors"
+            >
+              View all {MODULE_COUNT} modules →
+            </Link>
+          </div>
 
           {/* Impact summary */}
           <Card className="bg-emerald-50 border-emerald-100">
             <CardContent className="p-5">
               <h3 className="font-semibold text-emerald-900 mb-3">Your Impact</h3>
               {completedMilestones.length === 0 ? (
-                <p className="text-sm text-emerald-700">Complete your first donation to see your impact here.</p>
+                <p className="text-sm text-emerald-700">Make your first donation to see your impact here.</p>
               ) : (
                 <div className="space-y-2">
                   {completedMilestones.slice(0, 4).flatMap((m) =>
