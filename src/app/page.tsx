@@ -8,7 +8,7 @@ import {
   ArrowRight, CheckCircle2, Briefcase, DollarSign, Clock,
   Shield, Star, Zap, Crown, Award, TrendingUp, Users,
   Wifi, MapPin, ChevronRight, Leaf, BadgeCheck, Landmark,
-  ExternalLink, RotateCcw, Globe,
+  ExternalLink, RotateCcw, Globe, GraduationCap,
 } from "lucide-react";
 
 export const metadata = {
@@ -768,6 +768,109 @@ async function LandingPage({ session }: { session: Session | null }) {
                 </div>
               ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── AI Training Academy ── */}
+      <section className="py-20 bg-gray-950 text-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="text-center mb-14">
+            <div className="inline-flex items-center gap-2 bg-emerald-500/20 border border-emerald-500/30 rounded-full px-4 py-2 text-sm text-emerald-300 mb-5">
+              <GraduationCap className="w-4 h-4" />
+              Free for every donor
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-extrabold mb-4">
+              AI Training Academy
+              <span className="block text-emerald-400 mt-1">42+ hours. Zero cost.</span>
+            </h2>
+            <p className="text-gray-400 text-base max-w-2xl mx-auto leading-relaxed">
+              Every GiveLedger donor gets free access to a complete AI curriculum — from setting up Claude Code
+              for the first time to building fully automated workflows across every area of a business.
+              No coding background required.
+            </p>
+          </div>
+
+          {/* Stats */}
+          <div className="flex items-center justify-center gap-8 flex-wrap mb-14 text-center">
+            {[
+              { value: "12", label: "Modules" },
+              { value: "80+", label: "Lessons" },
+              { value: "42+", label: "Hours" },
+              { value: "$2,500", label: "Market value" },
+            ].map(({ value, label }) => (
+              <div key={label}>
+                <p className="text-4xl font-extrabold text-white">{value}</p>
+                <p className="text-xs text-gray-400 mt-1 uppercase tracking-wide">{label}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* Example prompts showcase */}
+          <div className="grid md:grid-cols-3 gap-5 mb-10">
+            {[
+              {
+                module: "Marketing",
+                title: "Write a grant proposal in 3 minutes",
+                prompt: "I run a US 501(c)(3) focused on clean water access in rural communities. Write a 1,500-word grant proposal for a $50,000 grant from the XYZ Foundation. Include: executive summary, problem statement with statistics, our programme description, budget narrative, expected outcomes, and evaluation plan.",
+                outcome: "A complete, funder-ready grant proposal, fully formatted and ready to customise.",
+              },
+              {
+                module: "Finance",
+                title: "Build a donor impact report",
+                prompt: "Here is our Q3 data: [paste spreadsheet]. Create a donor impact report showing how each dollar was spent, 3 specific beneficiary outcomes, programme costs per person served, and a projection for Q4. Use clear language for non-financial readers.",
+                outcome: "A transparent, credible impact report your major donors will actually read.",
+              },
+              {
+                module: "Operations",
+                title: "Generate a 90-day SOP from scratch",
+                prompt: "We are a nonprofit that provides meals to homeless individuals. We run a daily food distribution operation with 15 volunteers. Write a complete Standard Operating Procedure manual — covering intake, food safety, volunteer roles, incident response, and daily checklist. Format for easy printing.",
+                outcome: "A complete operations manual that protects your organisation and trains new volunteers.",
+              },
+            ].map((ex) => (
+              <div key={ex.title} className="bg-white/5 border border-white/10 rounded-2xl overflow-hidden flex flex-col">
+                <div className="px-5 py-4 border-b border-white/10">
+                  <span className="text-[10px] font-bold text-emerald-400 uppercase tracking-wide">{ex.module}</span>
+                  <h3 className="text-sm font-bold text-white mt-1">{ex.title}</h3>
+                </div>
+                <div className="px-5 py-4 bg-gray-900/60 font-mono text-[11px] text-gray-300 leading-relaxed flex-1">
+                  &ldquo;{ex.prompt.slice(0, 140)}…&rdquo;
+                </div>
+                <div className="px-5 py-3 flex items-start gap-2">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" />
+                  <p className="text-xs text-gray-400 leading-relaxed">{ex.outcome}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Coverage grid */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-10">
+            {[
+              { area: "Marketing & Growth",    desc: "Donor emails, grant proposals, social campaigns, annual reports" },
+              { area: "Finance & Accounting",  desc: "Budgets, audit prep, cash flow forecasts, board packs" },
+              { area: "Operations & Projects", desc: "SOPs, vendor contracts, project plans, risk registers" },
+              { area: "HR & People",           desc: "Job descriptions, onboarding, performance reviews, policies" },
+              { area: "Legal & Compliance",    desc: "Bylaws, FOIA templates, 501(c)(3) compliance checklists" },
+              { area: "Data & Impact",         desc: "Dashboards, outcome reports, funder data requests, evaluations" },
+              { area: "Product & Technology",  desc: "Build internal tools, automate data flows, API integrations" },
+              { area: "AI Strategy",           desc: "Lead AI adoption, build policies, train your team, measure ROI" },
+            ].map(({ area, desc }) => (
+              <div key={area} className="bg-white/5 border border-white/10 rounded-xl p-4">
+                <p className="text-xs font-bold text-white mb-1">{area}</p>
+                <p className="text-[11px] text-gray-400 leading-relaxed">{desc}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center">
+            <Link
+              href="/signup"
+              className="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-white font-semibold px-8 py-3.5 rounded-xl text-sm transition-colors"
+            >
+              Get free access — sign up <ArrowRight className="w-4 h-4" />
+            </Link>
+            <p className="text-xs text-gray-500 mt-3">No credit card required. All training is permanently free for donors.</p>
           </div>
         </div>
       </section>

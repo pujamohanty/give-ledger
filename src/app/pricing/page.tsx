@@ -2,7 +2,8 @@ import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { CheckCircle2, Zap, Crown, Briefcase, RotateCcw } from "lucide-react";
+import { CheckCircle2, Zap, Crown, Briefcase, RotateCcw, GraduationCap, BookOpen, Clock, ArrowRight } from "lucide-react";
+import { MODULE_COUNT, TOTAL_LESSONS, TOTAL_HOURS } from "@/lib/training-curriculum";
 import SubscribeButton from "@/components/SubscribeButton";
 
 export default async function PricingPage() {
@@ -33,6 +34,7 @@ export default async function PricingPage() {
         "View full role details",
         "See NGO profiles and leadership",
         "View your public GiveLedger credential",
+        "AI Training Academy — 42+ hours free",
       ],
       locked: ["Apply to roles"],
       cta: null,
@@ -53,6 +55,7 @@ export default async function PricingPage() {
         "Submit cover notes to NGOs",
         "Full engagement tracking",
         "GiveLedger Credential on completion",
+        "AI Training Academy — 42+ hours free",
       ],
       locked: [],
       cta: "BASIC" as const,
@@ -73,6 +76,7 @@ export default async function PricingPage() {
         "Priority listing in NGO applicant view",
         "PRO badge visible to NGOs",
         "100% refund after 18 months",
+        "AI Training Academy — 42+ hours free",
       ],
       locked: [],
       cta: "PRO" as const,
@@ -183,6 +187,67 @@ export default async function PricingPage() {
               </div>
             );
           })}
+        </div>
+
+        {/* AI Training Academy callout */}
+        <div className="mt-14 bg-gradient-to-br from-emerald-700 to-emerald-900 rounded-3xl p-8 text-white">
+          <div className="flex items-start justify-between gap-6 flex-wrap mb-6">
+            <div>
+              <div className="inline-flex items-center gap-2 bg-white/15 border border-white/20 rounded-full px-3 py-1 text-xs font-semibold text-emerald-100 mb-3">
+                <GraduationCap className="w-3.5 h-3.5" />
+                Included free with every account
+              </div>
+              <h2 className="text-2xl font-extrabold mb-2">AI Training Academy</h2>
+              <p className="text-emerald-100 text-sm leading-relaxed max-w-lg">
+                Every donor gets free access to our complete AI training programme — from first install
+                to advanced business automation. No coding experience required.
+              </p>
+            </div>
+            <div className="bg-white/10 border border-white/20 rounded-2xl px-6 py-4 text-center shrink-0">
+              <p className="text-3xl font-extrabold text-white">$2,500</p>
+              <p className="text-emerald-200 text-xs mt-1">Estimated market value</p>
+              <p className="text-[10px] font-bold uppercase tracking-wide text-emerald-300 mt-1">Yours free</p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-3 gap-3 mb-6">
+            {[
+              { icon: BookOpen, value: MODULE_COUNT, label: "Modules" },
+              { icon: Clock,    value: TOTAL_HOURS,  label: "Hours"   },
+              { icon: Zap,      value: TOTAL_LESSONS, label: "Lessons" },
+            ].map(({ icon: Icon, value, label }) => (
+              <div key={label} className="bg-white/10 border border-white/15 rounded-xl px-4 py-3 text-center">
+                <Icon className="w-4 h-4 text-emerald-300 mx-auto mb-1" />
+                <p className="text-xl font-extrabold">{value}</p>
+                <p className="text-[11px] text-emerald-200">{label}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="grid sm:grid-cols-2 gap-2 mb-6">
+            {[
+              "Claude Code from zero — no coding background needed",
+              "Marketing: grant proposals, donor emails, social campaigns",
+              "Finance: budgets, forecasts, audit-ready expense reports",
+              "Operations: SOPs, vendor contracts, risk registers",
+              "HR: job descriptions, onboarding guides, policies",
+              "Legal: compliance checklists, FOIA templates, bylaws",
+              "Data & Impact: dashboards, outcome reports, funder decks",
+              "Advanced: automated pipelines, multi-agent workflows",
+            ].map((f) => (
+              <div key={f} className="flex items-start gap-2">
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-300 shrink-0 mt-0.5" />
+                <span className="text-xs text-emerald-100">{f}</span>
+              </div>
+            ))}
+          </div>
+
+          <Link
+            href="/donor/training"
+            className="inline-flex items-center gap-2 bg-white text-emerald-700 hover:bg-emerald-50 font-semibold px-6 py-3 rounded-xl text-sm transition-colors"
+          >
+            Explore the curriculum <ArrowRight className="w-4 h-4" />
+          </Link>
         </div>
 
         {/* FAQ */}

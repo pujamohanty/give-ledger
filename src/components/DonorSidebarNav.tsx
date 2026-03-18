@@ -2,7 +2,7 @@
 import Link from "next/link";
 import {
   Leaf, LayoutDashboard, Heart, TrendingUp, Settings,
-  Search, Bell, Share2, Gift, Star, Globe, Briefcase, Award, Linkedin, UserCircle, ClipboardList, Crown,
+  Search, Bell, Share2, Gift, Star, Globe, Briefcase, Award, Linkedin, UserCircle, ClipboardList, Crown, GraduationCap,
 } from "lucide-react";
 import SidebarNavItem from "@/components/SidebarNavItem";
 import SignOutButton from "@/components/SignOutButton";
@@ -23,6 +23,7 @@ const navItems = [
   { href: "/donor/notifications",  label: "Notifications",       icon: Bell            },
   { href: "/donor/referral",       label: "Invite Friends",      icon: Share2          },
   { href: "/impact",               label: "Platform Impact",     icon: Globe           },
+  { href: "/donor/training",       label: "AI Training",         icon: GraduationCap   },
   { href: "/donor/subscription",   label: "My Plan",             icon: Crown           },
   { href: "/donor/settings",       label: "Settings",            icon: Settings        },
 ];
