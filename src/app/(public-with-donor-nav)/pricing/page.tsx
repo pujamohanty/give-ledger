@@ -2,7 +2,7 @@ import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { CheckCircle2, Zap, Crown, Briefcase, RotateCcw, GraduationCap, BookOpen, Clock, ArrowRight } from "lucide-react";
+import { CheckCircle2, Zap, Crown, Briefcase, RotateCcw, GraduationCap, BookOpen, Clock, ArrowRight, Smartphone } from "lucide-react";
 import { MODULE_COUNT, TOTAL_LESSONS, TOTAL_HOURS } from "@/lib/training-curriculum";
 import SubscribeButton from "@/components/SubscribeButton";
 
@@ -75,6 +75,7 @@ export default async function PricingPage() {
         "Unlimited applications",
         "Priority listing in NGO applicant view",
         "PRO badge visible to NGOs",
+        "Beta Tester & UGC Creator Program — earn from brand campaigns",
         "100% refund after 18 months",
         "AI Training Academy — 42+ hours free",
       ],
@@ -247,6 +248,52 @@ export default async function PricingPage() {
             className="inline-flex items-center gap-2 bg-white text-emerald-700 hover:bg-emerald-50 font-semibold px-6 py-3 rounded-xl text-sm transition-colors"
           >
             Explore the curriculum <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
+
+        {/* Beta Tester & UGC Program callout — PRO only */}
+        <div className="mt-8 bg-gradient-to-br from-violet-700 to-purple-800 rounded-3xl p-8 text-white">
+          <div className="flex items-start justify-between gap-6 flex-wrap mb-6">
+            <div>
+              <div className="inline-flex items-center gap-2 bg-white/15 border border-white/20 rounded-full px-3 py-1 text-xs font-semibold text-violet-100 mb-3">
+                <Crown className="w-3.5 h-3.5" />
+                Exclusive to Pro plan
+              </div>
+              <h2 className="text-2xl font-extrabold mb-2">Beta Tester & UGC Creator Program</h2>
+              <p className="text-violet-100 text-sm leading-relaxed max-w-lg">
+                Pro members get access to our brand campaign platform where companies pay you to test
+                their apps before launch and post authentic content to your social channels.
+                Every campaign is matched to your devices, niches, and reach.
+              </p>
+            </div>
+            <div className="bg-white/10 border border-white/20 rounded-2xl px-6 py-4 text-center shrink-0">
+              <p className="text-3xl font-extrabold text-white">+Income</p>
+              <p className="text-violet-200 text-xs mt-1">Earn per campaign</p>
+              <p className="text-[10px] font-bold uppercase tracking-wide text-violet-300 mt-1">PRO exclusive</p>
+            </div>
+          </div>
+
+          <div className="grid sm:grid-cols-2 gap-2 mb-6">
+            {[
+              "Test apps before they hit the App Store or Google Play",
+              "Post honest UGC reviews across your social channels",
+              "Get matched by device — iOS, Android, Mac, Windows",
+              "Campaigns matched to your content niche and audience",
+              "Register across Instagram, TikTok, X, YouTube, LinkedIn, Reddit",
+              "Campaigns arrive directly — no searching or applying",
+            ].map((f) => (
+              <div key={f} className="flex items-start gap-2">
+                <CheckCircle2 className="w-3.5 h-3.5 text-violet-300 shrink-0 mt-0.5" />
+                <span className="text-xs text-violet-100">{f}</span>
+              </div>
+            ))}
+          </div>
+
+          <Link
+            href="/donor/beta-program"
+            className="inline-flex items-center gap-2 bg-white text-violet-700 hover:bg-violet-50 font-semibold px-6 py-3 rounded-xl text-sm transition-colors"
+          >
+            Register for the program <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
 
