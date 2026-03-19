@@ -1,5 +1,6 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
+import Link from "next/link";
 import { Sparkles, X, Send, Bot, Loader2, ChevronDown } from "lucide-react";
 
 interface Message {
@@ -7,12 +8,87 @@ interface Message {
   content: string;
 }
 
-const SUGGESTIONS = [
+const OPENING_SUGGESTIONS = [
   "How does GiveLedger work?",
   "What plans are available?",
   "What is a GiveLedger Credential?",
   "How do I apply for a role?",
 ];
+
+// Returns 3 contextual follow-up chips based on what was just discussed
+function getFollowUpSuggestions(userQ: string, aiReply: string): string[] {
+  const text = (userQ + " " + aiReply).toLowerCase();
+
+  if (text.includes("credential") || text.includes("certificate") || text.includes("verified") || text.includes("linkedin")) {
+    return ["How do I share my credential on LinkedIn?", "When is my credential issued?", "What does an employer see on my credential?"];
+  }
+  if (text.includes("refund") || text.includes("18 month") || text.includes("18-month")) {
+    return ["What counts as a completed engagement?", "Can I upgrade from Basic to Pro?", "How do I check my refund eligibility?"];
+  }
+  if (text.includes("plan") || text.includes("pricing") || text.includes("basic") || text.includes("pro") || text.includes("$10") || text.includes("$25")) {
+    return ["Can I upgrade from Basic to Pro later?", "How does the Pro 18-month refund work?", "What happens at the Basic 50-application limit?"];
+  }
+  if (text.includes("role") || text.includes("apply") || text.includes("application") || text.includes("opportunities")) {
+    return ["What types of roles are available?", "How long does it take to hear back from an NGO?", "What is a GiveLedger Credential?"];
+  }
+  if (text.includes("ngo") || text.includes("nonprofit") || text.includes("organisation") || text.includes("organization")) {
+    return ["How are NGOs verified on GiveLedger?", "Can I work with multiple NGOs at once?", "How do I find the right NGO for my skills?"];
+  }
+  if (text.includes("training") || text.includes("academy") || text.includes("module") || text.includes("learn")) {
+    return ["Is the AI Training Academy really free?", "What topics do the modules cover?", "Do I need coding experience?"];
+  }
+  if (text.includes("beta") || text.includes("ugc") || text.includes("campaign") || text.includes("brand")) {
+    return ["How much can I earn from brand campaigns?", "Which devices do I need to register?", "Do I need a large following to participate?"];
+  }
+  if (text.includes("donat") || text.includes("financial") || text.includes("milestone") || text.includes("fund")) {
+    return ["How are donations milestone-locked?", "When are funds released to the NGO?", "How is my donation recorded on-chain?"];
+  }
+  if (text.includes("skill") || text.includes("time") || text.includes("contribut")) {
+    return ["How is a skill contribution verified?", "What skills are most in demand?", "How does my contribution affect my credential?"];
+  }
+  return ["What plans are available?", "How do I apply for a role?", "Tell me about the AI Training Academy"];
+}
+
+// Renders a single line with bold, internal links, and external URLs all handled
+function renderLine(line: string, lineIndex: number) {
+  const TOKEN = /(\*\*[^*]+\*\*|https?:\/\/[^\s)]+|\/[a-z][a-z0-9/\-[\]]*)/g;
+  const nodes: React.ReactNode[] = [];
+  let last = 0;
+  let match: RegExpExecArray | null;
+
+  while ((match = TOKEN.exec(line)) !== null) {
+    if (match.index > last) {
+      nodes.push(line.slice(last, match.index));
+    }
+    const m = match[0];
+    if (m.startsWith("**")) {
+      nodes.push(<strong key={match.index}>{m.slice(2, -2)}</strong>);
+    } else if (m.startsWith("http")) {
+      nodes.push(
+        <a key={match.index} href={m} target="_blank" rel="noopener noreferrer"
+          className="underline font-medium text-violet-700 hover:text-violet-900 transition-colors">
+          {m}
+        </a>
+      );
+    } else {
+      // Internal Next.js path like /opportunities, /pricing, /donor/training
+      nodes.push(
+        <Link key={match.index} href={m}
+          className="underline font-medium text-violet-700 hover:text-violet-900 transition-colors">
+          {m}
+        </Link>
+      );
+    }
+    last = TOKEN.lastIndex;
+  }
+  if (last < line.length) nodes.push(line.slice(last));
+
+  return (
+    <p key={lineIndex} className={lineIndex > 0 ? "mt-1.5" : ""}>
+      {nodes}
+    </p>
+  );
+}
 
 export default function GiviAI() {
   const [open, setOpen] = useState(false);
@@ -132,14 +208,21 @@ export default function GiviAI() {
     }
   }
 
-  function renderText(text: string) {
-    const parts = text.split(/(\*\*[^*]+\*\*)/g);
-    return parts.map((part, i) =>
-      part.startsWith("**") && part.endsWith("**")
-        ? <strong key={i}>{part.slice(2, -2)}</strong>
-        : <span key={i}>{part}</span>
-    );
-  }
+  // Work out which suggestions to show after the latest assistant message
+  const lastMsg = messages[messages.length - 1];
+  const showOpeningSuggestions = messages.length === 1 && !streaming;
+  const showFollowUpSuggestions =
+    messages.length > 2 &&
+    !streaming &&
+    lastMsg?.role === "assistant" &&
+    !!lastMsg?.content;
+
+  const followUpSuggestions = showFollowUpSuggestions
+    ? getFollowUpSuggestions(
+        messages.findLast((m) => m.role === "user")?.content ?? "",
+        lastMsg.content
+      )
+    : [];
 
   return (
     <div className="fixed top-16 right-4 z-50 flex flex-col items-end">
@@ -166,7 +249,7 @@ export default function GiviAI() {
         )}
       </button>
 
-      {/* Chat panel — opens downward */}
+      {/* Chat panel */}
       {open && (
         <div
           className="mt-2 w-[360px] max-w-[calc(100vw-32px)] bg-white rounded-2xl shadow-2xl border border-gray-200 flex flex-col overflow-hidden"
@@ -209,9 +292,7 @@ export default function GiviAI() {
                   }`}
                 >
                   {msg.content
-                    ? msg.content.split("\n").map((line, j) => (
-                        <p key={j} className={j > 0 ? "mt-1.5" : ""}>{renderText(line)}</p>
-                      ))
+                    ? msg.content.split("\n").map((line, j) => renderLine(line, j))
                     : streaming && i === messages.length - 1
                     ? (
                         <span className="inline-flex gap-1 items-center text-gray-400">
@@ -223,10 +304,28 @@ export default function GiviAI() {
               </div>
             ))}
 
-            {/* Suggestion chips — only before user sends anything */}
-            {messages.length === 1 && !streaming && (
+            {/* Opening suggestions — before first user message */}
+            {showOpeningSuggestions && (
               <div className="flex flex-col gap-2 pt-1">
-                {SUGGESTIONS.map((s) => (
+                {OPENING_SUGGESTIONS.map((s) => (
+                  <button
+                    key={s}
+                    onClick={() => sendMessage(s)}
+                    className="text-left text-xs text-violet-700 border border-violet-200 bg-violet-50 hover:bg-violet-100 rounded-xl px-3 py-2 transition-colors font-medium"
+                  >
+                    {s}
+                  </button>
+                ))}
+              </div>
+            )}
+
+            {/* Contextual follow-up suggestions — after each AI reply */}
+            {showFollowUpSuggestions && (
+              <div className="flex flex-col gap-2 pt-1 pl-8">
+                <p className="text-[10px] text-gray-400 font-medium uppercase tracking-wide mb-0.5">
+                  You might also ask
+                </p>
+                {followUpSuggestions.map((s) => (
                   <button
                     key={s}
                     onClick={() => sendMessage(s)}
