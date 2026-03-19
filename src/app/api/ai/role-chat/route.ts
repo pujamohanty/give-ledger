@@ -103,23 +103,32 @@ Answer only about this role. If asked something unrelated, gently redirect back 
   }
 
   // Stream from Groq
-  const groqRes = await fetch("https://api.groq.com/openai/v1/chat/completions", {
-    method: "POST",
-    headers: { "Content-Type": "application/json", Authorization: `Bearer ${groqKey}` },
-    body: JSON.stringify({
-      model: "llama3-8b-8192",
-      stream: true,
-      messages: [
-        { role: "system", content: systemPrompt },
-        ...messages,
-      ],
-      max_tokens: 500,
-      temperature: 0.75,
-    }),
-  });
+  let groqRes: Response;
+  try {
+    groqRes = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Authorization: `Bearer ${groqKey}` },
+      body: JSON.stringify({
+        model: "llama3-8b-8192",
+        stream: true,
+        messages: [
+          { role: "system", content: systemPrompt },
+          ...messages,
+        ],
+        max_tokens: 500,
+        temperature: 0.75,
+      }),
+    });
+  } catch {
+    return NextResponse.json({
+      message: `This is a ${role.roleType.toLowerCase()} role with ${role.ngo.orgName}. You'll work for ${role.durationWeeks} weeks on ${skills.slice(0, 3).join(", ")}. The engagement is NGO-verified and recorded on your GiveLedger Credential — great for LinkedIn and your CV. Happy to answer specific questions!`,
+    });
+  }
 
   if (!groqRes.ok || !groqRes.body) {
-    return NextResponse.json({ error: "AI service unavailable" }, { status: 503 });
+    return NextResponse.json({
+      message: `This is a ${role.roleType.toLowerCase()} role with ${role.ngo.orgName}. You'll work for ${role.durationWeeks} weeks on ${skills.slice(0, 3).join(", ")}. The engagement is NGO-verified and recorded on your GiveLedger Credential — great for LinkedIn and your CV. Happy to answer specific questions!`,
+    });
   }
 
   // Pipe SSE from Groq → client

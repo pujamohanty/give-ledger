@@ -50,41 +50,50 @@ PRO members get matched with brand campaigns — test apps before launch, post U
 - Never say "I'm just an AI" — you are Givi, the GiveLedger assistant
 - If asked something completely unrelated to GiveLedger, politely redirect`;
 
-export async function POST(req: NextRequest) {
-  const body = await req.json() as {
-    messages: { role: "user" | "assistant"; content: string }[];
-  };
-  const { messages } = body;
+const FALLBACK_MESSAGE =
+  "Hi! I'm Givi. GiveLedger lets professionals contribute skills, time, or money to verified US nonprofits — and every contribution is recorded on your public credential.\n\nBrowse open roles at /opportunities, check pricing at /pricing, or explore the free AI Training Academy at /donor/training. What would you like to know more about?";
 
-  if (!messages?.length) {
-    return NextResponse.json({ error: "Missing messages" }, { status: 400 });
+export async function POST(req: NextRequest) {
+  let messages: { role: "user" | "assistant"; content: string }[] = [];
+
+  try {
+    const body = await req.json();
+    messages = body?.messages ?? [];
+  } catch {
+    return NextResponse.json({ message: FALLBACK_MESSAGE });
+  }
+
+  if (!messages.length) {
+    return NextResponse.json({ message: FALLBACK_MESSAGE });
   }
 
   const groqKey = process.env.GROQ_API_KEY;
   if (!groqKey) {
-    return NextResponse.json({
-      message:
-        "GiveLedger lets professionals contribute skills, time, or money to verified US nonprofits — and every contribution is recorded on your public credential. You can browse open roles at /opportunities, or check pricing at /pricing. What would you like to know?",
-    });
+    return NextResponse.json({ message: FALLBACK_MESSAGE });
   }
 
-  const groqRes = await fetch("https://api.groq.com/openai/v1/chat/completions", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${groqKey}`,
-    },
-    body: JSON.stringify({
-      model: "llama3-8b-8192",
-      stream: true,
-      messages: [{ role: "system", content: SYSTEM_PROMPT }, ...messages],
-      max_tokens: 500,
-      temperature: 0.7,
-    }),
-  });
+  let groqRes: Response;
+  try {
+    groqRes = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${groqKey}`,
+      },
+      body: JSON.stringify({
+        model: "llama3-8b-8192",
+        stream: true,
+        messages: [{ role: "system", content: SYSTEM_PROMPT }, ...messages],
+        max_tokens: 500,
+        temperature: 0.7,
+      }),
+    });
+  } catch {
+    return NextResponse.json({ message: FALLBACK_MESSAGE });
+  }
 
   if (!groqRes.ok || !groqRes.body) {
-    return NextResponse.json({ error: "AI service unavailable" }, { status: 503 });
+    return NextResponse.json({ message: FALLBACK_MESSAGE });
   }
 
   const encoder = new TextEncoder();
