@@ -4,7 +4,7 @@ import { useState } from "react";
 import {
   Smartphone, Video, CheckCircle2, Loader2, AlertCircle, Pencil,
   Instagram, Twitter, Youtube, Zap, BadgeCheck, TrendingUp,
-  Linkedin, Crown, ArrowRight, Lock,
+  Linkedin, Crown, Lock, Calendar, DollarSign, Monitor,
 } from "lucide-react";
 
 // ── Types ──────────────────────────────────────────────────────────────────────
@@ -52,7 +52,7 @@ const FOLLOWER_LABELS: Record<string, string> = {
   UNDER_1K: "Under 1K", "1K_10K": "1K – 10K", "10K_50K": "10K – 50K", "50K_PLUS": "50K+",
 };
 
-// ── Reddit SVG icon (not in lucide) ───────────────────────────────────────────
+// ── Reddit icon ────────────────────────────────────────────────────────────────
 
 function RedditIcon({ className }: { className?: string }) {
   return (
@@ -80,48 +80,114 @@ function Pill({ label, selected, onClick }: { label: string; selected: boolean; 
   );
 }
 
-// ── PRO upgrade gate ───────────────────────────────────────────────────────────
+// ── Sample campaigns preview ───────────────────────────────────────────────────
 
-function ProGate() {
+const SAMPLE_CAMPAIGNS = [
+  {
+    brand: "FinTrack App",
+    type: "Beta Testing + UGC",
+    description: "Test our AI-powered personal finance app (iOS & Android) and post a 60-second honest review to your social channels.",
+    device: "iOS / Android",
+    payout: "$80 – $150",
+    platforms: ["Instagram", "TikTok"],
+    deadline: "Rolling — 12 spots left",
+    niche: "Finance & Business",
+    color: "border-emerald-200 bg-emerald-50",
+    badge: "bg-emerald-100 text-emerald-700",
+  },
+  {
+    brand: "Wellpath Health",
+    type: "UGC Content",
+    description: "Create 2 authentic posts about your experience with our wellness tracking app. No testing required — just content creation.",
+    device: "Any",
+    payout: "$50 – $90",
+    platforms: ["Instagram", "YouTube"],
+    deadline: "Closes in 8 days",
+    niche: "Health & Wellness",
+    color: "border-violet-200 bg-violet-50",
+    badge: "bg-violet-100 text-violet-700",
+  },
+  {
+    brand: "ShopLoop",
+    type: "Beta Testing",
+    description: "Be among the first to test our new social commerce platform on desktop. Submit detailed feedback via structured form.",
+    device: "Mac / Windows",
+    payout: "$60 – $100",
+    platforms: ["LinkedIn", "Reddit"],
+    deadline: "20 spots available",
+    niche: "Tech & Apps",
+    color: "border-sky-200 bg-sky-50",
+    badge: "bg-sky-100 text-sky-700",
+  },
+];
+
+function CampaignsPreview() {
   return (
-    <div className="max-w-xl mx-auto text-center py-16">
-      <div className="w-16 h-16 rounded-2xl bg-violet-100 flex items-center justify-center mx-auto mb-6">
-        <Lock className="w-7 h-7 text-violet-500" />
+    <div className="mb-10">
+      <div className="flex items-baseline justify-between mb-4">
+        <div>
+          <h2 className="text-base font-semibold text-gray-900">Available campaigns</h2>
+          <p className="text-sm text-gray-500 mt-0.5">
+            Live campaigns from brand partners — matched to registered members.
+          </p>
+        </div>
+        <span className="text-[10px] font-bold uppercase tracking-wide bg-amber-50 border border-amber-200 text-amber-600 px-2.5 py-1 rounded-full">
+          Sample preview
+        </span>
       </div>
-      <div className="inline-flex items-center gap-1.5 bg-violet-50 border border-violet-100 text-violet-700 text-xs font-semibold px-3 py-1.5 rounded-full mb-5">
-        <Crown className="w-3.5 h-3.5" /> PRO plan required
+
+      <div className="space-y-3">
+        {SAMPLE_CAMPAIGNS.map((c) => (
+          <div
+            key={c.brand}
+            className={`relative rounded-2xl border ${c.color} p-5 overflow-hidden`}
+          >
+            {/* Blur overlay — locked */}
+            <div className="absolute inset-0 backdrop-blur-[2px] bg-white/40 flex items-center justify-center rounded-2xl z-10">
+              <div className="flex items-center gap-2 bg-white/90 border border-gray-200 shadow-sm rounded-full px-4 py-2">
+                <Lock className="w-3.5 h-3.5 text-gray-500" />
+                <span className="text-xs font-semibold text-gray-600">Register to unlock</span>
+              </div>
+            </div>
+
+            {/* Card content (blurred behind overlay) */}
+            <div className="flex items-start justify-between gap-4 mb-3">
+              <div>
+                <div className="flex items-center gap-2 mb-1">
+                  <p className="font-semibold text-gray-900 text-sm">{c.brand}</p>
+                  <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${c.badge}`}>
+                    {c.type}
+                  </span>
+                </div>
+                <p className="text-xs text-gray-600 leading-relaxed max-w-lg">{c.description}</p>
+              </div>
+              <div className="shrink-0 text-right">
+                <p className="text-sm font-bold text-gray-900">{c.payout}</p>
+                <p className="text-[10px] text-gray-400">per campaign</p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-4 text-xs text-gray-500">
+              <div className="flex items-center gap-1">
+                <Monitor className="w-3 h-3" />
+                {c.device}
+              </div>
+              <div className="flex items-center gap-1">
+                <Calendar className="w-3 h-3" />
+                {c.deadline}
+              </div>
+              <div className="flex items-center gap-1">
+                <DollarSign className="w-3 h-3" />
+                {c.platforms.join(" · ")}
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
-      <h1 className="text-2xl font-bold text-gray-900 mb-3">Beta Tester & UGC Creator Program</h1>
-      <p className="text-gray-500 text-sm leading-relaxed mb-8 max-w-sm mx-auto">
-        This program is exclusive to Pro plan members. Upgrade once for $25 to unlock unlimited
-        role applications, priority NGO visibility, and access to paid brand campaigns.
+
+      <p className="text-xs text-gray-400 text-center mt-3">
+        Real campaigns will be matched to your profile once you register. New campaigns added weekly.
       </p>
-
-      <div className="bg-violet-50 border border-violet-100 rounded-2xl p-6 text-left mb-8">
-        <p className="text-xs font-semibold text-violet-500 uppercase tracking-wide mb-4">What you unlock with Pro</p>
-        <ul className="space-y-3">
-          {[
-            "Unlimited role applications to NGOs",
-            "Priority listing in NGO applicant view",
-            "PRO badge visible to hiring NGOs",
-            "Access to Beta Tester & UGC Creator Program",
-            "100% refund after 18 months",
-          ].map((f) => (
-            <li key={f} className="flex items-center gap-2.5 text-sm text-gray-700">
-              <CheckCircle2 className="w-4 h-4 text-violet-500 shrink-0" />
-              {f}
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      <Link
-        href="/donor/subscription"
-        className="inline-flex items-center gap-2 bg-violet-600 hover:bg-violet-700 text-white font-semibold px-6 py-3 rounded-xl text-sm transition-colors"
-      >
-        <Crown className="w-4 h-4" /> Upgrade to Pro — $25 <ArrowRight className="w-4 h-4" />
-      </Link>
-      <p className="text-xs text-gray-400 mt-4">One-time payment · 100% refund guarantee after 18 months</p>
     </div>
   );
 }
@@ -134,12 +200,12 @@ function StatusView({ profile, onEdit }: { profile: Profile; onEdit: () => void 
   });
 
   const socialHandles = [
-    { icon: Instagram,  value: profile.instagramHandle, color: "text-pink-500",    label: "Instagram" },
-    { icon: Zap,        value: profile.tiktokHandle,    color: "text-gray-800",    label: "TikTok"    },
-    { icon: Twitter,    value: profile.twitterHandle,   color: "text-sky-500",     label: "X"         },
-    { icon: Youtube,    value: profile.youtubeHandle,   color: "text-red-500",     label: "YouTube"   },
-    { icon: Linkedin,   value: profile.linkedinHandle,  color: "text-blue-600",    label: "LinkedIn"  },
-    { icon: RedditIcon, value: profile.redditHandle,    color: "text-orange-500",  label: "Reddit"    },
+    { icon: Instagram,  value: profile.instagramHandle, color: "text-pink-500",   label: "Instagram" },
+    { icon: Zap,        value: profile.tiktokHandle,    color: "text-gray-800",   label: "TikTok"    },
+    { icon: Twitter,    value: profile.twitterHandle,   color: "text-sky-500",    label: "X"         },
+    { icon: Youtube,    value: profile.youtubeHandle,   color: "text-red-500",    label: "YouTube"   },
+    { icon: Linkedin,   value: profile.linkedinHandle,  color: "text-blue-600",   label: "LinkedIn"  },
+    { icon: RedditIcon, value: profile.redditHandle,    color: "text-orange-500", label: "Reddit"    },
   ].filter((s) => s.value);
 
   return (
@@ -214,7 +280,7 @@ function StatusView({ profile, onEdit }: { profile: Profile; onEdit: () => void 
             {socialHandles.map(({ icon: Icon, value, color, label }) => (
               <div key={label} className="flex items-center gap-2 text-sm text-gray-700">
                 <Icon className={`w-4 h-4 ${color} shrink-0`} />
-                <span className="text-gray-500 text-xs w-16 shrink-0">{label}</span>
+                <span className="text-gray-400 text-xs w-16 shrink-0">{label}</span>
                 @{value}
               </div>
             ))}
@@ -231,7 +297,9 @@ function StatusView({ profile, onEdit }: { profile: Profile; onEdit: () => void 
 
 // ── Sign-up form ───────────────────────────────────────────────────────────────
 
-function SignupForm({ initial, onSaved }: { initial: Profile | null; onSaved: (p: Profile) => void }) {
+function SignupForm({
+  initial, isPro, onSaved,
+}: { initial: Profile | null; isPro: boolean; onSaved: (p: Profile) => void }) {
   const [devices, setDevices]             = useState<string[]>(initial?.devices       ?? []);
   const [followerRange, setFollowerRange] = useState(initial?.followerRange ?? "");
   const [niches, setNiches]               = useState<string[]>(initial?.niches        ?? []);
@@ -244,7 +312,6 @@ function SignupForm({ initial, onSaved }: { initial: Profile | null; onSaved: (p
   const [loading, setLoading]             = useState(false);
   const [error, setError]                 = useState("");
 
-  // Count how many handles are filled
   const filledHandles = [instagram, tiktok, twitter, youtube, linkedin, reddit]
     .filter((h) => h.trim().length > 0).length;
 
@@ -283,18 +350,18 @@ function SignupForm({ initial, onSaved }: { initial: Profile | null; onSaved: (p
       {/* Hero */}
       <div className="text-center mb-10">
         <div className="inline-flex items-center gap-2 bg-violet-50 border border-violet-100 text-violet-700 text-xs font-semibold px-3 py-1.5 rounded-full mb-5">
-          <Zap className="w-3.5 h-3.5" /> PRO benefit — earn while you help
+          <Zap className="w-3.5 h-3.5" /> Earn while you help
         </div>
         <h1 className="text-3xl font-bold text-gray-900 mb-3">Beta Tester & UGC Creator Program</h1>
         <p className="text-gray-500 text-base max-w-lg mx-auto leading-relaxed">
           Get paid by brands to test their apps before launch and post authentic content across your
-          social channels. Campaigns come directly to your dashboard from our partner platform.
+          social channels. Campaigns are matched directly to your profile.
         </p>
         <div className="grid grid-cols-3 gap-4 mt-8 text-left">
           {[
-            { icon: Smartphone, label: "Test apps first",    desc: "Early access to products before public launch", color: "bg-violet-50 text-violet-600"  },
-            { icon: Video,      label: "Create UGC content", desc: "Post authentic reviews, earn per campaign",     color: "bg-pink-50 text-pink-600"      },
-            { icon: TrendingUp, label: "Build income",       desc: "Earn alongside your NGO contributions",         color: "bg-emerald-50 text-emerald-600" },
+            { icon: Smartphone, label: "Test apps first",    desc: "Early access before public launch",         color: "bg-violet-50 text-violet-600"  },
+            { icon: Video,      label: "Create UGC content", desc: "Post authentic reviews, earn per campaign", color: "bg-pink-50 text-pink-600"      },
+            { icon: TrendingUp, label: "Build income",       desc: "Earn alongside your NGO contributions",     color: "bg-emerald-50 text-emerald-600" },
           ].map(({ icon: Icon, label, desc, color }) => (
             <div key={label} className="bg-white border border-gray-100 rounded-xl p-4">
               <div className={`w-8 h-8 rounded-lg ${color} flex items-center justify-center mb-3`}>
@@ -307,6 +374,10 @@ function SignupForm({ initial, onSaved }: { initial: Profile | null; onSaved: (p
         </div>
       </div>
 
+      {/* Available campaigns preview */}
+      <CampaignsPreview />
+
+      {/* Form */}
       <form onSubmit={handleSubmit} className="space-y-8">
 
         {/* Devices */}
@@ -353,7 +424,7 @@ function SignupForm({ initial, onSaved }: { initial: Profile | null; onSaved: (p
           </div>
         </div>
 
-        {/* Social handles — required, at least 3 */}
+        {/* Social handles */}
         <div>
           <div className="flex items-baseline justify-between mb-1">
             <h2 className="text-base font-semibold text-gray-900">
@@ -370,12 +441,12 @@ function SignupForm({ initial, onSaved }: { initial: Profile | null; onSaved: (p
           </p>
           <div className="grid sm:grid-cols-2 gap-3">
             {[
-              { icon: Instagram,  placeholder: "Instagram username",  value: instagram, setter: setInstagram, color: "text-pink-500"   },
-              { icon: Zap,        placeholder: "TikTok username",     value: tiktok,    setter: setTiktok,    color: "text-gray-800"   },
-              { icon: Twitter,    placeholder: "X / Twitter username", value: twitter,  setter: setTwitter,   color: "text-sky-500"    },
-              { icon: Youtube,    placeholder: "YouTube handle",      value: youtube,   setter: setYoutube,   color: "text-red-500"    },
-              { icon: Linkedin,   placeholder: "LinkedIn username",   value: linkedin,  setter: setLinkedin,  color: "text-blue-600"   },
-              { icon: RedditIcon, placeholder: "Reddit username",     value: reddit,    setter: setReddit,    color: "text-orange-500" },
+              { icon: Instagram,  placeholder: "Instagram username",   value: instagram, setter: setInstagram, color: "text-pink-500"   },
+              { icon: Zap,        placeholder: "TikTok username",      value: tiktok,    setter: setTiktok,    color: "text-gray-800"   },
+              { icon: Twitter,    placeholder: "X / Twitter username", value: twitter,   setter: setTwitter,   color: "text-sky-500"    },
+              { icon: Youtube,    placeholder: "YouTube handle",       value: youtube,   setter: setYoutube,   color: "text-red-500"    },
+              { icon: Linkedin,   placeholder: "LinkedIn username",    value: linkedin,  setter: setLinkedin,  color: "text-blue-600"   },
+              { icon: RedditIcon, placeholder: "Reddit username",      value: reddit,    setter: setReddit,    color: "text-orange-500" },
             ].map(({ icon: Icon, placeholder, value, setter, color }) => (
               <div key={placeholder} className="relative">
                 <div className="absolute left-3 top-1/2 -translate-y-1/2">
@@ -400,20 +471,60 @@ function SignupForm({ initial, onSaved }: { initial: Profile | null; onSaved: (p
           </div>
         )}
 
-        <button
-          type="submit"
-          disabled={loading}
-          className="w-full h-12 bg-violet-600 hover:bg-violet-700 disabled:opacity-60 text-white font-semibold rounded-xl text-sm transition-colors flex items-center justify-center gap-2"
-        >
-          {loading
-            ? <Loader2 className="w-4 h-4 animate-spin" />
-            : <><CheckCircle2 className="w-4 h-4" /> Register for the Beta & UGC Program</>}
-        </button>
-
-        <p className="text-center text-xs text-gray-400">
-          Your profile is only shared with vetted brand partners on our campaign platform.
-          You can update or remove it at any time.
-        </p>
+        {/* Submit — behaviour differs for PRO vs non-PRO */}
+        {isPro ? (
+          <>
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full h-12 bg-violet-600 hover:bg-violet-700 disabled:opacity-60 text-white font-semibold rounded-xl text-sm transition-colors flex items-center justify-center gap-2"
+            >
+              {loading
+                ? <Loader2 className="w-4 h-4 animate-spin" />
+                : <><CheckCircle2 className="w-4 h-4" /> Register for the Beta & UGC Program</>}
+            </button>
+            <p className="text-center text-xs text-gray-400">
+              Your profile is only shared with vetted brand partners. You can update it at any time.
+            </p>
+          </>
+        ) : (
+          <>
+            {/* Disabled submit with PRO callout */}
+            <div className="rounded-2xl border-2 border-violet-200 bg-violet-50 p-5">
+              <div className="flex items-start gap-4">
+                <div className="w-10 h-10 rounded-xl bg-violet-100 flex items-center justify-center shrink-0">
+                  <Lock className="w-5 h-5 text-violet-500" />
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 mb-1">
+                    <p className="font-semibold text-gray-900 text-sm">Pro plan required to register</p>
+                    <span className="text-[10px] font-bold bg-violet-200 text-violet-800 px-2 py-0.5 rounded-full flex items-center gap-1">
+                      <Crown className="w-2.5 h-2.5" /> PRO
+                    </span>
+                  </div>
+                  <p className="text-xs text-gray-600 leading-relaxed mb-4">
+                    Your preferences are saved. Upgrade to Pro for $25 (one-time) to activate your profile,
+                    get matched with brand campaigns, and unlock unlimited NGO role applications.
+                  </p>
+                  <div className="flex items-center gap-3">
+                    <Link
+                      href="/donor/subscription"
+                      className="inline-flex items-center gap-1.5 bg-violet-600 hover:bg-violet-700 text-white font-semibold text-xs px-4 py-2.5 rounded-lg transition-colors"
+                    >
+                      <Crown className="w-3.5 h-3.5" /> Upgrade to Pro — $25
+                    </Link>
+                    <Link
+                      href="/pricing"
+                      className="text-xs text-violet-600 hover:text-violet-800 font-medium"
+                    >
+                      See what&apos;s included →
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </>
+        )}
       </form>
     </div>
   );
@@ -427,8 +538,6 @@ export default function BetaProgramClient({
   const [profile, setProfile] = useState<Profile | null>(existing);
   const [editing, setEditing] = useState(false);
   const [saved, setSaved]     = useState(false);
-
-  if (!isPro) return <div className="p-6 lg:p-10"><ProGate /></div>;
 
   function handleSaved(p: Profile) {
     setProfile(p);
@@ -450,7 +559,7 @@ export default function BetaProgramClient({
       )}
 
       {!profile || editing
-        ? <SignupForm initial={profile} onSaved={handleSaved} />
+        ? <SignupForm initial={profile} isPro={isPro} onSaved={handleSaved} />
         : <StatusView profile={profile} onEdit={() => { setEditing(true); setSaved(false); }} />}
     </div>
   );

@@ -34,6 +34,11 @@ export type VerificationToken = $Result.DefaultSelection<Prisma.$VerificationTok
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
 /**
+ * Model BetaTesterProfile
+ * 
+ */
+export type BetaTesterProfile = $Result.DefaultSelection<Prisma.$BetaTesterProfilePayload>
+/**
  * Model Ngo
  * 
  */
@@ -516,6 +521,16 @@ export class PrismaClient<
     * ```
     */
   get user(): Prisma.UserDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.betaTesterProfile`: Exposes CRUD operations for the **BetaTesterProfile** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more BetaTesterProfiles
+    * const betaTesterProfiles = await prisma.betaTesterProfile.findMany()
+    * ```
+    */
+  get betaTesterProfile(): Prisma.BetaTesterProfileDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.ngo`: Exposes CRUD operations for the **Ngo** model.
@@ -1254,6 +1269,7 @@ export namespace Prisma {
     Session: 'Session',
     VerificationToken: 'VerificationToken',
     User: 'User',
+    BetaTesterProfile: 'BetaTesterProfile',
     Ngo: 'Ngo',
     Project: 'Project',
     Milestone: 'Milestone',
@@ -1299,7 +1315,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "account" | "session" | "verificationToken" | "user" | "ngo" | "project" | "milestone" | "evidenceFile" | "outputMarker" | "donation" | "disbursement" | "expense" | "blockchainRecord" | "rating" | "platformSetting" | "notification" | "spotlightVote" | "campaign" | "campaignContributor" | "ngoSuggestion" | "referral" | "activityEvent" | "boardMember" | "skillContribution" | "skillBlockchainRecord" | "donorEndorsement" | "donorDocument" | "ngoDocument" | "ngoRole" | "roleApplication" | "roleEngagement" | "donorChallenge" | "challengeAcceptance" | "subscription"
+      modelProps: "account" | "session" | "verificationToken" | "user" | "betaTesterProfile" | "ngo" | "project" | "milestone" | "evidenceFile" | "outputMarker" | "donation" | "disbursement" | "expense" | "blockchainRecord" | "rating" | "platformSetting" | "notification" | "spotlightVote" | "campaign" | "campaignContributor" | "ngoSuggestion" | "referral" | "activityEvent" | "boardMember" | "skillContribution" | "skillBlockchainRecord" | "donorEndorsement" | "donorDocument" | "ngoDocument" | "ngoRole" | "roleApplication" | "roleEngagement" | "donorChallenge" | "challengeAcceptance" | "subscription"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1596,6 +1612,80 @@ export namespace Prisma {
           count: {
             args: Prisma.UserCountArgs<ExtArgs>
             result: $Utils.Optional<UserCountAggregateOutputType> | number
+          }
+        }
+      }
+      BetaTesterProfile: {
+        payload: Prisma.$BetaTesterProfilePayload<ExtArgs>
+        fields: Prisma.BetaTesterProfileFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.BetaTesterProfileFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BetaTesterProfilePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.BetaTesterProfileFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BetaTesterProfilePayload>
+          }
+          findFirst: {
+            args: Prisma.BetaTesterProfileFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BetaTesterProfilePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.BetaTesterProfileFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BetaTesterProfilePayload>
+          }
+          findMany: {
+            args: Prisma.BetaTesterProfileFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BetaTesterProfilePayload>[]
+          }
+          create: {
+            args: Prisma.BetaTesterProfileCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BetaTesterProfilePayload>
+          }
+          createMany: {
+            args: Prisma.BetaTesterProfileCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.BetaTesterProfileCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BetaTesterProfilePayload>[]
+          }
+          delete: {
+            args: Prisma.BetaTesterProfileDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BetaTesterProfilePayload>
+          }
+          update: {
+            args: Prisma.BetaTesterProfileUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BetaTesterProfilePayload>
+          }
+          deleteMany: {
+            args: Prisma.BetaTesterProfileDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.BetaTesterProfileUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.BetaTesterProfileUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BetaTesterProfilePayload>[]
+          }
+          upsert: {
+            args: Prisma.BetaTesterProfileUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BetaTesterProfilePayload>
+          }
+          aggregate: {
+            args: Prisma.BetaTesterProfileAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateBetaTesterProfile>
+          }
+          groupBy: {
+            args: Prisma.BetaTesterProfileGroupByArgs<ExtArgs>
+            result: $Utils.Optional<BetaTesterProfileGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.BetaTesterProfileCountArgs<ExtArgs>
+            result: $Utils.Optional<BetaTesterProfileCountAggregateOutputType> | number
           }
         }
       }
@@ -3931,6 +4021,7 @@ export namespace Prisma {
     session?: SessionOmit
     verificationToken?: VerificationTokenOmit
     user?: UserOmit
+    betaTesterProfile?: BetaTesterProfileOmit
     ngo?: NgoOmit
     project?: ProjectOmit
     milestone?: MilestoneOmit
@@ -8037,6 +8128,7 @@ export namespace Prisma {
     roleApplications?: boolean | User$roleApplicationsArgs<ExtArgs>
     challenges?: boolean | User$challengesArgs<ExtArgs>
     subscription?: boolean | User$subscriptionArgs<ExtArgs>
+    betaTesterProfile?: boolean | User$betaTesterProfileArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -8127,6 +8219,7 @@ export namespace Prisma {
     roleApplications?: boolean | User$roleApplicationsArgs<ExtArgs>
     challenges?: boolean | User$challengesArgs<ExtArgs>
     subscription?: boolean | User$subscriptionArgs<ExtArgs>
+    betaTesterProfile?: boolean | User$betaTesterProfileArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -8154,6 +8247,7 @@ export namespace Prisma {
       roleApplications: Prisma.$RoleApplicationPayload<ExtArgs>[]
       challenges: Prisma.$DonorChallengePayload<ExtArgs>[]
       subscription: Prisma.$SubscriptionPayload<ExtArgs> | null
+      betaTesterProfile: Prisma.$BetaTesterProfilePayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -8588,6 +8682,7 @@ export namespace Prisma {
     roleApplications<T extends User$roleApplicationsArgs<ExtArgs> = {}>(args?: Subset<T, User$roleApplicationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RoleApplicationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     challenges<T extends User$challengesArgs<ExtArgs> = {}>(args?: Subset<T, User$challengesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DonorChallengePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     subscription<T extends User$subscriptionArgs<ExtArgs> = {}>(args?: Subset<T, User$subscriptionArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    betaTesterProfile<T extends User$betaTesterProfileArgs<ExtArgs> = {}>(args?: Subset<T, User$betaTesterProfileArgs<ExtArgs>>): Prisma__BetaTesterProfileClient<$Result.GetResult<Prisma.$BetaTesterProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -9470,6 +9565,25 @@ export namespace Prisma {
   }
 
   /**
+   * User.betaTesterProfile
+   */
+  export type User$betaTesterProfileArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BetaTesterProfile
+     */
+    select?: BetaTesterProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BetaTesterProfile
+     */
+    omit?: BetaTesterProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BetaTesterProfileInclude<ExtArgs> | null
+    where?: BetaTesterProfileWhereInput
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -9485,6 +9599,1182 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: UserInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model BetaTesterProfile
+   */
+
+  export type AggregateBetaTesterProfile = {
+    _count: BetaTesterProfileCountAggregateOutputType | null
+    _min: BetaTesterProfileMinAggregateOutputType | null
+    _max: BetaTesterProfileMaxAggregateOutputType | null
+  }
+
+  export type BetaTesterProfileMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    followerRange: string | null
+    instagramHandle: string | null
+    tiktokHandle: string | null
+    twitterHandle: string | null
+    youtubeHandle: string | null
+    linkedinHandle: string | null
+    redditHandle: string | null
+    isActive: boolean | null
+    registeredAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type BetaTesterProfileMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    followerRange: string | null
+    instagramHandle: string | null
+    tiktokHandle: string | null
+    twitterHandle: string | null
+    youtubeHandle: string | null
+    linkedinHandle: string | null
+    redditHandle: string | null
+    isActive: boolean | null
+    registeredAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type BetaTesterProfileCountAggregateOutputType = {
+    id: number
+    userId: number
+    interests: number
+    devices: number
+    followerRange: number
+    niches: number
+    instagramHandle: number
+    tiktokHandle: number
+    twitterHandle: number
+    youtubeHandle: number
+    linkedinHandle: number
+    redditHandle: number
+    isActive: number
+    registeredAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type BetaTesterProfileMinAggregateInputType = {
+    id?: true
+    userId?: true
+    followerRange?: true
+    instagramHandle?: true
+    tiktokHandle?: true
+    twitterHandle?: true
+    youtubeHandle?: true
+    linkedinHandle?: true
+    redditHandle?: true
+    isActive?: true
+    registeredAt?: true
+    updatedAt?: true
+  }
+
+  export type BetaTesterProfileMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    followerRange?: true
+    instagramHandle?: true
+    tiktokHandle?: true
+    twitterHandle?: true
+    youtubeHandle?: true
+    linkedinHandle?: true
+    redditHandle?: true
+    isActive?: true
+    registeredAt?: true
+    updatedAt?: true
+  }
+
+  export type BetaTesterProfileCountAggregateInputType = {
+    id?: true
+    userId?: true
+    interests?: true
+    devices?: true
+    followerRange?: true
+    niches?: true
+    instagramHandle?: true
+    tiktokHandle?: true
+    twitterHandle?: true
+    youtubeHandle?: true
+    linkedinHandle?: true
+    redditHandle?: true
+    isActive?: true
+    registeredAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type BetaTesterProfileAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BetaTesterProfile to aggregate.
+     */
+    where?: BetaTesterProfileWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BetaTesterProfiles to fetch.
+     */
+    orderBy?: BetaTesterProfileOrderByWithRelationInput | BetaTesterProfileOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: BetaTesterProfileWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BetaTesterProfiles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BetaTesterProfiles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned BetaTesterProfiles
+    **/
+    _count?: true | BetaTesterProfileCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: BetaTesterProfileMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: BetaTesterProfileMaxAggregateInputType
+  }
+
+  export type GetBetaTesterProfileAggregateType<T extends BetaTesterProfileAggregateArgs> = {
+        [P in keyof T & keyof AggregateBetaTesterProfile]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateBetaTesterProfile[P]>
+      : GetScalarType<T[P], AggregateBetaTesterProfile[P]>
+  }
+
+
+
+
+  export type BetaTesterProfileGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BetaTesterProfileWhereInput
+    orderBy?: BetaTesterProfileOrderByWithAggregationInput | BetaTesterProfileOrderByWithAggregationInput[]
+    by: BetaTesterProfileScalarFieldEnum[] | BetaTesterProfileScalarFieldEnum
+    having?: BetaTesterProfileScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: BetaTesterProfileCountAggregateInputType | true
+    _min?: BetaTesterProfileMinAggregateInputType
+    _max?: BetaTesterProfileMaxAggregateInputType
+  }
+
+  export type BetaTesterProfileGroupByOutputType = {
+    id: string
+    userId: string
+    interests: string[]
+    devices: string[]
+    followerRange: string
+    niches: string[]
+    instagramHandle: string | null
+    tiktokHandle: string | null
+    twitterHandle: string | null
+    youtubeHandle: string | null
+    linkedinHandle: string | null
+    redditHandle: string | null
+    isActive: boolean
+    registeredAt: Date
+    updatedAt: Date
+    _count: BetaTesterProfileCountAggregateOutputType | null
+    _min: BetaTesterProfileMinAggregateOutputType | null
+    _max: BetaTesterProfileMaxAggregateOutputType | null
+  }
+
+  type GetBetaTesterProfileGroupByPayload<T extends BetaTesterProfileGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<BetaTesterProfileGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof BetaTesterProfileGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], BetaTesterProfileGroupByOutputType[P]>
+            : GetScalarType<T[P], BetaTesterProfileGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type BetaTesterProfileSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    interests?: boolean
+    devices?: boolean
+    followerRange?: boolean
+    niches?: boolean
+    instagramHandle?: boolean
+    tiktokHandle?: boolean
+    twitterHandle?: boolean
+    youtubeHandle?: boolean
+    linkedinHandle?: boolean
+    redditHandle?: boolean
+    isActive?: boolean
+    registeredAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["betaTesterProfile"]>
+
+  export type BetaTesterProfileSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    interests?: boolean
+    devices?: boolean
+    followerRange?: boolean
+    niches?: boolean
+    instagramHandle?: boolean
+    tiktokHandle?: boolean
+    twitterHandle?: boolean
+    youtubeHandle?: boolean
+    linkedinHandle?: boolean
+    redditHandle?: boolean
+    isActive?: boolean
+    registeredAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["betaTesterProfile"]>
+
+  export type BetaTesterProfileSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    interests?: boolean
+    devices?: boolean
+    followerRange?: boolean
+    niches?: boolean
+    instagramHandle?: boolean
+    tiktokHandle?: boolean
+    twitterHandle?: boolean
+    youtubeHandle?: boolean
+    linkedinHandle?: boolean
+    redditHandle?: boolean
+    isActive?: boolean
+    registeredAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["betaTesterProfile"]>
+
+  export type BetaTesterProfileSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    interests?: boolean
+    devices?: boolean
+    followerRange?: boolean
+    niches?: boolean
+    instagramHandle?: boolean
+    tiktokHandle?: boolean
+    twitterHandle?: boolean
+    youtubeHandle?: boolean
+    linkedinHandle?: boolean
+    redditHandle?: boolean
+    isActive?: boolean
+    registeredAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type BetaTesterProfileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "interests" | "devices" | "followerRange" | "niches" | "instagramHandle" | "tiktokHandle" | "twitterHandle" | "youtubeHandle" | "linkedinHandle" | "redditHandle" | "isActive" | "registeredAt" | "updatedAt", ExtArgs["result"]["betaTesterProfile"]>
+  export type BetaTesterProfileInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type BetaTesterProfileIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type BetaTesterProfileIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $BetaTesterProfilePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "BetaTesterProfile"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      interests: string[]
+      devices: string[]
+      followerRange: string
+      niches: string[]
+      instagramHandle: string | null
+      tiktokHandle: string | null
+      twitterHandle: string | null
+      youtubeHandle: string | null
+      linkedinHandle: string | null
+      redditHandle: string | null
+      isActive: boolean
+      registeredAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["betaTesterProfile"]>
+    composites: {}
+  }
+
+  type BetaTesterProfileGetPayload<S extends boolean | null | undefined | BetaTesterProfileDefaultArgs> = $Result.GetResult<Prisma.$BetaTesterProfilePayload, S>
+
+  type BetaTesterProfileCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<BetaTesterProfileFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: BetaTesterProfileCountAggregateInputType | true
+    }
+
+  export interface BetaTesterProfileDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['BetaTesterProfile'], meta: { name: 'BetaTesterProfile' } }
+    /**
+     * Find zero or one BetaTesterProfile that matches the filter.
+     * @param {BetaTesterProfileFindUniqueArgs} args - Arguments to find a BetaTesterProfile
+     * @example
+     * // Get one BetaTesterProfile
+     * const betaTesterProfile = await prisma.betaTesterProfile.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends BetaTesterProfileFindUniqueArgs>(args: SelectSubset<T, BetaTesterProfileFindUniqueArgs<ExtArgs>>): Prisma__BetaTesterProfileClient<$Result.GetResult<Prisma.$BetaTesterProfilePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one BetaTesterProfile that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {BetaTesterProfileFindUniqueOrThrowArgs} args - Arguments to find a BetaTesterProfile
+     * @example
+     * // Get one BetaTesterProfile
+     * const betaTesterProfile = await prisma.betaTesterProfile.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends BetaTesterProfileFindUniqueOrThrowArgs>(args: SelectSubset<T, BetaTesterProfileFindUniqueOrThrowArgs<ExtArgs>>): Prisma__BetaTesterProfileClient<$Result.GetResult<Prisma.$BetaTesterProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first BetaTesterProfile that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BetaTesterProfileFindFirstArgs} args - Arguments to find a BetaTesterProfile
+     * @example
+     * // Get one BetaTesterProfile
+     * const betaTesterProfile = await prisma.betaTesterProfile.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends BetaTesterProfileFindFirstArgs>(args?: SelectSubset<T, BetaTesterProfileFindFirstArgs<ExtArgs>>): Prisma__BetaTesterProfileClient<$Result.GetResult<Prisma.$BetaTesterProfilePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first BetaTesterProfile that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BetaTesterProfileFindFirstOrThrowArgs} args - Arguments to find a BetaTesterProfile
+     * @example
+     * // Get one BetaTesterProfile
+     * const betaTesterProfile = await prisma.betaTesterProfile.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends BetaTesterProfileFindFirstOrThrowArgs>(args?: SelectSubset<T, BetaTesterProfileFindFirstOrThrowArgs<ExtArgs>>): Prisma__BetaTesterProfileClient<$Result.GetResult<Prisma.$BetaTesterProfilePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more BetaTesterProfiles that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BetaTesterProfileFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all BetaTesterProfiles
+     * const betaTesterProfiles = await prisma.betaTesterProfile.findMany()
+     * 
+     * // Get first 10 BetaTesterProfiles
+     * const betaTesterProfiles = await prisma.betaTesterProfile.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const betaTesterProfileWithIdOnly = await prisma.betaTesterProfile.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends BetaTesterProfileFindManyArgs>(args?: SelectSubset<T, BetaTesterProfileFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BetaTesterProfilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a BetaTesterProfile.
+     * @param {BetaTesterProfileCreateArgs} args - Arguments to create a BetaTesterProfile.
+     * @example
+     * // Create one BetaTesterProfile
+     * const BetaTesterProfile = await prisma.betaTesterProfile.create({
+     *   data: {
+     *     // ... data to create a BetaTesterProfile
+     *   }
+     * })
+     * 
+     */
+    create<T extends BetaTesterProfileCreateArgs>(args: SelectSubset<T, BetaTesterProfileCreateArgs<ExtArgs>>): Prisma__BetaTesterProfileClient<$Result.GetResult<Prisma.$BetaTesterProfilePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many BetaTesterProfiles.
+     * @param {BetaTesterProfileCreateManyArgs} args - Arguments to create many BetaTesterProfiles.
+     * @example
+     * // Create many BetaTesterProfiles
+     * const betaTesterProfile = await prisma.betaTesterProfile.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends BetaTesterProfileCreateManyArgs>(args?: SelectSubset<T, BetaTesterProfileCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many BetaTesterProfiles and returns the data saved in the database.
+     * @param {BetaTesterProfileCreateManyAndReturnArgs} args - Arguments to create many BetaTesterProfiles.
+     * @example
+     * // Create many BetaTesterProfiles
+     * const betaTesterProfile = await prisma.betaTesterProfile.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many BetaTesterProfiles and only return the `id`
+     * const betaTesterProfileWithIdOnly = await prisma.betaTesterProfile.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends BetaTesterProfileCreateManyAndReturnArgs>(args?: SelectSubset<T, BetaTesterProfileCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BetaTesterProfilePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a BetaTesterProfile.
+     * @param {BetaTesterProfileDeleteArgs} args - Arguments to delete one BetaTesterProfile.
+     * @example
+     * // Delete one BetaTesterProfile
+     * const BetaTesterProfile = await prisma.betaTesterProfile.delete({
+     *   where: {
+     *     // ... filter to delete one BetaTesterProfile
+     *   }
+     * })
+     * 
+     */
+    delete<T extends BetaTesterProfileDeleteArgs>(args: SelectSubset<T, BetaTesterProfileDeleteArgs<ExtArgs>>): Prisma__BetaTesterProfileClient<$Result.GetResult<Prisma.$BetaTesterProfilePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one BetaTesterProfile.
+     * @param {BetaTesterProfileUpdateArgs} args - Arguments to update one BetaTesterProfile.
+     * @example
+     * // Update one BetaTesterProfile
+     * const betaTesterProfile = await prisma.betaTesterProfile.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends BetaTesterProfileUpdateArgs>(args: SelectSubset<T, BetaTesterProfileUpdateArgs<ExtArgs>>): Prisma__BetaTesterProfileClient<$Result.GetResult<Prisma.$BetaTesterProfilePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more BetaTesterProfiles.
+     * @param {BetaTesterProfileDeleteManyArgs} args - Arguments to filter BetaTesterProfiles to delete.
+     * @example
+     * // Delete a few BetaTesterProfiles
+     * const { count } = await prisma.betaTesterProfile.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends BetaTesterProfileDeleteManyArgs>(args?: SelectSubset<T, BetaTesterProfileDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more BetaTesterProfiles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BetaTesterProfileUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many BetaTesterProfiles
+     * const betaTesterProfile = await prisma.betaTesterProfile.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends BetaTesterProfileUpdateManyArgs>(args: SelectSubset<T, BetaTesterProfileUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more BetaTesterProfiles and returns the data updated in the database.
+     * @param {BetaTesterProfileUpdateManyAndReturnArgs} args - Arguments to update many BetaTesterProfiles.
+     * @example
+     * // Update many BetaTesterProfiles
+     * const betaTesterProfile = await prisma.betaTesterProfile.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more BetaTesterProfiles and only return the `id`
+     * const betaTesterProfileWithIdOnly = await prisma.betaTesterProfile.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends BetaTesterProfileUpdateManyAndReturnArgs>(args: SelectSubset<T, BetaTesterProfileUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BetaTesterProfilePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one BetaTesterProfile.
+     * @param {BetaTesterProfileUpsertArgs} args - Arguments to update or create a BetaTesterProfile.
+     * @example
+     * // Update or create a BetaTesterProfile
+     * const betaTesterProfile = await prisma.betaTesterProfile.upsert({
+     *   create: {
+     *     // ... data to create a BetaTesterProfile
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the BetaTesterProfile we want to update
+     *   }
+     * })
+     */
+    upsert<T extends BetaTesterProfileUpsertArgs>(args: SelectSubset<T, BetaTesterProfileUpsertArgs<ExtArgs>>): Prisma__BetaTesterProfileClient<$Result.GetResult<Prisma.$BetaTesterProfilePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of BetaTesterProfiles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BetaTesterProfileCountArgs} args - Arguments to filter BetaTesterProfiles to count.
+     * @example
+     * // Count the number of BetaTesterProfiles
+     * const count = await prisma.betaTesterProfile.count({
+     *   where: {
+     *     // ... the filter for the BetaTesterProfiles we want to count
+     *   }
+     * })
+    **/
+    count<T extends BetaTesterProfileCountArgs>(
+      args?: Subset<T, BetaTesterProfileCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], BetaTesterProfileCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a BetaTesterProfile.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BetaTesterProfileAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends BetaTesterProfileAggregateArgs>(args: Subset<T, BetaTesterProfileAggregateArgs>): Prisma.PrismaPromise<GetBetaTesterProfileAggregateType<T>>
+
+    /**
+     * Group by BetaTesterProfile.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BetaTesterProfileGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends BetaTesterProfileGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: BetaTesterProfileGroupByArgs['orderBy'] }
+        : { orderBy?: BetaTesterProfileGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, BetaTesterProfileGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBetaTesterProfileGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the BetaTesterProfile model
+   */
+  readonly fields: BetaTesterProfileFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for BetaTesterProfile.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__BetaTesterProfileClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the BetaTesterProfile model
+   */
+  interface BetaTesterProfileFieldRefs {
+    readonly id: FieldRef<"BetaTesterProfile", 'String'>
+    readonly userId: FieldRef<"BetaTesterProfile", 'String'>
+    readonly interests: FieldRef<"BetaTesterProfile", 'String[]'>
+    readonly devices: FieldRef<"BetaTesterProfile", 'String[]'>
+    readonly followerRange: FieldRef<"BetaTesterProfile", 'String'>
+    readonly niches: FieldRef<"BetaTesterProfile", 'String[]'>
+    readonly instagramHandle: FieldRef<"BetaTesterProfile", 'String'>
+    readonly tiktokHandle: FieldRef<"BetaTesterProfile", 'String'>
+    readonly twitterHandle: FieldRef<"BetaTesterProfile", 'String'>
+    readonly youtubeHandle: FieldRef<"BetaTesterProfile", 'String'>
+    readonly linkedinHandle: FieldRef<"BetaTesterProfile", 'String'>
+    readonly redditHandle: FieldRef<"BetaTesterProfile", 'String'>
+    readonly isActive: FieldRef<"BetaTesterProfile", 'Boolean'>
+    readonly registeredAt: FieldRef<"BetaTesterProfile", 'DateTime'>
+    readonly updatedAt: FieldRef<"BetaTesterProfile", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * BetaTesterProfile findUnique
+   */
+  export type BetaTesterProfileFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BetaTesterProfile
+     */
+    select?: BetaTesterProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BetaTesterProfile
+     */
+    omit?: BetaTesterProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BetaTesterProfileInclude<ExtArgs> | null
+    /**
+     * Filter, which BetaTesterProfile to fetch.
+     */
+    where: BetaTesterProfileWhereUniqueInput
+  }
+
+  /**
+   * BetaTesterProfile findUniqueOrThrow
+   */
+  export type BetaTesterProfileFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BetaTesterProfile
+     */
+    select?: BetaTesterProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BetaTesterProfile
+     */
+    omit?: BetaTesterProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BetaTesterProfileInclude<ExtArgs> | null
+    /**
+     * Filter, which BetaTesterProfile to fetch.
+     */
+    where: BetaTesterProfileWhereUniqueInput
+  }
+
+  /**
+   * BetaTesterProfile findFirst
+   */
+  export type BetaTesterProfileFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BetaTesterProfile
+     */
+    select?: BetaTesterProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BetaTesterProfile
+     */
+    omit?: BetaTesterProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BetaTesterProfileInclude<ExtArgs> | null
+    /**
+     * Filter, which BetaTesterProfile to fetch.
+     */
+    where?: BetaTesterProfileWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BetaTesterProfiles to fetch.
+     */
+    orderBy?: BetaTesterProfileOrderByWithRelationInput | BetaTesterProfileOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BetaTesterProfiles.
+     */
+    cursor?: BetaTesterProfileWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BetaTesterProfiles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BetaTesterProfiles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BetaTesterProfiles.
+     */
+    distinct?: BetaTesterProfileScalarFieldEnum | BetaTesterProfileScalarFieldEnum[]
+  }
+
+  /**
+   * BetaTesterProfile findFirstOrThrow
+   */
+  export type BetaTesterProfileFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BetaTesterProfile
+     */
+    select?: BetaTesterProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BetaTesterProfile
+     */
+    omit?: BetaTesterProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BetaTesterProfileInclude<ExtArgs> | null
+    /**
+     * Filter, which BetaTesterProfile to fetch.
+     */
+    where?: BetaTesterProfileWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BetaTesterProfiles to fetch.
+     */
+    orderBy?: BetaTesterProfileOrderByWithRelationInput | BetaTesterProfileOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BetaTesterProfiles.
+     */
+    cursor?: BetaTesterProfileWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BetaTesterProfiles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BetaTesterProfiles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BetaTesterProfiles.
+     */
+    distinct?: BetaTesterProfileScalarFieldEnum | BetaTesterProfileScalarFieldEnum[]
+  }
+
+  /**
+   * BetaTesterProfile findMany
+   */
+  export type BetaTesterProfileFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BetaTesterProfile
+     */
+    select?: BetaTesterProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BetaTesterProfile
+     */
+    omit?: BetaTesterProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BetaTesterProfileInclude<ExtArgs> | null
+    /**
+     * Filter, which BetaTesterProfiles to fetch.
+     */
+    where?: BetaTesterProfileWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BetaTesterProfiles to fetch.
+     */
+    orderBy?: BetaTesterProfileOrderByWithRelationInput | BetaTesterProfileOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing BetaTesterProfiles.
+     */
+    cursor?: BetaTesterProfileWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BetaTesterProfiles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BetaTesterProfiles.
+     */
+    skip?: number
+    distinct?: BetaTesterProfileScalarFieldEnum | BetaTesterProfileScalarFieldEnum[]
+  }
+
+  /**
+   * BetaTesterProfile create
+   */
+  export type BetaTesterProfileCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BetaTesterProfile
+     */
+    select?: BetaTesterProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BetaTesterProfile
+     */
+    omit?: BetaTesterProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BetaTesterProfileInclude<ExtArgs> | null
+    /**
+     * The data needed to create a BetaTesterProfile.
+     */
+    data: XOR<BetaTesterProfileCreateInput, BetaTesterProfileUncheckedCreateInput>
+  }
+
+  /**
+   * BetaTesterProfile createMany
+   */
+  export type BetaTesterProfileCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many BetaTesterProfiles.
+     */
+    data: BetaTesterProfileCreateManyInput | BetaTesterProfileCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * BetaTesterProfile createManyAndReturn
+   */
+  export type BetaTesterProfileCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BetaTesterProfile
+     */
+    select?: BetaTesterProfileSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the BetaTesterProfile
+     */
+    omit?: BetaTesterProfileOmit<ExtArgs> | null
+    /**
+     * The data used to create many BetaTesterProfiles.
+     */
+    data: BetaTesterProfileCreateManyInput | BetaTesterProfileCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BetaTesterProfileIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * BetaTesterProfile update
+   */
+  export type BetaTesterProfileUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BetaTesterProfile
+     */
+    select?: BetaTesterProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BetaTesterProfile
+     */
+    omit?: BetaTesterProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BetaTesterProfileInclude<ExtArgs> | null
+    /**
+     * The data needed to update a BetaTesterProfile.
+     */
+    data: XOR<BetaTesterProfileUpdateInput, BetaTesterProfileUncheckedUpdateInput>
+    /**
+     * Choose, which BetaTesterProfile to update.
+     */
+    where: BetaTesterProfileWhereUniqueInput
+  }
+
+  /**
+   * BetaTesterProfile updateMany
+   */
+  export type BetaTesterProfileUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update BetaTesterProfiles.
+     */
+    data: XOR<BetaTesterProfileUpdateManyMutationInput, BetaTesterProfileUncheckedUpdateManyInput>
+    /**
+     * Filter which BetaTesterProfiles to update
+     */
+    where?: BetaTesterProfileWhereInput
+    /**
+     * Limit how many BetaTesterProfiles to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * BetaTesterProfile updateManyAndReturn
+   */
+  export type BetaTesterProfileUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BetaTesterProfile
+     */
+    select?: BetaTesterProfileSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the BetaTesterProfile
+     */
+    omit?: BetaTesterProfileOmit<ExtArgs> | null
+    /**
+     * The data used to update BetaTesterProfiles.
+     */
+    data: XOR<BetaTesterProfileUpdateManyMutationInput, BetaTesterProfileUncheckedUpdateManyInput>
+    /**
+     * Filter which BetaTesterProfiles to update
+     */
+    where?: BetaTesterProfileWhereInput
+    /**
+     * Limit how many BetaTesterProfiles to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BetaTesterProfileIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * BetaTesterProfile upsert
+   */
+  export type BetaTesterProfileUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BetaTesterProfile
+     */
+    select?: BetaTesterProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BetaTesterProfile
+     */
+    omit?: BetaTesterProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BetaTesterProfileInclude<ExtArgs> | null
+    /**
+     * The filter to search for the BetaTesterProfile to update in case it exists.
+     */
+    where: BetaTesterProfileWhereUniqueInput
+    /**
+     * In case the BetaTesterProfile found by the `where` argument doesn't exist, create a new BetaTesterProfile with this data.
+     */
+    create: XOR<BetaTesterProfileCreateInput, BetaTesterProfileUncheckedCreateInput>
+    /**
+     * In case the BetaTesterProfile was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<BetaTesterProfileUpdateInput, BetaTesterProfileUncheckedUpdateInput>
+  }
+
+  /**
+   * BetaTesterProfile delete
+   */
+  export type BetaTesterProfileDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BetaTesterProfile
+     */
+    select?: BetaTesterProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BetaTesterProfile
+     */
+    omit?: BetaTesterProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BetaTesterProfileInclude<ExtArgs> | null
+    /**
+     * Filter which BetaTesterProfile to delete.
+     */
+    where: BetaTesterProfileWhereUniqueInput
+  }
+
+  /**
+   * BetaTesterProfile deleteMany
+   */
+  export type BetaTesterProfileDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BetaTesterProfiles to delete
+     */
+    where?: BetaTesterProfileWhereInput
+    /**
+     * Limit how many BetaTesterProfiles to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * BetaTesterProfile without action
+   */
+  export type BetaTesterProfileDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BetaTesterProfile
+     */
+    select?: BetaTesterProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BetaTesterProfile
+     */
+    omit?: BetaTesterProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BetaTesterProfileInclude<ExtArgs> | null
   }
 
 
@@ -44714,6 +46004,27 @@ export namespace Prisma {
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
+  export const BetaTesterProfileScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    interests: 'interests',
+    devices: 'devices',
+    followerRange: 'followerRange',
+    niches: 'niches',
+    instagramHandle: 'instagramHandle',
+    tiktokHandle: 'tiktokHandle',
+    twitterHandle: 'twitterHandle',
+    youtubeHandle: 'youtubeHandle',
+    linkedinHandle: 'linkedinHandle',
+    redditHandle: 'redditHandle',
+    isActive: 'isActive',
+    registeredAt: 'registeredAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type BetaTesterProfileScalarFieldEnum = (typeof BetaTesterProfileScalarFieldEnum)[keyof typeof BetaTesterProfileScalarFieldEnum]
+
+
   export const NgoScalarFieldEnum: {
     id: 'id',
     userId: 'userId',
@@ -45267,6 +46578,13 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -45319,13 +46637,6 @@ export namespace Prisma {
    * Reference to a field of type 'ProjectStatus[]'
    */
   export type ListEnumProjectStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProjectStatus[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'Boolean'
-   */
-  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -45672,6 +46983,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationListRelationFilter
     challenges?: DonorChallengeListRelationFilter
     subscription?: XOR<SubscriptionNullableScalarRelationFilter, SubscriptionWhereInput> | null
+    betaTesterProfile?: XOR<BetaTesterProfileNullableScalarRelationFilter, BetaTesterProfileWhereInput> | null
   }
 
   export type UserOrderByWithRelationInput = {
@@ -45713,6 +47025,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationOrderByRelationAggregateInput
     challenges?: DonorChallengeOrderByRelationAggregateInput
     subscription?: SubscriptionOrderByWithRelationInput
+    betaTesterProfile?: BetaTesterProfileOrderByWithRelationInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -45757,6 +47070,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationListRelationFilter
     challenges?: DonorChallengeListRelationFilter
     subscription?: XOR<SubscriptionNullableScalarRelationFilter, SubscriptionWhereInput> | null
+    betaTesterProfile?: XOR<BetaTesterProfileNullableScalarRelationFilter, BetaTesterProfileWhereInput> | null
   }, "id" | "email" | "referralCode">
 
   export type UserOrderByWithAggregationInput = {
@@ -45807,6 +47121,111 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     aiSummary?: StringNullableWithAggregatesFilter<"User"> | string | null
+  }
+
+  export type BetaTesterProfileWhereInput = {
+    AND?: BetaTesterProfileWhereInput | BetaTesterProfileWhereInput[]
+    OR?: BetaTesterProfileWhereInput[]
+    NOT?: BetaTesterProfileWhereInput | BetaTesterProfileWhereInput[]
+    id?: StringFilter<"BetaTesterProfile"> | string
+    userId?: StringFilter<"BetaTesterProfile"> | string
+    interests?: StringNullableListFilter<"BetaTesterProfile">
+    devices?: StringNullableListFilter<"BetaTesterProfile">
+    followerRange?: StringFilter<"BetaTesterProfile"> | string
+    niches?: StringNullableListFilter<"BetaTesterProfile">
+    instagramHandle?: StringNullableFilter<"BetaTesterProfile"> | string | null
+    tiktokHandle?: StringNullableFilter<"BetaTesterProfile"> | string | null
+    twitterHandle?: StringNullableFilter<"BetaTesterProfile"> | string | null
+    youtubeHandle?: StringNullableFilter<"BetaTesterProfile"> | string | null
+    linkedinHandle?: StringNullableFilter<"BetaTesterProfile"> | string | null
+    redditHandle?: StringNullableFilter<"BetaTesterProfile"> | string | null
+    isActive?: BoolFilter<"BetaTesterProfile"> | boolean
+    registeredAt?: DateTimeFilter<"BetaTesterProfile"> | Date | string
+    updatedAt?: DateTimeFilter<"BetaTesterProfile"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type BetaTesterProfileOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    interests?: SortOrder
+    devices?: SortOrder
+    followerRange?: SortOrder
+    niches?: SortOrder
+    instagramHandle?: SortOrderInput | SortOrder
+    tiktokHandle?: SortOrderInput | SortOrder
+    twitterHandle?: SortOrderInput | SortOrder
+    youtubeHandle?: SortOrderInput | SortOrder
+    linkedinHandle?: SortOrderInput | SortOrder
+    redditHandle?: SortOrderInput | SortOrder
+    isActive?: SortOrder
+    registeredAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type BetaTesterProfileWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    userId?: string
+    AND?: BetaTesterProfileWhereInput | BetaTesterProfileWhereInput[]
+    OR?: BetaTesterProfileWhereInput[]
+    NOT?: BetaTesterProfileWhereInput | BetaTesterProfileWhereInput[]
+    interests?: StringNullableListFilter<"BetaTesterProfile">
+    devices?: StringNullableListFilter<"BetaTesterProfile">
+    followerRange?: StringFilter<"BetaTesterProfile"> | string
+    niches?: StringNullableListFilter<"BetaTesterProfile">
+    instagramHandle?: StringNullableFilter<"BetaTesterProfile"> | string | null
+    tiktokHandle?: StringNullableFilter<"BetaTesterProfile"> | string | null
+    twitterHandle?: StringNullableFilter<"BetaTesterProfile"> | string | null
+    youtubeHandle?: StringNullableFilter<"BetaTesterProfile"> | string | null
+    linkedinHandle?: StringNullableFilter<"BetaTesterProfile"> | string | null
+    redditHandle?: StringNullableFilter<"BetaTesterProfile"> | string | null
+    isActive?: BoolFilter<"BetaTesterProfile"> | boolean
+    registeredAt?: DateTimeFilter<"BetaTesterProfile"> | Date | string
+    updatedAt?: DateTimeFilter<"BetaTesterProfile"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "userId">
+
+  export type BetaTesterProfileOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    interests?: SortOrder
+    devices?: SortOrder
+    followerRange?: SortOrder
+    niches?: SortOrder
+    instagramHandle?: SortOrderInput | SortOrder
+    tiktokHandle?: SortOrderInput | SortOrder
+    twitterHandle?: SortOrderInput | SortOrder
+    youtubeHandle?: SortOrderInput | SortOrder
+    linkedinHandle?: SortOrderInput | SortOrder
+    redditHandle?: SortOrderInput | SortOrder
+    isActive?: SortOrder
+    registeredAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: BetaTesterProfileCountOrderByAggregateInput
+    _max?: BetaTesterProfileMaxOrderByAggregateInput
+    _min?: BetaTesterProfileMinOrderByAggregateInput
+  }
+
+  export type BetaTesterProfileScalarWhereWithAggregatesInput = {
+    AND?: BetaTesterProfileScalarWhereWithAggregatesInput | BetaTesterProfileScalarWhereWithAggregatesInput[]
+    OR?: BetaTesterProfileScalarWhereWithAggregatesInput[]
+    NOT?: BetaTesterProfileScalarWhereWithAggregatesInput | BetaTesterProfileScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"BetaTesterProfile"> | string
+    userId?: StringWithAggregatesFilter<"BetaTesterProfile"> | string
+    interests?: StringNullableListFilter<"BetaTesterProfile">
+    devices?: StringNullableListFilter<"BetaTesterProfile">
+    followerRange?: StringWithAggregatesFilter<"BetaTesterProfile"> | string
+    niches?: StringNullableListFilter<"BetaTesterProfile">
+    instagramHandle?: StringNullableWithAggregatesFilter<"BetaTesterProfile"> | string | null
+    tiktokHandle?: StringNullableWithAggregatesFilter<"BetaTesterProfile"> | string | null
+    twitterHandle?: StringNullableWithAggregatesFilter<"BetaTesterProfile"> | string | null
+    youtubeHandle?: StringNullableWithAggregatesFilter<"BetaTesterProfile"> | string | null
+    linkedinHandle?: StringNullableWithAggregatesFilter<"BetaTesterProfile"> | string | null
+    redditHandle?: StringNullableWithAggregatesFilter<"BetaTesterProfile"> | string | null
+    isActive?: BoolWithAggregatesFilter<"BetaTesterProfile"> | boolean
+    registeredAt?: DateTimeWithAggregatesFilter<"BetaTesterProfile"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"BetaTesterProfile"> | Date | string
   }
 
   export type NgoWhereInput = {
@@ -48545,6 +49964,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationCreateNestedManyWithoutApplicantInput
     challenges?: DonorChallengeCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
+    betaTesterProfile?: BetaTesterProfileCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -48586,6 +50006,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationUncheckedCreateNestedManyWithoutApplicantInput
     challenges?: DonorChallengeUncheckedCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
+    betaTesterProfile?: BetaTesterProfileUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -48627,6 +50048,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationUpdateManyWithoutApplicantNestedInput
     challenges?: DonorChallengeUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
+    betaTesterProfile?: BetaTesterProfileUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -48668,6 +50090,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationUncheckedUpdateManyWithoutApplicantNestedInput
     challenges?: DonorChallengeUncheckedUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+    betaTesterProfile?: BetaTesterProfileUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -48734,6 +50157,131 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type BetaTesterProfileCreateInput = {
+    id?: string
+    interests?: BetaTesterProfileCreateinterestsInput | string[]
+    devices?: BetaTesterProfileCreatedevicesInput | string[]
+    followerRange: string
+    niches?: BetaTesterProfileCreatenichesInput | string[]
+    instagramHandle?: string | null
+    tiktokHandle?: string | null
+    twitterHandle?: string | null
+    youtubeHandle?: string | null
+    linkedinHandle?: string | null
+    redditHandle?: string | null
+    isActive?: boolean
+    registeredAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutBetaTesterProfileInput
+  }
+
+  export type BetaTesterProfileUncheckedCreateInput = {
+    id?: string
+    userId: string
+    interests?: BetaTesterProfileCreateinterestsInput | string[]
+    devices?: BetaTesterProfileCreatedevicesInput | string[]
+    followerRange: string
+    niches?: BetaTesterProfileCreatenichesInput | string[]
+    instagramHandle?: string | null
+    tiktokHandle?: string | null
+    twitterHandle?: string | null
+    youtubeHandle?: string | null
+    linkedinHandle?: string | null
+    redditHandle?: string | null
+    isActive?: boolean
+    registeredAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BetaTesterProfileUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    interests?: BetaTesterProfileUpdateinterestsInput | string[]
+    devices?: BetaTesterProfileUpdatedevicesInput | string[]
+    followerRange?: StringFieldUpdateOperationsInput | string
+    niches?: BetaTesterProfileUpdatenichesInput | string[]
+    instagramHandle?: NullableStringFieldUpdateOperationsInput | string | null
+    tiktokHandle?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterHandle?: NullableStringFieldUpdateOperationsInput | string | null
+    youtubeHandle?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinHandle?: NullableStringFieldUpdateOperationsInput | string | null
+    redditHandle?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    registeredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutBetaTesterProfileNestedInput
+  }
+
+  export type BetaTesterProfileUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    interests?: BetaTesterProfileUpdateinterestsInput | string[]
+    devices?: BetaTesterProfileUpdatedevicesInput | string[]
+    followerRange?: StringFieldUpdateOperationsInput | string
+    niches?: BetaTesterProfileUpdatenichesInput | string[]
+    instagramHandle?: NullableStringFieldUpdateOperationsInput | string | null
+    tiktokHandle?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterHandle?: NullableStringFieldUpdateOperationsInput | string | null
+    youtubeHandle?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinHandle?: NullableStringFieldUpdateOperationsInput | string | null
+    redditHandle?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    registeredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BetaTesterProfileCreateManyInput = {
+    id?: string
+    userId: string
+    interests?: BetaTesterProfileCreateinterestsInput | string[]
+    devices?: BetaTesterProfileCreatedevicesInput | string[]
+    followerRange: string
+    niches?: BetaTesterProfileCreatenichesInput | string[]
+    instagramHandle?: string | null
+    tiktokHandle?: string | null
+    twitterHandle?: string | null
+    youtubeHandle?: string | null
+    linkedinHandle?: string | null
+    redditHandle?: string | null
+    isActive?: boolean
+    registeredAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BetaTesterProfileUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    interests?: BetaTesterProfileUpdateinterestsInput | string[]
+    devices?: BetaTesterProfileUpdatedevicesInput | string[]
+    followerRange?: StringFieldUpdateOperationsInput | string
+    niches?: BetaTesterProfileUpdatenichesInput | string[]
+    instagramHandle?: NullableStringFieldUpdateOperationsInput | string | null
+    tiktokHandle?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterHandle?: NullableStringFieldUpdateOperationsInput | string | null
+    youtubeHandle?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinHandle?: NullableStringFieldUpdateOperationsInput | string | null
+    redditHandle?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    registeredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BetaTesterProfileUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    interests?: BetaTesterProfileUpdateinterestsInput | string[]
+    devices?: BetaTesterProfileUpdatedevicesInput | string[]
+    followerRange?: StringFieldUpdateOperationsInput | string
+    niches?: BetaTesterProfileUpdatenichesInput | string[]
+    instagramHandle?: NullableStringFieldUpdateOperationsInput | string | null
+    tiktokHandle?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterHandle?: NullableStringFieldUpdateOperationsInput | string | null
+    youtubeHandle?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinHandle?: NullableStringFieldUpdateOperationsInput | string | null
+    redditHandle?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    registeredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type NgoCreateInput = {
@@ -51787,6 +53335,11 @@ export namespace Prisma {
     isNot?: SubscriptionWhereInput | null
   }
 
+  export type BetaTesterProfileNullableScalarRelationFilter = {
+    is?: BetaTesterProfileWhereInput | null
+    isNot?: BetaTesterProfileWhereInput | null
+  }
+
   export type AccountOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -51935,6 +53488,75 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumRoleFilter<$PrismaModel>
     _max?: NestedEnumRoleFilter<$PrismaModel>
+  }
+
+  export type StringNullableListFilter<$PrismaModel = never> = {
+    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    has?: string | StringFieldRefInput<$PrismaModel> | null
+    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
+    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
+    isEmpty?: boolean
+  }
+
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type BetaTesterProfileCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    interests?: SortOrder
+    devices?: SortOrder
+    followerRange?: SortOrder
+    niches?: SortOrder
+    instagramHandle?: SortOrder
+    tiktokHandle?: SortOrder
+    twitterHandle?: SortOrder
+    youtubeHandle?: SortOrder
+    linkedinHandle?: SortOrder
+    redditHandle?: SortOrder
+    isActive?: SortOrder
+    registeredAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type BetaTesterProfileMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    followerRange?: SortOrder
+    instagramHandle?: SortOrder
+    tiktokHandle?: SortOrder
+    twitterHandle?: SortOrder
+    youtubeHandle?: SortOrder
+    linkedinHandle?: SortOrder
+    redditHandle?: SortOrder
+    isActive?: SortOrder
+    registeredAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type BetaTesterProfileMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    followerRange?: SortOrder
+    instagramHandle?: SortOrder
+    tiktokHandle?: SortOrder
+    twitterHandle?: SortOrder
+    youtubeHandle?: SortOrder
+    linkedinHandle?: SortOrder
+    redditHandle?: SortOrder
+    isActive?: SortOrder
+    registeredAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type FloatFilter<$PrismaModel = never> = {
@@ -52113,11 +53735,6 @@ export namespace Prisma {
     not?: NestedEnumProjectStatusFilter<$PrismaModel> | $Enums.ProjectStatus
   }
 
-  export type BoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -52231,14 +53848,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumProjectStatusFilter<$PrismaModel>
     _max?: NestedEnumProjectStatusFilter<$PrismaModel>
-  }
-
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type IntWithAggregatesFilter<$PrismaModel = never> = {
@@ -53906,6 +55515,12 @@ export namespace Prisma {
     connect?: SubscriptionWhereUniqueInput
   }
 
+  export type BetaTesterProfileCreateNestedOneWithoutUserInput = {
+    create?: XOR<BetaTesterProfileCreateWithoutUserInput, BetaTesterProfileUncheckedCreateWithoutUserInput>
+    connectOrCreate?: BetaTesterProfileCreateOrConnectWithoutUserInput
+    connect?: BetaTesterProfileWhereUniqueInput
+  }
+
   export type AccountUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -54035,6 +55650,12 @@ export namespace Prisma {
     create?: XOR<SubscriptionCreateWithoutUserInput, SubscriptionUncheckedCreateWithoutUserInput>
     connectOrCreate?: SubscriptionCreateOrConnectWithoutUserInput
     connect?: SubscriptionWhereUniqueInput
+  }
+
+  export type BetaTesterProfileUncheckedCreateNestedOneWithoutUserInput = {
+    create?: XOR<BetaTesterProfileCreateWithoutUserInput, BetaTesterProfileUncheckedCreateWithoutUserInput>
+    connectOrCreate?: BetaTesterProfileCreateOrConnectWithoutUserInput
+    connect?: BetaTesterProfileWhereUniqueInput
   }
 
   export type NullableDateTimeFieldUpdateOperationsInput = {
@@ -54303,6 +55924,16 @@ export namespace Prisma {
     update?: XOR<XOR<SubscriptionUpdateToOneWithWhereWithoutUserInput, SubscriptionUpdateWithoutUserInput>, SubscriptionUncheckedUpdateWithoutUserInput>
   }
 
+  export type BetaTesterProfileUpdateOneWithoutUserNestedInput = {
+    create?: XOR<BetaTesterProfileCreateWithoutUserInput, BetaTesterProfileUncheckedCreateWithoutUserInput>
+    connectOrCreate?: BetaTesterProfileCreateOrConnectWithoutUserInput
+    upsert?: BetaTesterProfileUpsertWithoutUserInput
+    disconnect?: BetaTesterProfileWhereInput | boolean
+    delete?: BetaTesterProfileWhereInput | boolean
+    connect?: BetaTesterProfileWhereUniqueInput
+    update?: XOR<XOR<BetaTesterProfileUpdateToOneWithWhereWithoutUserInput, BetaTesterProfileUpdateWithoutUserInput>, BetaTesterProfileUncheckedUpdateWithoutUserInput>
+  }
+
   export type AccountUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -54559,6 +56190,61 @@ export namespace Prisma {
     delete?: SubscriptionWhereInput | boolean
     connect?: SubscriptionWhereUniqueInput
     update?: XOR<XOR<SubscriptionUpdateToOneWithWhereWithoutUserInput, SubscriptionUpdateWithoutUserInput>, SubscriptionUncheckedUpdateWithoutUserInput>
+  }
+
+  export type BetaTesterProfileUncheckedUpdateOneWithoutUserNestedInput = {
+    create?: XOR<BetaTesterProfileCreateWithoutUserInput, BetaTesterProfileUncheckedCreateWithoutUserInput>
+    connectOrCreate?: BetaTesterProfileCreateOrConnectWithoutUserInput
+    upsert?: BetaTesterProfileUpsertWithoutUserInput
+    disconnect?: BetaTesterProfileWhereInput | boolean
+    delete?: BetaTesterProfileWhereInput | boolean
+    connect?: BetaTesterProfileWhereUniqueInput
+    update?: XOR<XOR<BetaTesterProfileUpdateToOneWithWhereWithoutUserInput, BetaTesterProfileUpdateWithoutUserInput>, BetaTesterProfileUncheckedUpdateWithoutUserInput>
+  }
+
+  export type BetaTesterProfileCreateinterestsInput = {
+    set: string[]
+  }
+
+  export type BetaTesterProfileCreatedevicesInput = {
+    set: string[]
+  }
+
+  export type BetaTesterProfileCreatenichesInput = {
+    set: string[]
+  }
+
+  export type UserCreateNestedOneWithoutBetaTesterProfileInput = {
+    create?: XOR<UserCreateWithoutBetaTesterProfileInput, UserUncheckedCreateWithoutBetaTesterProfileInput>
+    connectOrCreate?: UserCreateOrConnectWithoutBetaTesterProfileInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type BetaTesterProfileUpdateinterestsInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type BetaTesterProfileUpdatedevicesInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type BetaTesterProfileUpdatenichesInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
+  export type UserUpdateOneRequiredWithoutBetaTesterProfileNestedInput = {
+    create?: XOR<UserCreateWithoutBetaTesterProfileInput, UserUncheckedCreateWithoutBetaTesterProfileInput>
+    connectOrCreate?: UserCreateOrConnectWithoutBetaTesterProfileInput
+    upsert?: UserUpsertWithoutBetaTesterProfileInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutBetaTesterProfileInput, UserUpdateWithoutBetaTesterProfileInput>, UserUncheckedUpdateWithoutBetaTesterProfileInput>
   }
 
   export type UserCreateNestedOneWithoutNgoInput = {
@@ -55089,10 +56775,6 @@ export namespace Prisma {
 
   export type EnumProjectStatusFieldUpdateOperationsInput = {
     set?: $Enums.ProjectStatus
-  }
-
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -56527,6 +58209,19 @@ export namespace Prisma {
     _max?: NestedEnumRoleFilter<$PrismaModel>
   }
 
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
   export type NestedFloatFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel>
     in?: number[] | ListFloatFieldRefInput<$PrismaModel>
@@ -56585,11 +58280,6 @@ export namespace Prisma {
     not?: NestedEnumProjectStatusFilter<$PrismaModel> | $Enums.ProjectStatus
   }
 
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
   export type NestedEnumProjectCategoryWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.ProjectCategory | EnumProjectCategoryFieldRefInput<$PrismaModel>
     in?: $Enums.ProjectCategory[] | ListEnumProjectCategoryFieldRefInput<$PrismaModel>
@@ -56608,14 +58298,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumProjectStatusFilter<$PrismaModel>
     _max?: NestedEnumProjectStatusFilter<$PrismaModel>
-  }
-
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
@@ -56824,6 +58506,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationCreateNestedManyWithoutApplicantInput
     challenges?: DonorChallengeCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
+    betaTesterProfile?: BetaTesterProfileCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAccountsInput = {
@@ -56864,6 +58547,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationUncheckedCreateNestedManyWithoutApplicantInput
     challenges?: DonorChallengeUncheckedCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
+    betaTesterProfile?: BetaTesterProfileUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAccountsInput = {
@@ -56920,6 +58604,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationUpdateManyWithoutApplicantNestedInput
     challenges?: DonorChallengeUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
+    betaTesterProfile?: BetaTesterProfileUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -56960,6 +58645,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationUncheckedUpdateManyWithoutApplicantNestedInput
     challenges?: DonorChallengeUncheckedUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+    betaTesterProfile?: BetaTesterProfileUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserCreateWithoutSessionsInput = {
@@ -57000,6 +58686,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationCreateNestedManyWithoutApplicantInput
     challenges?: DonorChallengeCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
+    betaTesterProfile?: BetaTesterProfileCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSessionsInput = {
@@ -57040,6 +58727,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationUncheckedCreateNestedManyWithoutApplicantInput
     challenges?: DonorChallengeUncheckedCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
+    betaTesterProfile?: BetaTesterProfileUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSessionsInput = {
@@ -57096,6 +58784,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationUpdateManyWithoutApplicantNestedInput
     challenges?: DonorChallengeUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
+    betaTesterProfile?: BetaTesterProfileUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -57136,6 +58825,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationUncheckedUpdateManyWithoutApplicantNestedInput
     challenges?: DonorChallengeUncheckedUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+    betaTesterProfile?: BetaTesterProfileUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type AccountCreateWithoutUserInput = {
@@ -57750,6 +59440,45 @@ export namespace Prisma {
     create: XOR<SubscriptionCreateWithoutUserInput, SubscriptionUncheckedCreateWithoutUserInput>
   }
 
+  export type BetaTesterProfileCreateWithoutUserInput = {
+    id?: string
+    interests?: BetaTesterProfileCreateinterestsInput | string[]
+    devices?: BetaTesterProfileCreatedevicesInput | string[]
+    followerRange: string
+    niches?: BetaTesterProfileCreatenichesInput | string[]
+    instagramHandle?: string | null
+    tiktokHandle?: string | null
+    twitterHandle?: string | null
+    youtubeHandle?: string | null
+    linkedinHandle?: string | null
+    redditHandle?: string | null
+    isActive?: boolean
+    registeredAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BetaTesterProfileUncheckedCreateWithoutUserInput = {
+    id?: string
+    interests?: BetaTesterProfileCreateinterestsInput | string[]
+    devices?: BetaTesterProfileCreatedevicesInput | string[]
+    followerRange: string
+    niches?: BetaTesterProfileCreatenichesInput | string[]
+    instagramHandle?: string | null
+    tiktokHandle?: string | null
+    twitterHandle?: string | null
+    youtubeHandle?: string | null
+    linkedinHandle?: string | null
+    redditHandle?: string | null
+    isActive?: boolean
+    registeredAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BetaTesterProfileCreateOrConnectWithoutUserInput = {
+    where: BetaTesterProfileWhereUniqueInput
+    create: XOR<BetaTesterProfileCreateWithoutUserInput, BetaTesterProfileUncheckedCreateWithoutUserInput>
+  }
+
   export type AccountUpsertWithWhereUniqueWithoutUserInput = {
     where: AccountWhereUniqueInput
     update: XOR<AccountUpdateWithoutUserInput, AccountUncheckedUpdateWithoutUserInput>
@@ -58337,6 +60066,231 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type BetaTesterProfileUpsertWithoutUserInput = {
+    update: XOR<BetaTesterProfileUpdateWithoutUserInput, BetaTesterProfileUncheckedUpdateWithoutUserInput>
+    create: XOR<BetaTesterProfileCreateWithoutUserInput, BetaTesterProfileUncheckedCreateWithoutUserInput>
+    where?: BetaTesterProfileWhereInput
+  }
+
+  export type BetaTesterProfileUpdateToOneWithWhereWithoutUserInput = {
+    where?: BetaTesterProfileWhereInput
+    data: XOR<BetaTesterProfileUpdateWithoutUserInput, BetaTesterProfileUncheckedUpdateWithoutUserInput>
+  }
+
+  export type BetaTesterProfileUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    interests?: BetaTesterProfileUpdateinterestsInput | string[]
+    devices?: BetaTesterProfileUpdatedevicesInput | string[]
+    followerRange?: StringFieldUpdateOperationsInput | string
+    niches?: BetaTesterProfileUpdatenichesInput | string[]
+    instagramHandle?: NullableStringFieldUpdateOperationsInput | string | null
+    tiktokHandle?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterHandle?: NullableStringFieldUpdateOperationsInput | string | null
+    youtubeHandle?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinHandle?: NullableStringFieldUpdateOperationsInput | string | null
+    redditHandle?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    registeredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BetaTesterProfileUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    interests?: BetaTesterProfileUpdateinterestsInput | string[]
+    devices?: BetaTesterProfileUpdatedevicesInput | string[]
+    followerRange?: StringFieldUpdateOperationsInput | string
+    niches?: BetaTesterProfileUpdatenichesInput | string[]
+    instagramHandle?: NullableStringFieldUpdateOperationsInput | string | null
+    tiktokHandle?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterHandle?: NullableStringFieldUpdateOperationsInput | string | null
+    youtubeHandle?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinHandle?: NullableStringFieldUpdateOperationsInput | string | null
+    redditHandle?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    registeredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserCreateWithoutBetaTesterProfileInput = {
+    id?: string
+    email: string
+    emailVerified?: Date | string | null
+    name?: string | null
+    image?: string | null
+    password?: string | null
+    role?: $Enums.Role
+    referralCode?: string | null
+    bio?: string | null
+    jobTitle?: string | null
+    company?: string | null
+    city?: string | null
+    linkedinUrl?: string | null
+    twitterUrl?: string | null
+    portfolioUrl?: string | null
+    skills?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    aiSummary?: string | null
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    ngo?: NgoCreateNestedOneWithoutUserInput
+    donations?: DonationCreateNestedManyWithoutUserInput
+    ratings?: RatingCreateNestedManyWithoutDonorInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    spotlightVotes?: SpotlightVoteCreateNestedManyWithoutUserInput
+    campaignsCreated?: CampaignCreateNestedManyWithoutCreatorInput
+    campaignContributions?: CampaignContributorCreateNestedManyWithoutUserInput
+    ngoSuggestions?: NgoSuggestionCreateNestedManyWithoutUserInput
+    referralsMade?: ReferralCreateNestedManyWithoutReferrerInput
+    referralsReceived?: ReferralCreateNestedManyWithoutReferredInput
+    skillContributions?: SkillContributionCreateNestedManyWithoutDonorInput
+    endorsementsReceived?: DonorEndorsementCreateNestedManyWithoutDonorInput
+    endorsementsGiven?: DonorEndorsementCreateNestedManyWithoutEndorserInput
+    documents?: DonorDocumentCreateNestedManyWithoutUserInput
+    roleApplications?: RoleApplicationCreateNestedManyWithoutApplicantInput
+    challenges?: DonorChallengeCreateNestedManyWithoutDonorInput
+    subscription?: SubscriptionCreateNestedOneWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutBetaTesterProfileInput = {
+    id?: string
+    email: string
+    emailVerified?: Date | string | null
+    name?: string | null
+    image?: string | null
+    password?: string | null
+    role?: $Enums.Role
+    referralCode?: string | null
+    bio?: string | null
+    jobTitle?: string | null
+    company?: string | null
+    city?: string | null
+    linkedinUrl?: string | null
+    twitterUrl?: string | null
+    portfolioUrl?: string | null
+    skills?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    aiSummary?: string | null
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    ngo?: NgoUncheckedCreateNestedOneWithoutUserInput
+    donations?: DonationUncheckedCreateNestedManyWithoutUserInput
+    ratings?: RatingUncheckedCreateNestedManyWithoutDonorInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    spotlightVotes?: SpotlightVoteUncheckedCreateNestedManyWithoutUserInput
+    campaignsCreated?: CampaignUncheckedCreateNestedManyWithoutCreatorInput
+    campaignContributions?: CampaignContributorUncheckedCreateNestedManyWithoutUserInput
+    ngoSuggestions?: NgoSuggestionUncheckedCreateNestedManyWithoutUserInput
+    referralsMade?: ReferralUncheckedCreateNestedManyWithoutReferrerInput
+    referralsReceived?: ReferralUncheckedCreateNestedManyWithoutReferredInput
+    skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutDonorInput
+    endorsementsReceived?: DonorEndorsementUncheckedCreateNestedManyWithoutDonorInput
+    endorsementsGiven?: DonorEndorsementUncheckedCreateNestedManyWithoutEndorserInput
+    documents?: DonorDocumentUncheckedCreateNestedManyWithoutUserInput
+    roleApplications?: RoleApplicationUncheckedCreateNestedManyWithoutApplicantInput
+    challenges?: DonorChallengeUncheckedCreateNestedManyWithoutDonorInput
+    subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutBetaTesterProfileInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutBetaTesterProfileInput, UserUncheckedCreateWithoutBetaTesterProfileInput>
+  }
+
+  export type UserUpsertWithoutBetaTesterProfileInput = {
+    update: XOR<UserUpdateWithoutBetaTesterProfileInput, UserUncheckedUpdateWithoutBetaTesterProfileInput>
+    create: XOR<UserCreateWithoutBetaTesterProfileInput, UserUncheckedCreateWithoutBetaTesterProfileInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutBetaTesterProfileInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutBetaTesterProfileInput, UserUncheckedUpdateWithoutBetaTesterProfileInput>
+  }
+
+  export type UserUpdateWithoutBetaTesterProfileInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    referralCode?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    portfolioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    skills?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    ngo?: NgoUpdateOneWithoutUserNestedInput
+    donations?: DonationUpdateManyWithoutUserNestedInput
+    ratings?: RatingUpdateManyWithoutDonorNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    spotlightVotes?: SpotlightVoteUpdateManyWithoutUserNestedInput
+    campaignsCreated?: CampaignUpdateManyWithoutCreatorNestedInput
+    campaignContributions?: CampaignContributorUpdateManyWithoutUserNestedInput
+    ngoSuggestions?: NgoSuggestionUpdateManyWithoutUserNestedInput
+    referralsMade?: ReferralUpdateManyWithoutReferrerNestedInput
+    referralsReceived?: ReferralUpdateManyWithoutReferredNestedInput
+    skillContributions?: SkillContributionUpdateManyWithoutDonorNestedInput
+    endorsementsReceived?: DonorEndorsementUpdateManyWithoutDonorNestedInput
+    endorsementsGiven?: DonorEndorsementUpdateManyWithoutEndorserNestedInput
+    documents?: DonorDocumentUpdateManyWithoutUserNestedInput
+    roleApplications?: RoleApplicationUpdateManyWithoutApplicantNestedInput
+    challenges?: DonorChallengeUpdateManyWithoutDonorNestedInput
+    subscription?: SubscriptionUpdateOneWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutBetaTesterProfileInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    referralCode?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    portfolioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    skills?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    ngo?: NgoUncheckedUpdateOneWithoutUserNestedInput
+    donations?: DonationUncheckedUpdateManyWithoutUserNestedInput
+    ratings?: RatingUncheckedUpdateManyWithoutDonorNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    spotlightVotes?: SpotlightVoteUncheckedUpdateManyWithoutUserNestedInput
+    campaignsCreated?: CampaignUncheckedUpdateManyWithoutCreatorNestedInput
+    campaignContributions?: CampaignContributorUncheckedUpdateManyWithoutUserNestedInput
+    ngoSuggestions?: NgoSuggestionUncheckedUpdateManyWithoutUserNestedInput
+    referralsMade?: ReferralUncheckedUpdateManyWithoutReferrerNestedInput
+    referralsReceived?: ReferralUncheckedUpdateManyWithoutReferredNestedInput
+    skillContributions?: SkillContributionUncheckedUpdateManyWithoutDonorNestedInput
+    endorsementsReceived?: DonorEndorsementUncheckedUpdateManyWithoutDonorNestedInput
+    endorsementsGiven?: DonorEndorsementUncheckedUpdateManyWithoutEndorserNestedInput
+    documents?: DonorDocumentUncheckedUpdateManyWithoutUserNestedInput
+    roleApplications?: RoleApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+    challenges?: DonorChallengeUncheckedUpdateManyWithoutDonorNestedInput
+    subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+  }
+
   export type UserCreateWithoutNgoInput = {
     id?: string
     email: string
@@ -58375,6 +60329,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationCreateNestedManyWithoutApplicantInput
     challenges?: DonorChallengeCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
+    betaTesterProfile?: BetaTesterProfileCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutNgoInput = {
@@ -58415,6 +60370,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationUncheckedCreateNestedManyWithoutApplicantInput
     challenges?: DonorChallengeUncheckedCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
+    betaTesterProfile?: BetaTesterProfileUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutNgoInput = {
@@ -58827,6 +60783,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationUpdateManyWithoutApplicantNestedInput
     challenges?: DonorChallengeUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
+    betaTesterProfile?: BetaTesterProfileUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNgoInput = {
@@ -58867,6 +60824,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationUncheckedUpdateManyWithoutApplicantNestedInput
     challenges?: DonorChallengeUncheckedUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+    betaTesterProfile?: BetaTesterProfileUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type ProjectUpsertWithWhereUniqueWithoutNgoInput = {
@@ -60233,6 +62191,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationCreateNestedManyWithoutApplicantInput
     challenges?: DonorChallengeCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
+    betaTesterProfile?: BetaTesterProfileCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutDonationsInput = {
@@ -60273,6 +62232,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationUncheckedCreateNestedManyWithoutApplicantInput
     challenges?: DonorChallengeUncheckedCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
+    betaTesterProfile?: BetaTesterProfileUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutDonationsInput = {
@@ -60411,6 +62371,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationUpdateManyWithoutApplicantNestedInput
     challenges?: DonorChallengeUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
+    betaTesterProfile?: BetaTesterProfileUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDonationsInput = {
@@ -60451,6 +62412,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationUncheckedUpdateManyWithoutApplicantNestedInput
     challenges?: DonorChallengeUncheckedUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+    betaTesterProfile?: BetaTesterProfileUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type ProjectUpsertWithoutDonationsInput = {
@@ -61121,6 +63083,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationCreateNestedManyWithoutApplicantInput
     challenges?: DonorChallengeCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
+    betaTesterProfile?: BetaTesterProfileCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutRatingsInput = {
@@ -61161,6 +63124,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationUncheckedCreateNestedManyWithoutApplicantInput
     challenges?: DonorChallengeUncheckedCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
+    betaTesterProfile?: BetaTesterProfileUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutRatingsInput = {
@@ -61278,6 +63242,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationUpdateManyWithoutApplicantNestedInput
     challenges?: DonorChallengeUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
+    betaTesterProfile?: BetaTesterProfileUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRatingsInput = {
@@ -61318,6 +63283,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationUncheckedUpdateManyWithoutApplicantNestedInput
     challenges?: DonorChallengeUncheckedUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+    betaTesterProfile?: BetaTesterProfileUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type NgoUpsertWithoutRatingsInput = {
@@ -61425,6 +63391,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationCreateNestedManyWithoutApplicantInput
     challenges?: DonorChallengeCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
+    betaTesterProfile?: BetaTesterProfileCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -61465,6 +63432,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationUncheckedCreateNestedManyWithoutApplicantInput
     challenges?: DonorChallengeUncheckedCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
+    betaTesterProfile?: BetaTesterProfileUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -61521,6 +63489,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationUpdateManyWithoutApplicantNestedInput
     challenges?: DonorChallengeUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
+    betaTesterProfile?: BetaTesterProfileUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -61561,6 +63530,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationUncheckedUpdateManyWithoutApplicantNestedInput
     challenges?: DonorChallengeUncheckedUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+    betaTesterProfile?: BetaTesterProfileUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserCreateWithoutSpotlightVotesInput = {
@@ -61601,6 +63571,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationCreateNestedManyWithoutApplicantInput
     challenges?: DonorChallengeCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
+    betaTesterProfile?: BetaTesterProfileCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSpotlightVotesInput = {
@@ -61641,6 +63612,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationUncheckedCreateNestedManyWithoutApplicantInput
     challenges?: DonorChallengeUncheckedCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
+    betaTesterProfile?: BetaTesterProfileUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSpotlightVotesInput = {
@@ -61754,6 +63726,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationUpdateManyWithoutApplicantNestedInput
     challenges?: DonorChallengeUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
+    betaTesterProfile?: BetaTesterProfileUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSpotlightVotesInput = {
@@ -61794,6 +63767,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationUncheckedUpdateManyWithoutApplicantNestedInput
     challenges?: DonorChallengeUncheckedUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+    betaTesterProfile?: BetaTesterProfileUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type ProjectUpsertWithoutSpotlightVotesInput = {
@@ -61897,6 +63871,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationCreateNestedManyWithoutApplicantInput
     challenges?: DonorChallengeCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
+    betaTesterProfile?: BetaTesterProfileCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCampaignsCreatedInput = {
@@ -61937,6 +63912,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationUncheckedCreateNestedManyWithoutApplicantInput
     challenges?: DonorChallengeUncheckedCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
+    betaTesterProfile?: BetaTesterProfileUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCampaignsCreatedInput = {
@@ -62074,6 +64050,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationUpdateManyWithoutApplicantNestedInput
     challenges?: DonorChallengeUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
+    betaTesterProfile?: BetaTesterProfileUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCampaignsCreatedInput = {
@@ -62114,6 +64091,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationUncheckedUpdateManyWithoutApplicantNestedInput
     challenges?: DonorChallengeUncheckedUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+    betaTesterProfile?: BetaTesterProfileUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type ProjectUpsertWithoutCampaignsInput = {
@@ -62266,6 +64244,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationCreateNestedManyWithoutApplicantInput
     challenges?: DonorChallengeCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
+    betaTesterProfile?: BetaTesterProfileCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCampaignContributionsInput = {
@@ -62306,6 +64285,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationUncheckedCreateNestedManyWithoutApplicantInput
     challenges?: DonorChallengeUncheckedCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
+    betaTesterProfile?: BetaTesterProfileUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCampaignContributionsInput = {
@@ -62401,6 +64381,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationUpdateManyWithoutApplicantNestedInput
     challenges?: DonorChallengeUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
+    betaTesterProfile?: BetaTesterProfileUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCampaignContributionsInput = {
@@ -62441,6 +64422,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationUncheckedUpdateManyWithoutApplicantNestedInput
     challenges?: DonorChallengeUncheckedUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+    betaTesterProfile?: BetaTesterProfileUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserCreateWithoutNgoSuggestionsInput = {
@@ -62481,6 +64463,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationCreateNestedManyWithoutApplicantInput
     challenges?: DonorChallengeCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
+    betaTesterProfile?: BetaTesterProfileCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutNgoSuggestionsInput = {
@@ -62521,6 +64504,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationUncheckedCreateNestedManyWithoutApplicantInput
     challenges?: DonorChallengeUncheckedCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
+    betaTesterProfile?: BetaTesterProfileUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutNgoSuggestionsInput = {
@@ -62577,6 +64561,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationUpdateManyWithoutApplicantNestedInput
     challenges?: DonorChallengeUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
+    betaTesterProfile?: BetaTesterProfileUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNgoSuggestionsInput = {
@@ -62617,6 +64602,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationUncheckedUpdateManyWithoutApplicantNestedInput
     challenges?: DonorChallengeUncheckedUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+    betaTesterProfile?: BetaTesterProfileUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserCreateWithoutReferralsMadeInput = {
@@ -62657,6 +64643,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationCreateNestedManyWithoutApplicantInput
     challenges?: DonorChallengeCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
+    betaTesterProfile?: BetaTesterProfileCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutReferralsMadeInput = {
@@ -62697,6 +64684,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationUncheckedCreateNestedManyWithoutApplicantInput
     challenges?: DonorChallengeUncheckedCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
+    betaTesterProfile?: BetaTesterProfileUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutReferralsMadeInput = {
@@ -62742,6 +64730,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationCreateNestedManyWithoutApplicantInput
     challenges?: DonorChallengeCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
+    betaTesterProfile?: BetaTesterProfileCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutReferralsReceivedInput = {
@@ -62782,6 +64771,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationUncheckedCreateNestedManyWithoutApplicantInput
     challenges?: DonorChallengeUncheckedCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
+    betaTesterProfile?: BetaTesterProfileUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutReferralsReceivedInput = {
@@ -62838,6 +64828,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationUpdateManyWithoutApplicantNestedInput
     challenges?: DonorChallengeUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
+    betaTesterProfile?: BetaTesterProfileUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReferralsMadeInput = {
@@ -62878,6 +64869,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationUncheckedUpdateManyWithoutApplicantNestedInput
     challenges?: DonorChallengeUncheckedUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+    betaTesterProfile?: BetaTesterProfileUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserUpsertWithoutReferralsReceivedInput = {
@@ -62929,6 +64921,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationUpdateManyWithoutApplicantNestedInput
     challenges?: DonorChallengeUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
+    betaTesterProfile?: BetaTesterProfileUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReferralsReceivedInput = {
@@ -62969,6 +64962,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationUncheckedUpdateManyWithoutApplicantNestedInput
     challenges?: DonorChallengeUncheckedUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+    betaTesterProfile?: BetaTesterProfileUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type NgoCreateWithoutBoardMembersInput = {
@@ -63137,6 +65131,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationCreateNestedManyWithoutApplicantInput
     challenges?: DonorChallengeCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
+    betaTesterProfile?: BetaTesterProfileCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSkillContributionsInput = {
@@ -63177,6 +65172,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationUncheckedCreateNestedManyWithoutApplicantInput
     challenges?: DonorChallengeUncheckedCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
+    betaTesterProfile?: BetaTesterProfileUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSkillContributionsInput = {
@@ -63370,6 +65366,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationUpdateManyWithoutApplicantNestedInput
     challenges?: DonorChallengeUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
+    betaTesterProfile?: BetaTesterProfileUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSkillContributionsInput = {
@@ -63410,6 +65407,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationUncheckedUpdateManyWithoutApplicantNestedInput
     challenges?: DonorChallengeUncheckedUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+    betaTesterProfile?: BetaTesterProfileUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type NgoUpsertWithoutSkillContributionsInput = {
@@ -63685,6 +65683,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationCreateNestedManyWithoutApplicantInput
     challenges?: DonorChallengeCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
+    betaTesterProfile?: BetaTesterProfileCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutEndorsementsReceivedInput = {
@@ -63725,6 +65724,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationUncheckedCreateNestedManyWithoutApplicantInput
     challenges?: DonorChallengeUncheckedCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
+    betaTesterProfile?: BetaTesterProfileUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutEndorsementsReceivedInput = {
@@ -63831,6 +65831,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationCreateNestedManyWithoutApplicantInput
     challenges?: DonorChallengeCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
+    betaTesterProfile?: BetaTesterProfileCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutEndorsementsGivenInput = {
@@ -63871,6 +65872,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationUncheckedCreateNestedManyWithoutApplicantInput
     challenges?: DonorChallengeUncheckedCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
+    betaTesterProfile?: BetaTesterProfileUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutEndorsementsGivenInput = {
@@ -63927,6 +65929,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationUpdateManyWithoutApplicantNestedInput
     challenges?: DonorChallengeUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
+    betaTesterProfile?: BetaTesterProfileUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutEndorsementsReceivedInput = {
@@ -63967,6 +65970,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationUncheckedUpdateManyWithoutApplicantNestedInput
     challenges?: DonorChallengeUncheckedUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+    betaTesterProfile?: BetaTesterProfileUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type NgoUpsertWithoutDonorEndorsementsInput = {
@@ -64085,6 +66089,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationUpdateManyWithoutApplicantNestedInput
     challenges?: DonorChallengeUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
+    betaTesterProfile?: BetaTesterProfileUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutEndorsementsGivenInput = {
@@ -64125,6 +66130,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationUncheckedUpdateManyWithoutApplicantNestedInput
     challenges?: DonorChallengeUncheckedUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+    betaTesterProfile?: BetaTesterProfileUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserCreateWithoutDocumentsInput = {
@@ -64165,6 +66171,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationCreateNestedManyWithoutApplicantInput
     challenges?: DonorChallengeCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
+    betaTesterProfile?: BetaTesterProfileCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutDocumentsInput = {
@@ -64205,6 +66212,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationUncheckedCreateNestedManyWithoutApplicantInput
     challenges?: DonorChallengeUncheckedCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
+    betaTesterProfile?: BetaTesterProfileUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutDocumentsInput = {
@@ -64261,6 +66269,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationUpdateManyWithoutApplicantNestedInput
     challenges?: DonorChallengeUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
+    betaTesterProfile?: BetaTesterProfileUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDocumentsInput = {
@@ -64301,6 +66310,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationUncheckedUpdateManyWithoutApplicantNestedInput
     challenges?: DonorChallengeUncheckedUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+    betaTesterProfile?: BetaTesterProfileUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type NgoCreateWithoutDocumentsInput = {
@@ -64820,6 +66830,7 @@ export namespace Prisma {
     documents?: DonorDocumentCreateNestedManyWithoutUserInput
     challenges?: DonorChallengeCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
+    betaTesterProfile?: BetaTesterProfileCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutRoleApplicationsInput = {
@@ -64860,6 +66871,7 @@ export namespace Prisma {
     documents?: DonorDocumentUncheckedCreateNestedManyWithoutUserInput
     challenges?: DonorChallengeUncheckedCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
+    betaTesterProfile?: BetaTesterProfileUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutRoleApplicationsInput = {
@@ -65004,6 +67016,7 @@ export namespace Prisma {
     documents?: DonorDocumentUpdateManyWithoutUserNestedInput
     challenges?: DonorChallengeUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
+    betaTesterProfile?: BetaTesterProfileUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRoleApplicationsInput = {
@@ -65044,6 +67057,7 @@ export namespace Prisma {
     documents?: DonorDocumentUncheckedUpdateManyWithoutUserNestedInput
     challenges?: DonorChallengeUncheckedUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+    betaTesterProfile?: BetaTesterProfileUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type RoleEngagementUpsertWithoutApplicationInput = {
@@ -65183,6 +67197,7 @@ export namespace Prisma {
     documents?: DonorDocumentCreateNestedManyWithoutUserInput
     roleApplications?: RoleApplicationCreateNestedManyWithoutApplicantInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
+    betaTesterProfile?: BetaTesterProfileCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutChallengesInput = {
@@ -65223,6 +67238,7 @@ export namespace Prisma {
     documents?: DonorDocumentUncheckedCreateNestedManyWithoutUserInput
     roleApplications?: RoleApplicationUncheckedCreateNestedManyWithoutApplicantInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
+    betaTesterProfile?: BetaTesterProfileUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutChallengesInput = {
@@ -65419,6 +67435,7 @@ export namespace Prisma {
     documents?: DonorDocumentUpdateManyWithoutUserNestedInput
     roleApplications?: RoleApplicationUpdateManyWithoutApplicantNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
+    betaTesterProfile?: BetaTesterProfileUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutChallengesInput = {
@@ -65459,6 +67476,7 @@ export namespace Prisma {
     documents?: DonorDocumentUncheckedUpdateManyWithoutUserNestedInput
     roleApplications?: RoleApplicationUncheckedUpdateManyWithoutApplicantNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+    betaTesterProfile?: BetaTesterProfileUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type ProjectUpsertWithoutChallengesInput = {
@@ -65731,6 +67749,7 @@ export namespace Prisma {
     documents?: DonorDocumentCreateNestedManyWithoutUserInput
     roleApplications?: RoleApplicationCreateNestedManyWithoutApplicantInput
     challenges?: DonorChallengeCreateNestedManyWithoutDonorInput
+    betaTesterProfile?: BetaTesterProfileCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSubscriptionInput = {
@@ -65771,6 +67790,7 @@ export namespace Prisma {
     documents?: DonorDocumentUncheckedCreateNestedManyWithoutUserInput
     roleApplications?: RoleApplicationUncheckedCreateNestedManyWithoutApplicantInput
     challenges?: DonorChallengeUncheckedCreateNestedManyWithoutDonorInput
+    betaTesterProfile?: BetaTesterProfileUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSubscriptionInput = {
@@ -65827,6 +67847,7 @@ export namespace Prisma {
     documents?: DonorDocumentUpdateManyWithoutUserNestedInput
     roleApplications?: RoleApplicationUpdateManyWithoutApplicantNestedInput
     challenges?: DonorChallengeUpdateManyWithoutDonorNestedInput
+    betaTesterProfile?: BetaTesterProfileUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSubscriptionInput = {
@@ -65867,6 +67888,7 @@ export namespace Prisma {
     documents?: DonorDocumentUncheckedUpdateManyWithoutUserNestedInput
     roleApplications?: RoleApplicationUncheckedUpdateManyWithoutApplicantNestedInput
     challenges?: DonorChallengeUncheckedUpdateManyWithoutDonorNestedInput
+    betaTesterProfile?: BetaTesterProfileUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type AccountCreateManyUserInput = {

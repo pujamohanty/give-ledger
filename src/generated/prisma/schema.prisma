@@ -131,6 +131,26 @@ model User {
   roleApplications      RoleApplication[]
   challenges            DonorChallenge[]
   subscription          Subscription?
+  betaTesterProfile     BetaTesterProfile?
+}
+
+model BetaTesterProfile {
+  id              String   @id @default(cuid())
+  userId          String   @unique
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  interests       String[] // BETA_TESTING, UGC_CONTENT
+  devices         String[] // iOS, Android, Desktop_Mac, Desktop_Windows
+  followerRange   String // UNDER_1K, 1K_10K, 10K_50K, 50K_PLUS
+  niches          String[] // Tech, Lifestyle, Finance, Health, Gaming, Food, Travel, Fashion
+  instagramHandle String?
+  tiktokHandle    String?
+  twitterHandle   String?
+  youtubeHandle   String?
+  linkedinHandle  String?
+  redditHandle    String?
+  isActive        Boolean  @default(true)
+  registeredAt    DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 }
 
 model Ngo {

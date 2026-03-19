@@ -170,6 +170,24 @@ exports.Prisma.UserScalarFieldEnum = {
   aiSummary: 'aiSummary'
 };
 
+exports.Prisma.BetaTesterProfileScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  interests: 'interests',
+  devices: 'devices',
+  followerRange: 'followerRange',
+  niches: 'niches',
+  instagramHandle: 'instagramHandle',
+  tiktokHandle: 'tiktokHandle',
+  twitterHandle: 'twitterHandle',
+  youtubeHandle: 'youtubeHandle',
+  linkedinHandle: 'linkedinHandle',
+  redditHandle: 'redditHandle',
+  isActive: 'isActive',
+  registeredAt: 'registeredAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.NgoScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -649,6 +667,7 @@ exports.Prisma.ModelName = {
   Session: 'Session',
   VerificationToken: 'VerificationToken',
   User: 'User',
+  BetaTesterProfile: 'BetaTesterProfile',
   Ngo: 'Ngo',
   Project: 'Project',
   Milestone: 'Milestone',

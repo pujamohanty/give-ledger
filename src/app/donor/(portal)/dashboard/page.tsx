@@ -351,7 +351,7 @@ export default async function DonorDashboard({
                 </div>
               </div>
               <div className="shrink-0 flex items-center gap-1.5 bg-white text-violet-700 font-semibold text-xs px-4 py-2 rounded-lg group-hover:bg-violet-50 transition-colors">
-                Register free <ArrowRight className="w-3.5 h-3.5" />
+                Join the program <ArrowRight className="w-3.5 h-3.5" />
               </div>
             </div>
           </div>
