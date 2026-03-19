@@ -190,6 +190,7 @@ async function LandingPage({ session }: { session: Session | null }) {
     disbursedTotal,
     openRoles,
     featuredProjects,
+    openRolesCount,
   ] = await Promise.all([
     prisma.user.count({ where: { role: "DONOR" } }),
     prisma.ngo.count({ where: { status: "ACTIVE" } }),
@@ -207,13 +208,14 @@ async function LandingPage({ session }: { session: Session | null }) {
       include: { ngo: { select: { orgName: true } }, _count: { select: { milestones: true, donations: true } } },
       orderBy: { raisedAmount: "desc" },
     }),
+    prisma.ngoRole.count({ where: { status: "OPEN" } }),
   ]);
 
   const totalDisbursed = disbursedTotal._sum.requestedAmount ?? 0;
 
   return (
     <div className="min-h-screen bg-white">
-      <Navbar session={session} />
+      <Navbar session={session} openRolesCount={openRolesCount} />
 
       {/* ── Hero ── */}
       <section className="relative overflow-hidden bg-[#052e16] text-white">
@@ -1088,7 +1090,7 @@ async function LandingPage({ session }: { session: Session | null }) {
 async function FeedPage({ session }: { session: Session | null }) {
   const LIMIT = 20;
 
-  const [events, donorCount, ngoCount, projectCount, milestoneCount, featuredProjectsRaw, recentNgosRaw, allProjectsRaw, openRolesRaw] =
+  const [events, donorCount, ngoCount, projectCount, milestoneCount, featuredProjectsRaw, recentNgosRaw, allProjectsRaw, openRolesRaw, openRolesCount] =
     await Promise.all([
       prisma.activityEvent.findMany({ take: LIMIT + 1, orderBy: { createdAt: "desc" } }),
       prisma.user.count({ where: { role: "DONOR" } }),
@@ -1118,6 +1120,7 @@ async function FeedPage({ session }: { session: Session | null }) {
         include: { ngo: { select: { id: true, orgName: true } } },
         orderBy: { createdAt: "desc" },
       }),
+      prisma.ngoRole.count({ where: { status: "OPEN" } }),
     ]);
 
   const hasMore = events.length > LIMIT;
@@ -1126,7 +1129,7 @@ async function FeedPage({ session }: { session: Session | null }) {
 
   return (
     <div className="min-h-screen bg-[#f3f2ef]">
-      <Navbar session={session} />
+      <Navbar session={session} openRolesCount={openRolesCount} />
       <HomeFeedClient
         initial={items.map((e) => ({ ...e, createdAt: e.createdAt.toISOString() }))}
         initialCursor={nextCursor}
@@ -1139,8 +1142,11 @@ async function FeedPage({ session }: { session: Session | null }) {
         openRoles={openRolesRaw.map((r) => ({
           id: r.id, title: r.title, roleType: r.roleType,
           timeCommitment: r.timeCommitment, isRemote: r.isRemote,
+          salaryMin: r.salaryMin ?? null,
+          salaryMax: r.salaryMax ?? null,
           ngo: { id: r.ngo.id, orgName: r.ngo.orgName },
         }))}
+        openRolesCount={openRolesCount}
         allProjects={allProjectsRaw.map((p) => ({
           id: p.id, title: p.title, category: p.category,
           goalAmount: p.goalAmount, raisedAmount: p.raisedAmount, ngo: p.ngo,

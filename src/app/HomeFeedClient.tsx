@@ -5,7 +5,7 @@ import {
   Heart, CheckCircle2, Rocket, Star, Briefcase, Users,
   Loader2, TrendingUp, Landmark, BookOpen, Globe,
   ChevronRight, ArrowRight, Share2, PartyPopper,
-  LayoutDashboard, HandCoins, BadgeCheck, Leaf, ClipboardList,
+  LayoutDashboard, HandCoins, BadgeCheck, Leaf, ClipboardList, Sparkles,
 } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 
@@ -57,6 +57,8 @@ type OpenRole = {
   roleType: string;
   timeCommitment: string;
   isRemote: boolean;
+  salaryMin: number | null;
+  salaryMax: number | null;
   ngo: { id: string; orgName: string };
 };
 
@@ -68,6 +70,7 @@ type Props = {
   recentNgos: RecentNgo[];
   allProjects: AllProject[];
   openRoles: OpenRole[];
+  openRolesCount: number;
   session: { name?: string | null; image?: string | null; role?: string } | null;
 };
 
@@ -119,13 +122,20 @@ const EVENT_CONFIG: Record<string, {
 };
 
 const FILTERS = [
-  { key: "ALL", label: "All" },
-  { key: "SKILL_OFFER", label: "Open Roles" },
-  { key: "DONATION", label: "Donations" },
-  { key: "MILESTONE_COMPLETE", label: "Milestones" },
-  { key: "PROJECT_LAUNCH", label: "Projects" },
-  { key: "SKILL_APPROVED", label: "Skills" },
+  { key: "ALL",                label: "All",        desc: "All platform activity" },
+  { key: "SKILL_OFFER",       label: "Open Roles", desc: "New roles posted by NGOs seeking skilled contributors" },
+  { key: "DONATION",          label: "Donations",  desc: "Financial donations and skill contributions to NGOs" },
+  { key: "MILESTONE_COMPLETE",label: "Milestones", desc: "Verified milestone completions and fund disbursements" },
+  { key: "PROJECT_LAUNCH",    label: "Projects",   desc: "Newly launched NGO fundraising projects" },
 ];
+
+function formatSalary(min: number | null, max: number | null): string | null {
+  if (!min && !max) return null;
+  const fmt = (n: number) => n >= 1000 ? `$${Math.round(n / 1000)}k` : `$${n}`;
+  if (min && max) return `${fmt(min)}–${fmt(max)}/yr`;
+  if (min) return `${fmt(min)}+/yr`;
+  return `up to ${fmt(max!)}/yr`;
+}
 
 const CATEGORY_EMOJI: Record<string, string> = {
   CHILD_CARE: "🧒", INCOME_GENERATION: "💼", ELDERLY_CARE: "🏡",
@@ -484,6 +494,11 @@ function RightSidebar({ featuredProjects, recentNgos, openRoles }: {
                         <span className="text-[10px] text-gray-400">· Remote</span>
                       )}
                     </div>
+                    {formatSalary(role.salaryMin, role.salaryMax) && (
+                      <p className="text-[10px] font-semibold text-emerald-700 mt-1">
+                        {formatSalary(role.salaryMin, role.salaryMax)}
+                      </p>
+                    )}
                   </div>
                 </div>
               </Link>
@@ -525,42 +540,22 @@ function RightSidebar({ featuredProjects, recentNgos, openRoles }: {
         </div>
       </div>
 
-      {/* Recently Joined NGOs */}
-      <div className="bg-white rounded-lg border border-[rgba(0,0,0,0.08)] shadow-[0_0_0_1px_rgba(0,0,0,0.06),0_2px_4px_rgba(0,0,0,0.04)] p-4">
-        <div className="flex items-center justify-between mb-3">
-          <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wider">New NGOs</h3>
+      {/* UGC / Beta Tester Program */}
+      <div className="bg-gradient-to-br from-violet-600 to-purple-700 rounded-lg p-4 text-white shadow-[0_0_0_1px_rgba(0,0,0,0.06),0_2px_4px_rgba(0,0,0,0.04)]">
+        <div className="flex items-center gap-1.5 mb-2">
+          <Sparkles className="w-3.5 h-3.5 text-violet-200" />
+          <span className="text-[10px] font-bold uppercase tracking-wider text-violet-200">Beta Tester Program</span>
         </div>
-        <div className="space-y-3">
-          {recentNgos.map(ngo => (
-            <Link key={ngo.id} href={`/ngo/${ngo.id}`} className="flex items-center gap-2.5 group">
-              <div className={`w-9 h-9 rounded-full ${avatarColor(ngo.orgName)} flex items-center justify-center text-white text-xs font-bold shrink-0`}>
-                {initials(ngo.orgName)}
-              </div>
-              <div className="min-w-0 flex-1">
-                <p className="text-xs font-semibold text-gray-900 group-hover:text-emerald-700 transition-colors truncate">{ngo.orgName}</p>
-                {ngo.description && (
-                  <p className="text-xs text-gray-400 truncate">{ngo.description.slice(0, 50)}{ngo.description.length > 50 ? "…" : ""}</p>
-                )}
-              </div>
-              <ChevronRight className="w-3.5 h-3.5 text-gray-300 shrink-0 group-hover:text-emerald-600 transition-colors" />
-            </Link>
-          ))}
-        </div>
-      </div>
-
-      {/* Trust badge */}
-      <div className="bg-white rounded-lg border border-[rgba(0,0,0,0.08)] shadow-[0_0_0_1px_rgba(0,0,0,0.06),0_2px_4px_rgba(0,0,0,0.04)] p-4">
-        <div className="flex items-center gap-2 mb-2">
-          <div className="w-6 h-6 bg-emerald-700 rounded-md flex items-center justify-center">
-            <Leaf className="w-3.5 h-3.5 text-white" />
-          </div>
-          <span className="font-semibold text-sm text-gray-900">Are you a nonprofit?</span>
-        </div>
-        <p className="text-xs text-gray-500 leading-relaxed mb-3">
-          Register your 501(c)(3) to raise funds with full milestone tracking and on-chain proof.
+        <p className="text-sm font-bold mb-1 leading-snug">Get paid to test apps &amp; post content</p>
+        <p className="text-xs text-violet-200 leading-relaxed mb-3">
+          Brands match you by device, niche &amp; following. Earn from every campaign you complete.
         </p>
-        <Link href="/signup?role=ngo" className="inline-flex items-center gap-1 border border-emerald-700 text-emerald-700 text-xs font-semibold px-3 py-1.5 rounded-full hover:bg-emerald-50 transition-colors">
-          Register your NGO <ArrowRight className="w-3 h-3" />
+        <div className="bg-white/15 rounded-lg px-3 py-2 mb-3">
+          <p className="text-[10px] text-violet-200 mb-0.5">Expected monthly income</p>
+          <p className="text-base font-extrabold text-white">$3,000 – $5,000</p>
+        </div>
+        <Link href="/donor/beta-program" className="inline-flex items-center gap-1.5 bg-white text-violet-700 text-xs font-bold px-3 py-1.5 rounded-full hover:bg-violet-50 transition-colors">
+          Join the program <ArrowRight className="w-3 h-3" />
         </Link>
       </div>
     </aside>
@@ -606,7 +601,7 @@ function ProjectCard({ project }: { project: AllProject }) {
 }
 
 /* ─── Main Feed ──────────────────────────────────────────────── */
-function Feed({ initial, initialCursor, allProjects }: { initial: ActivityEvent[]; initialCursor: string | null; allProjects: AllProject[] }) {
+function Feed({ initial, initialCursor, allProjects, openRolesCount }: { initial: ActivityEvent[]; initialCursor: string | null; allProjects: AllProject[]; openRolesCount: number }) {
   const [events, setEvents] = useState<ActivityEvent[]>(initial);
   const [cursor, setCursor] = useState<string | null>(initialCursor);
   const [loading, setLoading] = useState(false);
@@ -641,20 +636,36 @@ function Feed({ initial, initialCursor, allProjects }: { initial: ActivityEvent[
   }, [filter, loadMore]);
 
   const showProjects = filter === "PROJECT_LAUNCH";
-  const filtered = filter === "ALL" ? events : events.filter(e => e.type === filter);
+  const filtered = filter === "ALL"
+    ? events
+    : filter === "DONATION"
+      ? events.filter(e => e.type === "DONATION" || e.type === "SKILL_APPROVED")
+      : events.filter(e => e.type === filter);
 
   return (
     <div>
       {/* Filter tabs */}
       <div className="bg-white rounded-lg border border-[rgba(0,0,0,0.08)] shadow-[0_0_0_1px_rgba(0,0,0,0.06),0_2px_4px_rgba(0,0,0,0.04)] p-1.5 mb-4 flex gap-1 flex-wrap">
         {FILTERS.map(f => (
-          <button
-            key={f.key}
-            onClick={() => setFilter(f.key)}
-            className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors ${filter === f.key ? "bg-emerald-600 text-white shadow-sm" : "text-gray-600 hover:bg-gray-100"}`}
-          >
-            {f.label}
-          </button>
+          <div key={f.key} className="relative group">
+            <button
+              onClick={() => setFilter(f.key)}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors ${filter === f.key ? "bg-emerald-600 text-white shadow-sm" : "text-gray-600 hover:bg-gray-100"}`}
+            >
+              {f.label}
+              {f.key === "SKILL_OFFER" && openRolesCount > 0 && (
+                <sup className={`ml-0.5 text-[9px] font-bold ${filter === f.key ? "text-emerald-200" : "text-emerald-600"}`}>
+                  {openRolesCount}
+                </sup>
+              )}
+            </button>
+            <div className="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-48 bg-gray-900 text-white text-[11px] leading-snug rounded-lg px-3 py-2 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-150 z-50 text-center">
+              {f.desc}
+              <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-1.5 overflow-hidden">
+                <div className="w-2 h-2 bg-gray-900 rotate-45 -translate-y-1 mx-auto" />
+              </div>
+            </div>
+          </div>
         ))}
       </div>
 
@@ -699,7 +710,7 @@ function Feed({ initial, initialCursor, allProjects }: { initial: ActivityEvent[
 }
 
 /* ─── Root export ────────────────────────────────────────────── */
-export default function HomeFeedClient({ initial, initialCursor, stats, featuredProjects, recentNgos, allProjects, openRoles, session }: Props) {
+export default function HomeFeedClient({ initial, initialCursor, stats, featuredProjects, recentNgos, allProjects, openRoles, openRolesCount, session }: Props) {
   return (
     <main className="max-w-6xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
       {/* Top banner for guests */}
@@ -729,7 +740,7 @@ export default function HomeFeedClient({ initial, initialCursor, stats, featured
 
         {/* Center feed */}
         <div>
-          <Feed initial={initial} initialCursor={initialCursor} allProjects={allProjects} />
+          <Feed initial={initial} initialCursor={initialCursor} allProjects={allProjects} openRolesCount={openRolesCount} />
         </div>
 
         {/* Right sidebar — column stretches with feed, SmartStickyRight handles positioning */}

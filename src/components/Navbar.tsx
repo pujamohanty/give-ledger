@@ -7,6 +7,7 @@ import { Menu, X, Leaf, ChevronDown, Search, LayoutDashboard, LogOut } from "luc
 
 interface NavbarProps {
   session?: { user: { name?: string | null; role: string } } | null;
+  openRolesCount?: number;
 }
 
 function initials(name: string | null | undefined) {
@@ -48,7 +49,7 @@ const NAV_ITEMS = [
   },
 ];
 
-export default function Navbar({ session }: NavbarProps) {
+export default function Navbar({ session, openRolesCount }: NavbarProps) {
   const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -117,7 +118,12 @@ export default function Navbar({ session }: NavbarProps) {
                 href={item.href}
                 className="flex flex-col items-center gap-0.5 px-3 py-1 text-gray-500 hover:text-gray-900 text-xs font-medium rounded transition-colors"
               >
-                <span>{item.label}</span>
+                <span className="relative">
+                  {item.label}
+                  {item.href === "/opportunities" && openRolesCount && openRolesCount > 0 ? (
+                    <sup className="ml-0.5 text-[9px] font-bold text-emerald-600">{openRolesCount}</sup>
+                  ) : null}
+                </span>
               </Link>
               {/* Tooltip */}
               <div className="pointer-events-none absolute top-full left-1/2 -translate-x-1/2 mt-2 w-56 bg-gray-900 text-white text-[11px] leading-snug rounded-lg px-3 py-2 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-150 z-50">
