@@ -191,6 +191,27 @@ function EventCard({ event }: { event: ActivityEvent }) {
   const [liked, setLiked] = useState(false);
   const [likeCount] = useState(() => Math.floor(Math.random() * 18) + 1);
   const [celebrated, setCelebrated] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  function handleShare() {
+    const origin = typeof window !== "undefined" ? window.location.origin : "";
+    const url = event.linkUrl
+      ? `${origin}${event.linkUrl}`
+      : event.projectId
+        ? `${origin}/projects/${event.projectId}`
+        : event.ngoId
+          ? `${origin}/ngo/${event.ngoId}`
+          : origin;
+    const text = event.description;
+    if (navigator.share) {
+      navigator.share({ title: "GiveLedger", text, url }).catch(() => {});
+    } else {
+      navigator.clipboard.writeText(`${text}\n\n${url}`).then(() => {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      });
+    }
+  }
 
   return (
     <article className={`bg-white rounded-lg border border-[rgba(0,0,0,0.08)] border-l-4 ${cfg.border} shadow-[0_0_0_1px_rgba(0,0,0,0.06),0_2px_4px_rgba(0,0,0,0.04)] hover:shadow-[0_0_0_1px_rgba(0,0,0,0.10),0_4px_12px_rgba(0,0,0,0.07)] transition-all duration-150`}>
@@ -285,9 +306,12 @@ function EventCard({ event }: { event: ActivityEvent }) {
           <PartyPopper className="w-3.5 h-3.5" />
           <span>Celebrate</span>
         </button>
-        <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-700 transition-colors ml-auto">
+        <button
+          onClick={handleShare}
+          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ml-auto ${copied ? "bg-emerald-50 text-emerald-600" : "text-gray-500 hover:bg-gray-50 hover:text-gray-700"}`}
+        >
           <Share2 className="w-3.5 h-3.5" />
-          <span>Share</span>
+          <span>{copied ? "Copied!" : "Share"}</span>
         </button>
       </div>
     </article>
