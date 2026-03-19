@@ -4,7 +4,6 @@ import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 import Navbar from "@/components/Navbar";
 import RoleApplyButton from "@/components/RoleApplyButton";
-import RoleChatBot from "@/components/RoleChatBot";
 import {
   Briefcase, Clock, Users, MapPin, Wifi, ArrowLeft,
   Building2, CheckCircle, Calendar, Star, Lock, DollarSign, GraduationCap, ArrowRight,
@@ -377,7 +376,6 @@ export default async function OpportunityDetailPage({ params }: { params: Promis
           </div>
         </div>
       </div>
-      <RoleChatBot roleId={role.id} roleTitle={role.title} ngoName={role.ngo.orgName} />
     </>
   );
 }
