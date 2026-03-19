@@ -4,7 +4,7 @@ import { useState } from "react";
 import {
   Smartphone, Video, CheckCircle2, Loader2, AlertCircle, Pencil,
   Instagram, Twitter, Youtube, Zap, BadgeCheck, TrendingUp,
-  Linkedin, Crown, Lock, Calendar, DollarSign, Monitor,
+  Linkedin, Crown, Lock, Calendar, DollarSign, Monitor, Share2,
 } from "lucide-react";
 
 // ── Types ──────────────────────────────────────────────────────────────────────
@@ -195,6 +195,21 @@ function CampaignsPreview() {
 // ── Registered status view ─────────────────────────────────────────────────────
 
 function StatusView({ profile, onEdit }: { profile: Profile; onEdit: () => void }) {
+  const [copied, setCopied] = useState(false);
+
+  function handleShare() {
+    const url = `${window.location.origin}/donor/beta-program`;
+    const text = "I joined GiveLedger's Beta Tester & UGC Creator Program — earn $3,000–$5,000/month testing apps and creating content for brands.";
+    if (navigator.share) {
+      navigator.share({ title: "Beta Tester & UGC Creator Program", text, url }).catch(() => {});
+    } else {
+      navigator.clipboard.writeText(`${text}\n\n${url}`).then(() => {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      });
+    }
+  }
+
   const registeredDate = new Date(profile.registeredAt).toLocaleDateString("en-US", {
     month: "long", day: "numeric", year: "numeric",
   });
@@ -223,12 +238,20 @@ function StatusView({ profile, onEdit }: { profile: Profile; onEdit: () => void 
           <h1 className="text-2xl font-bold text-gray-900">Beta Tester & UGC Creator Program</h1>
           <p className="text-gray-500 text-sm mt-1">Member since {registeredDate}</p>
         </div>
-        <button
-          onClick={onEdit}
-          className="flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-800 border border-gray-200 hover:border-gray-300 px-3 py-1.5 rounded-lg transition-colors"
-        >
-          <Pencil className="w-3.5 h-3.5" /> Edit preferences
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={handleShare}
+            className={`flex items-center gap-1.5 text-sm px-3 py-1.5 rounded-lg border transition-colors ${copied ? "bg-emerald-50 border-emerald-200 text-emerald-700" : "text-gray-500 border-gray-200 hover:border-gray-300 hover:text-gray-800"}`}
+          >
+            <Share2 className="w-3.5 h-3.5" /> {copied ? "Copied!" : "Share"}
+          </button>
+          <button
+            onClick={onEdit}
+            className="flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-800 border border-gray-200 hover:border-gray-300 px-3 py-1.5 rounded-lg transition-colors"
+          >
+            <Pencil className="w-3.5 h-3.5" /> Edit preferences
+          </button>
+        </div>
       </div>
 
       <div className="bg-gradient-to-br from-violet-50 to-purple-50 border border-violet-100 rounded-2xl p-6 mb-6">
@@ -300,6 +323,21 @@ function StatusView({ profile, onEdit }: { profile: Profile; onEdit: () => void 
 function SignupForm({
   initial, isPro, onSaved,
 }: { initial: Profile | null; isPro: boolean; onSaved: (p: Profile) => void }) {
+  const [shareCopied, setShareCopied] = useState(false);
+
+  function handleShare() {
+    const url = `${window.location.origin}/donor/beta-program`;
+    const text = "Earn $3,000–$5,000/month with GiveLedger's Beta Tester & UGC Creator Program — test apps before launch and post content for brands.";
+    if (navigator.share) {
+      navigator.share({ title: "Beta Tester & UGC Creator Program", text, url }).catch(() => {});
+    } else {
+      navigator.clipboard.writeText(`${text}\n\n${url}`).then(() => {
+        setShareCopied(true);
+        setTimeout(() => setShareCopied(false), 2000);
+      });
+    }
+  }
+
   const [devices, setDevices]             = useState<string[]>(initial?.devices       ?? []);
   const [followerRange, setFollowerRange] = useState(initial?.followerRange ?? "");
   const [niches, setNiches]               = useState<string[]>(initial?.niches        ?? []);
@@ -349,8 +387,17 @@ function SignupForm({
     <div className="max-w-2xl mx-auto">
       {/* Hero */}
       <div className="text-center mb-10">
-        <div className="inline-flex items-center gap-2 bg-violet-50 border border-violet-100 text-violet-700 text-xs font-semibold px-3 py-1.5 rounded-full mb-5">
-          <Zap className="w-3.5 h-3.5" /> Earn while you help
+        <div className="flex items-center justify-center gap-2 mb-5">
+          <div className="inline-flex items-center gap-2 bg-violet-50 border border-violet-100 text-violet-700 text-xs font-semibold px-3 py-1.5 rounded-full">
+            <Zap className="w-3.5 h-3.5" /> Earn while you help
+          </div>
+          <button
+            type="button"
+            onClick={handleShare}
+            className={`inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full border transition-colors ${shareCopied ? "bg-emerald-50 border-emerald-200 text-emerald-700" : "bg-white border-gray-200 text-gray-500 hover:border-violet-300 hover:text-violet-700"}`}
+          >
+            <Share2 className="w-3.5 h-3.5" /> {shareCopied ? "Copied!" : "Share"}
+          </button>
         </div>
         <h1 className="text-3xl font-bold text-gray-900 mb-3">Beta Tester & UGC Creator Program</h1>
         <p className="text-gray-500 text-base max-w-lg mx-auto leading-relaxed">

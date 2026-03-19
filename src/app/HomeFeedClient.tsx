@@ -488,6 +488,21 @@ function RightSidebar({ featuredProjects, recentNgos, openRoles }: {
   recentNgos: RecentNgo[];
   openRoles: OpenRole[];
 }) {
+  const [ugcCopied, setUgcCopied] = useState(false);
+
+  function handleShareUGC() {
+    const url = `${window.location.origin}/donor/beta-program`;
+    const text = "Earn $3,000–$5,000/month with GiveLedger's Beta Tester & UGC Creator Program — test apps before launch and post content for brands.";
+    if (navigator.share) {
+      navigator.share({ title: "Beta Tester & UGC Creator Program", text, url }).catch(() => {});
+    } else {
+      navigator.clipboard.writeText(`${text}\n\n${url}`).then(() => {
+        setUgcCopied(true);
+        setTimeout(() => setUgcCopied(false), 2000);
+      });
+    }
+  }
+
   return (
     <aside className="space-y-4">
       {/* Open Roles */}
@@ -578,9 +593,18 @@ function RightSidebar({ featuredProjects, recentNgos, openRoles }: {
           <p className="text-[10px] text-violet-200 mb-0.5">Expected monthly income</p>
           <p className="text-base font-extrabold text-white">$3,000 – $5,000</p>
         </div>
-        <Link href="/donor/beta-program" className="inline-flex items-center gap-1.5 bg-white text-violet-700 text-xs font-bold px-3 py-1.5 rounded-full hover:bg-violet-50 transition-colors">
-          Join the program <ArrowRight className="w-3 h-3" />
-        </Link>
+        <div className="flex items-center gap-2">
+          <Link href="/donor/beta-program" className="inline-flex items-center gap-1.5 bg-white text-violet-700 text-xs font-bold px-3 py-1.5 rounded-full hover:bg-violet-50 transition-colors">
+            Join the program <ArrowRight className="w-3 h-3" />
+          </Link>
+          <button
+            onClick={handleShareUGC}
+            className={`inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-full transition-colors ${ugcCopied ? "bg-emerald-500 text-white" : "bg-white/20 text-white hover:bg-white/30"}`}
+          >
+            <Share2 className="w-3 h-3" />
+            {ugcCopied ? "Copied!" : "Share"}
+          </button>
+        </div>
       </div>
     </aside>
   );
