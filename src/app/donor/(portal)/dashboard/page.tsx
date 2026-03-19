@@ -12,7 +12,7 @@ import {
   DollarSign, FolderOpen, CheckCircle2, Users, ExternalLink,
   Circle, ArrowRight, Share2, Bell, TrendingUp,
   Star, Gift, Clock, Briefcase, GraduationCap, BadgeCheck,
-  Building2, ChevronRight, Megaphone,
+  Building2, ChevronRight, Megaphone, Smartphone, Video, Zap,
 } from "lucide-react";
 import { matchTrainingModule, TRAINING_MODULES, MODULE_COUNT, TOTAL_HOURS } from "@/lib/training-curriculum";
 
@@ -97,6 +97,12 @@ export default async function DonorDashboard({
     include: { project: { select: { title: true, ngo: { select: { orgName: true } } } } },
     orderBy: { createdAt: "desc" },
     take: 5,
+  });
+
+  // Beta tester profile
+  const betaProfile = await prisma.betaTesterProfile.findUnique({
+    where: { userId },
+    select: { isActive: true, registeredAt: true, interests: true },
   });
 
   // Role applications
@@ -292,6 +298,65 @@ export default async function DonorDashboard({
           </div>
         </Link>
       </div>
+
+      {/* ── Beta Tester & UGC Program ─────────────────────────────────── */}
+      {betaProfile ? (
+        <Link href="/donor/beta-program">
+          <div className="flex items-center gap-4 bg-violet-50 border border-violet-100 rounded-2xl px-5 py-4 mb-6 hover:border-violet-300 transition-colors group">
+            <div className="w-9 h-9 rounded-xl bg-violet-100 flex items-center justify-center shrink-0">
+              <BadgeCheck className="w-4 h-4 text-violet-600" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2 mb-0.5">
+                <p className="text-sm font-semibold text-violet-900">Beta Tester & UGC Creator</p>
+                <span className="text-[10px] font-bold bg-violet-200 text-violet-800 px-2 py-0.5 rounded-full">ACTIVE</span>
+              </div>
+              <p className="text-xs text-violet-600">
+                {betaProfile.interests.includes("BETA_TESTING") && betaProfile.interests.includes("UGC_CONTENT")
+                  ? "Registered for app testing and UGC content campaigns"
+                  : betaProfile.interests.includes("BETA_TESTING")
+                  ? "Registered for app beta testing campaigns"
+                  : "Registered for UGC content creation campaigns"}
+              </p>
+            </div>
+            <ArrowRight className="w-4 h-4 text-violet-400 group-hover:text-violet-600 transition-colors shrink-0" />
+          </div>
+        </Link>
+      ) : (
+        <Link href="/donor/beta-program">
+          <div className="relative overflow-hidden bg-gradient-to-r from-violet-600 to-purple-600 rounded-2xl px-6 py-5 mb-6 hover:from-violet-700 hover:to-purple-700 transition-all group cursor-pointer">
+            <div className="absolute right-0 top-0 bottom-0 flex items-center pr-6 opacity-10">
+              <Smartphone className="w-24 h-24 text-white" />
+            </div>
+            <div className="relative flex items-center justify-between">
+              <div className="flex items-start gap-4">
+                <div className="flex gap-1.5 mt-0.5">
+                  <div className="w-8 h-8 rounded-lg bg-white/20 flex items-center justify-center">
+                    <Smartphone className="w-4 h-4 text-white" />
+                  </div>
+                  <div className="w-8 h-8 rounded-lg bg-white/20 flex items-center justify-center">
+                    <Video className="w-4 h-4 text-white" />
+                  </div>
+                </div>
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <p className="text-white font-semibold text-sm">Beta Tester & UGC Creator Program</p>
+                    <span className="text-[10px] font-bold bg-white/20 text-white px-2 py-0.5 rounded-full flex items-center gap-1">
+                      <Zap className="w-2.5 h-2.5" /> New
+                    </span>
+                  </div>
+                  <p className="text-violet-200 text-xs leading-relaxed max-w-sm">
+                    Get paid by brands to test apps and post content. Campaigns come directly to your dashboard.
+                  </p>
+                </div>
+              </div>
+              <div className="shrink-0 flex items-center gap-1.5 bg-white text-violet-700 font-semibold text-xs px-4 py-2 rounded-lg group-hover:bg-violet-50 transition-colors">
+                Register free <ArrowRight className="w-3.5 h-3.5" />
+              </div>
+            </div>
+          </div>
+        </Link>
+      )}
 
       {/* ── My Campaigns ──────────────────────────────────────────────── */}
       <div className="mb-6">

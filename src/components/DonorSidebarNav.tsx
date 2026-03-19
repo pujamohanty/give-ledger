@@ -6,7 +6,7 @@ import {
   Leaf, LayoutDashboard, Heart, TrendingUp, Settings,
   Search, Bell, Share2, Gift, Star, Globe, Briefcase,
   Award, Linkedin, UserCircle, ClipboardList, Crown,
-  GraduationCap, ChevronDown,
+  GraduationCap, ChevronDown, Smartphone,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import SignOutButton from "@/components/SignOutButton";
@@ -27,10 +27,11 @@ const navGroups: NavGroup[] = [
   {
     label: "My Profile",
     items: [
-      { href: "/donor/profile",       label: "Profile",             icon: UserCircle    },
-      { href: "/donor/credential",    label: "My Credential",       icon: Award         },
-      { href: "/donor/standing",      label: "NGO Standing",        icon: Star          },
-      { href: "/donor/post-builder",  label: "Post Builder",        icon: Linkedin      },
+      { href: "/donor/profile",        label: "Profile",             icon: UserCircle    },
+      { href: "/donor/credential",     label: "My Credential",       icon: Award         },
+      { href: "/donor/standing",       label: "NGO Standing",        icon: Star          },
+      { href: "/donor/post-builder",   label: "Post Builder",        icon: Linkedin      },
+      { href: "/donor/beta-program",   label: "Beta Program",        icon: Smartphone    },
     ],
   },
   {
