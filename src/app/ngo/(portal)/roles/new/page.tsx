@@ -30,6 +30,7 @@ export default function NewRolePage() {
     durationWeeks: "4", isRemote: true, location: "",
     openings: "1", applicationDeadline: "", startDate: "",
     salaryMin: "", salaryMax: "",
+    isPaid: false,
   });
   const [skills, setSkills] = useState<string[]>([]);
   const [skillInput, setSkillInput] = useState("");
@@ -302,22 +303,59 @@ export default function NewRolePage() {
               </div>
             </div>
 
-            {/* Salary (optional — leave blank for unpaid/volunteer roles) */}
+            {/* Compensation type */}
             <div>
-              <Label>Salary / stipend (USD/year) — optional</Label>
-              <p className="text-[11px] text-gray-400 mb-2">Leave blank for unpaid or volunteer roles.</p>
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <Input type="number" min="0" placeholder="Min e.g. 40000" className="mt-1"
-                    value={form.salaryMin} onChange={(e) => set("salaryMin", e.target.value)} />
-                  <p className="text-[10px] text-gray-400 mt-1">Minimum USD/year</p>
-                </div>
-                <div>
-                  <Input type="number" min="0" placeholder="Max e.g. 65000" className="mt-1"
-                    value={form.salaryMax} onChange={(e) => set("salaryMax", e.target.value)} />
-                  <p className="text-[10px] text-gray-400 mt-1">Maximum USD/year</p>
-                </div>
+              <Label>Compensation type *</Label>
+              <p className="text-[11px] text-gray-400 mb-2 mt-0.5">
+                Paid roles attract professionals seeking meaningful income. Volunteer roles attract those contributing skills for career capital and impact.
+              </p>
+              <div className="flex gap-3">
+                <button
+                  type="button"
+                  onClick={() => { set("isPaid", false); set("salaryMin", ""); set("salaryMax", ""); }}
+                  className={`flex-1 py-3 rounded-xl border-2 transition-all text-sm font-medium ${
+                    !form.isPaid
+                      ? "border-gray-700 bg-gray-900 text-white"
+                      : "border-gray-200 text-gray-500 hover:border-gray-300"
+                  }`}
+                >
+                  <div className="font-semibold">Volunteer / Unpaid</div>
+                  <div className="text-[11px] mt-0.5 opacity-70">Skill-based contribution, NGO-verified</div>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => set("isPaid", true)}
+                  className={`flex-1 py-3 rounded-xl border-2 transition-all text-sm font-medium ${
+                    form.isPaid
+                      ? "border-emerald-500 bg-emerald-50 text-emerald-800"
+                      : "border-gray-200 text-gray-500 hover:border-gray-300"
+                  }`}
+                >
+                  <div className="font-semibold">Paid Role</div>
+                  <div className="text-[11px] mt-0.5 opacity-70">Salary / stipend in USD/year</div>
+                </button>
               </div>
+
+              {form.isPaid && (
+                <div className="mt-4 p-4 bg-emerald-50 border border-emerald-100 rounded-xl space-y-3">
+                  <p className="text-xs font-semibold text-emerald-800">Salary range (USD / year)</p>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <Input type="number" min="0" placeholder="e.g. 40000" className="bg-white"
+                        value={form.salaryMin} onChange={(e) => set("salaryMin", e.target.value)} />
+                      <p className="text-[10px] text-gray-400 mt-1">Minimum</p>
+                    </div>
+                    <div>
+                      <Input type="number" min="0" placeholder="e.g. 65000" className="bg-white"
+                        value={form.salaryMax} onChange={(e) => set("salaryMax", e.target.value)} />
+                      <p className="text-[10px] text-gray-400 mt-1">Maximum</p>
+                    </div>
+                  </div>
+                  <p className="text-[11px] text-emerald-700">
+                    Enter annualised salary even for part-time or contract engagements so contributors can compare value.
+                  </p>
+                </div>
+              )}
             </div>
           </CardContent>
         </Card>

@@ -15,33 +15,42 @@ const roleTypeLabels: Record<string, { label: string; color: string }> = {
 export default async function OpportunitiesPage({
   searchParams,
 }: {
-  searchParams: Promise<{ type?: string }>;
+  searchParams: Promise<{ type?: string; compensation?: string }>;
 }) {
   const session = await auth();
-  const { type } = await searchParams;
+  const { type, compensation } = await searchParams;
 
   const roles = await prisma.ngoRole.findMany({
     where: {
       status: "OPEN",
       ...(type && type !== "ALL" ? { roleType: type as "INTERNSHIP" | "CAREER_TRANSITION" | "INTERIM" | "VOLUNTEER" } : {}),
+      ...(compensation === "paid" ? { OR: [{ salaryMin: { not: null } }, { salaryMax: { not: null } }] } : {}),
+      ...(compensation === "volunteer" ? { salaryMin: null, salaryMax: null } : {}),
     },
     include: {
       ngo: { select: { id: true, orgName: true, logoUrl: true, trustScore: true, state: true } },
       project: { select: { title: true } },
       _count: { select: { applications: true } },
     },
-    orderBy: { createdAt: "desc" },
+    orderBy: [{ salaryMin: "desc" }, { createdAt: "desc" }],
   });
 
-  const filters = [
-    { key: "ALL",               label: "All roles" },
+  const typeFilters = [
+    { key: "ALL",               label: "All types" },
     { key: "INTERNSHIP",        label: "Internships" },
     { key: "CAREER_TRANSITION", label: "Career Transition" },
     { key: "INTERIM",           label: "Interim" },
     { key: "VOLUNTEER",         label: "Volunteer" },
   ];
 
-  const activeFilter = type ?? "ALL";
+  const compensationFilters = [
+    { key: "",         label: "Any pay" },
+    { key: "paid",     label: "💰 Paid roles" },
+    { key: "volunteer",label: "🤝 Volunteer" },
+  ];
+
+  const activeType = type ?? "ALL";
+  const activeCompensation = compensation ?? "";
 
   return (
     <>
@@ -75,20 +84,47 @@ export default async function OpportunitiesPage({
         </div>
 
         {/* Filters */}
-        <div className="flex gap-2 flex-wrap mb-6">
-          {filters.map((f) => (
-            <Link
-              key={f.key}
-              href={f.key === "ALL" ? "/opportunities" : `/opportunities?type=${f.key}`}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-medium border transition-colors ${
-                activeFilter === f.key
-                  ? "bg-gray-900 text-white border-gray-900"
-                  : "bg-white text-gray-600 border-gray-200 hover:border-gray-400"
-              }`}
-            >
-              {f.label}
-            </Link>
-          ))}
+        <div className="space-y-3 mb-6">
+          {/* Compensation filter */}
+          <div className="flex gap-2 flex-wrap items-center">
+            <span className="text-[11px] font-semibold text-gray-400 uppercase tracking-wider">Pay:</span>
+            {compensationFilters.map((f) => {
+              const href = f.key === ""
+                ? (activeType === "ALL" ? "/opportunities" : `/opportunities?type=${activeType}`)
+                : (activeType === "ALL" ? `/opportunities?compensation=${f.key}` : `/opportunities?type=${activeType}&compensation=${f.key}`);
+              return (
+                <Link key={f.key} href={href}
+                  className={`px-3.5 py-1.5 rounded-full text-xs font-medium border transition-colors ${
+                    activeCompensation === f.key
+                      ? "bg-gray-900 text-white border-gray-900"
+                      : "bg-white text-gray-600 border-gray-200 hover:border-gray-400"
+                  }`}
+                >
+                  {f.label}
+                </Link>
+              );
+            })}
+          </div>
+          {/* Role type filter */}
+          <div className="flex gap-2 flex-wrap items-center">
+            <span className="text-[11px] font-semibold text-gray-400 uppercase tracking-wider">Type:</span>
+            {typeFilters.map((f) => {
+              const href = f.key === "ALL"
+                ? (activeCompensation === "" ? "/opportunities" : `/opportunities?compensation=${activeCompensation}`)
+                : (activeCompensation === "" ? `/opportunities?type=${f.key}` : `/opportunities?type=${f.key}&compensation=${activeCompensation}`);
+              return (
+                <Link key={f.key} href={href}
+                  className={`px-3.5 py-1.5 rounded-full text-xs font-medium border transition-colors ${
+                    activeType === f.key
+                      ? "bg-gray-900 text-white border-gray-900"
+                      : "bg-white text-gray-600 border-gray-200 hover:border-gray-400"
+                  }`}
+                >
+                  {f.label}
+                </Link>
+              );
+            })}
+          </div>
         </div>
 
         {/* Roles grid */}
@@ -107,6 +143,7 @@ export default async function OpportunitiesPage({
               const skills = role.skillsRequired.split(",").map((s) => s.trim()).filter(Boolean);
               const spotsLeft = role.openings - role._count.applications;
               const trainingMatch = matchTrainingModule(role.skillsRequired, role.title);
+              const isPaid = role.salaryMin != null || role.salaryMax != null;
 
               const salaryLabel =
                 role.salaryMin && role.salaryMax
@@ -123,7 +160,7 @@ export default async function OpportunitiesPage({
                   href={`/opportunities/${role.id}`}
                   className="group bg-white border border-gray-200 rounded-xl p-5 hover:border-gray-300 hover:shadow-sm transition-all flex flex-col gap-3"
                 >
-                  {/* NGO + type */}
+                  {/* NGO + type + pay badge */}
                   <div className="flex items-start justify-between gap-2">
                     <div className="flex items-center gap-2.5 min-w-0">
                       <div className="w-9 h-9 rounded-lg bg-emerald-700 text-white text-xs font-bold flex items-center justify-center shrink-0">
@@ -136,10 +173,29 @@ export default async function OpportunitiesPage({
                         </p>
                       </div>
                     </div>
-                    <span className={`shrink-0 text-[10px] font-semibold px-2 py-0.5 rounded-full border ${typeInfo.color}`}>
-                      {typeInfo.label}
-                    </span>
+                    <div className="flex flex-col items-end gap-1 shrink-0">
+                      <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full border ${typeInfo.color}`}>
+                        {typeInfo.label}
+                      </span>
+                      {isPaid ? (
+                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full border bg-emerald-600 text-white border-emerald-600 flex items-center gap-0.5">
+                          <DollarSign className="w-2.5 h-2.5" /> Paid
+                        </span>
+                      ) : (
+                        <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full border bg-gray-100 text-gray-500 border-gray-200">
+                          Volunteer
+                        </span>
+                      )}
+                    </div>
                   </div>
+
+                  {/* Salary highlight — paid roles only */}
+                  {isPaid && salaryLabel && (
+                    <div className="flex items-center gap-1.5 bg-emerald-50 border border-emerald-100 rounded-lg px-3 py-2">
+                      <DollarSign className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                      <p className="text-[12px] font-bold text-emerald-700">{salaryLabel}</p>
+                    </div>
+                  )}
 
                   {/* Meta */}
                   <div className="flex flex-wrap gap-x-4 gap-y-1.5 text-[11px] text-gray-500">
@@ -158,11 +214,6 @@ export default async function OpportunitiesPage({
                     {spotsLeft > 0 && (
                       <span className="flex items-center gap-1">
                         <Users className="w-3 h-3" /> {spotsLeft} spot{spotsLeft !== 1 ? "s" : ""} left
-                      </span>
-                    )}
-                    {salaryLabel && (
-                      <span className="flex items-center gap-1 text-emerald-700 font-semibold">
-                        <DollarSign className="w-3 h-3" /> {salaryLabel}
                       </span>
                     )}
                   </div>

@@ -920,7 +920,7 @@ async function main() {
     skillsRequired: "Data Analysis,Excel,Impact Measurement,Report Writing",
     timeCommitment: "10 hours/week", durationWeeks: 10, isRemote: true, openings: 1,
     salaryMin: 48000, salaryMax: 65000, // USD/yr annualised equivalent for part-time engagement
-    status: "OPEN", applicationDeadline: d("2026-02-28T00:00:00Z"), startDate: d("2026-03-05T00:00:00Z"),
+    status: "OPEN", applicationDeadline: d("2026-04-30T00:00:00Z"), startDate: d("2026-05-10T00:00:00Z"),
   }});
 
   const roleSolarEngineering = await prisma.ngoRole.create({ data: {
@@ -933,10 +933,52 @@ async function main() {
     skillsRequired: "Electrical Engineering,Solar Systems,Technical Documentation",
     timeCommitment: "15 hours/week", durationWeeks: 6, isRemote: true, openings: 2,
     salaryMin: 32000, salaryMax: 48000, // USD/yr annualised internship stipend
-    status: "OPEN", applicationDeadline: d("2026-03-20T00:00:00Z"), startDate: d("2026-03-25T00:00:00Z"),
+    status: "OPEN", applicationDeadline: d("2026-04-15T00:00:00Z"), startDate: d("2026-05-01T00:00:00Z"),
   }});
 
-  console.log("  ✓ 7 NGO roles created (WaterBridge: 2, Pragati: 2, SilverYears: 1, SunPower: 2)");
+  // Additional paid role — WaterBridge Kenya
+  await prisma.ngoRole.create({ data: {
+    ngoId: ngoWater.id,
+    title: "Full-Stack Engineer (Contract)",
+    department: "Technology",
+    roleType: "INTERIM",
+    description: "Build WaterBridge Kenya's donor transparency portal — a public-facing dashboard showing real-time water access metrics, milestone progress, and on-chain donation receipts. You'll own the full stack from Next.js frontend to PostgreSQL queries.",
+    responsibilities: "Build donor dashboard (Next.js + Tailwind) with live milestone tracking\nIntegrate with our Supabase + Prisma backend\nCreate automated milestone notification emails (Resend/Sendgrid)\nDeliver in 10 weeks with handover documentation",
+    skillsRequired: "Next.js,TypeScript,PostgreSQL,Tailwind CSS",
+    timeCommitment: "20 hours/week", durationWeeks: 10, isRemote: true, openings: 1,
+    salaryMin: 72000, salaryMax: 95000, // USD/yr contract rate
+    status: "OPEN", applicationDeadline: d("2026-05-01T00:00:00Z"), startDate: d("2026-05-15T00:00:00Z"),
+  }});
+
+  // Additional volunteer role — SilverYears Trust
+  await prisma.ngoRole.create({ data: {
+    ngoId: ngoMysore.id,
+    title: "UX Designer — Resident App",
+    department: "Technology",
+    roleType: "VOLUNTEER",
+    description: "Design a simple mobile-friendly app for our care home residents and their families. The app lets families check in on daily activities, meals, and health notes. You will conduct 3 user interviews with residents' families and deliver hi-fi Figma prototypes.",
+    responsibilities: "Conduct 3 user interviews (remote, via video call)\nCreate user journey map and wireframes\nDeliver hi-fi prototype in Figma with 5 key screens\nPresent to our team and iterate based on feedback",
+    skillsRequired: "UX Design,Figma,User Research,Prototyping",
+    timeCommitment: "8 hours/week", durationWeeks: 6, isRemote: true, openings: 1,
+    // Volunteer — unpaid
+    status: "OPEN", applicationDeadline: d("2026-05-10T00:00:00Z"), startDate: d("2026-05-20T00:00:00Z"),
+  }});
+
+  // Additional paid role — Pragati Foundation
+  await prisma.ngoRole.create({ data: {
+    ngoId: ngoBihar.id,
+    title: "Finance Manager (Part-Time)",
+    department: "Finance",
+    roleType: "CAREER_TRANSITION",
+    description: "Manage Pragati Foundation's monthly accounts, donor grant reconciliation, and prepare annual financial statements. Ideal for a finance professional transitioning into the nonprofit sector — this role counts as formal NGO finance experience on your GiveLedger credential.",
+    responsibilities: "Maintain monthly P&L and balance sheet in QuickBooks\nReconcile 12+ donor grants against programme spend\nPrepare annual financial statements (FCRA and domestic)\nPresent quarterly financial summary to board",
+    skillsRequired: "Finance,Accounting,QuickBooks,Grant Management",
+    timeCommitment: "12 hours/week", durationWeeks: 16, isRemote: true, openings: 1,
+    salaryMin: 42000, salaryMax: 58000, // USD/yr annualised part-time rate
+    status: "OPEN", applicationDeadline: d("2026-04-20T00:00:00Z"), startDate: d("2026-05-01T00:00:00Z"),
+  }});
+
+  console.log("  ✓ 11 NGO roles created (WaterBridge: 3, Pragati: 3, SilverYears: 2, SunPower: 2)");
 
   // ── 12. Role Applications & Engagements ──────────────────────────────────
   console.log("\nCreating role applications and engagements...");

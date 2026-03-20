@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { Button } from "@/components/ui/button";
-import { Plus, Briefcase, Users, CheckCircle, Clock, XCircle } from "lucide-react";
+import { Plus, Briefcase, Users, CheckCircle, Clock, XCircle, DollarSign } from "lucide-react";
 
 const roleTypeLabels: Record<string, string> = {
   INTERNSHIP: "Internship",
@@ -32,7 +32,7 @@ export default async function NgoRolesPage() {
       applications: { where: { status: "ACCEPTED" }, select: { id: true } },
       project: { select: { title: true } },
     },
-    orderBy: { createdAt: "desc" },
+    orderBy: [{ salaryMin: "desc" }, { createdAt: "desc" }],
   });
 
   const open = roles.filter((r) => r.status === "OPEN");
@@ -108,6 +108,8 @@ function RoleCard({ role }: {
     timeCommitment: string;
     durationWeeks: number;
     isRemote: boolean;
+    salaryMin: number | null;
+    salaryMax: number | null;
     createdAt: Date;
     project: { title: string } | null;
     _count: { applications: number };
@@ -117,16 +119,32 @@ function RoleCard({ role }: {
   const statusInfo = statusConfig[role.status] ?? statusConfig.OPEN;
   const StatusIcon = statusInfo.icon;
   const acceptedCount = role.applications.length;
+  const isPaid = role.salaryMin != null || role.salaryMax != null;
+
+  const salaryLabel = isPaid
+    ? (role.salaryMin && role.salaryMax
+        ? `$${Math.round(role.salaryMin / 1000)}k–$${Math.round(role.salaryMax / 1000)}k/yr`
+        : role.salaryMin ? `From $${Math.round(role.salaryMin / 1000)}k/yr` : `Up to $${Math.round(role.salaryMax! / 1000)}k/yr`)
+    : null;
 
   return (
     <div className="bg-white border border-gray-200 rounded-xl p-4 flex items-center gap-4">
       <div className="flex-1 min-w-0">
-        <div className="flex items-center gap-2 mb-1">
+        <div className="flex items-center gap-2 mb-1 flex-wrap">
           <p className="text-sm font-semibold text-gray-900 truncate">{role.title}</p>
           <span className={`shrink-0 inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-full border ${statusInfo.color}`}>
             <StatusIcon className="w-2.5 h-2.5" />
             {statusInfo.label}
           </span>
+          {isPaid ? (
+            <span className="shrink-0 inline-flex items-center gap-0.5 text-[10px] font-semibold px-2 py-0.5 rounded-full border bg-emerald-50 text-emerald-700 border-emerald-100">
+              <DollarSign className="w-2.5 h-2.5" /> Paid · {salaryLabel}
+            </span>
+          ) : (
+            <span className="shrink-0 inline-flex items-center gap-0.5 text-[10px] font-semibold px-2 py-0.5 rounded-full border bg-gray-50 text-gray-500 border-gray-200">
+              Volunteer
+            </span>
+          )}
         </div>
         <div className="flex flex-wrap gap-x-3 gap-y-1 text-[11px] text-gray-500">
           <span>{roleTypeLabels[role.roleType] ?? role.roleType}</span>

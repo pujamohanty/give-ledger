@@ -528,6 +528,11 @@ function RightSidebar({ featuredProjects, recentNgos, openRoles }: {
                       <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded-full ${ROLE_TYPE_COLOR[role.roleType] ?? "bg-gray-100 text-gray-600"}`}>
                         {ROLE_TYPE_LABEL[role.roleType] ?? role.roleType}
                       </span>
+                      {(role.salaryMin != null || role.salaryMax != null) ? (
+                        <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-emerald-600 text-white">💰 Paid</span>
+                      ) : (
+                        <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded-full bg-gray-100 text-gray-500">🤝 Volunteer</span>
+                      )}
                       <span className="text-[10px] text-gray-400">{role.timeCommitment}</span>
                       {role.isRemote && (
                         <span className="text-[10px] text-gray-400">· Remote</span>

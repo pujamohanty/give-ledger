@@ -435,6 +435,12 @@ async function LandingPage({ session }: { session: Session | null }) {
               {openRoles.map((role) => {
                 const typeInfo = roleTypeLabels[role.roleType] ?? roleTypeLabels.VOLUNTEER;
                 const skills = role.skillsRequired.split(",").map((s) => s.trim()).filter(Boolean);
+                const isPaid = role.salaryMin != null || role.salaryMax != null;
+                const salaryLabel = isPaid
+                  ? (role.salaryMin && role.salaryMax
+                      ? `$${Math.round(role.salaryMin / 1000)}k–$${Math.round(role.salaryMax / 1000)}k/yr`
+                      : role.salaryMin ? `From $${Math.round(role.salaryMin / 1000)}k/yr` : `Up to $${Math.round(role.salaryMax! / 1000)}k/yr`)
+                  : null;
                 return (
                   <Link key={role.id} href={`/opportunities/${role.id}`}
                     className="group bg-white border border-gray-200 rounded-xl p-5 hover:border-emerald-300 hover:shadow-md transition-all flex flex-col gap-3"
@@ -449,8 +455,20 @@ async function LandingPage({ session }: { session: Session | null }) {
                           <p className="text-sm font-semibold text-gray-900 truncate group-hover:text-emerald-700 transition-colors">{role.title}</p>
                         </div>
                       </div>
-                      <span className={`shrink-0 text-[9px] font-semibold px-2 py-0.5 rounded-full ${typeInfo.color}`}>{typeInfo.label}</span>
+                      <div className="flex flex-col items-end gap-1 shrink-0">
+                        <span className={`text-[9px] font-semibold px-2 py-0.5 rounded-full ${typeInfo.color}`}>{typeInfo.label}</span>
+                        {isPaid ? (
+                          <span className="text-[9px] font-bold px-2 py-0.5 rounded-full bg-emerald-600 text-white">💰 Paid</span>
+                        ) : (
+                          <span className="text-[9px] font-semibold px-2 py-0.5 rounded-full bg-gray-100 text-gray-500">🤝 Volunteer</span>
+                        )}
+                      </div>
                     </div>
+                    {isPaid && salaryLabel && (
+                      <div className="text-[11px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-100 rounded-lg px-2.5 py-1.5">
+                        {salaryLabel}
+                      </div>
+                    )}
                     <div className="flex flex-wrap gap-x-3 gap-y-1 text-[10px] text-gray-400">
                       <span className="flex items-center gap-0.5"><Clock className="w-3 h-3" /> {role.timeCommitment}</span>
                       <span className="flex items-center gap-0.5">
