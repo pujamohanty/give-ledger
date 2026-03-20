@@ -95,12 +95,12 @@ export default function Navbar({ session, openRolesCount }: NavbarProps) {
           <Search className="w-3.5 h-3.5 text-gray-400 shrink-0" />
           <input
             className="bg-transparent text-xs text-gray-700 placeholder:text-gray-400 outline-none w-full"
-            placeholder="Search projects…"
+            placeholder="Search everything…"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             onKeyDown={(e) => {
               if (e.key === "Enter" && searchQuery.trim()) {
-                router.push(`/projects?q=${encodeURIComponent(searchQuery.trim())}`);
+                router.push(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
                 setSearchQuery("");
               }
             }}
