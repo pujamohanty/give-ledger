@@ -1,13 +1,14 @@
 "use client";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Send, X, Loader2, Share2, Check, Phone } from "lucide-react";
+import { Send, X, Loader2, Share2, Check, Linkedin, ExternalLink, Copy } from "lucide-react";
 
-function digitsOnly(val: string) { return val.replace(/\D/g, ""); }
-function isValidPhone(val: string) { const d = digitsOnly(val); return d.length >= 7 && d.length <= 15; }
-function waLink(number: string, text: string) {
-  const clean = digitsOnly(number);
-  return `https://wa.me/${clean}?text=${encodeURIComponent(text)}`;
+function isValidLinkedIn(val: string) {
+  return /linkedin\.com\/in\/[a-zA-Z0-9\-_%]+/i.test(val.trim());
+}
+function normaliseLinkedIn(val: string) {
+  const m = val.trim().match(/linkedin\.com\/in\/[a-zA-Z0-9\-_%]+/i);
+  return m ? `https://${m[0]}` : val.trim();
 }
 
 interface Props {
@@ -27,21 +28,22 @@ export default function RoleApplyButton({ roleId, roleTitle, defaultLinkedin, de
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
   const [error, setError] = useState("");
-  const [referNumbers, setReferNumbers] = useState(["", ""]);
+  const [referProfiles, setReferProfiles] = useState(["", ""]);
+  const [copied, setCopied] = useState(false);
 
   const roleUrl = typeof window !== "undefined"
     ? `${window.location.origin}/opportunities/${roleId}`
     : `/opportunities/${roleId}`;
 
-  const shareText = ngoName
-    ? `${ngoName} is hiring for "${roleTitle}" on GiveLedger — a platform where skills contributions are blockchain-verified and count as certified professional experience. Worth a look:\n${roleUrl}`
-    : `There's an open role for "${roleTitle}" on GiveLedger — worth applying if you have the skills:\n${roleUrl}`;
+  const shareMessage = ngoName
+    ? `${ngoName} is hiring for "${roleTitle}" on GiveLedger — skill contributions are blockchain-verified and count as certified professional experience. Worth a look: ${roleUrl}`
+    : `There's an open role for "${roleTitle}" on GiveLedger — worth applying if you have the skills: ${roleUrl}`;
 
-  const validNumbers = referNumbers.filter((n) => isValidPhone(n));
-  const canSubmit = validNumbers.length >= 2;
+  const validProfiles = referProfiles.filter((p) => isValidLinkedIn(p));
+  const canSubmit = validProfiles.length >= 2;
 
-  function updateNumber(index: number, value: string) {
-    setReferNumbers((prev) => prev.map((n, i) => (i === index ? value : n)));
+  function updateProfile(index: number, value: string) {
+    setReferProfiles((prev) => prev.map((p, i) => (i === index ? value : p)));
   }
 
   function handleFormNext(e: React.FormEvent) {
@@ -49,8 +51,15 @@ export default function RoleApplyButton({ roleId, roleTitle, defaultLinkedin, de
     setStep("share");
   }
 
-  function sendToContact(number: string) {
-    window.open(waLink(number, shareText), "_blank");
+  function openContactProfile(profile: string) {
+    window.open(normaliseLinkedIn(profile), "_blank");
+  }
+
+  function handleCopy() {
+    navigator.clipboard.writeText(shareMessage).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
   }
 
   async function handleSubmit() {
@@ -79,7 +88,8 @@ export default function RoleApplyButton({ roleId, roleTitle, defaultLinkedin, de
   function handleClose() {
     setOpen(false);
     setStep("form");
-    setReferNumbers(["", ""]);
+    setReferProfiles(["", ""]);
+    setCopied(false);
     setError("");
   }
 
@@ -171,38 +181,37 @@ export default function RoleApplyButton({ roleId, roleTitle, defaultLinkedin, de
               </form>
             )}
 
-            {/* Step 2 — Refer contacts via WhatsApp before submitting */}
+            {/* Step 2 — Refer 2 LinkedIn contacts before submitting */}
             {step === "share" && (
               <div className="px-6 py-5 space-y-4">
                 {/* Explanation */}
                 <div className="bg-amber-50 border border-amber-200 rounded-xl px-4 py-3">
                   <div className="flex items-center gap-2 mb-1">
                     <Share2 className="w-3.5 h-3.5 text-amber-600 shrink-0" />
-                    <p className="text-xs font-semibold text-amber-800">Refer this role to 2 people to complete your application</p>
+                    <p className="text-xs font-semibold text-amber-800">Refer this role to 2 contacts to complete your application</p>
                   </div>
                   <p className="text-xs text-amber-700 leading-relaxed">
-                    Enter the WhatsApp numbers of 2 people you&apos;ll share this role with. NGOs view candidates who refer others more favourably — it shows confidence and generosity. Hit the send button next to each number to message them directly.
+                    Paste the LinkedIn profile URLs of 2 people you&apos;ll share this role with. NGOs view candidates who refer others more favourably — it shows confidence and generosity. Use the button next to each profile to open their page and send them the role.
                   </p>
                 </div>
 
-                {/* WhatsApp number fields */}
+                {/* LinkedIn profile fields */}
                 <div className="space-y-3">
                   <label className="block text-xs font-medium text-gray-700 flex items-center gap-1.5">
-                    <Phone className="w-3.5 h-3.5 text-gray-400" />
-                    WhatsApp numbers <span className="text-red-500 ml-0.5">*</span>
-                    <span className="text-gray-400 font-normal ml-1">— include country code e.g. +44 7700 900000</span>
+                    <Linkedin className="w-3.5 h-3.5 text-gray-400" />
+                    LinkedIn profiles of your referrals <span className="text-red-500 ml-0.5">*</span>
                   </label>
-                  {referNumbers.map((number, i) => {
-                    const touched = number.length > 0;
-                    const valid = isValidPhone(number);
+                  {referProfiles.map((profile, i) => {
+                    const touched = profile.length > 0;
+                    const valid = isValidLinkedIn(profile);
                     return (
                       <div key={i} className="flex gap-2">
                         <div className="relative flex-1">
                           <input
-                            type="tel"
-                            placeholder={`Contact ${i + 1} WhatsApp number`}
-                            value={number}
-                            onChange={(e) => updateNumber(i, e.target.value)}
+                            type="url"
+                            placeholder={`linkedin.com/in/contact-${i + 1}`}
+                            value={profile}
+                            onChange={(e) => updateProfile(i, e.target.value)}
                             className={`w-full rounded-lg border px-3 py-2 text-sm pr-8 focus:outline-none focus:ring-2 transition-colors ${
                               touched && !valid
                                 ? "border-red-300 focus:ring-red-100"
@@ -222,19 +231,33 @@ export default function RoleApplyButton({ roleId, roleTitle, defaultLinkedin, de
                         <button
                           type="button"
                           disabled={!valid}
-                          onClick={() => sendToContact(number)}
-                          className="shrink-0 flex items-center gap-1.5 bg-[#25D366] hover:bg-[#1ebe5d] disabled:opacity-40 disabled:cursor-not-allowed text-white text-xs font-semibold rounded-lg px-3 py-2 transition-colors"
+                          onClick={() => openContactProfile(profile)}
+                          title="Open profile to send them the role"
+                          className="shrink-0 flex items-center gap-1 bg-[#0A66C2] hover:bg-[#0958a8] disabled:opacity-40 disabled:cursor-not-allowed text-white text-xs font-semibold rounded-lg px-3 py-2 transition-colors"
                         >
-                          Send
+                          <ExternalLink className="w-3.5 h-3.5" />
                         </button>
                       </div>
                     );
                   })}
                   <p className="text-[11px] text-gray-400">
                     {canSubmit
-                      ? "✓ Both numbers entered — hit Send on each to message them, then submit."
-                      : `Enter ${2 - validNumbers.length} more valid number${2 - validNumbers.length === 1 ? "" : "s"} to continue.`}
+                      ? "✓ Both profiles added — open each to send them the role link, then submit."
+                      : `Add ${2 - validProfiles.length} more valid LinkedIn profile${2 - validProfiles.length === 1 ? "" : "s"} to continue.`}
                   </p>
+                </div>
+
+                {/* Copy role link helper */}
+                <div className="flex items-center gap-2">
+                  <p className="text-[11px] text-gray-400 flex-1">Copy the role link to share in your message:</p>
+                  <button
+                    type="button"
+                    onClick={handleCopy}
+                    className="flex items-center gap-1.5 border border-gray-200 hover:bg-gray-50 text-gray-600 text-xs font-semibold rounded-lg px-3 py-1.5 transition-colors shrink-0"
+                  >
+                    {copied ? <Check className="w-3 h-3 text-emerald-500" /> : <Copy className="w-3 h-3" />}
+                    {copied ? "Copied!" : "Copy link"}
+                  </button>
                 </div>
 
                 {error && (
