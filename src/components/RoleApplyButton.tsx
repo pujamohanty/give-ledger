@@ -6,6 +6,10 @@ import { Send, X, Loader2, Share2, Check, Linkedin, ExternalLink, Copy } from "l
 function isValidLinkedIn(val: string) {
   return /linkedin\.com\/in\/[a-zA-Z0-9\-_%]+/i.test(val.trim());
 }
+function linkedInHandle(val: string): string {
+  const m = val.trim().match(/linkedin\.com\/in\/([a-zA-Z0-9\-_%]+)/i);
+  return m ? m[1].toLowerCase().replace(/\/$/, "") : "";
+}
 function normaliseLinkedIn(val: string) {
   const m = val.trim().match(/linkedin\.com\/in\/[a-zA-Z0-9\-_%]+/i);
   return m ? `https://${m[0]}` : val.trim();
@@ -39,8 +43,21 @@ export default function RoleApplyButton({ roleId, roleTitle, defaultLinkedin, de
     ? `${ngoName} is hiring for "${roleTitle}" on GiveLedger — skill contributions are blockchain-verified and count as certified professional experience. Worth a look: ${roleUrl}`
     : `There's an open role for "${roleTitle}" on GiveLedger — worth applying if you have the skills: ${roleUrl}`;
 
-  const validProfiles = referProfiles.filter((p) => isValidLinkedIn(p));
-  const canSubmit = validProfiles.length >= 2;
+  const ownHandle = linkedInHandle(linkedinUrl);
+
+  function profileError(index: number): string | null {
+    const val = referProfiles[index];
+    if (!val) return null;
+    if (!isValidLinkedIn(val)) return "Not a valid LinkedIn profile URL";
+    const handle = linkedInHandle(val);
+    if (ownHandle && handle === ownHandle) return "This is your own profile — enter someone else's";
+    const otherHandle = linkedInHandle(referProfiles[index === 0 ? 1 : 0]);
+    if (otherHandle && handle === otherHandle) return "Same profile as the other contact";
+    return null;
+  }
+
+  const profileValid = referProfiles.map((p, i) => isValidLinkedIn(p) && profileError(i) === null);
+  const canSubmit = profileValid.every(Boolean);
 
   function updateProfile(index: number, value: string) {
     setReferProfiles((prev) => prev.map((p, i) => (i === index ? value : p)));
@@ -203,47 +220,53 @@ export default function RoleApplyButton({ roleId, roleTitle, defaultLinkedin, de
                   </label>
                   {referProfiles.map((profile, i) => {
                     const touched = profile.length > 0;
-                    const valid = isValidLinkedIn(profile);
+                    const err = touched ? profileError(i) : null;
+                    const valid = touched && !err;
                     return (
-                      <div key={i} className="flex gap-2">
-                        <div className="relative flex-1">
-                          <input
-                            type="url"
-                            placeholder={`linkedin.com/in/contact-${i + 1}`}
-                            value={profile}
-                            onChange={(e) => updateProfile(i, e.target.value)}
-                            className={`w-full rounded-lg border px-3 py-2 text-sm pr-8 focus:outline-none focus:ring-2 transition-colors ${
-                              touched && !valid
-                                ? "border-red-300 focus:ring-red-100"
-                                : touched && valid
-                                ? "border-emerald-400 focus:ring-emerald-100"
-                                : "border-gray-300 focus:ring-emerald-100"
-                            }`}
-                          />
-                          {touched && (
-                            <span className="absolute right-2.5 top-1/2 -translate-y-1/2">
-                              {valid
-                                ? <Check className="w-3.5 h-3.5 text-emerald-500" />
-                                : <X className="w-3.5 h-3.5 text-red-400" />}
-                            </span>
-                          )}
+                      <div key={i} className="space-y-1">
+                        <div className="flex gap-2">
+                          <div className="relative flex-1">
+                            <input
+                              type="url"
+                              placeholder={`linkedin.com/in/contact-${i + 1}`}
+                              value={profile}
+                              onChange={(e) => updateProfile(i, e.target.value)}
+                              className={`w-full rounded-lg border px-3 py-2 text-sm pr-8 focus:outline-none focus:ring-2 transition-colors ${
+                                touched && err
+                                  ? "border-red-300 focus:ring-red-100"
+                                  : valid
+                                  ? "border-emerald-400 focus:ring-emerald-100"
+                                  : "border-gray-300 focus:ring-emerald-100"
+                              }`}
+                            />
+                            {touched && (
+                              <span className="absolute right-2.5 top-1/2 -translate-y-1/2">
+                                {valid
+                                  ? <Check className="w-3.5 h-3.5 text-emerald-500" />
+                                  : <X className="w-3.5 h-3.5 text-red-400" />}
+                              </span>
+                            )}
+                          </div>
+                          <button
+                            type="button"
+                            disabled={!valid}
+                            onClick={() => openContactProfile(profile)}
+                            title="Open profile to send them the role"
+                            className="shrink-0 flex items-center gap-1 bg-[#0A66C2] hover:bg-[#0958a8] disabled:opacity-40 disabled:cursor-not-allowed text-white text-xs font-semibold rounded-lg px-3 py-2 transition-colors"
+                          >
+                            <ExternalLink className="w-3.5 h-3.5" />
+                          </button>
                         </div>
-                        <button
-                          type="button"
-                          disabled={!valid}
-                          onClick={() => openContactProfile(profile)}
-                          title="Open profile to send them the role"
-                          className="shrink-0 flex items-center gap-1 bg-[#0A66C2] hover:bg-[#0958a8] disabled:opacity-40 disabled:cursor-not-allowed text-white text-xs font-semibold rounded-lg px-3 py-2 transition-colors"
-                        >
-                          <ExternalLink className="w-3.5 h-3.5" />
-                        </button>
+                        {err && (
+                          <p className="text-[11px] text-red-500 pl-1">{err}</p>
+                        )}
                       </div>
                     );
                   })}
                   <p className="text-[11px] text-gray-400">
                     {canSubmit
-                      ? "✓ Both profiles added — open each to send them the role link, then submit."
-                      : `Add ${2 - validProfiles.length} more valid LinkedIn profile${2 - validProfiles.length === 1 ? "" : "s"} to continue.`}
+                      ? "✓ Both contacts added — open each profile to send them the role link, then submit."
+                      : "Enter 2 different LinkedIn profiles (not your own) to continue."}
                   </p>
                 </div>
 
