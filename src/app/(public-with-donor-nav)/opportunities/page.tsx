@@ -35,13 +35,14 @@ export default async function OpportunitiesPage({
     orderBy: [{ salaryMin: "desc" }, { createdAt: "desc" }],
   });
 
-  const typeFilters = [
-    { key: "ALL",               label: "All types" },
-    { key: "INTERNSHIP",        label: "Internships" },
-    { key: "CAREER_TRANSITION", label: "Career Transition" },
-    { key: "INTERIM",           label: "Interim" },
-    { key: "VOLUNTEER",         label: "Volunteer" },
-  ];
+  // Count open roles per type for the filter cards
+  const typeCounts = await prisma.ngoRole.groupBy({
+    by: ["roleType"],
+    where: { status: "OPEN" },
+    _count: { id: true },
+  });
+  const countByType: Record<string, number> = {};
+  for (const row of typeCounts) countByType[row.roleType] = row._count.id;
 
   const compensationFilters = [
     { key: "",         label: "Any pay" },
@@ -67,64 +68,68 @@ export default async function OpportunitiesPage({
           </p>
         </div>
 
-        {/* Value props */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
+        {/* Role type filter cards — click to filter */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
           {[
-            { label: "Internship", desc: "Showcase skills to new employers", color: "bg-blue-50 border-blue-100", dot: "bg-blue-500" },
-            { label: "Career Transition", desc: "Acquire skills for a new field", color: "bg-purple-50 border-purple-100", dot: "bg-purple-500" },
-            { label: "Interim Role", desc: "Keep your CV active between jobs", color: "bg-amber-50 border-amber-100", dot: "bg-amber-500" },
-            { label: "Volunteer", desc: "Give time to causes you care about", color: "bg-emerald-50 border-emerald-100", dot: "bg-emerald-500" },
-          ].map((v) => (
-            <div key={v.label} className={`rounded-xl border p-3 ${v.color}`}>
-              <div className={`w-2 h-2 rounded-full ${v.dot} mb-2`} />
-              <p className="text-xs font-semibold text-gray-900">{v.label}</p>
-              <p className="text-[11px] text-gray-500 mt-0.5">{v.desc}</p>
-            </div>
-          ))}
+            { key: "INTERNSHIP",        label: "Internship",       desc: "Showcase skills to new employers",  activeBg: "bg-blue-600",   activeBorder: "border-blue-600",   inactiveBg: "bg-blue-50",   inactiveBorder: "border-blue-100",   dot: "bg-blue-500",   activeText: "text-white", inactiveText: "text-gray-900" },
+            { key: "CAREER_TRANSITION", label: "Career Transition", desc: "Acquire skills for a new field",   activeBg: "bg-purple-600", activeBorder: "border-purple-600", inactiveBg: "bg-purple-50", inactiveBorder: "border-purple-100", dot: "bg-purple-500", activeText: "text-white", inactiveText: "text-gray-900" },
+            { key: "INTERIM",           label: "Interim Role",      desc: "Keep your CV active between jobs", activeBg: "bg-amber-500",  activeBorder: "border-amber-500",  inactiveBg: "bg-amber-50",  inactiveBorder: "border-amber-100",  dot: "bg-amber-500",  activeText: "text-white", inactiveText: "text-gray-900" },
+            { key: "VOLUNTEER",         label: "Volunteer",         desc: "Give time to causes you care about", activeBg: "bg-emerald-600", activeBorder: "border-emerald-600", inactiveBg: "bg-emerald-50", inactiveBorder: "border-emerald-100", dot: "bg-emerald-500", activeText: "text-white", inactiveText: "text-gray-900" },
+          ].map((v) => {
+            const isActive = activeType === v.key;
+            const href = activeCompensation === ""
+              ? (isActive ? "/opportunities" : `/opportunities?type=${v.key}`)
+              : (isActive ? `/opportunities?compensation=${activeCompensation}` : `/opportunities?type=${v.key}&compensation=${activeCompensation}`);
+            const count = countByType[v.key] ?? 0;
+            return (
+              <Link
+                key={v.key}
+                href={href}
+                className={`rounded-xl border p-3 transition-all hover:shadow-sm ${
+                  isActive
+                    ? `${v.activeBg} ${v.activeBorder}`
+                    : `${v.inactiveBg} ${v.inactiveBorder} hover:border-gray-300`
+                }`}
+              >
+                <div className="flex items-center justify-between mb-2">
+                  <div className={`w-2 h-2 rounded-full ${isActive ? "bg-white/70" : v.dot}`} />
+                  {count > 0 && (
+                    <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full ${isActive ? "bg-white/20 text-white" : "bg-white text-gray-500 border border-gray-200"}`}>
+                      {count}
+                    </span>
+                  )}
+                </div>
+                <p className={`text-xs font-semibold ${isActive ? "text-white" : v.inactiveText}`}>{v.label}</p>
+                <p className={`text-[11px] mt-0.5 ${isActive ? "text-white/80" : "text-gray-500"}`}>{v.desc}</p>
+              </Link>
+            );
+          })}
         </div>
 
-        {/* Filters */}
-        <div className="space-y-3 mb-6">
-          {/* Compensation filter */}
-          <div className="flex gap-2 flex-wrap items-center">
-            <span className="text-[11px] font-semibold text-gray-400 uppercase tracking-wider">Pay:</span>
-            {compensationFilters.map((f) => {
-              const href = f.key === ""
-                ? (activeType === "ALL" ? "/opportunities" : `/opportunities?type=${activeType}`)
-                : (activeType === "ALL" ? `/opportunities?compensation=${f.key}` : `/opportunities?type=${activeType}&compensation=${f.key}`);
-              return (
-                <Link key={f.key} href={href}
-                  className={`px-3.5 py-1.5 rounded-full text-xs font-medium border transition-colors ${
-                    activeCompensation === f.key
-                      ? "bg-gray-900 text-white border-gray-900"
-                      : "bg-white text-gray-600 border-gray-200 hover:border-gray-400"
-                  }`}
-                >
-                  {f.label}
-                </Link>
-              );
-            })}
-          </div>
-          {/* Role type filter */}
-          <div className="flex gap-2 flex-wrap items-center">
-            <span className="text-[11px] font-semibold text-gray-400 uppercase tracking-wider">Type:</span>
-            {typeFilters.map((f) => {
-              const href = f.key === "ALL"
-                ? (activeCompensation === "" ? "/opportunities" : `/opportunities?compensation=${activeCompensation}`)
-                : (activeCompensation === "" ? `/opportunities?type=${f.key}` : `/opportunities?type=${f.key}&compensation=${activeCompensation}`);
-              return (
-                <Link key={f.key} href={href}
-                  className={`px-3.5 py-1.5 rounded-full text-xs font-medium border transition-colors ${
-                    activeType === f.key
-                      ? "bg-gray-900 text-white border-gray-900"
-                      : "bg-white text-gray-600 border-gray-200 hover:border-gray-400"
-                  }`}
-                >
-                  {f.label}
-                </Link>
-              );
-            })}
-          </div>
+        {/* Pay filter */}
+        <div className="flex gap-2 flex-wrap items-center mb-6">
+          <span className="text-[11px] font-semibold text-gray-400 uppercase tracking-wider">Pay:</span>
+          {compensationFilters.map((f) => {
+            const href = f.key === ""
+              ? (activeType === "ALL" ? "/opportunities" : `/opportunities?type=${activeType}`)
+              : (activeType === "ALL" ? `/opportunities?compensation=${f.key}` : `/opportunities?type=${activeType}&compensation=${f.key}`);
+            return (
+              <Link key={f.key} href={href}
+                className={`px-3.5 py-1.5 rounded-full text-xs font-medium border transition-colors ${
+                  activeCompensation === f.key
+                    ? "bg-gray-900 text-white border-gray-900"
+                    : "bg-white text-gray-600 border-gray-200 hover:border-gray-400"
+                }`}
+              >
+                {f.label}
+              </Link>
+            );
+          })}
+          {(activeType !== "ALL" || activeCompensation !== "") && (
+            <Link href="/opportunities" className="text-[11px] text-gray-400 hover:text-gray-700 underline ml-1">
+              Clear filters
+            </Link>
+          )}
         </div>
 
         {/* Roles grid */}
