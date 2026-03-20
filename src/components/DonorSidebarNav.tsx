@@ -12,11 +12,16 @@ import { cn } from "@/lib/utils";
 import SignOutButton from "@/components/SignOutButton";
 
 type NavItem = { href: string; label: string; icon: React.ElementType };
-type NavGroup = { label: string; items: NavItem[] };
+type NavGroup = {
+  label: string;
+  items: NavItem[];
+  accent: { border: string; label: string; dot: string };
+};
 
 const navGroups: NavGroup[] = [
   {
     label: "My Activity",
+    accent: { border: "border-emerald-400", label: "text-emerald-600", dot: "bg-emerald-400" },
     items: [
       { href: "/donor/donations",     label: "My Donations",        icon: Heart         },
       { href: "/donor/impact",        label: "My Impact",           icon: TrendingUp    },
@@ -26,16 +31,17 @@ const navGroups: NavGroup[] = [
   },
   {
     label: "My Profile",
+    accent: { border: "border-blue-400", label: "text-blue-600", dot: "bg-blue-400" },
     items: [
       { href: "/donor/profile",        label: "Profile",             icon: UserCircle    },
       { href: "/donor/credential",     label: "My Credential",       icon: Award         },
       { href: "/donor/standing",       label: "NGO Standing",        icon: Star          },
       { href: "/donor/post-builder",   label: "Post Builder",        icon: Linkedin      },
-      { href: "/donor/beta-program",   label: "Beta Program",        icon: Smartphone    },
     ],
   },
   {
     label: "Discover",
+    accent: { border: "border-amber-400", label: "text-amber-600", dot: "bg-amber-400" },
     items: [
       { href: "/projects",            label: "Browse Projects",     icon: Search        },
       { href: "/opportunities",       label: "Browse Roles",        icon: ClipboardList },
@@ -45,12 +51,15 @@ const navGroups: NavGroup[] = [
   },
   {
     label: "Growth",
+    accent: { border: "border-violet-400", label: "text-violet-600", dot: "bg-violet-400" },
     items: [
       { href: "/donor/training",      label: "AI Training",         icon: GraduationCap },
+      { href: "/donor/beta-program",  label: "Beta Program",        icon: Smartphone    },
     ],
   },
   {
     label: "Account",
+    accent: { border: "border-slate-400", label: "text-slate-500", dot: "bg-slate-400" },
     items: [
       { href: "/donor/subscription",  label: "My Plan",             icon: Crown         },
       { href: "/donor/notifications", label: "Notifications",       icon: Bell          },
@@ -86,7 +95,7 @@ function NavLink({ href, label, icon: Icon }: NavItem) {
   );
 }
 
-function CollapsibleGroup({ label, items }: NavGroup) {
+function CollapsibleGroup({ label, items, accent }: NavGroup) {
   const pathname = usePathname();
   const hasActive = items.some(
     (item) => pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href))
@@ -95,15 +104,21 @@ function CollapsibleGroup({ label, items }: NavGroup) {
   const [open, setOpen] = useState(hasActive || label === "My Activity");
 
   return (
-    <div>
+    <div className={cn("border-l-2 pl-1.5 ml-0.5", accent.border)}>
       <button
         onClick={() => setOpen((v) => !v)}
-        className="w-full flex items-center justify-between px-3 py-1.5 rounded-lg text-xs font-semibold uppercase tracking-wider text-gray-400 hover:text-gray-600 hover:bg-gray-50 transition-colors"
+        className={cn(
+          "w-full flex items-center justify-between px-2 py-1.5 rounded-lg text-xs font-semibold uppercase tracking-wider transition-colors hover:bg-gray-50",
+          accent.label
+        )}
       >
-        {label}
+        <span className="flex items-center gap-1.5">
+          <span className={cn("w-1.5 h-1.5 rounded-full shrink-0", accent.dot)} />
+          {label}
+        </span>
         <ChevronDown
           className={cn(
-            "w-3.5 h-3.5 transition-transform duration-200",
+            "w-3.5 h-3.5 transition-transform duration-200 text-gray-400",
             open ? "rotate-0" : "-rotate-90"
           )}
         />
