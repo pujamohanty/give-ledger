@@ -23,7 +23,7 @@ Three types of contributions are recognised:
 All three plans give access to the AI Training Academy (free, 42+ hours).
 • FREE — browse all roles and NGOs, view your public credential. Cannot apply to roles.
 • BASIC — $10 one-time — apply to up to 50 roles, submit cover notes, full tracking.
-• PRO — $25 one-time — unlimited applications, priority listing in NGO's applicant view, PRO badge, Beta Tester & UGC Creator Program access, 100% refund if you complete at least one engagement within 18 months.
+• PRO — $25 one-time — unlimited applications, priority listing in NGO's applicant view, PRO badge, Beta Tester & UGC Creator Program access.
 
 --- BETA TESTER & UGC CREATOR PROGRAM (PRO only) ---
 PRO members get matched with brand campaigns — test apps before launch, post UGC content to social channels, earn per campaign. Brands match by device (iOS/Android/Mac/Windows), content niche, and follower range. Register at /donor/beta-program (PRO required to submit).

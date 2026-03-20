@@ -1,16 +1,17 @@
 "use client";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Send, X, Loader2 } from "lucide-react";
+import { Send, X, Loader2, Share2, Copy, Check } from "lucide-react";
 
 interface Props {
   roleId: string;
   roleTitle: string;
   defaultLinkedin?: string;
   defaultPortfolio?: string;
+  ngoName?: string;
 }
 
-export default function RoleApplyButton({ roleId, roleTitle, defaultLinkedin, defaultPortfolio }: Props) {
+export default function RoleApplyButton({ roleId, roleTitle, defaultLinkedin, defaultPortfolio, ngoName }: Props) {
   const [open, setOpen] = useState(false);
   const [coverNote, setCoverNote] = useState("");
   const [linkedinUrl, setLinkedinUrl] = useState(defaultLinkedin ?? "");
@@ -18,6 +19,7 @@ export default function RoleApplyButton({ roleId, roleTitle, defaultLinkedin, de
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
   const [error, setError] = useState("");
+  const [copied, setCopied] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -42,14 +44,72 @@ export default function RoleApplyButton({ roleId, roleTitle, defaultLinkedin, de
     }
   };
 
+  const roleUrl = typeof window !== "undefined"
+    ? `${window.location.origin}/opportunities/${roleId}`
+    : `/opportunities/${roleId}`;
+
+  const shareText = ngoName
+    ? `${ngoName} is hiring for "${roleTitle}" — open role on GiveLedger. Worth applying if you have the skills.`
+    : `This NGO is hiring for "${roleTitle}" — open role on GiveLedger. Worth applying if you have the skills.`;
+
+  function handleCopy() {
+    navigator.clipboard.writeText(`${shareText}\n${roleUrl}`).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
+  }
+
+  function handleWhatsApp() {
+    window.open(`https://wa.me/?text=${encodeURIComponent(`${shareText}\n${roleUrl}`)}`, "_blank");
+  }
+
+  function handleLinkedIn() {
+    window.open(`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(roleUrl)}&title=${encodeURIComponent(roleTitle)}&summary=${encodeURIComponent(shareText)}`, "_blank");
+  }
+
   if (done) {
     return (
-      <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-5 text-center">
-        <div className="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-3">
-          <Send className="w-5 h-5 text-emerald-600" />
+      <div className="rounded-xl overflow-hidden border border-emerald-200">
+        {/* Success header */}
+        <div className="bg-emerald-50 px-5 py-4 text-center border-b border-emerald-100">
+          <div className="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-3">
+            <Send className="w-5 h-5 text-emerald-600" />
+          </div>
+          <p className="font-semibold text-gray-900 text-sm mb-1">Application submitted!</p>
+          <p className="text-xs text-gray-500">The NGO will review your application and get back to you.</p>
         </div>
-        <p className="font-semibold text-gray-900 text-sm mb-1">Application submitted!</p>
-        <p className="text-xs text-gray-500">The NGO will review your application and get back to you.</p>
+
+        {/* Share section */}
+        <div className="bg-white px-5 py-4">
+          <div className="flex items-center gap-2 mb-1">
+            <Share2 className="w-3.5 h-3.5 text-emerald-600" />
+            <p className="text-xs font-semibold text-gray-900">Share this role with your network</p>
+          </div>
+          <p className="text-xs text-gray-500 mb-3 leading-relaxed">
+            NGOs notice candidates who openly share roles — it signals confidence and community spirit. Candidates who share are viewed more favourably than those who keep the opportunity to themselves.
+          </p>
+          <div className="flex gap-2">
+            <button
+              onClick={handleWhatsApp}
+              className="flex-1 flex items-center justify-center gap-1.5 bg-[#25D366] hover:bg-[#1ebe5d] text-white text-xs font-semibold rounded-lg px-3 py-2 transition-colors"
+            >
+              WhatsApp
+            </button>
+            <button
+              onClick={handleLinkedIn}
+              className="flex-1 flex items-center justify-center gap-1.5 bg-[#0A66C2] hover:bg-[#0958a8] text-white text-xs font-semibold rounded-lg px-3 py-2 transition-colors"
+            >
+              LinkedIn
+            </button>
+            <button
+              onClick={handleCopy}
+              className="flex items-center justify-center gap-1.5 border border-gray-200 hover:bg-gray-50 text-gray-600 text-xs font-semibold rounded-lg px-3 py-2 transition-colors"
+            >
+              {copied ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
+              {copied ? "Copied!" : "Copy"}
+            </button>
+          </div>
+        </div>
       </div>
     );
   }

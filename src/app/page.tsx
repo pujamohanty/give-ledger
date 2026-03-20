@@ -8,7 +8,7 @@ import {
   ArrowRight, CheckCircle2, Briefcase, DollarSign, Clock,
   Shield, Star, Zap, Crown, Award, TrendingUp, Users,
   Wifi, MapPin, ChevronRight, Leaf, BadgeCheck, Landmark,
-  ExternalLink, RotateCcw, Globe, GraduationCap,
+  ExternalLink, Globe, GraduationCap,
 } from "lucide-react";
 
 export const metadata = {
@@ -698,7 +698,7 @@ async function LandingPage({ session }: { session: Session | null }) {
               <div className="text-white">
                 <h2 className="text-2xl font-bold mb-3">Start contributing today</h2>
                 <p className="text-emerald-100 text-sm leading-relaxed mb-6">
-                  One-time fee, no subscription. Pro plan includes a 100% refund after 18 months if you complete one engagement.
+                  One-time fee, no subscription. Your credential stays permanent.
                 </p>
                 <Link href="/pricing" className="inline-flex items-center gap-2 bg-white text-emerald-700 font-semibold px-6 py-3 rounded-xl text-sm hover:bg-emerald-50 transition-colors">
                   See full pricing <ArrowRight className="w-4 h-4" />
@@ -708,7 +708,7 @@ async function LandingPage({ session }: { session: Session | null }) {
                 {[
                   { plan: "Free",  price: "$0",  features: ["Browse all roles", "View NGO profiles", "Public credential"],            icon: Globe,  iconColor: "text-white",         bg: "bg-emerald-800/50", border: "border-emerald-700" },
                   { plan: "Basic", price: "$10", features: ["Apply to 50 roles", "Cover note submission", "Engagement tracking"],     icon: Zap,    iconColor: "text-yellow-300",    bg: "bg-emerald-800/50", border: "border-emerald-600" },
-                  { plan: "Pro",   price: "$25", features: ["Unlimited applies", "Priority listing", "18-month refund"],             icon: Crown,  iconColor: "text-violet-300",    bg: "bg-violet-900/40",  border: "border-violet-500",  highlight: true },
+                  { plan: "Pro",   price: "$25", features: ["Unlimited applies", "Priority listing", "PRO badge + Beta Program"],             icon: Crown,  iconColor: "text-violet-300",    bg: "bg-violet-900/40",  border: "border-violet-500",  highlight: true },
                 ].map((p) => (
                   <div key={p.plan} className={`${p.bg} border ${p.border} rounded-2xl p-4 text-white flex flex-col gap-2 ${p.highlight ? "ring-2 ring-violet-400/50" : ""}`}>
                     <p.icon className={`w-5 h-5 ${p.iconColor} mb-1`} />
@@ -976,24 +976,6 @@ async function LandingPage({ session }: { session: Session | null }) {
         </div>
       </section>
 
-      {/* ── Pro refund callout ── */}
-      <section className="py-14 bg-white border-t border-gray-100">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
-          <div className="inline-flex items-center gap-2 bg-violet-50 border border-violet-100 rounded-full px-4 py-2 text-sm text-violet-700 mb-6">
-            <RotateCcw className="w-4 h-4" />
-            Pro plan: 100% refund after 18 months if you complete one engagement
-          </div>
-          <h2 className="text-2xl font-bold text-gray-900 mb-3">We want to enable you — not charge you.</h2>
-          <p className="text-gray-500 text-sm leading-relaxed mb-6 max-w-lg mx-auto">
-            The $25 Pro plan is not a subscription — it&apos;s a one-time access fee that comes back
-            to you in full if you complete at least one engagement within 18 months.
-          </p>
-          <Link href="/pricing" className="inline-flex items-center gap-2 bg-violet-600 hover:bg-violet-700 text-white font-semibold px-8 py-3.5 rounded-xl text-sm transition-colors">
-            Learn more about Pro <ArrowRight className="w-4 h-4" />
-          </Link>
-        </div>
-      </section>
-
       {/* ── Final CTA ── */}
       <section className="py-24 bg-[#052e16] text-white relative overflow-hidden">
         <div className="absolute inset-0 opacity-10"
@@ -1021,7 +1003,6 @@ async function LandingPage({ session }: { session: Session | null }) {
           </div>
           <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs text-gray-500">
             <span className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />No credit card needed</span>
-            <span className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />Pro plan 100% refund after 18 months</span>
             <span className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />Every credential verified on Polygon</span>
           </div>
         </div>

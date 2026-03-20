@@ -22,11 +22,8 @@ function getFollowUpSuggestions(userQ: string, aiReply: string): string[] {
   if (text.includes("credential") || text.includes("certificate") || text.includes("verified") || text.includes("linkedin")) {
     return ["How do I share my credential on LinkedIn?", "When is my credential issued?", "What does an employer see on my credential?"];
   }
-  if (text.includes("refund") || text.includes("18 month") || text.includes("18-month")) {
-    return ["What counts as a completed engagement?", "Can I upgrade from Basic to Pro?", "How do I check my refund eligibility?"];
-  }
   if (text.includes("plan") || text.includes("pricing") || text.includes("basic") || text.includes("pro") || text.includes("$10") || text.includes("$25")) {
-    return ["Can I upgrade from Basic to Pro later?", "How does the Pro 18-month refund work?", "What happens at the Basic 50-application limit?"];
+    return ["Can I upgrade from Basic to Pro later?", "What is the PRO badge and how does it help?", "What happens at the Basic 50-application limit?"];
   }
   if (text.includes("role") || text.includes("apply") || text.includes("application") || text.includes("opportunities")) {
     return ["What types of roles are available?", "How long does it take to hear back from an NGO?", "What is a GiveLedger Credential?"];

@@ -315,6 +315,7 @@ export default async function OpportunityDetailPage({ params }: { params: Promis
                   roleTitle={role.title}
                   defaultLinkedin={donorProfile?.linkedinUrl ?? ""}
                   defaultPortfolio={donorProfile?.portfolioUrl ?? ""}
+                  ngoName={role.ngo.orgName}
                 />
               )}
 
