@@ -34,6 +34,11 @@ export type VerificationToken = $Result.DefaultSelection<Prisma.$VerificationTok
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
 /**
+ * Model DonorApplicationProfile
+ * 
+ */
+export type DonorApplicationProfile = $Result.DefaultSelection<Prisma.$DonorApplicationProfilePayload>
+/**
  * Model BetaTesterProfile
  * 
  */
@@ -521,6 +526,16 @@ export class PrismaClient<
     * ```
     */
   get user(): Prisma.UserDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.donorApplicationProfile`: Exposes CRUD operations for the **DonorApplicationProfile** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more DonorApplicationProfiles
+    * const donorApplicationProfiles = await prisma.donorApplicationProfile.findMany()
+    * ```
+    */
+  get donorApplicationProfile(): Prisma.DonorApplicationProfileDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.betaTesterProfile`: Exposes CRUD operations for the **BetaTesterProfile** model.
@@ -1269,6 +1284,7 @@ export namespace Prisma {
     Session: 'Session',
     VerificationToken: 'VerificationToken',
     User: 'User',
+    DonorApplicationProfile: 'DonorApplicationProfile',
     BetaTesterProfile: 'BetaTesterProfile',
     Ngo: 'Ngo',
     Project: 'Project',
@@ -1315,7 +1331,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "account" | "session" | "verificationToken" | "user" | "betaTesterProfile" | "ngo" | "project" | "milestone" | "evidenceFile" | "outputMarker" | "donation" | "disbursement" | "expense" | "blockchainRecord" | "rating" | "platformSetting" | "notification" | "spotlightVote" | "campaign" | "campaignContributor" | "ngoSuggestion" | "referral" | "activityEvent" | "boardMember" | "skillContribution" | "skillBlockchainRecord" | "donorEndorsement" | "donorDocument" | "ngoDocument" | "ngoRole" | "roleApplication" | "roleEngagement" | "donorChallenge" | "challengeAcceptance" | "subscription"
+      modelProps: "account" | "session" | "verificationToken" | "user" | "donorApplicationProfile" | "betaTesterProfile" | "ngo" | "project" | "milestone" | "evidenceFile" | "outputMarker" | "donation" | "disbursement" | "expense" | "blockchainRecord" | "rating" | "platformSetting" | "notification" | "spotlightVote" | "campaign" | "campaignContributor" | "ngoSuggestion" | "referral" | "activityEvent" | "boardMember" | "skillContribution" | "skillBlockchainRecord" | "donorEndorsement" | "donorDocument" | "ngoDocument" | "ngoRole" | "roleApplication" | "roleEngagement" | "donorChallenge" | "challengeAcceptance" | "subscription"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1612,6 +1628,80 @@ export namespace Prisma {
           count: {
             args: Prisma.UserCountArgs<ExtArgs>
             result: $Utils.Optional<UserCountAggregateOutputType> | number
+          }
+        }
+      }
+      DonorApplicationProfile: {
+        payload: Prisma.$DonorApplicationProfilePayload<ExtArgs>
+        fields: Prisma.DonorApplicationProfileFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DonorApplicationProfileFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DonorApplicationProfilePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DonorApplicationProfileFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DonorApplicationProfilePayload>
+          }
+          findFirst: {
+            args: Prisma.DonorApplicationProfileFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DonorApplicationProfilePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DonorApplicationProfileFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DonorApplicationProfilePayload>
+          }
+          findMany: {
+            args: Prisma.DonorApplicationProfileFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DonorApplicationProfilePayload>[]
+          }
+          create: {
+            args: Prisma.DonorApplicationProfileCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DonorApplicationProfilePayload>
+          }
+          createMany: {
+            args: Prisma.DonorApplicationProfileCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DonorApplicationProfileCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DonorApplicationProfilePayload>[]
+          }
+          delete: {
+            args: Prisma.DonorApplicationProfileDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DonorApplicationProfilePayload>
+          }
+          update: {
+            args: Prisma.DonorApplicationProfileUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DonorApplicationProfilePayload>
+          }
+          deleteMany: {
+            args: Prisma.DonorApplicationProfileDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DonorApplicationProfileUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.DonorApplicationProfileUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DonorApplicationProfilePayload>[]
+          }
+          upsert: {
+            args: Prisma.DonorApplicationProfileUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DonorApplicationProfilePayload>
+          }
+          aggregate: {
+            args: Prisma.DonorApplicationProfileAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDonorApplicationProfile>
+          }
+          groupBy: {
+            args: Prisma.DonorApplicationProfileGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DonorApplicationProfileGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DonorApplicationProfileCountArgs<ExtArgs>
+            result: $Utils.Optional<DonorApplicationProfileCountAggregateOutputType> | number
           }
         }
       }
@@ -4021,6 +4111,7 @@ export namespace Prisma {
     session?: SessionOmit
     verificationToken?: VerificationTokenOmit
     user?: UserOmit
+    donorApplicationProfile?: DonorApplicationProfileOmit
     betaTesterProfile?: BetaTesterProfileOmit
     ngo?: NgoOmit
     project?: ProjectOmit
@@ -4149,6 +4240,7 @@ export namespace Prisma {
     documents: number
     roleApplications: number
     challenges: number
+    applicationProfiles: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4169,6 +4261,7 @@ export namespace Prisma {
     documents?: boolean | UserCountOutputTypeCountDocumentsArgs
     roleApplications?: boolean | UserCountOutputTypeCountRoleApplicationsArgs
     challenges?: boolean | UserCountOutputTypeCountChallengesArgs
+    applicationProfiles?: boolean | UserCountOutputTypeCountApplicationProfilesArgs
   }
 
   // Custom InputTypes
@@ -4299,6 +4392,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountChallengesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: DonorChallengeWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountApplicationProfilesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DonorApplicationProfileWhereInput
   }
 
 
@@ -7839,8 +7939,22 @@ export namespace Prisma {
 
   export type AggregateUser = {
     _count: UserCountAggregateOutputType | null
+    _avg: UserAvgAggregateOutputType | null
+    _sum: UserSumAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
+  }
+
+  export type UserAvgAggregateOutputType = {
+    impactScore: number | null
+    trainingShareCount: number | null
+    betaShareCount: number | null
+  }
+
+  export type UserSumAggregateOutputType = {
+    impactScore: number | null
+    trainingShareCount: number | null
+    betaShareCount: number | null
   }
 
   export type UserMinAggregateOutputType = {
@@ -7863,6 +7977,9 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     aiSummary: string | null
+    impactScore: number | null
+    trainingShareCount: number | null
+    betaShareCount: number | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -7885,6 +8002,9 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     aiSummary: string | null
+    impactScore: number | null
+    trainingShareCount: number | null
+    betaShareCount: number | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -7907,9 +8027,24 @@ export namespace Prisma {
     createdAt: number
     updatedAt: number
     aiSummary: number
+    impactScore: number
+    trainingShareCount: number
+    betaShareCount: number
     _all: number
   }
 
+
+  export type UserAvgAggregateInputType = {
+    impactScore?: true
+    trainingShareCount?: true
+    betaShareCount?: true
+  }
+
+  export type UserSumAggregateInputType = {
+    impactScore?: true
+    trainingShareCount?: true
+    betaShareCount?: true
+  }
 
   export type UserMinAggregateInputType = {
     id?: true
@@ -7931,6 +8066,9 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     aiSummary?: true
+    impactScore?: true
+    trainingShareCount?: true
+    betaShareCount?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -7953,6 +8091,9 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     aiSummary?: true
+    impactScore?: true
+    trainingShareCount?: true
+    betaShareCount?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -7975,6 +8116,9 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     aiSummary?: true
+    impactScore?: true
+    trainingShareCount?: true
+    betaShareCount?: true
     _all?: true
   }
 
@@ -8016,6 +8160,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: UserAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: UserSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: UserMinAggregateInputType
@@ -8046,6 +8202,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: UserCountAggregateInputType | true
+    _avg?: UserAvgAggregateInputType
+    _sum?: UserSumAggregateInputType
     _min?: UserMinAggregateInputType
     _max?: UserMaxAggregateInputType
   }
@@ -8070,7 +8228,12 @@ export namespace Prisma {
     createdAt: Date
     updatedAt: Date
     aiSummary: string | null
+    impactScore: number
+    trainingShareCount: number
+    betaShareCount: number
     _count: UserCountAggregateOutputType | null
+    _avg: UserAvgAggregateOutputType | null
+    _sum: UserSumAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
   }
@@ -8109,6 +8272,9 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     aiSummary?: boolean
+    impactScore?: boolean
+    trainingShareCount?: boolean
+    betaShareCount?: boolean
     accounts?: boolean | User$accountsArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     ngo?: boolean | User$ngoArgs<ExtArgs>
@@ -8129,6 +8295,7 @@ export namespace Prisma {
     challenges?: boolean | User$challengesArgs<ExtArgs>
     subscription?: boolean | User$subscriptionArgs<ExtArgs>
     betaTesterProfile?: boolean | User$betaTesterProfileArgs<ExtArgs>
+    applicationProfiles?: boolean | User$applicationProfilesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -8152,6 +8319,9 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     aiSummary?: boolean
+    impactScore?: boolean
+    trainingShareCount?: boolean
+    betaShareCount?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -8174,6 +8344,9 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     aiSummary?: boolean
+    impactScore?: boolean
+    trainingShareCount?: boolean
+    betaShareCount?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -8196,9 +8369,12 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     aiSummary?: boolean
+    impactScore?: boolean
+    trainingShareCount?: boolean
+    betaShareCount?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "emailVerified" | "name" | "image" | "password" | "role" | "referralCode" | "bio" | "jobTitle" | "company" | "city" | "linkedinUrl" | "twitterUrl" | "portfolioUrl" | "skills" | "createdAt" | "updatedAt" | "aiSummary", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "emailVerified" | "name" | "image" | "password" | "role" | "referralCode" | "bio" | "jobTitle" | "company" | "city" | "linkedinUrl" | "twitterUrl" | "portfolioUrl" | "skills" | "createdAt" | "updatedAt" | "aiSummary" | "impactScore" | "trainingShareCount" | "betaShareCount", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     accounts?: boolean | User$accountsArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
@@ -8220,6 +8396,7 @@ export namespace Prisma {
     challenges?: boolean | User$challengesArgs<ExtArgs>
     subscription?: boolean | User$subscriptionArgs<ExtArgs>
     betaTesterProfile?: boolean | User$betaTesterProfileArgs<ExtArgs>
+    applicationProfiles?: boolean | User$applicationProfilesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -8248,6 +8425,7 @@ export namespace Prisma {
       challenges: Prisma.$DonorChallengePayload<ExtArgs>[]
       subscription: Prisma.$SubscriptionPayload<ExtArgs> | null
       betaTesterProfile: Prisma.$BetaTesterProfilePayload<ExtArgs> | null
+      applicationProfiles: Prisma.$DonorApplicationProfilePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -8269,6 +8447,9 @@ export namespace Prisma {
       createdAt: Date
       updatedAt: Date
       aiSummary: string | null
+      impactScore: number
+      trainingShareCount: number
+      betaShareCount: number
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -8683,6 +8864,7 @@ export namespace Prisma {
     challenges<T extends User$challengesArgs<ExtArgs> = {}>(args?: Subset<T, User$challengesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DonorChallengePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     subscription<T extends User$subscriptionArgs<ExtArgs> = {}>(args?: Subset<T, User$subscriptionArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     betaTesterProfile<T extends User$betaTesterProfileArgs<ExtArgs> = {}>(args?: Subset<T, User$betaTesterProfileArgs<ExtArgs>>): Prisma__BetaTesterProfileClient<$Result.GetResult<Prisma.$BetaTesterProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    applicationProfiles<T extends User$applicationProfilesArgs<ExtArgs> = {}>(args?: Subset<T, User$applicationProfilesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DonorApplicationProfilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8731,6 +8913,9 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
     readonly aiSummary: FieldRef<"User", 'String'>
+    readonly impactScore: FieldRef<"User", 'Int'>
+    readonly trainingShareCount: FieldRef<"User", 'Int'>
+    readonly betaShareCount: FieldRef<"User", 'Int'>
   }
     
 
@@ -9584,6 +9769,30 @@ export namespace Prisma {
   }
 
   /**
+   * User.applicationProfiles
+   */
+  export type User$applicationProfilesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DonorApplicationProfile
+     */
+    select?: DonorApplicationProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DonorApplicationProfile
+     */
+    omit?: DonorApplicationProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DonorApplicationProfileInclude<ExtArgs> | null
+    where?: DonorApplicationProfileWhereInput
+    orderBy?: DonorApplicationProfileOrderByWithRelationInput | DonorApplicationProfileOrderByWithRelationInput[]
+    cursor?: DonorApplicationProfileWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DonorApplicationProfileScalarFieldEnum | DonorApplicationProfileScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -9599,6 +9808,1090 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: UserInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model DonorApplicationProfile
+   */
+
+  export type AggregateDonorApplicationProfile = {
+    _count: DonorApplicationProfileCountAggregateOutputType | null
+    _min: DonorApplicationProfileMinAggregateOutputType | null
+    _max: DonorApplicationProfileMaxAggregateOutputType | null
+  }
+
+  export type DonorApplicationProfileMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    title: string | null
+    bio: string | null
+    isDefault: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DonorApplicationProfileMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    title: string | null
+    bio: string | null
+    isDefault: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DonorApplicationProfileCountAggregateOutputType = {
+    id: number
+    userId: number
+    title: number
+    bio: number
+    isDefault: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type DonorApplicationProfileMinAggregateInputType = {
+    id?: true
+    userId?: true
+    title?: true
+    bio?: true
+    isDefault?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DonorApplicationProfileMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    title?: true
+    bio?: true
+    isDefault?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DonorApplicationProfileCountAggregateInputType = {
+    id?: true
+    userId?: true
+    title?: true
+    bio?: true
+    isDefault?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type DonorApplicationProfileAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DonorApplicationProfile to aggregate.
+     */
+    where?: DonorApplicationProfileWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DonorApplicationProfiles to fetch.
+     */
+    orderBy?: DonorApplicationProfileOrderByWithRelationInput | DonorApplicationProfileOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DonorApplicationProfileWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DonorApplicationProfiles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DonorApplicationProfiles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned DonorApplicationProfiles
+    **/
+    _count?: true | DonorApplicationProfileCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DonorApplicationProfileMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DonorApplicationProfileMaxAggregateInputType
+  }
+
+  export type GetDonorApplicationProfileAggregateType<T extends DonorApplicationProfileAggregateArgs> = {
+        [P in keyof T & keyof AggregateDonorApplicationProfile]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDonorApplicationProfile[P]>
+      : GetScalarType<T[P], AggregateDonorApplicationProfile[P]>
+  }
+
+
+
+
+  export type DonorApplicationProfileGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DonorApplicationProfileWhereInput
+    orderBy?: DonorApplicationProfileOrderByWithAggregationInput | DonorApplicationProfileOrderByWithAggregationInput[]
+    by: DonorApplicationProfileScalarFieldEnum[] | DonorApplicationProfileScalarFieldEnum
+    having?: DonorApplicationProfileScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DonorApplicationProfileCountAggregateInputType | true
+    _min?: DonorApplicationProfileMinAggregateInputType
+    _max?: DonorApplicationProfileMaxAggregateInputType
+  }
+
+  export type DonorApplicationProfileGroupByOutputType = {
+    id: string
+    userId: string
+    title: string
+    bio: string
+    isDefault: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: DonorApplicationProfileCountAggregateOutputType | null
+    _min: DonorApplicationProfileMinAggregateOutputType | null
+    _max: DonorApplicationProfileMaxAggregateOutputType | null
+  }
+
+  type GetDonorApplicationProfileGroupByPayload<T extends DonorApplicationProfileGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DonorApplicationProfileGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DonorApplicationProfileGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DonorApplicationProfileGroupByOutputType[P]>
+            : GetScalarType<T[P], DonorApplicationProfileGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DonorApplicationProfileSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    title?: boolean
+    bio?: boolean
+    isDefault?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["donorApplicationProfile"]>
+
+  export type DonorApplicationProfileSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    title?: boolean
+    bio?: boolean
+    isDefault?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["donorApplicationProfile"]>
+
+  export type DonorApplicationProfileSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    title?: boolean
+    bio?: boolean
+    isDefault?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["donorApplicationProfile"]>
+
+  export type DonorApplicationProfileSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    title?: boolean
+    bio?: boolean
+    isDefault?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type DonorApplicationProfileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "title" | "bio" | "isDefault" | "createdAt" | "updatedAt", ExtArgs["result"]["donorApplicationProfile"]>
+  export type DonorApplicationProfileInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type DonorApplicationProfileIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type DonorApplicationProfileIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $DonorApplicationProfilePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "DonorApplicationProfile"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      title: string
+      bio: string
+      isDefault: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["donorApplicationProfile"]>
+    composites: {}
+  }
+
+  type DonorApplicationProfileGetPayload<S extends boolean | null | undefined | DonorApplicationProfileDefaultArgs> = $Result.GetResult<Prisma.$DonorApplicationProfilePayload, S>
+
+  type DonorApplicationProfileCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<DonorApplicationProfileFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DonorApplicationProfileCountAggregateInputType | true
+    }
+
+  export interface DonorApplicationProfileDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['DonorApplicationProfile'], meta: { name: 'DonorApplicationProfile' } }
+    /**
+     * Find zero or one DonorApplicationProfile that matches the filter.
+     * @param {DonorApplicationProfileFindUniqueArgs} args - Arguments to find a DonorApplicationProfile
+     * @example
+     * // Get one DonorApplicationProfile
+     * const donorApplicationProfile = await prisma.donorApplicationProfile.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DonorApplicationProfileFindUniqueArgs>(args: SelectSubset<T, DonorApplicationProfileFindUniqueArgs<ExtArgs>>): Prisma__DonorApplicationProfileClient<$Result.GetResult<Prisma.$DonorApplicationProfilePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one DonorApplicationProfile that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {DonorApplicationProfileFindUniqueOrThrowArgs} args - Arguments to find a DonorApplicationProfile
+     * @example
+     * // Get one DonorApplicationProfile
+     * const donorApplicationProfile = await prisma.donorApplicationProfile.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DonorApplicationProfileFindUniqueOrThrowArgs>(args: SelectSubset<T, DonorApplicationProfileFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DonorApplicationProfileClient<$Result.GetResult<Prisma.$DonorApplicationProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DonorApplicationProfile that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DonorApplicationProfileFindFirstArgs} args - Arguments to find a DonorApplicationProfile
+     * @example
+     * // Get one DonorApplicationProfile
+     * const donorApplicationProfile = await prisma.donorApplicationProfile.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DonorApplicationProfileFindFirstArgs>(args?: SelectSubset<T, DonorApplicationProfileFindFirstArgs<ExtArgs>>): Prisma__DonorApplicationProfileClient<$Result.GetResult<Prisma.$DonorApplicationProfilePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DonorApplicationProfile that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DonorApplicationProfileFindFirstOrThrowArgs} args - Arguments to find a DonorApplicationProfile
+     * @example
+     * // Get one DonorApplicationProfile
+     * const donorApplicationProfile = await prisma.donorApplicationProfile.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DonorApplicationProfileFindFirstOrThrowArgs>(args?: SelectSubset<T, DonorApplicationProfileFindFirstOrThrowArgs<ExtArgs>>): Prisma__DonorApplicationProfileClient<$Result.GetResult<Prisma.$DonorApplicationProfilePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more DonorApplicationProfiles that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DonorApplicationProfileFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all DonorApplicationProfiles
+     * const donorApplicationProfiles = await prisma.donorApplicationProfile.findMany()
+     * 
+     * // Get first 10 DonorApplicationProfiles
+     * const donorApplicationProfiles = await prisma.donorApplicationProfile.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const donorApplicationProfileWithIdOnly = await prisma.donorApplicationProfile.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DonorApplicationProfileFindManyArgs>(args?: SelectSubset<T, DonorApplicationProfileFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DonorApplicationProfilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a DonorApplicationProfile.
+     * @param {DonorApplicationProfileCreateArgs} args - Arguments to create a DonorApplicationProfile.
+     * @example
+     * // Create one DonorApplicationProfile
+     * const DonorApplicationProfile = await prisma.donorApplicationProfile.create({
+     *   data: {
+     *     // ... data to create a DonorApplicationProfile
+     *   }
+     * })
+     * 
+     */
+    create<T extends DonorApplicationProfileCreateArgs>(args: SelectSubset<T, DonorApplicationProfileCreateArgs<ExtArgs>>): Prisma__DonorApplicationProfileClient<$Result.GetResult<Prisma.$DonorApplicationProfilePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many DonorApplicationProfiles.
+     * @param {DonorApplicationProfileCreateManyArgs} args - Arguments to create many DonorApplicationProfiles.
+     * @example
+     * // Create many DonorApplicationProfiles
+     * const donorApplicationProfile = await prisma.donorApplicationProfile.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DonorApplicationProfileCreateManyArgs>(args?: SelectSubset<T, DonorApplicationProfileCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many DonorApplicationProfiles and returns the data saved in the database.
+     * @param {DonorApplicationProfileCreateManyAndReturnArgs} args - Arguments to create many DonorApplicationProfiles.
+     * @example
+     * // Create many DonorApplicationProfiles
+     * const donorApplicationProfile = await prisma.donorApplicationProfile.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many DonorApplicationProfiles and only return the `id`
+     * const donorApplicationProfileWithIdOnly = await prisma.donorApplicationProfile.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DonorApplicationProfileCreateManyAndReturnArgs>(args?: SelectSubset<T, DonorApplicationProfileCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DonorApplicationProfilePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a DonorApplicationProfile.
+     * @param {DonorApplicationProfileDeleteArgs} args - Arguments to delete one DonorApplicationProfile.
+     * @example
+     * // Delete one DonorApplicationProfile
+     * const DonorApplicationProfile = await prisma.donorApplicationProfile.delete({
+     *   where: {
+     *     // ... filter to delete one DonorApplicationProfile
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DonorApplicationProfileDeleteArgs>(args: SelectSubset<T, DonorApplicationProfileDeleteArgs<ExtArgs>>): Prisma__DonorApplicationProfileClient<$Result.GetResult<Prisma.$DonorApplicationProfilePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one DonorApplicationProfile.
+     * @param {DonorApplicationProfileUpdateArgs} args - Arguments to update one DonorApplicationProfile.
+     * @example
+     * // Update one DonorApplicationProfile
+     * const donorApplicationProfile = await prisma.donorApplicationProfile.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DonorApplicationProfileUpdateArgs>(args: SelectSubset<T, DonorApplicationProfileUpdateArgs<ExtArgs>>): Prisma__DonorApplicationProfileClient<$Result.GetResult<Prisma.$DonorApplicationProfilePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more DonorApplicationProfiles.
+     * @param {DonorApplicationProfileDeleteManyArgs} args - Arguments to filter DonorApplicationProfiles to delete.
+     * @example
+     * // Delete a few DonorApplicationProfiles
+     * const { count } = await prisma.donorApplicationProfile.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DonorApplicationProfileDeleteManyArgs>(args?: SelectSubset<T, DonorApplicationProfileDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DonorApplicationProfiles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DonorApplicationProfileUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many DonorApplicationProfiles
+     * const donorApplicationProfile = await prisma.donorApplicationProfile.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DonorApplicationProfileUpdateManyArgs>(args: SelectSubset<T, DonorApplicationProfileUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DonorApplicationProfiles and returns the data updated in the database.
+     * @param {DonorApplicationProfileUpdateManyAndReturnArgs} args - Arguments to update many DonorApplicationProfiles.
+     * @example
+     * // Update many DonorApplicationProfiles
+     * const donorApplicationProfile = await prisma.donorApplicationProfile.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more DonorApplicationProfiles and only return the `id`
+     * const donorApplicationProfileWithIdOnly = await prisma.donorApplicationProfile.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends DonorApplicationProfileUpdateManyAndReturnArgs>(args: SelectSubset<T, DonorApplicationProfileUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DonorApplicationProfilePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one DonorApplicationProfile.
+     * @param {DonorApplicationProfileUpsertArgs} args - Arguments to update or create a DonorApplicationProfile.
+     * @example
+     * // Update or create a DonorApplicationProfile
+     * const donorApplicationProfile = await prisma.donorApplicationProfile.upsert({
+     *   create: {
+     *     // ... data to create a DonorApplicationProfile
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the DonorApplicationProfile we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DonorApplicationProfileUpsertArgs>(args: SelectSubset<T, DonorApplicationProfileUpsertArgs<ExtArgs>>): Prisma__DonorApplicationProfileClient<$Result.GetResult<Prisma.$DonorApplicationProfilePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of DonorApplicationProfiles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DonorApplicationProfileCountArgs} args - Arguments to filter DonorApplicationProfiles to count.
+     * @example
+     * // Count the number of DonorApplicationProfiles
+     * const count = await prisma.donorApplicationProfile.count({
+     *   where: {
+     *     // ... the filter for the DonorApplicationProfiles we want to count
+     *   }
+     * })
+    **/
+    count<T extends DonorApplicationProfileCountArgs>(
+      args?: Subset<T, DonorApplicationProfileCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DonorApplicationProfileCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a DonorApplicationProfile.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DonorApplicationProfileAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DonorApplicationProfileAggregateArgs>(args: Subset<T, DonorApplicationProfileAggregateArgs>): Prisma.PrismaPromise<GetDonorApplicationProfileAggregateType<T>>
+
+    /**
+     * Group by DonorApplicationProfile.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DonorApplicationProfileGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DonorApplicationProfileGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DonorApplicationProfileGroupByArgs['orderBy'] }
+        : { orderBy?: DonorApplicationProfileGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DonorApplicationProfileGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDonorApplicationProfileGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the DonorApplicationProfile model
+   */
+  readonly fields: DonorApplicationProfileFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for DonorApplicationProfile.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DonorApplicationProfileClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the DonorApplicationProfile model
+   */
+  interface DonorApplicationProfileFieldRefs {
+    readonly id: FieldRef<"DonorApplicationProfile", 'String'>
+    readonly userId: FieldRef<"DonorApplicationProfile", 'String'>
+    readonly title: FieldRef<"DonorApplicationProfile", 'String'>
+    readonly bio: FieldRef<"DonorApplicationProfile", 'String'>
+    readonly isDefault: FieldRef<"DonorApplicationProfile", 'Boolean'>
+    readonly createdAt: FieldRef<"DonorApplicationProfile", 'DateTime'>
+    readonly updatedAt: FieldRef<"DonorApplicationProfile", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * DonorApplicationProfile findUnique
+   */
+  export type DonorApplicationProfileFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DonorApplicationProfile
+     */
+    select?: DonorApplicationProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DonorApplicationProfile
+     */
+    omit?: DonorApplicationProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DonorApplicationProfileInclude<ExtArgs> | null
+    /**
+     * Filter, which DonorApplicationProfile to fetch.
+     */
+    where: DonorApplicationProfileWhereUniqueInput
+  }
+
+  /**
+   * DonorApplicationProfile findUniqueOrThrow
+   */
+  export type DonorApplicationProfileFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DonorApplicationProfile
+     */
+    select?: DonorApplicationProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DonorApplicationProfile
+     */
+    omit?: DonorApplicationProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DonorApplicationProfileInclude<ExtArgs> | null
+    /**
+     * Filter, which DonorApplicationProfile to fetch.
+     */
+    where: DonorApplicationProfileWhereUniqueInput
+  }
+
+  /**
+   * DonorApplicationProfile findFirst
+   */
+  export type DonorApplicationProfileFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DonorApplicationProfile
+     */
+    select?: DonorApplicationProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DonorApplicationProfile
+     */
+    omit?: DonorApplicationProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DonorApplicationProfileInclude<ExtArgs> | null
+    /**
+     * Filter, which DonorApplicationProfile to fetch.
+     */
+    where?: DonorApplicationProfileWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DonorApplicationProfiles to fetch.
+     */
+    orderBy?: DonorApplicationProfileOrderByWithRelationInput | DonorApplicationProfileOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DonorApplicationProfiles.
+     */
+    cursor?: DonorApplicationProfileWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DonorApplicationProfiles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DonorApplicationProfiles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DonorApplicationProfiles.
+     */
+    distinct?: DonorApplicationProfileScalarFieldEnum | DonorApplicationProfileScalarFieldEnum[]
+  }
+
+  /**
+   * DonorApplicationProfile findFirstOrThrow
+   */
+  export type DonorApplicationProfileFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DonorApplicationProfile
+     */
+    select?: DonorApplicationProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DonorApplicationProfile
+     */
+    omit?: DonorApplicationProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DonorApplicationProfileInclude<ExtArgs> | null
+    /**
+     * Filter, which DonorApplicationProfile to fetch.
+     */
+    where?: DonorApplicationProfileWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DonorApplicationProfiles to fetch.
+     */
+    orderBy?: DonorApplicationProfileOrderByWithRelationInput | DonorApplicationProfileOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DonorApplicationProfiles.
+     */
+    cursor?: DonorApplicationProfileWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DonorApplicationProfiles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DonorApplicationProfiles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DonorApplicationProfiles.
+     */
+    distinct?: DonorApplicationProfileScalarFieldEnum | DonorApplicationProfileScalarFieldEnum[]
+  }
+
+  /**
+   * DonorApplicationProfile findMany
+   */
+  export type DonorApplicationProfileFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DonorApplicationProfile
+     */
+    select?: DonorApplicationProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DonorApplicationProfile
+     */
+    omit?: DonorApplicationProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DonorApplicationProfileInclude<ExtArgs> | null
+    /**
+     * Filter, which DonorApplicationProfiles to fetch.
+     */
+    where?: DonorApplicationProfileWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DonorApplicationProfiles to fetch.
+     */
+    orderBy?: DonorApplicationProfileOrderByWithRelationInput | DonorApplicationProfileOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing DonorApplicationProfiles.
+     */
+    cursor?: DonorApplicationProfileWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DonorApplicationProfiles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DonorApplicationProfiles.
+     */
+    skip?: number
+    distinct?: DonorApplicationProfileScalarFieldEnum | DonorApplicationProfileScalarFieldEnum[]
+  }
+
+  /**
+   * DonorApplicationProfile create
+   */
+  export type DonorApplicationProfileCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DonorApplicationProfile
+     */
+    select?: DonorApplicationProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DonorApplicationProfile
+     */
+    omit?: DonorApplicationProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DonorApplicationProfileInclude<ExtArgs> | null
+    /**
+     * The data needed to create a DonorApplicationProfile.
+     */
+    data: XOR<DonorApplicationProfileCreateInput, DonorApplicationProfileUncheckedCreateInput>
+  }
+
+  /**
+   * DonorApplicationProfile createMany
+   */
+  export type DonorApplicationProfileCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many DonorApplicationProfiles.
+     */
+    data: DonorApplicationProfileCreateManyInput | DonorApplicationProfileCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * DonorApplicationProfile createManyAndReturn
+   */
+  export type DonorApplicationProfileCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DonorApplicationProfile
+     */
+    select?: DonorApplicationProfileSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DonorApplicationProfile
+     */
+    omit?: DonorApplicationProfileOmit<ExtArgs> | null
+    /**
+     * The data used to create many DonorApplicationProfiles.
+     */
+    data: DonorApplicationProfileCreateManyInput | DonorApplicationProfileCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DonorApplicationProfileIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * DonorApplicationProfile update
+   */
+  export type DonorApplicationProfileUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DonorApplicationProfile
+     */
+    select?: DonorApplicationProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DonorApplicationProfile
+     */
+    omit?: DonorApplicationProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DonorApplicationProfileInclude<ExtArgs> | null
+    /**
+     * The data needed to update a DonorApplicationProfile.
+     */
+    data: XOR<DonorApplicationProfileUpdateInput, DonorApplicationProfileUncheckedUpdateInput>
+    /**
+     * Choose, which DonorApplicationProfile to update.
+     */
+    where: DonorApplicationProfileWhereUniqueInput
+  }
+
+  /**
+   * DonorApplicationProfile updateMany
+   */
+  export type DonorApplicationProfileUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update DonorApplicationProfiles.
+     */
+    data: XOR<DonorApplicationProfileUpdateManyMutationInput, DonorApplicationProfileUncheckedUpdateManyInput>
+    /**
+     * Filter which DonorApplicationProfiles to update
+     */
+    where?: DonorApplicationProfileWhereInput
+    /**
+     * Limit how many DonorApplicationProfiles to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * DonorApplicationProfile updateManyAndReturn
+   */
+  export type DonorApplicationProfileUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DonorApplicationProfile
+     */
+    select?: DonorApplicationProfileSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DonorApplicationProfile
+     */
+    omit?: DonorApplicationProfileOmit<ExtArgs> | null
+    /**
+     * The data used to update DonorApplicationProfiles.
+     */
+    data: XOR<DonorApplicationProfileUpdateManyMutationInput, DonorApplicationProfileUncheckedUpdateManyInput>
+    /**
+     * Filter which DonorApplicationProfiles to update
+     */
+    where?: DonorApplicationProfileWhereInput
+    /**
+     * Limit how many DonorApplicationProfiles to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DonorApplicationProfileIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * DonorApplicationProfile upsert
+   */
+  export type DonorApplicationProfileUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DonorApplicationProfile
+     */
+    select?: DonorApplicationProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DonorApplicationProfile
+     */
+    omit?: DonorApplicationProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DonorApplicationProfileInclude<ExtArgs> | null
+    /**
+     * The filter to search for the DonorApplicationProfile to update in case it exists.
+     */
+    where: DonorApplicationProfileWhereUniqueInput
+    /**
+     * In case the DonorApplicationProfile found by the `where` argument doesn't exist, create a new DonorApplicationProfile with this data.
+     */
+    create: XOR<DonorApplicationProfileCreateInput, DonorApplicationProfileUncheckedCreateInput>
+    /**
+     * In case the DonorApplicationProfile was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DonorApplicationProfileUpdateInput, DonorApplicationProfileUncheckedUpdateInput>
+  }
+
+  /**
+   * DonorApplicationProfile delete
+   */
+  export type DonorApplicationProfileDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DonorApplicationProfile
+     */
+    select?: DonorApplicationProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DonorApplicationProfile
+     */
+    omit?: DonorApplicationProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DonorApplicationProfileInclude<ExtArgs> | null
+    /**
+     * Filter which DonorApplicationProfile to delete.
+     */
+    where: DonorApplicationProfileWhereUniqueInput
+  }
+
+  /**
+   * DonorApplicationProfile deleteMany
+   */
+  export type DonorApplicationProfileDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DonorApplicationProfiles to delete
+     */
+    where?: DonorApplicationProfileWhereInput
+    /**
+     * Limit how many DonorApplicationProfiles to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * DonorApplicationProfile without action
+   */
+  export type DonorApplicationProfileDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DonorApplicationProfile
+     */
+    select?: DonorApplicationProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DonorApplicationProfile
+     */
+    omit?: DonorApplicationProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DonorApplicationProfileInclude<ExtArgs> | null
   }
 
 
@@ -45998,10 +47291,26 @@ export namespace Prisma {
     skills: 'skills',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
-    aiSummary: 'aiSummary'
+    aiSummary: 'aiSummary',
+    impactScore: 'impactScore',
+    trainingShareCount: 'trainingShareCount',
+    betaShareCount: 'betaShareCount'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+  export const DonorApplicationProfileScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    title: 'title',
+    bio: 'bio',
+    isDefault: 'isDefault',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type DonorApplicationProfileScalarFieldEnum = (typeof DonorApplicationProfileScalarFieldEnum)[keyof typeof DonorApplicationProfileScalarFieldEnum]
 
 
   export const BetaTesterProfileScalarFieldEnum: {
@@ -46964,6 +48273,9 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     aiSummary?: StringNullableFilter<"User"> | string | null
+    impactScore?: IntFilter<"User"> | number
+    trainingShareCount?: IntFilter<"User"> | number
+    betaShareCount?: IntFilter<"User"> | number
     accounts?: AccountListRelationFilter
     sessions?: SessionListRelationFilter
     ngo?: XOR<NgoNullableScalarRelationFilter, NgoWhereInput> | null
@@ -46984,6 +48296,7 @@ export namespace Prisma {
     challenges?: DonorChallengeListRelationFilter
     subscription?: XOR<SubscriptionNullableScalarRelationFilter, SubscriptionWhereInput> | null
     betaTesterProfile?: XOR<BetaTesterProfileNullableScalarRelationFilter, BetaTesterProfileWhereInput> | null
+    applicationProfiles?: DonorApplicationProfileListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -47006,6 +48319,9 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     aiSummary?: SortOrderInput | SortOrder
+    impactScore?: SortOrder
+    trainingShareCount?: SortOrder
+    betaShareCount?: SortOrder
     accounts?: AccountOrderByRelationAggregateInput
     sessions?: SessionOrderByRelationAggregateInput
     ngo?: NgoOrderByWithRelationInput
@@ -47026,6 +48342,7 @@ export namespace Prisma {
     challenges?: DonorChallengeOrderByRelationAggregateInput
     subscription?: SubscriptionOrderByWithRelationInput
     betaTesterProfile?: BetaTesterProfileOrderByWithRelationInput
+    applicationProfiles?: DonorApplicationProfileOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -47051,6 +48368,9 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     aiSummary?: StringNullableFilter<"User"> | string | null
+    impactScore?: IntFilter<"User"> | number
+    trainingShareCount?: IntFilter<"User"> | number
+    betaShareCount?: IntFilter<"User"> | number
     accounts?: AccountListRelationFilter
     sessions?: SessionListRelationFilter
     ngo?: XOR<NgoNullableScalarRelationFilter, NgoWhereInput> | null
@@ -47071,6 +48391,7 @@ export namespace Prisma {
     challenges?: DonorChallengeListRelationFilter
     subscription?: XOR<SubscriptionNullableScalarRelationFilter, SubscriptionWhereInput> | null
     betaTesterProfile?: XOR<BetaTesterProfileNullableScalarRelationFilter, BetaTesterProfileWhereInput> | null
+    applicationProfiles?: DonorApplicationProfileListRelationFilter
   }, "id" | "email" | "referralCode">
 
   export type UserOrderByWithAggregationInput = {
@@ -47093,9 +48414,14 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     aiSummary?: SortOrderInput | SortOrder
+    impactScore?: SortOrder
+    trainingShareCount?: SortOrder
+    betaShareCount?: SortOrder
     _count?: UserCountOrderByAggregateInput
+    _avg?: UserAvgOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
+    _sum?: UserSumOrderByAggregateInput
   }
 
   export type UserScalarWhereWithAggregatesInput = {
@@ -47121,6 +48447,74 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     aiSummary?: StringNullableWithAggregatesFilter<"User"> | string | null
+    impactScore?: IntWithAggregatesFilter<"User"> | number
+    trainingShareCount?: IntWithAggregatesFilter<"User"> | number
+    betaShareCount?: IntWithAggregatesFilter<"User"> | number
+  }
+
+  export type DonorApplicationProfileWhereInput = {
+    AND?: DonorApplicationProfileWhereInput | DonorApplicationProfileWhereInput[]
+    OR?: DonorApplicationProfileWhereInput[]
+    NOT?: DonorApplicationProfileWhereInput | DonorApplicationProfileWhereInput[]
+    id?: StringFilter<"DonorApplicationProfile"> | string
+    userId?: StringFilter<"DonorApplicationProfile"> | string
+    title?: StringFilter<"DonorApplicationProfile"> | string
+    bio?: StringFilter<"DonorApplicationProfile"> | string
+    isDefault?: BoolFilter<"DonorApplicationProfile"> | boolean
+    createdAt?: DateTimeFilter<"DonorApplicationProfile"> | Date | string
+    updatedAt?: DateTimeFilter<"DonorApplicationProfile"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type DonorApplicationProfileOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    title?: SortOrder
+    bio?: SortOrder
+    isDefault?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type DonorApplicationProfileWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: DonorApplicationProfileWhereInput | DonorApplicationProfileWhereInput[]
+    OR?: DonorApplicationProfileWhereInput[]
+    NOT?: DonorApplicationProfileWhereInput | DonorApplicationProfileWhereInput[]
+    userId?: StringFilter<"DonorApplicationProfile"> | string
+    title?: StringFilter<"DonorApplicationProfile"> | string
+    bio?: StringFilter<"DonorApplicationProfile"> | string
+    isDefault?: BoolFilter<"DonorApplicationProfile"> | boolean
+    createdAt?: DateTimeFilter<"DonorApplicationProfile"> | Date | string
+    updatedAt?: DateTimeFilter<"DonorApplicationProfile"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type DonorApplicationProfileOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    title?: SortOrder
+    bio?: SortOrder
+    isDefault?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: DonorApplicationProfileCountOrderByAggregateInput
+    _max?: DonorApplicationProfileMaxOrderByAggregateInput
+    _min?: DonorApplicationProfileMinOrderByAggregateInput
+  }
+
+  export type DonorApplicationProfileScalarWhereWithAggregatesInput = {
+    AND?: DonorApplicationProfileScalarWhereWithAggregatesInput | DonorApplicationProfileScalarWhereWithAggregatesInput[]
+    OR?: DonorApplicationProfileScalarWhereWithAggregatesInput[]
+    NOT?: DonorApplicationProfileScalarWhereWithAggregatesInput | DonorApplicationProfileScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"DonorApplicationProfile"> | string
+    userId?: StringWithAggregatesFilter<"DonorApplicationProfile"> | string
+    title?: StringWithAggregatesFilter<"DonorApplicationProfile"> | string
+    bio?: StringWithAggregatesFilter<"DonorApplicationProfile"> | string
+    isDefault?: BoolWithAggregatesFilter<"DonorApplicationProfile"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"DonorApplicationProfile"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"DonorApplicationProfile"> | Date | string
   }
 
   export type BetaTesterProfileWhereInput = {
@@ -49945,6 +51339,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     aiSummary?: string | null
+    impactScore?: number
+    trainingShareCount?: number
+    betaShareCount?: number
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     ngo?: NgoCreateNestedOneWithoutUserInput
@@ -49965,6 +51362,7 @@ export namespace Prisma {
     challenges?: DonorChallengeCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileCreateNestedOneWithoutUserInput
+    applicationProfiles?: DonorApplicationProfileCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -49987,6 +51385,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     aiSummary?: string | null
+    impactScore?: number
+    trainingShareCount?: number
+    betaShareCount?: number
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ngo?: NgoUncheckedCreateNestedOneWithoutUserInput
@@ -50007,6 +51408,7 @@ export namespace Prisma {
     challenges?: DonorChallengeUncheckedCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileUncheckedCreateNestedOneWithoutUserInput
+    applicationProfiles?: DonorApplicationProfileUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -50029,6 +51431,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    impactScore?: IntFieldUpdateOperationsInput | number
+    trainingShareCount?: IntFieldUpdateOperationsInput | number
+    betaShareCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ngo?: NgoUpdateOneWithoutUserNestedInput
@@ -50049,6 +51454,7 @@ export namespace Prisma {
     challenges?: DonorChallengeUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUpdateOneWithoutUserNestedInput
+    applicationProfiles?: DonorApplicationProfileUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -50071,6 +51477,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    impactScore?: IntFieldUpdateOperationsInput | number
+    trainingShareCount?: IntFieldUpdateOperationsInput | number
+    betaShareCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ngo?: NgoUncheckedUpdateOneWithoutUserNestedInput
@@ -50091,6 +51500,7 @@ export namespace Prisma {
     challenges?: DonorChallengeUncheckedUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUncheckedUpdateOneWithoutUserNestedInput
+    applicationProfiles?: DonorApplicationProfileUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -50113,6 +51523,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     aiSummary?: string | null
+    impactScore?: number
+    trainingShareCount?: number
+    betaShareCount?: number
   }
 
   export type UserUpdateManyMutationInput = {
@@ -50135,6 +51548,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    impactScore?: IntFieldUpdateOperationsInput | number
+    trainingShareCount?: IntFieldUpdateOperationsInput | number
+    betaShareCount?: IntFieldUpdateOperationsInput | number
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -50157,6 +51573,78 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    impactScore?: IntFieldUpdateOperationsInput | number
+    trainingShareCount?: IntFieldUpdateOperationsInput | number
+    betaShareCount?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type DonorApplicationProfileCreateInput = {
+    id?: string
+    title: string
+    bio: string
+    isDefault?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutApplicationProfilesInput
+  }
+
+  export type DonorApplicationProfileUncheckedCreateInput = {
+    id?: string
+    userId: string
+    title: string
+    bio: string
+    isDefault?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DonorApplicationProfileUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    bio?: StringFieldUpdateOperationsInput | string
+    isDefault?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutApplicationProfilesNestedInput
+  }
+
+  export type DonorApplicationProfileUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    bio?: StringFieldUpdateOperationsInput | string
+    isDefault?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DonorApplicationProfileCreateManyInput = {
+    id?: string
+    userId: string
+    title: string
+    bio: string
+    isDefault?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DonorApplicationProfileUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    bio?: StringFieldUpdateOperationsInput | string
+    isDefault?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DonorApplicationProfileUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    bio?: StringFieldUpdateOperationsInput | string
+    isDefault?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type BetaTesterProfileCreateInput = {
@@ -53235,6 +54723,17 @@ export namespace Prisma {
     not?: NestedEnumRoleFilter<$PrismaModel> | $Enums.Role
   }
 
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
   export type AccountListRelationFilter = {
     every?: AccountWhereInput
     some?: AccountWhereInput
@@ -53340,6 +54839,12 @@ export namespace Prisma {
     isNot?: BetaTesterProfileWhereInput | null
   }
 
+  export type DonorApplicationProfileListRelationFilter = {
+    every?: DonorApplicationProfileWhereInput
+    some?: DonorApplicationProfileWhereInput
+    none?: DonorApplicationProfileWhereInput
+  }
+
   export type AccountOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -53400,6 +54905,10 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type DonorApplicationProfileOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type UserCountOrderByAggregateInput = {
     id?: SortOrder
     email?: SortOrder
@@ -53420,6 +54929,15 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     aiSummary?: SortOrder
+    impactScore?: SortOrder
+    trainingShareCount?: SortOrder
+    betaShareCount?: SortOrder
+  }
+
+  export type UserAvgOrderByAggregateInput = {
+    impactScore?: SortOrder
+    trainingShareCount?: SortOrder
+    betaShareCount?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -53442,6 +54960,9 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     aiSummary?: SortOrder
+    impactScore?: SortOrder
+    trainingShareCount?: SortOrder
+    betaShareCount?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -53464,6 +54985,15 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     aiSummary?: SortOrder
+    impactScore?: SortOrder
+    trainingShareCount?: SortOrder
+    betaShareCount?: SortOrder
+  }
+
+  export type UserSumOrderByAggregateInput = {
+    impactScore?: SortOrder
+    trainingShareCount?: SortOrder
+    betaShareCount?: SortOrder
   }
 
   export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -53490,17 +55020,71 @@ export namespace Prisma {
     _max?: NestedEnumRoleFilter<$PrismaModel>
   }
 
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type DonorApplicationProfileCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    title?: SortOrder
+    bio?: SortOrder
+    isDefault?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DonorApplicationProfileMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    title?: SortOrder
+    bio?: SortOrder
+    isDefault?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DonorApplicationProfileMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    title?: SortOrder
+    bio?: SortOrder
+    isDefault?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
   export type StringNullableListFilter<$PrismaModel = never> = {
     equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
     has?: string | StringFieldRefInput<$PrismaModel> | null
     hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
     hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
     isEmpty?: boolean
-  }
-
-  export type BoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type BetaTesterProfileCountOrderByAggregateInput = {
@@ -53549,14 +55133,6 @@ export namespace Prisma {
     isActive?: SortOrder
     registeredAt?: SortOrder
     updatedAt?: SortOrder
-  }
-
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type FloatFilter<$PrismaModel = never> = {
@@ -53735,17 +55311,6 @@ export namespace Prisma {
     not?: NestedEnumProjectStatusFilter<$PrismaModel> | $Enums.ProjectStatus
   }
 
-  export type IntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
-  }
-
   export type NgoScalarRelationFilter = {
     is?: NgoWhereInput
     isNot?: NgoWhereInput
@@ -53848,22 +55413,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumProjectStatusFilter<$PrismaModel>
     _max?: NestedEnumProjectStatusFilter<$PrismaModel>
-  }
-
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type EnumMilestoneStatusFilter<$PrismaModel = never> = {
@@ -55521,6 +57070,13 @@ export namespace Prisma {
     connect?: BetaTesterProfileWhereUniqueInput
   }
 
+  export type DonorApplicationProfileCreateNestedManyWithoutUserInput = {
+    create?: XOR<DonorApplicationProfileCreateWithoutUserInput, DonorApplicationProfileUncheckedCreateWithoutUserInput> | DonorApplicationProfileCreateWithoutUserInput[] | DonorApplicationProfileUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DonorApplicationProfileCreateOrConnectWithoutUserInput | DonorApplicationProfileCreateOrConnectWithoutUserInput[]
+    createMany?: DonorApplicationProfileCreateManyUserInputEnvelope
+    connect?: DonorApplicationProfileWhereUniqueInput | DonorApplicationProfileWhereUniqueInput[]
+  }
+
   export type AccountUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -55658,12 +57214,27 @@ export namespace Prisma {
     connect?: BetaTesterProfileWhereUniqueInput
   }
 
+  export type DonorApplicationProfileUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<DonorApplicationProfileCreateWithoutUserInput, DonorApplicationProfileUncheckedCreateWithoutUserInput> | DonorApplicationProfileCreateWithoutUserInput[] | DonorApplicationProfileUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DonorApplicationProfileCreateOrConnectWithoutUserInput | DonorApplicationProfileCreateOrConnectWithoutUserInput[]
+    createMany?: DonorApplicationProfileCreateManyUserInputEnvelope
+    connect?: DonorApplicationProfileWhereUniqueInput | DonorApplicationProfileWhereUniqueInput[]
+  }
+
   export type NullableDateTimeFieldUpdateOperationsInput = {
     set?: Date | string | null
   }
 
   export type EnumRoleFieldUpdateOperationsInput = {
     set?: $Enums.Role
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type AccountUpdateManyWithoutUserNestedInput = {
@@ -55934,6 +57505,20 @@ export namespace Prisma {
     update?: XOR<XOR<BetaTesterProfileUpdateToOneWithWhereWithoutUserInput, BetaTesterProfileUpdateWithoutUserInput>, BetaTesterProfileUncheckedUpdateWithoutUserInput>
   }
 
+  export type DonorApplicationProfileUpdateManyWithoutUserNestedInput = {
+    create?: XOR<DonorApplicationProfileCreateWithoutUserInput, DonorApplicationProfileUncheckedCreateWithoutUserInput> | DonorApplicationProfileCreateWithoutUserInput[] | DonorApplicationProfileUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DonorApplicationProfileCreateOrConnectWithoutUserInput | DonorApplicationProfileCreateOrConnectWithoutUserInput[]
+    upsert?: DonorApplicationProfileUpsertWithWhereUniqueWithoutUserInput | DonorApplicationProfileUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: DonorApplicationProfileCreateManyUserInputEnvelope
+    set?: DonorApplicationProfileWhereUniqueInput | DonorApplicationProfileWhereUniqueInput[]
+    disconnect?: DonorApplicationProfileWhereUniqueInput | DonorApplicationProfileWhereUniqueInput[]
+    delete?: DonorApplicationProfileWhereUniqueInput | DonorApplicationProfileWhereUniqueInput[]
+    connect?: DonorApplicationProfileWhereUniqueInput | DonorApplicationProfileWhereUniqueInput[]
+    update?: DonorApplicationProfileUpdateWithWhereUniqueWithoutUserInput | DonorApplicationProfileUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: DonorApplicationProfileUpdateManyWithWhereWithoutUserInput | DonorApplicationProfileUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: DonorApplicationProfileScalarWhereInput | DonorApplicationProfileScalarWhereInput[]
+  }
+
   export type AccountUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -56202,6 +57787,38 @@ export namespace Prisma {
     update?: XOR<XOR<BetaTesterProfileUpdateToOneWithWhereWithoutUserInput, BetaTesterProfileUpdateWithoutUserInput>, BetaTesterProfileUncheckedUpdateWithoutUserInput>
   }
 
+  export type DonorApplicationProfileUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<DonorApplicationProfileCreateWithoutUserInput, DonorApplicationProfileUncheckedCreateWithoutUserInput> | DonorApplicationProfileCreateWithoutUserInput[] | DonorApplicationProfileUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DonorApplicationProfileCreateOrConnectWithoutUserInput | DonorApplicationProfileCreateOrConnectWithoutUserInput[]
+    upsert?: DonorApplicationProfileUpsertWithWhereUniqueWithoutUserInput | DonorApplicationProfileUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: DonorApplicationProfileCreateManyUserInputEnvelope
+    set?: DonorApplicationProfileWhereUniqueInput | DonorApplicationProfileWhereUniqueInput[]
+    disconnect?: DonorApplicationProfileWhereUniqueInput | DonorApplicationProfileWhereUniqueInput[]
+    delete?: DonorApplicationProfileWhereUniqueInput | DonorApplicationProfileWhereUniqueInput[]
+    connect?: DonorApplicationProfileWhereUniqueInput | DonorApplicationProfileWhereUniqueInput[]
+    update?: DonorApplicationProfileUpdateWithWhereUniqueWithoutUserInput | DonorApplicationProfileUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: DonorApplicationProfileUpdateManyWithWhereWithoutUserInput | DonorApplicationProfileUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: DonorApplicationProfileScalarWhereInput | DonorApplicationProfileScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutApplicationProfilesInput = {
+    create?: XOR<UserCreateWithoutApplicationProfilesInput, UserUncheckedCreateWithoutApplicationProfilesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutApplicationProfilesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
+  export type UserUpdateOneRequiredWithoutApplicationProfilesNestedInput = {
+    create?: XOR<UserCreateWithoutApplicationProfilesInput, UserUncheckedCreateWithoutApplicationProfilesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutApplicationProfilesInput
+    upsert?: UserUpsertWithoutApplicationProfilesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutApplicationProfilesInput, UserUpdateWithoutApplicationProfilesInput>, UserUncheckedUpdateWithoutApplicationProfilesInput>
+  }
+
   export type BetaTesterProfileCreateinterestsInput = {
     set: string[]
   }
@@ -56233,10 +57850,6 @@ export namespace Prisma {
   export type BetaTesterProfileUpdatenichesInput = {
     set?: string[]
     push?: string | string[]
-  }
-
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
   }
 
   export type UserUpdateOneRequiredWithoutBetaTesterProfileNestedInput = {
@@ -56775,14 +58388,6 @@ export namespace Prisma {
 
   export type EnumProjectStatusFieldUpdateOperationsInput = {
     set?: $Enums.ProjectStatus
-  }
-
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type NgoUpdateOneRequiredWithoutProjectsNestedInput = {
@@ -58209,17 +59814,20 @@ export namespace Prisma {
     _max?: NestedEnumRoleFilter<$PrismaModel>
   }
 
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
     _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type NestedFloatFilter<$PrismaModel = never> = {
@@ -58231,6 +59839,19 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type NestedEnumNgoStatusFilter<$PrismaModel = never> = {
@@ -58298,22 +59919,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumProjectStatusFilter<$PrismaModel>
     _max?: NestedEnumProjectStatusFilter<$PrismaModel>
-  }
-
-  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type NestedEnumMilestoneStatusFilter<$PrismaModel = never> = {
@@ -58488,6 +60093,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     aiSummary?: string | null
+    impactScore?: number
+    trainingShareCount?: number
+    betaShareCount?: number
     sessions?: SessionCreateNestedManyWithoutUserInput
     ngo?: NgoCreateNestedOneWithoutUserInput
     donations?: DonationCreateNestedManyWithoutUserInput
@@ -58507,6 +60115,7 @@ export namespace Prisma {
     challenges?: DonorChallengeCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileCreateNestedOneWithoutUserInput
+    applicationProfiles?: DonorApplicationProfileCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAccountsInput = {
@@ -58529,6 +60138,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     aiSummary?: string | null
+    impactScore?: number
+    trainingShareCount?: number
+    betaShareCount?: number
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ngo?: NgoUncheckedCreateNestedOneWithoutUserInput
     donations?: DonationUncheckedCreateNestedManyWithoutUserInput
@@ -58548,6 +60160,7 @@ export namespace Prisma {
     challenges?: DonorChallengeUncheckedCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileUncheckedCreateNestedOneWithoutUserInput
+    applicationProfiles?: DonorApplicationProfileUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAccountsInput = {
@@ -58586,6 +60199,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    impactScore?: IntFieldUpdateOperationsInput | number
+    trainingShareCount?: IntFieldUpdateOperationsInput | number
+    betaShareCount?: IntFieldUpdateOperationsInput | number
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ngo?: NgoUpdateOneWithoutUserNestedInput
     donations?: DonationUpdateManyWithoutUserNestedInput
@@ -58605,6 +60221,7 @@ export namespace Prisma {
     challenges?: DonorChallengeUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUpdateOneWithoutUserNestedInput
+    applicationProfiles?: DonorApplicationProfileUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -58627,6 +60244,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    impactScore?: IntFieldUpdateOperationsInput | number
+    trainingShareCount?: IntFieldUpdateOperationsInput | number
+    betaShareCount?: IntFieldUpdateOperationsInput | number
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ngo?: NgoUncheckedUpdateOneWithoutUserNestedInput
     donations?: DonationUncheckedUpdateManyWithoutUserNestedInput
@@ -58646,6 +60266,7 @@ export namespace Prisma {
     challenges?: DonorChallengeUncheckedUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUncheckedUpdateOneWithoutUserNestedInput
+    applicationProfiles?: DonorApplicationProfileUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutSessionsInput = {
@@ -58668,6 +60289,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     aiSummary?: string | null
+    impactScore?: number
+    trainingShareCount?: number
+    betaShareCount?: number
     accounts?: AccountCreateNestedManyWithoutUserInput
     ngo?: NgoCreateNestedOneWithoutUserInput
     donations?: DonationCreateNestedManyWithoutUserInput
@@ -58687,6 +60311,7 @@ export namespace Prisma {
     challenges?: DonorChallengeCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileCreateNestedOneWithoutUserInput
+    applicationProfiles?: DonorApplicationProfileCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSessionsInput = {
@@ -58709,6 +60334,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     aiSummary?: string | null
+    impactScore?: number
+    trainingShareCount?: number
+    betaShareCount?: number
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     ngo?: NgoUncheckedCreateNestedOneWithoutUserInput
     donations?: DonationUncheckedCreateNestedManyWithoutUserInput
@@ -58728,6 +60356,7 @@ export namespace Prisma {
     challenges?: DonorChallengeUncheckedCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileUncheckedCreateNestedOneWithoutUserInput
+    applicationProfiles?: DonorApplicationProfileUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSessionsInput = {
@@ -58766,6 +60395,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    impactScore?: IntFieldUpdateOperationsInput | number
+    trainingShareCount?: IntFieldUpdateOperationsInput | number
+    betaShareCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUpdateManyWithoutUserNestedInput
     ngo?: NgoUpdateOneWithoutUserNestedInput
     donations?: DonationUpdateManyWithoutUserNestedInput
@@ -58785,6 +60417,7 @@ export namespace Prisma {
     challenges?: DonorChallengeUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUpdateOneWithoutUserNestedInput
+    applicationProfiles?: DonorApplicationProfileUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -58807,6 +60440,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    impactScore?: IntFieldUpdateOperationsInput | number
+    trainingShareCount?: IntFieldUpdateOperationsInput | number
+    betaShareCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     ngo?: NgoUncheckedUpdateOneWithoutUserNestedInput
     donations?: DonationUncheckedUpdateManyWithoutUserNestedInput
@@ -58826,6 +60462,7 @@ export namespace Prisma {
     challenges?: DonorChallengeUncheckedUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUncheckedUpdateOneWithoutUserNestedInput
+    applicationProfiles?: DonorApplicationProfileUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type AccountCreateWithoutUserInput = {
@@ -59479,6 +61116,34 @@ export namespace Prisma {
     create: XOR<BetaTesterProfileCreateWithoutUserInput, BetaTesterProfileUncheckedCreateWithoutUserInput>
   }
 
+  export type DonorApplicationProfileCreateWithoutUserInput = {
+    id?: string
+    title: string
+    bio: string
+    isDefault?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DonorApplicationProfileUncheckedCreateWithoutUserInput = {
+    id?: string
+    title: string
+    bio: string
+    isDefault?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DonorApplicationProfileCreateOrConnectWithoutUserInput = {
+    where: DonorApplicationProfileWhereUniqueInput
+    create: XOR<DonorApplicationProfileCreateWithoutUserInput, DonorApplicationProfileUncheckedCreateWithoutUserInput>
+  }
+
+  export type DonorApplicationProfileCreateManyUserInputEnvelope = {
+    data: DonorApplicationProfileCreateManyUserInput | DonorApplicationProfileCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type AccountUpsertWithWhereUniqueWithoutUserInput = {
     where: AccountWhereUniqueInput
     update: XOR<AccountUpdateWithoutUserInput, AccountUncheckedUpdateWithoutUserInput>
@@ -60111,6 +61776,231 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type DonorApplicationProfileUpsertWithWhereUniqueWithoutUserInput = {
+    where: DonorApplicationProfileWhereUniqueInput
+    update: XOR<DonorApplicationProfileUpdateWithoutUserInput, DonorApplicationProfileUncheckedUpdateWithoutUserInput>
+    create: XOR<DonorApplicationProfileCreateWithoutUserInput, DonorApplicationProfileUncheckedCreateWithoutUserInput>
+  }
+
+  export type DonorApplicationProfileUpdateWithWhereUniqueWithoutUserInput = {
+    where: DonorApplicationProfileWhereUniqueInput
+    data: XOR<DonorApplicationProfileUpdateWithoutUserInput, DonorApplicationProfileUncheckedUpdateWithoutUserInput>
+  }
+
+  export type DonorApplicationProfileUpdateManyWithWhereWithoutUserInput = {
+    where: DonorApplicationProfileScalarWhereInput
+    data: XOR<DonorApplicationProfileUpdateManyMutationInput, DonorApplicationProfileUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type DonorApplicationProfileScalarWhereInput = {
+    AND?: DonorApplicationProfileScalarWhereInput | DonorApplicationProfileScalarWhereInput[]
+    OR?: DonorApplicationProfileScalarWhereInput[]
+    NOT?: DonorApplicationProfileScalarWhereInput | DonorApplicationProfileScalarWhereInput[]
+    id?: StringFilter<"DonorApplicationProfile"> | string
+    userId?: StringFilter<"DonorApplicationProfile"> | string
+    title?: StringFilter<"DonorApplicationProfile"> | string
+    bio?: StringFilter<"DonorApplicationProfile"> | string
+    isDefault?: BoolFilter<"DonorApplicationProfile"> | boolean
+    createdAt?: DateTimeFilter<"DonorApplicationProfile"> | Date | string
+    updatedAt?: DateTimeFilter<"DonorApplicationProfile"> | Date | string
+  }
+
+  export type UserCreateWithoutApplicationProfilesInput = {
+    id?: string
+    email: string
+    emailVerified?: Date | string | null
+    name?: string | null
+    image?: string | null
+    password?: string | null
+    role?: $Enums.Role
+    referralCode?: string | null
+    bio?: string | null
+    jobTitle?: string | null
+    company?: string | null
+    city?: string | null
+    linkedinUrl?: string | null
+    twitterUrl?: string | null
+    portfolioUrl?: string | null
+    skills?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    aiSummary?: string | null
+    impactScore?: number
+    trainingShareCount?: number
+    betaShareCount?: number
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    ngo?: NgoCreateNestedOneWithoutUserInput
+    donations?: DonationCreateNestedManyWithoutUserInput
+    ratings?: RatingCreateNestedManyWithoutDonorInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    spotlightVotes?: SpotlightVoteCreateNestedManyWithoutUserInput
+    campaignsCreated?: CampaignCreateNestedManyWithoutCreatorInput
+    campaignContributions?: CampaignContributorCreateNestedManyWithoutUserInput
+    ngoSuggestions?: NgoSuggestionCreateNestedManyWithoutUserInput
+    referralsMade?: ReferralCreateNestedManyWithoutReferrerInput
+    referralsReceived?: ReferralCreateNestedManyWithoutReferredInput
+    skillContributions?: SkillContributionCreateNestedManyWithoutDonorInput
+    endorsementsReceived?: DonorEndorsementCreateNestedManyWithoutDonorInput
+    endorsementsGiven?: DonorEndorsementCreateNestedManyWithoutEndorserInput
+    documents?: DonorDocumentCreateNestedManyWithoutUserInput
+    roleApplications?: RoleApplicationCreateNestedManyWithoutApplicantInput
+    challenges?: DonorChallengeCreateNestedManyWithoutDonorInput
+    subscription?: SubscriptionCreateNestedOneWithoutUserInput
+    betaTesterProfile?: BetaTesterProfileCreateNestedOneWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutApplicationProfilesInput = {
+    id?: string
+    email: string
+    emailVerified?: Date | string | null
+    name?: string | null
+    image?: string | null
+    password?: string | null
+    role?: $Enums.Role
+    referralCode?: string | null
+    bio?: string | null
+    jobTitle?: string | null
+    company?: string | null
+    city?: string | null
+    linkedinUrl?: string | null
+    twitterUrl?: string | null
+    portfolioUrl?: string | null
+    skills?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    aiSummary?: string | null
+    impactScore?: number
+    trainingShareCount?: number
+    betaShareCount?: number
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    ngo?: NgoUncheckedCreateNestedOneWithoutUserInput
+    donations?: DonationUncheckedCreateNestedManyWithoutUserInput
+    ratings?: RatingUncheckedCreateNestedManyWithoutDonorInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    spotlightVotes?: SpotlightVoteUncheckedCreateNestedManyWithoutUserInput
+    campaignsCreated?: CampaignUncheckedCreateNestedManyWithoutCreatorInput
+    campaignContributions?: CampaignContributorUncheckedCreateNestedManyWithoutUserInput
+    ngoSuggestions?: NgoSuggestionUncheckedCreateNestedManyWithoutUserInput
+    referralsMade?: ReferralUncheckedCreateNestedManyWithoutReferrerInput
+    referralsReceived?: ReferralUncheckedCreateNestedManyWithoutReferredInput
+    skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutDonorInput
+    endorsementsReceived?: DonorEndorsementUncheckedCreateNestedManyWithoutDonorInput
+    endorsementsGiven?: DonorEndorsementUncheckedCreateNestedManyWithoutEndorserInput
+    documents?: DonorDocumentUncheckedCreateNestedManyWithoutUserInput
+    roleApplications?: RoleApplicationUncheckedCreateNestedManyWithoutApplicantInput
+    challenges?: DonorChallengeUncheckedCreateNestedManyWithoutDonorInput
+    subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
+    betaTesterProfile?: BetaTesterProfileUncheckedCreateNestedOneWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutApplicationProfilesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutApplicationProfilesInput, UserUncheckedCreateWithoutApplicationProfilesInput>
+  }
+
+  export type UserUpsertWithoutApplicationProfilesInput = {
+    update: XOR<UserUpdateWithoutApplicationProfilesInput, UserUncheckedUpdateWithoutApplicationProfilesInput>
+    create: XOR<UserCreateWithoutApplicationProfilesInput, UserUncheckedCreateWithoutApplicationProfilesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutApplicationProfilesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutApplicationProfilesInput, UserUncheckedUpdateWithoutApplicationProfilesInput>
+  }
+
+  export type UserUpdateWithoutApplicationProfilesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    referralCode?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    portfolioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    skills?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    impactScore?: IntFieldUpdateOperationsInput | number
+    trainingShareCount?: IntFieldUpdateOperationsInput | number
+    betaShareCount?: IntFieldUpdateOperationsInput | number
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    ngo?: NgoUpdateOneWithoutUserNestedInput
+    donations?: DonationUpdateManyWithoutUserNestedInput
+    ratings?: RatingUpdateManyWithoutDonorNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    spotlightVotes?: SpotlightVoteUpdateManyWithoutUserNestedInput
+    campaignsCreated?: CampaignUpdateManyWithoutCreatorNestedInput
+    campaignContributions?: CampaignContributorUpdateManyWithoutUserNestedInput
+    ngoSuggestions?: NgoSuggestionUpdateManyWithoutUserNestedInput
+    referralsMade?: ReferralUpdateManyWithoutReferrerNestedInput
+    referralsReceived?: ReferralUpdateManyWithoutReferredNestedInput
+    skillContributions?: SkillContributionUpdateManyWithoutDonorNestedInput
+    endorsementsReceived?: DonorEndorsementUpdateManyWithoutDonorNestedInput
+    endorsementsGiven?: DonorEndorsementUpdateManyWithoutEndorserNestedInput
+    documents?: DonorDocumentUpdateManyWithoutUserNestedInput
+    roleApplications?: RoleApplicationUpdateManyWithoutApplicantNestedInput
+    challenges?: DonorChallengeUpdateManyWithoutDonorNestedInput
+    subscription?: SubscriptionUpdateOneWithoutUserNestedInput
+    betaTesterProfile?: BetaTesterProfileUpdateOneWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutApplicationProfilesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    referralCode?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    portfolioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    skills?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    impactScore?: IntFieldUpdateOperationsInput | number
+    trainingShareCount?: IntFieldUpdateOperationsInput | number
+    betaShareCount?: IntFieldUpdateOperationsInput | number
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    ngo?: NgoUncheckedUpdateOneWithoutUserNestedInput
+    donations?: DonationUncheckedUpdateManyWithoutUserNestedInput
+    ratings?: RatingUncheckedUpdateManyWithoutDonorNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    spotlightVotes?: SpotlightVoteUncheckedUpdateManyWithoutUserNestedInput
+    campaignsCreated?: CampaignUncheckedUpdateManyWithoutCreatorNestedInput
+    campaignContributions?: CampaignContributorUncheckedUpdateManyWithoutUserNestedInput
+    ngoSuggestions?: NgoSuggestionUncheckedUpdateManyWithoutUserNestedInput
+    referralsMade?: ReferralUncheckedUpdateManyWithoutReferrerNestedInput
+    referralsReceived?: ReferralUncheckedUpdateManyWithoutReferredNestedInput
+    skillContributions?: SkillContributionUncheckedUpdateManyWithoutDonorNestedInput
+    endorsementsReceived?: DonorEndorsementUncheckedUpdateManyWithoutDonorNestedInput
+    endorsementsGiven?: DonorEndorsementUncheckedUpdateManyWithoutEndorserNestedInput
+    documents?: DonorDocumentUncheckedUpdateManyWithoutUserNestedInput
+    roleApplications?: RoleApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+    challenges?: DonorChallengeUncheckedUpdateManyWithoutDonorNestedInput
+    subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+    betaTesterProfile?: BetaTesterProfileUncheckedUpdateOneWithoutUserNestedInput
+  }
+
   export type UserCreateWithoutBetaTesterProfileInput = {
     id?: string
     email: string
@@ -60131,6 +62021,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     aiSummary?: string | null
+    impactScore?: number
+    trainingShareCount?: number
+    betaShareCount?: number
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     ngo?: NgoCreateNestedOneWithoutUserInput
@@ -60150,6 +62043,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationCreateNestedManyWithoutApplicantInput
     challenges?: DonorChallengeCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
+    applicationProfiles?: DonorApplicationProfileCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutBetaTesterProfileInput = {
@@ -60172,6 +62066,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     aiSummary?: string | null
+    impactScore?: number
+    trainingShareCount?: number
+    betaShareCount?: number
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ngo?: NgoUncheckedCreateNestedOneWithoutUserInput
@@ -60191,6 +62088,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationUncheckedCreateNestedManyWithoutApplicantInput
     challenges?: DonorChallengeUncheckedCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
+    applicationProfiles?: DonorApplicationProfileUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutBetaTesterProfileInput = {
@@ -60229,6 +62127,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    impactScore?: IntFieldUpdateOperationsInput | number
+    trainingShareCount?: IntFieldUpdateOperationsInput | number
+    betaShareCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ngo?: NgoUpdateOneWithoutUserNestedInput
@@ -60248,6 +62149,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationUpdateManyWithoutApplicantNestedInput
     challenges?: DonorChallengeUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
+    applicationProfiles?: DonorApplicationProfileUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutBetaTesterProfileInput = {
@@ -60270,6 +62172,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    impactScore?: IntFieldUpdateOperationsInput | number
+    trainingShareCount?: IntFieldUpdateOperationsInput | number
+    betaShareCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ngo?: NgoUncheckedUpdateOneWithoutUserNestedInput
@@ -60289,6 +62194,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationUncheckedUpdateManyWithoutApplicantNestedInput
     challenges?: DonorChallengeUncheckedUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+    applicationProfiles?: DonorApplicationProfileUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutNgoInput = {
@@ -60311,6 +62217,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     aiSummary?: string | null
+    impactScore?: number
+    trainingShareCount?: number
+    betaShareCount?: number
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     donations?: DonationCreateNestedManyWithoutUserInput
@@ -60330,6 +62239,7 @@ export namespace Prisma {
     challenges?: DonorChallengeCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileCreateNestedOneWithoutUserInput
+    applicationProfiles?: DonorApplicationProfileCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutNgoInput = {
@@ -60352,6 +62262,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     aiSummary?: string | null
+    impactScore?: number
+    trainingShareCount?: number
+    betaShareCount?: number
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     donations?: DonationUncheckedCreateNestedManyWithoutUserInput
@@ -60371,6 +62284,7 @@ export namespace Prisma {
     challenges?: DonorChallengeUncheckedCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileUncheckedCreateNestedOneWithoutUserInput
+    applicationProfiles?: DonorApplicationProfileUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutNgoInput = {
@@ -60765,6 +62679,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    impactScore?: IntFieldUpdateOperationsInput | number
+    trainingShareCount?: IntFieldUpdateOperationsInput | number
+    betaShareCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     donations?: DonationUpdateManyWithoutUserNestedInput
@@ -60784,6 +62701,7 @@ export namespace Prisma {
     challenges?: DonorChallengeUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUpdateOneWithoutUserNestedInput
+    applicationProfiles?: DonorApplicationProfileUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNgoInput = {
@@ -60806,6 +62724,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    impactScore?: IntFieldUpdateOperationsInput | number
+    trainingShareCount?: IntFieldUpdateOperationsInput | number
+    betaShareCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     donations?: DonationUncheckedUpdateManyWithoutUserNestedInput
@@ -60825,6 +62746,7 @@ export namespace Prisma {
     challenges?: DonorChallengeUncheckedUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUncheckedUpdateOneWithoutUserNestedInput
+    applicationProfiles?: DonorApplicationProfileUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ProjectUpsertWithWhereUniqueWithoutNgoInput = {
@@ -62173,6 +64095,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     aiSummary?: string | null
+    impactScore?: number
+    trainingShareCount?: number
+    betaShareCount?: number
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     ngo?: NgoCreateNestedOneWithoutUserInput
@@ -62192,6 +64117,7 @@ export namespace Prisma {
     challenges?: DonorChallengeCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileCreateNestedOneWithoutUserInput
+    applicationProfiles?: DonorApplicationProfileCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutDonationsInput = {
@@ -62214,6 +64140,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     aiSummary?: string | null
+    impactScore?: number
+    trainingShareCount?: number
+    betaShareCount?: number
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ngo?: NgoUncheckedCreateNestedOneWithoutUserInput
@@ -62233,6 +64162,7 @@ export namespace Prisma {
     challenges?: DonorChallengeUncheckedCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileUncheckedCreateNestedOneWithoutUserInput
+    applicationProfiles?: DonorApplicationProfileUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutDonationsInput = {
@@ -62353,6 +64283,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    impactScore?: IntFieldUpdateOperationsInput | number
+    trainingShareCount?: IntFieldUpdateOperationsInput | number
+    betaShareCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ngo?: NgoUpdateOneWithoutUserNestedInput
@@ -62372,6 +64305,7 @@ export namespace Prisma {
     challenges?: DonorChallengeUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUpdateOneWithoutUserNestedInput
+    applicationProfiles?: DonorApplicationProfileUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDonationsInput = {
@@ -62394,6 +64328,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    impactScore?: IntFieldUpdateOperationsInput | number
+    trainingShareCount?: IntFieldUpdateOperationsInput | number
+    betaShareCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ngo?: NgoUncheckedUpdateOneWithoutUserNestedInput
@@ -62413,6 +64350,7 @@ export namespace Prisma {
     challenges?: DonorChallengeUncheckedUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUncheckedUpdateOneWithoutUserNestedInput
+    applicationProfiles?: DonorApplicationProfileUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ProjectUpsertWithoutDonationsInput = {
@@ -63065,6 +65003,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     aiSummary?: string | null
+    impactScore?: number
+    trainingShareCount?: number
+    betaShareCount?: number
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     ngo?: NgoCreateNestedOneWithoutUserInput
@@ -63084,6 +65025,7 @@ export namespace Prisma {
     challenges?: DonorChallengeCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileCreateNestedOneWithoutUserInput
+    applicationProfiles?: DonorApplicationProfileCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutRatingsInput = {
@@ -63106,6 +65048,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     aiSummary?: string | null
+    impactScore?: number
+    trainingShareCount?: number
+    betaShareCount?: number
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ngo?: NgoUncheckedCreateNestedOneWithoutUserInput
@@ -63125,6 +65070,7 @@ export namespace Prisma {
     challenges?: DonorChallengeUncheckedCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileUncheckedCreateNestedOneWithoutUserInput
+    applicationProfiles?: DonorApplicationProfileUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutRatingsInput = {
@@ -63224,6 +65170,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    impactScore?: IntFieldUpdateOperationsInput | number
+    trainingShareCount?: IntFieldUpdateOperationsInput | number
+    betaShareCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ngo?: NgoUpdateOneWithoutUserNestedInput
@@ -63243,6 +65192,7 @@ export namespace Prisma {
     challenges?: DonorChallengeUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUpdateOneWithoutUserNestedInput
+    applicationProfiles?: DonorApplicationProfileUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRatingsInput = {
@@ -63265,6 +65215,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    impactScore?: IntFieldUpdateOperationsInput | number
+    trainingShareCount?: IntFieldUpdateOperationsInput | number
+    betaShareCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ngo?: NgoUncheckedUpdateOneWithoutUserNestedInput
@@ -63284,6 +65237,7 @@ export namespace Prisma {
     challenges?: DonorChallengeUncheckedUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUncheckedUpdateOneWithoutUserNestedInput
+    applicationProfiles?: DonorApplicationProfileUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type NgoUpsertWithoutRatingsInput = {
@@ -63373,6 +65327,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     aiSummary?: string | null
+    impactScore?: number
+    trainingShareCount?: number
+    betaShareCount?: number
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     ngo?: NgoCreateNestedOneWithoutUserInput
@@ -63392,6 +65349,7 @@ export namespace Prisma {
     challenges?: DonorChallengeCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileCreateNestedOneWithoutUserInput
+    applicationProfiles?: DonorApplicationProfileCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -63414,6 +65372,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     aiSummary?: string | null
+    impactScore?: number
+    trainingShareCount?: number
+    betaShareCount?: number
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ngo?: NgoUncheckedCreateNestedOneWithoutUserInput
@@ -63433,6 +65394,7 @@ export namespace Prisma {
     challenges?: DonorChallengeUncheckedCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileUncheckedCreateNestedOneWithoutUserInput
+    applicationProfiles?: DonorApplicationProfileUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -63471,6 +65433,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    impactScore?: IntFieldUpdateOperationsInput | number
+    trainingShareCount?: IntFieldUpdateOperationsInput | number
+    betaShareCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ngo?: NgoUpdateOneWithoutUserNestedInput
@@ -63490,6 +65455,7 @@ export namespace Prisma {
     challenges?: DonorChallengeUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUpdateOneWithoutUserNestedInput
+    applicationProfiles?: DonorApplicationProfileUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -63512,6 +65478,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    impactScore?: IntFieldUpdateOperationsInput | number
+    trainingShareCount?: IntFieldUpdateOperationsInput | number
+    betaShareCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ngo?: NgoUncheckedUpdateOneWithoutUserNestedInput
@@ -63531,6 +65500,7 @@ export namespace Prisma {
     challenges?: DonorChallengeUncheckedUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUncheckedUpdateOneWithoutUserNestedInput
+    applicationProfiles?: DonorApplicationProfileUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutSpotlightVotesInput = {
@@ -63553,6 +65523,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     aiSummary?: string | null
+    impactScore?: number
+    trainingShareCount?: number
+    betaShareCount?: number
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     ngo?: NgoCreateNestedOneWithoutUserInput
@@ -63572,6 +65545,7 @@ export namespace Prisma {
     challenges?: DonorChallengeCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileCreateNestedOneWithoutUserInput
+    applicationProfiles?: DonorApplicationProfileCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSpotlightVotesInput = {
@@ -63594,6 +65568,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     aiSummary?: string | null
+    impactScore?: number
+    trainingShareCount?: number
+    betaShareCount?: number
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ngo?: NgoUncheckedCreateNestedOneWithoutUserInput
@@ -63613,6 +65590,7 @@ export namespace Prisma {
     challenges?: DonorChallengeUncheckedCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileUncheckedCreateNestedOneWithoutUserInput
+    applicationProfiles?: DonorApplicationProfileUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSpotlightVotesInput = {
@@ -63708,6 +65686,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    impactScore?: IntFieldUpdateOperationsInput | number
+    trainingShareCount?: IntFieldUpdateOperationsInput | number
+    betaShareCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ngo?: NgoUpdateOneWithoutUserNestedInput
@@ -63727,6 +65708,7 @@ export namespace Prisma {
     challenges?: DonorChallengeUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUpdateOneWithoutUserNestedInput
+    applicationProfiles?: DonorApplicationProfileUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSpotlightVotesInput = {
@@ -63749,6 +65731,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    impactScore?: IntFieldUpdateOperationsInput | number
+    trainingShareCount?: IntFieldUpdateOperationsInput | number
+    betaShareCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ngo?: NgoUncheckedUpdateOneWithoutUserNestedInput
@@ -63768,6 +65753,7 @@ export namespace Prisma {
     challenges?: DonorChallengeUncheckedUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUncheckedUpdateOneWithoutUserNestedInput
+    applicationProfiles?: DonorApplicationProfileUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ProjectUpsertWithoutSpotlightVotesInput = {
@@ -63853,6 +65839,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     aiSummary?: string | null
+    impactScore?: number
+    trainingShareCount?: number
+    betaShareCount?: number
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     ngo?: NgoCreateNestedOneWithoutUserInput
@@ -63872,6 +65861,7 @@ export namespace Prisma {
     challenges?: DonorChallengeCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileCreateNestedOneWithoutUserInput
+    applicationProfiles?: DonorApplicationProfileCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCampaignsCreatedInput = {
@@ -63894,6 +65884,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     aiSummary?: string | null
+    impactScore?: number
+    trainingShareCount?: number
+    betaShareCount?: number
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ngo?: NgoUncheckedCreateNestedOneWithoutUserInput
@@ -63913,6 +65906,7 @@ export namespace Prisma {
     challenges?: DonorChallengeUncheckedCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileUncheckedCreateNestedOneWithoutUserInput
+    applicationProfiles?: DonorApplicationProfileUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCampaignsCreatedInput = {
@@ -64032,6 +66026,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    impactScore?: IntFieldUpdateOperationsInput | number
+    trainingShareCount?: IntFieldUpdateOperationsInput | number
+    betaShareCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ngo?: NgoUpdateOneWithoutUserNestedInput
@@ -64051,6 +66048,7 @@ export namespace Prisma {
     challenges?: DonorChallengeUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUpdateOneWithoutUserNestedInput
+    applicationProfiles?: DonorApplicationProfileUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCampaignsCreatedInput = {
@@ -64073,6 +66071,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    impactScore?: IntFieldUpdateOperationsInput | number
+    trainingShareCount?: IntFieldUpdateOperationsInput | number
+    betaShareCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ngo?: NgoUncheckedUpdateOneWithoutUserNestedInput
@@ -64092,6 +66093,7 @@ export namespace Prisma {
     challenges?: DonorChallengeUncheckedUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUncheckedUpdateOneWithoutUserNestedInput
+    applicationProfiles?: DonorApplicationProfileUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ProjectUpsertWithoutCampaignsInput = {
@@ -64226,6 +66228,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     aiSummary?: string | null
+    impactScore?: number
+    trainingShareCount?: number
+    betaShareCount?: number
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     ngo?: NgoCreateNestedOneWithoutUserInput
@@ -64245,6 +66250,7 @@ export namespace Prisma {
     challenges?: DonorChallengeCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileCreateNestedOneWithoutUserInput
+    applicationProfiles?: DonorApplicationProfileCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCampaignContributionsInput = {
@@ -64267,6 +66273,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     aiSummary?: string | null
+    impactScore?: number
+    trainingShareCount?: number
+    betaShareCount?: number
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ngo?: NgoUncheckedCreateNestedOneWithoutUserInput
@@ -64286,6 +66295,7 @@ export namespace Prisma {
     challenges?: DonorChallengeUncheckedCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileUncheckedCreateNestedOneWithoutUserInput
+    applicationProfiles?: DonorApplicationProfileUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCampaignContributionsInput = {
@@ -64363,6 +66373,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    impactScore?: IntFieldUpdateOperationsInput | number
+    trainingShareCount?: IntFieldUpdateOperationsInput | number
+    betaShareCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ngo?: NgoUpdateOneWithoutUserNestedInput
@@ -64382,6 +66395,7 @@ export namespace Prisma {
     challenges?: DonorChallengeUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUpdateOneWithoutUserNestedInput
+    applicationProfiles?: DonorApplicationProfileUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCampaignContributionsInput = {
@@ -64404,6 +66418,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    impactScore?: IntFieldUpdateOperationsInput | number
+    trainingShareCount?: IntFieldUpdateOperationsInput | number
+    betaShareCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ngo?: NgoUncheckedUpdateOneWithoutUserNestedInput
@@ -64423,6 +66440,7 @@ export namespace Prisma {
     challenges?: DonorChallengeUncheckedUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUncheckedUpdateOneWithoutUserNestedInput
+    applicationProfiles?: DonorApplicationProfileUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutNgoSuggestionsInput = {
@@ -64445,6 +66463,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     aiSummary?: string | null
+    impactScore?: number
+    trainingShareCount?: number
+    betaShareCount?: number
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     ngo?: NgoCreateNestedOneWithoutUserInput
@@ -64464,6 +66485,7 @@ export namespace Prisma {
     challenges?: DonorChallengeCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileCreateNestedOneWithoutUserInput
+    applicationProfiles?: DonorApplicationProfileCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutNgoSuggestionsInput = {
@@ -64486,6 +66508,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     aiSummary?: string | null
+    impactScore?: number
+    trainingShareCount?: number
+    betaShareCount?: number
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ngo?: NgoUncheckedCreateNestedOneWithoutUserInput
@@ -64505,6 +66530,7 @@ export namespace Prisma {
     challenges?: DonorChallengeUncheckedCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileUncheckedCreateNestedOneWithoutUserInput
+    applicationProfiles?: DonorApplicationProfileUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutNgoSuggestionsInput = {
@@ -64543,6 +66569,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    impactScore?: IntFieldUpdateOperationsInput | number
+    trainingShareCount?: IntFieldUpdateOperationsInput | number
+    betaShareCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ngo?: NgoUpdateOneWithoutUserNestedInput
@@ -64562,6 +66591,7 @@ export namespace Prisma {
     challenges?: DonorChallengeUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUpdateOneWithoutUserNestedInput
+    applicationProfiles?: DonorApplicationProfileUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNgoSuggestionsInput = {
@@ -64584,6 +66614,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    impactScore?: IntFieldUpdateOperationsInput | number
+    trainingShareCount?: IntFieldUpdateOperationsInput | number
+    betaShareCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ngo?: NgoUncheckedUpdateOneWithoutUserNestedInput
@@ -64603,6 +66636,7 @@ export namespace Prisma {
     challenges?: DonorChallengeUncheckedUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUncheckedUpdateOneWithoutUserNestedInput
+    applicationProfiles?: DonorApplicationProfileUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutReferralsMadeInput = {
@@ -64625,6 +66659,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     aiSummary?: string | null
+    impactScore?: number
+    trainingShareCount?: number
+    betaShareCount?: number
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     ngo?: NgoCreateNestedOneWithoutUserInput
@@ -64644,6 +66681,7 @@ export namespace Prisma {
     challenges?: DonorChallengeCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileCreateNestedOneWithoutUserInput
+    applicationProfiles?: DonorApplicationProfileCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutReferralsMadeInput = {
@@ -64666,6 +66704,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     aiSummary?: string | null
+    impactScore?: number
+    trainingShareCount?: number
+    betaShareCount?: number
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ngo?: NgoUncheckedCreateNestedOneWithoutUserInput
@@ -64685,6 +66726,7 @@ export namespace Prisma {
     challenges?: DonorChallengeUncheckedCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileUncheckedCreateNestedOneWithoutUserInput
+    applicationProfiles?: DonorApplicationProfileUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutReferralsMadeInput = {
@@ -64712,6 +66754,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     aiSummary?: string | null
+    impactScore?: number
+    trainingShareCount?: number
+    betaShareCount?: number
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     ngo?: NgoCreateNestedOneWithoutUserInput
@@ -64731,6 +66776,7 @@ export namespace Prisma {
     challenges?: DonorChallengeCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileCreateNestedOneWithoutUserInput
+    applicationProfiles?: DonorApplicationProfileCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutReferralsReceivedInput = {
@@ -64753,6 +66799,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     aiSummary?: string | null
+    impactScore?: number
+    trainingShareCount?: number
+    betaShareCount?: number
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ngo?: NgoUncheckedCreateNestedOneWithoutUserInput
@@ -64772,6 +66821,7 @@ export namespace Prisma {
     challenges?: DonorChallengeUncheckedCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileUncheckedCreateNestedOneWithoutUserInput
+    applicationProfiles?: DonorApplicationProfileUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutReferralsReceivedInput = {
@@ -64810,6 +66860,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    impactScore?: IntFieldUpdateOperationsInput | number
+    trainingShareCount?: IntFieldUpdateOperationsInput | number
+    betaShareCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ngo?: NgoUpdateOneWithoutUserNestedInput
@@ -64829,6 +66882,7 @@ export namespace Prisma {
     challenges?: DonorChallengeUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUpdateOneWithoutUserNestedInput
+    applicationProfiles?: DonorApplicationProfileUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReferralsMadeInput = {
@@ -64851,6 +66905,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    impactScore?: IntFieldUpdateOperationsInput | number
+    trainingShareCount?: IntFieldUpdateOperationsInput | number
+    betaShareCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ngo?: NgoUncheckedUpdateOneWithoutUserNestedInput
@@ -64870,6 +66927,7 @@ export namespace Prisma {
     challenges?: DonorChallengeUncheckedUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUncheckedUpdateOneWithoutUserNestedInput
+    applicationProfiles?: DonorApplicationProfileUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUpsertWithoutReferralsReceivedInput = {
@@ -64903,6 +66961,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    impactScore?: IntFieldUpdateOperationsInput | number
+    trainingShareCount?: IntFieldUpdateOperationsInput | number
+    betaShareCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ngo?: NgoUpdateOneWithoutUserNestedInput
@@ -64922,6 +66983,7 @@ export namespace Prisma {
     challenges?: DonorChallengeUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUpdateOneWithoutUserNestedInput
+    applicationProfiles?: DonorApplicationProfileUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReferralsReceivedInput = {
@@ -64944,6 +67006,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    impactScore?: IntFieldUpdateOperationsInput | number
+    trainingShareCount?: IntFieldUpdateOperationsInput | number
+    betaShareCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ngo?: NgoUncheckedUpdateOneWithoutUserNestedInput
@@ -64963,6 +67028,7 @@ export namespace Prisma {
     challenges?: DonorChallengeUncheckedUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUncheckedUpdateOneWithoutUserNestedInput
+    applicationProfiles?: DonorApplicationProfileUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type NgoCreateWithoutBoardMembersInput = {
@@ -65113,6 +67179,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     aiSummary?: string | null
+    impactScore?: number
+    trainingShareCount?: number
+    betaShareCount?: number
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     ngo?: NgoCreateNestedOneWithoutUserInput
@@ -65132,6 +67201,7 @@ export namespace Prisma {
     challenges?: DonorChallengeCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileCreateNestedOneWithoutUserInput
+    applicationProfiles?: DonorApplicationProfileCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSkillContributionsInput = {
@@ -65154,6 +67224,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     aiSummary?: string | null
+    impactScore?: number
+    trainingShareCount?: number
+    betaShareCount?: number
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ngo?: NgoUncheckedCreateNestedOneWithoutUserInput
@@ -65173,6 +67246,7 @@ export namespace Prisma {
     challenges?: DonorChallengeUncheckedCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileUncheckedCreateNestedOneWithoutUserInput
+    applicationProfiles?: DonorApplicationProfileUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSkillContributionsInput = {
@@ -65348,6 +67422,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    impactScore?: IntFieldUpdateOperationsInput | number
+    trainingShareCount?: IntFieldUpdateOperationsInput | number
+    betaShareCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ngo?: NgoUpdateOneWithoutUserNestedInput
@@ -65367,6 +67444,7 @@ export namespace Prisma {
     challenges?: DonorChallengeUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUpdateOneWithoutUserNestedInput
+    applicationProfiles?: DonorApplicationProfileUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSkillContributionsInput = {
@@ -65389,6 +67467,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    impactScore?: IntFieldUpdateOperationsInput | number
+    trainingShareCount?: IntFieldUpdateOperationsInput | number
+    betaShareCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ngo?: NgoUncheckedUpdateOneWithoutUserNestedInput
@@ -65408,6 +67489,7 @@ export namespace Prisma {
     challenges?: DonorChallengeUncheckedUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUncheckedUpdateOneWithoutUserNestedInput
+    applicationProfiles?: DonorApplicationProfileUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type NgoUpsertWithoutSkillContributionsInput = {
@@ -65665,6 +67747,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     aiSummary?: string | null
+    impactScore?: number
+    trainingShareCount?: number
+    betaShareCount?: number
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     ngo?: NgoCreateNestedOneWithoutUserInput
@@ -65684,6 +67769,7 @@ export namespace Prisma {
     challenges?: DonorChallengeCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileCreateNestedOneWithoutUserInput
+    applicationProfiles?: DonorApplicationProfileCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutEndorsementsReceivedInput = {
@@ -65706,6 +67792,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     aiSummary?: string | null
+    impactScore?: number
+    trainingShareCount?: number
+    betaShareCount?: number
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ngo?: NgoUncheckedCreateNestedOneWithoutUserInput
@@ -65725,6 +67814,7 @@ export namespace Prisma {
     challenges?: DonorChallengeUncheckedCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileUncheckedCreateNestedOneWithoutUserInput
+    applicationProfiles?: DonorApplicationProfileUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutEndorsementsReceivedInput = {
@@ -65813,6 +67903,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     aiSummary?: string | null
+    impactScore?: number
+    trainingShareCount?: number
+    betaShareCount?: number
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     ngo?: NgoCreateNestedOneWithoutUserInput
@@ -65832,6 +67925,7 @@ export namespace Prisma {
     challenges?: DonorChallengeCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileCreateNestedOneWithoutUserInput
+    applicationProfiles?: DonorApplicationProfileCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutEndorsementsGivenInput = {
@@ -65854,6 +67948,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     aiSummary?: string | null
+    impactScore?: number
+    trainingShareCount?: number
+    betaShareCount?: number
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ngo?: NgoUncheckedCreateNestedOneWithoutUserInput
@@ -65873,6 +67970,7 @@ export namespace Prisma {
     challenges?: DonorChallengeUncheckedCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileUncheckedCreateNestedOneWithoutUserInput
+    applicationProfiles?: DonorApplicationProfileUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutEndorsementsGivenInput = {
@@ -65911,6 +68009,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    impactScore?: IntFieldUpdateOperationsInput | number
+    trainingShareCount?: IntFieldUpdateOperationsInput | number
+    betaShareCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ngo?: NgoUpdateOneWithoutUserNestedInput
@@ -65930,6 +68031,7 @@ export namespace Prisma {
     challenges?: DonorChallengeUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUpdateOneWithoutUserNestedInput
+    applicationProfiles?: DonorApplicationProfileUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutEndorsementsReceivedInput = {
@@ -65952,6 +68054,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    impactScore?: IntFieldUpdateOperationsInput | number
+    trainingShareCount?: IntFieldUpdateOperationsInput | number
+    betaShareCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ngo?: NgoUncheckedUpdateOneWithoutUserNestedInput
@@ -65971,6 +68076,7 @@ export namespace Prisma {
     challenges?: DonorChallengeUncheckedUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUncheckedUpdateOneWithoutUserNestedInput
+    applicationProfiles?: DonorApplicationProfileUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type NgoUpsertWithoutDonorEndorsementsInput = {
@@ -66071,6 +68177,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    impactScore?: IntFieldUpdateOperationsInput | number
+    trainingShareCount?: IntFieldUpdateOperationsInput | number
+    betaShareCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ngo?: NgoUpdateOneWithoutUserNestedInput
@@ -66090,6 +68199,7 @@ export namespace Prisma {
     challenges?: DonorChallengeUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUpdateOneWithoutUserNestedInput
+    applicationProfiles?: DonorApplicationProfileUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutEndorsementsGivenInput = {
@@ -66112,6 +68222,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    impactScore?: IntFieldUpdateOperationsInput | number
+    trainingShareCount?: IntFieldUpdateOperationsInput | number
+    betaShareCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ngo?: NgoUncheckedUpdateOneWithoutUserNestedInput
@@ -66131,6 +68244,7 @@ export namespace Prisma {
     challenges?: DonorChallengeUncheckedUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUncheckedUpdateOneWithoutUserNestedInput
+    applicationProfiles?: DonorApplicationProfileUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutDocumentsInput = {
@@ -66153,6 +68267,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     aiSummary?: string | null
+    impactScore?: number
+    trainingShareCount?: number
+    betaShareCount?: number
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     ngo?: NgoCreateNestedOneWithoutUserInput
@@ -66172,6 +68289,7 @@ export namespace Prisma {
     challenges?: DonorChallengeCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileCreateNestedOneWithoutUserInput
+    applicationProfiles?: DonorApplicationProfileCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutDocumentsInput = {
@@ -66194,6 +68312,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     aiSummary?: string | null
+    impactScore?: number
+    trainingShareCount?: number
+    betaShareCount?: number
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ngo?: NgoUncheckedCreateNestedOneWithoutUserInput
@@ -66213,6 +68334,7 @@ export namespace Prisma {
     challenges?: DonorChallengeUncheckedCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileUncheckedCreateNestedOneWithoutUserInput
+    applicationProfiles?: DonorApplicationProfileUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutDocumentsInput = {
@@ -66251,6 +68373,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    impactScore?: IntFieldUpdateOperationsInput | number
+    trainingShareCount?: IntFieldUpdateOperationsInput | number
+    betaShareCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ngo?: NgoUpdateOneWithoutUserNestedInput
@@ -66270,6 +68395,7 @@ export namespace Prisma {
     challenges?: DonorChallengeUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUpdateOneWithoutUserNestedInput
+    applicationProfiles?: DonorApplicationProfileUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDocumentsInput = {
@@ -66292,6 +68418,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    impactScore?: IntFieldUpdateOperationsInput | number
+    trainingShareCount?: IntFieldUpdateOperationsInput | number
+    betaShareCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ngo?: NgoUncheckedUpdateOneWithoutUserNestedInput
@@ -66311,6 +68440,7 @@ export namespace Prisma {
     challenges?: DonorChallengeUncheckedUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUncheckedUpdateOneWithoutUserNestedInput
+    applicationProfiles?: DonorApplicationProfileUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type NgoCreateWithoutDocumentsInput = {
@@ -66812,6 +68942,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     aiSummary?: string | null
+    impactScore?: number
+    trainingShareCount?: number
+    betaShareCount?: number
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     ngo?: NgoCreateNestedOneWithoutUserInput
@@ -66831,6 +68964,7 @@ export namespace Prisma {
     challenges?: DonorChallengeCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileCreateNestedOneWithoutUserInput
+    applicationProfiles?: DonorApplicationProfileCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutRoleApplicationsInput = {
@@ -66853,6 +68987,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     aiSummary?: string | null
+    impactScore?: number
+    trainingShareCount?: number
+    betaShareCount?: number
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ngo?: NgoUncheckedCreateNestedOneWithoutUserInput
@@ -66872,6 +69009,7 @@ export namespace Prisma {
     challenges?: DonorChallengeUncheckedCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileUncheckedCreateNestedOneWithoutUserInput
+    applicationProfiles?: DonorApplicationProfileUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutRoleApplicationsInput = {
@@ -66998,6 +69136,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    impactScore?: IntFieldUpdateOperationsInput | number
+    trainingShareCount?: IntFieldUpdateOperationsInput | number
+    betaShareCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ngo?: NgoUpdateOneWithoutUserNestedInput
@@ -67017,6 +69158,7 @@ export namespace Prisma {
     challenges?: DonorChallengeUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUpdateOneWithoutUserNestedInput
+    applicationProfiles?: DonorApplicationProfileUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRoleApplicationsInput = {
@@ -67039,6 +69181,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    impactScore?: IntFieldUpdateOperationsInput | number
+    trainingShareCount?: IntFieldUpdateOperationsInput | number
+    betaShareCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ngo?: NgoUncheckedUpdateOneWithoutUserNestedInput
@@ -67058,6 +69203,7 @@ export namespace Prisma {
     challenges?: DonorChallengeUncheckedUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUncheckedUpdateOneWithoutUserNestedInput
+    applicationProfiles?: DonorApplicationProfileUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type RoleEngagementUpsertWithoutApplicationInput = {
@@ -67179,6 +69325,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     aiSummary?: string | null
+    impactScore?: number
+    trainingShareCount?: number
+    betaShareCount?: number
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     ngo?: NgoCreateNestedOneWithoutUserInput
@@ -67198,6 +69347,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationCreateNestedManyWithoutApplicantInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileCreateNestedOneWithoutUserInput
+    applicationProfiles?: DonorApplicationProfileCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutChallengesInput = {
@@ -67220,6 +69370,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     aiSummary?: string | null
+    impactScore?: number
+    trainingShareCount?: number
+    betaShareCount?: number
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ngo?: NgoUncheckedCreateNestedOneWithoutUserInput
@@ -67239,6 +69392,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationUncheckedCreateNestedManyWithoutApplicantInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileUncheckedCreateNestedOneWithoutUserInput
+    applicationProfiles?: DonorApplicationProfileUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutChallengesInput = {
@@ -67417,6 +69571,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    impactScore?: IntFieldUpdateOperationsInput | number
+    trainingShareCount?: IntFieldUpdateOperationsInput | number
+    betaShareCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ngo?: NgoUpdateOneWithoutUserNestedInput
@@ -67436,6 +69593,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationUpdateManyWithoutApplicantNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUpdateOneWithoutUserNestedInput
+    applicationProfiles?: DonorApplicationProfileUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutChallengesInput = {
@@ -67458,6 +69616,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    impactScore?: IntFieldUpdateOperationsInput | number
+    trainingShareCount?: IntFieldUpdateOperationsInput | number
+    betaShareCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ngo?: NgoUncheckedUpdateOneWithoutUserNestedInput
@@ -67477,6 +69638,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationUncheckedUpdateManyWithoutApplicantNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUncheckedUpdateOneWithoutUserNestedInput
+    applicationProfiles?: DonorApplicationProfileUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ProjectUpsertWithoutChallengesInput = {
@@ -67731,6 +69893,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     aiSummary?: string | null
+    impactScore?: number
+    trainingShareCount?: number
+    betaShareCount?: number
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     ngo?: NgoCreateNestedOneWithoutUserInput
@@ -67750,6 +69915,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationCreateNestedManyWithoutApplicantInput
     challenges?: DonorChallengeCreateNestedManyWithoutDonorInput
     betaTesterProfile?: BetaTesterProfileCreateNestedOneWithoutUserInput
+    applicationProfiles?: DonorApplicationProfileCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSubscriptionInput = {
@@ -67772,6 +69938,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     aiSummary?: string | null
+    impactScore?: number
+    trainingShareCount?: number
+    betaShareCount?: number
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ngo?: NgoUncheckedCreateNestedOneWithoutUserInput
@@ -67791,6 +69960,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationUncheckedCreateNestedManyWithoutApplicantInput
     challenges?: DonorChallengeUncheckedCreateNestedManyWithoutDonorInput
     betaTesterProfile?: BetaTesterProfileUncheckedCreateNestedOneWithoutUserInput
+    applicationProfiles?: DonorApplicationProfileUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSubscriptionInput = {
@@ -67829,6 +69999,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    impactScore?: IntFieldUpdateOperationsInput | number
+    trainingShareCount?: IntFieldUpdateOperationsInput | number
+    betaShareCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ngo?: NgoUpdateOneWithoutUserNestedInput
@@ -67848,6 +70021,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationUpdateManyWithoutApplicantNestedInput
     challenges?: DonorChallengeUpdateManyWithoutDonorNestedInput
     betaTesterProfile?: BetaTesterProfileUpdateOneWithoutUserNestedInput
+    applicationProfiles?: DonorApplicationProfileUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSubscriptionInput = {
@@ -67870,6 +70044,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    impactScore?: IntFieldUpdateOperationsInput | number
+    trainingShareCount?: IntFieldUpdateOperationsInput | number
+    betaShareCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ngo?: NgoUncheckedUpdateOneWithoutUserNestedInput
@@ -67889,6 +70066,7 @@ export namespace Prisma {
     roleApplications?: RoleApplicationUncheckedUpdateManyWithoutApplicantNestedInput
     challenges?: DonorChallengeUncheckedUpdateManyWithoutDonorNestedInput
     betaTesterProfile?: BetaTesterProfileUncheckedUpdateOneWithoutUserNestedInput
+    applicationProfiles?: DonorApplicationProfileUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type AccountCreateManyUserInput = {
@@ -68061,6 +70239,15 @@ export namespace Prisma {
     message?: string | null
     deadline?: Date | string | null
     createdAt?: Date | string
+  }
+
+  export type DonorApplicationProfileCreateManyUserInput = {
+    id?: string
+    title: string
+    bio: string
+    isDefault?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type AccountUpdateWithoutUserInput = {
@@ -68587,6 +70774,33 @@ export namespace Prisma {
     message?: NullableStringFieldUpdateOperationsInput | string | null
     deadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DonorApplicationProfileUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    bio?: StringFieldUpdateOperationsInput | string
+    isDefault?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DonorApplicationProfileUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    bio?: StringFieldUpdateOperationsInput | string
+    isDefault?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DonorApplicationProfileUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    bio?: StringFieldUpdateOperationsInput | string
+    isDefault?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ProjectCreateManyNgoInput = {

@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
-import AssistantPortal from "@/components/AssistantPortal";
 import DonorSidebarNav from "@/components/DonorSidebarNav";
+import Navbar from "@/components/Navbar";
 
 export default async function DonorLayout({ children }: { children: React.ReactNode }) {
   let session;
@@ -35,10 +35,12 @@ export default async function DonorLayout({ children }: { children: React.ReactN
   return (
     <div className="min-h-screen bg-[#f3f2ef] flex">
       <DonorSidebarNav userName={userName} initials={initials} />
-      <main className="flex-1 lg:ml-60 min-h-screen">
-        {children}
-      </main>
-      <AssistantPortal role="donor" />
+      <div className="flex-1 lg:ml-60 flex flex-col min-h-screen">
+        <Navbar session={session} />
+        <main className="flex-1">
+          {children}
+        </main>
+      </div>
     </div>
   );
 }

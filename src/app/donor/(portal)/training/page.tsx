@@ -1,16 +1,18 @@
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import Link from "next/link";
+import { prisma } from "@/lib/prisma";
 import {
   TRAINING_MODULES,
   TOTAL_LESSONS,
   TOTAL_HOURS,
   MODULE_COUNT,
 } from "@/lib/training-curriculum";
+import TrainingShareButton from "@/components/TrainingShareButton";
 import {
   BookOpen, Clock, Zap, Layers, GraduationCap, ChevronRight,
   Terminal, Wrench, TrendingUp, DollarSign, Settings,
-  Users, Scale, BarChart2, Cpu, GitBranch, Lightbulb,
+  Users, Scale, BarChart2, Cpu, GitBranch, Lightbulb, Smartphone, Star,
 } from "lucide-react";
 
 const levelConfig = {
@@ -44,6 +46,12 @@ const categoryIcons: Record<string, React.ComponentType<{ className?: string }>>
 export default async function TrainingHubPage() {
   const session = await auth();
   if (!session) redirect("/login");
+
+  const userStats = await prisma.user.findUnique({
+    where: { id: session.user.id },
+    select: { trainingShareCount: true, impactScore: true },
+  });
+  const trainingShareCount = userStats?.trainingShareCount ?? 0;
 
   const beginner     = TRAINING_MODULES.filter((m) => m.level === "Beginner");
   const intermediate = TRAINING_MODULES.filter((m) => m.level === "Intermediate");
@@ -116,6 +124,35 @@ export default async function TrainingHubPage() {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Share section — boost impact score */}
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 pt-6 pb-2">
+        <TrainingShareButton initialCount={trainingShareCount} />
+      </div>
+
+      {/* Beta UGC card */}
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 pt-4">
+        <Link
+          href="/donor/beta-program"
+          className="flex flex-col sm:flex-row items-start sm:items-center gap-4 bg-gradient-to-r from-violet-600 to-purple-700 rounded-2xl px-5 py-4 hover:from-violet-700 hover:to-purple-800 transition-all group"
+        >
+          <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center shrink-0">
+            <Smartphone className="w-5 h-5 text-white" />
+          </div>
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-2 mb-0.5">
+              <p className="text-sm font-bold text-white">Beta Tester &amp; UGC Creator Program</p>
+              <span className="text-[10px] font-semibold bg-white/20 text-white px-2 py-0.5 rounded-full">Earn money</span>
+            </div>
+            <p className="text-[11px] text-violet-200 leading-relaxed">
+              Get paid $3,000–$5,000/month to test apps and create content for brands. Open to all GiveLedger donors.
+            </p>
+          </div>
+          <div className="shrink-0 flex items-center gap-1 text-xs font-semibold text-white/80 group-hover:text-white transition-colors">
+            <Star className="w-3.5 h-3.5" /> Join program
+          </div>
+        </Link>
       </div>
 
       {/* Module groups */}

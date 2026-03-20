@@ -1,10 +1,10 @@
 "use client";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Linkedin, Twitter, Globe, Briefcase, MapPin, CheckCircle2, Loader2, User, ExternalLink, Upload, FileText, Trash2, Sparkles } from "lucide-react";
+import { Linkedin, Twitter, Globe, Briefcase, MapPin, CheckCircle2, Loader2, User, ExternalLink, Upload, FileText, Trash2, Sparkles, Plus, Star, ClipboardList } from "lucide-react";
 
 const SKILL_OPTIONS = [
   "IT & Engineering",
@@ -62,6 +62,62 @@ export default function ProfileClient({ initial }: { initial: ProfileData }) {
   // AI summary state
   const [aiSummary, setAiSummary] = useState("");
   const [generatingAi, setGeneratingAi] = useState(false);
+
+  // Application profiles state
+  type AppProfile = { id: string; title: string; bio: string; isDefault: boolean };
+  const [appProfiles, setAppProfiles] = useState<AppProfile[]>([]);
+  const [newProfileTitle, setNewProfileTitle] = useState("");
+  const [newProfileBio, setNewProfileBio] = useState("");
+  const [newProfileDefault, setNewProfileDefault] = useState(false);
+  const [savingProfile, setSavingProfile] = useState(false);
+  const [showNewProfileForm, setShowNewProfileForm] = useState(false);
+
+  useEffect(() => {
+    fetch("/api/donor/application-profiles")
+      .then((r) => r.json())
+      .then((data) => { if (Array.isArray(data)) setAppProfiles(data); })
+      .catch(() => {});
+  }, []);
+
+  async function handleCreateProfile() {
+    if (!newProfileTitle.trim() || !newProfileBio.trim()) return;
+    setSavingProfile(true);
+    try {
+      const res = await fetch("/api/donor/application-profiles", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ title: newProfileTitle, bio: newProfileBio, isDefault: newProfileDefault }),
+      });
+      if (res.ok) {
+        const created = await res.json();
+        setAppProfiles((prev) => {
+          const base = newProfileDefault ? prev.map((p) => ({ ...p, isDefault: false })) : prev;
+          return [...base, created];
+        });
+        setNewProfileTitle(""); setNewProfileBio(""); setNewProfileDefault(false);
+        setShowNewProfileForm(false);
+      }
+    } catch {}
+    setSavingProfile(false);
+  }
+
+  async function handleSetDefault(id: string) {
+    const res = await fetch("/api/donor/application-profiles", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id, isDefault: true }),
+    });
+    if (res.ok) {
+      setAppProfiles((prev) => prev.map((p) => ({ ...p, isDefault: p.id === id })));
+    }
+  }
+
+  async function handleDeleteProfile(id: string) {
+    const res = await fetch(`/api/donor/application-profiles?id=${id}`, { method: "DELETE" });
+    if (res.ok) {
+      setAppProfiles((prev) => prev.filter((p) => p.id !== id));
+    }
+  }
 
   function toggleSkill(skill: string) {
     setSelectedSkills((prev) =>
@@ -344,6 +400,112 @@ export default function ProfileClient({ initial }: { initial: ProfileData }) {
                 ))}
               </div>
             )}
+          </CardContent>
+        </Card>
+
+        {/* Application Profiles */}
+        <Card>
+          <CardHeader>
+            <div className="flex items-center justify-between">
+              <CardTitle className="text-base flex items-center gap-2">
+                <ClipboardList className="w-4 h-4 text-emerald-600" /> Application Profiles
+              </CardTitle>
+              <button
+                type="button"
+                onClick={() => setShowNewProfileForm((v) => !v)}
+                className="flex items-center gap-1.5 text-xs font-semibold text-emerald-700 border border-emerald-200 hover:bg-emerald-50 px-3 py-1.5 rounded-lg transition-colors"
+              >
+                <Plus className="w-3.5 h-3.5" /> New profile
+              </button>
+            </div>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <p className="text-sm text-gray-500">
+              Create different versions of your profile to use when applying for roles — e.g. one for marketing roles, one for finance. When you apply, you choose which profile to present to the NGO.
+            </p>
+
+            {showNewProfileForm && (
+              <div className="bg-gray-50 border border-gray-200 rounded-xl p-4 space-y-3">
+                <div className="space-y-1.5">
+                  <Label className="text-xs">Profile title (e.g. "Marketing Expert", "Finance Lead")</Label>
+                  <Input
+                    value={newProfileTitle}
+                    onChange={(e) => setNewProfileTitle(e.target.value)}
+                    placeholder="Marketing Expert"
+                  />
+                </div>
+                <div className="space-y-1.5">
+                  <Label className="text-xs">Bio for this role type</Label>
+                  <textarea
+                    rows={4}
+                    value={newProfileBio}
+                    onChange={(e) => setNewProfileBio(e.target.value)}
+                    placeholder="Briefly describe what you bring to this type of role — experience, skills, why you're a fit..."
+                    className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-none"
+                  />
+                </div>
+                <label className="flex items-center gap-2 text-xs text-gray-600 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={newProfileDefault}
+                    onChange={(e) => setNewProfileDefault(e.target.checked)}
+                    className="rounded"
+                  />
+                  Set as my default profile
+                </label>
+                <div className="flex gap-2 pt-1">
+                  <Button type="button" variant="outline" onClick={() => setShowNewProfileForm(false)} className="flex-1 text-xs">
+                    Cancel
+                  </Button>
+                  <Button
+                    type="button"
+                    onClick={handleCreateProfile}
+                    disabled={savingProfile || !newProfileTitle.trim() || !newProfileBio.trim()}
+                    className="flex-1 text-xs bg-emerald-600 hover:bg-emerald-700"
+                  >
+                    {savingProfile ? <Loader2 className="w-4 h-4 animate-spin" /> : "Save profile"}
+                  </Button>
+                </div>
+              </div>
+            )}
+
+            {appProfiles.length === 0 && !showNewProfileForm && (
+              <p className="text-sm text-gray-400 text-center py-4">No application profiles yet — create one above.</p>
+            )}
+
+            {appProfiles.map((p) => (
+              <div key={p.id} className={`border rounded-xl p-4 space-y-2 ${p.isDefault ? "border-emerald-300 bg-emerald-50" : "border-gray-200 bg-white"}`}>
+                <div className="flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-2">
+                    <p className="text-sm font-semibold text-gray-900">{p.title}</p>
+                    {p.isDefault && (
+                      <span className="inline-flex items-center gap-1 text-[10px] font-semibold bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full">
+                        <Star className="w-3 h-3" /> Default
+                      </span>
+                    )}
+                  </div>
+                  <div className="flex items-center gap-2 shrink-0">
+                    {!p.isDefault && (
+                      <button
+                        type="button"
+                        onClick={() => handleSetDefault(p.id)}
+                        className="text-[11px] text-emerald-700 hover:underline font-medium"
+                      >
+                        Set default
+                      </button>
+                    )}
+                    <button
+                      type="button"
+                      onClick={() => handleDeleteProfile(p.id)}
+                      className="text-red-400 hover:text-red-600 p-1"
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                </div>
+                <p className="text-xs text-gray-500 leading-relaxed line-clamp-3">{p.bio}</p>
+              </div>
+            ))}
           </CardContent>
         </Card>
 

@@ -1,7 +1,8 @@
 "use client";
 import { useState } from "react";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Send, X, Loader2, Share2, Check, Linkedin, ExternalLink, Copy } from "lucide-react";
+import { Send, X, Loader2, Share2, Check, Linkedin, ExternalLink, Copy, Star, ChevronDown } from "lucide-react";
 
 function isValidLinkedIn(val: string) {
   return /linkedin\.com\/in\/[a-zA-Z0-9\-_%]+/i.test(val.trim());
@@ -15,20 +16,31 @@ function normaliseLinkedIn(val: string) {
   return m ? `https://${m[0]}` : val.trim();
 }
 
+interface ApplicationProfile {
+  id: string;
+  title: string;
+  bio: string;
+  isDefault: boolean;
+}
+
 interface Props {
   roleId: string;
   roleTitle: string;
   defaultLinkedin?: string;
-  defaultPortfolio?: string;
   ngoName?: string;
+  impactScore?: number;
+  profileUrl?: string;
+  applicationProfiles?: ApplicationProfile[];
 }
 
-export default function RoleApplyButton({ roleId, roleTitle, defaultLinkedin, defaultPortfolio, ngoName }: Props) {
+export default function RoleApplyButton({ roleId, roleTitle, defaultLinkedin, ngoName, impactScore = 0, profileUrl = "", applicationProfiles = [] }: Props) {
   const [open, setOpen] = useState(false);
   const [step, setStep] = useState<"form" | "share">("form");
   const [coverNote, setCoverNote] = useState("");
   const [linkedinUrl, setLinkedinUrl] = useState(defaultLinkedin ?? "");
-  const [portfolioUrl, setPortfolioUrl] = useState(defaultPortfolio ?? "");
+  const [selectedProfileId, setSelectedProfileId] = useState<string>(
+    applicationProfiles.find((p) => p.isDefault)?.id ?? applicationProfiles[0]?.id ?? ""
+  );
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
   const [error, setError] = useState("");
@@ -83,10 +95,17 @@ export default function RoleApplyButton({ roleId, roleTitle, defaultLinkedin, de
     setError("");
     setSubmitting(true);
     try {
+      const selectedProfile = applicationProfiles.find((p) => p.id === selectedProfileId);
       const res = await fetch(`/api/roles/${roleId}/apply`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ coverNote, linkedinUrl, portfolioUrl }),
+        body: JSON.stringify({
+          coverNote,
+          linkedinUrl,
+          portfolioUrl: profileUrl,
+          applicationProfileBio: selectedProfile?.bio ?? "",
+          applicationProfileTitle: selectedProfile?.title ?? "",
+        }),
       });
       const data = await res.json();
       if (!res.ok) {
@@ -117,7 +136,13 @@ export default function RoleApplyButton({ roleId, roleTitle, defaultLinkedin, de
           <Send className="w-5 h-5 text-emerald-600" />
         </div>
         <p className="font-semibold text-gray-900 text-sm mb-1">Application submitted!</p>
-        <p className="text-xs text-gray-500">The NGO will review your application and get back to you.</p>
+        <p className="text-xs text-gray-500 mb-4">The NGO will review your application and get back to you.</p>
+        <Link
+          href="/opportunities"
+          className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-700 border border-emerald-300 bg-white hover:bg-emerald-50 rounded-lg px-4 py-2 transition-colors"
+        >
+          Explore more roles
+        </Link>
       </div>
     );
   }
@@ -148,6 +173,18 @@ export default function RoleApplyButton({ roleId, roleTitle, defaultLinkedin, de
             {/* Step 1 — Application form */}
             {step === "form" && (
               <form onSubmit={handleFormNext} className="px-6 py-5 space-y-4">
+
+                {/* Impact score badge */}
+                {impactScore > 0 && (
+                  <div className="flex items-center gap-2 bg-violet-50 border border-violet-100 rounded-lg px-3 py-2">
+                    <Star className="w-3.5 h-3.5 text-violet-500 shrink-0" />
+                    <p className="text-[11px] text-violet-700 flex-1">
+                      <span className="font-semibold">Impact Score: {impactScore}/20</span>
+                      {" — "}NGOs can see this score. Share the AI Training Academy and Beta Program to increase it.
+                    </p>
+                  </div>
+                )}
+
                 <div>
                   <label className="block text-xs font-medium text-gray-700 mb-1">
                     Why are you a good fit? <span className="text-red-500">*</span>
@@ -177,15 +214,43 @@ export default function RoleApplyButton({ roleId, roleTitle, defaultLinkedin, de
                 </div>
 
                 <div>
-                  <label className="block text-xs font-medium text-gray-700 mb-1">Portfolio or website URL</label>
-                  <input
-                    type="url"
-                    placeholder="https://yourportfolio.com"
-                    className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
-                    value={portfolioUrl}
-                    onChange={(e) => setPortfolioUrl(e.target.value)}
-                  />
+                  <label className="block text-xs font-medium text-gray-700 mb-1">
+                    GiveLedger profile <span className="text-red-500">*</span>
+                  </label>
+                  <div className="w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm text-gray-600 truncate">
+                    {profileUrl || "Log in to auto-fill your profile link"}
+                  </div>
+                  <p className="text-[11px] text-gray-400 mt-1">
+                    Your public GiveLedger profile is shared with the NGO.{" "}
+                    <a href="/donor/profile" target="_blank" className="underline text-emerald-600">Edit your profile</a>
+                  </p>
                 </div>
+
+                {/* Application profile selector */}
+                {applicationProfiles.length > 0 && (
+                  <div>
+                    <label className="block text-xs font-medium text-gray-700 mb-1">
+                      Present yourself as
+                    </label>
+                    <div className="relative">
+                      <select
+                        value={selectedProfileId}
+                        onChange={(e) => setSelectedProfileId(e.target.value)}
+                        className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 appearance-none pr-8"
+                      >
+                        {applicationProfiles.map((p) => (
+                          <option key={p.id} value={p.id}>{p.title}{p.isDefault ? " (default)" : ""}</option>
+                        ))}
+                      </select>
+                      <ChevronDown className="w-4 h-4 text-gray-400 absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                    </div>
+                    {selectedProfileId && (
+                      <p className="text-[11px] text-gray-400 mt-1 line-clamp-2">
+                        {applicationProfiles.find((p) => p.id === selectedProfileId)?.bio}
+                      </p>
+                    )}
+                  </div>
+                )}
 
                 <div className="flex gap-3 pt-1">
                   <Button type="button" variant="outline" className="flex-1" onClick={handleClose}>

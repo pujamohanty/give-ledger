@@ -32,7 +32,7 @@ export default async function NgoRolesPage() {
       applications: { where: { status: "ACCEPTED" }, select: { id: true } },
       project: { select: { title: true } },
     },
-    orderBy: [{ salaryMin: "desc" }, { createdAt: "desc" }],
+    orderBy: [{ createdAt: "desc" }],
   });
 
   const open = roles.filter((r) => r.status === "OPEN");

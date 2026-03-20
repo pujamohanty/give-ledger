@@ -167,7 +167,20 @@ exports.Prisma.UserScalarFieldEnum = {
   skills: 'skills',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  aiSummary: 'aiSummary'
+  aiSummary: 'aiSummary',
+  impactScore: 'impactScore',
+  trainingShareCount: 'trainingShareCount',
+  betaShareCount: 'betaShareCount'
+};
+
+exports.Prisma.DonorApplicationProfileScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  title: 'title',
+  bio: 'bio',
+  isDefault: 'isDefault',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.BetaTesterProfileScalarFieldEnum = {
@@ -667,6 +680,7 @@ exports.Prisma.ModelName = {
   Session: 'Session',
   VerificationToken: 'VerificationToken',
   User: 'User',
+  DonorApplicationProfile: 'DonorApplicationProfile',
   BetaTesterProfile: 'BetaTesterProfile',
   Ngo: 'Ngo',
   Project: 'Project',

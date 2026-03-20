@@ -410,6 +410,8 @@ function StatusView({ profile, onEdit }: { profile: Profile; onEdit: () => void 
         setTimeout(() => setCopied(false), 2000);
       });
     }
+    // Track share for impact score
+    fetch("/api/donor/share-track", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ type: "beta" }) }).catch(() => {});
   }
 
   const registeredDate = new Date(profile.registeredAt).toLocaleDateString("en-US", {
@@ -550,6 +552,8 @@ function SignupForm({
         setTimeout(() => setShareCopied(false), 2000);
       });
     }
+    // Track share for impact score
+    fetch("/api/donor/share-track", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ type: "beta" }) }).catch(() => {});
   }
 
   const [devices, setDevices]             = useState<string[]>(initial?.devices       ?? []);

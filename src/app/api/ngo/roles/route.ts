@@ -86,5 +86,26 @@ export async function POST(req: NextRequest) {
     },
   }).catch(() => {});
 
+  // Notify all donors when a paid role is posted
+  const isPaidRole = (salaryMin && parseInt(salaryMin) > 0) || (salaryMax && parseInt(salaryMax) > 0);
+  if (isPaidRole) {
+    const donors = await prisma.user.findMany({
+      where: { role: "DONOR" },
+      select: { id: true },
+    });
+    if (donors.length > 0) {
+      await prisma.notification.createMany({
+        data: donors.map((d) => ({
+          userId: d.id,
+          type: "ROLE_POSTED",
+          title: "New paid role available",
+          message: `${ngo.orgName} posted a paid role: "${title}". ${salaryMin && salaryMax ? `$${Math.round(parseInt(salaryMin) / 1000)}k–$${Math.round(parseInt(salaryMax) / 1000)}k/yr.` : ""} View and apply now.`,
+          linkUrl: `/opportunities/${role.id}`,
+        })),
+        skipDuplicates: true,
+      });
+    }
+  }
+
   return NextResponse.json({ id: role.id });
 }

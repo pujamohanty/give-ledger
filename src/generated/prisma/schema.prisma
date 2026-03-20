@@ -93,15 +93,15 @@ enum ProjectCategory {
 }
 
 model User {
-  id                    String                @id @default(cuid())
-  email                 String                @unique
+  id                    String                    @id @default(cuid())
+  email                 String                    @unique
   emailVerified         DateTime?
   name                  String?
   image                 String?
   password              String? // hashed — null for Google OAuth users
-  role                  Role                  @default(DONOR)
-  referralCode          String?               @unique @default(cuid())
-  bio                   String?               @db.Text
+  role                  Role                      @default(DONOR)
+  referralCode          String?                   @unique @default(cuid())
+  bio                   String?                   @db.Text
   jobTitle              String?
   company               String?
   city                  String?
@@ -109,8 +109,8 @@ model User {
   twitterUrl            String?
   portfolioUrl          String?
   skills                String? // comma-separated: e.g. "IT,MARKETING,LEGAL"
-  createdAt             DateTime              @default(now())
-  updatedAt             DateTime              @updatedAt
+  createdAt             DateTime                  @default(now())
+  updatedAt             DateTime                  @updatedAt
   accounts              Account[]
   sessions              Session[]
   ngo                   Ngo?
@@ -121,17 +121,32 @@ model User {
   campaignsCreated      Campaign[]
   campaignContributions CampaignContributor[]
   ngoSuggestions        NgoSuggestion[]
-  referralsMade         Referral[]            @relation("ReferralsMade")
-  referralsReceived     Referral[]            @relation("ReferralsReceived")
-  skillContributions    SkillContribution[]   @relation("SkillDonor")
-  endorsementsReceived  DonorEndorsement[]    @relation("EndorsementsReceived")
-  endorsementsGiven     DonorEndorsement[]    @relation("EndorsementsGiven")
+  referralsMade         Referral[]                @relation("ReferralsMade")
+  referralsReceived     Referral[]                @relation("ReferralsReceived")
+  skillContributions    SkillContribution[]       @relation("SkillDonor")
+  endorsementsReceived  DonorEndorsement[]        @relation("EndorsementsReceived")
+  endorsementsGiven     DonorEndorsement[]        @relation("EndorsementsGiven")
   documents             DonorDocument[]
-  aiSummary             String?               @db.Text // AI-generated profile narrative (cached)
+  aiSummary             String?                   @db.Text // AI-generated profile narrative (cached)
   roleApplications      RoleApplication[]
   challenges            DonorChallenge[]
   subscription          Subscription?
   betaTesterProfile     BetaTesterProfile?
+  impactScore           Int                       @default(0)
+  trainingShareCount    Int                       @default(0)
+  betaShareCount        Int                       @default(0)
+  applicationProfiles   DonorApplicationProfile[]
+}
+
+model DonorApplicationProfile {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title     String
+  bio       String   @db.Text
+  isDefault Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model BetaTesterProfile {

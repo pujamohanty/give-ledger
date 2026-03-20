@@ -59,6 +59,9 @@ export default async function OpportunityDetailPage({ params }: { params: Promis
   let donorProfile: { linkedinUrl?: string | null; portfolioUrl?: string | null } | null = null;
   let subscriptionPlan: string = "FREE";
   let appsUsed = 0;
+  let impactScore = 0;
+  let profileUrl = "";
+  let applicationProfiles: { id: string; title: string; bio: string; isDefault: boolean }[] = [];
   if (session?.user?.role === "DONOR") {
     const [existing, sub, profile] = await Promise.all([
       prisma.roleApplication.findUnique({
@@ -70,13 +73,19 @@ export default async function OpportunityDetailPage({ params }: { params: Promis
       }),
       prisma.user.findUnique({
         where: { id: session.user.id },
-        select: { linkedinUrl: true, portfolioUrl: true },
+        select: {
+          linkedinUrl: true, portfolioUrl: true, impactScore: true,
+          applicationProfiles: { select: { id: true, title: true, bio: true, isDefault: true }, orderBy: { createdAt: "asc" } },
+        },
       }),
     ]);
     alreadyApplied = !!existing;
     subscriptionPlan = sub?.plan ?? "FREE";
     appsUsed = sub?.applicationsUsed ?? 0;
     donorProfile = profile;
+    impactScore = profile?.impactScore ?? 0;
+    applicationProfiles = profile?.applicationProfiles ?? [];
+    profileUrl = `${process.env.NEXT_PUBLIC_APP_URL ?? "https://give-ledger.vercel.app"}/donor/${session.user.id}/profile`;
   }
 
   const typeInfo = roleTypeLabels[role.roleType] ?? roleTypeLabels.VOLUNTEER;
@@ -314,8 +323,10 @@ export default async function OpportunityDetailPage({ params }: { params: Promis
                   roleId={role.id}
                   roleTitle={role.title}
                   defaultLinkedin={donorProfile?.linkedinUrl ?? ""}
-                  defaultPortfolio={donorProfile?.portfolioUrl ?? ""}
                   ngoName={role.ngo.orgName}
+                  impactScore={impactScore}
+                  profileUrl={profileUrl}
+                  applicationProfiles={applicationProfiles}
                 />
               )}
 

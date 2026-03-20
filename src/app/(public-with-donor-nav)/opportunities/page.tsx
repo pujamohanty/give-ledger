@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
-import { Briefcase, Clock, Users, MapPin, Wifi, ChevronRight, Search, DollarSign, GraduationCap } from "lucide-react";
+import { Briefcase, Clock, Users, MapPin, Wifi, ChevronRight, Search, DollarSign, GraduationCap, Smartphone } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import { auth } from "@/lib/auth";
 import { matchTrainingModule } from "@/lib/training-curriculum";
@@ -138,8 +138,53 @@ export default async function OpportunitiesPage({
           </div>
         ) : (
           <div className="grid sm:grid-cols-2 gap-4">
-            {roles.map((role) => {
+            {roles.flatMap((role, index) => {
               const typeInfo = roleTypeLabels[role.roleType] ?? roleTypeLabels.VOLUNTEER;
+              const betaCard = index === 2 ? (
+                <Link
+                  key="beta-ugc-card"
+                  href="/donor/beta-program"
+                  className="group bg-gradient-to-br from-violet-600 to-purple-700 rounded-xl p-5 hover:from-violet-700 hover:to-purple-800 transition-all flex flex-col gap-3"
+                >
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="flex items-center gap-2.5">
+                      <div className="w-9 h-9 rounded-lg bg-white/20 flex items-center justify-center shrink-0">
+                        <Smartphone className="w-4 h-4 text-white" />
+                      </div>
+                      <div>
+                        <p className="text-[11px] text-violet-200">GiveLedger Program</p>
+                        <p className="text-sm font-semibold text-white group-hover:text-violet-100 transition-colors">
+                          Beta Tester &amp; UGC Creator
+                        </p>
+                      </div>
+                    </div>
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-white/20 text-white shrink-0">
+                      Earn money
+                    </span>
+                  </div>
+
+                  <div className="flex items-center gap-1.5 bg-white/10 border border-white/20 rounded-lg px-3 py-2">
+                    <DollarSign className="w-3.5 h-3.5 text-violet-200 shrink-0" />
+                    <p className="text-[12px] font-bold text-white">$3,000 – $5,000 / month</p>
+                  </div>
+
+                  <p className="text-[11px] text-violet-200 leading-relaxed">
+                    Get paid to test apps and create content for brands. Flexible — work from any device on your schedule.
+                  </p>
+
+                  <div className="flex flex-wrap gap-1.5">
+                    {["Beta Testing", "UGC Content", "App Reviews", "Brand Campaigns"].map((tag) => (
+                      <span key={tag} className="text-[10px] bg-white/10 text-violet-100 px-2 py-0.5 rounded-full">{tag}</span>
+                    ))}
+                  </div>
+
+                  <div className="flex items-center justify-end mt-auto">
+                    <span className="text-xs text-violet-200 group-hover:text-white flex items-center gap-1 transition-colors">
+                      View program <ChevronRight className="w-3.5 h-3.5" />
+                    </span>
+                  </div>
+                </Link>
+              ) : null;
               const skills = role.skillsRequired.split(",").map((s) => s.trim()).filter(Boolean);
               const spotsLeft = role.openings - role._count.applications;
               const trainingMatch = matchTrainingModule(role.skillsRequired, role.title);
@@ -154,7 +199,7 @@ export default async function OpportunitiesPage({
                   ? `Up to $${(role.salaryMax / 1000).toFixed(0)}k / yr`
                   : null;
 
-              return (
+              const roleCard = (
                 <Link
                   key={role.id}
                   href={`/opportunities/${role.id}`}
@@ -259,6 +304,7 @@ export default async function OpportunitiesPage({
                   </div>
                 </Link>
               );
+              return betaCard ? [betaCard, roleCard] : [roleCard];
             })}
           </div>
         )}

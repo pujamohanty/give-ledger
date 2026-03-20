@@ -130,6 +130,21 @@ model User {
   challenges          DonorChallenge[]
   subscription        Subscription?
   betaTesterProfile   BetaTesterProfile?
+  impactScore         Int      @default(0)
+  trainingShareCount  Int      @default(0)
+  betaShareCount      Int      @default(0)
+  applicationProfiles DonorApplicationProfile[]
+}
+
+model DonorApplicationProfile {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title     String
+  bio       String   @db.Text
+  isDefault Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model BetaTesterProfile {

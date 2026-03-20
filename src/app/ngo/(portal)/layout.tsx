@@ -1,8 +1,8 @@
 import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import AssistantPortal from "@/components/AssistantPortal";
 import NgoSidebarNav from "@/components/NgoSidebarNav";
+import Navbar from "@/components/Navbar";
 import { Clock, XCircle } from "lucide-react";
 import SignOutButton from "@/components/SignOutButton";
 
@@ -105,8 +105,10 @@ export default async function NgoLayout({ children }: { children: React.ReactNod
   return (
     <div className="min-h-screen bg-[#f3f2ef] flex">
       <NgoSidebarNav orgName={orgName} initials={initials} />
-      <main className="flex-1 lg:ml-60 min-h-screen">{children}</main>
-      <AssistantPortal role="ngo" />
+      <div className="flex-1 lg:ml-60 flex flex-col min-h-screen">
+        <Navbar session={session} />
+        <main className="flex-1">{children}</main>
+      </div>
     </div>
   );
 }

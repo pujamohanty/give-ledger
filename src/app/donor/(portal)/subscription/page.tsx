@@ -3,7 +3,7 @@ import Link from "next/link";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Crown, Zap, Briefcase, CheckCircle2, RotateCcw, ChevronRight } from "lucide-react";
+import { Crown, Zap, Briefcase, CheckCircle2, ChevronRight } from "lucide-react";
 import SubscribeButton from "@/components/SubscribeButton";
 
 export default async function SubscriptionPage({
@@ -21,15 +21,12 @@ export default async function SubscriptionPage({
     select: {
       plan: true,
       applicationsUsed: true,
-      refundEligibleAt: true,
       purchasedAt: true,
     },
   });
 
   const plan = subscription?.plan ?? "FREE";
   const appsUsed = subscription?.applicationsUsed ?? 0;
-  const isRefundEligible =
-    subscription?.refundEligibleAt && new Date() < subscription.refundEligibleAt;
 
   const planMeta = {
     FREE: {
@@ -115,35 +112,6 @@ export default async function SubscriptionPage({
             </div>
           )}
 
-          {plan === "PRO" && subscription?.refundEligibleAt && (
-            <div className="bg-violet-50 border border-violet-100 rounded-xl p-4 flex items-start gap-3">
-              <RotateCcw className="w-4 h-4 text-violet-600 shrink-0 mt-0.5" />
-              <div>
-                <p className="text-sm font-semibold text-violet-900">Refund eligibility</p>
-                {isRefundEligible ? (
-                  <p className="text-xs text-violet-700 mt-0.5">
-                    Eligible for a full $25 refund until{" "}
-                    {new Date(subscription.refundEligibleAt).toLocaleDateString("en-US", {
-                      month: "long",
-                      day: "numeric",
-                      year: "numeric",
-                    })}
-                    . Complete at least one engagement to claim it.
-                  </p>
-                ) : (
-                  <p className="text-xs text-violet-500 mt-0.5">
-                    Refund window closed on{" "}
-                    {new Date(subscription.refundEligibleAt).toLocaleDateString("en-US", {
-                      month: "long",
-                      day: "numeric",
-                      year: "numeric",
-                    })}
-                    .
-                  </p>
-                )}
-              </div>
-            </div>
-          )}
         </CardContent>
       </Card>
 
@@ -189,7 +157,7 @@ export default async function SubscriptionPage({
                       "Unlimited applications",
                       "Priority position in NGO applicant view",
                       "PRO badge visible to NGOs",
-                      "100% refund after 18 months",
+                      "Beta Tester & UGC Creator Program access",
                     ].map((f) => (
                       <li key={f} className="flex items-center gap-1.5 text-xs text-gray-500">
                         <CheckCircle2 className="w-3 h-3 text-violet-500 shrink-0" /> {f}

@@ -2,7 +2,7 @@ import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { CheckCircle2, Zap, Crown, Briefcase, RotateCcw, GraduationCap, BookOpen, Clock, ArrowRight, Smartphone } from "lucide-react";
+import { CheckCircle2, Zap, Crown, Briefcase, GraduationCap, BookOpen, Clock, ArrowRight, Smartphone } from "lucide-react";
 import { MODULE_COUNT, TOTAL_LESSONS, TOTAL_HOURS } from "@/lib/training-curriculum";
 import SubscribeButton from "@/components/SubscribeButton";
 
@@ -76,7 +76,6 @@ export default async function PricingPage() {
         "Priority listing in NGO applicant view",
         "PRO badge visible to NGOs",
         "Beta Tester & UGC Creator Program — earn from brand campaigns",
-        "100% refund after 18 months",
         "AI Training Academy — 42+ hours free",
       ],
       locked: [],
@@ -98,14 +97,6 @@ export default async function PricingPage() {
           <p className="text-gray-500 max-w-2xl mx-auto text-sm leading-relaxed">
             Every engagement is verified by the NGO, recorded on your GiveLedger credential, and
             counts as certified professional experience. Choose a plan to get started.
-          </p>
-        </div>
-
-        {/* Refund callout */}
-        <div className="flex items-center justify-center gap-2 mb-10 bg-violet-50 border border-violet-100 rounded-xl py-3 px-5 max-w-lg mx-auto">
-          <RotateCcw className="w-4 h-4 text-violet-600 shrink-0" />
-          <p className="text-sm text-violet-700">
-            <strong>Pro plan:</strong> 100% refund if you complete at least one engagement within 18 months.
           </p>
         </div>
 
@@ -305,10 +296,6 @@ export default async function PricingPage() {
               {
                 q: "Why is there a fee to apply?",
                 a: "The fee reflects the value you receive — verified, credentialed professional experience with real NGOs. Think of it as an investment in your career, not a cost of volunteering.",
-              },
-              {
-                q: "How does the Pro refund work?",
-                a: "Complete at least one engagement within 18 months of purchase and you qualify for a full $25 refund. Your contribution records remain on your profile permanently.",
               },
               {
                 q: "What counts as an application toward the Basic limit?",

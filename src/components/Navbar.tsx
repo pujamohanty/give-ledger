@@ -30,7 +30,7 @@ const NAV_ITEMS = [
   {
     href: "/opportunities",
     label: "Open Roles",
-    tip: "Contribute your professional skills to NGOs — verified on your credential",
+    tip: "Browse paid and volunteer roles at verified NGOs — build real career experience, recorded on your credential",
   },
   {
     href: "/pricing",
