@@ -431,18 +431,6 @@ function StatusView({ profile, onEdit }: { profile: Profile; onEdit: () => void 
       {earningsOpen && <EarningsModal onClose={() => setEarningsOpen(false)} />}
 
       <div className="max-w-2xl mx-auto">
-        {/* Earnings link bar */}
-        <div className="flex items-center justify-between bg-violet-50 border border-violet-100 rounded-xl px-4 py-2.5 mb-6">
-          <p className="text-xs text-violet-700 font-medium">See how much you can earn per campaign</p>
-          <button
-            type="button"
-            onClick={() => setEarningsOpen(true)}
-            className="flex items-center gap-1 text-xs font-semibold text-violet-700 hover:text-violet-900 transition-colors"
-          >
-            <Calculator className="w-3.5 h-3.5" /> Earnings calculator <ArrowRight className="w-3 h-3" />
-          </button>
-        </div>
-
         <div className="flex items-start justify-between mb-8">
           <div>
             <div className="flex items-center gap-2 mb-2">
@@ -455,6 +443,13 @@ function StatusView({ profile, onEdit }: { profile: Profile; onEdit: () => void 
             </div>
             <h1 className="text-2xl font-bold text-gray-900">Beta Tester & UGC Creator Program</h1>
             <p className="text-gray-500 text-sm mt-1">Member since {registeredDate}</p>
+            <button
+              type="button"
+              onClick={() => setEarningsOpen(true)}
+              className="flex items-center gap-1 text-xs font-semibold text-violet-600 hover:text-violet-800 transition-colors mt-2"
+            >
+              <Calculator className="w-3 h-3" /> See earnings breakdown <ArrowRight className="w-3 h-3" />
+            </button>
           </div>
           <div className="flex items-center gap-2">
             <button
@@ -607,18 +602,6 @@ function SignupForm({
 
       <div className="max-w-2xl mx-auto">
 
-        {/* Earnings link bar — top of page */}
-        <div className="flex items-center justify-between bg-violet-50 border border-violet-100 rounded-xl px-4 py-2.5 mb-8">
-          <p className="text-xs text-violet-700 font-medium">Wondering how much you can earn?</p>
-          <button
-            type="button"
-            onClick={() => setEarningsOpen(true)}
-            className="flex items-center gap-1 text-xs font-semibold text-violet-700 hover:text-violet-900 transition-colors"
-          >
-            <Calculator className="w-3.5 h-3.5" /> See earnings breakdown <ArrowRight className="w-3 h-3" />
-          </button>
-        </div>
-
         {/* Hero */}
         <div className="text-center mb-10">
           <div className="flex items-center justify-center gap-2 mb-5">
@@ -638,7 +621,19 @@ function SignupForm({
             Get paid by brands to test their apps before launch and post authentic content across your
             social channels. Campaigns are matched directly to your profile.
           </p>
-          <div className="grid grid-cols-3 gap-4 mt-8 text-left">
+
+          {/* Earnings link bar — below description */}
+          <div className="flex items-center justify-center mt-3 mb-2">
+            <button
+              type="button"
+              onClick={() => setEarningsOpen(true)}
+              className="flex items-center gap-1.5 text-xs font-semibold text-violet-600 hover:text-violet-800 transition-colors"
+            >
+              <Calculator className="w-3.5 h-3.5" /> Wondering how much you can earn? See earnings breakdown <ArrowRight className="w-3 h-3" />
+            </button>
+          </div>
+
+          <div className="grid grid-cols-3 gap-4 mt-6 text-left">
             {[
               { icon: Smartphone, label: "Test apps first",    desc: "Early access before public launch",         color: "bg-violet-50 text-violet-600"  },
               { icon: Video,      label: "Create UGC content", desc: "Post authentic reviews, earn per campaign", color: "bg-pink-50 text-pink-600"      },
