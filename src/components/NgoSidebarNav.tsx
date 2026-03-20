@@ -11,11 +11,16 @@ import { cn } from "@/lib/utils";
 import SignOutButton from "@/components/SignOutButton";
 
 type NavItem  = { href: string; label: string; icon: React.ElementType };
-type NavGroup = { label: string; items: NavItem[] };
+type NavGroup = {
+  label: string;
+  items: NavItem[];
+  accent: { border: string; label: string; dot: string };
+};
 
 const navGroups: NavGroup[] = [
   {
     label: "Projects & Funding",
+    accent: { border: "border-emerald-400", label: "text-emerald-600", dot: "bg-emerald-400" },
     items: [
       { href: "/ngo/projects",         label: "My Projects",         icon: FolderOpen    },
       { href: "/ngo/submit-milestone", label: "Submit Evidence",     icon: Upload        },
@@ -25,6 +30,7 @@ const navGroups: NavGroup[] = [
   },
   {
     label: "Talent",
+    accent: { border: "border-violet-400", label: "text-violet-600", dot: "bg-violet-400" },
     items: [
       { href: "/ngo/roles",            label: "Open Roles",          icon: ClipboardList },
       { href: "/ngo/skills",           label: "Skill Contributions", icon: Briefcase     },
@@ -33,6 +39,7 @@ const navGroups: NavGroup[] = [
   },
   {
     label: "Community",
+    accent: { border: "border-amber-400", label: "text-amber-600", dot: "bg-amber-400" },
     items: [
       { href: "/ngo/recognition",      label: "Donor Recognition",   icon: Award         },
       { href: "/ngo/post-builder",     label: "Post Builder",        icon: Linkedin      },
@@ -40,6 +47,7 @@ const navGroups: NavGroup[] = [
   },
   {
     label: "Organisation",
+    accent: { border: "border-slate-400", label: "text-slate-500", dot: "bg-slate-400" },
     items: [
       { href: "/ngo/org-profile",      label: "NGO Profile",         icon: Building2     },
       { href: "/ngo/settings",         label: "Settings",            icon: Settings      },
@@ -73,7 +81,7 @@ function NavLink({ href, label, icon: Icon }: NavItem) {
   );
 }
 
-function CollapsibleGroup({ label, items }: NavGroup) {
+function CollapsibleGroup({ label, items, accent }: NavGroup) {
   const pathname = usePathname();
   const hasActive = items.some(
     (item) => pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href))
@@ -81,15 +89,21 @@ function CollapsibleGroup({ label, items }: NavGroup) {
   const [open, setOpen] = useState(hasActive || label === "Projects & Funding");
 
   return (
-    <div>
+    <div className={cn("border-l-2 pl-1.5 ml-0.5", accent.border)}>
       <button
         onClick={() => setOpen((v) => !v)}
-        className="w-full flex items-center justify-between px-3 py-1.5 rounded-lg text-xs font-semibold uppercase tracking-wider text-gray-400 hover:text-gray-600 hover:bg-gray-50 transition-colors"
+        className={cn(
+          "w-full flex items-center justify-between px-2 py-1.5 rounded-lg text-xs font-semibold uppercase tracking-wider transition-colors hover:bg-gray-50",
+          accent.label
+        )}
       >
-        {label}
+        <span className="flex items-center gap-1.5">
+          <span className={cn("w-1.5 h-1.5 rounded-full shrink-0", accent.dot)} />
+          {label}
+        </span>
         <ChevronDown
           className={cn(
-            "w-3.5 h-3.5 transition-transform duration-200",
+            "w-3.5 h-3.5 transition-transform duration-200 text-gray-400",
             open ? "rotate-0" : "-rotate-90"
           )}
         />
