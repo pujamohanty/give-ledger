@@ -1,9 +1,14 @@
 "use client";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Send, X, Loader2, Share2, Copy, Check, Mail } from "lucide-react";
+import { Send, X, Loader2, Share2, Check, Phone } from "lucide-react";
 
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+function digitsOnly(val: string) { return val.replace(/\D/g, ""); }
+function isValidPhone(val: string) { const d = digitsOnly(val); return d.length >= 7 && d.length <= 15; }
+function waLink(number: string, text: string) {
+  const clean = digitsOnly(number);
+  return `https://wa.me/${clean}?text=${encodeURIComponent(text)}`;
+}
 
 interface Props {
   roleId: string;
@@ -22,22 +27,21 @@ export default function RoleApplyButton({ roleId, roleTitle, defaultLinkedin, de
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
   const [error, setError] = useState("");
-  const [referEmails, setReferEmails] = useState(["", ""]);
-  const [copied, setCopied] = useState(false);
+  const [referNumbers, setReferNumbers] = useState(["", ""]);
 
   const roleUrl = typeof window !== "undefined"
     ? `${window.location.origin}/opportunities/${roleId}`
     : `/opportunities/${roleId}`;
 
   const shareText = ngoName
-    ? `${ngoName} is hiring for "${roleTitle}" — open role on GiveLedger. Worth applying if you have the skills.`
-    : `This NGO is hiring for "${roleTitle}" — open role on GiveLedger. Worth applying if you have the skills.`;
+    ? `${ngoName} is hiring for "${roleTitle}" on GiveLedger — a platform where skills contributions are blockchain-verified and count as certified professional experience. Worth a look:\n${roleUrl}`
+    : `There's an open role for "${roleTitle}" on GiveLedger — worth applying if you have the skills:\n${roleUrl}`;
 
-  const validEmails = referEmails.filter((e) => EMAIL_RE.test(e.trim()));
-  const canSubmit = validEmails.length >= 2;
+  const validNumbers = referNumbers.filter((n) => isValidPhone(n));
+  const canSubmit = validNumbers.length >= 2;
 
-  function updateEmail(index: number, value: string) {
-    setReferEmails((prev) => prev.map((e, i) => (i === index ? value : e)));
+  function updateNumber(index: number, value: string) {
+    setReferNumbers((prev) => prev.map((n, i) => (i === index ? value : n)));
   }
 
   function handleFormNext(e: React.FormEvent) {
@@ -45,19 +49,8 @@ export default function RoleApplyButton({ roleId, roleTitle, defaultLinkedin, de
     setStep("share");
   }
 
-  function handleWhatsApp() {
-    window.open(`https://wa.me/?text=${encodeURIComponent(`${shareText}\n${roleUrl}`)}`, "_blank");
-  }
-
-  function handleLinkedIn() {
-    window.open(`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(roleUrl)}&title=${encodeURIComponent(roleTitle)}&summary=${encodeURIComponent(shareText)}`, "_blank");
-  }
-
-  function handleCopy() {
-    navigator.clipboard.writeText(`${shareText}\n${roleUrl}`).then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    });
+  function sendToContact(number: string) {
+    window.open(waLink(number, shareText), "_blank");
   }
 
   async function handleSubmit() {
@@ -86,8 +79,7 @@ export default function RoleApplyButton({ roleId, roleTitle, defaultLinkedin, de
   function handleClose() {
     setOpen(false);
     setStep("form");
-    setReferEmails(["", ""]);
-    setCopied(false);
+    setReferNumbers(["", ""]);
     setError("");
   }
 
@@ -144,11 +136,14 @@ export default function RoleApplyButton({ roleId, roleTitle, defaultLinkedin, de
                 </div>
 
                 <div>
-                  <label className="block text-xs font-medium text-gray-700 mb-1">LinkedIn profile URL</label>
+                  <label className="block text-xs font-medium text-gray-700 mb-1">
+                    LinkedIn profile URL <span className="text-red-500">*</span>
+                  </label>
                   <input
                     type="url"
                     placeholder="https://linkedin.com/in/yourprofile"
                     className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                    required
                     value={linkedinUrl}
                     onChange={(e) => setLinkedinUrl(e.target.value)}
                   />
@@ -176,85 +171,70 @@ export default function RoleApplyButton({ roleId, roleTitle, defaultLinkedin, de
               </form>
             )}
 
-            {/* Step 2 — Refer contacts before submitting */}
+            {/* Step 2 — Refer contacts via WhatsApp before submitting */}
             {step === "share" && (
               <div className="px-6 py-5 space-y-4">
                 {/* Explanation */}
                 <div className="bg-amber-50 border border-amber-200 rounded-xl px-4 py-3">
                   <div className="flex items-center gap-2 mb-1">
                     <Share2 className="w-3.5 h-3.5 text-amber-600 shrink-0" />
-                    <p className="text-xs font-semibold text-amber-800">Refer this role to 2 people to submit your application</p>
+                    <p className="text-xs font-semibold text-amber-800">Refer this role to 2 people to complete your application</p>
                   </div>
                   <p className="text-xs text-amber-700 leading-relaxed">
-                    NGOs notice candidates who share openly — it signals confidence and generosity. Enter the email addresses of 2 people you&apos;ll share this role with. Candidates who refer others are viewed more favourably than those who keep the opportunity to themselves.
+                    Enter the WhatsApp numbers of 2 people you&apos;ll share this role with. NGOs view candidates who refer others more favourably — it shows confidence and generosity. Hit the send button next to each number to message them directly.
                   </p>
                 </div>
 
-                {/* Email fields */}
-                <div className="space-y-2">
+                {/* WhatsApp number fields */}
+                <div className="space-y-3">
                   <label className="block text-xs font-medium text-gray-700 flex items-center gap-1.5">
-                    <Mail className="w-3.5 h-3.5 text-gray-400" /> Referral contacts
+                    <Phone className="w-3.5 h-3.5 text-gray-400" />
+                    WhatsApp numbers <span className="text-red-500 ml-0.5">*</span>
+                    <span className="text-gray-400 font-normal ml-1">— include country code e.g. +44 7700 900000</span>
                   </label>
-                  {referEmails.map((email, i) => {
-                    const touched = email.length > 0;
-                    const valid = EMAIL_RE.test(email.trim());
+                  {referNumbers.map((number, i) => {
+                    const touched = number.length > 0;
+                    const valid = isValidPhone(number);
                     return (
-                      <div key={i} className="relative">
-                        <input
-                          type="email"
-                          placeholder={`Contact ${i + 1} email address`}
-                          value={email}
-                          onChange={(e) => updateEmail(i, e.target.value)}
-                          className={`w-full rounded-lg border px-3 py-2 text-sm pr-8 focus:outline-none focus:ring-2 transition-colors ${
-                            touched && !valid
-                              ? "border-red-300 focus:ring-red-100"
-                              : touched && valid
-                              ? "border-emerald-400 focus:ring-emerald-100"
-                              : "border-gray-300 focus:ring-emerald-100"
-                          }`}
-                        />
-                        {touched && (
-                          <span className="absolute right-2.5 top-1/2 -translate-y-1/2">
-                            {valid
-                              ? <Check className="w-3.5 h-3.5 text-emerald-500" />
-                              : <X className="w-3.5 h-3.5 text-red-400" />}
-                          </span>
-                        )}
+                      <div key={i} className="flex gap-2">
+                        <div className="relative flex-1">
+                          <input
+                            type="tel"
+                            placeholder={`Contact ${i + 1} WhatsApp number`}
+                            value={number}
+                            onChange={(e) => updateNumber(i, e.target.value)}
+                            className={`w-full rounded-lg border px-3 py-2 text-sm pr-8 focus:outline-none focus:ring-2 transition-colors ${
+                              touched && !valid
+                                ? "border-red-300 focus:ring-red-100"
+                                : touched && valid
+                                ? "border-emerald-400 focus:ring-emerald-100"
+                                : "border-gray-300 focus:ring-emerald-100"
+                            }`}
+                          />
+                          {touched && (
+                            <span className="absolute right-2.5 top-1/2 -translate-y-1/2">
+                              {valid
+                                ? <Check className="w-3.5 h-3.5 text-emerald-500" />
+                                : <X className="w-3.5 h-3.5 text-red-400" />}
+                            </span>
+                          )}
+                        </div>
+                        <button
+                          type="button"
+                          disabled={!valid}
+                          onClick={() => sendToContact(number)}
+                          className="shrink-0 flex items-center gap-1.5 bg-[#25D366] hover:bg-[#1ebe5d] disabled:opacity-40 disabled:cursor-not-allowed text-white text-xs font-semibold rounded-lg px-3 py-2 transition-colors"
+                        >
+                          Send
+                        </button>
                       </div>
                     );
                   })}
                   <p className="text-[11px] text-gray-400">
-                    {canSubmit ? "✓ Both contacts added — you can now submit." : `Add ${2 - validEmails.length} more valid email${2 - validEmails.length === 1 ? "" : "s"} to continue.`}
+                    {canSubmit
+                      ? "✓ Both numbers entered — hit Send on each to message them, then submit."
+                      : `Enter ${2 - validNumbers.length} more valid number${2 - validNumbers.length === 1 ? "" : "s"} to continue.`}
                   </p>
-                </div>
-
-                {/* Share helpers */}
-                <div>
-                  <p className="text-[11px] text-gray-400 mb-2">Share the role link with them via:</p>
-                  <div className="flex gap-2">
-                    <button
-                      type="button"
-                      onClick={handleWhatsApp}
-                      className="flex-1 flex items-center justify-center gap-1.5 bg-[#25D366] hover:bg-[#1ebe5d] text-white text-xs font-semibold rounded-lg px-3 py-2 transition-colors"
-                    >
-                      WhatsApp
-                    </button>
-                    <button
-                      type="button"
-                      onClick={handleLinkedIn}
-                      className="flex-1 flex items-center justify-center gap-1.5 bg-[#0A66C2] hover:bg-[#0958a8] text-white text-xs font-semibold rounded-lg px-3 py-2 transition-colors"
-                    >
-                      LinkedIn
-                    </button>
-                    <button
-                      type="button"
-                      onClick={handleCopy}
-                      className="flex items-center justify-center gap-1.5 border border-gray-200 hover:bg-gray-50 text-gray-600 text-xs font-semibold rounded-lg px-3 py-2 transition-colors"
-                    >
-                      {copied ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
-                      {copied ? "Copied!" : "Copy link"}
-                    </button>
-                  </div>
                 </div>
 
                 {error && (
