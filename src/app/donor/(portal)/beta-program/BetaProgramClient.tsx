@@ -350,14 +350,13 @@ function CampaignsPreview() {
         <div className={`relative rounded-2xl border ${campaign.color} p-5 overflow-hidden`}>
           {/* Blur overlay — locked */}
           <div className="absolute inset-0 backdrop-blur-[2px] bg-white/40 flex items-center justify-center rounded-2xl z-10">
-            <button
-              type="button"
-              onClick={() => setPreviewOpen(true)}
+            <Link
+              href="/pricing"
               className="flex items-center gap-2 bg-white/90 border border-gray-200 shadow-sm rounded-full px-4 py-2 hover:bg-white hover:shadow-md transition-all"
             >
               <Lock className="w-3.5 h-3.5 text-gray-500" />
               <span className="text-xs font-semibold text-gray-600">Register to unlock</span>
-            </button>
+            </Link>
           </div>
 
           {/* Card content (blurred behind overlay) */}
