@@ -105,6 +105,16 @@ export default async function DonorDashboard({
     select: { isActive: true, registeredAt: true, interests: true },
   });
 
+  // Impact score breakdown
+  const userImpact = await prisma.user.findUnique({
+    where: { id: userId },
+    select: { impactScore: true, trainingShareCount: true, betaShareCount: true, campaignCount: true },
+  });
+  const impactScore         = userImpact?.impactScore ?? 0;
+  const trainingShareCount  = userImpact?.trainingShareCount ?? 0;
+  const betaShareCount      = userImpact?.betaShareCount ?? 0;
+  const campaignCountScore  = userImpact?.campaignCount ?? 0;
+
   // Role applications
   const applications = await prisma.roleApplication.findMany({
     where: { applicantId: userId },
@@ -259,44 +269,127 @@ export default async function DonorDashboard({
         </div>
       </div>
 
-      {/* Quick actions */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
+      {/* Two primary action cards */}
+      <div className="grid sm:grid-cols-2 gap-4 mb-6">
+        {/* Contribute Skills */}
         <Link href="/opportunities" className="group">
-          <div className="flex items-center gap-3 p-4 bg-emerald-50 rounded-xl border border-emerald-100 hover:border-emerald-300 transition-colors">
-            <Briefcase className="w-5 h-5 text-emerald-600" />
-            <div>
-              <p className="text-sm font-semibold text-emerald-900">Contribute Skills</p>
-              <p className="text-xs text-emerald-600">Land a job via NGO work</p>
+          <div className="relative overflow-hidden bg-gradient-to-br from-emerald-600 to-teal-600 rounded-2xl p-5 hover:from-emerald-700 hover:to-teal-700 transition-all h-full">
+            <div className="absolute right-0 top-0 bottom-0 flex items-end pr-4 pb-4 opacity-10">
+              <Briefcase className="w-20 h-20 text-white" />
+            </div>
+            <div className="relative">
+              <div className="w-9 h-9 bg-white/20 rounded-xl flex items-center justify-center mb-3">
+                <Briefcase className="w-4 h-4 text-white" />
+              </div>
+              <p className="text-base font-bold text-white mb-1">Find a Role to Fill</p>
+              <p className="text-[12px] text-emerald-100 leading-relaxed mb-4">
+                Apply for open roles at verified NGOs. Your contribution is verified, recorded on your credential, and counts as real professional experience.
+              </p>
+              <div className="flex items-center justify-between">
+                <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-white/70 bg-white/10 px-2.5 py-1 rounded-full">
+                  <TrendingUp className="w-3 h-3" /> Builds your CV &amp; credential
+                </span>
+                <ArrowRight className="w-4 h-4 text-white/60 group-hover:text-white group-hover:translate-x-0.5 transition-all" />
+              </div>
             </div>
           </div>
         </Link>
+
+        {/* Mobilise Skills — start a campaign */}
         <Link href="/donor/campaigns/new" className="group">
-          <div className="flex items-center gap-3 p-4 bg-purple-50 rounded-xl border border-purple-100 hover:border-purple-300 transition-colors">
-            <Gift className="w-5 h-5 text-purple-600" />
-            <div>
-              <p className="text-sm font-semibold text-purple-900">Start a Campaign</p>
-              <p className="text-xs text-purple-600">Fundraise for a project</p>
+          <div className="relative overflow-hidden bg-gradient-to-br from-violet-600 to-purple-700 rounded-2xl p-5 hover:from-violet-700 hover:to-purple-800 transition-all h-full">
+            <div className="absolute right-0 top-0 bottom-0 flex items-end pr-4 pb-4 opacity-10">
+              <Megaphone className="w-20 h-20 text-white" />
+            </div>
+            <div className="relative">
+              <div className="w-9 h-9 bg-white/20 rounded-xl flex items-center justify-center mb-3">
+                <Megaphone className="w-4 h-4 text-white" />
+              </div>
+              <p className="text-base font-bold text-white mb-1">Mobilise Skills for an NGO</p>
+              <p className="text-[12px] text-violet-100 leading-relaxed mb-4">
+                Start a skill campaign to recruit professionals for an NGO&apos;s open roles. Each campaign you launch earns you Impact Score points — visible to NGOs when you apply.
+              </p>
+              <div className="flex items-center justify-between">
+                <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-white/70 bg-white/10 px-2.5 py-1 rounded-full">
+                  <Star className="w-3 h-3" /> +1 Impact Score per campaign
+                </span>
+                <ArrowRight className="w-4 h-4 text-white/60 group-hover:text-white group-hover:translate-x-0.5 transition-all" />
+              </div>
             </div>
           </div>
         </Link>
-        <Link href="/projects" className="group">
-          <div className="flex items-center gap-3 p-4 bg-amber-50 rounded-xl border border-amber-100 hover:border-amber-300 transition-colors">
-            <Star className="w-5 h-5 text-amber-600" />
-            <div>
-              <p className="text-sm font-semibold text-amber-900">Spotlight Vote</p>
-              <p className="text-xs text-amber-600">Feature a project</p>
+      </div>
+
+      {/* Impact Score breakdown */}
+      <div className="bg-white border border-gray-200 rounded-2xl p-5 mb-6">
+        <div className="flex items-start justify-between gap-4 mb-4">
+          <div>
+            <div className="flex items-center gap-2 mb-0.5">
+              <Star className="w-4 h-4 text-violet-600" />
+              <h2 className="font-semibold text-gray-900 text-sm">Your Impact Score</h2>
             </div>
+            <p className="text-[11px] text-gray-400">
+              NGOs reviewing your role applications can see this score. The higher it is, the more favourably they view your application.
+            </p>
           </div>
-        </Link>
-        <Link href="/donor/referral" className="group">
-          <div className="flex items-center gap-3 p-4 bg-blue-50 rounded-xl border border-blue-100 hover:border-blue-300 transition-colors">
-            <Share2 className="w-5 h-5 text-blue-600" />
-            <div>
-              <p className="text-sm font-semibold text-blue-900">Invite Friends</p>
-              <p className="text-xs text-blue-600">Share GiveLedger</p>
+          <div className="shrink-0 text-right">
+            <p className="text-3xl font-extrabold text-violet-700">{impactScore}</p>
+            <p className="text-[10px] text-gray-400">out of 30</p>
+          </div>
+        </div>
+
+        {/* Overall bar */}
+        <div className="h-2 bg-gray-100 rounded-full overflow-hidden mb-5">
+          <div
+            className="h-full bg-gradient-to-r from-violet-500 to-purple-600 rounded-full transition-all duration-700"
+            style={{ width: `${Math.min(100, (impactScore / 30) * 100)}%` }}
+          />
+        </div>
+
+        {/* Three contributors */}
+        <div className="grid sm:grid-cols-3 gap-3">
+          <Link href="/donor/training" className="group block rounded-xl border border-gray-100 hover:border-emerald-200 bg-gray-50 hover:bg-emerald-50 p-3 transition-all">
+            <div className="flex items-center justify-between mb-2">
+              <div className="flex items-center gap-1.5">
+                <GraduationCap className="w-3.5 h-3.5 text-emerald-600" />
+                <p className="text-[11px] font-semibold text-gray-700">Share AI Training</p>
+              </div>
+              <span className="text-[11px] font-bold text-emerald-700">{Math.min(trainingShareCount, 10)}/10</span>
             </div>
-          </div>
-        </Link>
+            <div className="h-1.5 bg-gray-200 rounded-full overflow-hidden mb-1.5">
+              <div className="h-full bg-emerald-500 rounded-full" style={{ width: `${Math.min(100, (trainingShareCount / 10) * 100)}%` }} />
+            </div>
+            <p className="text-[10px] text-gray-400 group-hover:text-emerald-600 transition-colors">Share the free academy →</p>
+          </Link>
+
+          <Link href="/donor/beta-program" className="group block rounded-xl border border-gray-100 hover:border-violet-200 bg-gray-50 hover:bg-violet-50 p-3 transition-all">
+            <div className="flex items-center justify-between mb-2">
+              <div className="flex items-center gap-1.5">
+                <Smartphone className="w-3.5 h-3.5 text-violet-600" />
+                <p className="text-[11px] font-semibold text-gray-700">Share Beta Program</p>
+              </div>
+              <span className="text-[11px] font-bold text-violet-700">{Math.min(betaShareCount, 10)}/10</span>
+            </div>
+            <div className="h-1.5 bg-gray-200 rounded-full overflow-hidden mb-1.5">
+              <div className="h-full bg-violet-500 rounded-full" style={{ width: `${Math.min(100, (betaShareCount / 10) * 100)}%` }} />
+            </div>
+            <p className="text-[10px] text-gray-400 group-hover:text-violet-600 transition-colors">Share the earn program →</p>
+          </Link>
+
+          <Link href="/donor/campaigns/new" className="group block rounded-xl border border-gray-100 hover:border-purple-200 bg-gray-50 hover:bg-purple-50 p-3 transition-all">
+            <div className="flex items-center justify-between mb-2">
+              <div className="flex items-center gap-1.5">
+                <Megaphone className="w-3.5 h-3.5 text-purple-600" />
+                <p className="text-[11px] font-semibold text-gray-700">Skill Campaigns</p>
+              </div>
+              <span className="text-[11px] font-bold text-purple-700">{Math.min(campaignCountScore, 10)}/10</span>
+            </div>
+            <div className="h-1.5 bg-gray-200 rounded-full overflow-hidden mb-1.5">
+              <div className="h-full bg-purple-500 rounded-full" style={{ width: `${Math.min(100, (campaignCountScore / 10) * 100)}%` }} />
+            </div>
+            <p className="text-[10px] text-gray-400 group-hover:text-purple-600 transition-colors">Start a skill campaign →</p>
+          </Link>
+        </div>
       </div>
 
       {/* ── Beta Tester & UGC Program ─────────────────────────────────── */}

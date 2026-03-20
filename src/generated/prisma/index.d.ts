@@ -7949,12 +7949,14 @@ export namespace Prisma {
     impactScore: number | null
     trainingShareCount: number | null
     betaShareCount: number | null
+    campaignCount: number | null
   }
 
   export type UserSumAggregateOutputType = {
     impactScore: number | null
     trainingShareCount: number | null
     betaShareCount: number | null
+    campaignCount: number | null
   }
 
   export type UserMinAggregateOutputType = {
@@ -7980,6 +7982,7 @@ export namespace Prisma {
     impactScore: number | null
     trainingShareCount: number | null
     betaShareCount: number | null
+    campaignCount: number | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -8005,6 +8008,7 @@ export namespace Prisma {
     impactScore: number | null
     trainingShareCount: number | null
     betaShareCount: number | null
+    campaignCount: number | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -8030,6 +8034,7 @@ export namespace Prisma {
     impactScore: number
     trainingShareCount: number
     betaShareCount: number
+    campaignCount: number
     _all: number
   }
 
@@ -8038,12 +8043,14 @@ export namespace Prisma {
     impactScore?: true
     trainingShareCount?: true
     betaShareCount?: true
+    campaignCount?: true
   }
 
   export type UserSumAggregateInputType = {
     impactScore?: true
     trainingShareCount?: true
     betaShareCount?: true
+    campaignCount?: true
   }
 
   export type UserMinAggregateInputType = {
@@ -8069,6 +8076,7 @@ export namespace Prisma {
     impactScore?: true
     trainingShareCount?: true
     betaShareCount?: true
+    campaignCount?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -8094,6 +8102,7 @@ export namespace Prisma {
     impactScore?: true
     trainingShareCount?: true
     betaShareCount?: true
+    campaignCount?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -8119,6 +8128,7 @@ export namespace Prisma {
     impactScore?: true
     trainingShareCount?: true
     betaShareCount?: true
+    campaignCount?: true
     _all?: true
   }
 
@@ -8231,6 +8241,7 @@ export namespace Prisma {
     impactScore: number
     trainingShareCount: number
     betaShareCount: number
+    campaignCount: number
     _count: UserCountAggregateOutputType | null
     _avg: UserAvgAggregateOutputType | null
     _sum: UserSumAggregateOutputType | null
@@ -8275,6 +8286,7 @@ export namespace Prisma {
     impactScore?: boolean
     trainingShareCount?: boolean
     betaShareCount?: boolean
+    campaignCount?: boolean
     accounts?: boolean | User$accountsArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     ngo?: boolean | User$ngoArgs<ExtArgs>
@@ -8322,6 +8334,7 @@ export namespace Prisma {
     impactScore?: boolean
     trainingShareCount?: boolean
     betaShareCount?: boolean
+    campaignCount?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -8347,6 +8360,7 @@ export namespace Prisma {
     impactScore?: boolean
     trainingShareCount?: boolean
     betaShareCount?: boolean
+    campaignCount?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -8372,9 +8386,10 @@ export namespace Prisma {
     impactScore?: boolean
     trainingShareCount?: boolean
     betaShareCount?: boolean
+    campaignCount?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "emailVerified" | "name" | "image" | "password" | "role" | "referralCode" | "bio" | "jobTitle" | "company" | "city" | "linkedinUrl" | "twitterUrl" | "portfolioUrl" | "skills" | "createdAt" | "updatedAt" | "aiSummary" | "impactScore" | "trainingShareCount" | "betaShareCount", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "emailVerified" | "name" | "image" | "password" | "role" | "referralCode" | "bio" | "jobTitle" | "company" | "city" | "linkedinUrl" | "twitterUrl" | "portfolioUrl" | "skills" | "createdAt" | "updatedAt" | "aiSummary" | "impactScore" | "trainingShareCount" | "betaShareCount" | "campaignCount", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     accounts?: boolean | User$accountsArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
@@ -8450,6 +8465,7 @@ export namespace Prisma {
       impactScore: number
       trainingShareCount: number
       betaShareCount: number
+      campaignCount: number
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -8916,6 +8932,7 @@ export namespace Prisma {
     readonly impactScore: FieldRef<"User", 'Int'>
     readonly trainingShareCount: FieldRef<"User", 'Int'>
     readonly betaShareCount: FieldRef<"User", 'Int'>
+    readonly campaignCount: FieldRef<"User", 'Int'>
   }
     
 
@@ -47294,7 +47311,8 @@ export namespace Prisma {
     aiSummary: 'aiSummary',
     impactScore: 'impactScore',
     trainingShareCount: 'trainingShareCount',
-    betaShareCount: 'betaShareCount'
+    betaShareCount: 'betaShareCount',
+    campaignCount: 'campaignCount'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -48276,6 +48294,7 @@ export namespace Prisma {
     impactScore?: IntFilter<"User"> | number
     trainingShareCount?: IntFilter<"User"> | number
     betaShareCount?: IntFilter<"User"> | number
+    campaignCount?: IntFilter<"User"> | number
     accounts?: AccountListRelationFilter
     sessions?: SessionListRelationFilter
     ngo?: XOR<NgoNullableScalarRelationFilter, NgoWhereInput> | null
@@ -48322,6 +48341,7 @@ export namespace Prisma {
     impactScore?: SortOrder
     trainingShareCount?: SortOrder
     betaShareCount?: SortOrder
+    campaignCount?: SortOrder
     accounts?: AccountOrderByRelationAggregateInput
     sessions?: SessionOrderByRelationAggregateInput
     ngo?: NgoOrderByWithRelationInput
@@ -48371,6 +48391,7 @@ export namespace Prisma {
     impactScore?: IntFilter<"User"> | number
     trainingShareCount?: IntFilter<"User"> | number
     betaShareCount?: IntFilter<"User"> | number
+    campaignCount?: IntFilter<"User"> | number
     accounts?: AccountListRelationFilter
     sessions?: SessionListRelationFilter
     ngo?: XOR<NgoNullableScalarRelationFilter, NgoWhereInput> | null
@@ -48417,6 +48438,7 @@ export namespace Prisma {
     impactScore?: SortOrder
     trainingShareCount?: SortOrder
     betaShareCount?: SortOrder
+    campaignCount?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _avg?: UserAvgOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
@@ -48450,6 +48472,7 @@ export namespace Prisma {
     impactScore?: IntWithAggregatesFilter<"User"> | number
     trainingShareCount?: IntWithAggregatesFilter<"User"> | number
     betaShareCount?: IntWithAggregatesFilter<"User"> | number
+    campaignCount?: IntWithAggregatesFilter<"User"> | number
   }
 
   export type DonorApplicationProfileWhereInput = {
@@ -51342,6 +51365,7 @@ export namespace Prisma {
     impactScore?: number
     trainingShareCount?: number
     betaShareCount?: number
+    campaignCount?: number
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     ngo?: NgoCreateNestedOneWithoutUserInput
@@ -51388,6 +51412,7 @@ export namespace Prisma {
     impactScore?: number
     trainingShareCount?: number
     betaShareCount?: number
+    campaignCount?: number
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ngo?: NgoUncheckedCreateNestedOneWithoutUserInput
@@ -51434,6 +51459,7 @@ export namespace Prisma {
     impactScore?: IntFieldUpdateOperationsInput | number
     trainingShareCount?: IntFieldUpdateOperationsInput | number
     betaShareCount?: IntFieldUpdateOperationsInput | number
+    campaignCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ngo?: NgoUpdateOneWithoutUserNestedInput
@@ -51480,6 +51506,7 @@ export namespace Prisma {
     impactScore?: IntFieldUpdateOperationsInput | number
     trainingShareCount?: IntFieldUpdateOperationsInput | number
     betaShareCount?: IntFieldUpdateOperationsInput | number
+    campaignCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ngo?: NgoUncheckedUpdateOneWithoutUserNestedInput
@@ -51526,6 +51553,7 @@ export namespace Prisma {
     impactScore?: number
     trainingShareCount?: number
     betaShareCount?: number
+    campaignCount?: number
   }
 
   export type UserUpdateManyMutationInput = {
@@ -51551,6 +51579,7 @@ export namespace Prisma {
     impactScore?: IntFieldUpdateOperationsInput | number
     trainingShareCount?: IntFieldUpdateOperationsInput | number
     betaShareCount?: IntFieldUpdateOperationsInput | number
+    campaignCount?: IntFieldUpdateOperationsInput | number
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -51576,6 +51605,7 @@ export namespace Prisma {
     impactScore?: IntFieldUpdateOperationsInput | number
     trainingShareCount?: IntFieldUpdateOperationsInput | number
     betaShareCount?: IntFieldUpdateOperationsInput | number
+    campaignCount?: IntFieldUpdateOperationsInput | number
   }
 
   export type DonorApplicationProfileCreateInput = {
@@ -54932,12 +54962,14 @@ export namespace Prisma {
     impactScore?: SortOrder
     trainingShareCount?: SortOrder
     betaShareCount?: SortOrder
+    campaignCount?: SortOrder
   }
 
   export type UserAvgOrderByAggregateInput = {
     impactScore?: SortOrder
     trainingShareCount?: SortOrder
     betaShareCount?: SortOrder
+    campaignCount?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -54963,6 +54995,7 @@ export namespace Prisma {
     impactScore?: SortOrder
     trainingShareCount?: SortOrder
     betaShareCount?: SortOrder
+    campaignCount?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -54988,12 +55021,14 @@ export namespace Prisma {
     impactScore?: SortOrder
     trainingShareCount?: SortOrder
     betaShareCount?: SortOrder
+    campaignCount?: SortOrder
   }
 
   export type UserSumOrderByAggregateInput = {
     impactScore?: SortOrder
     trainingShareCount?: SortOrder
     betaShareCount?: SortOrder
+    campaignCount?: SortOrder
   }
 
   export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -60096,6 +60131,7 @@ export namespace Prisma {
     impactScore?: number
     trainingShareCount?: number
     betaShareCount?: number
+    campaignCount?: number
     sessions?: SessionCreateNestedManyWithoutUserInput
     ngo?: NgoCreateNestedOneWithoutUserInput
     donations?: DonationCreateNestedManyWithoutUserInput
@@ -60141,6 +60177,7 @@ export namespace Prisma {
     impactScore?: number
     trainingShareCount?: number
     betaShareCount?: number
+    campaignCount?: number
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ngo?: NgoUncheckedCreateNestedOneWithoutUserInput
     donations?: DonationUncheckedCreateNestedManyWithoutUserInput
@@ -60202,6 +60239,7 @@ export namespace Prisma {
     impactScore?: IntFieldUpdateOperationsInput | number
     trainingShareCount?: IntFieldUpdateOperationsInput | number
     betaShareCount?: IntFieldUpdateOperationsInput | number
+    campaignCount?: IntFieldUpdateOperationsInput | number
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ngo?: NgoUpdateOneWithoutUserNestedInput
     donations?: DonationUpdateManyWithoutUserNestedInput
@@ -60247,6 +60285,7 @@ export namespace Prisma {
     impactScore?: IntFieldUpdateOperationsInput | number
     trainingShareCount?: IntFieldUpdateOperationsInput | number
     betaShareCount?: IntFieldUpdateOperationsInput | number
+    campaignCount?: IntFieldUpdateOperationsInput | number
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ngo?: NgoUncheckedUpdateOneWithoutUserNestedInput
     donations?: DonationUncheckedUpdateManyWithoutUserNestedInput
@@ -60292,6 +60331,7 @@ export namespace Prisma {
     impactScore?: number
     trainingShareCount?: number
     betaShareCount?: number
+    campaignCount?: number
     accounts?: AccountCreateNestedManyWithoutUserInput
     ngo?: NgoCreateNestedOneWithoutUserInput
     donations?: DonationCreateNestedManyWithoutUserInput
@@ -60337,6 +60377,7 @@ export namespace Prisma {
     impactScore?: number
     trainingShareCount?: number
     betaShareCount?: number
+    campaignCount?: number
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     ngo?: NgoUncheckedCreateNestedOneWithoutUserInput
     donations?: DonationUncheckedCreateNestedManyWithoutUserInput
@@ -60398,6 +60439,7 @@ export namespace Prisma {
     impactScore?: IntFieldUpdateOperationsInput | number
     trainingShareCount?: IntFieldUpdateOperationsInput | number
     betaShareCount?: IntFieldUpdateOperationsInput | number
+    campaignCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUpdateManyWithoutUserNestedInput
     ngo?: NgoUpdateOneWithoutUserNestedInput
     donations?: DonationUpdateManyWithoutUserNestedInput
@@ -60443,6 +60485,7 @@ export namespace Prisma {
     impactScore?: IntFieldUpdateOperationsInput | number
     trainingShareCount?: IntFieldUpdateOperationsInput | number
     betaShareCount?: IntFieldUpdateOperationsInput | number
+    campaignCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     ngo?: NgoUncheckedUpdateOneWithoutUserNestedInput
     donations?: DonationUncheckedUpdateManyWithoutUserNestedInput
@@ -61828,6 +61871,7 @@ export namespace Prisma {
     impactScore?: number
     trainingShareCount?: number
     betaShareCount?: number
+    campaignCount?: number
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     ngo?: NgoCreateNestedOneWithoutUserInput
@@ -61873,6 +61917,7 @@ export namespace Prisma {
     impactScore?: number
     trainingShareCount?: number
     betaShareCount?: number
+    campaignCount?: number
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ngo?: NgoUncheckedCreateNestedOneWithoutUserInput
@@ -61934,6 +61979,7 @@ export namespace Prisma {
     impactScore?: IntFieldUpdateOperationsInput | number
     trainingShareCount?: IntFieldUpdateOperationsInput | number
     betaShareCount?: IntFieldUpdateOperationsInput | number
+    campaignCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ngo?: NgoUpdateOneWithoutUserNestedInput
@@ -61979,6 +62025,7 @@ export namespace Prisma {
     impactScore?: IntFieldUpdateOperationsInput | number
     trainingShareCount?: IntFieldUpdateOperationsInput | number
     betaShareCount?: IntFieldUpdateOperationsInput | number
+    campaignCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ngo?: NgoUncheckedUpdateOneWithoutUserNestedInput
@@ -62024,6 +62071,7 @@ export namespace Prisma {
     impactScore?: number
     trainingShareCount?: number
     betaShareCount?: number
+    campaignCount?: number
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     ngo?: NgoCreateNestedOneWithoutUserInput
@@ -62069,6 +62117,7 @@ export namespace Prisma {
     impactScore?: number
     trainingShareCount?: number
     betaShareCount?: number
+    campaignCount?: number
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ngo?: NgoUncheckedCreateNestedOneWithoutUserInput
@@ -62130,6 +62179,7 @@ export namespace Prisma {
     impactScore?: IntFieldUpdateOperationsInput | number
     trainingShareCount?: IntFieldUpdateOperationsInput | number
     betaShareCount?: IntFieldUpdateOperationsInput | number
+    campaignCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ngo?: NgoUpdateOneWithoutUserNestedInput
@@ -62175,6 +62225,7 @@ export namespace Prisma {
     impactScore?: IntFieldUpdateOperationsInput | number
     trainingShareCount?: IntFieldUpdateOperationsInput | number
     betaShareCount?: IntFieldUpdateOperationsInput | number
+    campaignCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ngo?: NgoUncheckedUpdateOneWithoutUserNestedInput
@@ -62220,6 +62271,7 @@ export namespace Prisma {
     impactScore?: number
     trainingShareCount?: number
     betaShareCount?: number
+    campaignCount?: number
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     donations?: DonationCreateNestedManyWithoutUserInput
@@ -62265,6 +62317,7 @@ export namespace Prisma {
     impactScore?: number
     trainingShareCount?: number
     betaShareCount?: number
+    campaignCount?: number
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     donations?: DonationUncheckedCreateNestedManyWithoutUserInput
@@ -62682,6 +62735,7 @@ export namespace Prisma {
     impactScore?: IntFieldUpdateOperationsInput | number
     trainingShareCount?: IntFieldUpdateOperationsInput | number
     betaShareCount?: IntFieldUpdateOperationsInput | number
+    campaignCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     donations?: DonationUpdateManyWithoutUserNestedInput
@@ -62727,6 +62781,7 @@ export namespace Prisma {
     impactScore?: IntFieldUpdateOperationsInput | number
     trainingShareCount?: IntFieldUpdateOperationsInput | number
     betaShareCount?: IntFieldUpdateOperationsInput | number
+    campaignCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     donations?: DonationUncheckedUpdateManyWithoutUserNestedInput
@@ -64098,6 +64153,7 @@ export namespace Prisma {
     impactScore?: number
     trainingShareCount?: number
     betaShareCount?: number
+    campaignCount?: number
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     ngo?: NgoCreateNestedOneWithoutUserInput
@@ -64143,6 +64199,7 @@ export namespace Prisma {
     impactScore?: number
     trainingShareCount?: number
     betaShareCount?: number
+    campaignCount?: number
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ngo?: NgoUncheckedCreateNestedOneWithoutUserInput
@@ -64286,6 +64343,7 @@ export namespace Prisma {
     impactScore?: IntFieldUpdateOperationsInput | number
     trainingShareCount?: IntFieldUpdateOperationsInput | number
     betaShareCount?: IntFieldUpdateOperationsInput | number
+    campaignCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ngo?: NgoUpdateOneWithoutUserNestedInput
@@ -64331,6 +64389,7 @@ export namespace Prisma {
     impactScore?: IntFieldUpdateOperationsInput | number
     trainingShareCount?: IntFieldUpdateOperationsInput | number
     betaShareCount?: IntFieldUpdateOperationsInput | number
+    campaignCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ngo?: NgoUncheckedUpdateOneWithoutUserNestedInput
@@ -65006,6 +65065,7 @@ export namespace Prisma {
     impactScore?: number
     trainingShareCount?: number
     betaShareCount?: number
+    campaignCount?: number
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     ngo?: NgoCreateNestedOneWithoutUserInput
@@ -65051,6 +65111,7 @@ export namespace Prisma {
     impactScore?: number
     trainingShareCount?: number
     betaShareCount?: number
+    campaignCount?: number
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ngo?: NgoUncheckedCreateNestedOneWithoutUserInput
@@ -65173,6 +65234,7 @@ export namespace Prisma {
     impactScore?: IntFieldUpdateOperationsInput | number
     trainingShareCount?: IntFieldUpdateOperationsInput | number
     betaShareCount?: IntFieldUpdateOperationsInput | number
+    campaignCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ngo?: NgoUpdateOneWithoutUserNestedInput
@@ -65218,6 +65280,7 @@ export namespace Prisma {
     impactScore?: IntFieldUpdateOperationsInput | number
     trainingShareCount?: IntFieldUpdateOperationsInput | number
     betaShareCount?: IntFieldUpdateOperationsInput | number
+    campaignCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ngo?: NgoUncheckedUpdateOneWithoutUserNestedInput
@@ -65330,6 +65393,7 @@ export namespace Prisma {
     impactScore?: number
     trainingShareCount?: number
     betaShareCount?: number
+    campaignCount?: number
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     ngo?: NgoCreateNestedOneWithoutUserInput
@@ -65375,6 +65439,7 @@ export namespace Prisma {
     impactScore?: number
     trainingShareCount?: number
     betaShareCount?: number
+    campaignCount?: number
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ngo?: NgoUncheckedCreateNestedOneWithoutUserInput
@@ -65436,6 +65501,7 @@ export namespace Prisma {
     impactScore?: IntFieldUpdateOperationsInput | number
     trainingShareCount?: IntFieldUpdateOperationsInput | number
     betaShareCount?: IntFieldUpdateOperationsInput | number
+    campaignCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ngo?: NgoUpdateOneWithoutUserNestedInput
@@ -65481,6 +65547,7 @@ export namespace Prisma {
     impactScore?: IntFieldUpdateOperationsInput | number
     trainingShareCount?: IntFieldUpdateOperationsInput | number
     betaShareCount?: IntFieldUpdateOperationsInput | number
+    campaignCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ngo?: NgoUncheckedUpdateOneWithoutUserNestedInput
@@ -65526,6 +65593,7 @@ export namespace Prisma {
     impactScore?: number
     trainingShareCount?: number
     betaShareCount?: number
+    campaignCount?: number
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     ngo?: NgoCreateNestedOneWithoutUserInput
@@ -65571,6 +65639,7 @@ export namespace Prisma {
     impactScore?: number
     trainingShareCount?: number
     betaShareCount?: number
+    campaignCount?: number
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ngo?: NgoUncheckedCreateNestedOneWithoutUserInput
@@ -65689,6 +65758,7 @@ export namespace Prisma {
     impactScore?: IntFieldUpdateOperationsInput | number
     trainingShareCount?: IntFieldUpdateOperationsInput | number
     betaShareCount?: IntFieldUpdateOperationsInput | number
+    campaignCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ngo?: NgoUpdateOneWithoutUserNestedInput
@@ -65734,6 +65804,7 @@ export namespace Prisma {
     impactScore?: IntFieldUpdateOperationsInput | number
     trainingShareCount?: IntFieldUpdateOperationsInput | number
     betaShareCount?: IntFieldUpdateOperationsInput | number
+    campaignCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ngo?: NgoUncheckedUpdateOneWithoutUserNestedInput
@@ -65842,6 +65913,7 @@ export namespace Prisma {
     impactScore?: number
     trainingShareCount?: number
     betaShareCount?: number
+    campaignCount?: number
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     ngo?: NgoCreateNestedOneWithoutUserInput
@@ -65887,6 +65959,7 @@ export namespace Prisma {
     impactScore?: number
     trainingShareCount?: number
     betaShareCount?: number
+    campaignCount?: number
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ngo?: NgoUncheckedCreateNestedOneWithoutUserInput
@@ -66029,6 +66102,7 @@ export namespace Prisma {
     impactScore?: IntFieldUpdateOperationsInput | number
     trainingShareCount?: IntFieldUpdateOperationsInput | number
     betaShareCount?: IntFieldUpdateOperationsInput | number
+    campaignCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ngo?: NgoUpdateOneWithoutUserNestedInput
@@ -66074,6 +66148,7 @@ export namespace Prisma {
     impactScore?: IntFieldUpdateOperationsInput | number
     trainingShareCount?: IntFieldUpdateOperationsInput | number
     betaShareCount?: IntFieldUpdateOperationsInput | number
+    campaignCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ngo?: NgoUncheckedUpdateOneWithoutUserNestedInput
@@ -66231,6 +66306,7 @@ export namespace Prisma {
     impactScore?: number
     trainingShareCount?: number
     betaShareCount?: number
+    campaignCount?: number
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     ngo?: NgoCreateNestedOneWithoutUserInput
@@ -66276,6 +66352,7 @@ export namespace Prisma {
     impactScore?: number
     trainingShareCount?: number
     betaShareCount?: number
+    campaignCount?: number
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ngo?: NgoUncheckedCreateNestedOneWithoutUserInput
@@ -66376,6 +66453,7 @@ export namespace Prisma {
     impactScore?: IntFieldUpdateOperationsInput | number
     trainingShareCount?: IntFieldUpdateOperationsInput | number
     betaShareCount?: IntFieldUpdateOperationsInput | number
+    campaignCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ngo?: NgoUpdateOneWithoutUserNestedInput
@@ -66421,6 +66499,7 @@ export namespace Prisma {
     impactScore?: IntFieldUpdateOperationsInput | number
     trainingShareCount?: IntFieldUpdateOperationsInput | number
     betaShareCount?: IntFieldUpdateOperationsInput | number
+    campaignCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ngo?: NgoUncheckedUpdateOneWithoutUserNestedInput
@@ -66466,6 +66545,7 @@ export namespace Prisma {
     impactScore?: number
     trainingShareCount?: number
     betaShareCount?: number
+    campaignCount?: number
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     ngo?: NgoCreateNestedOneWithoutUserInput
@@ -66511,6 +66591,7 @@ export namespace Prisma {
     impactScore?: number
     trainingShareCount?: number
     betaShareCount?: number
+    campaignCount?: number
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ngo?: NgoUncheckedCreateNestedOneWithoutUserInput
@@ -66572,6 +66653,7 @@ export namespace Prisma {
     impactScore?: IntFieldUpdateOperationsInput | number
     trainingShareCount?: IntFieldUpdateOperationsInput | number
     betaShareCount?: IntFieldUpdateOperationsInput | number
+    campaignCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ngo?: NgoUpdateOneWithoutUserNestedInput
@@ -66617,6 +66699,7 @@ export namespace Prisma {
     impactScore?: IntFieldUpdateOperationsInput | number
     trainingShareCount?: IntFieldUpdateOperationsInput | number
     betaShareCount?: IntFieldUpdateOperationsInput | number
+    campaignCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ngo?: NgoUncheckedUpdateOneWithoutUserNestedInput
@@ -66662,6 +66745,7 @@ export namespace Prisma {
     impactScore?: number
     trainingShareCount?: number
     betaShareCount?: number
+    campaignCount?: number
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     ngo?: NgoCreateNestedOneWithoutUserInput
@@ -66707,6 +66791,7 @@ export namespace Prisma {
     impactScore?: number
     trainingShareCount?: number
     betaShareCount?: number
+    campaignCount?: number
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ngo?: NgoUncheckedCreateNestedOneWithoutUserInput
@@ -66757,6 +66842,7 @@ export namespace Prisma {
     impactScore?: number
     trainingShareCount?: number
     betaShareCount?: number
+    campaignCount?: number
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     ngo?: NgoCreateNestedOneWithoutUserInput
@@ -66802,6 +66888,7 @@ export namespace Prisma {
     impactScore?: number
     trainingShareCount?: number
     betaShareCount?: number
+    campaignCount?: number
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ngo?: NgoUncheckedCreateNestedOneWithoutUserInput
@@ -66863,6 +66950,7 @@ export namespace Prisma {
     impactScore?: IntFieldUpdateOperationsInput | number
     trainingShareCount?: IntFieldUpdateOperationsInput | number
     betaShareCount?: IntFieldUpdateOperationsInput | number
+    campaignCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ngo?: NgoUpdateOneWithoutUserNestedInput
@@ -66908,6 +66996,7 @@ export namespace Prisma {
     impactScore?: IntFieldUpdateOperationsInput | number
     trainingShareCount?: IntFieldUpdateOperationsInput | number
     betaShareCount?: IntFieldUpdateOperationsInput | number
+    campaignCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ngo?: NgoUncheckedUpdateOneWithoutUserNestedInput
@@ -66964,6 +67053,7 @@ export namespace Prisma {
     impactScore?: IntFieldUpdateOperationsInput | number
     trainingShareCount?: IntFieldUpdateOperationsInput | number
     betaShareCount?: IntFieldUpdateOperationsInput | number
+    campaignCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ngo?: NgoUpdateOneWithoutUserNestedInput
@@ -67009,6 +67099,7 @@ export namespace Prisma {
     impactScore?: IntFieldUpdateOperationsInput | number
     trainingShareCount?: IntFieldUpdateOperationsInput | number
     betaShareCount?: IntFieldUpdateOperationsInput | number
+    campaignCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ngo?: NgoUncheckedUpdateOneWithoutUserNestedInput
@@ -67182,6 +67273,7 @@ export namespace Prisma {
     impactScore?: number
     trainingShareCount?: number
     betaShareCount?: number
+    campaignCount?: number
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     ngo?: NgoCreateNestedOneWithoutUserInput
@@ -67227,6 +67319,7 @@ export namespace Prisma {
     impactScore?: number
     trainingShareCount?: number
     betaShareCount?: number
+    campaignCount?: number
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ngo?: NgoUncheckedCreateNestedOneWithoutUserInput
@@ -67425,6 +67518,7 @@ export namespace Prisma {
     impactScore?: IntFieldUpdateOperationsInput | number
     trainingShareCount?: IntFieldUpdateOperationsInput | number
     betaShareCount?: IntFieldUpdateOperationsInput | number
+    campaignCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ngo?: NgoUpdateOneWithoutUserNestedInput
@@ -67470,6 +67564,7 @@ export namespace Prisma {
     impactScore?: IntFieldUpdateOperationsInput | number
     trainingShareCount?: IntFieldUpdateOperationsInput | number
     betaShareCount?: IntFieldUpdateOperationsInput | number
+    campaignCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ngo?: NgoUncheckedUpdateOneWithoutUserNestedInput
@@ -67750,6 +67845,7 @@ export namespace Prisma {
     impactScore?: number
     trainingShareCount?: number
     betaShareCount?: number
+    campaignCount?: number
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     ngo?: NgoCreateNestedOneWithoutUserInput
@@ -67795,6 +67891,7 @@ export namespace Prisma {
     impactScore?: number
     trainingShareCount?: number
     betaShareCount?: number
+    campaignCount?: number
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ngo?: NgoUncheckedCreateNestedOneWithoutUserInput
@@ -67906,6 +68003,7 @@ export namespace Prisma {
     impactScore?: number
     trainingShareCount?: number
     betaShareCount?: number
+    campaignCount?: number
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     ngo?: NgoCreateNestedOneWithoutUserInput
@@ -67951,6 +68049,7 @@ export namespace Prisma {
     impactScore?: number
     trainingShareCount?: number
     betaShareCount?: number
+    campaignCount?: number
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ngo?: NgoUncheckedCreateNestedOneWithoutUserInput
@@ -68012,6 +68111,7 @@ export namespace Prisma {
     impactScore?: IntFieldUpdateOperationsInput | number
     trainingShareCount?: IntFieldUpdateOperationsInput | number
     betaShareCount?: IntFieldUpdateOperationsInput | number
+    campaignCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ngo?: NgoUpdateOneWithoutUserNestedInput
@@ -68057,6 +68157,7 @@ export namespace Prisma {
     impactScore?: IntFieldUpdateOperationsInput | number
     trainingShareCount?: IntFieldUpdateOperationsInput | number
     betaShareCount?: IntFieldUpdateOperationsInput | number
+    campaignCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ngo?: NgoUncheckedUpdateOneWithoutUserNestedInput
@@ -68180,6 +68281,7 @@ export namespace Prisma {
     impactScore?: IntFieldUpdateOperationsInput | number
     trainingShareCount?: IntFieldUpdateOperationsInput | number
     betaShareCount?: IntFieldUpdateOperationsInput | number
+    campaignCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ngo?: NgoUpdateOneWithoutUserNestedInput
@@ -68225,6 +68327,7 @@ export namespace Prisma {
     impactScore?: IntFieldUpdateOperationsInput | number
     trainingShareCount?: IntFieldUpdateOperationsInput | number
     betaShareCount?: IntFieldUpdateOperationsInput | number
+    campaignCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ngo?: NgoUncheckedUpdateOneWithoutUserNestedInput
@@ -68270,6 +68373,7 @@ export namespace Prisma {
     impactScore?: number
     trainingShareCount?: number
     betaShareCount?: number
+    campaignCount?: number
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     ngo?: NgoCreateNestedOneWithoutUserInput
@@ -68315,6 +68419,7 @@ export namespace Prisma {
     impactScore?: number
     trainingShareCount?: number
     betaShareCount?: number
+    campaignCount?: number
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ngo?: NgoUncheckedCreateNestedOneWithoutUserInput
@@ -68376,6 +68481,7 @@ export namespace Prisma {
     impactScore?: IntFieldUpdateOperationsInput | number
     trainingShareCount?: IntFieldUpdateOperationsInput | number
     betaShareCount?: IntFieldUpdateOperationsInput | number
+    campaignCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ngo?: NgoUpdateOneWithoutUserNestedInput
@@ -68421,6 +68527,7 @@ export namespace Prisma {
     impactScore?: IntFieldUpdateOperationsInput | number
     trainingShareCount?: IntFieldUpdateOperationsInput | number
     betaShareCount?: IntFieldUpdateOperationsInput | number
+    campaignCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ngo?: NgoUncheckedUpdateOneWithoutUserNestedInput
@@ -68945,6 +69052,7 @@ export namespace Prisma {
     impactScore?: number
     trainingShareCount?: number
     betaShareCount?: number
+    campaignCount?: number
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     ngo?: NgoCreateNestedOneWithoutUserInput
@@ -68990,6 +69098,7 @@ export namespace Prisma {
     impactScore?: number
     trainingShareCount?: number
     betaShareCount?: number
+    campaignCount?: number
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ngo?: NgoUncheckedCreateNestedOneWithoutUserInput
@@ -69139,6 +69248,7 @@ export namespace Prisma {
     impactScore?: IntFieldUpdateOperationsInput | number
     trainingShareCount?: IntFieldUpdateOperationsInput | number
     betaShareCount?: IntFieldUpdateOperationsInput | number
+    campaignCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ngo?: NgoUpdateOneWithoutUserNestedInput
@@ -69184,6 +69294,7 @@ export namespace Prisma {
     impactScore?: IntFieldUpdateOperationsInput | number
     trainingShareCount?: IntFieldUpdateOperationsInput | number
     betaShareCount?: IntFieldUpdateOperationsInput | number
+    campaignCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ngo?: NgoUncheckedUpdateOneWithoutUserNestedInput
@@ -69328,6 +69439,7 @@ export namespace Prisma {
     impactScore?: number
     trainingShareCount?: number
     betaShareCount?: number
+    campaignCount?: number
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     ngo?: NgoCreateNestedOneWithoutUserInput
@@ -69373,6 +69485,7 @@ export namespace Prisma {
     impactScore?: number
     trainingShareCount?: number
     betaShareCount?: number
+    campaignCount?: number
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ngo?: NgoUncheckedCreateNestedOneWithoutUserInput
@@ -69574,6 +69687,7 @@ export namespace Prisma {
     impactScore?: IntFieldUpdateOperationsInput | number
     trainingShareCount?: IntFieldUpdateOperationsInput | number
     betaShareCount?: IntFieldUpdateOperationsInput | number
+    campaignCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ngo?: NgoUpdateOneWithoutUserNestedInput
@@ -69619,6 +69733,7 @@ export namespace Prisma {
     impactScore?: IntFieldUpdateOperationsInput | number
     trainingShareCount?: IntFieldUpdateOperationsInput | number
     betaShareCount?: IntFieldUpdateOperationsInput | number
+    campaignCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ngo?: NgoUncheckedUpdateOneWithoutUserNestedInput
@@ -69896,6 +70011,7 @@ export namespace Prisma {
     impactScore?: number
     trainingShareCount?: number
     betaShareCount?: number
+    campaignCount?: number
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     ngo?: NgoCreateNestedOneWithoutUserInput
@@ -69941,6 +70057,7 @@ export namespace Prisma {
     impactScore?: number
     trainingShareCount?: number
     betaShareCount?: number
+    campaignCount?: number
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     ngo?: NgoUncheckedCreateNestedOneWithoutUserInput
@@ -70002,6 +70119,7 @@ export namespace Prisma {
     impactScore?: IntFieldUpdateOperationsInput | number
     trainingShareCount?: IntFieldUpdateOperationsInput | number
     betaShareCount?: IntFieldUpdateOperationsInput | number
+    campaignCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     ngo?: NgoUpdateOneWithoutUserNestedInput
@@ -70047,6 +70165,7 @@ export namespace Prisma {
     impactScore?: IntFieldUpdateOperationsInput | number
     trainingShareCount?: IntFieldUpdateOperationsInput | number
     betaShareCount?: IntFieldUpdateOperationsInput | number
+    campaignCount?: IntFieldUpdateOperationsInput | number
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     ngo?: NgoUncheckedUpdateOneWithoutUserNestedInput

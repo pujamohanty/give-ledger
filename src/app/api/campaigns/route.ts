@@ -28,5 +28,19 @@ export async function POST(request: Request) {
     },
   });
 
+  // Update impact score — campaigns boost it
+  const user = await prisma.user.findUnique({
+    where: { id: session.user.id },
+    select: { campaignCount: true, trainingShareCount: true, betaShareCount: true },
+  });
+  if (user) {
+    const newCount = user.campaignCount + 1;
+    const newScore = Math.min(user.trainingShareCount, 10) + Math.min(user.betaShareCount, 10) + Math.min(newCount, 10);
+    await prisma.user.update({
+      where: { id: session.user.id },
+      data: { campaignCount: newCount, impactScore: newScore },
+    });
+  }
+
   return NextResponse.json({ campaignId: campaign.id });
 }

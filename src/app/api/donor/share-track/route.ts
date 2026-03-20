@@ -20,14 +20,14 @@ export async function POST(req: NextRequest) {
 
   const user = await prisma.user.findUnique({
     where: { id: session.user.id },
-    select: { trainingShareCount: true, betaShareCount: true },
+    select: { trainingShareCount: true, betaShareCount: true, campaignCount: true },
   });
 
   if (!user) return NextResponse.json({ error: "Not found" }, { status: 404 });
 
   const newTraining = type === "training" ? user.trainingShareCount + 1 : user.trainingShareCount;
   const newBeta     = type === "beta"     ? user.betaShareCount + 1     : user.betaShareCount;
-  const newScore    = Math.min(newTraining, 10) + Math.min(newBeta, 10);
+  const newScore    = Math.min(newTraining, 10) + Math.min(newBeta, 10) + Math.min(user.campaignCount, 10);
 
   const updated = await prisma.user.update({
     where: { id: session.user.id },

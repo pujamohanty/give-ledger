@@ -135,6 +135,7 @@ model User {
   impactScore           Int                       @default(0)
   trainingShareCount    Int                       @default(0)
   betaShareCount        Int                       @default(0)
+  campaignCount         Int                       @default(0)
   applicationProfiles   DonorApplicationProfile[]
 }
 

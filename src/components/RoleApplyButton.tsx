@@ -28,12 +28,12 @@ interface Props {
   roleTitle: string;
   defaultLinkedin?: string;
   ngoName?: string;
-  impactScore?: number;
+  impactScore: number;
   profileUrl?: string;
   applicationProfiles?: ApplicationProfile[];
 }
 
-export default function RoleApplyButton({ roleId, roleTitle, defaultLinkedin, ngoName, impactScore = 0, profileUrl = "", applicationProfiles = [] }: Props) {
+export default function RoleApplyButton({ roleId, roleTitle, defaultLinkedin, ngoName, impactScore, profileUrl = "", applicationProfiles = [] }: Props) {
   const [open, setOpen] = useState(false);
   const [step, setStep] = useState<"form" | "share">("form");
   const [coverNote, setCoverNote] = useState("");
@@ -175,12 +175,20 @@ export default function RoleApplyButton({ roleId, roleTitle, defaultLinkedin, ng
               <form onSubmit={handleFormNext} className="px-6 py-5 space-y-4">
 
                 {/* Impact score badge */}
-                {impactScore > 0 && (
+                {impactScore > 0 ? (
                   <div className="flex items-center gap-2 bg-violet-50 border border-violet-100 rounded-lg px-3 py-2">
                     <Star className="w-3.5 h-3.5 text-violet-500 shrink-0" />
                     <p className="text-[11px] text-violet-700 flex-1">
-                      <span className="font-semibold">Impact Score: {impactScore}/20</span>
-                      {" — "}NGOs can see this score. Share the AI Training Academy and Beta Program to increase it.
+                      <span className="font-semibold">Impact Score: {impactScore}/30</span>
+                      {" — "}NGOs reviewing your application can see this. Increase it by sharing the AI Training Academy, the Beta Program, or starting skill campaigns.
+                    </p>
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-2 bg-gray-50 border border-gray-200 rounded-lg px-3 py-2">
+                    <Star className="w-3.5 h-3.5 text-gray-400 shrink-0" />
+                    <p className="text-[11px] text-gray-500 flex-1">
+                      <span className="font-semibold">Impact Score: 0/30</span>
+                      {" — "}Boost it by sharing the AI Training Academy, the Beta Program, or starting a skill campaign. NGOs can see your score.
                     </p>
                   </div>
                 )}

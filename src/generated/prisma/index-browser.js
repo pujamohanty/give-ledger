@@ -170,7 +170,8 @@ exports.Prisma.UserScalarFieldEnum = {
   aiSummary: 'aiSummary',
   impactScore: 'impactScore',
   trainingShareCount: 'trainingShareCount',
-  betaShareCount: 'betaShareCount'
+  betaShareCount: 'betaShareCount',
+  campaignCount: 'campaignCount'
 };
 
 exports.Prisma.DonorApplicationProfileScalarFieldEnum = {
