@@ -468,19 +468,6 @@ function LeftSidebar({ session, stats }: {
   );
 }
 
-const ROLE_TYPE_LABEL: Record<string, string> = {
-  INTERNSHIP: "Internship",
-  CAREER_TRANSITION: "Career Transition",
-  INTERIM: "Interim",
-  VOLUNTEER: "Volunteer",
-};
-
-const ROLE_TYPE_COLOR: Record<string, string> = {
-  INTERNSHIP: "bg-blue-50 text-blue-700",
-  CAREER_TRANSITION: "bg-violet-50 text-violet-700",
-  INTERIM: "bg-amber-50 text-amber-700",
-  VOLUNTEER: "bg-emerald-50 text-emerald-700",
-};
 
 /* ─── Right Sidebar ──────────────────────────────────────────── */
 function RightSidebar({ featuredProjects, recentNgos, openRoles }: {
@@ -525,9 +512,6 @@ function RightSidebar({ featuredProjects, recentNgos, openRoles }: {
                     </p>
                     <p className="text-xs text-gray-400 truncate">{role.ngo.orgName}</p>
                     <div className="flex items-center gap-1.5 mt-1 flex-wrap">
-                      <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded-full ${ROLE_TYPE_COLOR[role.roleType] ?? "bg-gray-100 text-gray-600"}`}>
-                        {ROLE_TYPE_LABEL[role.roleType] ?? role.roleType}
-                      </span>
                       {(role.salaryMin != null || role.salaryMax != null) ? (
                         <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-emerald-600 text-white">💰 Paid</span>
                       ) : (

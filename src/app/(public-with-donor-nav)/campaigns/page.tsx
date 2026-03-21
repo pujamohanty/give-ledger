@@ -25,12 +25,6 @@ const categoryLabel: Record<string, string> = {
   OTHER:               "Other",
 };
 
-const roleTypeLabels: Record<string, string> = {
-  INTERNSHIP:        "Internship",
-  CAREER_TRANSITION: "Career Transition",
-  INTERIM:           "Interim Role",
-  VOLUNTEER:         "Volunteer",
-};
 
 /** Parse a campaign's description to detect type and extract embedded role IDs */
 function parseCampaign(description: string | null) {

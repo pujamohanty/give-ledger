@@ -6,10 +6,6 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft, Clock, Users, Wifi, MapPin, UserCircle, ExternalLink } from "lucide-react";
 import { ApplicationActions, CompleteEngagementButton } from "@/components/RoleApplicationActions";
 
-const roleTypeLabels: Record<string, string> = {
-  INTERNSHIP: "Internship", CAREER_TRANSITION: "Career Transition",
-  INTERIM: "Interim Role", VOLUNTEER: "Volunteer",
-};
 
 const applicationStatusColors: Record<string, string> = {
   PENDING:   "bg-amber-50 text-amber-700 border-amber-100",
@@ -76,8 +72,6 @@ export default async function NgoRoleDetailPage({ params }: { params: Promise<{ 
           <div>
             <h1 className="text-lg font-bold text-gray-900">{role.title}</h1>
             <div className="flex flex-wrap gap-x-3 gap-y-1 text-xs text-gray-500 mt-1">
-              <span>{roleTypeLabels[role.roleType]}</span>
-              <span>·</span>
               <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> {role.timeCommitment}</span>
               <span>·</span>
               <span>{role.durationWeeks} weeks</span>

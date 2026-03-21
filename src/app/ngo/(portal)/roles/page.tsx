@@ -5,12 +5,6 @@ import { prisma } from "@/lib/prisma";
 import { Button } from "@/components/ui/button";
 import { Plus, Briefcase, Users, CheckCircle, Clock, XCircle, DollarSign } from "lucide-react";
 
-const roleTypeLabels: Record<string, string> = {
-  INTERNSHIP: "Internship",
-  CAREER_TRANSITION: "Career Transition",
-  INTERIM: "Interim Role",
-  VOLUNTEER: "Volunteer",
-};
 
 const statusConfig: Record<string, { label: string; color: string; icon: React.ElementType }> = {
   OPEN:   { label: "Open",   color: "text-emerald-700 bg-emerald-50 border-emerald-100", icon: CheckCircle },
@@ -147,8 +141,6 @@ function RoleCard({ role }: {
           )}
         </div>
         <div className="flex flex-wrap gap-x-3 gap-y-1 text-[11px] text-gray-500">
-          <span>{roleTypeLabels[role.roleType] ?? role.roleType}</span>
-          <span>·</span>
           <span>{role.timeCommitment}</span>
           <span>·</span>
           <span>{role.durationWeeks}w</span>

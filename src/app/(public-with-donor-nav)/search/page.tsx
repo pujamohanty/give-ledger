@@ -14,10 +14,6 @@ const CATEGORY_LABELS: Record<string, string> = {
   INCOME_GENERATION: "Income Generation", MENTAL_HEALTH: "Mental Health", OTHER: "Other",
 };
 
-const ROLE_TYPE_LABELS: Record<string, string> = {
-  INTERNSHIP: "Internship", CAREER_TRANSITION: "Career Transition",
-  INTERIM: "Interim Role", VOLUNTEER: "Volunteer",
-};
 
 type Tab = "all" | "projects" | "ngos" | "roles" | "campaigns" | "people";
 
@@ -299,7 +295,7 @@ export default async function SearchPage({
                               <span className="shrink-0 text-[10px] font-semibold px-2 py-0.5 rounded-full bg-gray-100 text-gray-500">🤝 Volunteer</span>
                             )}
                           </div>
-                          <p className="text-[11px] text-gray-400 mt-0.5">{role.ngo.orgName} · {ROLE_TYPE_LABELS[role.roleType] ?? role.roleType}</p>
+                          <p className="text-[11px] text-gray-400 mt-0.5">{role.ngo.orgName}</p>
                           <div className="flex items-center gap-3 mt-1.5 text-[11px] text-gray-400">
                             <span className="flex items-center gap-0.5"><Clock className="w-3 h-3" /> {role.timeCommitment}</span>
                             <span className="flex items-center gap-0.5">

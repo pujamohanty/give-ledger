@@ -10,10 +10,6 @@ import {
   Star, ExternalLink, ChevronRight,
 } from "lucide-react";
 
-const roleTypeLabels: Record<string, string> = {
-  INTERNSHIP: "Internship", CAREER_TRANSITION: "Career Transition",
-  INTERIM: "Interim Role", VOLUNTEER: "Volunteer",
-};
 
 const appStatusConfig: Record<string, { label: string; color: string; icon: React.ElementType }> = {
   PENDING:   { label: "Under review",  color: "text-amber-700 bg-amber-50 border-amber-100",     icon: Clock },
@@ -91,9 +87,6 @@ export default async function DonorOpportunitiesPage() {
                       <div>
                         <div className="flex items-center gap-2 mb-0.5">
                           <p className="text-sm font-semibold text-gray-900">{app.role.title}</p>
-                          <span className="text-[10px] font-medium text-emerald-700 bg-emerald-50 border border-emerald-100 px-2 py-0.5 rounded-full">
-                            {roleTypeLabels[app.role.roleType]}
-                          </span>
                         </div>
                         <p className="text-xs text-gray-500">{app.role.ngo.orgName}</p>
                         {app.role.project && (
@@ -157,7 +150,7 @@ export default async function DonorOpportunitiesPage() {
                   <div key={app.id} className="bg-white border border-gray-200 rounded-xl p-4 flex items-center justify-between gap-4">
                     <div className="min-w-0">
                       <p className="text-sm font-medium text-gray-900 truncate">{app.role.title}</p>
-                      <p className="text-xs text-gray-500">{app.role.ngo.orgName} · {roleTypeLabels[app.role.roleType]}</p>
+                      <p className="text-xs text-gray-500">{app.role.ngo.orgName}</p>
                     </div>
                     <div className="flex items-center gap-3 shrink-0">
                       <span className="text-[10px] text-gray-400">

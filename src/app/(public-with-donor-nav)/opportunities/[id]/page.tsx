@@ -10,28 +10,6 @@ import {
 } from "lucide-react";
 import { matchTrainingModule } from "@/lib/training-curriculum";
 
-const roleTypeLabels: Record<string, { label: string; color: string; description: string }> = {
-  INTERNSHIP: {
-    label: "Internship",
-    color: "bg-blue-50 text-blue-700 border-blue-100",
-    description: "Build real experience and showcase your skills. Ideal for early-career professionals and students looking to demonstrate ability in a new field.",
-  },
-  CAREER_TRANSITION: {
-    label: "Career Transition",
-    color: "bg-purple-50 text-purple-700 border-purple-100",
-    description: "Acquire hands-on skills in a new discipline. A structured way to build your portfolio in the area you are pivoting into.",
-  },
-  INTERIM: {
-    label: "Interim Role",
-    color: "bg-amber-50 text-amber-700 border-amber-100",
-    description: "A meaningful, verifiable role to fill a gap in your professional timeline. All work is confirmed and recorded on your GiveLedger credential.",
-  },
-  VOLUNTEER: {
-    label: "Volunteer",
-    color: "bg-emerald-50 text-emerald-700 border-emerald-100",
-    description: "Contribute your skills and time to a cause you care about. All contributions are verified by the NGO and recognised on your profile.",
-  },
-};
 
 export default async function OpportunityDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const session = await auth();
@@ -88,7 +66,6 @@ export default async function OpportunityDetailPage({ params }: { params: Promis
     profileUrl = `${process.env.NEXT_PUBLIC_APP_URL ?? "https://give-ledger.vercel.app"}/donor/${session.user.id}/profile`;
   }
 
-  const typeInfo = roleTypeLabels[role.roleType] ?? roleTypeLabels.VOLUNTEER;
   const skills = role.skillsRequired.split(",").map((s) => s.trim()).filter(Boolean);
   const spotsLeft = Math.max(0, role.openings - role._count.applications);
   const isOpen = role.status === "OPEN" && spotsLeft > 0;
@@ -134,11 +111,8 @@ export default async function OpportunityDetailPage({ params }: { params: Promis
                 </div>
               </div>
 
-              {/* Type badge + meta */}
+              {/* Meta */}
               <div className="flex flex-wrap gap-2 mb-4">
-                <span className={`text-xs font-semibold px-2.5 py-1 rounded-full border ${typeInfo.color}`}>
-                  {typeInfo.label}
-                </span>
                 <span className="inline-flex items-center gap-1 text-xs text-gray-500 bg-gray-100 px-2.5 py-1 rounded-full">
                   <Clock className="w-3 h-3" /> {role.timeCommitment}
                 </span>
@@ -161,10 +135,6 @@ export default async function OpportunityDetailPage({ params }: { params: Promis
                 )}
               </div>
 
-              {/* Type description */}
-              <div className={`rounded-lg border p-3.5 text-xs text-gray-600 ${typeInfo.color}`}>
-                {typeInfo.description}
-              </div>
             </div>
 
             {/* Role description */}

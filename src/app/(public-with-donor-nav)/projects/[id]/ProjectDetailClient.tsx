@@ -261,12 +261,6 @@ function ContributionChoiceModal({
 }
 
 // ─── Skill Contribution Modal ─────────────────────────────────────────────────
-const roleTypeLabel: Record<string, string> = {
-  VOLUNTEER: "Volunteer",
-  INTERNSHIP: "Internship",
-  CAREER_TRANSITION: "Career Transition",
-  INTERIM: "Interim",
-};
 
 function SkillContributionModal({
   ngoName,
@@ -392,9 +386,6 @@ function SkillContributionModal({
                     <div className="flex-1 min-w-0">
                       <p className="font-semibold text-sm text-gray-900 group-hover:text-violet-800">{role.title}</p>
                       <div className="flex items-center gap-2 mt-1 flex-wrap">
-                        <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded-full bg-violet-100 text-violet-700">
-                          {roleTypeLabel[role.roleType] ?? role.roleType}
-                        </span>
                         <span className="flex items-center gap-1 text-[10px] text-gray-500">
                           <Timer className="w-3 h-3" />{role.timeCommitment}
                         </span>
@@ -434,9 +425,6 @@ function SkillContributionModal({
               <div className="bg-violet-50 rounded-xl p-4 mb-4">
                 <p className="font-semibold text-violet-900 text-sm">{selectedRole.title}</p>
                 <div className="flex items-center gap-2 mt-1 flex-wrap">
-                  <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded-full bg-violet-200 text-violet-700">
-                    {roleTypeLabel[selectedRole.roleType] ?? selectedRole.roleType}
-                  </span>
                   <span className="text-[10px] text-violet-700">{selectedRole.timeCommitment}</span>
                   <span className="text-[10px] text-violet-700">{selectedRole.isRemote ? "Remote" : "On-site"}</span>
                   <span className="text-[10px] text-violet-600">{selectedRole.durationWeeks} weeks</span>

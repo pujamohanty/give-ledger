@@ -5,25 +5,18 @@ import Navbar from "@/components/Navbar";
 import { auth } from "@/lib/auth";
 import { matchTrainingModule } from "@/lib/training-curriculum";
 
-const roleTypeLabels: Record<string, { label: string; color: string }> = {
-  INTERNSHIP:        { label: "Internship",        color: "bg-blue-50 text-blue-700 border-blue-100" },
-  CAREER_TRANSITION: { label: "Career Transition",  color: "bg-purple-50 text-purple-700 border-purple-100" },
-  INTERIM:           { label: "Interim Role",        color: "bg-amber-50 text-amber-700 border-amber-100" },
-  VOLUNTEER:         { label: "Volunteer",            color: "bg-emerald-50 text-emerald-700 border-emerald-100" },
-};
 
 export default async function OpportunitiesPage({
   searchParams,
 }: {
-  searchParams: Promise<{ type?: string; compensation?: string }>;
+  searchParams: Promise<{ compensation?: string }>;
 }) {
   const session = await auth();
-  const { type, compensation } = await searchParams;
+  const { compensation } = await searchParams;
 
   const roles = await prisma.ngoRole.findMany({
     where: {
       status: "OPEN",
-      ...(type && type !== "ALL" ? { roleType: type as "INTERNSHIP" | "CAREER_TRANSITION" | "INTERIM" | "VOLUNTEER" } : {}),
       ...(compensation === "paid" ? { OR: [{ salaryMin: { not: null } }, { salaryMax: { not: null } }] } : {}),
       ...(compensation === "volunteer" ? { salaryMin: null, salaryMax: null } : {}),
     },
@@ -35,22 +28,12 @@ export default async function OpportunitiesPage({
     orderBy: [{ salaryMin: "desc" }, { createdAt: "desc" }],
   });
 
-  // Count open roles per type for the filter cards
-  const typeCounts = await prisma.ngoRole.groupBy({
-    by: ["roleType"],
-    where: { status: "OPEN" },
-    _count: { id: true },
-  });
-  const countByType: Record<string, number> = {};
-  for (const row of typeCounts) countByType[row.roleType] = row._count.id;
-
   const compensationFilters = [
     { key: "",         label: "Any pay" },
     { key: "paid",     label: "💰 Paid roles" },
     { key: "volunteer",label: "🤝 Volunteer" },
   ];
 
-  const activeType = type ?? "ALL";
   const activeCompensation = compensation ?? "";
 
   return (
@@ -68,51 +51,11 @@ export default async function OpportunitiesPage({
           </p>
         </div>
 
-        {/* Role type filter cards — click to filter */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
-          {[
-            { key: "INTERNSHIP",        label: "Internship",       desc: "Showcase skills to new employers",  activeBg: "bg-blue-600",   activeBorder: "border-blue-600",   inactiveBg: "bg-blue-50",   inactiveBorder: "border-blue-100",   dot: "bg-blue-500",   activeText: "text-white", inactiveText: "text-gray-900" },
-            { key: "CAREER_TRANSITION", label: "Career Transition", desc: "Acquire skills for a new field",   activeBg: "bg-purple-600", activeBorder: "border-purple-600", inactiveBg: "bg-purple-50", inactiveBorder: "border-purple-100", dot: "bg-purple-500", activeText: "text-white", inactiveText: "text-gray-900" },
-            { key: "INTERIM",           label: "Interim Role",      desc: "Keep your CV active between jobs", activeBg: "bg-amber-500",  activeBorder: "border-amber-500",  inactiveBg: "bg-amber-50",  inactiveBorder: "border-amber-100",  dot: "bg-amber-500",  activeText: "text-white", inactiveText: "text-gray-900" },
-            { key: "VOLUNTEER",         label: "Volunteer",         desc: "Give time to causes you care about", activeBg: "bg-emerald-600", activeBorder: "border-emerald-600", inactiveBg: "bg-emerald-50", inactiveBorder: "border-emerald-100", dot: "bg-emerald-500", activeText: "text-white", inactiveText: "text-gray-900" },
-          ].map((v) => {
-            const isActive = activeType === v.key;
-            const href = activeCompensation === ""
-              ? (isActive ? "/opportunities" : `/opportunities?type=${v.key}`)
-              : (isActive ? `/opportunities?compensation=${activeCompensation}` : `/opportunities?type=${v.key}&compensation=${activeCompensation}`);
-            const count = countByType[v.key] ?? 0;
-            return (
-              <Link
-                key={v.key}
-                href={href}
-                className={`rounded-xl border p-3 transition-all hover:shadow-sm ${
-                  isActive
-                    ? `${v.activeBg} ${v.activeBorder}`
-                    : `${v.inactiveBg} ${v.inactiveBorder} hover:border-gray-300`
-                }`}
-              >
-                <div className="flex items-center justify-between mb-2">
-                  <div className={`w-2 h-2 rounded-full ${isActive ? "bg-white/70" : v.dot}`} />
-                  {count > 0 && (
-                    <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full ${isActive ? "bg-white/20 text-white" : "bg-white text-gray-500 border border-gray-200"}`}>
-                      {count}
-                    </span>
-                  )}
-                </div>
-                <p className={`text-xs font-semibold ${isActive ? "text-white" : v.inactiveText}`}>{v.label}</p>
-                <p className={`text-[11px] mt-0.5 ${isActive ? "text-white/80" : "text-gray-500"}`}>{v.desc}</p>
-              </Link>
-            );
-          })}
-        </div>
-
         {/* Pay filter */}
         <div className="flex gap-2 flex-wrap items-center mb-6">
           <span className="text-[11px] font-semibold text-gray-400 uppercase tracking-wider">Pay:</span>
           {compensationFilters.map((f) => {
-            const href = f.key === ""
-              ? (activeType === "ALL" ? "/opportunities" : `/opportunities?type=${activeType}`)
-              : (activeType === "ALL" ? `/opportunities?compensation=${f.key}` : `/opportunities?type=${activeType}&compensation=${f.key}`);
+            const href = f.key === "" ? "/opportunities" : `/opportunities?compensation=${f.key}`;
             return (
               <Link key={f.key} href={href}
                 className={`px-3.5 py-1.5 rounded-full text-xs font-medium border transition-colors ${
@@ -125,7 +68,7 @@ export default async function OpportunitiesPage({
               </Link>
             );
           })}
-          {(activeType !== "ALL" || activeCompensation !== "") && (
+          {activeCompensation !== "" && (
             <Link href="/opportunities" className="text-[11px] text-gray-400 hover:text-gray-700 underline ml-1">
               Clear filters
             </Link>
@@ -144,7 +87,6 @@ export default async function OpportunitiesPage({
         ) : (
           <div className="grid sm:grid-cols-2 gap-4">
             {roles.flatMap((role, index) => {
-              const typeInfo = roleTypeLabels[role.roleType] ?? roleTypeLabels.VOLUNTEER;
               const betaCard = index === 2 ? (
                 <Link
                   key="beta-ugc-card"
@@ -224,9 +166,6 @@ export default async function OpportunitiesPage({
                       </div>
                     </div>
                     <div className="flex flex-col items-end gap-1 shrink-0">
-                      <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full border ${typeInfo.color}`}>
-                        {typeInfo.label}
-                      </span>
                       {isPaid ? (
                         <span className="text-[10px] font-bold px-2 py-0.5 rounded-full border bg-emerald-600 text-white border-emerald-600 flex items-center gap-0.5">
                           <DollarSign className="w-2.5 h-2.5" /> Paid

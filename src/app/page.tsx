@@ -27,12 +27,6 @@ const categoryLabels: Record<string, string> = {
   OTHER:               "Other",
 };
 
-const roleTypeLabels: Record<string, { label: string; color: string }> = {
-  INTERNSHIP:        { label: "Internship",       color: "bg-blue-50 text-blue-700" },
-  CAREER_TRANSITION: { label: "Career Transition", color: "bg-purple-50 text-purple-700" },
-  INTERIM:           { label: "Interim Role",      color: "bg-amber-50 text-amber-700" },
-  VOLUNTEER:         { label: "Volunteer",          color: "bg-emerald-50 text-emerald-700" },
-};
 
 /* ─── CSS UI mockups used as "screenshots" ───────────────── */
 function CredentialMockup() {
@@ -113,19 +107,16 @@ function OpportunityMockup() {
         <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-wide mb-2">Open Roles</p>
         <div className="space-y-2">
           {[
-            { title: "Digital Marketing Lead",  org: "Pragati Foundation",  type: "Career Transition", remote: true,  hours: "10h/week", color: "bg-purple-50 text-purple-700" },
-            { title: "Legal Compliance Review", org: "WaterBridge Kenya",   type: "Internship",        remote: true,  hours: "6h/week",  color: "bg-blue-50 text-blue-700"   },
-            { title: "Financial Model Audit",   org: "SilverYears Trust",   type: "Interim Role",      remote: false, hours: "15h/week", color: "bg-amber-50 text-amber-700"  },
+            { title: "Digital Marketing Lead",  org: "Pragati Foundation",  remote: true,  hours: "10h/week" },
+            { title: "Legal Compliance Review", org: "WaterBridge Kenya",   remote: true,  hours: "6h/week"  },
+            { title: "Financial Model Audit",   org: "SilverYears Trust",   remote: false, hours: "15h/week" },
           ].map((r) => (
             <div key={r.title} className="border border-gray-100 rounded-xl p-2.5">
-              <div className="flex items-start justify-between gap-2">
-                <div className="min-w-0">
-                  <p className="text-[11px] font-semibold text-gray-900 truncate">{r.title}</p>
-                  <p className="text-[9px] text-gray-400">{r.org}</p>
-                </div>
-                <span className={`shrink-0 text-[8px] font-semibold px-1.5 py-0.5 rounded-full ${r.color}`}>{r.type}</span>
+              <div className="min-w-0 mb-1.5">
+                <p className="text-[11px] font-semibold text-gray-900 truncate">{r.title}</p>
+                <p className="text-[9px] text-gray-400">{r.org}</p>
               </div>
-              <div className="flex gap-2 mt-1.5 text-[9px] text-gray-400">
+              <div className="flex gap-2 text-[9px] text-gray-400">
                 <span className="flex items-center gap-0.5"><Clock className="w-2.5 h-2.5" /> {r.hours}</span>
                 <span className="flex items-center gap-0.5">
                   {r.remote ? <><Wifi className="w-2.5 h-2.5" /> Remote</> : <><MapPin className="w-2.5 h-2.5" /> On-site</>}
@@ -433,7 +424,6 @@ async function LandingPage({ session }: { session: Session | null }) {
           ) : (
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {openRoles.map((role) => {
-                const typeInfo = roleTypeLabels[role.roleType] ?? roleTypeLabels.VOLUNTEER;
                 const skills = role.skillsRequired.split(",").map((s) => s.trim()).filter(Boolean);
                 const isPaid = role.salaryMin != null || role.salaryMax != null;
                 const salaryLabel = isPaid
@@ -456,7 +446,6 @@ async function LandingPage({ session }: { session: Session | null }) {
                         </div>
                       </div>
                       <div className="flex flex-col items-end gap-1 shrink-0">
-                        <span className={`text-[9px] font-semibold px-2 py-0.5 rounded-full ${typeInfo.color}`}>{typeInfo.label}</span>
                         {isPaid ? (
                           <span className="text-[9px] font-bold px-2 py-0.5 rounded-full bg-emerald-600 text-white">💰 Paid</span>
                         ) : (
