@@ -7,6 +7,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import ShareMilestoneCard from "@/components/ShareMilestoneCard";
+import DashboardShareButton from "@/components/DashboardShareButton";
 import ImpactSimulator from "@/components/ImpactSimulator";
 import {
   DollarSign, FolderOpen, CheckCircle2, Users, ExternalLink,
@@ -269,55 +270,137 @@ export default async function DonorDashboard({
         </div>
       </div>
 
-      {/* Two primary action cards */}
+      {/* Four primary action cards — 2×2 grid */}
       <div className="grid sm:grid-cols-2 gap-4 mb-6">
-        {/* Contribute Skills */}
-        <Link href="/opportunities" className="group">
-          <div className="relative overflow-hidden bg-gradient-to-br from-emerald-600 to-teal-600 rounded-2xl p-5 hover:from-emerald-700 hover:to-teal-700 transition-all h-full">
-            <div className="absolute right-0 top-0 bottom-0 flex items-end pr-4 pb-4 opacity-10">
-              <Briefcase className="w-20 h-20 text-white" />
-            </div>
-            <div className="relative">
-              <div className="w-9 h-9 bg-white/20 rounded-xl flex items-center justify-center mb-3">
-                <Briefcase className="w-4 h-4 text-white" />
-              </div>
-              <p className="text-base font-bold text-white mb-1">Find a Role to Fill</p>
-              <p className="text-[12px] text-emerald-100 leading-relaxed mb-4">
-                Apply for open roles at verified NGOs. Your contribution is verified, recorded on your credential, and counts as real professional experience.
-              </p>
-              <div className="flex items-center justify-between">
-                <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-white/70 bg-white/10 px-2.5 py-1 rounded-full">
-                  <TrendingUp className="w-3 h-3" /> Builds your CV &amp; credential
-                </span>
-                <ArrowRight className="w-4 h-4 text-white/60 group-hover:text-white group-hover:translate-x-0.5 transition-all" />
-              </div>
-            </div>
-          </div>
-        </Link>
 
-        {/* Mobilise Skills — start a campaign */}
-        <Link href="/donor/campaigns/new" className="group">
-          <div className="relative overflow-hidden bg-gradient-to-br from-violet-600 to-purple-700 rounded-2xl p-5 hover:from-violet-700 hover:to-purple-800 transition-all h-full">
-            <div className="absolute right-0 top-0 bottom-0 flex items-end pr-4 pb-4 opacity-10">
-              <Megaphone className="w-20 h-20 text-white" />
-            </div>
-            <div className="relative">
-              <div className="w-9 h-9 bg-white/20 rounded-xl flex items-center justify-center mb-3">
-                <Megaphone className="w-4 h-4 text-white" />
+        {/* 1 — Find a Role to Fill */}
+        <div className="relative group">
+          <Link href="/opportunities" className="block">
+            <div className="relative overflow-hidden bg-gradient-to-br from-emerald-600 to-teal-600 rounded-2xl p-5 hover:from-emerald-700 hover:to-teal-700 transition-all h-full">
+              <div className="absolute right-0 top-0 bottom-0 flex items-end pr-4 pb-4 opacity-10">
+                <Briefcase className="w-20 h-20 text-white" />
               </div>
-              <p className="text-base font-bold text-white mb-1">Mobilise Skills for an NGO</p>
-              <p className="text-[12px] text-violet-100 leading-relaxed mb-4">
-                Start a skill campaign to recruit professionals for an NGO&apos;s open roles. Each campaign you launch earns you Impact Score points — visible to NGOs when you apply.
-              </p>
-              <div className="flex items-center justify-between">
-                <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-white/70 bg-white/10 px-2.5 py-1 rounded-full">
-                  <Star className="w-3 h-3" /> +1 Impact Score per campaign
-                </span>
-                <ArrowRight className="w-4 h-4 text-white/60 group-hover:text-white group-hover:translate-x-0.5 transition-all" />
+              <div className="relative">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="w-9 h-9 bg-white/20 rounded-xl flex items-center justify-center">
+                    <Briefcase className="w-4 h-4 text-white" />
+                  </div>
+                  <DashboardShareButton
+                    message="GiveLedger has open roles at verified NGOs — apply your skills and earn a blockchain-verified credential:"
+                    url="https://give-ledger.vercel.app/opportunities"
+                  />
+                </div>
+                <p className="text-base font-bold text-white mb-1">Find a Role to Fill</p>
+                <p className="text-[12px] text-emerald-100 leading-relaxed mb-4">
+                  Apply for open roles at verified NGOs. Verified, recorded on your credential, and counts as real professional experience.
+                </p>
+                <div className="flex items-center justify-between">
+                  <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-white/70 bg-white/10 px-2.5 py-1 rounded-full">
+                    <TrendingUp className="w-3 h-3" /> Builds your CV &amp; credential
+                  </span>
+                  <ArrowRight className="w-4 h-4 text-white/60 group-hover:text-white group-hover:translate-x-0.5 transition-all" />
+                </div>
               </div>
             </div>
-          </div>
-        </Link>
+          </Link>
+        </div>
+
+        {/* 2 — Start Skill Campaign */}
+        <div className="relative group">
+          <Link href="/donor/campaigns/new" className="block">
+            <div className="relative overflow-hidden bg-gradient-to-br from-violet-600 to-purple-700 rounded-2xl p-5 hover:from-violet-700 hover:to-purple-800 transition-all h-full">
+              <div className="absolute right-0 top-0 bottom-0 flex items-end pr-4 pb-4 opacity-10">
+                <Megaphone className="w-20 h-20 text-white" />
+              </div>
+              <div className="relative">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="w-9 h-9 bg-white/20 rounded-xl flex items-center justify-center">
+                    <Megaphone className="w-4 h-4 text-white" />
+                  </div>
+                  <DashboardShareButton
+                    message="I'm running a skill campaign on GiveLedger to recruit professionals for NGOs — join me:"
+                    url="https://give-ledger.vercel.app/campaigns"
+                  />
+                </div>
+                <p className="text-base font-bold text-white mb-1">Start Skill Campaign</p>
+                <p className="text-[12px] text-violet-100 leading-relaxed mb-4">
+                  Recruit professionals for an NGO&apos;s open roles. Each campaign earns you Impact Score points — visible to NGOs when you apply.
+                </p>
+                <div className="flex items-center justify-between">
+                  <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-white/70 bg-white/10 px-2.5 py-1 rounded-full">
+                    <Star className="w-3 h-3" /> +1 Impact Score per campaign
+                  </span>
+                  <ArrowRight className="w-4 h-4 text-white/60 group-hover:text-white group-hover:translate-x-0.5 transition-all" />
+                </div>
+              </div>
+            </div>
+          </Link>
+        </div>
+
+        {/* 3 — Beta Tester Program */}
+        <div className="relative group">
+          <Link href="/donor/beta-program" className="block">
+            <div className="relative overflow-hidden bg-gradient-to-br from-fuchsia-600 to-pink-600 rounded-2xl p-5 hover:from-fuchsia-700 hover:to-pink-700 transition-all h-full">
+              <div className="absolute right-0 top-0 bottom-0 flex items-end pr-4 pb-4 opacity-10">
+                <Smartphone className="w-20 h-20 text-white" />
+              </div>
+              <div className="relative">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="w-9 h-9 bg-white/20 rounded-xl flex items-center justify-center">
+                    <Smartphone className="w-4 h-4 text-white" />
+                  </div>
+                  <DashboardShareButton
+                    message="Earn $3,000–$5,000/month testing apps and creating content for brands through GiveLedger's Beta Program:"
+                    url="https://give-ledger.vercel.app/donor/beta-program"
+                  />
+                </div>
+                <p className="text-base font-bold text-white mb-1">Beta Tester Program</p>
+                <p className="text-[12px] text-pink-100 leading-relaxed mb-4">
+                  Get paid to test apps and create content for brands. Flexible — work from any device on your own schedule.
+                </p>
+                <div className="flex items-center justify-between">
+                  <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-white/70 bg-white/10 px-2.5 py-1 rounded-full">
+                    <DollarSign className="w-3 h-3" /> $3,000–$5,000 / month
+                  </span>
+                  <ArrowRight className="w-4 h-4 text-white/60 group-hover:text-white group-hover:translate-x-0.5 transition-all" />
+                </div>
+              </div>
+            </div>
+          </Link>
+        </div>
+
+        {/* 4 — AI Training Academy */}
+        <div className="relative group">
+          <Link href="/donor/training" className="block">
+            <div className="relative overflow-hidden bg-gradient-to-br from-blue-600 to-indigo-600 rounded-2xl p-5 hover:from-blue-700 hover:to-indigo-700 transition-all h-full">
+              <div className="absolute right-0 top-0 bottom-0 flex items-end pr-4 pb-4 opacity-10">
+                <GraduationCap className="w-20 h-20 text-white" />
+              </div>
+              <div className="relative">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="w-9 h-9 bg-white/20 rounded-xl flex items-center justify-center">
+                    <GraduationCap className="w-4 h-4 text-white" />
+                  </div>
+                  <DashboardShareButton
+                    message="GiveLedger's free AI Training Academy has 42+ hours of real-world AI skills for marketing, finance, ops, legal and more:"
+                    url="https://give-ledger.vercel.app/donor/training"
+                  />
+                </div>
+                <p className="text-base font-bold text-white mb-1">AI Training Academy</p>
+                <p className="text-[12px] text-blue-100 leading-relaxed mb-4">
+                  42+ hours of real-world AI skills — marketing, finance, HR, legal and more. Share it to boost your Impact Score.
+                </p>
+                <div className="flex items-center justify-between">
+                  <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-white/70 bg-white/10 px-2.5 py-1 rounded-full">
+                    <Zap className="w-3 h-3" /> 42+ hours · Free
+                  </span>
+                  <ArrowRight className="w-4 h-4 text-white/60 group-hover:text-white group-hover:translate-x-0.5 transition-all" />
+                </div>
+              </div>
+            </div>
+          </Link>
+        </div>
+
       </div>
 
       {/* Impact Score breakdown */}
