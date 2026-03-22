@@ -25,7 +25,7 @@ const navGroups: NavGroup[] = [
     items: [
       { href: "/donor/donations",     label: "My Donations",        icon: Heart         },
       { href: "/donor/impact",        label: "My Impact",           icon: TrendingUp    },
-      { href: "/donor/opportunities", label: "My Roles",            icon: ClipboardList },
+      { href: "/donor/opportunities", label: "My Applications",      icon: ClipboardList },
       { href: "/donor/skills",        label: "Skill Contributions", icon: Briefcase     },
     ],
   },
