@@ -294,11 +294,13 @@ export default async function DonorDashboard({
                 <p className="text-[12px] text-emerald-100 leading-relaxed mb-4">
                   Apply for open roles at verified NGOs. Verified, recorded on your credential, and counts as real professional experience.
                 </p>
-                <div className="flex items-center justify-between">
-                  <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-white/70 bg-white/10 px-2.5 py-1 rounded-full">
+                <div className="flex items-center justify-between gap-2 mt-auto">
+                  <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-white/70 bg-white/10 px-2.5 py-1 rounded-full shrink-0">
                     <TrendingUp className="w-3 h-3" /> Builds your CV &amp; credential
                   </span>
-                  <ArrowRight className="w-4 h-4 text-white/60 group-hover:text-white group-hover:translate-x-0.5 transition-all" />
+                  <span className="inline-flex items-center gap-1.5 bg-white text-emerald-700 text-xs font-bold px-3 py-1.5 rounded-lg group-hover:bg-emerald-50 transition-colors shrink-0">
+                    Browse roles <ArrowRight className="w-3.5 h-3.5" />
+                  </span>
                 </div>
               </div>
             </div>
@@ -326,11 +328,13 @@ export default async function DonorDashboard({
                 <p className="text-[12px] text-violet-100 leading-relaxed mb-4">
                   Recruit professionals for an NGO&apos;s open roles. Each campaign earns you Impact Score points — visible to NGOs when you apply.
                 </p>
-                <div className="flex items-center justify-between">
-                  <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-white/70 bg-white/10 px-2.5 py-1 rounded-full">
+                <div className="flex items-center justify-between gap-2 mt-auto">
+                  <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-white/70 bg-white/10 px-2.5 py-1 rounded-full shrink-0">
                     <Star className="w-3 h-3" /> +1 Impact Score per campaign
                   </span>
-                  <ArrowRight className="w-4 h-4 text-white/60 group-hover:text-white group-hover:translate-x-0.5 transition-all" />
+                  <span className="inline-flex items-center gap-1.5 bg-white text-violet-700 text-xs font-bold px-3 py-1.5 rounded-lg group-hover:bg-violet-50 transition-colors shrink-0">
+                    Start campaign <ArrowRight className="w-3.5 h-3.5" />
+                  </span>
                 </div>
               </div>
             </div>
@@ -358,11 +362,13 @@ export default async function DonorDashboard({
                 <p className="text-[12px] text-pink-100 leading-relaxed mb-4">
                   Get paid to test apps and create content for brands. Flexible — work from any device on your own schedule.
                 </p>
-                <div className="flex items-center justify-between">
-                  <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-white/70 bg-white/10 px-2.5 py-1 rounded-full">
+                <div className="flex items-center justify-between gap-2 mt-auto">
+                  <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-white/70 bg-white/10 px-2.5 py-1 rounded-full shrink-0">
                     <DollarSign className="w-3 h-3" /> $3,000–$5,000 / month
                   </span>
-                  <ArrowRight className="w-4 h-4 text-white/60 group-hover:text-white group-hover:translate-x-0.5 transition-all" />
+                  <span className="inline-flex items-center gap-1.5 bg-white text-fuchsia-700 text-xs font-bold px-3 py-1.5 rounded-lg group-hover:bg-fuchsia-50 transition-colors shrink-0">
+                    Join program <ArrowRight className="w-3.5 h-3.5" />
+                  </span>
                 </div>
               </div>
             </div>
@@ -390,11 +396,13 @@ export default async function DonorDashboard({
                 <p className="text-[12px] text-blue-100 leading-relaxed mb-4">
                   42+ hours of real-world AI skills — marketing, finance, HR, legal and more. Share it to boost your Impact Score.
                 </p>
-                <div className="flex items-center justify-between">
-                  <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-white/70 bg-white/10 px-2.5 py-1 rounded-full">
+                <div className="flex items-center justify-between gap-2 mt-auto">
+                  <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-white/70 bg-white/10 px-2.5 py-1 rounded-full shrink-0">
                     <Zap className="w-3 h-3" /> 42+ hours · Free
                   </span>
-                  <ArrowRight className="w-4 h-4 text-white/60 group-hover:text-white group-hover:translate-x-0.5 transition-all" />
+                  <span className="inline-flex items-center gap-1.5 bg-white text-blue-700 text-xs font-bold px-3 py-1.5 rounded-lg group-hover:bg-blue-50 transition-colors shrink-0">
+                    Start learning <ArrowRight className="w-3.5 h-3.5" />
+                  </span>
                 </div>
               </div>
             </div>
