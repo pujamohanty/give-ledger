@@ -535,6 +535,34 @@ function RightSidebar({ featuredProjects, recentNgos, openRoles }: {
         </div>
       )}
 
+      {/* UGC / Beta Tester Program */}
+      <div className="bg-gradient-to-br from-violet-600 to-purple-700 rounded-lg p-4 text-white shadow-[0_0_0_1px_rgba(0,0,0,0.06),0_2px_4px_rgba(0,0,0,0.04)]">
+        <div className="flex items-center gap-1.5 mb-2">
+          <Sparkles className="w-3.5 h-3.5 text-violet-200" />
+          <span className="text-[10px] font-bold uppercase tracking-wider text-violet-200">Beta Tester Program</span>
+        </div>
+        <p className="text-sm font-bold mb-1 leading-snug">Get paid to test apps &amp; post content</p>
+        <p className="text-xs text-violet-200 leading-relaxed mb-3">
+          Brands match you by device, niche &amp; following. Earn from every campaign you complete.
+        </p>
+        <div className="bg-white/15 rounded-lg px-3 py-2 mb-3">
+          <p className="text-[10px] text-violet-200 mb-0.5">Expected monthly income</p>
+          <p className="text-base font-extrabold text-white">$3,000 – $5,000</p>
+        </div>
+        <div className="flex items-center gap-2">
+          <Link href="/donor/beta-program" className="inline-flex items-center gap-1.5 bg-white text-violet-700 text-xs font-bold px-3 py-1.5 rounded-full hover:bg-violet-50 transition-colors">
+            Join the program <ArrowRight className="w-3 h-3" />
+          </Link>
+          <button
+            onClick={handleShareUGC}
+            className={`inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-full transition-colors ${ugcCopied ? "bg-emerald-500 text-white" : "bg-white/20 text-white hover:bg-white/30"}`}
+          >
+            <Share2 className="w-3 h-3" />
+            {ugcCopied ? "Copied!" : "Share"}
+          </button>
+        </div>
+      </div>
+
       {/* Featured Projects */}
       <div className="bg-white rounded-lg border border-[rgba(0,0,0,0.08)] shadow-[0_0_0_1px_rgba(0,0,0,0.06),0_2px_4px_rgba(0,0,0,0.04)] p-4">
         <div className="flex items-center justify-between mb-3">
@@ -565,34 +593,6 @@ function RightSidebar({ featuredProjects, recentNgos, openRoles }: {
               </Link>
             );
           })}
-        </div>
-      </div>
-
-      {/* UGC / Beta Tester Program */}
-      <div className="bg-gradient-to-br from-violet-600 to-purple-700 rounded-lg p-4 text-white shadow-[0_0_0_1px_rgba(0,0,0,0.06),0_2px_4px_rgba(0,0,0,0.04)]">
-        <div className="flex items-center gap-1.5 mb-2">
-          <Sparkles className="w-3.5 h-3.5 text-violet-200" />
-          <span className="text-[10px] font-bold uppercase tracking-wider text-violet-200">Beta Tester Program</span>
-        </div>
-        <p className="text-sm font-bold mb-1 leading-snug">Get paid to test apps &amp; post content</p>
-        <p className="text-xs text-violet-200 leading-relaxed mb-3">
-          Brands match you by device, niche &amp; following. Earn from every campaign you complete.
-        </p>
-        <div className="bg-white/15 rounded-lg px-3 py-2 mb-3">
-          <p className="text-[10px] text-violet-200 mb-0.5">Expected monthly income</p>
-          <p className="text-base font-extrabold text-white">$3,000 – $5,000</p>
-        </div>
-        <div className="flex items-center gap-2">
-          <Link href="/donor/beta-program" className="inline-flex items-center gap-1.5 bg-white text-violet-700 text-xs font-bold px-3 py-1.5 rounded-full hover:bg-violet-50 transition-colors">
-            Join the program <ArrowRight className="w-3 h-3" />
-          </Link>
-          <button
-            onClick={handleShareUGC}
-            className={`inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-full transition-colors ${ugcCopied ? "bg-emerald-500 text-white" : "bg-white/20 text-white hover:bg-white/30"}`}
-          >
-            <Share2 className="w-3 h-3" />
-            {ugcCopied ? "Copied!" : "Share"}
-          </button>
         </div>
       </div>
     </aside>
