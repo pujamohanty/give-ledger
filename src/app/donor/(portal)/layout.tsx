@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
+import { prisma } from "@/lib/prisma";
 import DonorSidebarNav from "@/components/DonorSidebarNav";
 import Navbar from "@/components/Navbar";
 
@@ -32,11 +33,17 @@ export default async function DonorLayout({ children }: { children: React.ReactN
   const userName = session.user.name ?? "Donor";
   const initials = userName.trim().split(" ").map((p: string) => p[0]).slice(0, 2).join("").toUpperCase();
 
+  const subscription = await prisma.subscription.findUnique({
+    where: { userId: session.user.id },
+    select: { plan: true },
+  });
+  const isPro = subscription?.plan === "PRO";
+
   return (
     <div className="min-h-screen bg-[#f3f2ef] flex">
       <DonorSidebarNav userName={userName} initials={initials} />
       <div className="flex-1 lg:ml-60 flex flex-col min-h-screen">
-        <Navbar session={session} />
+        <Navbar session={session} isPro={isPro} />
         <main className="flex-1">
           {children}
         </main>

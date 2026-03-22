@@ -139,7 +139,7 @@ export default function RoleApplyButton({ roleId, roleTitle, defaultLinkedin, ng
         <p className="text-xs text-gray-500 mb-4">The NGO will review your application and get back to you.</p>
         <Link
           href="/opportunities"
-          className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-700 border border-emerald-300 bg-white hover:bg-emerald-50 rounded-lg px-4 py-2 transition-colors"
+          className="flex items-center justify-center gap-2 w-full bg-emerald-700 hover:bg-emerald-800 text-white text-sm font-semibold rounded-lg px-4 py-2.5 transition-colors"
         >
           Explore more roles
         </Link>

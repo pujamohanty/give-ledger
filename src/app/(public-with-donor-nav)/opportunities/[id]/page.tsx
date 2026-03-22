@@ -66,6 +66,8 @@ export default async function OpportunityDetailPage({ params }: { params: Promis
     profileUrl = `${process.env.NEXT_PUBLIC_APP_URL ?? "https://give-ledger.vercel.app"}/donor/${session.user.id}/profile`;
   }
 
+  const isPro = subscriptionPlan === "PRO";
+
   const skills = role.skillsRequired.split(",").map((s) => s.trim()).filter(Boolean);
   const spotsLeft = Math.max(0, role.openings - role._count.applications);
   const isOpen = role.status === "OPEN" && spotsLeft > 0;
@@ -83,7 +85,7 @@ export default async function OpportunityDetailPage({ params }: { params: Promis
 
   return (
     <>
-      <Navbar session={session} />
+      <Navbar session={session} isPro={isPro} />
       <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8">
 
         {/* Back */}

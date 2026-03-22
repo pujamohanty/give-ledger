@@ -28,14 +28,19 @@ export default async function OpportunitiesPage({
     orderBy: [{ salaryMin: "desc" }, { createdAt: "desc" }],
   });
 
-  // Fetch roles the logged-in donor has already applied to
+  // Fetch roles the logged-in donor has already applied to + PRO plan status
   const appliedRoleIds = new Set<string>();
+  let isPro = false;
   if (session?.user?.role === "DONOR") {
-    const applications = await prisma.roleApplication.findMany({
-      where: { applicantId: session.user.id, roleId: { in: roles.map((r) => r.id) } },
-      select: { roleId: true },
-    });
+    const [applications, subscription] = await Promise.all([
+      prisma.roleApplication.findMany({
+        where: { applicantId: session.user.id, roleId: { in: roles.map((r) => r.id) } },
+        select: { roleId: true },
+      }),
+      prisma.subscription.findUnique({ where: { userId: session.user.id }, select: { plan: true } }),
+    ]);
     applications.forEach((a) => appliedRoleIds.add(a.roleId));
+    isPro = subscription?.plan === "PRO";
   }
 
   const compensationFilters = [
@@ -48,7 +53,7 @@ export default async function OpportunitiesPage({
 
   return (
     <>
-      <Navbar session={session} />
+      <Navbar session={session} isPro={isPro} />
       <div className="max-w-5xl mx-auto px-4 sm:px-6 py-10">
 
         {/* Header */}

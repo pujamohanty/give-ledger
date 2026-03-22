@@ -8,6 +8,7 @@ import { Menu, X, Leaf, ChevronDown, Search, LayoutDashboard, LogOut } from "luc
 interface NavbarProps {
   session?: { user: { name?: string | null; role: string } } | null;
   openRolesCount?: number;
+  isPro?: boolean;
 }
 
 function initials(name: string | null | undefined) {
@@ -49,7 +50,7 @@ const NAV_ITEMS = [
   },
 ];
 
-export default function Navbar({ session, openRolesCount }: NavbarProps) {
+export default function Navbar({ session, openRolesCount, isPro }: NavbarProps) {
   const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -146,8 +147,15 @@ export default function Navbar({ session, openRolesCount }: NavbarProps) {
                 onClick={() => setDropdownOpen((o) => !o)}
                 className="flex items-center gap-1.5 text-xs font-semibold text-gray-700 hover:text-gray-900 px-3 py-1 rounded hover:bg-gray-100 transition-colors"
               >
-                <div className="w-7 h-7 rounded-full bg-emerald-700 text-white flex items-center justify-center text-[10px] font-bold shrink-0">
-                  {initials(session.user.name)}
+                <div className="relative shrink-0">
+                  <div className="w-7 h-7 rounded-full bg-emerald-700 text-white flex items-center justify-center text-[10px] font-bold">
+                    {initials(session.user.name)}
+                  </div>
+                  {isPro && (
+                    <span className="absolute -top-1.5 -right-1.5 bg-amber-400 text-[7px] font-black text-amber-900 px-1 py-px rounded-full leading-none tracking-wide border border-white">
+                      PRO
+                    </span>
+                  )}
                 </div>
                 <span>Me</span>
                 <ChevronDown className={`w-3 h-3 text-gray-400 transition-transform duration-150 ${dropdownOpen ? "rotate-180" : ""}`} />
