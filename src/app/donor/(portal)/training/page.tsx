@@ -128,6 +128,10 @@ export default async function TrainingHubPage() {
 
       {/* Share section — boost impact score */}
       <div className="max-w-5xl mx-auto px-4 sm:px-6 pt-6 pb-2">
+        <div className="mb-2 flex items-center gap-2">
+          <span className="text-[11px] font-bold text-gray-400 uppercase tracking-wider">Spread the word</span>
+          <div className="flex-1 h-px bg-gray-200" />
+        </div>
         <TrainingShareButton initialCount={trainingShareCount} />
       </div>
 
