@@ -1078,7 +1078,7 @@ async function LandingPage({ session }: { session: Session | null }) {
 async function FeedPage({ session }: { session: Session | null }) {
   const LIMIT = 20;
 
-  const [events, donorCount, ngoCount, projectCount, milestoneCount, featuredProjectsRaw, recentNgosRaw, allProjectsRaw, openRolesRaw, openRolesCount] =
+  const [events, donorCount, ngoCount, projectCount, milestoneCount, featuredProjectsRaw, recentNgosRaw, allProjectsRaw, openRolesRaw, openRolesCount, subscription] =
     await Promise.all([
       prisma.activityEvent.findMany({ take: LIMIT + 1, orderBy: { createdAt: "desc" } }),
       prisma.user.count({ where: { role: "DONOR" } }),
@@ -1109,7 +1109,12 @@ async function FeedPage({ session }: { session: Session | null }) {
         orderBy: { createdAt: "desc" },
       }),
       prisma.ngoRole.count({ where: { status: "OPEN" } }),
+      session?.user?.role === "DONOR"
+        ? prisma.subscription.findUnique({ where: { userId: session.user.id }, select: { plan: true } })
+        : Promise.resolve(null),
     ]);
+
+  const isPro = subscription?.plan === "PRO";
 
   const hasMore = events.length > LIMIT;
   const items   = hasMore ? events.slice(0, LIMIT) : events;
@@ -1117,7 +1122,7 @@ async function FeedPage({ session }: { session: Session | null }) {
 
   return (
     <div className="min-h-screen bg-[#f3f2ef]">
-      <Navbar session={session} openRolesCount={openRolesCount} />
+      <Navbar session={session} openRolesCount={openRolesCount} isPro={isPro} />
       <HomeFeedClient
         initial={items.map((e) => ({ ...e, createdAt: e.createdAt.toISOString() }))}
         initialCursor={nextCursor}

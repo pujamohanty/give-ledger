@@ -13,10 +13,13 @@ export default async function WallPage() {
   const session = await auth();
 
   const LIMIT = 20;
-  const events = await prisma.activityEvent.findMany({
-    take: LIMIT + 1,
-    orderBy: { createdAt: "desc" },
-  });
+  const [events, subscription] = await Promise.all([
+    prisma.activityEvent.findMany({ take: LIMIT + 1, orderBy: { createdAt: "desc" } }),
+    session?.user?.role === "DONOR"
+      ? prisma.subscription.findUnique({ where: { userId: session.user.id }, select: { plan: true } })
+      : Promise.resolve(null),
+  ]);
+  const isPro = subscription?.plan === "PRO";
 
   const hasMore = events.length > LIMIT;
   const items = hasMore ? events.slice(0, LIMIT) : events;
@@ -24,7 +27,7 @@ export default async function WallPage() {
 
   return (
     <div className="min-h-screen bg-[#f3f2ef]">
-      <Navbar session={session} />
+      <Navbar session={session} isPro={isPro} />
 
       <div className="max-w-2xl mx-auto px-4 py-10 sm:px-6">
         {/* Header */}
