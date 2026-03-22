@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
-import { Briefcase, Clock, Users, MapPin, Wifi, ChevronRight, Search, DollarSign, GraduationCap, Smartphone } from "lucide-react";
+import { Briefcase, Clock, Users, MapPin, Wifi, ChevronRight, Search, DollarSign, GraduationCap, Smartphone, CheckCircle2, XCircle } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import { auth } from "@/lib/auth";
 import { matchTrainingModule } from "@/lib/training-curriculum";
@@ -27,6 +27,16 @@ export default async function OpportunitiesPage({
     },
     orderBy: [{ salaryMin: "desc" }, { createdAt: "desc" }],
   });
+
+  // Fetch roles the logged-in donor has already applied to
+  const appliedRoleIds = new Set<string>();
+  if (session?.user?.role === "DONOR") {
+    const applications = await prisma.roleApplication.findMany({
+      where: { applicantId: session.user.id, roleId: { in: roles.map((r) => r.id) } },
+      select: { roleId: true },
+    });
+    applications.forEach((a) => appliedRoleIds.add(a.roleId));
+  }
 
   const compensationFilters = [
     { key: "",         label: "Any pay" },
@@ -133,7 +143,9 @@ export default async function OpportunitiesPage({
                 </Link>
               ) : null;
               const skills = role.skillsRequired.split(",").map((s) => s.trim()).filter(Boolean);
-              const spotsLeft = role.openings - role._count.applications;
+              const spotsLeft = Math.max(0, role.openings - role._count.applications);
+              const isFilled = spotsLeft === 0;
+              const hasApplied = appliedRoleIds.has(role.id);
               const trainingMatch = matchTrainingModule(role.skillsRequired, role.title);
               const isPaid = role.salaryMin != null || role.salaryMax != null;
 
@@ -150,12 +162,18 @@ export default async function OpportunitiesPage({
                 <Link
                   key={role.id}
                   href={`/opportunities/${role.id}`}
-                  className="group bg-white border border-gray-200 rounded-xl p-5 hover:border-gray-300 hover:shadow-sm transition-all flex flex-col gap-3"
+                  className={`group bg-white border rounded-xl p-5 hover:shadow-sm transition-all flex flex-col gap-3 ${
+                    hasApplied
+                      ? "border-emerald-300 hover:border-emerald-400"
+                      : isFilled
+                      ? "border-gray-200 opacity-75 hover:border-gray-300"
+                      : "border-gray-200 hover:border-gray-300"
+                  }`}
                 >
-                  {/* NGO + type + pay badge */}
+                  {/* NGO + badges */}
                   <div className="flex items-start justify-between gap-2">
                     <div className="flex items-center gap-2.5 min-w-0">
-                      <div className="w-9 h-9 rounded-lg bg-emerald-700 text-white text-xs font-bold flex items-center justify-center shrink-0">
+                      <div className={`w-9 h-9 rounded-lg text-white text-xs font-bold flex items-center justify-center shrink-0 ${isFilled ? "bg-gray-400" : "bg-emerald-700"}`}>
                         {role.ngo.orgName.slice(0, 2).toUpperCase()}
                       </div>
                       <div className="min-w-0">
@@ -166,7 +184,16 @@ export default async function OpportunitiesPage({
                       </div>
                     </div>
                     <div className="flex flex-col items-end gap-1 shrink-0">
-                      {isPaid ? (
+                      {hasApplied && (
+                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full border bg-emerald-50 text-emerald-700 border-emerald-300 flex items-center gap-0.5">
+                          <CheckCircle2 className="w-2.5 h-2.5" /> Applied
+                        </span>
+                      )}
+                      {isFilled ? (
+                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full border bg-gray-100 text-gray-500 border-gray-200 flex items-center gap-0.5">
+                          <XCircle className="w-2.5 h-2.5" /> Filled
+                        </span>
+                      ) : isPaid ? (
                         <span className="text-[10px] font-bold px-2 py-0.5 rounded-full border bg-emerald-600 text-white border-emerald-600 flex items-center gap-0.5">
                           <DollarSign className="w-2.5 h-2.5" /> Paid
                         </span>
@@ -200,7 +227,11 @@ export default async function OpportunitiesPage({
                         : <><MapPin className="w-3 h-3" /> {role.location ?? "On-site"}</>
                       }
                     </span>
-                    {spotsLeft > 0 && (
+                    {isFilled ? (
+                      <span className="flex items-center gap-1 text-gray-400 line-through">
+                        <Users className="w-3 h-3" /> All spots filled
+                      </span>
+                    ) : (
                       <span className="flex items-center gap-1">
                         <Users className="w-3 h-3" /> {spotsLeft} spot{spotsLeft !== 1 ? "s" : ""} left
                       </span>
@@ -242,9 +273,19 @@ export default async function OpportunitiesPage({
                   </div>
 
                   <div className="flex items-center justify-end mt-auto">
-                    <span className="text-xs text-gray-400 group-hover:text-emerald-600 flex items-center gap-1 transition-colors">
-                      View & apply <ChevronRight className="w-3.5 h-3.5" />
-                    </span>
+                    {hasApplied ? (
+                      <span className="text-xs text-emerald-600 font-medium flex items-center gap-1">
+                        <CheckCircle2 className="w-3.5 h-3.5" /> Applied · View details
+                      </span>
+                    ) : isFilled ? (
+                      <span className="text-xs text-gray-400 flex items-center gap-1">
+                        Role filled · View details <ChevronRight className="w-3.5 h-3.5" />
+                      </span>
+                    ) : (
+                      <span className="text-xs text-gray-400 group-hover:text-emerald-600 flex items-center gap-1 transition-colors">
+                        View & apply <ChevronRight className="w-3.5 h-3.5" />
+                      </span>
+                    )}
                   </div>
                 </Link>
               );
