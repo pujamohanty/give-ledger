@@ -4,7 +4,7 @@ import { useState } from "react";
 import { usePathname } from "next/navigation";
 import {
   Leaf, LayoutDashboard, Heart, TrendingUp, Settings,
-  Search, Bell, Share2, Gift, Star, Globe, Briefcase,
+  Search, Bell, Share2, Gift, Star, Globe, Briefcase, Building2,
   Award, Linkedin, UserCircle, ClipboardList, Crown,
   GraduationCap, ChevronDown, Smartphone,
 } from "lucide-react";
@@ -46,6 +46,7 @@ const navGroups: NavGroup[] = [
       { href: "/projects",            label: "Browse Projects",     icon: Search        },
       { href: "/opportunities",       label: "Browse Roles",        icon: ClipboardList },
       { href: "/campaigns",           label: "Campaigns",           icon: Gift          },
+      { href: "/irs-directory",       label: "IRS Directory",       icon: Building2     },
       { href: "/impact",              label: "Platform Impact",     icon: Globe         },
     ],
   },
