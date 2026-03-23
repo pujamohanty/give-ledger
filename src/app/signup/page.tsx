@@ -101,9 +101,9 @@ function SignupContent() {
   }
 
   const donorFeatures = [
-    { icon: Award,      text: "NGO-verified credentials formatted for LinkedIn and CV" },
-    { icon: Shield,     text: "Every engagement recorded permanently on Polygon" },
-    { icon: TrendingUp, text: "Monetary value assigned to every hour you contribute" },
+    { icon: Award,      text: "Your credential starts building on your first contribution" },
+    { icon: Shield,     text: "NGOs can see your Impact Score when you apply for roles" },
+    { icon: TrendingUp, text: "Named endorsements from board members — not star ratings from strangers" },
   ];
 
   const ngoFeatures = [
@@ -144,15 +144,15 @@ function SignupContent() {
                 <span className="text-emerald-400">Milestone by milestone.</span>
               </>
             ) : (
-              <>Turn your expertise<br />into certified<br />
-                <span className="text-emerald-400">professional experience.</span>
+              <>Build the proof that<br />shows what you<br />
+                <span className="text-emerald-400">stand for.</span>
               </>
             )}
           </h2>
           <p className="text-gray-400 text-sm leading-relaxed mb-8 max-w-xs">
             {role === "ngo"
               ? "Set up milestone-locked projects. Funds auto-release when you deliver — no admin approval needed."
-              : "Contribute skills, time, or money. Every engagement becomes a verified credential that works for your career."}
+              : "Every contribution you make here is NGO-confirmed, on-chain, and visible to organisations when you apply for roles. Your Impact Score starts at zero and builds from day one — it cannot be backdated."}
           </p>
 
           <div className="space-y-4">

@@ -83,19 +83,20 @@ function LoginForm() {
         <div className="relative z-10">
           <p className="text-xs font-semibold text-emerald-400 uppercase tracking-widest mb-4">Welcome back</p>
           <h2 className="text-3xl font-extrabold leading-tight mb-5">
-            Every credential.<br />Every hour. Every dollar.<br />
-            <span className="text-emerald-400">Permanently on-chain.</span>
+            Your Impact Score<br />
+            <span className="text-emerald-400">is waiting.</span>
           </h2>
           <p className="text-gray-400 text-sm leading-relaxed mb-8 max-w-xs">
-            Your verified contribution record is waiting. Sign in to continue building
-            your GiveLedger credential and track every engagement in real time.
+            Sign in to continue building your credential. NGOs can see your Impact Score
+            the moment they open your application. Every day you&apos;re not here, the score
+            is staying at zero.
           </p>
 
           <div className="space-y-4">
             {[
-              { icon: Award,       text: "NGO-verified credentials, formatted for LinkedIn and CV" },
-              { icon: Shield,      text: "Every fund release and skill engagement recorded on Polygon" },
-              { icon: TrendingUp,  text: "Monetary value assigned to every hour you contribute" },
+              { icon: Award,       text: "Your credential starts building on your first contribution" },
+              { icon: Shield,      text: "NGOs see your Impact Score when they review your application" },
+              { icon: TrendingUp,  text: "Named endorsements from board members — not star ratings from strangers" },
             ].map(({ icon: Icon, text }) => (
               <div key={text} className="flex items-start gap-3">
                 <div className="w-7 h-7 rounded-lg bg-emerald-900/60 border border-emerald-700/40 flex items-center justify-center shrink-0">

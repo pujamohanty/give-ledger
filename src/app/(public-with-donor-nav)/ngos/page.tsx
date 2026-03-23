@@ -78,7 +78,7 @@ export default async function NgosPage() {
           </div>
           <div>
             <h1 className="text-2xl font-bold text-gray-900">Verified NGOs</h1>
-            <p className="text-sm text-gray-500">{ngos.length} approved nonprofit organizations</p>
+            <p className="text-sm text-gray-500">These are the verified US nonprofits actively recruiting professional contributors. Every engagement you complete here is NGO-confirmed, assigned a monetary value, and recorded on your credential.</p>
           </div>
         </div>
 

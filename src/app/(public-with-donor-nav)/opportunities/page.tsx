@@ -58,12 +58,18 @@ export default async function OpportunitiesPage({
 
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">Open Roles</h1>
+          <h1 className="text-2xl font-bold text-gray-900 mb-2">Open Roles — spots fill, PRO applicants reviewed first</h1>
           <p className="text-sm text-gray-500 max-w-xl">
-            Contribute your skills and time to verified nonprofits. Every completed engagement is recorded
-            on your GiveLedger profile — count it as professional experience, a career pivot, or an
-            interim role between jobs.
+            Every completed engagement is NGO-confirmed and recorded on your GiveLedger Credential. PRO plan contributors
+            are listed first in every NGO&apos;s review queue. Roles close when spots fill.
           </p>
+        </div>
+
+        {/* FOMO strip */}
+        <div className="flex items-center gap-2 bg-amber-50 border border-amber-200 rounded-xl px-4 py-3 mb-6 text-sm text-amber-800">
+          <svg className="w-4 h-4 text-amber-600 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          <span>PRO plan contributors are listed first in every NGO&apos;s application queue. Your Impact Score is shown to NGOs when they open your application.</span>
+          <Link href="/pricing" className="ml-auto text-amber-700 font-semibold underline shrink-0">See plans →</Link>
         </div>
 
         {/* Pay filter */}

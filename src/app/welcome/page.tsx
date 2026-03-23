@@ -91,12 +91,12 @@ export default async function WelcomePage() {
 
         {/* Heading + subtitle — different per role */}
         <h1 className="text-[2.5rem] font-bold text-white leading-tight mb-3 text-center">
-          You&apos;re in{firstName !== "there" ? `, ${firstName}` : ""}!
+          Your credential journey starts now{firstName !== "there" ? `, ${firstName}` : ""}.
         </h1>
         <p className="text-gray-400 text-center text-[15px] max-w-[400px] leading-relaxed mb-10">
           {isNgo
             ? "Your NGO account is ready. Set up your profile and start raising milestone-locked funding."
-            : "Your account is ready. Here\u2019s what to do while you wait for NGO responses."}
+            : "Your Impact Score is at 0/30. NGOs reviewing applications can see this score. Here\u2019s how to start building it."}
         </p>
 
         {/* Cards */}
@@ -157,16 +157,16 @@ export default async function WelcomePage() {
                   icon={<Search className="w-5 h-5 text-emerald-400" />}
                   iconBg="bg-emerald-500/15"
                   borderHover="hover:border-emerald-500/50"
-                  title="Browse open roles"
-                  description="Find roles that match your skills and apply to contribute professionally."
+                  title="Apply for a role"
+                  description="Open roles have limited spots. PRO applicants are reviewed first. Apply today to start building your credential."
                 />
                 <StepCard
                   href="/donor/training"
                   icon={<BookOpen className="w-5 h-5 text-violet-400" />}
                   iconBg="bg-violet-500/15"
                   borderHover="hover:border-violet-500/50"
-                  title="Start the AI Training Academy"
-                  description="Free 42+ hour curriculum — upskill while you wait for responses."
+                  title="Build your AI skill score"
+                  description="Sharing AI Training modules earns you Impact Score points — visible to NGOs when you apply. Start with any module."
                   badge={
                     <div className="inline-flex items-center bg-violet-500/20 rounded-lg px-3 py-1.5">
                       <span className="text-[11px] text-violet-300 leading-relaxed">
@@ -188,8 +188,8 @@ export default async function WelcomePage() {
                   icon={<Rss className="w-5 h-5 text-sky-400" />}
                   iconBg="bg-sky-500/15"
                   borderHover="hover:border-sky-500/50"
-                  title="Explore the activity feed"
-                  description="See donations, milestones, and skill contributions happening right now."
+                  title="See who's contributing now"
+                  description="The Wall shows every contribution happening on the platform right now. These contributors are building credentials and Impact Scores you can see in real time."
                 />
               </>
             )}

@@ -34,9 +34,9 @@ export default async function PricingPage() {
         "View full role details",
         "See NGO profiles and leadership",
         "View your public GiveLedger credential",
-        "AI Training Academy — 42+ hours free",
+        "AI Training Academy — 42+ hours included",
       ],
-      locked: ["Apply to roles"],
+      locked: ["Apply to roles", "Reviewed after PRO and BASIC applicants"],
       cta: null,
       badge: null,
     },
@@ -71,12 +71,13 @@ export default async function PricingPage() {
       headerBg: "bg-violet-50",
       iconColor: "text-violet-600",
       features: [
+        "First in every NGO's review queue",
         "Everything in Basic",
         "Unlimited applications",
         "Priority listing in NGO applicant view",
         "PRO badge visible to NGOs",
         "Beta Tester & UGC Creator Program — earn from brand campaigns",
-        "AI Training Academy — 42+ hours free",
+        "AI Training Academy — 42+ hours included",
       ],
       locked: [],
       cta: "PRO" as const,
@@ -92,11 +93,12 @@ export default async function PricingPage() {
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-3xl font-bold text-gray-900 mb-3">
-            Contribute your skills to NGOs
+            Free plan donors are reviewed last.<br />
+            <span className="text-violet-700">PRO contributors are reviewed first.</span>
           </h1>
           <p className="text-gray-500 max-w-2xl mx-auto text-sm leading-relaxed">
-            Every engagement is verified by the NGO, recorded on your GiveLedger credential, and
-            counts as certified professional experience. Choose a plan to get started.
+            Your plan position is permanent in every NGO&apos;s review queue. Every role you apply for, every application
+            you submit — PRO plan contributors are shown to the NGO before FREE plan applicants. That advantage compounds every time you apply.
           </p>
         </div>
 
@@ -156,7 +158,7 @@ export default async function PricingPage() {
                     session?.user ? (
                       <SubscribeButton
                         plan={plan.cta}
-                        label={`Get ${plan.name}`}
+                        label={plan.key === "PRO" ? "Get reviewed first — upgrade to PRO" : `Get ${plan.name}`}
                         className={`w-full ${plan.key === "PRO" ? "bg-violet-600 hover:bg-violet-700 text-white" : "bg-emerald-700 hover:bg-emerald-800 text-white"}`}
                       />
                     ) : (
@@ -164,7 +166,7 @@ export default async function PricingPage() {
                         href={`/login?callbackUrl=/pricing`}
                         className={`block w-full text-center py-2.5 rounded-xl text-sm font-semibold text-white transition-colors ${plan.key === "PRO" ? "bg-violet-600 hover:bg-violet-700" : "bg-emerald-700 hover:bg-emerald-800"}`}
                       >
-                        Sign in to get {plan.name}
+                        {plan.key === "PRO" ? "Get reviewed first — upgrade to PRO" : `Sign in to get ${plan.name}`}
                       </Link>
                     )
                   ) : (
@@ -304,6 +306,10 @@ export default async function PricingPage() {
               {
                 q: "Can I upgrade from Basic to Pro?",
                 a: "Yes. Purchase the Pro plan at any time and your plan upgrades immediately. Your previous applications still count toward your credential.",
+              },
+              {
+                q: "What happens to my credentials if I downgrade from PRO to FREE?",
+                a: "Your credentials, Impact Score, and on-chain records are permanent — they never disappear regardless of plan. The plan only affects your queue position for future applications.",
               },
             ].map(({ q, a }) => (
               <div key={q}>

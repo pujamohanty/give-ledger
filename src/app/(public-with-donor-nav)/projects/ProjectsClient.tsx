@@ -78,7 +78,7 @@ export default function ProjectsClient({ projects, initialCategory = "ALL" }: { 
       <div className="bg-white border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <h1 className="text-2xl font-bold text-gray-900 mb-1">Browse Projects</h1>
-          <p className="text-gray-500 text-sm">All projects are verified and milestone-tracked on-chain.</p>
+          <p className="text-gray-500 text-sm">Every project runs on verified milestones. When a milestone you funded completes, your name is recorded on Polygon under that outcome — permanently.</p>
 
           <div className="flex gap-3 mt-6">
             <div className="relative flex-1 max-w-md">

@@ -38,7 +38,7 @@ export default async function WallPage() {
             </div>
             <div>
               <h1 className="text-2xl font-bold text-gray-900">Activity Wall</h1>
-              <p className="text-sm text-gray-500">Live impact happening across the platform</p>
+              <p className="text-sm text-gray-500">Every contribution on this feed is real-time and verified. The people contributing right now are building credentials and Impact Scores. Yours starts when you do.</p>
             </div>
           </div>
 

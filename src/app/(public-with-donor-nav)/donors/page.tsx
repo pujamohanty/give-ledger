@@ -169,8 +169,8 @@ export default async function DonorsPage({
             <Users className="w-5 h-5 text-rose-600" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">Active Donors</h1>
-            <p className="text-sm text-gray-500">{donors.length} donors powering verified impact</p>
+            <h1 className="text-2xl font-bold text-gray-900">Contributors</h1>
+            <p className="text-sm text-gray-500">These are the verified contributors on GiveLedger. Every name here has an on-chain record, a credential, and at least one NGO-confirmed engagement. You&apos;re looking at the public proof of what they chose to stand for.</p>
           </div>
         </div>
 

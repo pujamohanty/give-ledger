@@ -68,6 +68,16 @@ export default async function SubscriptionPage({
         </div>
       )}
 
+      {plan === "FREE" && (
+        <div className="mb-6 bg-amber-50 border border-amber-200 rounded-xl px-4 py-3 text-sm text-amber-800">
+          <p className="font-semibold mb-1">You are on the FREE plan.</p>
+          <p>PRO plan contributors are reviewed first for every role you apply to. Every application you submit goes to the bottom of the NGO&apos;s queue after all PRO and BASIC applicants.</p>
+          <Link href="/pricing" className="inline-flex items-center gap-1 mt-2 text-amber-700 font-semibold hover:underline text-xs">
+            Get reviewed first — upgrade to PRO <ChevronRight className="w-3 h-3" />
+          </Link>
+        </div>
+      )}
+
       {/* Current plan card */}
       <Card className="mb-6">
         <CardHeader>

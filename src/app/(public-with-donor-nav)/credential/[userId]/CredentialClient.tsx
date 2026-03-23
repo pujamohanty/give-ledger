@@ -126,6 +126,11 @@ export default function CredentialClient({ credential: c, isOwner, appUrl }: Pro
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+      {/* Page heading */}
+      <div className="mb-6">
+        <h1 className="text-2xl font-bold text-gray-900">Your Verified Contribution Credential</h1>
+        <p className="text-sm text-gray-500 mt-1">This is a permanent, verifiable record of everything you have contributed through GiveLedger. Every entry is NGO-confirmed and recorded on Polygon. Unlike a CV line — this cannot be fabricated.</p>
+      </div>
       {/* Credential card */}
       <div className="bg-gradient-to-br from-emerald-800 to-emerald-950 rounded-2xl p-8 text-white mb-8 shadow-xl">
         <div className="flex items-start justify-between mb-6">

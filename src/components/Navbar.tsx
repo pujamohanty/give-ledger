@@ -31,7 +31,7 @@ const NAV_ITEMS = [
   {
     href: "/opportunities",
     label: "Open Roles",
-    tip: "Browse paid and volunteer roles at verified NGOs — build real career experience, recorded on your credential",
+    tip: "PRO plan contributors are reviewed first. Spots fill. Apply now.",
   },
   {
     href: "/pricing",

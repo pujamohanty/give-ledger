@@ -66,14 +66,13 @@ export default async function TrainingHubPage() {
             <div>
               <div className="inline-flex items-center gap-2 bg-emerald-50 border border-emerald-100 rounded-full px-3 py-1 text-xs font-semibold text-emerald-700 mb-4">
                 <GraduationCap className="w-3.5 h-3.5" />
-                Free for all donors
+                Included with every account — builds your Impact Score
               </div>
               <h1 className="text-3xl font-extrabold text-gray-900 mb-2">
                 AI Training Academy
               </h1>
               <p className="text-gray-500 text-sm leading-relaxed max-w-xl">
-                Learn to use Claude Code for real business work — from your first terminal command to fully automated
-                workflows across marketing, finance, HR, legal and more. No coding experience required.
+                42+ hours of structured AI curriculum across 12 modules. Sharing each module earns Impact Score points — shown to NGOs when you apply for roles. While most professionals are learning AI reactively, contributors here are trained systematically.
               </p>
             </div>
             <div className="bg-emerald-700 text-white rounded-2xl px-6 py-5 text-center min-w-[160px]">
@@ -132,6 +131,7 @@ export default async function TrainingHubPage() {
           <span className="text-[11px] font-bold text-gray-400 uppercase tracking-wider">Spread the word</span>
           <div className="flex-1 h-px bg-gray-200" />
         </div>
+        <p className="text-xs text-gray-500 mb-3">Your training share count is visible to NGOs as part of your Impact Score. Start sharing to move up.</p>
         <TrainingShareButton initialCount={trainingShareCount} />
       </div>
 

@@ -233,8 +233,8 @@ export default async function DonorDashboard({
 
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Your Impact Dashboard</h1>
-          <p className="text-gray-500 text-sm mt-1">Every donation tracked. Every milestone verified.</p>
+          <h1 className="text-2xl font-bold text-gray-900">Your Impact Dashboard — every contribution tracked, every credential building</h1>
+          <p className="text-gray-500 text-sm mt-1">Your Impact Score is visible to NGOs when you apply for roles. Here is where it stands today.</p>
         </div>
         <div className="flex items-center gap-3">
           <div className="relative">
@@ -296,7 +296,7 @@ export default async function DonorDashboard({
                 </p>
                 <div className="flex items-center justify-between gap-2 mt-auto">
                   <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-white/70 bg-white/10 px-2.5 py-1 rounded-full shrink-0">
-                    <TrendingUp className="w-3 h-3" /> Builds your CV &amp; credential
+                    <TrendingUp className="w-3 h-3" /> PRO applicants reviewed first — your queue position starts now
                   </span>
                   <span className="inline-flex items-center gap-1.5 bg-white text-emerald-700 text-xs font-bold px-3 py-1.5 rounded-lg group-hover:bg-emerald-50 transition-colors shrink-0">
                     Browse roles <ArrowRight className="w-3.5 h-3.5" />
@@ -420,7 +420,7 @@ export default async function DonorDashboard({
               <h2 className="font-semibold text-gray-900 text-sm">Your Impact Score</h2>
             </div>
             <p className="text-[11px] text-gray-400">
-              NGOs reviewing your role applications can see this score. The higher it is, the more favourably they view your application.
+              NGOs see this score before reading your cover note. A score of 0 means you appear identical to every other applicant.
             </p>
           </div>
           <div className="shrink-0 text-right">
@@ -428,6 +428,12 @@ export default async function DonorDashboard({
             <p className="text-[10px] text-gray-400">out of 30</p>
           </div>
         </div>
+
+        {/* FOMO line */}
+        <p className="text-[11px] text-amber-600 font-medium flex items-center gap-1 mb-2">
+          <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          Score cannot be backdated. Contributors who started earlier have a permanent head start.
+        </p>
 
         {/* Overall bar */}
         <div className="h-2 bg-gray-100 rounded-full overflow-hidden mb-5">

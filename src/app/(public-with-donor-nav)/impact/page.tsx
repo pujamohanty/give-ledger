@@ -211,10 +211,10 @@ export default async function ImpactPage() {
             <span className="text-sm font-medium">Every number here is backed by on-chain proof</span>
           </div>
           <h1 className="text-4xl lg:text-5xl font-bold mb-5">
-            Real outcomes.<br />Verified on-chain.
+            This is what verified giving looks like.<br />Your name belongs on this ledger.
           </h1>
           <p className="text-xl text-emerald-100 max-w-2xl mx-auto mb-8">
-            GiveLedger releases funds only when NGOs prove milestones are complete. Here&apos;s what that accountability has produced.
+            Every number on this page is drawn directly from the Polygon blockchain — not reported, not estimated. Verified.
           </p>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 max-w-3xl mx-auto">
             {platformStats.map((stat) => (

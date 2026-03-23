@@ -48,7 +48,7 @@ export default async function DonorOpportunitiesPage() {
         <div>
           <h1 className="text-xl font-bold text-gray-900">My Applications</h1>
           <p className="text-sm text-gray-500 mt-0.5">
-            Track your role applications and active engagements.
+            Every engagement you complete here is NGO-confirmed and appears on your GiveLedger Credential. Active engagements are building your credential right now.
           </p>
         </div>
         <Link href="/opportunities">
