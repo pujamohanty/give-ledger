@@ -208,281 +208,6 @@ async function LandingPage({ session }: { session: Session | null }) {
     <div className="min-h-screen bg-white">
       <Navbar session={session} openRolesCount={openRolesCount} />
 
-      {/* ── Hero ── */}
-      <section className="relative overflow-hidden bg-[#052e16] text-white">
-        <div className="absolute inset-0 opacity-10"
-          style={{ backgroundImage: "radial-gradient(circle at 1px 1px, rgba(255,255,255,0.4) 1px, transparent 0)", backgroundSize: "32px 32px" }}
-        />
-        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#052e16] to-transparent" />
-        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 pt-16 pb-20">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <div className="inline-flex items-center gap-2 bg-emerald-900/50 border border-emerald-700/40 rounded-full px-3 py-1.5 text-xs text-emerald-300 mb-6">
-                <Zap className="w-3 h-3" />
-                Skill contributors earn the same recognition as financial donors
-              </div>
-              <h1 className="text-4xl sm:text-5xl font-extrabold leading-tight mb-5">
-                Your skills can <br />
-                <span className="text-emerald-400">change lives.</span><br />
-                Get certified for it.
-              </h1>
-              <p className="text-gray-300 text-base leading-relaxed mb-8 max-w-lg">
-                GiveLedger connects skilled professionals — marketers, lawyers, developers,
-                designers — with verified US nonprofits. Every engagement is NGO-confirmed,
-                assigned a monetary value, and permanently recorded on Polygon. It counts as
-                certified professional experience.
-              </p>
-              <div className="flex flex-wrap gap-3 mb-6">
-                <Link href="/signup" className="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-white font-bold px-7 py-3.5 rounded-xl text-sm transition-colors shadow-lg shadow-emerald-900/50">
-                  Get started free <ArrowRight className="w-4 h-4" />
-                </Link>
-                <Link href="/opportunities" className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white font-medium px-6 py-3.5 rounded-xl text-sm transition-colors border border-white/20">
-                  Browse open roles
-                </Link>
-              </div>
-              {/* Trust signals */}
-              <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
-                <span className="flex items-center gap-1.5 text-xs text-gray-400">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" /> Free to join
-                </span>
-                <span className="flex items-center gap-1.5 text-xs text-gray-400">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" /> No credit card required
-                </span>
-                <span className="flex items-center gap-1.5 text-xs text-gray-400">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" /> Blockchain-verified credentials
-                </span>
-              </div>
-              <p className="text-xs text-gray-600 mt-4">
-                Already have an account?{" "}
-                <Link href="/login" className="text-emerald-400 hover:underline">Sign in</Link>
-              </p>
-            </div>
-            <div className="hidden lg:flex justify-center">
-              <CredentialMockup />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Live stats bar ── */}
-      <section className="bg-gray-950 text-white py-8 border-b border-white/5">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 text-center">
-            {[
-              { value: `$${(totalDisbursed / 1000).toFixed(0)}k+`, label: "Disbursed to NGOs",     icon: DollarSign },
-              { value: `${milestoneCount}`,                          label: "Milestones verified",   icon: CheckCircle2 },
-              { value: `${ngoCount}+`,                               label: "Active nonprofits",     icon: Landmark },
-              { value: `${donorCount.toLocaleString()}+`,            label: "Contributors joined",   icon: Users },
-            ].map((s) => (
-              <div key={s.label} className="flex flex-col items-center">
-                <s.icon className="w-4 h-4 text-emerald-500 mb-2" />
-                <p className="text-2xl sm:text-3xl font-extrabold text-white">{s.value}</p>
-                <p className="text-xs text-gray-500 mt-1">{s.label}</p>
-              </div>
-            ))}
-          </div>
-          <p className="text-center text-[11px] text-gray-700 mt-5">
-            Live figures from Supabase · Fund releases recorded on Polygon
-          </p>
-        </div>
-      </section>
-
-      {/* ── Three contribution types ── */}
-      <section className="py-20 bg-white">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-3">
-              Three ways to contribute. <span className="text-emerald-700">One platform.</span>
-            </h2>
-            <p className="text-gray-500 text-sm max-w-xl mx-auto">
-              GiveLedger treats money, skills, and time as equal contributions. Every form
-              earns the same public credit, the same on-chain record, and the same credential.
-            </p>
-          </div>
-          <div className="grid sm:grid-cols-3 gap-6">
-            <div className="relative bg-emerald-700 text-white rounded-2xl p-6">
-              <div className="absolute top-4 right-4">
-                <span className="text-[10px] font-bold bg-emerald-500 text-white px-2 py-0.5 rounded-full">Highlighted</span>
-              </div>
-              <Briefcase className="w-8 h-8 text-emerald-300 mb-4" />
-              <h3 className="text-lg font-bold mb-2">Skill Contribution</h3>
-              <p className="text-emerald-100 text-sm leading-relaxed mb-4">
-                Apply your expertise — marketing, legal, IT, design, fundraising — directly to NGO projects.
-                The NGO confirms delivery and assigns a monetary value.
-              </p>
-              <ul className="space-y-2 mb-6">
-                {["Certified professional experience", "NGO-assigned monetary value", "On-chain record on Polygon", "Counts toward GiveLedger Credential"].map((f) => (
-                  <li key={f} className="flex items-start gap-2 text-xs text-emerald-100">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-300 shrink-0 mt-0.5" />{f}
-                  </li>
-                ))}
-              </ul>
-              <Link href="/opportunities" className="inline-flex items-center gap-2 bg-white text-emerald-700 font-semibold px-4 py-2.5 rounded-xl text-xs hover:bg-emerald-50 transition-colors">
-                Browse open roles <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
-            </div>
-            <div className="bg-white border-2 border-emerald-100 rounded-2xl p-6 hover:border-emerald-300 hover:shadow-md transition-all">
-              <div className="w-10 h-10 bg-emerald-50 rounded-xl flex items-center justify-center mb-4">
-                <DollarSign className="w-5 h-5 text-emerald-600" />
-              </div>
-              <h3 className="text-lg font-bold text-gray-900 mb-2">Financial Donation</h3>
-              <p className="text-gray-500 text-sm leading-relaxed mb-4">
-                Donate to projects where every dollar is milestone-locked. Funds only release when
-                verified evidence of completion is submitted. Every transaction on-chain.
-              </p>
-              <ul className="space-y-2 mb-6">
-                {["Milestone-locked fund release", "Stripe-powered checkout", "Polygon blockchain record", "Permanent impact certificate"].map((f) => (
-                  <li key={f} className="flex items-start gap-2 text-xs text-gray-600">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5" />{f}
-                  </li>
-                ))}
-              </ul>
-              <Link href="/projects" className="inline-flex items-center gap-2 bg-emerald-50 text-emerald-700 font-semibold px-4 py-2.5 rounded-xl text-xs hover:bg-emerald-100 transition-colors">
-                Browse projects <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
-            </div>
-            <div className="bg-white border-2 border-violet-100 rounded-2xl p-6 hover:border-violet-300 hover:shadow-md transition-all">
-              <div className="w-10 h-10 bg-violet-50 rounded-xl flex items-center justify-center mb-4">
-                <Clock className="w-5 h-5 text-violet-600" />
-              </div>
-              <h3 className="text-lg font-bold text-gray-900 mb-2">Time Volunteering</h3>
-              <p className="text-gray-500 text-sm leading-relaxed mb-4">
-                Contribute your time to NGO operations, community events, or field programmes.
-                Every hour is logged and verified by the NGO.
-              </p>
-              <ul className="space-y-2 mb-6">
-                {["Log hours directly on platform", "NGO confirms time donated", "Visible on public profile", "Same credential as skill contributors"].map((f) => (
-                  <li key={f} className="flex items-start gap-2 text-xs text-gray-600">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5" />{f}
-                  </li>
-                ))}
-              </ul>
-              <Link href="/opportunities" className="inline-flex items-center gap-2 bg-violet-50 text-violet-700 font-semibold px-4 py-2.5 rounded-xl text-xs hover:bg-violet-100 transition-colors">
-                Volunteer opportunities <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── How skill contribution works ── */}
-      <section className="py-20 bg-[#f8faf9]">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
-          <div className="text-center mb-14">
-            <div className="inline-block bg-emerald-100 text-emerald-700 text-xs font-semibold px-3 py-1 rounded-full mb-3">
-              For skill contributors
-            </div>
-            <h2 className="text-3xl font-bold text-gray-900 mb-3">From sign-up to credential in 5 steps</h2>
-            <p className="text-gray-500 text-sm max-w-xl mx-auto">
-              One completed engagement is all it takes to earn a verified, blockchain-backed credential for your LinkedIn and CV.
-            </p>
-          </div>
-          <div className="grid sm:grid-cols-2 gap-4 max-w-3xl mx-auto">
-            {[
-              { step: 1, icon: Globe,         title: "Browse open roles",       desc: "Filter by skill category, role type (internship, career transition, interim, volunteer), and weekly time commitment.",          color: "bg-emerald-700" },
-              { step: 2, icon: Briefcase,     title: "Apply with a cover note", desc: "Submit your application in under two minutes. Basic plan: up to 50 applications. Pro plan: unlimited.",                          color: "bg-emerald-700" },
-              { step: 3, icon: Users,         title: "NGO reviews and accepts", desc: "The organisation reviews your background. PRO contributors are listed first in the review queue.",                                  color: "bg-emerald-700" },
-              { step: 4, icon: CheckCircle2,  title: "Deliver and log hours",   desc: "Work directly with the NGO team. Log your hours on the platform. The NGO confirms delivery and assigns a dollar value.",           color: "bg-emerald-700" },
-              { step: 5, icon: Award,         title: "Credential issued",       desc: "An NGO-verified, on-chain record appears on your GiveLedger Credential — formatted for LinkedIn, ready to share.",                color: "bg-violet-700"  },
-            ].map((s) => (
-              <div key={s.step} className={`flex items-start gap-4 bg-white border border-gray-100 rounded-2xl p-5 shadow-sm ${s.step === 5 ? "sm:col-span-2 sm:max-w-md sm:mx-auto w-full" : ""}`}>
-                <div className={`w-10 h-10 rounded-xl ${s.color} text-white flex items-center justify-center shrink-0 font-extrabold text-sm`}>
-                  {s.step}
-                </div>
-                <div>
-                  <p className="text-sm font-semibold text-gray-900 mb-1">{s.title}</p>
-                  <p className="text-xs text-gray-500 leading-relaxed">{s.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-          <div className="mt-12 text-center">
-            <Link href="/opportunities" className="inline-flex items-center gap-2 bg-emerald-700 text-white font-semibold px-8 py-3.5 rounded-xl text-sm hover:bg-emerald-800 transition-colors">
-              See all open roles <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Live open roles ── */}
-      <section className="py-20 bg-white">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
-          <div className="flex items-end justify-between mb-8">
-            <div>
-              <h2 className="text-2xl font-bold text-gray-900">Open roles right now</h2>
-              <p className="text-gray-500 text-sm mt-1">Verified nonprofits actively looking for skilled contributors.</p>
-            </div>
-            <Link href="/opportunities" className="text-sm text-emerald-700 font-medium hover:underline flex items-center gap-1">
-              View all <ChevronRight className="w-4 h-4" />
-            </Link>
-          </div>
-          {openRoles.length === 0 ? (
-            <div className="text-center py-16 bg-gray-50 rounded-2xl border border-dashed border-gray-200">
-              <Briefcase className="w-10 h-10 text-gray-300 mx-auto mb-3" />
-              <p className="text-gray-400 text-sm">No open roles at the moment — check back soon.</p>
-            </div>
-          ) : (
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {openRoles.map((role) => {
-                const skills = role.skillsRequired.split(",").map((s) => s.trim()).filter(Boolean);
-                const isPaid = role.salaryMin != null || role.salaryMax != null;
-                const salaryLabel = isPaid
-                  ? (role.salaryMin && role.salaryMax
-                      ? `$${Math.round(role.salaryMin / 1000)}k–$${Math.round(role.salaryMax / 1000)}k/yr`
-                      : role.salaryMin ? `From $${Math.round(role.salaryMin / 1000)}k/yr` : `Up to $${Math.round(role.salaryMax! / 1000)}k/yr`)
-                  : null;
-                return (
-                  <Link key={role.id} href={`/opportunities/${role.id}`}
-                    className="group bg-white border border-gray-200 rounded-xl p-5 hover:border-emerald-300 hover:shadow-md transition-all flex flex-col gap-3"
-                  >
-                    <div className="flex items-start justify-between gap-2">
-                      <div className="flex items-center gap-2.5 min-w-0">
-                        <div className="w-9 h-9 rounded-xl bg-emerald-700 text-white text-xs font-bold flex items-center justify-center shrink-0">
-                          {role.ngo.orgName.slice(0, 2).toUpperCase()}
-                        </div>
-                        <div className="min-w-0">
-                          <p className="text-[10px] text-gray-400 truncate">{role.ngo.orgName}</p>
-                          <p className="text-sm font-semibold text-gray-900 truncate group-hover:text-emerald-700 transition-colors">{role.title}</p>
-                        </div>
-                      </div>
-                      <div className="flex flex-col items-end gap-1 shrink-0">
-                        {isPaid ? (
-                          <span className="text-[9px] font-bold px-2 py-0.5 rounded-full bg-emerald-600 text-white">💰 Paid</span>
-                        ) : (
-                          <span className="text-[9px] font-semibold px-2 py-0.5 rounded-full bg-gray-100 text-gray-500">🤝 Volunteer</span>
-                        )}
-                      </div>
-                    </div>
-                    {isPaid && salaryLabel && (
-                      <div className="text-[11px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-100 rounded-lg px-2.5 py-1.5">
-                        {salaryLabel}
-                      </div>
-                    )}
-                    <div className="flex flex-wrap gap-x-3 gap-y-1 text-[10px] text-gray-400">
-                      <span className="flex items-center gap-0.5"><Clock className="w-3 h-3" /> {role.timeCommitment}</span>
-                      <span className="flex items-center gap-0.5">
-                        {role.isRemote ? <><Wifi className="w-3 h-3" /> Remote</> : <><MapPin className="w-3 h-3" /> {role.ngo.state ?? "On-site"}</>}
-                      </span>
-                      {role._count.applications > 0 && (
-                        <span className="flex items-center gap-0.5"><Users className="w-3 h-3" /> {role._count.applications} applied</span>
-                      )}
-                    </div>
-                    {skills.length > 0 && (
-                      <div className="flex flex-wrap gap-1">
-                        {skills.slice(0, 3).map((s) => (
-                          <span key={s} className="text-[9px] bg-gray-100 text-gray-500 px-2 py-0.5 rounded-full">{s}</span>
-                        ))}
-                        {skills.length > 3 && <span className="text-[9px] text-gray-400">+{skills.length - 3} more</span>}
-                      </div>
-                    )}
-                  </Link>
-                );
-              })}
-            </div>
-          )}
-        </div>
-      </section>
-
       {/* ── NGO Sector Scale ── */}
       <section className="py-20 bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
@@ -566,6 +291,280 @@ async function LandingPage({ session }: { session: Session | null }) {
             >
               Browse open roles <ArrowRight className="w-4 h-4" />
             </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Hero ── */}
+      <section className="relative overflow-hidden bg-[#052e16] text-white">
+        <div className="absolute inset-0 opacity-10"
+          style={{ backgroundImage: "radial-gradient(circle at 1px 1px, rgba(255,255,255,0.4) 1px, transparent 0)", backgroundSize: "32px 32px" }}
+        />
+        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#052e16] to-transparent" />
+        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 pt-16 pb-20">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <div className="inline-flex items-center gap-2 bg-emerald-900/50 border border-emerald-700/40 rounded-full px-3 py-1.5 text-xs text-emerald-300 mb-6">
+                <Zap className="w-3 h-3" />
+                Skill contributors earn the same recognition as financial donors
+              </div>
+              <h1 className="text-4xl sm:text-5xl font-extrabold leading-tight mb-5">
+                Your skills can <br />
+                <span className="text-emerald-400">change lives.</span>
+              </h1>
+              <p className="text-gray-300 text-base leading-relaxed mb-8 max-w-lg">
+                GiveLedger connects skilled professionals — marketers, lawyers, developers,
+                designers — with verified US nonprofits. Every engagement is NGO-confirmed,
+                assigned a monetary value, and permanently recorded on Polygon. It counts as
+                certified professional experience.
+              </p>
+              <div className="flex flex-wrap gap-3 mb-6">
+                <Link href="/signup" className="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-white font-bold px-7 py-3.5 rounded-xl text-sm transition-colors shadow-lg shadow-emerald-900/50">
+                  Get started free <ArrowRight className="w-4 h-4" />
+                </Link>
+                <Link href="/opportunities" className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white font-medium px-6 py-3.5 rounded-xl text-sm transition-colors border border-white/20">
+                  Browse open roles
+                </Link>
+              </div>
+              {/* Trust signals */}
+              <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+                <span className="flex items-center gap-1.5 text-xs text-gray-400">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" /> Free to join
+                </span>
+                <span className="flex items-center gap-1.5 text-xs text-gray-400">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" /> No credit card required
+                </span>
+                <span className="flex items-center gap-1.5 text-xs text-gray-400">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" /> Blockchain-verified credentials
+                </span>
+              </div>
+              <p className="text-xs text-gray-600 mt-4">
+                Already have an account?{" "}
+                <Link href="/login" className="text-emerald-400 hover:underline">Sign in</Link>
+              </p>
+            </div>
+            <div className="hidden lg:flex justify-center">
+              <CredentialMockup />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Live stats bar ── */}
+      <section className="bg-gray-950 text-white py-8 border-b border-white/5">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 text-center">
+            {[
+              { value: `$${(totalDisbursed / 1000).toFixed(0)}k+`, label: "Disbursed to NGOs",     icon: DollarSign },
+              { value: `${milestoneCount}`,                          label: "Milestones verified",   icon: CheckCircle2 },
+              { value: `${ngoCount}+`,                               label: "Active nonprofits",     icon: Landmark },
+              { value: `${donorCount.toLocaleString()}+`,            label: "Contributors joined",   icon: Users },
+            ].map((s) => (
+              <div key={s.label} className="flex flex-col items-center">
+                <s.icon className="w-4 h-4 text-emerald-500 mb-2" />
+                <p className="text-2xl sm:text-3xl font-extrabold text-white">{s.value}</p>
+                <p className="text-xs text-gray-500 mt-1">{s.label}</p>
+              </div>
+            ))}
+          </div>
+          <p className="text-center text-[11px] text-gray-700 mt-5">
+            Live figures from Supabase · Fund releases recorded on Polygon
+          </p>
+        </div>
+      </section>
+
+      {/* ── Live open roles ── */}
+      <section className="py-20 bg-white">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6">
+          <div className="flex items-end justify-between mb-8">
+            <div>
+              <h2 className="text-2xl font-bold text-gray-900">Open roles right now</h2>
+              <p className="text-gray-500 text-sm mt-1">Verified nonprofits actively looking for skilled contributors.</p>
+            </div>
+            <Link href="/opportunities" className="text-sm text-emerald-700 font-medium hover:underline flex items-center gap-1">
+              View all <ChevronRight className="w-4 h-4" />
+            </Link>
+          </div>
+          {openRoles.length === 0 ? (
+            <div className="text-center py-16 bg-gray-50 rounded-2xl border border-dashed border-gray-200">
+              <Briefcase className="w-10 h-10 text-gray-300 mx-auto mb-3" />
+              <p className="text-gray-400 text-sm">No open roles at the moment — check back soon.</p>
+            </div>
+          ) : (
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {openRoles.map((role) => {
+                const skills = role.skillsRequired.split(",").map((s) => s.trim()).filter(Boolean);
+                const isPaid = role.salaryMin != null || role.salaryMax != null;
+                const salaryLabel = isPaid
+                  ? (role.salaryMin && role.salaryMax
+                      ? `$${Math.round(role.salaryMin / 1000)}k–$${Math.round(role.salaryMax / 1000)}k/yr`
+                      : role.salaryMin ? `From $${Math.round(role.salaryMin / 1000)}k/yr` : `Up to $${Math.round(role.salaryMax! / 1000)}k/yr`)
+                  : null;
+                return (
+                  <Link key={role.id} href={`/opportunities/${role.id}`}
+                    className="group bg-white border border-gray-200 rounded-xl p-5 hover:border-emerald-300 hover:shadow-md transition-all flex flex-col gap-3"
+                  >
+                    <div className="flex items-start justify-between gap-2">
+                      <div className="flex items-center gap-2.5 min-w-0">
+                        <div className="w-9 h-9 rounded-xl bg-emerald-700 text-white text-xs font-bold flex items-center justify-center shrink-0">
+                          {role.ngo.orgName.slice(0, 2).toUpperCase()}
+                        </div>
+                        <div className="min-w-0">
+                          <p className="text-[10px] text-gray-400 truncate">{role.ngo.orgName}</p>
+                          <p className="text-sm font-semibold text-gray-900 truncate group-hover:text-emerald-700 transition-colors">{role.title}</p>
+                        </div>
+                      </div>
+                      <div className="flex flex-col items-end gap-1 shrink-0">
+                        {isPaid ? (
+                          <span className="text-[9px] font-bold px-2 py-0.5 rounded-full bg-emerald-600 text-white">💰 Paid</span>
+                        ) : (
+                          <span className="text-[9px] font-semibold px-2 py-0.5 rounded-full bg-gray-100 text-gray-500">🤝 Volunteer</span>
+                        )}
+                      </div>
+                    </div>
+                    {isPaid && salaryLabel && (
+                      <div className="text-[11px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-100 rounded-lg px-2.5 py-1.5">
+                        {salaryLabel}
+                      </div>
+                    )}
+                    <div className="flex flex-wrap gap-x-3 gap-y-1 text-[10px] text-gray-400">
+                      <span className="flex items-center gap-0.5"><Clock className="w-3 h-3" /> {role.timeCommitment}</span>
+                      <span className="flex items-center gap-0.5">
+                        {role.isRemote ? <><Wifi className="w-3 h-3" /> Remote</> : <><MapPin className="w-3 h-3" /> {role.ngo.state ?? "On-site"}</>}
+                      </span>
+                      {role._count.applications > 0 && (
+                        <span className="flex items-center gap-0.5"><Users className="w-3 h-3" /> {role._count.applications} applied</span>
+                      )}
+                    </div>
+                    {skills.length > 0 && (
+                      <div className="flex flex-wrap gap-1">
+                        {skills.slice(0, 3).map((s) => (
+                          <span key={s} className="text-[9px] bg-gray-100 text-gray-500 px-2 py-0.5 rounded-full">{s}</span>
+                        ))}
+                        {skills.length > 3 && <span className="text-[9px] text-gray-400">+{skills.length - 3} more</span>}
+                      </div>
+                    )}
+                  </Link>
+                );
+              })}
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* ── How skill contribution works ── */}
+      <section className="py-20 bg-[#f8faf9]">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6">
+          <div className="text-center mb-14">
+            <div className="inline-block bg-emerald-100 text-emerald-700 text-xs font-semibold px-3 py-1 rounded-full mb-3">
+              For skill contributors
+            </div>
+            <h2 className="text-3xl font-bold text-gray-900 mb-3">From sign-up to credential in 5 steps</h2>
+            <p className="text-gray-500 text-sm max-w-xl mx-auto">
+              One completed engagement is all it takes to earn a verified, blockchain-backed credential for your LinkedIn and CV.
+            </p>
+          </div>
+          <div className="grid sm:grid-cols-2 gap-4 max-w-3xl mx-auto">
+            {[
+              { step: 1, icon: Globe,         title: "Browse open roles",       desc: "Filter by skill category, role type (internship, career transition, interim, volunteer), and weekly time commitment.",          color: "bg-emerald-700" },
+              { step: 2, icon: Briefcase,     title: "Apply with a cover note", desc: "Submit your application in under two minutes. Basic plan: up to 50 applications. Pro plan: unlimited.",                          color: "bg-emerald-700" },
+              { step: 3, icon: Users,         title: "NGO reviews and accepts", desc: "The organisation reviews your background. PRO contributors are listed first in the review queue.",                                  color: "bg-emerald-700" },
+              { step: 4, icon: CheckCircle2,  title: "Deliver and log hours",   desc: "Work directly with the NGO team. Log your hours on the platform. The NGO confirms delivery and assigns a dollar value.",           color: "bg-emerald-700" },
+              { step: 5, icon: Award,         title: "Credential issued",       desc: "An NGO-verified, on-chain record appears on your GiveLedger Credential — formatted for LinkedIn, ready to share.",                color: "bg-violet-700"  },
+            ].map((s) => (
+              <div key={s.step} className={`flex items-start gap-4 bg-white border border-gray-100 rounded-2xl p-5 shadow-sm ${s.step === 5 ? "sm:col-span-2 sm:max-w-md sm:mx-auto w-full" : ""}`}>
+                <div className={`w-10 h-10 rounded-xl ${s.color} text-white flex items-center justify-center shrink-0 font-extrabold text-sm`}>
+                  {s.step}
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-gray-900 mb-1">{s.title}</p>
+                  <p className="text-xs text-gray-500 leading-relaxed">{s.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="mt-12 text-center">
+            <Link href="/opportunities" className="inline-flex items-center gap-2 bg-emerald-700 text-white font-semibold px-8 py-3.5 rounded-xl text-sm hover:bg-emerald-800 transition-colors">
+              See all open roles <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Three contribution types ── */}
+      <section className="py-20 bg-white">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 mb-3">
+              Three ways to contribute. <span className="text-emerald-700">One platform.</span>
+            </h2>
+            <p className="text-gray-500 text-sm max-w-xl mx-auto">
+              GiveLedger treats money, skills, and time as equal contributions. Every form
+              earns the same public credit, the same on-chain record, and the same credential.
+            </p>
+          </div>
+          <div className="grid sm:grid-cols-3 gap-6">
+            <div className="relative bg-emerald-700 text-white rounded-2xl p-6">
+              <div className="absolute top-4 right-4">
+                <span className="text-[10px] font-bold bg-emerald-500 text-white px-2 py-0.5 rounded-full">Highlighted</span>
+              </div>
+              <Briefcase className="w-8 h-8 text-emerald-300 mb-4" />
+              <h3 className="text-lg font-bold mb-2">Skill Contribution</h3>
+              <p className="text-emerald-100 text-sm leading-relaxed mb-4">
+                Apply your expertise — marketing, legal, IT, design, fundraising — directly to NGO projects.
+                The NGO confirms delivery and assigns a monetary value.
+              </p>
+              <ul className="space-y-2 mb-6">
+                {["Certified professional experience", "NGO-assigned monetary value", "On-chain record on Polygon", "Counts toward GiveLedger Credential"].map((f) => (
+                  <li key={f} className="flex items-start gap-2 text-xs text-emerald-100">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-300 shrink-0 mt-0.5" />{f}
+                  </li>
+                ))}
+              </ul>
+              <Link href="/opportunities" className="inline-flex items-center gap-2 bg-white text-emerald-700 font-semibold px-4 py-2.5 rounded-xl text-xs hover:bg-emerald-50 transition-colors">
+                Browse open roles <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+            </div>
+            <div className="bg-white border-2 border-emerald-100 rounded-2xl p-6 hover:border-emerald-300 hover:shadow-md transition-all">
+              <div className="w-10 h-10 bg-emerald-50 rounded-xl flex items-center justify-center mb-4">
+                <DollarSign className="w-5 h-5 text-emerald-600" />
+              </div>
+              <h3 className="text-lg font-bold text-gray-900 mb-2">Financial Donation</h3>
+              <p className="text-gray-500 text-sm leading-relaxed mb-4">
+                Donate to projects where every dollar is milestone-locked. Funds only release when
+                verified evidence of completion is submitted. Every transaction on-chain.
+              </p>
+              <ul className="space-y-2 mb-6">
+                {["Milestone-locked fund release", "Stripe-powered checkout", "Polygon blockchain record", "Permanent impact certificate"].map((f) => (
+                  <li key={f} className="flex items-start gap-2 text-xs text-gray-600">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5" />{f}
+                  </li>
+                ))}
+              </ul>
+              <Link href="/projects" className="inline-flex items-center gap-2 bg-emerald-50 text-emerald-700 font-semibold px-4 py-2.5 rounded-xl text-xs hover:bg-emerald-100 transition-colors">
+                Browse projects <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+            </div>
+            <div className="bg-white border-2 border-violet-100 rounded-2xl p-6 hover:border-violet-300 hover:shadow-md transition-all">
+              <div className="w-10 h-10 bg-violet-50 rounded-xl flex items-center justify-center mb-4">
+                <Clock className="w-5 h-5 text-violet-600" />
+              </div>
+              <h3 className="text-lg font-bold text-gray-900 mb-2">Time Volunteering</h3>
+              <p className="text-gray-500 text-sm leading-relaxed mb-4">
+                Contribute your time to NGO operations, community events, or field programmes.
+                Every hour is logged and verified by the NGO.
+              </p>
+              <ul className="space-y-2 mb-6">
+                {["Log hours directly on platform", "NGO confirms time donated", "Visible on public profile", "Same credential as skill contributors"].map((f) => (
+                  <li key={f} className="flex items-start gap-2 text-xs text-gray-600">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5" />{f}
+                  </li>
+                ))}
+              </ul>
+              <Link href="/opportunities" className="inline-flex items-center gap-2 bg-violet-50 text-violet-700 font-semibold px-4 py-2.5 rounded-xl text-xs hover:bg-violet-100 transition-colors">
+                Volunteer opportunities <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+            </div>
           </div>
         </div>
       </section>
@@ -718,6 +717,109 @@ async function LandingPage({ session }: { session: Session | null }) {
         </div>
       </section>
 
+      {/* ── AI Training Academy ── */}
+      <section className="py-20 bg-gray-950 text-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="text-center mb-14">
+            <div className="inline-flex items-center gap-2 bg-emerald-500/20 border border-emerald-500/30 rounded-full px-4 py-2 text-sm text-emerald-300 mb-5">
+              <GraduationCap className="w-4 h-4" />
+              Free for every donor
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-extrabold mb-4">
+              AI Training Academy
+              <span className="block text-emerald-400 mt-1">42+ hours. Zero cost.</span>
+            </h2>
+            <p className="text-gray-400 text-base max-w-2xl mx-auto leading-relaxed">
+              Every GiveLedger donor gets free access to a complete AI curriculum — from setting up Claude Code
+              for the first time to building fully automated workflows across every area of a business.
+              No coding background required.
+            </p>
+          </div>
+
+          {/* Stats */}
+          <div className="flex items-center justify-center gap-8 flex-wrap mb-14 text-center">
+            {[
+              { value: "12", label: "Modules" },
+              { value: "80+", label: "Lessons" },
+              { value: "42+", label: "Hours" },
+              { value: "$2,500", label: "Market value" },
+            ].map(({ value, label }) => (
+              <div key={label}>
+                <p className="text-4xl font-extrabold text-white">{value}</p>
+                <p className="text-xs text-gray-400 mt-1 uppercase tracking-wide">{label}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* Example prompts showcase */}
+          <div className="grid md:grid-cols-3 gap-5 mb-10">
+            {[
+              {
+                module: "Marketing",
+                title: "Write a grant proposal in 3 minutes",
+                prompt: "I run a US 501(c)(3) focused on clean water access in rural communities. Write a 1,500-word grant proposal for a $50,000 grant from the XYZ Foundation. Include: executive summary, problem statement with statistics, our programme description, budget narrative, expected outcomes, and evaluation plan.",
+                outcome: "A complete, funder-ready grant proposal, fully formatted and ready to customise.",
+              },
+              {
+                module: "Finance",
+                title: "Build a donor impact report",
+                prompt: "Here is our Q3 data: [paste spreadsheet]. Create a donor impact report showing how each dollar was spent, 3 specific beneficiary outcomes, programme costs per person served, and a projection for Q4. Use clear language for non-financial readers.",
+                outcome: "A transparent, credible impact report your major donors will actually read.",
+              },
+              {
+                module: "Operations",
+                title: "Generate a 90-day SOP from scratch",
+                prompt: "We are a nonprofit that provides meals to homeless individuals. We run a daily food distribution operation with 15 volunteers. Write a complete Standard Operating Procedure manual — covering intake, food safety, volunteer roles, incident response, and daily checklist. Format for easy printing.",
+                outcome: "A complete operations manual that protects your organisation and trains new volunteers.",
+              },
+            ].map((ex) => (
+              <div key={ex.title} className="bg-white/5 border border-white/10 rounded-2xl overflow-hidden flex flex-col">
+                <div className="px-5 py-4 border-b border-white/10">
+                  <span className="text-[10px] font-bold text-emerald-400 uppercase tracking-wide">{ex.module}</span>
+                  <h3 className="text-sm font-bold text-white mt-1">{ex.title}</h3>
+                </div>
+                <div className="px-5 py-4 bg-gray-900/60 font-mono text-[11px] text-gray-300 leading-relaxed flex-1">
+                  &ldquo;{ex.prompt.slice(0, 140)}…&rdquo;
+                </div>
+                <div className="px-5 py-3 flex items-start gap-2">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" />
+                  <p className="text-xs text-gray-400 leading-relaxed">{ex.outcome}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Coverage grid */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-10">
+            {[
+              { area: "Marketing & Growth",    desc: "Donor emails, grant proposals, social campaigns, annual reports" },
+              { area: "Finance & Accounting",  desc: "Budgets, audit prep, cash flow forecasts, board packs" },
+              { area: "Operations & Projects", desc: "SOPs, vendor contracts, project plans, risk registers" },
+              { area: "HR & People",           desc: "Job descriptions, onboarding, performance reviews, policies" },
+              { area: "Legal & Compliance",    desc: "Bylaws, FOIA templates, 501(c)(3) compliance checklists" },
+              { area: "Data & Impact",         desc: "Dashboards, outcome reports, funder data requests, evaluations" },
+              { area: "Product & Technology",  desc: "Build internal tools, automate data flows, API integrations" },
+              { area: "AI Strategy",           desc: "Lead AI adoption, build policies, train your team, measure ROI" },
+            ].map(({ area, desc }) => (
+              <div key={area} className="bg-white/5 border border-white/10 rounded-xl p-4">
+                <p className="text-xs font-bold text-white mb-1">{area}</p>
+                <p className="text-[11px] text-gray-400 leading-relaxed">{desc}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center">
+            <Link
+              href="/signup"
+              className="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-white font-semibold px-8 py-3.5 rounded-xl text-sm transition-colors"
+            >
+              Get free access — sign up <ArrowRight className="w-4 h-4" />
+            </Link>
+            <p className="text-xs text-gray-500 mt-3">No credit card required. All training is permanently free for donors.</p>
+          </div>
+        </div>
+      </section>
+
       {/* ── Financial donors ── */}
       <section className="py-20 bg-[#f8faf9]">
         <div className="max-w-5xl mx-auto px-4 sm:px-6">
@@ -858,109 +960,6 @@ async function LandingPage({ session }: { session: Session | null }) {
                 </div>
               ))}
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── AI Training Academy ── */}
-      <section className="py-20 bg-gray-950 text-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <div className="text-center mb-14">
-            <div className="inline-flex items-center gap-2 bg-emerald-500/20 border border-emerald-500/30 rounded-full px-4 py-2 text-sm text-emerald-300 mb-5">
-              <GraduationCap className="w-4 h-4" />
-              Free for every donor
-            </div>
-            <h2 className="text-3xl sm:text-4xl font-extrabold mb-4">
-              AI Training Academy
-              <span className="block text-emerald-400 mt-1">42+ hours. Zero cost.</span>
-            </h2>
-            <p className="text-gray-400 text-base max-w-2xl mx-auto leading-relaxed">
-              Every GiveLedger donor gets free access to a complete AI curriculum — from setting up Claude Code
-              for the first time to building fully automated workflows across every area of a business.
-              No coding background required.
-            </p>
-          </div>
-
-          {/* Stats */}
-          <div className="flex items-center justify-center gap-8 flex-wrap mb-14 text-center">
-            {[
-              { value: "12", label: "Modules" },
-              { value: "80+", label: "Lessons" },
-              { value: "42+", label: "Hours" },
-              { value: "$2,500", label: "Market value" },
-            ].map(({ value, label }) => (
-              <div key={label}>
-                <p className="text-4xl font-extrabold text-white">{value}</p>
-                <p className="text-xs text-gray-400 mt-1 uppercase tracking-wide">{label}</p>
-              </div>
-            ))}
-          </div>
-
-          {/* Example prompts showcase */}
-          <div className="grid md:grid-cols-3 gap-5 mb-10">
-            {[
-              {
-                module: "Marketing",
-                title: "Write a grant proposal in 3 minutes",
-                prompt: "I run a US 501(c)(3) focused on clean water access in rural communities. Write a 1,500-word grant proposal for a $50,000 grant from the XYZ Foundation. Include: executive summary, problem statement with statistics, our programme description, budget narrative, expected outcomes, and evaluation plan.",
-                outcome: "A complete, funder-ready grant proposal, fully formatted and ready to customise.",
-              },
-              {
-                module: "Finance",
-                title: "Build a donor impact report",
-                prompt: "Here is our Q3 data: [paste spreadsheet]. Create a donor impact report showing how each dollar was spent, 3 specific beneficiary outcomes, programme costs per person served, and a projection for Q4. Use clear language for non-financial readers.",
-                outcome: "A transparent, credible impact report your major donors will actually read.",
-              },
-              {
-                module: "Operations",
-                title: "Generate a 90-day SOP from scratch",
-                prompt: "We are a nonprofit that provides meals to homeless individuals. We run a daily food distribution operation with 15 volunteers. Write a complete Standard Operating Procedure manual — covering intake, food safety, volunteer roles, incident response, and daily checklist. Format for easy printing.",
-                outcome: "A complete operations manual that protects your organisation and trains new volunteers.",
-              },
-            ].map((ex) => (
-              <div key={ex.title} className="bg-white/5 border border-white/10 rounded-2xl overflow-hidden flex flex-col">
-                <div className="px-5 py-4 border-b border-white/10">
-                  <span className="text-[10px] font-bold text-emerald-400 uppercase tracking-wide">{ex.module}</span>
-                  <h3 className="text-sm font-bold text-white mt-1">{ex.title}</h3>
-                </div>
-                <div className="px-5 py-4 bg-gray-900/60 font-mono text-[11px] text-gray-300 leading-relaxed flex-1">
-                  &ldquo;{ex.prompt.slice(0, 140)}…&rdquo;
-                </div>
-                <div className="px-5 py-3 flex items-start gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" />
-                  <p className="text-xs text-gray-400 leading-relaxed">{ex.outcome}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Coverage grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-10">
-            {[
-              { area: "Marketing & Growth",    desc: "Donor emails, grant proposals, social campaigns, annual reports" },
-              { area: "Finance & Accounting",  desc: "Budgets, audit prep, cash flow forecasts, board packs" },
-              { area: "Operations & Projects", desc: "SOPs, vendor contracts, project plans, risk registers" },
-              { area: "HR & People",           desc: "Job descriptions, onboarding, performance reviews, policies" },
-              { area: "Legal & Compliance",    desc: "Bylaws, FOIA templates, 501(c)(3) compliance checklists" },
-              { area: "Data & Impact",         desc: "Dashboards, outcome reports, funder data requests, evaluations" },
-              { area: "Product & Technology",  desc: "Build internal tools, automate data flows, API integrations" },
-              { area: "AI Strategy",           desc: "Lead AI adoption, build policies, train your team, measure ROI" },
-            ].map(({ area, desc }) => (
-              <div key={area} className="bg-white/5 border border-white/10 rounded-xl p-4">
-                <p className="text-xs font-bold text-white mb-1">{area}</p>
-                <p className="text-[11px] text-gray-400 leading-relaxed">{desc}</p>
-              </div>
-            ))}
-          </div>
-
-          <div className="text-center">
-            <Link
-              href="/signup"
-              className="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-white font-semibold px-8 py-3.5 rounded-xl text-sm transition-colors"
-            >
-              Get free access — sign up <ArrowRight className="w-4 h-4" />
-            </Link>
-            <p className="text-xs text-gray-500 mt-3">No credit card required. All training is permanently free for donors.</p>
           </div>
         </div>
       </section>
