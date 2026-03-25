@@ -35,8 +35,9 @@ function formatCompact(val: number): string {
   return `$${val.toLocaleString()}`;
 }
 
-function formatTooltip(val: number): string {
-  return `$${val.toLocaleString()}`;
+function formatTooltip(val: unknown): string {
+  const n = Number(val);
+  return isNaN(n) ? String(val) : `$${n.toLocaleString()}`;
 }
 
 const TABS = [
@@ -99,7 +100,7 @@ export default function IrsOrgCharts({ filings, orgName }: Props) {
                 <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
                 <XAxis dataKey="year" fontSize={12} />
                 <YAxis tickFormatter={formatCompact} fontSize={12} />
-                <Tooltip formatter={(val: number) => formatTooltip(val)} />
+                <Tooltip formatter={(val) => formatTooltip(val)} />
                 <Legend />
                 <Bar dataKey="revenue" name="Revenue" fill="#10b981" radius={[4, 4, 0, 0]} />
                 <Bar dataKey="expenses" name="Expenses" fill="#f59e0b" radius={[4, 4, 0, 0]} />
@@ -116,7 +117,7 @@ export default function IrsOrgCharts({ filings, orgName }: Props) {
                 <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
                 <XAxis dataKey="year" fontSize={12} />
                 <YAxis tickFormatter={formatCompact} fontSize={12} />
-                <Tooltip formatter={(val: number) => formatTooltip(val)} />
+                <Tooltip formatter={(val) => formatTooltip(val)} />
                 <Legend />
                 <Area type="monotone" dataKey="assets" name="Total Assets" stroke="#3b82f6" fill="#3b82f680" />
                 <Area type="monotone" dataKey="liabilities" name="Liabilities" stroke="#ef4444" fill="#ef444440" />
@@ -137,7 +138,7 @@ export default function IrsOrgCharts({ filings, orgName }: Props) {
                     <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
                     <XAxis dataKey="year" fontSize={12} />
                     <YAxis tickFormatter={formatCompact} fontSize={12} />
-                    <Tooltip formatter={(val: number) => formatTooltip(val)} />
+                    <Tooltip formatter={(val) => formatTooltip(val)} />
                     <Bar dataKey="officerComp" name="Officer Compensation" fill="#8b5cf6" radius={[4, 4, 0, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
@@ -149,7 +150,7 @@ export default function IrsOrgCharts({ filings, orgName }: Props) {
                     <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
                     <XAxis dataKey="year" fontSize={12} />
                     <YAxis tickFormatter={(v: number) => `${v}%`} fontSize={12} />
-                    <Tooltip formatter={(val: number) => `${val}%`} />
+                    <Tooltip formatter={(val) => `${val}%`} />
                     <Line type="monotone" dataKey="pctOfficerComp" name="% of Expenses" stroke="#f43f5e" strokeWidth={2} dot={{ r: 4 }} />
                   </LineChart>
                 </ResponsiveContainer>
@@ -183,7 +184,7 @@ export default function IrsOrgCharts({ filings, orgName }: Props) {
                 <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
                 <XAxis dataKey="year" fontSize={12} />
                 <YAxis tickFormatter={formatCompact} fontSize={12} />
-                <Tooltip formatter={(val: number) => formatTooltip(val)} />
+                <Tooltip formatter={(val) => formatTooltip(val)} />
                 <Legend />
                 <Bar dataKey="contributions" name="Contributions & Grants" fill="#10b981" stackId="rev" />
                 <Bar dataKey="programRevenue" name="Program Service Revenue" fill="#3b82f6" stackId="rev" />

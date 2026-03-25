@@ -127,7 +127,7 @@ export default function IrsDirectoryClient() {
 
   const [data, setData] = useState<SearchResult | null>(null);
   const [loading, setLoading] = useState(false);
-  const debounceRef = useRef<ReturnType<typeof setTimeout>>();
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
   const fetchOrgs = useCallback(async (p: number) => {
     setLoading(true);

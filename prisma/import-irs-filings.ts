@@ -19,6 +19,7 @@ import path from "path";
 import fs from "fs";
 import https from "https";
 import http from "http";
+import unzipper from "unzipper";
 
 const DATABASE_URL = process.env.DATABASE_URL;
 if (!DATABASE_URL) {
@@ -32,21 +33,36 @@ const prisma = new PrismaClient({ adapter });
 const BATCH_SIZE = 1000;
 const DOWNLOAD_DIR = path.join(process.env.HOME || process.env.USERPROFILE || ".", ".webcrawler", "irs-filings");
 
-// SOI data files — the IRS publishes separate CSVs for each form type
-// These URLs may change when IRS updates their data
-const SOI_FILES = [
-  { url: "https://www.irs.gov/pub/irs-soi/soi-extract-990.csv", label: "Form 990", formType: "990" },
-  { url: "https://www.irs.gov/pub/irs-soi/soi-extract-990ez.csv", label: "Form 990-EZ", formType: "990EZ" },
-  { url: "https://www.irs.gov/pub/irs-soi/soi-extract-990pf.csv", label: "Form 990-PF", formType: "990PF" },
-];
-
-// Also try the annual extract pattern (IRS changes URLs periodically)
-const SOI_ALT_URLS = [
-  "https://www.irs.gov/pub/irs-soi/19eofinextract990.csv",
-  "https://www.irs.gov/pub/irs-soi/20eofinextract990.csv",
-  "https://www.irs.gov/pub/irs-soi/21eofinextract990.csv",
-  "https://www.irs.gov/pub/irs-soi/22eofinextract990.csv",
-  "https://www.irs.gov/pub/irs-soi/23eofinextract990.csv",
+// IRS SOI Annual Extract — ZIP files per year (Form 990, 990-EZ, 990-PF)
+// URL pattern changed from "eofinextract" (≤2017) to "eoextract" (2018+)
+// Source: https://www.irs.gov/statistics/soi-tax-stats-annual-extract-of-tax-exempt-organization-financial-data
+const SOI_ZIPS = [
+  // 2024 data (most recent)
+  { url: "https://www.irs.gov/pub/irs-soi/24eoextract990.zip",   label: "2024 Form 990" },
+  { url: "https://www.irs.gov/pub/irs-soi/24eoextract990EZ.zip", label: "2024 Form 990-EZ" },
+  { url: "https://www.irs.gov/pub/irs-soi/24eoextract990pf.zip", label: "2024 Form 990-PF" },
+  // 2023
+  { url: "https://www.irs.gov/pub/irs-soi/23eoextract990.zip",   label: "2023 Form 990" },
+  { url: "https://www.irs.gov/pub/irs-soi/23eoextractez.zip",    label: "2023 Form 990-EZ" },
+  { url: "https://www.irs.gov/pub/irs-soi/23eoextract990pf.zip", label: "2023 Form 990-PF" },
+  // 2022
+  { url: "https://www.irs.gov/pub/irs-soi/22eoextract990.zip",   label: "2022 Form 990" },
+  { url: "https://www.irs.gov/pub/irs-soi/22eoextractez.zip",    label: "2022 Form 990-EZ" },
+  { url: "https://www.irs.gov/pub/irs-soi/22eoextract990pf.zip", label: "2022 Form 990-PF" },
+  // 2021
+  { url: "https://www.irs.gov/pub/irs-soi/21eoextract990.zip",   label: "2021 Form 990" },
+  { url: "https://www.irs.gov/pub/irs-soi/21eoextractez.zip",    label: "2021 Form 990-EZ" },
+  { url: "https://www.irs.gov/pub/irs-soi/21eoextract990pf.zip", label: "2021 Form 990-PF" },
+  // 2020
+  { url: "https://www.irs.gov/pub/irs-soi/20eoextract990.zip",   label: "2020 Form 990" },
+  { url: "https://www.irs.gov/pub/irs-soi/20eoextractez.zip",    label: "2020 Form 990-EZ" },
+  { url: "https://www.irs.gov/pub/irs-soi/20eoextract990pf.zip", label: "2020 Form 990-PF" },
+  // 2019
+  { url: "https://www.irs.gov/pub/irs-soi/19eoextract990.zip",   label: "2019 Form 990" },
+  { url: "https://www.irs.gov/pub/irs-soi/19eoextractez.zip",    label: "2019 Form 990-EZ" },
+  // 2018
+  { url: "https://www.irs.gov/pub/irs-soi/18eoextract990.zip",   label: "2018 Form 990" },
+  { url: "https://www.irs.gov/pub/irs-soi/18eoextractez.zip",    label: "2018 Form 990-EZ" },
 ];
 
 // ─── Download helpers ────────────────────────────────────────────────────────
@@ -80,6 +96,25 @@ function downloadFile(url: string, dest: string): Promise<boolean> {
       resolve(false);
     });
   });
+}
+
+// Extract all CSVs from a ZIP into DOWNLOAD_DIR, return list of extracted paths
+async function extractZip(zipPath: string): Promise<string[]> {
+  const extracted: string[] = [];
+  const directory = await unzipper.Open.file(zipPath);
+  for (const entry of directory.files) {
+    if (entry.type === "File" && entry.path.toLowerCase().endsWith(".csv")) {
+      const outPath = path.join(DOWNLOAD_DIR, path.basename(entry.path));
+      await new Promise<void>((resolve, reject) => {
+        entry.stream()
+          .pipe(fs.createWriteStream(outPath))
+          .on("finish", resolve)
+          .on("error", reject);
+      });
+      extracted.push(outPath);
+    }
+  }
+  return extracted;
 }
 
 // ─── Parsing helpers ─────────────────────────────────────────────────────────
@@ -189,8 +224,8 @@ function mapFilingRow(row: Record<string, string>): Prisma.IrsFilingCreateManyIn
   );
   if (pctRaw !== null) {
     pctOfficerCompensation = pctRaw;
-  } else if (compensationOfficers !== null && totalExpenses !== null && totalExpenses > 0n) {
-    pctOfficerCompensation = Number(compensationOfficers * 10000n / totalExpenses) / 10000;
+  } else if (compensationOfficers !== null && totalExpenses !== null && totalExpenses > BigInt(0)) {
+    pctOfficerCompensation = Number(compensationOfficers * BigInt(10000) / totalExpenses) / 10000;
   }
 
   // Staffing
@@ -264,17 +299,35 @@ async function importFilingCsv(filePath: string, label: string): Promise<number>
   return total;
 }
 
-async function upsertFilingBatch(rows: Prisma.IrsFilingCreateManyInput[]) {
-  // Filter to only EINs that exist in IrsOrganization
-  // (filing without an org record would violate the FK constraint)
-  const eins = [...new Set(rows.map(r => r.ein))];
-  const existingOrgs = await prisma.irsOrganization.findMany({
-    where: { ein: { in: eins } },
-    select: { ein: true },
-  });
-  const existingEins = new Set(existingOrgs.map(o => o.ein));
-  const validRows = rows.filter(r => existingEins.has(r.ein));
+// Loaded once at startup — used to filter rows without per-batch DB queries
+let knownEins: Set<string> | null = null;
 
+async function loadKnownEins(): Promise<Set<string>> {
+  if (knownEins) return knownEins;
+  process.stdout.write("  Loading known EINs from IrsOrganization...");
+  // Stream in pages of 50k to avoid one huge result set
+  const pageSize = 50_000;
+  let cursor: string | undefined;
+  const eins = new Set<string>();
+  for (;;) {
+    const rows = await prisma.irsOrganization.findMany({
+      select: { ein: true },
+      take: pageSize,
+      ...(cursor ? { skip: 1, cursor: { ein: cursor } } : {}),
+      orderBy: { ein: "asc" },
+    });
+    for (const r of rows) eins.add(r.ein);
+    if (rows.length < pageSize) break;
+    cursor = rows[rows.length - 1].ein;
+  }
+  console.log(` ${eins.size.toLocaleString()} orgs`);
+  knownEins = eins;
+  return eins;
+}
+
+async function upsertFilingBatch(rows: Prisma.IrsFilingCreateManyInput[]) {
+  const eins = await loadKnownEins();
+  const validRows = rows.filter(r => eins.has(r.ein));
   if (validRows.length === 0) return;
 
   try {
@@ -282,8 +335,8 @@ async function upsertFilingBatch(rows: Prisma.IrsFilingCreateManyInput[]) {
       data: validRows,
       skipDuplicates: true,
     });
-  } catch (e: any) {
-    // Row-by-row fallback for conflicts
+  } catch {
+    // Row-by-row fallback for any conflict errors
     for (const row of validRows) {
       try {
         await prisma.irsFiling.upsert({
@@ -309,55 +362,55 @@ async function upsertFilingBatch(rows: Prisma.IrsFilingCreateManyInput[]) {
 
 async function main() {
   console.log("═══════════════════════════════════════════════════════════");
-  console.log("  IRS Filing Import — Nonprofit Financial Data");
+  console.log("  IRS Filing Import — Nonprofit Financial Data (2018–2024)");
   console.log("═══════════════════════════════════════════════════════════");
 
   if (!fs.existsSync(DOWNLOAD_DIR)) fs.mkdirSync(DOWNLOAD_DIR, { recursive: true });
 
   let grandTotal = 0;
   const startTime = Date.now();
+  // Track which CSVs we already imported (to avoid re-processing from "local files" pass)
+  const importedCsvs = new Set<string>();
 
-  // Try main SOI files first
-  for (const soi of SOI_FILES) {
-    const csvPath = path.join(DOWNLOAD_DIR, path.basename(soi.url));
+  for (const soi of SOI_ZIPS) {
+    const zipName = path.basename(soi.url);
+    const zipPath = path.join(DOWNLOAD_DIR, zipName);
 
-    if (!fs.existsSync(csvPath)) {
-      console.log(`  Downloading ${soi.label}...`);
-      const ok = await downloadFile(soi.url, csvPath);
-      if (!ok) {
-        console.log(`  [skip] ${soi.label}: not available at expected URL`);
+    // Download ZIP if not cached
+    if (!fs.existsSync(zipPath)) {
+      process.stdout.write(`  Downloading ${soi.label}...`);
+      const ok = await downloadFile(soi.url, zipPath);
+      if (!ok || !fs.existsSync(zipPath) || fs.statSync(zipPath).size < 100) {
+        console.log(` [skip] not available`);
         continue;
       }
+      console.log(` done (${(fs.statSync(zipPath).size / 1024 / 1024).toFixed(1)} MB)`);
     }
 
-    if (fs.existsSync(csvPath) && fs.statSync(csvPath).size > 100) {
+    // Extract CSV(s) from ZIP
+    let csvPaths: string[];
+    try {
+      csvPaths = await extractZip(zipPath);
+    } catch (e: any) {
+      console.log(`  [skip] ${soi.label}: ZIP extraction failed — ${e.message}`);
+      continue;
+    }
+
+    if (csvPaths.length === 0) {
+      console.log(`  [skip] ${soi.label}: no CSV found inside ZIP`);
+      continue;
+    }
+
+    for (const csvPath of csvPaths) {
+      if (importedCsvs.has(csvPath)) continue;
+      importedCsvs.add(csvPath);
       grandTotal += await importFilingCsv(csvPath, soi.label);
     }
   }
 
-  // Try annual extract files
-  for (const altUrl of SOI_ALT_URLS) {
-    const csvPath = path.join(DOWNLOAD_DIR, path.basename(altUrl));
-
-    if (!fs.existsSync(csvPath)) {
-      console.log(`  Downloading ${path.basename(altUrl)}...`);
-      const ok = await downloadFile(altUrl, csvPath);
-      if (!ok) {
-        console.log(`  [skip] ${path.basename(altUrl)}: not available`);
-        continue;
-      }
-    }
-
-    if (fs.existsSync(csvPath) && fs.statSync(csvPath).size > 100) {
-      const label = path.basename(altUrl, ".csv");
-      grandTotal += await importFilingCsv(csvPath, label);
-    }
-  }
-
-  // Also check for any locally downloaded SOI files
+  // Also import any CSVs already present locally (from previous runs or manual downloads)
   const localFiles = fs.readdirSync(DOWNLOAD_DIR).filter(f =>
-    f.endsWith(".csv") && !SOI_FILES.some(s => path.basename(s.url) === f) &&
-    !SOI_ALT_URLS.some(u => path.basename(u) === f)
+    f.endsWith(".csv") && !importedCsvs.has(path.join(DOWNLOAD_DIR, f))
   );
   for (const localFile of localFiles) {
     const csvPath = path.join(DOWNLOAD_DIR, localFile);
