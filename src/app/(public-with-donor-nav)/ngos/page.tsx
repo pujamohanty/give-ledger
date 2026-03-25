@@ -9,7 +9,7 @@ export const metadata = {
   description: "Search 1.9 million IRS-verified US nonprofits.",
 };
 
-const PER_PAGE = 24;
+const PER_PAGE = 100;
 
 const NTEE_CATEGORIES: Record<string, string> = {
   A: "Arts & Culture", B: "Education", C: "Environment", D: "Animal-Related",
@@ -62,6 +62,67 @@ function formatRevenue(n: bigint | null | undefined): string {
   return `$${v.toLocaleString()}`;
 }
 
+type OrgItem = {
+  ein: string; name: string; city: string | null; state: string | null;
+  nteeCode: string | null; subsection: number | null; revenueAmount: bigint | null;
+  ngo: { id: string } | null;
+};
+
+function OrgCard({ org }: { org: OrgItem }) {
+  const nteeLetter = org.nteeCode?.charAt(0).toUpperCase();
+  const category = nteeLetter ? (NTEE_CATEGORIES[nteeLetter] ?? null) : null;
+  const isOnPlatform = !!org.ngo;
+  return (
+    <Link
+      href={`/ngo/${org.ein}`}
+      className="bg-white rounded-xl border border-gray-100 hover:border-emerald-200 hover:shadow-md transition-all duration-150 p-5 flex flex-col gap-3 group"
+    >
+      <div className="flex items-start gap-3">
+        <div className={`w-11 h-11 rounded-full ${avatarColor(org.name)} flex items-center justify-center text-white font-bold text-sm shrink-0`}>
+          {initials(org.name)}
+        </div>
+        <div className="min-w-0 flex-1">
+          <p className="font-semibold text-gray-900 text-sm leading-snug group-hover:text-emerald-700 line-clamp-2">
+            {org.name}
+          </p>
+          {(org.city || org.state) && (
+            <p className="text-xs text-gray-400 flex items-center gap-1 mt-0.5">
+              <MapPin className="w-3 h-3 shrink-0" />
+              {[org.city, org.state ? (STATE_LABELS[org.state] ?? org.state) : null].filter(Boolean).join(", ")}
+            </p>
+          )}
+        </div>
+      </div>
+      <div className="flex items-center justify-between text-xs text-gray-500">
+        {category && (
+          <span className="bg-gray-100 px-2 py-0.5 rounded-full truncate max-w-[60%]">{category}</span>
+        )}
+        {org.revenueAmount != null && Number(org.revenueAmount) > 0 && (
+          <span className="flex items-center gap-1 text-emerald-700 font-medium ml-auto">
+            <DollarSign className="w-3 h-3" />
+            {formatRevenue(org.revenueAmount)} revenue
+          </span>
+        )}
+      </div>
+      <div className="flex flex-wrap gap-1 mt-auto pt-2 border-t border-gray-50">
+        <span className="text-[10px] font-medium text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full">
+          EIN {org.ein}
+        </span>
+        {org.subsection === 3 && (
+          <span className="text-[10px] font-medium text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full">
+            501(c)(3)
+          </span>
+        )}
+        {isOnPlatform && (
+          <span className="text-[10px] font-medium text-violet-700 bg-violet-50 px-2 py-0.5 rounded-full">
+            On GiveLedger
+          </span>
+        )}
+      </div>
+    </Link>
+  );
+}
+
 export default async function NgosPage({
   searchParams,
 }: {
@@ -90,7 +151,9 @@ export default async function NgosPage({
         revenueAmount: true,
         ngo: { select: { id: true } },
       },
-      orderBy: { revenueAmount: "desc" },
+      orderBy: state
+        ? [{ name: "asc" as const }]
+        : [{ state: "asc" as const }, { name: "asc" as const }],
       skip: page * PER_PAGE,
       take: PER_PAGE,
     }),
@@ -178,69 +241,47 @@ export default async function NgosPage({
         {/* Results grid */}
         {orgs.length > 0 ? (
           <>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
-              {orgs.map((org) => {
-                const nteeLetter = org.nteeCode?.charAt(0).toUpperCase();
-                const category = nteeLetter ? (NTEE_CATEGORIES[nteeLetter] ?? null) : null;
-                const isOnPlatform = !!org.ngo;
-
+            {(() => {
+              // Group orgs by state when no state filter is active
+              if (!state) {
+                const groups: { stateCode: string; items: OrgItem[] }[] = [];
+                for (const org of orgs) {
+                  const key = org.state ?? "";
+                  const last = groups[groups.length - 1];
+                  if (last && last.stateCode === key) {
+                    last.items.push(org);
+                  } else {
+                    groups.push({ stateCode: key, items: [org] });
+                  }
+                }
                 return (
-                  <Link
-                    key={org.ein}
-                    href={`/ngo/${org.ein}`}
-                    className="bg-white rounded-xl border border-gray-100 hover:border-emerald-200 hover:shadow-md transition-all duration-150 p-5 flex flex-col gap-3 group"
-                  >
-                    {/* Avatar + Name */}
-                    <div className="flex items-start gap-3">
-                      <div className={`w-11 h-11 rounded-full ${avatarColor(org.name)} flex items-center justify-center text-white font-bold text-sm shrink-0`}>
-                        {initials(org.name)}
-                      </div>
-                      <div className="min-w-0 flex-1">
-                        <p className="font-semibold text-gray-900 text-sm leading-snug group-hover:text-emerald-700 line-clamp-2">
-                          {org.name}
-                        </p>
-                        {(org.city || org.state) && (
-                          <p className="text-xs text-gray-400 flex items-center gap-1 mt-0.5">
-                            <MapPin className="w-3 h-3 shrink-0" />
-                            {[org.city, org.state ? (STATE_LABELS[org.state] ?? org.state) : null].filter(Boolean).join(", ")}
-                          </p>
+                  <div className="space-y-8 mb-8">
+                    {groups.map(({ stateCode, items }) => (
+                      <div key={stateCode}>
+                        {stateCode && (
+                          <div className="flex items-center gap-3 mb-4">
+                            <h2 className="text-sm font-semibold text-gray-700 uppercase tracking-wide whitespace-nowrap">
+                              {STATE_LABELS[stateCode] ?? stateCode}
+                            </h2>
+                            <div className="flex-1 h-px bg-gray-200" />
+                            <span className="text-xs text-gray-400 whitespace-nowrap">{items.length} org{items.length !== 1 ? "s" : ""}</span>
+                          </div>
                         )}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                          {items.map((org) => <OrgCard key={org.ein} org={org} />)}
+                        </div>
                       </div>
-                    </div>
-
-                    {/* Category + Revenue */}
-                    <div className="flex items-center justify-between text-xs text-gray-500">
-                      {category && (
-                        <span className="bg-gray-100 px-2 py-0.5 rounded-full truncate max-w-[60%]">{category}</span>
-                      )}
-                      {org.revenueAmount != null && Number(org.revenueAmount) > 0 && (
-                        <span className="flex items-center gap-1 text-emerald-700 font-medium ml-auto">
-                          <DollarSign className="w-3 h-3" />
-                          {formatRevenue(org.revenueAmount)} revenue
-                        </span>
-                      )}
-                    </div>
-
-                    {/* Badges */}
-                    <div className="flex flex-wrap gap-1 mt-auto pt-2 border-t border-gray-50">
-                      <span className="text-[10px] font-medium text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full">
-                        EIN {org.ein}
-                      </span>
-                      {org.subsection === 3 && (
-                        <span className="text-[10px] font-medium text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full">
-                          501(c)(3)
-                        </span>
-                      )}
-                      {isOnPlatform && (
-                        <span className="text-[10px] font-medium text-violet-700 bg-violet-50 px-2 py-0.5 rounded-full">
-                          On GiveLedger
-                        </span>
-                      )}
-                    </div>
-                  </Link>
+                    ))}
+                  </div>
                 );
-              })}
-            </div>
+              }
+              // Flat grid when state filter is active
+              return (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+                  {orgs.map((org) => <OrgCard key={org.ein} org={org} />)}
+                </div>
+              );
+            })()}
 
             {/* Pagination */}
             {totalPages > 1 && (
