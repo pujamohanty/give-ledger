@@ -140,16 +140,55 @@ export default async function NgoProfilePage({
     }
   }
 
-  // Need at least one of them to render
-  if (!irsOrg && !ngo) notFound();
+  // If local DB returned nothing for an EIN lookup, try ProPublica before giving up
+  let proPublicaData: {
+    name?: string; city?: string; state?: string;
+    revenue?: number; assets?: number; subsection?: number; ntee?: string;
+    filings: { year: number; revenue?: number; expenses?: number; assets?: number }[];
+  } | null = null;
+
+  if (!irsOrg && !ngo && isEin) {
+    try {
+      const res = await fetch(
+        `https://projects.propublica.org/nonprofits/api/v2/organizations/${cleanEin}.json`,
+        { next: { revalidate: 3600 } }
+      );
+      if (res.ok) {
+        const data = await res.json();
+        if (data?.organization?.name) {
+          const filings: { tax_prd_yr: number; totrevenue?: number; totfuncexpns?: number; totassetsend?: number }[] =
+            data?.filings_with_data ?? [];
+          proPublicaData = {
+            name: data.organization.name,
+            city: data.organization.city,
+            state: data.organization.state,
+            revenue: data.organization.revenue_amount,
+            assets: data.organization.asset_amount,
+            subsection: data.organization.subsection_code,
+            ntee: data.organization.ntee_code,
+            filings: filings.slice(-5).map((f) => ({
+              year: f.tax_prd_yr, revenue: f.totrevenue,
+              expenses: f.totfuncexpns, assets: f.totassetsend,
+            })),
+          };
+        }
+      }
+    } catch { /* ProPublica unavailable */ }
+  }
+
+  // Need at least one data source to render
+  if (!irsOrg && !ngo && !proPublicaData) notFound();
 
   // Canonical EIN for links (prefer IRS org EIN, fall back to ngo.ein, then the raw param if it's an EIN)
   const canonicalEin = irsOrg?.ein ?? ngo?.ein?.replace(/-/g, "") ?? (isEin ? cleanEin : null);
 
-  // Canonical name + location: prefer IRS (authoritative), fall back to GiveLedger record
-  const orgName = irsOrg?.name ?? ngo?.orgName ?? "";
-  const orgCity = irsOrg?.city ?? null;
-  const orgState = irsOrg?.state ?? ngo?.state ?? null;
+  // Use ProPublica data for name/location when local DB has nothing
+  const proPublicaName = proPublicaData?.name ?? "";
+
+  // Canonical name + location: prefer IRS, then GiveLedger, then ProPublica
+  const orgName = irsOrg?.name ?? ngo?.orgName ?? proPublicaName;
+  const orgCity = irsOrg?.city ?? proPublicaData?.city ?? null;
+  const orgState = irsOrg?.state ?? ngo?.state ?? proPublicaData?.state ?? null;
 
   // ── IRS financial data ────────────────────────────────────────────────────
   let irsData: {
@@ -198,37 +237,19 @@ export default async function NgoProfilePage({
       taxPeriod: irsOrg.taxPeriod ?? undefined,
       source: "local",
     };
-  } else {
-    // Fallback: ProPublica
-    try {
-      const res = await fetch(
-        `https://projects.propublica.org/nonprofits/api/v2/organizations/${cleanEin}.json`,
-        { next: { revalidate: 3600 } }
-      );
-      if (res.ok) {
-        const data = await res.json();
-        const filings: { tax_prd_yr: number; totrevenue?: number; totfuncexpns?: number; totassetsend?: number; pct_compnsatncurrofcr?: number; noemployes?: number }[] =
-          data?.filings_with_data ?? [];
-        const latest = filings[filings.length - 1];
-        irsData = {
-          revenue: latest?.totrevenue ?? data?.organization?.revenue_amount,
-          expenses: latest?.totfuncexpns,
-          assets: latest?.totassetsend ?? data?.organization?.asset_amount,
-          taxYear: latest?.tax_prd_yr,
-          officerCompPct: latest?.pct_compnsatncurrofcr,
-          employeeCount: latest?.noemployes,
-          filings: filings.slice(-5).map((fi) => ({
-            year: fi.tax_prd_yr, revenue: fi.totrevenue,
-            expenses: fi.totfuncexpns, assets: fi.totassetsend,
-          })),
-          nteeCode: data?.organization?.ntee_code,
-          subsection: data?.organization?.subsection_code,
-          pdfUrl: data?.organization?.latest_filing?.pdf_url,
-          formType: data?.organization?.latest_filing?.formtype,
-          source: "propublica",
-        };
-      }
-    } catch { /* IRS data unavailable */ }
+  } else if (proPublicaData) {
+    // Use the ProPublica data already fetched above (DB was unavailable)
+    irsData = {
+      revenue: proPublicaData.revenue,
+      assets: proPublicaData.assets,
+      filings: proPublicaData.filings,
+      nteeCode: proPublicaData.ntee,
+      subsection: proPublicaData.subsection,
+      source: "propublica",
+    };
+  } else if (!irsOrg && isEin) {
+    // irsOrg was null but proPublicaData was also null (ProPublica fallback already attempted above)
+    // Nothing more to try
   }
 
   // GiveLedger platform stats (only when NGO has registered on platform)
