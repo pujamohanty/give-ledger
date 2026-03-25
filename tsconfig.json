@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "ES2017",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -19,7 +23,9 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": [
+        "./src/*"
+      ]
     }
   },
   "include": [
@@ -30,5 +36,14 @@
     ".next/dev/types/**/*.ts",
     "**/*.mts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules",
+    "prisma/import-irs-bmf.ts",
+    "prisma/import-irs-single.ts",
+    "prisma/import-irs-single-path.ts",
+    "prisma/import-irs-copy.ts",
+    "prisma/import-irs-filings.ts",
+    "prisma/drop-gin-index.ts",
+    "prisma/test-connection.ts"
+  ]
 }

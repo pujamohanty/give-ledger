@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import Link from "next/link";
 import type { Session } from "next-auth";
 import { auth } from "@/lib/auth";
@@ -174,15 +176,7 @@ function MilestoneMockup() {
 
 /* ─── Landing page (logged-out) ──────────────────────────── */
 async function LandingPage({ session }: { session: Session | null }) {
-  const [
-    donorCount,
-    ngoCount,
-    milestoneCount,
-    disbursedTotal,
-    openRoles,
-    featuredProjects,
-    openRolesCount,
-  ] = await Promise.all([
+  const data = await Promise.all([
     prisma.user.count({ where: { role: "DONOR" } }),
     prisma.ngo.count({ where: { status: "ACTIVE" } }),
     prisma.milestone.count({ where: { status: "COMPLETED" } }),
@@ -200,9 +194,15 @@ async function LandingPage({ session }: { session: Session | null }) {
       orderBy: { raisedAmount: "desc" },
     }),
     prisma.ngoRole.count({ where: { status: "OPEN" } }),
-  ]);
+  ]).catch(() => null);
 
-  const totalDisbursed = disbursedTotal._sum.requestedAmount ?? 0;
+  const donorCount = data?.[0] ?? 0;
+  const ngoCount = data?.[1] ?? 0;
+  const milestoneCount = data?.[2] ?? 0;
+  const totalDisbursed = data?.[3]._sum.requestedAmount ?? 0;
+  const openRoles = data?.[4] ?? [];
+  const featuredProjects = data?.[5] ?? [];
+  const openRolesCount = data?.[6] ?? 0;
 
   return (
     <div className="min-h-screen bg-white">
@@ -1148,41 +1148,52 @@ async function LandingPage({ session }: { session: Session | null }) {
 async function FeedPage({ session }: { session: Session | null }) {
   const LIMIT = 20;
 
-  const [events, donorCount, ngoCount, projectCount, milestoneCount, featuredProjectsRaw, recentNgosRaw, allProjectsRaw, openRolesRaw, openRolesCount, subscription] =
-    await Promise.all([
-      prisma.activityEvent.findMany({ take: LIMIT + 1, orderBy: { createdAt: "desc" } }),
-      prisma.user.count({ where: { role: "DONOR" } }),
-      prisma.ngo.count({ where: { status: "ACTIVE" } }),
-      prisma.project.count(),
-      prisma.milestone.count({ where: { status: "COMPLETED" } }),
-      prisma.project.findMany({
-        take: 3,
-        where: { status: "ACTIVE" },
-        include: { ngo: { select: { orgName: true } } },
-        orderBy: { raisedAmount: "desc" },
-      }),
-      prisma.ngo.findMany({
-        take: 5,
-        where: { status: "ACTIVE" },
-        select: { id: true, orgName: true, description: true },
-        orderBy: { createdAt: "desc" },
-      }),
-      prisma.project.findMany({
-        where: { status: "ACTIVE" },
-        include: { ngo: { select: { orgName: true } }, _count: { select: { milestones: true } } },
-        orderBy: { createdAt: "desc" },
-      }),
-      prisma.ngoRole.findMany({
-        take: 4,
-        where: { status: "OPEN" },
-        include: { ngo: { select: { id: true, orgName: true } } },
-        orderBy: { createdAt: "desc" },
-      }),
-      prisma.ngoRole.count({ where: { status: "OPEN" } }),
-      session?.user?.role === "DONOR"
-        ? prisma.subscription.findUnique({ where: { userId: session.user.id }, select: { plan: true } })
-        : Promise.resolve(null),
-    ]);
+  const data = await Promise.all([
+    prisma.activityEvent.findMany({ take: LIMIT + 1, orderBy: { createdAt: "desc" } }),
+    prisma.user.count({ where: { role: "DONOR" } }),
+    prisma.ngo.count({ where: { status: "ACTIVE" } }),
+    prisma.project.count(),
+    prisma.milestone.count({ where: { status: "COMPLETED" } }),
+    prisma.project.findMany({
+      take: 3,
+      where: { status: "ACTIVE" },
+      include: { ngo: { select: { orgName: true } } },
+      orderBy: { raisedAmount: "desc" },
+    }),
+    prisma.ngo.findMany({
+      take: 5,
+      where: { status: "ACTIVE" },
+      select: { id: true, orgName: true, description: true },
+      orderBy: { createdAt: "desc" },
+    }),
+    prisma.project.findMany({
+      where: { status: "ACTIVE" },
+      include: { ngo: { select: { orgName: true } }, _count: { select: { milestones: true } } },
+      orderBy: { createdAt: "desc" },
+    }),
+    prisma.ngoRole.findMany({
+      take: 4,
+      where: { status: "OPEN" },
+      include: { ngo: { select: { id: true, orgName: true } } },
+      orderBy: { createdAt: "desc" },
+    }),
+    prisma.ngoRole.count({ where: { status: "OPEN" } }),
+    session?.user?.role === "DONOR"
+      ? prisma.subscription.findUnique({ where: { userId: session.user.id }, select: { plan: true } })
+      : Promise.resolve(null),
+  ]).catch(() => null);
+
+  const events = data?.[0] ?? [];
+  const donorCount = data?.[1] ?? 0;
+  const ngoCount = data?.[2] ?? 0;
+  const projectCount = data?.[3] ?? 0;
+  const milestoneCount = data?.[4] ?? 0;
+  const featuredProjectsRaw = data?.[5] ?? [];
+  const recentNgosRaw = data?.[6] ?? [];
+  const allProjectsRaw = data?.[7] ?? [];
+  const openRolesRaw = data?.[8] ?? [];
+  const openRolesCount = data?.[9] ?? 0;
+  const subscription = data?.[10] ?? null;
 
   const isPro = subscription?.plan === "PRO";
 
@@ -1228,7 +1239,32 @@ async function FeedPage({ session }: { session: Session | null }) {
 
 /* ─── Root page — branches on session ───────────────────── */
 export default async function HomePage() {
-  const session = await auth();
-  if (session?.user) return <FeedPage session={session} />;
-  return <LandingPage session={session} />;
+  let session = null;
+  try {
+    session = await auth();
+  } catch {
+    // stale JWT or auth error — treat as guest
+  }
+  try {
+    if (session?.user) return <FeedPage session={session} />;
+    return <LandingPage session={session} />;
+  } catch (err) {
+    console.error("[HomePage] render error:", err);
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center px-4">
+        <div className="text-center max-w-md">
+          <div className="w-16 h-16 bg-emerald-50 rounded-2xl flex items-center justify-center mx-auto mb-6">
+            <Shield className="w-8 h-8 text-emerald-600" />
+          </div>
+          <h1 className="text-2xl font-bold text-gray-900 mb-3">Back in a moment</h1>
+          <p className="text-gray-500 mb-6">
+            GiveLedger is undergoing a brief maintenance window. Please refresh in a few minutes.
+          </p>
+          <a href="/" className="inline-flex items-center gap-2 bg-emerald-700 text-white px-6 py-3 rounded-xl font-semibold hover:bg-emerald-800 transition">
+            Try again
+          </a>
+        </div>
+      </div>
+    );
+  }
 }

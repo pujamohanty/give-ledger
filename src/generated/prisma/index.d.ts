@@ -193,6 +193,16 @@ export type ChallengeAcceptance = $Result.DefaultSelection<Prisma.$ChallengeAcce
  * 
  */
 export type Subscription = $Result.DefaultSelection<Prisma.$SubscriptionPayload>
+/**
+ * Model IrsOrganization
+ * 
+ */
+export type IrsOrganization = $Result.DefaultSelection<Prisma.$IrsOrganizationPayload>
+/**
+ * Model IrsFiling
+ * 
+ */
+export type IrsFiling = $Result.DefaultSelection<Prisma.$IrsFilingPayload>
 
 /**
  * Enums
@@ -846,6 +856,26 @@ export class PrismaClient<
     * ```
     */
   get subscription(): Prisma.SubscriptionDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.irsOrganization`: Exposes CRUD operations for the **IrsOrganization** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more IrsOrganizations
+    * const irsOrganizations = await prisma.irsOrganization.findMany()
+    * ```
+    */
+  get irsOrganization(): Prisma.IrsOrganizationDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.irsFiling`: Exposes CRUD operations for the **IrsFiling** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more IrsFilings
+    * const irsFilings = await prisma.irsFiling.findMany()
+    * ```
+    */
+  get irsFiling(): Prisma.IrsFilingDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -1315,7 +1345,9 @@ export namespace Prisma {
     RoleEngagement: 'RoleEngagement',
     DonorChallenge: 'DonorChallenge',
     ChallengeAcceptance: 'ChallengeAcceptance',
-    Subscription: 'Subscription'
+    Subscription: 'Subscription',
+    IrsOrganization: 'IrsOrganization',
+    IrsFiling: 'IrsFiling'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1331,7 +1363,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "account" | "session" | "verificationToken" | "user" | "donorApplicationProfile" | "betaTesterProfile" | "ngo" | "project" | "milestone" | "evidenceFile" | "outputMarker" | "donation" | "disbursement" | "expense" | "blockchainRecord" | "rating" | "platformSetting" | "notification" | "spotlightVote" | "campaign" | "campaignContributor" | "ngoSuggestion" | "referral" | "activityEvent" | "boardMember" | "skillContribution" | "skillBlockchainRecord" | "donorEndorsement" | "donorDocument" | "ngoDocument" | "ngoRole" | "roleApplication" | "roleEngagement" | "donorChallenge" | "challengeAcceptance" | "subscription"
+      modelProps: "account" | "session" | "verificationToken" | "user" | "donorApplicationProfile" | "betaTesterProfile" | "ngo" | "project" | "milestone" | "evidenceFile" | "outputMarker" | "donation" | "disbursement" | "expense" | "blockchainRecord" | "rating" | "platformSetting" | "notification" | "spotlightVote" | "campaign" | "campaignContributor" | "ngoSuggestion" | "referral" | "activityEvent" | "boardMember" | "skillContribution" | "skillBlockchainRecord" | "donorEndorsement" | "donorDocument" | "ngoDocument" | "ngoRole" | "roleApplication" | "roleEngagement" | "donorChallenge" | "challengeAcceptance" | "subscription" | "irsOrganization" | "irsFiling"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -3999,6 +4031,154 @@ export namespace Prisma {
           }
         }
       }
+      IrsOrganization: {
+        payload: Prisma.$IrsOrganizationPayload<ExtArgs>
+        fields: Prisma.IrsOrganizationFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.IrsOrganizationFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IrsOrganizationPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.IrsOrganizationFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IrsOrganizationPayload>
+          }
+          findFirst: {
+            args: Prisma.IrsOrganizationFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IrsOrganizationPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.IrsOrganizationFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IrsOrganizationPayload>
+          }
+          findMany: {
+            args: Prisma.IrsOrganizationFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IrsOrganizationPayload>[]
+          }
+          create: {
+            args: Prisma.IrsOrganizationCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IrsOrganizationPayload>
+          }
+          createMany: {
+            args: Prisma.IrsOrganizationCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.IrsOrganizationCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IrsOrganizationPayload>[]
+          }
+          delete: {
+            args: Prisma.IrsOrganizationDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IrsOrganizationPayload>
+          }
+          update: {
+            args: Prisma.IrsOrganizationUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IrsOrganizationPayload>
+          }
+          deleteMany: {
+            args: Prisma.IrsOrganizationDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.IrsOrganizationUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.IrsOrganizationUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IrsOrganizationPayload>[]
+          }
+          upsert: {
+            args: Prisma.IrsOrganizationUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IrsOrganizationPayload>
+          }
+          aggregate: {
+            args: Prisma.IrsOrganizationAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateIrsOrganization>
+          }
+          groupBy: {
+            args: Prisma.IrsOrganizationGroupByArgs<ExtArgs>
+            result: $Utils.Optional<IrsOrganizationGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.IrsOrganizationCountArgs<ExtArgs>
+            result: $Utils.Optional<IrsOrganizationCountAggregateOutputType> | number
+          }
+        }
+      }
+      IrsFiling: {
+        payload: Prisma.$IrsFilingPayload<ExtArgs>
+        fields: Prisma.IrsFilingFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.IrsFilingFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IrsFilingPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.IrsFilingFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IrsFilingPayload>
+          }
+          findFirst: {
+            args: Prisma.IrsFilingFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IrsFilingPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.IrsFilingFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IrsFilingPayload>
+          }
+          findMany: {
+            args: Prisma.IrsFilingFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IrsFilingPayload>[]
+          }
+          create: {
+            args: Prisma.IrsFilingCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IrsFilingPayload>
+          }
+          createMany: {
+            args: Prisma.IrsFilingCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.IrsFilingCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IrsFilingPayload>[]
+          }
+          delete: {
+            args: Prisma.IrsFilingDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IrsFilingPayload>
+          }
+          update: {
+            args: Prisma.IrsFilingUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IrsFilingPayload>
+          }
+          deleteMany: {
+            args: Prisma.IrsFilingDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.IrsFilingUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.IrsFilingUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IrsFilingPayload>[]
+          }
+          upsert: {
+            args: Prisma.IrsFilingUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IrsFilingPayload>
+          }
+          aggregate: {
+            args: Prisma.IrsFilingAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateIrsFiling>
+          }
+          groupBy: {
+            args: Prisma.IrsFilingGroupByArgs<ExtArgs>
+            result: $Utils.Optional<IrsFilingGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.IrsFilingCountArgs<ExtArgs>
+            result: $Utils.Optional<IrsFilingCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -4143,6 +4323,8 @@ export namespace Prisma {
     donorChallenge?: DonorChallengeOmit
     challengeAcceptance?: ChallengeAcceptanceOmit
     subscription?: SubscriptionOmit
+    irsOrganization?: IrsOrganizationOmit
+    irsFiling?: IrsFilingOmit
   }
 
   /* Types for Logging */
@@ -4729,6 +4911,37 @@ export namespace Prisma {
    */
   export type DonorChallengeCountOutputTypeCountAcceptancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ChallengeAcceptanceWhereInput
+  }
+
+
+  /**
+   * Count Type IrsOrganizationCountOutputType
+   */
+
+  export type IrsOrganizationCountOutputType = {
+    filings: number
+  }
+
+  export type IrsOrganizationCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    filings?: boolean | IrsOrganizationCountOutputTypeCountFilingsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * IrsOrganizationCountOutputType without action
+   */
+  export type IrsOrganizationCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IrsOrganizationCountOutputType
+     */
+    select?: IrsOrganizationCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * IrsOrganizationCountOutputType without action
+   */
+  export type IrsOrganizationCountOutputTypeCountFilingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: IrsFilingWhereInput
   }
 
 
@@ -12392,6 +12605,7 @@ export namespace Prisma {
     documents?: boolean | Ngo$documentsArgs<ExtArgs>
     roles?: boolean | Ngo$rolesArgs<ExtArgs>
     challenges?: boolean | Ngo$challengesArgs<ExtArgs>
+    irsOrganization?: boolean | Ngo$irsOrganizationArgs<ExtArgs>
     _count?: boolean | NgoCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["ngo"]>
 
@@ -12469,6 +12683,7 @@ export namespace Prisma {
     documents?: boolean | Ngo$documentsArgs<ExtArgs>
     roles?: boolean | Ngo$rolesArgs<ExtArgs>
     challenges?: boolean | Ngo$challengesArgs<ExtArgs>
+    irsOrganization?: boolean | Ngo$irsOrganizationArgs<ExtArgs>
     _count?: boolean | NgoCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type NgoIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -12491,6 +12706,7 @@ export namespace Prisma {
       documents: Prisma.$NgoDocumentPayload<ExtArgs>[]
       roles: Prisma.$NgoRolePayload<ExtArgs>[]
       challenges: Prisma.$DonorChallengePayload<ExtArgs>[]
+      irsOrganization: Prisma.$IrsOrganizationPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -12914,6 +13130,7 @@ export namespace Prisma {
     documents<T extends Ngo$documentsArgs<ExtArgs> = {}>(args?: Subset<T, Ngo$documentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NgoDocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     roles<T extends Ngo$rolesArgs<ExtArgs> = {}>(args?: Subset<T, Ngo$rolesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NgoRolePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     challenges<T extends Ngo$challengesArgs<ExtArgs> = {}>(args?: Subset<T, Ngo$challengesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DonorChallengePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    irsOrganization<T extends Ngo$irsOrganizationArgs<ExtArgs> = {}>(args?: Subset<T, Ngo$irsOrganizationArgs<ExtArgs>>): Prisma__IrsOrganizationClient<$Result.GetResult<Prisma.$IrsOrganizationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -13569,6 +13786,25 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: DonorChallengeScalarFieldEnum | DonorChallengeScalarFieldEnum[]
+  }
+
+  /**
+   * Ngo.irsOrganization
+   */
+  export type Ngo$irsOrganizationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IrsOrganization
+     */
+    select?: IrsOrganizationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the IrsOrganization
+     */
+    omit?: IrsOrganizationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IrsOrganizationInclude<ExtArgs> | null
+    where?: IrsOrganizationWhereInput
   }
 
   /**
@@ -47239,6 +47475,3039 @@ export namespace Prisma {
 
 
   /**
+   * Model IrsOrganization
+   */
+
+  export type AggregateIrsOrganization = {
+    _count: IrsOrganizationCountAggregateOutputType | null
+    _avg: IrsOrganizationAvgAggregateOutputType | null
+    _sum: IrsOrganizationSumAggregateOutputType | null
+    _min: IrsOrganizationMinAggregateOutputType | null
+    _max: IrsOrganizationMaxAggregateOutputType | null
+  }
+
+  export type IrsOrganizationAvgAggregateOutputType = {
+    subsection: number | null
+    affiliation: number | null
+    classification: number | null
+    deductibility: number | null
+    foundation: number | null
+    organization: number | null
+    exemptStatus: number | null
+    assetCode: number | null
+    incomeCode: number | null
+    filingReqCode: number | null
+    pfFilingReqCode: number | null
+    accountingPeriod: number | null
+    assetAmount: number | null
+    incomeAmount: number | null
+    revenueAmount: number | null
+  }
+
+  export type IrsOrganizationSumAggregateOutputType = {
+    subsection: number | null
+    affiliation: number | null
+    classification: number | null
+    deductibility: number | null
+    foundation: number | null
+    organization: number | null
+    exemptStatus: number | null
+    assetCode: number | null
+    incomeCode: number | null
+    filingReqCode: number | null
+    pfFilingReqCode: number | null
+    accountingPeriod: number | null
+    assetAmount: bigint | null
+    incomeAmount: bigint | null
+    revenueAmount: bigint | null
+  }
+
+  export type IrsOrganizationMinAggregateOutputType = {
+    id: string | null
+    ein: string | null
+    name: string | null
+    sortName: string | null
+    ico: string | null
+    street: string | null
+    city: string | null
+    state: string | null
+    zip: string | null
+    subsection: number | null
+    affiliation: number | null
+    classification: number | null
+    ruling: string | null
+    deductibility: number | null
+    foundation: number | null
+    activity: string | null
+    organization: number | null
+    exemptStatus: number | null
+    taxPeriod: string | null
+    assetCode: number | null
+    incomeCode: number | null
+    filingReqCode: number | null
+    pfFilingReqCode: number | null
+    accountingPeriod: number | null
+    assetAmount: bigint | null
+    incomeAmount: bigint | null
+    revenueAmount: bigint | null
+    nteeCode: string | null
+    groupNumber: string | null
+    ngoId: string | null
+    bmfLastUpdated: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type IrsOrganizationMaxAggregateOutputType = {
+    id: string | null
+    ein: string | null
+    name: string | null
+    sortName: string | null
+    ico: string | null
+    street: string | null
+    city: string | null
+    state: string | null
+    zip: string | null
+    subsection: number | null
+    affiliation: number | null
+    classification: number | null
+    ruling: string | null
+    deductibility: number | null
+    foundation: number | null
+    activity: string | null
+    organization: number | null
+    exemptStatus: number | null
+    taxPeriod: string | null
+    assetCode: number | null
+    incomeCode: number | null
+    filingReqCode: number | null
+    pfFilingReqCode: number | null
+    accountingPeriod: number | null
+    assetAmount: bigint | null
+    incomeAmount: bigint | null
+    revenueAmount: bigint | null
+    nteeCode: string | null
+    groupNumber: string | null
+    ngoId: string | null
+    bmfLastUpdated: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type IrsOrganizationCountAggregateOutputType = {
+    id: number
+    ein: number
+    name: number
+    sortName: number
+    ico: number
+    street: number
+    city: number
+    state: number
+    zip: number
+    subsection: number
+    affiliation: number
+    classification: number
+    ruling: number
+    deductibility: number
+    foundation: number
+    activity: number
+    organization: number
+    exemptStatus: number
+    taxPeriod: number
+    assetCode: number
+    incomeCode: number
+    filingReqCode: number
+    pfFilingReqCode: number
+    accountingPeriod: number
+    assetAmount: number
+    incomeAmount: number
+    revenueAmount: number
+    nteeCode: number
+    groupNumber: number
+    ngoId: number
+    bmfLastUpdated: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type IrsOrganizationAvgAggregateInputType = {
+    subsection?: true
+    affiliation?: true
+    classification?: true
+    deductibility?: true
+    foundation?: true
+    organization?: true
+    exemptStatus?: true
+    assetCode?: true
+    incomeCode?: true
+    filingReqCode?: true
+    pfFilingReqCode?: true
+    accountingPeriod?: true
+    assetAmount?: true
+    incomeAmount?: true
+    revenueAmount?: true
+  }
+
+  export type IrsOrganizationSumAggregateInputType = {
+    subsection?: true
+    affiliation?: true
+    classification?: true
+    deductibility?: true
+    foundation?: true
+    organization?: true
+    exemptStatus?: true
+    assetCode?: true
+    incomeCode?: true
+    filingReqCode?: true
+    pfFilingReqCode?: true
+    accountingPeriod?: true
+    assetAmount?: true
+    incomeAmount?: true
+    revenueAmount?: true
+  }
+
+  export type IrsOrganizationMinAggregateInputType = {
+    id?: true
+    ein?: true
+    name?: true
+    sortName?: true
+    ico?: true
+    street?: true
+    city?: true
+    state?: true
+    zip?: true
+    subsection?: true
+    affiliation?: true
+    classification?: true
+    ruling?: true
+    deductibility?: true
+    foundation?: true
+    activity?: true
+    organization?: true
+    exemptStatus?: true
+    taxPeriod?: true
+    assetCode?: true
+    incomeCode?: true
+    filingReqCode?: true
+    pfFilingReqCode?: true
+    accountingPeriod?: true
+    assetAmount?: true
+    incomeAmount?: true
+    revenueAmount?: true
+    nteeCode?: true
+    groupNumber?: true
+    ngoId?: true
+    bmfLastUpdated?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type IrsOrganizationMaxAggregateInputType = {
+    id?: true
+    ein?: true
+    name?: true
+    sortName?: true
+    ico?: true
+    street?: true
+    city?: true
+    state?: true
+    zip?: true
+    subsection?: true
+    affiliation?: true
+    classification?: true
+    ruling?: true
+    deductibility?: true
+    foundation?: true
+    activity?: true
+    organization?: true
+    exemptStatus?: true
+    taxPeriod?: true
+    assetCode?: true
+    incomeCode?: true
+    filingReqCode?: true
+    pfFilingReqCode?: true
+    accountingPeriod?: true
+    assetAmount?: true
+    incomeAmount?: true
+    revenueAmount?: true
+    nteeCode?: true
+    groupNumber?: true
+    ngoId?: true
+    bmfLastUpdated?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type IrsOrganizationCountAggregateInputType = {
+    id?: true
+    ein?: true
+    name?: true
+    sortName?: true
+    ico?: true
+    street?: true
+    city?: true
+    state?: true
+    zip?: true
+    subsection?: true
+    affiliation?: true
+    classification?: true
+    ruling?: true
+    deductibility?: true
+    foundation?: true
+    activity?: true
+    organization?: true
+    exemptStatus?: true
+    taxPeriod?: true
+    assetCode?: true
+    incomeCode?: true
+    filingReqCode?: true
+    pfFilingReqCode?: true
+    accountingPeriod?: true
+    assetAmount?: true
+    incomeAmount?: true
+    revenueAmount?: true
+    nteeCode?: true
+    groupNumber?: true
+    ngoId?: true
+    bmfLastUpdated?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type IrsOrganizationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which IrsOrganization to aggregate.
+     */
+    where?: IrsOrganizationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of IrsOrganizations to fetch.
+     */
+    orderBy?: IrsOrganizationOrderByWithRelationInput | IrsOrganizationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: IrsOrganizationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` IrsOrganizations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` IrsOrganizations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned IrsOrganizations
+    **/
+    _count?: true | IrsOrganizationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: IrsOrganizationAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: IrsOrganizationSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: IrsOrganizationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: IrsOrganizationMaxAggregateInputType
+  }
+
+  export type GetIrsOrganizationAggregateType<T extends IrsOrganizationAggregateArgs> = {
+        [P in keyof T & keyof AggregateIrsOrganization]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateIrsOrganization[P]>
+      : GetScalarType<T[P], AggregateIrsOrganization[P]>
+  }
+
+
+
+
+  export type IrsOrganizationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: IrsOrganizationWhereInput
+    orderBy?: IrsOrganizationOrderByWithAggregationInput | IrsOrganizationOrderByWithAggregationInput[]
+    by: IrsOrganizationScalarFieldEnum[] | IrsOrganizationScalarFieldEnum
+    having?: IrsOrganizationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: IrsOrganizationCountAggregateInputType | true
+    _avg?: IrsOrganizationAvgAggregateInputType
+    _sum?: IrsOrganizationSumAggregateInputType
+    _min?: IrsOrganizationMinAggregateInputType
+    _max?: IrsOrganizationMaxAggregateInputType
+  }
+
+  export type IrsOrganizationGroupByOutputType = {
+    id: string
+    ein: string
+    name: string
+    sortName: string | null
+    ico: string | null
+    street: string | null
+    city: string | null
+    state: string | null
+    zip: string | null
+    subsection: number | null
+    affiliation: number | null
+    classification: number | null
+    ruling: string | null
+    deductibility: number | null
+    foundation: number | null
+    activity: string | null
+    organization: number | null
+    exemptStatus: number | null
+    taxPeriod: string | null
+    assetCode: number | null
+    incomeCode: number | null
+    filingReqCode: number | null
+    pfFilingReqCode: number | null
+    accountingPeriod: number | null
+    assetAmount: bigint | null
+    incomeAmount: bigint | null
+    revenueAmount: bigint | null
+    nteeCode: string | null
+    groupNumber: string | null
+    ngoId: string | null
+    bmfLastUpdated: Date | null
+    createdAt: Date
+    updatedAt: Date
+    _count: IrsOrganizationCountAggregateOutputType | null
+    _avg: IrsOrganizationAvgAggregateOutputType | null
+    _sum: IrsOrganizationSumAggregateOutputType | null
+    _min: IrsOrganizationMinAggregateOutputType | null
+    _max: IrsOrganizationMaxAggregateOutputType | null
+  }
+
+  type GetIrsOrganizationGroupByPayload<T extends IrsOrganizationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<IrsOrganizationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof IrsOrganizationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], IrsOrganizationGroupByOutputType[P]>
+            : GetScalarType<T[P], IrsOrganizationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type IrsOrganizationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    ein?: boolean
+    name?: boolean
+    sortName?: boolean
+    ico?: boolean
+    street?: boolean
+    city?: boolean
+    state?: boolean
+    zip?: boolean
+    subsection?: boolean
+    affiliation?: boolean
+    classification?: boolean
+    ruling?: boolean
+    deductibility?: boolean
+    foundation?: boolean
+    activity?: boolean
+    organization?: boolean
+    exemptStatus?: boolean
+    taxPeriod?: boolean
+    assetCode?: boolean
+    incomeCode?: boolean
+    filingReqCode?: boolean
+    pfFilingReqCode?: boolean
+    accountingPeriod?: boolean
+    assetAmount?: boolean
+    incomeAmount?: boolean
+    revenueAmount?: boolean
+    nteeCode?: boolean
+    groupNumber?: boolean
+    ngoId?: boolean
+    bmfLastUpdated?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    ngo?: boolean | IrsOrganization$ngoArgs<ExtArgs>
+    filings?: boolean | IrsOrganization$filingsArgs<ExtArgs>
+    _count?: boolean | IrsOrganizationCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["irsOrganization"]>
+
+  export type IrsOrganizationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    ein?: boolean
+    name?: boolean
+    sortName?: boolean
+    ico?: boolean
+    street?: boolean
+    city?: boolean
+    state?: boolean
+    zip?: boolean
+    subsection?: boolean
+    affiliation?: boolean
+    classification?: boolean
+    ruling?: boolean
+    deductibility?: boolean
+    foundation?: boolean
+    activity?: boolean
+    organization?: boolean
+    exemptStatus?: boolean
+    taxPeriod?: boolean
+    assetCode?: boolean
+    incomeCode?: boolean
+    filingReqCode?: boolean
+    pfFilingReqCode?: boolean
+    accountingPeriod?: boolean
+    assetAmount?: boolean
+    incomeAmount?: boolean
+    revenueAmount?: boolean
+    nteeCode?: boolean
+    groupNumber?: boolean
+    ngoId?: boolean
+    bmfLastUpdated?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    ngo?: boolean | IrsOrganization$ngoArgs<ExtArgs>
+  }, ExtArgs["result"]["irsOrganization"]>
+
+  export type IrsOrganizationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    ein?: boolean
+    name?: boolean
+    sortName?: boolean
+    ico?: boolean
+    street?: boolean
+    city?: boolean
+    state?: boolean
+    zip?: boolean
+    subsection?: boolean
+    affiliation?: boolean
+    classification?: boolean
+    ruling?: boolean
+    deductibility?: boolean
+    foundation?: boolean
+    activity?: boolean
+    organization?: boolean
+    exemptStatus?: boolean
+    taxPeriod?: boolean
+    assetCode?: boolean
+    incomeCode?: boolean
+    filingReqCode?: boolean
+    pfFilingReqCode?: boolean
+    accountingPeriod?: boolean
+    assetAmount?: boolean
+    incomeAmount?: boolean
+    revenueAmount?: boolean
+    nteeCode?: boolean
+    groupNumber?: boolean
+    ngoId?: boolean
+    bmfLastUpdated?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    ngo?: boolean | IrsOrganization$ngoArgs<ExtArgs>
+  }, ExtArgs["result"]["irsOrganization"]>
+
+  export type IrsOrganizationSelectScalar = {
+    id?: boolean
+    ein?: boolean
+    name?: boolean
+    sortName?: boolean
+    ico?: boolean
+    street?: boolean
+    city?: boolean
+    state?: boolean
+    zip?: boolean
+    subsection?: boolean
+    affiliation?: boolean
+    classification?: boolean
+    ruling?: boolean
+    deductibility?: boolean
+    foundation?: boolean
+    activity?: boolean
+    organization?: boolean
+    exemptStatus?: boolean
+    taxPeriod?: boolean
+    assetCode?: boolean
+    incomeCode?: boolean
+    filingReqCode?: boolean
+    pfFilingReqCode?: boolean
+    accountingPeriod?: boolean
+    assetAmount?: boolean
+    incomeAmount?: boolean
+    revenueAmount?: boolean
+    nteeCode?: boolean
+    groupNumber?: boolean
+    ngoId?: boolean
+    bmfLastUpdated?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type IrsOrganizationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "ein" | "name" | "sortName" | "ico" | "street" | "city" | "state" | "zip" | "subsection" | "affiliation" | "classification" | "ruling" | "deductibility" | "foundation" | "activity" | "organization" | "exemptStatus" | "taxPeriod" | "assetCode" | "incomeCode" | "filingReqCode" | "pfFilingReqCode" | "accountingPeriod" | "assetAmount" | "incomeAmount" | "revenueAmount" | "nteeCode" | "groupNumber" | "ngoId" | "bmfLastUpdated" | "createdAt" | "updatedAt", ExtArgs["result"]["irsOrganization"]>
+  export type IrsOrganizationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    ngo?: boolean | IrsOrganization$ngoArgs<ExtArgs>
+    filings?: boolean | IrsOrganization$filingsArgs<ExtArgs>
+    _count?: boolean | IrsOrganizationCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type IrsOrganizationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    ngo?: boolean | IrsOrganization$ngoArgs<ExtArgs>
+  }
+  export type IrsOrganizationIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    ngo?: boolean | IrsOrganization$ngoArgs<ExtArgs>
+  }
+
+  export type $IrsOrganizationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "IrsOrganization"
+    objects: {
+      ngo: Prisma.$NgoPayload<ExtArgs> | null
+      filings: Prisma.$IrsFilingPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      ein: string
+      name: string
+      sortName: string | null
+      ico: string | null
+      street: string | null
+      city: string | null
+      state: string | null
+      zip: string | null
+      subsection: number | null
+      affiliation: number | null
+      classification: number | null
+      ruling: string | null
+      deductibility: number | null
+      foundation: number | null
+      activity: string | null
+      organization: number | null
+      exemptStatus: number | null
+      taxPeriod: string | null
+      assetCode: number | null
+      incomeCode: number | null
+      filingReqCode: number | null
+      pfFilingReqCode: number | null
+      accountingPeriod: number | null
+      assetAmount: bigint | null
+      incomeAmount: bigint | null
+      revenueAmount: bigint | null
+      nteeCode: string | null
+      groupNumber: string | null
+      ngoId: string | null
+      bmfLastUpdated: Date | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["irsOrganization"]>
+    composites: {}
+  }
+
+  type IrsOrganizationGetPayload<S extends boolean | null | undefined | IrsOrganizationDefaultArgs> = $Result.GetResult<Prisma.$IrsOrganizationPayload, S>
+
+  type IrsOrganizationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<IrsOrganizationFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: IrsOrganizationCountAggregateInputType | true
+    }
+
+  export interface IrsOrganizationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['IrsOrganization'], meta: { name: 'IrsOrganization' } }
+    /**
+     * Find zero or one IrsOrganization that matches the filter.
+     * @param {IrsOrganizationFindUniqueArgs} args - Arguments to find a IrsOrganization
+     * @example
+     * // Get one IrsOrganization
+     * const irsOrganization = await prisma.irsOrganization.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends IrsOrganizationFindUniqueArgs>(args: SelectSubset<T, IrsOrganizationFindUniqueArgs<ExtArgs>>): Prisma__IrsOrganizationClient<$Result.GetResult<Prisma.$IrsOrganizationPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one IrsOrganization that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {IrsOrganizationFindUniqueOrThrowArgs} args - Arguments to find a IrsOrganization
+     * @example
+     * // Get one IrsOrganization
+     * const irsOrganization = await prisma.irsOrganization.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends IrsOrganizationFindUniqueOrThrowArgs>(args: SelectSubset<T, IrsOrganizationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__IrsOrganizationClient<$Result.GetResult<Prisma.$IrsOrganizationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first IrsOrganization that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IrsOrganizationFindFirstArgs} args - Arguments to find a IrsOrganization
+     * @example
+     * // Get one IrsOrganization
+     * const irsOrganization = await prisma.irsOrganization.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends IrsOrganizationFindFirstArgs>(args?: SelectSubset<T, IrsOrganizationFindFirstArgs<ExtArgs>>): Prisma__IrsOrganizationClient<$Result.GetResult<Prisma.$IrsOrganizationPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first IrsOrganization that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IrsOrganizationFindFirstOrThrowArgs} args - Arguments to find a IrsOrganization
+     * @example
+     * // Get one IrsOrganization
+     * const irsOrganization = await prisma.irsOrganization.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends IrsOrganizationFindFirstOrThrowArgs>(args?: SelectSubset<T, IrsOrganizationFindFirstOrThrowArgs<ExtArgs>>): Prisma__IrsOrganizationClient<$Result.GetResult<Prisma.$IrsOrganizationPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more IrsOrganizations that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IrsOrganizationFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all IrsOrganizations
+     * const irsOrganizations = await prisma.irsOrganization.findMany()
+     * 
+     * // Get first 10 IrsOrganizations
+     * const irsOrganizations = await prisma.irsOrganization.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const irsOrganizationWithIdOnly = await prisma.irsOrganization.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends IrsOrganizationFindManyArgs>(args?: SelectSubset<T, IrsOrganizationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IrsOrganizationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a IrsOrganization.
+     * @param {IrsOrganizationCreateArgs} args - Arguments to create a IrsOrganization.
+     * @example
+     * // Create one IrsOrganization
+     * const IrsOrganization = await prisma.irsOrganization.create({
+     *   data: {
+     *     // ... data to create a IrsOrganization
+     *   }
+     * })
+     * 
+     */
+    create<T extends IrsOrganizationCreateArgs>(args: SelectSubset<T, IrsOrganizationCreateArgs<ExtArgs>>): Prisma__IrsOrganizationClient<$Result.GetResult<Prisma.$IrsOrganizationPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many IrsOrganizations.
+     * @param {IrsOrganizationCreateManyArgs} args - Arguments to create many IrsOrganizations.
+     * @example
+     * // Create many IrsOrganizations
+     * const irsOrganization = await prisma.irsOrganization.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends IrsOrganizationCreateManyArgs>(args?: SelectSubset<T, IrsOrganizationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many IrsOrganizations and returns the data saved in the database.
+     * @param {IrsOrganizationCreateManyAndReturnArgs} args - Arguments to create many IrsOrganizations.
+     * @example
+     * // Create many IrsOrganizations
+     * const irsOrganization = await prisma.irsOrganization.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many IrsOrganizations and only return the `id`
+     * const irsOrganizationWithIdOnly = await prisma.irsOrganization.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends IrsOrganizationCreateManyAndReturnArgs>(args?: SelectSubset<T, IrsOrganizationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IrsOrganizationPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a IrsOrganization.
+     * @param {IrsOrganizationDeleteArgs} args - Arguments to delete one IrsOrganization.
+     * @example
+     * // Delete one IrsOrganization
+     * const IrsOrganization = await prisma.irsOrganization.delete({
+     *   where: {
+     *     // ... filter to delete one IrsOrganization
+     *   }
+     * })
+     * 
+     */
+    delete<T extends IrsOrganizationDeleteArgs>(args: SelectSubset<T, IrsOrganizationDeleteArgs<ExtArgs>>): Prisma__IrsOrganizationClient<$Result.GetResult<Prisma.$IrsOrganizationPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one IrsOrganization.
+     * @param {IrsOrganizationUpdateArgs} args - Arguments to update one IrsOrganization.
+     * @example
+     * // Update one IrsOrganization
+     * const irsOrganization = await prisma.irsOrganization.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends IrsOrganizationUpdateArgs>(args: SelectSubset<T, IrsOrganizationUpdateArgs<ExtArgs>>): Prisma__IrsOrganizationClient<$Result.GetResult<Prisma.$IrsOrganizationPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more IrsOrganizations.
+     * @param {IrsOrganizationDeleteManyArgs} args - Arguments to filter IrsOrganizations to delete.
+     * @example
+     * // Delete a few IrsOrganizations
+     * const { count } = await prisma.irsOrganization.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends IrsOrganizationDeleteManyArgs>(args?: SelectSubset<T, IrsOrganizationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more IrsOrganizations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IrsOrganizationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many IrsOrganizations
+     * const irsOrganization = await prisma.irsOrganization.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends IrsOrganizationUpdateManyArgs>(args: SelectSubset<T, IrsOrganizationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more IrsOrganizations and returns the data updated in the database.
+     * @param {IrsOrganizationUpdateManyAndReturnArgs} args - Arguments to update many IrsOrganizations.
+     * @example
+     * // Update many IrsOrganizations
+     * const irsOrganization = await prisma.irsOrganization.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more IrsOrganizations and only return the `id`
+     * const irsOrganizationWithIdOnly = await prisma.irsOrganization.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends IrsOrganizationUpdateManyAndReturnArgs>(args: SelectSubset<T, IrsOrganizationUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IrsOrganizationPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one IrsOrganization.
+     * @param {IrsOrganizationUpsertArgs} args - Arguments to update or create a IrsOrganization.
+     * @example
+     * // Update or create a IrsOrganization
+     * const irsOrganization = await prisma.irsOrganization.upsert({
+     *   create: {
+     *     // ... data to create a IrsOrganization
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the IrsOrganization we want to update
+     *   }
+     * })
+     */
+    upsert<T extends IrsOrganizationUpsertArgs>(args: SelectSubset<T, IrsOrganizationUpsertArgs<ExtArgs>>): Prisma__IrsOrganizationClient<$Result.GetResult<Prisma.$IrsOrganizationPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of IrsOrganizations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IrsOrganizationCountArgs} args - Arguments to filter IrsOrganizations to count.
+     * @example
+     * // Count the number of IrsOrganizations
+     * const count = await prisma.irsOrganization.count({
+     *   where: {
+     *     // ... the filter for the IrsOrganizations we want to count
+     *   }
+     * })
+    **/
+    count<T extends IrsOrganizationCountArgs>(
+      args?: Subset<T, IrsOrganizationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], IrsOrganizationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a IrsOrganization.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IrsOrganizationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends IrsOrganizationAggregateArgs>(args: Subset<T, IrsOrganizationAggregateArgs>): Prisma.PrismaPromise<GetIrsOrganizationAggregateType<T>>
+
+    /**
+     * Group by IrsOrganization.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IrsOrganizationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends IrsOrganizationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: IrsOrganizationGroupByArgs['orderBy'] }
+        : { orderBy?: IrsOrganizationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, IrsOrganizationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetIrsOrganizationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the IrsOrganization model
+   */
+  readonly fields: IrsOrganizationFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for IrsOrganization.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__IrsOrganizationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    ngo<T extends IrsOrganization$ngoArgs<ExtArgs> = {}>(args?: Subset<T, IrsOrganization$ngoArgs<ExtArgs>>): Prisma__NgoClient<$Result.GetResult<Prisma.$NgoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    filings<T extends IrsOrganization$filingsArgs<ExtArgs> = {}>(args?: Subset<T, IrsOrganization$filingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IrsFilingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the IrsOrganization model
+   */
+  interface IrsOrganizationFieldRefs {
+    readonly id: FieldRef<"IrsOrganization", 'String'>
+    readonly ein: FieldRef<"IrsOrganization", 'String'>
+    readonly name: FieldRef<"IrsOrganization", 'String'>
+    readonly sortName: FieldRef<"IrsOrganization", 'String'>
+    readonly ico: FieldRef<"IrsOrganization", 'String'>
+    readonly street: FieldRef<"IrsOrganization", 'String'>
+    readonly city: FieldRef<"IrsOrganization", 'String'>
+    readonly state: FieldRef<"IrsOrganization", 'String'>
+    readonly zip: FieldRef<"IrsOrganization", 'String'>
+    readonly subsection: FieldRef<"IrsOrganization", 'Int'>
+    readonly affiliation: FieldRef<"IrsOrganization", 'Int'>
+    readonly classification: FieldRef<"IrsOrganization", 'Int'>
+    readonly ruling: FieldRef<"IrsOrganization", 'String'>
+    readonly deductibility: FieldRef<"IrsOrganization", 'Int'>
+    readonly foundation: FieldRef<"IrsOrganization", 'Int'>
+    readonly activity: FieldRef<"IrsOrganization", 'String'>
+    readonly organization: FieldRef<"IrsOrganization", 'Int'>
+    readonly exemptStatus: FieldRef<"IrsOrganization", 'Int'>
+    readonly taxPeriod: FieldRef<"IrsOrganization", 'String'>
+    readonly assetCode: FieldRef<"IrsOrganization", 'Int'>
+    readonly incomeCode: FieldRef<"IrsOrganization", 'Int'>
+    readonly filingReqCode: FieldRef<"IrsOrganization", 'Int'>
+    readonly pfFilingReqCode: FieldRef<"IrsOrganization", 'Int'>
+    readonly accountingPeriod: FieldRef<"IrsOrganization", 'Int'>
+    readonly assetAmount: FieldRef<"IrsOrganization", 'BigInt'>
+    readonly incomeAmount: FieldRef<"IrsOrganization", 'BigInt'>
+    readonly revenueAmount: FieldRef<"IrsOrganization", 'BigInt'>
+    readonly nteeCode: FieldRef<"IrsOrganization", 'String'>
+    readonly groupNumber: FieldRef<"IrsOrganization", 'String'>
+    readonly ngoId: FieldRef<"IrsOrganization", 'String'>
+    readonly bmfLastUpdated: FieldRef<"IrsOrganization", 'DateTime'>
+    readonly createdAt: FieldRef<"IrsOrganization", 'DateTime'>
+    readonly updatedAt: FieldRef<"IrsOrganization", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * IrsOrganization findUnique
+   */
+  export type IrsOrganizationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IrsOrganization
+     */
+    select?: IrsOrganizationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the IrsOrganization
+     */
+    omit?: IrsOrganizationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IrsOrganizationInclude<ExtArgs> | null
+    /**
+     * Filter, which IrsOrganization to fetch.
+     */
+    where: IrsOrganizationWhereUniqueInput
+  }
+
+  /**
+   * IrsOrganization findUniqueOrThrow
+   */
+  export type IrsOrganizationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IrsOrganization
+     */
+    select?: IrsOrganizationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the IrsOrganization
+     */
+    omit?: IrsOrganizationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IrsOrganizationInclude<ExtArgs> | null
+    /**
+     * Filter, which IrsOrganization to fetch.
+     */
+    where: IrsOrganizationWhereUniqueInput
+  }
+
+  /**
+   * IrsOrganization findFirst
+   */
+  export type IrsOrganizationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IrsOrganization
+     */
+    select?: IrsOrganizationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the IrsOrganization
+     */
+    omit?: IrsOrganizationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IrsOrganizationInclude<ExtArgs> | null
+    /**
+     * Filter, which IrsOrganization to fetch.
+     */
+    where?: IrsOrganizationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of IrsOrganizations to fetch.
+     */
+    orderBy?: IrsOrganizationOrderByWithRelationInput | IrsOrganizationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for IrsOrganizations.
+     */
+    cursor?: IrsOrganizationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` IrsOrganizations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` IrsOrganizations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of IrsOrganizations.
+     */
+    distinct?: IrsOrganizationScalarFieldEnum | IrsOrganizationScalarFieldEnum[]
+  }
+
+  /**
+   * IrsOrganization findFirstOrThrow
+   */
+  export type IrsOrganizationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IrsOrganization
+     */
+    select?: IrsOrganizationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the IrsOrganization
+     */
+    omit?: IrsOrganizationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IrsOrganizationInclude<ExtArgs> | null
+    /**
+     * Filter, which IrsOrganization to fetch.
+     */
+    where?: IrsOrganizationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of IrsOrganizations to fetch.
+     */
+    orderBy?: IrsOrganizationOrderByWithRelationInput | IrsOrganizationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for IrsOrganizations.
+     */
+    cursor?: IrsOrganizationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` IrsOrganizations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` IrsOrganizations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of IrsOrganizations.
+     */
+    distinct?: IrsOrganizationScalarFieldEnum | IrsOrganizationScalarFieldEnum[]
+  }
+
+  /**
+   * IrsOrganization findMany
+   */
+  export type IrsOrganizationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IrsOrganization
+     */
+    select?: IrsOrganizationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the IrsOrganization
+     */
+    omit?: IrsOrganizationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IrsOrganizationInclude<ExtArgs> | null
+    /**
+     * Filter, which IrsOrganizations to fetch.
+     */
+    where?: IrsOrganizationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of IrsOrganizations to fetch.
+     */
+    orderBy?: IrsOrganizationOrderByWithRelationInput | IrsOrganizationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing IrsOrganizations.
+     */
+    cursor?: IrsOrganizationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` IrsOrganizations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` IrsOrganizations.
+     */
+    skip?: number
+    distinct?: IrsOrganizationScalarFieldEnum | IrsOrganizationScalarFieldEnum[]
+  }
+
+  /**
+   * IrsOrganization create
+   */
+  export type IrsOrganizationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IrsOrganization
+     */
+    select?: IrsOrganizationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the IrsOrganization
+     */
+    omit?: IrsOrganizationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IrsOrganizationInclude<ExtArgs> | null
+    /**
+     * The data needed to create a IrsOrganization.
+     */
+    data: XOR<IrsOrganizationCreateInput, IrsOrganizationUncheckedCreateInput>
+  }
+
+  /**
+   * IrsOrganization createMany
+   */
+  export type IrsOrganizationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many IrsOrganizations.
+     */
+    data: IrsOrganizationCreateManyInput | IrsOrganizationCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * IrsOrganization createManyAndReturn
+   */
+  export type IrsOrganizationCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IrsOrganization
+     */
+    select?: IrsOrganizationSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the IrsOrganization
+     */
+    omit?: IrsOrganizationOmit<ExtArgs> | null
+    /**
+     * The data used to create many IrsOrganizations.
+     */
+    data: IrsOrganizationCreateManyInput | IrsOrganizationCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IrsOrganizationIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * IrsOrganization update
+   */
+  export type IrsOrganizationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IrsOrganization
+     */
+    select?: IrsOrganizationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the IrsOrganization
+     */
+    omit?: IrsOrganizationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IrsOrganizationInclude<ExtArgs> | null
+    /**
+     * The data needed to update a IrsOrganization.
+     */
+    data: XOR<IrsOrganizationUpdateInput, IrsOrganizationUncheckedUpdateInput>
+    /**
+     * Choose, which IrsOrganization to update.
+     */
+    where: IrsOrganizationWhereUniqueInput
+  }
+
+  /**
+   * IrsOrganization updateMany
+   */
+  export type IrsOrganizationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update IrsOrganizations.
+     */
+    data: XOR<IrsOrganizationUpdateManyMutationInput, IrsOrganizationUncheckedUpdateManyInput>
+    /**
+     * Filter which IrsOrganizations to update
+     */
+    where?: IrsOrganizationWhereInput
+    /**
+     * Limit how many IrsOrganizations to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * IrsOrganization updateManyAndReturn
+   */
+  export type IrsOrganizationUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IrsOrganization
+     */
+    select?: IrsOrganizationSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the IrsOrganization
+     */
+    omit?: IrsOrganizationOmit<ExtArgs> | null
+    /**
+     * The data used to update IrsOrganizations.
+     */
+    data: XOR<IrsOrganizationUpdateManyMutationInput, IrsOrganizationUncheckedUpdateManyInput>
+    /**
+     * Filter which IrsOrganizations to update
+     */
+    where?: IrsOrganizationWhereInput
+    /**
+     * Limit how many IrsOrganizations to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IrsOrganizationIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * IrsOrganization upsert
+   */
+  export type IrsOrganizationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IrsOrganization
+     */
+    select?: IrsOrganizationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the IrsOrganization
+     */
+    omit?: IrsOrganizationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IrsOrganizationInclude<ExtArgs> | null
+    /**
+     * The filter to search for the IrsOrganization to update in case it exists.
+     */
+    where: IrsOrganizationWhereUniqueInput
+    /**
+     * In case the IrsOrganization found by the `where` argument doesn't exist, create a new IrsOrganization with this data.
+     */
+    create: XOR<IrsOrganizationCreateInput, IrsOrganizationUncheckedCreateInput>
+    /**
+     * In case the IrsOrganization was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<IrsOrganizationUpdateInput, IrsOrganizationUncheckedUpdateInput>
+  }
+
+  /**
+   * IrsOrganization delete
+   */
+  export type IrsOrganizationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IrsOrganization
+     */
+    select?: IrsOrganizationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the IrsOrganization
+     */
+    omit?: IrsOrganizationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IrsOrganizationInclude<ExtArgs> | null
+    /**
+     * Filter which IrsOrganization to delete.
+     */
+    where: IrsOrganizationWhereUniqueInput
+  }
+
+  /**
+   * IrsOrganization deleteMany
+   */
+  export type IrsOrganizationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which IrsOrganizations to delete
+     */
+    where?: IrsOrganizationWhereInput
+    /**
+     * Limit how many IrsOrganizations to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * IrsOrganization.ngo
+   */
+  export type IrsOrganization$ngoArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Ngo
+     */
+    select?: NgoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Ngo
+     */
+    omit?: NgoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NgoInclude<ExtArgs> | null
+    where?: NgoWhereInput
+  }
+
+  /**
+   * IrsOrganization.filings
+   */
+  export type IrsOrganization$filingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IrsFiling
+     */
+    select?: IrsFilingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the IrsFiling
+     */
+    omit?: IrsFilingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IrsFilingInclude<ExtArgs> | null
+    where?: IrsFilingWhereInput
+    orderBy?: IrsFilingOrderByWithRelationInput | IrsFilingOrderByWithRelationInput[]
+    cursor?: IrsFilingWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: IrsFilingScalarFieldEnum | IrsFilingScalarFieldEnum[]
+  }
+
+  /**
+   * IrsOrganization without action
+   */
+  export type IrsOrganizationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IrsOrganization
+     */
+    select?: IrsOrganizationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the IrsOrganization
+     */
+    omit?: IrsOrganizationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IrsOrganizationInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model IrsFiling
+   */
+
+  export type AggregateIrsFiling = {
+    _count: IrsFilingCountAggregateOutputType | null
+    _avg: IrsFilingAvgAggregateOutputType | null
+    _sum: IrsFilingSumAggregateOutputType | null
+    _min: IrsFilingMinAggregateOutputType | null
+    _max: IrsFilingMaxAggregateOutputType | null
+  }
+
+  export type IrsFilingAvgAggregateOutputType = {
+    taxYear: number | null
+    totalRevenue: number | null
+    totalExpenses: number | null
+    totalAssetsEOY: number | null
+    totalAssetsBOY: number | null
+    totalLiabilitiesEOY: number | null
+    totalLiabilitiesBOY: number | null
+    netAssetsEOY: number | null
+    contributionsAndGrants: number | null
+    programServiceRevenue: number | null
+    investmentIncome: number | null
+    otherRevenue: number | null
+    salariesAndWages: number | null
+    compensationOfficers: number | null
+    otherExpenses: number | null
+    pctOfficerCompensation: number | null
+    employeeCount: number | null
+    volunteerCount: number | null
+  }
+
+  export type IrsFilingSumAggregateOutputType = {
+    taxYear: number | null
+    totalRevenue: bigint | null
+    totalExpenses: bigint | null
+    totalAssetsEOY: bigint | null
+    totalAssetsBOY: bigint | null
+    totalLiabilitiesEOY: bigint | null
+    totalLiabilitiesBOY: bigint | null
+    netAssetsEOY: bigint | null
+    contributionsAndGrants: bigint | null
+    programServiceRevenue: bigint | null
+    investmentIncome: bigint | null
+    otherRevenue: bigint | null
+    salariesAndWages: bigint | null
+    compensationOfficers: bigint | null
+    otherExpenses: bigint | null
+    pctOfficerCompensation: number | null
+    employeeCount: number | null
+    volunteerCount: number | null
+  }
+
+  export type IrsFilingMinAggregateOutputType = {
+    id: string | null
+    ein: string | null
+    taxYear: number | null
+    taxPeriodBegin: Date | null
+    taxPeriodEnd: Date | null
+    returnType: string | null
+    totalRevenue: bigint | null
+    totalExpenses: bigint | null
+    totalAssetsEOY: bigint | null
+    totalAssetsBOY: bigint | null
+    totalLiabilitiesEOY: bigint | null
+    totalLiabilitiesBOY: bigint | null
+    netAssetsEOY: bigint | null
+    contributionsAndGrants: bigint | null
+    programServiceRevenue: bigint | null
+    investmentIncome: bigint | null
+    otherRevenue: bigint | null
+    salariesAndWages: bigint | null
+    compensationOfficers: bigint | null
+    otherExpenses: bigint | null
+    pctOfficerCompensation: number | null
+    employeeCount: number | null
+    volunteerCount: number | null
+    objectId: string | null
+    xmlBatchId: string | null
+    filingType: string | null
+    pdfUrl: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type IrsFilingMaxAggregateOutputType = {
+    id: string | null
+    ein: string | null
+    taxYear: number | null
+    taxPeriodBegin: Date | null
+    taxPeriodEnd: Date | null
+    returnType: string | null
+    totalRevenue: bigint | null
+    totalExpenses: bigint | null
+    totalAssetsEOY: bigint | null
+    totalAssetsBOY: bigint | null
+    totalLiabilitiesEOY: bigint | null
+    totalLiabilitiesBOY: bigint | null
+    netAssetsEOY: bigint | null
+    contributionsAndGrants: bigint | null
+    programServiceRevenue: bigint | null
+    investmentIncome: bigint | null
+    otherRevenue: bigint | null
+    salariesAndWages: bigint | null
+    compensationOfficers: bigint | null
+    otherExpenses: bigint | null
+    pctOfficerCompensation: number | null
+    employeeCount: number | null
+    volunteerCount: number | null
+    objectId: string | null
+    xmlBatchId: string | null
+    filingType: string | null
+    pdfUrl: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type IrsFilingCountAggregateOutputType = {
+    id: number
+    ein: number
+    taxYear: number
+    taxPeriodBegin: number
+    taxPeriodEnd: number
+    returnType: number
+    totalRevenue: number
+    totalExpenses: number
+    totalAssetsEOY: number
+    totalAssetsBOY: number
+    totalLiabilitiesEOY: number
+    totalLiabilitiesBOY: number
+    netAssetsEOY: number
+    contributionsAndGrants: number
+    programServiceRevenue: number
+    investmentIncome: number
+    otherRevenue: number
+    salariesAndWages: number
+    compensationOfficers: number
+    otherExpenses: number
+    pctOfficerCompensation: number
+    employeeCount: number
+    volunteerCount: number
+    objectId: number
+    xmlBatchId: number
+    filingType: number
+    pdfUrl: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type IrsFilingAvgAggregateInputType = {
+    taxYear?: true
+    totalRevenue?: true
+    totalExpenses?: true
+    totalAssetsEOY?: true
+    totalAssetsBOY?: true
+    totalLiabilitiesEOY?: true
+    totalLiabilitiesBOY?: true
+    netAssetsEOY?: true
+    contributionsAndGrants?: true
+    programServiceRevenue?: true
+    investmentIncome?: true
+    otherRevenue?: true
+    salariesAndWages?: true
+    compensationOfficers?: true
+    otherExpenses?: true
+    pctOfficerCompensation?: true
+    employeeCount?: true
+    volunteerCount?: true
+  }
+
+  export type IrsFilingSumAggregateInputType = {
+    taxYear?: true
+    totalRevenue?: true
+    totalExpenses?: true
+    totalAssetsEOY?: true
+    totalAssetsBOY?: true
+    totalLiabilitiesEOY?: true
+    totalLiabilitiesBOY?: true
+    netAssetsEOY?: true
+    contributionsAndGrants?: true
+    programServiceRevenue?: true
+    investmentIncome?: true
+    otherRevenue?: true
+    salariesAndWages?: true
+    compensationOfficers?: true
+    otherExpenses?: true
+    pctOfficerCompensation?: true
+    employeeCount?: true
+    volunteerCount?: true
+  }
+
+  export type IrsFilingMinAggregateInputType = {
+    id?: true
+    ein?: true
+    taxYear?: true
+    taxPeriodBegin?: true
+    taxPeriodEnd?: true
+    returnType?: true
+    totalRevenue?: true
+    totalExpenses?: true
+    totalAssetsEOY?: true
+    totalAssetsBOY?: true
+    totalLiabilitiesEOY?: true
+    totalLiabilitiesBOY?: true
+    netAssetsEOY?: true
+    contributionsAndGrants?: true
+    programServiceRevenue?: true
+    investmentIncome?: true
+    otherRevenue?: true
+    salariesAndWages?: true
+    compensationOfficers?: true
+    otherExpenses?: true
+    pctOfficerCompensation?: true
+    employeeCount?: true
+    volunteerCount?: true
+    objectId?: true
+    xmlBatchId?: true
+    filingType?: true
+    pdfUrl?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type IrsFilingMaxAggregateInputType = {
+    id?: true
+    ein?: true
+    taxYear?: true
+    taxPeriodBegin?: true
+    taxPeriodEnd?: true
+    returnType?: true
+    totalRevenue?: true
+    totalExpenses?: true
+    totalAssetsEOY?: true
+    totalAssetsBOY?: true
+    totalLiabilitiesEOY?: true
+    totalLiabilitiesBOY?: true
+    netAssetsEOY?: true
+    contributionsAndGrants?: true
+    programServiceRevenue?: true
+    investmentIncome?: true
+    otherRevenue?: true
+    salariesAndWages?: true
+    compensationOfficers?: true
+    otherExpenses?: true
+    pctOfficerCompensation?: true
+    employeeCount?: true
+    volunteerCount?: true
+    objectId?: true
+    xmlBatchId?: true
+    filingType?: true
+    pdfUrl?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type IrsFilingCountAggregateInputType = {
+    id?: true
+    ein?: true
+    taxYear?: true
+    taxPeriodBegin?: true
+    taxPeriodEnd?: true
+    returnType?: true
+    totalRevenue?: true
+    totalExpenses?: true
+    totalAssetsEOY?: true
+    totalAssetsBOY?: true
+    totalLiabilitiesEOY?: true
+    totalLiabilitiesBOY?: true
+    netAssetsEOY?: true
+    contributionsAndGrants?: true
+    programServiceRevenue?: true
+    investmentIncome?: true
+    otherRevenue?: true
+    salariesAndWages?: true
+    compensationOfficers?: true
+    otherExpenses?: true
+    pctOfficerCompensation?: true
+    employeeCount?: true
+    volunteerCount?: true
+    objectId?: true
+    xmlBatchId?: true
+    filingType?: true
+    pdfUrl?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type IrsFilingAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which IrsFiling to aggregate.
+     */
+    where?: IrsFilingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of IrsFilings to fetch.
+     */
+    orderBy?: IrsFilingOrderByWithRelationInput | IrsFilingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: IrsFilingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` IrsFilings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` IrsFilings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned IrsFilings
+    **/
+    _count?: true | IrsFilingCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: IrsFilingAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: IrsFilingSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: IrsFilingMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: IrsFilingMaxAggregateInputType
+  }
+
+  export type GetIrsFilingAggregateType<T extends IrsFilingAggregateArgs> = {
+        [P in keyof T & keyof AggregateIrsFiling]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateIrsFiling[P]>
+      : GetScalarType<T[P], AggregateIrsFiling[P]>
+  }
+
+
+
+
+  export type IrsFilingGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: IrsFilingWhereInput
+    orderBy?: IrsFilingOrderByWithAggregationInput | IrsFilingOrderByWithAggregationInput[]
+    by: IrsFilingScalarFieldEnum[] | IrsFilingScalarFieldEnum
+    having?: IrsFilingScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: IrsFilingCountAggregateInputType | true
+    _avg?: IrsFilingAvgAggregateInputType
+    _sum?: IrsFilingSumAggregateInputType
+    _min?: IrsFilingMinAggregateInputType
+    _max?: IrsFilingMaxAggregateInputType
+  }
+
+  export type IrsFilingGroupByOutputType = {
+    id: string
+    ein: string
+    taxYear: number
+    taxPeriodBegin: Date | null
+    taxPeriodEnd: Date | null
+    returnType: string | null
+    totalRevenue: bigint | null
+    totalExpenses: bigint | null
+    totalAssetsEOY: bigint | null
+    totalAssetsBOY: bigint | null
+    totalLiabilitiesEOY: bigint | null
+    totalLiabilitiesBOY: bigint | null
+    netAssetsEOY: bigint | null
+    contributionsAndGrants: bigint | null
+    programServiceRevenue: bigint | null
+    investmentIncome: bigint | null
+    otherRevenue: bigint | null
+    salariesAndWages: bigint | null
+    compensationOfficers: bigint | null
+    otherExpenses: bigint | null
+    pctOfficerCompensation: number | null
+    employeeCount: number | null
+    volunteerCount: number | null
+    objectId: string | null
+    xmlBatchId: string | null
+    filingType: string | null
+    pdfUrl: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: IrsFilingCountAggregateOutputType | null
+    _avg: IrsFilingAvgAggregateOutputType | null
+    _sum: IrsFilingSumAggregateOutputType | null
+    _min: IrsFilingMinAggregateOutputType | null
+    _max: IrsFilingMaxAggregateOutputType | null
+  }
+
+  type GetIrsFilingGroupByPayload<T extends IrsFilingGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<IrsFilingGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof IrsFilingGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], IrsFilingGroupByOutputType[P]>
+            : GetScalarType<T[P], IrsFilingGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type IrsFilingSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    ein?: boolean
+    taxYear?: boolean
+    taxPeriodBegin?: boolean
+    taxPeriodEnd?: boolean
+    returnType?: boolean
+    totalRevenue?: boolean
+    totalExpenses?: boolean
+    totalAssetsEOY?: boolean
+    totalAssetsBOY?: boolean
+    totalLiabilitiesEOY?: boolean
+    totalLiabilitiesBOY?: boolean
+    netAssetsEOY?: boolean
+    contributionsAndGrants?: boolean
+    programServiceRevenue?: boolean
+    investmentIncome?: boolean
+    otherRevenue?: boolean
+    salariesAndWages?: boolean
+    compensationOfficers?: boolean
+    otherExpenses?: boolean
+    pctOfficerCompensation?: boolean
+    employeeCount?: boolean
+    volunteerCount?: boolean
+    objectId?: boolean
+    xmlBatchId?: boolean
+    filingType?: boolean
+    pdfUrl?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    organization?: boolean | IrsOrganizationDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["irsFiling"]>
+
+  export type IrsFilingSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    ein?: boolean
+    taxYear?: boolean
+    taxPeriodBegin?: boolean
+    taxPeriodEnd?: boolean
+    returnType?: boolean
+    totalRevenue?: boolean
+    totalExpenses?: boolean
+    totalAssetsEOY?: boolean
+    totalAssetsBOY?: boolean
+    totalLiabilitiesEOY?: boolean
+    totalLiabilitiesBOY?: boolean
+    netAssetsEOY?: boolean
+    contributionsAndGrants?: boolean
+    programServiceRevenue?: boolean
+    investmentIncome?: boolean
+    otherRevenue?: boolean
+    salariesAndWages?: boolean
+    compensationOfficers?: boolean
+    otherExpenses?: boolean
+    pctOfficerCompensation?: boolean
+    employeeCount?: boolean
+    volunteerCount?: boolean
+    objectId?: boolean
+    xmlBatchId?: boolean
+    filingType?: boolean
+    pdfUrl?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    organization?: boolean | IrsOrganizationDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["irsFiling"]>
+
+  export type IrsFilingSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    ein?: boolean
+    taxYear?: boolean
+    taxPeriodBegin?: boolean
+    taxPeriodEnd?: boolean
+    returnType?: boolean
+    totalRevenue?: boolean
+    totalExpenses?: boolean
+    totalAssetsEOY?: boolean
+    totalAssetsBOY?: boolean
+    totalLiabilitiesEOY?: boolean
+    totalLiabilitiesBOY?: boolean
+    netAssetsEOY?: boolean
+    contributionsAndGrants?: boolean
+    programServiceRevenue?: boolean
+    investmentIncome?: boolean
+    otherRevenue?: boolean
+    salariesAndWages?: boolean
+    compensationOfficers?: boolean
+    otherExpenses?: boolean
+    pctOfficerCompensation?: boolean
+    employeeCount?: boolean
+    volunteerCount?: boolean
+    objectId?: boolean
+    xmlBatchId?: boolean
+    filingType?: boolean
+    pdfUrl?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    organization?: boolean | IrsOrganizationDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["irsFiling"]>
+
+  export type IrsFilingSelectScalar = {
+    id?: boolean
+    ein?: boolean
+    taxYear?: boolean
+    taxPeriodBegin?: boolean
+    taxPeriodEnd?: boolean
+    returnType?: boolean
+    totalRevenue?: boolean
+    totalExpenses?: boolean
+    totalAssetsEOY?: boolean
+    totalAssetsBOY?: boolean
+    totalLiabilitiesEOY?: boolean
+    totalLiabilitiesBOY?: boolean
+    netAssetsEOY?: boolean
+    contributionsAndGrants?: boolean
+    programServiceRevenue?: boolean
+    investmentIncome?: boolean
+    otherRevenue?: boolean
+    salariesAndWages?: boolean
+    compensationOfficers?: boolean
+    otherExpenses?: boolean
+    pctOfficerCompensation?: boolean
+    employeeCount?: boolean
+    volunteerCount?: boolean
+    objectId?: boolean
+    xmlBatchId?: boolean
+    filingType?: boolean
+    pdfUrl?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type IrsFilingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "ein" | "taxYear" | "taxPeriodBegin" | "taxPeriodEnd" | "returnType" | "totalRevenue" | "totalExpenses" | "totalAssetsEOY" | "totalAssetsBOY" | "totalLiabilitiesEOY" | "totalLiabilitiesBOY" | "netAssetsEOY" | "contributionsAndGrants" | "programServiceRevenue" | "investmentIncome" | "otherRevenue" | "salariesAndWages" | "compensationOfficers" | "otherExpenses" | "pctOfficerCompensation" | "employeeCount" | "volunteerCount" | "objectId" | "xmlBatchId" | "filingType" | "pdfUrl" | "createdAt" | "updatedAt", ExtArgs["result"]["irsFiling"]>
+  export type IrsFilingInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    organization?: boolean | IrsOrganizationDefaultArgs<ExtArgs>
+  }
+  export type IrsFilingIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    organization?: boolean | IrsOrganizationDefaultArgs<ExtArgs>
+  }
+  export type IrsFilingIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    organization?: boolean | IrsOrganizationDefaultArgs<ExtArgs>
+  }
+
+  export type $IrsFilingPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "IrsFiling"
+    objects: {
+      organization: Prisma.$IrsOrganizationPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      ein: string
+      taxYear: number
+      taxPeriodBegin: Date | null
+      taxPeriodEnd: Date | null
+      returnType: string | null
+      totalRevenue: bigint | null
+      totalExpenses: bigint | null
+      totalAssetsEOY: bigint | null
+      totalAssetsBOY: bigint | null
+      totalLiabilitiesEOY: bigint | null
+      totalLiabilitiesBOY: bigint | null
+      netAssetsEOY: bigint | null
+      contributionsAndGrants: bigint | null
+      programServiceRevenue: bigint | null
+      investmentIncome: bigint | null
+      otherRevenue: bigint | null
+      salariesAndWages: bigint | null
+      compensationOfficers: bigint | null
+      otherExpenses: bigint | null
+      pctOfficerCompensation: number | null
+      employeeCount: number | null
+      volunteerCount: number | null
+      objectId: string | null
+      xmlBatchId: string | null
+      filingType: string | null
+      pdfUrl: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["irsFiling"]>
+    composites: {}
+  }
+
+  type IrsFilingGetPayload<S extends boolean | null | undefined | IrsFilingDefaultArgs> = $Result.GetResult<Prisma.$IrsFilingPayload, S>
+
+  type IrsFilingCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<IrsFilingFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: IrsFilingCountAggregateInputType | true
+    }
+
+  export interface IrsFilingDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['IrsFiling'], meta: { name: 'IrsFiling' } }
+    /**
+     * Find zero or one IrsFiling that matches the filter.
+     * @param {IrsFilingFindUniqueArgs} args - Arguments to find a IrsFiling
+     * @example
+     * // Get one IrsFiling
+     * const irsFiling = await prisma.irsFiling.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends IrsFilingFindUniqueArgs>(args: SelectSubset<T, IrsFilingFindUniqueArgs<ExtArgs>>): Prisma__IrsFilingClient<$Result.GetResult<Prisma.$IrsFilingPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one IrsFiling that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {IrsFilingFindUniqueOrThrowArgs} args - Arguments to find a IrsFiling
+     * @example
+     * // Get one IrsFiling
+     * const irsFiling = await prisma.irsFiling.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends IrsFilingFindUniqueOrThrowArgs>(args: SelectSubset<T, IrsFilingFindUniqueOrThrowArgs<ExtArgs>>): Prisma__IrsFilingClient<$Result.GetResult<Prisma.$IrsFilingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first IrsFiling that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IrsFilingFindFirstArgs} args - Arguments to find a IrsFiling
+     * @example
+     * // Get one IrsFiling
+     * const irsFiling = await prisma.irsFiling.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends IrsFilingFindFirstArgs>(args?: SelectSubset<T, IrsFilingFindFirstArgs<ExtArgs>>): Prisma__IrsFilingClient<$Result.GetResult<Prisma.$IrsFilingPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first IrsFiling that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IrsFilingFindFirstOrThrowArgs} args - Arguments to find a IrsFiling
+     * @example
+     * // Get one IrsFiling
+     * const irsFiling = await prisma.irsFiling.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends IrsFilingFindFirstOrThrowArgs>(args?: SelectSubset<T, IrsFilingFindFirstOrThrowArgs<ExtArgs>>): Prisma__IrsFilingClient<$Result.GetResult<Prisma.$IrsFilingPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more IrsFilings that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IrsFilingFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all IrsFilings
+     * const irsFilings = await prisma.irsFiling.findMany()
+     * 
+     * // Get first 10 IrsFilings
+     * const irsFilings = await prisma.irsFiling.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const irsFilingWithIdOnly = await prisma.irsFiling.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends IrsFilingFindManyArgs>(args?: SelectSubset<T, IrsFilingFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IrsFilingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a IrsFiling.
+     * @param {IrsFilingCreateArgs} args - Arguments to create a IrsFiling.
+     * @example
+     * // Create one IrsFiling
+     * const IrsFiling = await prisma.irsFiling.create({
+     *   data: {
+     *     // ... data to create a IrsFiling
+     *   }
+     * })
+     * 
+     */
+    create<T extends IrsFilingCreateArgs>(args: SelectSubset<T, IrsFilingCreateArgs<ExtArgs>>): Prisma__IrsFilingClient<$Result.GetResult<Prisma.$IrsFilingPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many IrsFilings.
+     * @param {IrsFilingCreateManyArgs} args - Arguments to create many IrsFilings.
+     * @example
+     * // Create many IrsFilings
+     * const irsFiling = await prisma.irsFiling.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends IrsFilingCreateManyArgs>(args?: SelectSubset<T, IrsFilingCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many IrsFilings and returns the data saved in the database.
+     * @param {IrsFilingCreateManyAndReturnArgs} args - Arguments to create many IrsFilings.
+     * @example
+     * // Create many IrsFilings
+     * const irsFiling = await prisma.irsFiling.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many IrsFilings and only return the `id`
+     * const irsFilingWithIdOnly = await prisma.irsFiling.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends IrsFilingCreateManyAndReturnArgs>(args?: SelectSubset<T, IrsFilingCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IrsFilingPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a IrsFiling.
+     * @param {IrsFilingDeleteArgs} args - Arguments to delete one IrsFiling.
+     * @example
+     * // Delete one IrsFiling
+     * const IrsFiling = await prisma.irsFiling.delete({
+     *   where: {
+     *     // ... filter to delete one IrsFiling
+     *   }
+     * })
+     * 
+     */
+    delete<T extends IrsFilingDeleteArgs>(args: SelectSubset<T, IrsFilingDeleteArgs<ExtArgs>>): Prisma__IrsFilingClient<$Result.GetResult<Prisma.$IrsFilingPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one IrsFiling.
+     * @param {IrsFilingUpdateArgs} args - Arguments to update one IrsFiling.
+     * @example
+     * // Update one IrsFiling
+     * const irsFiling = await prisma.irsFiling.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends IrsFilingUpdateArgs>(args: SelectSubset<T, IrsFilingUpdateArgs<ExtArgs>>): Prisma__IrsFilingClient<$Result.GetResult<Prisma.$IrsFilingPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more IrsFilings.
+     * @param {IrsFilingDeleteManyArgs} args - Arguments to filter IrsFilings to delete.
+     * @example
+     * // Delete a few IrsFilings
+     * const { count } = await prisma.irsFiling.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends IrsFilingDeleteManyArgs>(args?: SelectSubset<T, IrsFilingDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more IrsFilings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IrsFilingUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many IrsFilings
+     * const irsFiling = await prisma.irsFiling.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends IrsFilingUpdateManyArgs>(args: SelectSubset<T, IrsFilingUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more IrsFilings and returns the data updated in the database.
+     * @param {IrsFilingUpdateManyAndReturnArgs} args - Arguments to update many IrsFilings.
+     * @example
+     * // Update many IrsFilings
+     * const irsFiling = await prisma.irsFiling.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more IrsFilings and only return the `id`
+     * const irsFilingWithIdOnly = await prisma.irsFiling.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends IrsFilingUpdateManyAndReturnArgs>(args: SelectSubset<T, IrsFilingUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IrsFilingPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one IrsFiling.
+     * @param {IrsFilingUpsertArgs} args - Arguments to update or create a IrsFiling.
+     * @example
+     * // Update or create a IrsFiling
+     * const irsFiling = await prisma.irsFiling.upsert({
+     *   create: {
+     *     // ... data to create a IrsFiling
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the IrsFiling we want to update
+     *   }
+     * })
+     */
+    upsert<T extends IrsFilingUpsertArgs>(args: SelectSubset<T, IrsFilingUpsertArgs<ExtArgs>>): Prisma__IrsFilingClient<$Result.GetResult<Prisma.$IrsFilingPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of IrsFilings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IrsFilingCountArgs} args - Arguments to filter IrsFilings to count.
+     * @example
+     * // Count the number of IrsFilings
+     * const count = await prisma.irsFiling.count({
+     *   where: {
+     *     // ... the filter for the IrsFilings we want to count
+     *   }
+     * })
+    **/
+    count<T extends IrsFilingCountArgs>(
+      args?: Subset<T, IrsFilingCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], IrsFilingCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a IrsFiling.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IrsFilingAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends IrsFilingAggregateArgs>(args: Subset<T, IrsFilingAggregateArgs>): Prisma.PrismaPromise<GetIrsFilingAggregateType<T>>
+
+    /**
+     * Group by IrsFiling.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IrsFilingGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends IrsFilingGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: IrsFilingGroupByArgs['orderBy'] }
+        : { orderBy?: IrsFilingGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, IrsFilingGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetIrsFilingGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the IrsFiling model
+   */
+  readonly fields: IrsFilingFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for IrsFiling.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__IrsFilingClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    organization<T extends IrsOrganizationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, IrsOrganizationDefaultArgs<ExtArgs>>): Prisma__IrsOrganizationClient<$Result.GetResult<Prisma.$IrsOrganizationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the IrsFiling model
+   */
+  interface IrsFilingFieldRefs {
+    readonly id: FieldRef<"IrsFiling", 'String'>
+    readonly ein: FieldRef<"IrsFiling", 'String'>
+    readonly taxYear: FieldRef<"IrsFiling", 'Int'>
+    readonly taxPeriodBegin: FieldRef<"IrsFiling", 'DateTime'>
+    readonly taxPeriodEnd: FieldRef<"IrsFiling", 'DateTime'>
+    readonly returnType: FieldRef<"IrsFiling", 'String'>
+    readonly totalRevenue: FieldRef<"IrsFiling", 'BigInt'>
+    readonly totalExpenses: FieldRef<"IrsFiling", 'BigInt'>
+    readonly totalAssetsEOY: FieldRef<"IrsFiling", 'BigInt'>
+    readonly totalAssetsBOY: FieldRef<"IrsFiling", 'BigInt'>
+    readonly totalLiabilitiesEOY: FieldRef<"IrsFiling", 'BigInt'>
+    readonly totalLiabilitiesBOY: FieldRef<"IrsFiling", 'BigInt'>
+    readonly netAssetsEOY: FieldRef<"IrsFiling", 'BigInt'>
+    readonly contributionsAndGrants: FieldRef<"IrsFiling", 'BigInt'>
+    readonly programServiceRevenue: FieldRef<"IrsFiling", 'BigInt'>
+    readonly investmentIncome: FieldRef<"IrsFiling", 'BigInt'>
+    readonly otherRevenue: FieldRef<"IrsFiling", 'BigInt'>
+    readonly salariesAndWages: FieldRef<"IrsFiling", 'BigInt'>
+    readonly compensationOfficers: FieldRef<"IrsFiling", 'BigInt'>
+    readonly otherExpenses: FieldRef<"IrsFiling", 'BigInt'>
+    readonly pctOfficerCompensation: FieldRef<"IrsFiling", 'Float'>
+    readonly employeeCount: FieldRef<"IrsFiling", 'Int'>
+    readonly volunteerCount: FieldRef<"IrsFiling", 'Int'>
+    readonly objectId: FieldRef<"IrsFiling", 'String'>
+    readonly xmlBatchId: FieldRef<"IrsFiling", 'String'>
+    readonly filingType: FieldRef<"IrsFiling", 'String'>
+    readonly pdfUrl: FieldRef<"IrsFiling", 'String'>
+    readonly createdAt: FieldRef<"IrsFiling", 'DateTime'>
+    readonly updatedAt: FieldRef<"IrsFiling", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * IrsFiling findUnique
+   */
+  export type IrsFilingFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IrsFiling
+     */
+    select?: IrsFilingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the IrsFiling
+     */
+    omit?: IrsFilingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IrsFilingInclude<ExtArgs> | null
+    /**
+     * Filter, which IrsFiling to fetch.
+     */
+    where: IrsFilingWhereUniqueInput
+  }
+
+  /**
+   * IrsFiling findUniqueOrThrow
+   */
+  export type IrsFilingFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IrsFiling
+     */
+    select?: IrsFilingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the IrsFiling
+     */
+    omit?: IrsFilingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IrsFilingInclude<ExtArgs> | null
+    /**
+     * Filter, which IrsFiling to fetch.
+     */
+    where: IrsFilingWhereUniqueInput
+  }
+
+  /**
+   * IrsFiling findFirst
+   */
+  export type IrsFilingFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IrsFiling
+     */
+    select?: IrsFilingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the IrsFiling
+     */
+    omit?: IrsFilingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IrsFilingInclude<ExtArgs> | null
+    /**
+     * Filter, which IrsFiling to fetch.
+     */
+    where?: IrsFilingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of IrsFilings to fetch.
+     */
+    orderBy?: IrsFilingOrderByWithRelationInput | IrsFilingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for IrsFilings.
+     */
+    cursor?: IrsFilingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` IrsFilings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` IrsFilings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of IrsFilings.
+     */
+    distinct?: IrsFilingScalarFieldEnum | IrsFilingScalarFieldEnum[]
+  }
+
+  /**
+   * IrsFiling findFirstOrThrow
+   */
+  export type IrsFilingFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IrsFiling
+     */
+    select?: IrsFilingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the IrsFiling
+     */
+    omit?: IrsFilingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IrsFilingInclude<ExtArgs> | null
+    /**
+     * Filter, which IrsFiling to fetch.
+     */
+    where?: IrsFilingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of IrsFilings to fetch.
+     */
+    orderBy?: IrsFilingOrderByWithRelationInput | IrsFilingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for IrsFilings.
+     */
+    cursor?: IrsFilingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` IrsFilings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` IrsFilings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of IrsFilings.
+     */
+    distinct?: IrsFilingScalarFieldEnum | IrsFilingScalarFieldEnum[]
+  }
+
+  /**
+   * IrsFiling findMany
+   */
+  export type IrsFilingFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IrsFiling
+     */
+    select?: IrsFilingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the IrsFiling
+     */
+    omit?: IrsFilingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IrsFilingInclude<ExtArgs> | null
+    /**
+     * Filter, which IrsFilings to fetch.
+     */
+    where?: IrsFilingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of IrsFilings to fetch.
+     */
+    orderBy?: IrsFilingOrderByWithRelationInput | IrsFilingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing IrsFilings.
+     */
+    cursor?: IrsFilingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` IrsFilings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` IrsFilings.
+     */
+    skip?: number
+    distinct?: IrsFilingScalarFieldEnum | IrsFilingScalarFieldEnum[]
+  }
+
+  /**
+   * IrsFiling create
+   */
+  export type IrsFilingCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IrsFiling
+     */
+    select?: IrsFilingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the IrsFiling
+     */
+    omit?: IrsFilingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IrsFilingInclude<ExtArgs> | null
+    /**
+     * The data needed to create a IrsFiling.
+     */
+    data: XOR<IrsFilingCreateInput, IrsFilingUncheckedCreateInput>
+  }
+
+  /**
+   * IrsFiling createMany
+   */
+  export type IrsFilingCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many IrsFilings.
+     */
+    data: IrsFilingCreateManyInput | IrsFilingCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * IrsFiling createManyAndReturn
+   */
+  export type IrsFilingCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IrsFiling
+     */
+    select?: IrsFilingSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the IrsFiling
+     */
+    omit?: IrsFilingOmit<ExtArgs> | null
+    /**
+     * The data used to create many IrsFilings.
+     */
+    data: IrsFilingCreateManyInput | IrsFilingCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IrsFilingIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * IrsFiling update
+   */
+  export type IrsFilingUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IrsFiling
+     */
+    select?: IrsFilingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the IrsFiling
+     */
+    omit?: IrsFilingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IrsFilingInclude<ExtArgs> | null
+    /**
+     * The data needed to update a IrsFiling.
+     */
+    data: XOR<IrsFilingUpdateInput, IrsFilingUncheckedUpdateInput>
+    /**
+     * Choose, which IrsFiling to update.
+     */
+    where: IrsFilingWhereUniqueInput
+  }
+
+  /**
+   * IrsFiling updateMany
+   */
+  export type IrsFilingUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update IrsFilings.
+     */
+    data: XOR<IrsFilingUpdateManyMutationInput, IrsFilingUncheckedUpdateManyInput>
+    /**
+     * Filter which IrsFilings to update
+     */
+    where?: IrsFilingWhereInput
+    /**
+     * Limit how many IrsFilings to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * IrsFiling updateManyAndReturn
+   */
+  export type IrsFilingUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IrsFiling
+     */
+    select?: IrsFilingSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the IrsFiling
+     */
+    omit?: IrsFilingOmit<ExtArgs> | null
+    /**
+     * The data used to update IrsFilings.
+     */
+    data: XOR<IrsFilingUpdateManyMutationInput, IrsFilingUncheckedUpdateManyInput>
+    /**
+     * Filter which IrsFilings to update
+     */
+    where?: IrsFilingWhereInput
+    /**
+     * Limit how many IrsFilings to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IrsFilingIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * IrsFiling upsert
+   */
+  export type IrsFilingUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IrsFiling
+     */
+    select?: IrsFilingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the IrsFiling
+     */
+    omit?: IrsFilingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IrsFilingInclude<ExtArgs> | null
+    /**
+     * The filter to search for the IrsFiling to update in case it exists.
+     */
+    where: IrsFilingWhereUniqueInput
+    /**
+     * In case the IrsFiling found by the `where` argument doesn't exist, create a new IrsFiling with this data.
+     */
+    create: XOR<IrsFilingCreateInput, IrsFilingUncheckedCreateInput>
+    /**
+     * In case the IrsFiling was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<IrsFilingUpdateInput, IrsFilingUncheckedUpdateInput>
+  }
+
+  /**
+   * IrsFiling delete
+   */
+  export type IrsFilingDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IrsFiling
+     */
+    select?: IrsFilingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the IrsFiling
+     */
+    omit?: IrsFilingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IrsFilingInclude<ExtArgs> | null
+    /**
+     * Filter which IrsFiling to delete.
+     */
+    where: IrsFilingWhereUniqueInput
+  }
+
+  /**
+   * IrsFiling deleteMany
+   */
+  export type IrsFilingDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which IrsFilings to delete
+     */
+    where?: IrsFilingWhereInput
+    /**
+     * Limit how many IrsFilings to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * IrsFiling without action
+   */
+  export type IrsFilingDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IrsFiling
+     */
+    select?: IrsFilingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the IrsFiling
+     */
+    omit?: IrsFilingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IrsFilingInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -47819,6 +51088,80 @@ export namespace Prisma {
   export type SubscriptionScalarFieldEnum = (typeof SubscriptionScalarFieldEnum)[keyof typeof SubscriptionScalarFieldEnum]
 
 
+  export const IrsOrganizationScalarFieldEnum: {
+    id: 'id',
+    ein: 'ein',
+    name: 'name',
+    sortName: 'sortName',
+    ico: 'ico',
+    street: 'street',
+    city: 'city',
+    state: 'state',
+    zip: 'zip',
+    subsection: 'subsection',
+    affiliation: 'affiliation',
+    classification: 'classification',
+    ruling: 'ruling',
+    deductibility: 'deductibility',
+    foundation: 'foundation',
+    activity: 'activity',
+    organization: 'organization',
+    exemptStatus: 'exemptStatus',
+    taxPeriod: 'taxPeriod',
+    assetCode: 'assetCode',
+    incomeCode: 'incomeCode',
+    filingReqCode: 'filingReqCode',
+    pfFilingReqCode: 'pfFilingReqCode',
+    accountingPeriod: 'accountingPeriod',
+    assetAmount: 'assetAmount',
+    incomeAmount: 'incomeAmount',
+    revenueAmount: 'revenueAmount',
+    nteeCode: 'nteeCode',
+    groupNumber: 'groupNumber',
+    ngoId: 'ngoId',
+    bmfLastUpdated: 'bmfLastUpdated',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type IrsOrganizationScalarFieldEnum = (typeof IrsOrganizationScalarFieldEnum)[keyof typeof IrsOrganizationScalarFieldEnum]
+
+
+  export const IrsFilingScalarFieldEnum: {
+    id: 'id',
+    ein: 'ein',
+    taxYear: 'taxYear',
+    taxPeriodBegin: 'taxPeriodBegin',
+    taxPeriodEnd: 'taxPeriodEnd',
+    returnType: 'returnType',
+    totalRevenue: 'totalRevenue',
+    totalExpenses: 'totalExpenses',
+    totalAssetsEOY: 'totalAssetsEOY',
+    totalAssetsBOY: 'totalAssetsBOY',
+    totalLiabilitiesEOY: 'totalLiabilitiesEOY',
+    totalLiabilitiesBOY: 'totalLiabilitiesBOY',
+    netAssetsEOY: 'netAssetsEOY',
+    contributionsAndGrants: 'contributionsAndGrants',
+    programServiceRevenue: 'programServiceRevenue',
+    investmentIncome: 'investmentIncome',
+    otherRevenue: 'otherRevenue',
+    salariesAndWages: 'salariesAndWages',
+    compensationOfficers: 'compensationOfficers',
+    otherExpenses: 'otherExpenses',
+    pctOfficerCompensation: 'pctOfficerCompensation',
+    employeeCount: 'employeeCount',
+    volunteerCount: 'volunteerCount',
+    objectId: 'objectId',
+    xmlBatchId: 'xmlBatchId',
+    filingType: 'filingType',
+    pdfUrl: 'pdfUrl',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type IrsFilingScalarFieldEnum = (typeof IrsFilingScalarFieldEnum)[keyof typeof IrsFilingScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -48076,6 +51419,20 @@ export namespace Prisma {
    * Reference to a field of type 'SubscriptionPlan[]'
    */
   export type ListEnumSubscriptionPlanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SubscriptionPlan[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'BigInt'
+   */
+  export type BigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BigInt'>
+    
+
+
+  /**
+   * Reference to a field of type 'BigInt[]'
+   */
+  export type ListBigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BigInt[]'>
     
   /**
    * Deep Input Types
@@ -48676,6 +52033,7 @@ export namespace Prisma {
     documents?: NgoDocumentListRelationFilter
     roles?: NgoRoleListRelationFilter
     challenges?: DonorChallengeListRelationFilter
+    irsOrganization?: XOR<IrsOrganizationNullableScalarRelationFilter, IrsOrganizationWhereInput> | null
   }
 
   export type NgoOrderByWithRelationInput = {
@@ -48706,6 +52064,7 @@ export namespace Prisma {
     documents?: NgoDocumentOrderByRelationAggregateInput
     roles?: NgoRoleOrderByRelationAggregateInput
     challenges?: DonorChallengeOrderByRelationAggregateInput
+    irsOrganization?: IrsOrganizationOrderByWithRelationInput
   }
 
   export type NgoWhereUniqueInput = Prisma.AtLeast<{
@@ -48739,6 +52098,7 @@ export namespace Prisma {
     documents?: NgoDocumentListRelationFilter
     roles?: NgoRoleListRelationFilter
     challenges?: DonorChallengeListRelationFilter
+    irsOrganization?: XOR<IrsOrganizationNullableScalarRelationFilter, IrsOrganizationWhereInput> | null
   }, "id" | "userId">
 
   export type NgoOrderByWithAggregationInput = {
@@ -51148,6 +54508,384 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"Subscription"> | Date | string
   }
 
+  export type IrsOrganizationWhereInput = {
+    AND?: IrsOrganizationWhereInput | IrsOrganizationWhereInput[]
+    OR?: IrsOrganizationWhereInput[]
+    NOT?: IrsOrganizationWhereInput | IrsOrganizationWhereInput[]
+    id?: StringFilter<"IrsOrganization"> | string
+    ein?: StringFilter<"IrsOrganization"> | string
+    name?: StringFilter<"IrsOrganization"> | string
+    sortName?: StringNullableFilter<"IrsOrganization"> | string | null
+    ico?: StringNullableFilter<"IrsOrganization"> | string | null
+    street?: StringNullableFilter<"IrsOrganization"> | string | null
+    city?: StringNullableFilter<"IrsOrganization"> | string | null
+    state?: StringNullableFilter<"IrsOrganization"> | string | null
+    zip?: StringNullableFilter<"IrsOrganization"> | string | null
+    subsection?: IntNullableFilter<"IrsOrganization"> | number | null
+    affiliation?: IntNullableFilter<"IrsOrganization"> | number | null
+    classification?: IntNullableFilter<"IrsOrganization"> | number | null
+    ruling?: StringNullableFilter<"IrsOrganization"> | string | null
+    deductibility?: IntNullableFilter<"IrsOrganization"> | number | null
+    foundation?: IntNullableFilter<"IrsOrganization"> | number | null
+    activity?: StringNullableFilter<"IrsOrganization"> | string | null
+    organization?: IntNullableFilter<"IrsOrganization"> | number | null
+    exemptStatus?: IntNullableFilter<"IrsOrganization"> | number | null
+    taxPeriod?: StringNullableFilter<"IrsOrganization"> | string | null
+    assetCode?: IntNullableFilter<"IrsOrganization"> | number | null
+    incomeCode?: IntNullableFilter<"IrsOrganization"> | number | null
+    filingReqCode?: IntNullableFilter<"IrsOrganization"> | number | null
+    pfFilingReqCode?: IntNullableFilter<"IrsOrganization"> | number | null
+    accountingPeriod?: IntNullableFilter<"IrsOrganization"> | number | null
+    assetAmount?: BigIntNullableFilter<"IrsOrganization"> | bigint | number | null
+    incomeAmount?: BigIntNullableFilter<"IrsOrganization"> | bigint | number | null
+    revenueAmount?: BigIntNullableFilter<"IrsOrganization"> | bigint | number | null
+    nteeCode?: StringNullableFilter<"IrsOrganization"> | string | null
+    groupNumber?: StringNullableFilter<"IrsOrganization"> | string | null
+    ngoId?: StringNullableFilter<"IrsOrganization"> | string | null
+    bmfLastUpdated?: DateTimeNullableFilter<"IrsOrganization"> | Date | string | null
+    createdAt?: DateTimeFilter<"IrsOrganization"> | Date | string
+    updatedAt?: DateTimeFilter<"IrsOrganization"> | Date | string
+    ngo?: XOR<NgoNullableScalarRelationFilter, NgoWhereInput> | null
+    filings?: IrsFilingListRelationFilter
+  }
+
+  export type IrsOrganizationOrderByWithRelationInput = {
+    id?: SortOrder
+    ein?: SortOrder
+    name?: SortOrder
+    sortName?: SortOrderInput | SortOrder
+    ico?: SortOrderInput | SortOrder
+    street?: SortOrderInput | SortOrder
+    city?: SortOrderInput | SortOrder
+    state?: SortOrderInput | SortOrder
+    zip?: SortOrderInput | SortOrder
+    subsection?: SortOrderInput | SortOrder
+    affiliation?: SortOrderInput | SortOrder
+    classification?: SortOrderInput | SortOrder
+    ruling?: SortOrderInput | SortOrder
+    deductibility?: SortOrderInput | SortOrder
+    foundation?: SortOrderInput | SortOrder
+    activity?: SortOrderInput | SortOrder
+    organization?: SortOrderInput | SortOrder
+    exemptStatus?: SortOrderInput | SortOrder
+    taxPeriod?: SortOrderInput | SortOrder
+    assetCode?: SortOrderInput | SortOrder
+    incomeCode?: SortOrderInput | SortOrder
+    filingReqCode?: SortOrderInput | SortOrder
+    pfFilingReqCode?: SortOrderInput | SortOrder
+    accountingPeriod?: SortOrderInput | SortOrder
+    assetAmount?: SortOrderInput | SortOrder
+    incomeAmount?: SortOrderInput | SortOrder
+    revenueAmount?: SortOrderInput | SortOrder
+    nteeCode?: SortOrderInput | SortOrder
+    groupNumber?: SortOrderInput | SortOrder
+    ngoId?: SortOrderInput | SortOrder
+    bmfLastUpdated?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    ngo?: NgoOrderByWithRelationInput
+    filings?: IrsFilingOrderByRelationAggregateInput
+  }
+
+  export type IrsOrganizationWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    ein?: string
+    ngoId?: string
+    AND?: IrsOrganizationWhereInput | IrsOrganizationWhereInput[]
+    OR?: IrsOrganizationWhereInput[]
+    NOT?: IrsOrganizationWhereInput | IrsOrganizationWhereInput[]
+    name?: StringFilter<"IrsOrganization"> | string
+    sortName?: StringNullableFilter<"IrsOrganization"> | string | null
+    ico?: StringNullableFilter<"IrsOrganization"> | string | null
+    street?: StringNullableFilter<"IrsOrganization"> | string | null
+    city?: StringNullableFilter<"IrsOrganization"> | string | null
+    state?: StringNullableFilter<"IrsOrganization"> | string | null
+    zip?: StringNullableFilter<"IrsOrganization"> | string | null
+    subsection?: IntNullableFilter<"IrsOrganization"> | number | null
+    affiliation?: IntNullableFilter<"IrsOrganization"> | number | null
+    classification?: IntNullableFilter<"IrsOrganization"> | number | null
+    ruling?: StringNullableFilter<"IrsOrganization"> | string | null
+    deductibility?: IntNullableFilter<"IrsOrganization"> | number | null
+    foundation?: IntNullableFilter<"IrsOrganization"> | number | null
+    activity?: StringNullableFilter<"IrsOrganization"> | string | null
+    organization?: IntNullableFilter<"IrsOrganization"> | number | null
+    exemptStatus?: IntNullableFilter<"IrsOrganization"> | number | null
+    taxPeriod?: StringNullableFilter<"IrsOrganization"> | string | null
+    assetCode?: IntNullableFilter<"IrsOrganization"> | number | null
+    incomeCode?: IntNullableFilter<"IrsOrganization"> | number | null
+    filingReqCode?: IntNullableFilter<"IrsOrganization"> | number | null
+    pfFilingReqCode?: IntNullableFilter<"IrsOrganization"> | number | null
+    accountingPeriod?: IntNullableFilter<"IrsOrganization"> | number | null
+    assetAmount?: BigIntNullableFilter<"IrsOrganization"> | bigint | number | null
+    incomeAmount?: BigIntNullableFilter<"IrsOrganization"> | bigint | number | null
+    revenueAmount?: BigIntNullableFilter<"IrsOrganization"> | bigint | number | null
+    nteeCode?: StringNullableFilter<"IrsOrganization"> | string | null
+    groupNumber?: StringNullableFilter<"IrsOrganization"> | string | null
+    bmfLastUpdated?: DateTimeNullableFilter<"IrsOrganization"> | Date | string | null
+    createdAt?: DateTimeFilter<"IrsOrganization"> | Date | string
+    updatedAt?: DateTimeFilter<"IrsOrganization"> | Date | string
+    ngo?: XOR<NgoNullableScalarRelationFilter, NgoWhereInput> | null
+    filings?: IrsFilingListRelationFilter
+  }, "id" | "ein" | "ngoId">
+
+  export type IrsOrganizationOrderByWithAggregationInput = {
+    id?: SortOrder
+    ein?: SortOrder
+    name?: SortOrder
+    sortName?: SortOrderInput | SortOrder
+    ico?: SortOrderInput | SortOrder
+    street?: SortOrderInput | SortOrder
+    city?: SortOrderInput | SortOrder
+    state?: SortOrderInput | SortOrder
+    zip?: SortOrderInput | SortOrder
+    subsection?: SortOrderInput | SortOrder
+    affiliation?: SortOrderInput | SortOrder
+    classification?: SortOrderInput | SortOrder
+    ruling?: SortOrderInput | SortOrder
+    deductibility?: SortOrderInput | SortOrder
+    foundation?: SortOrderInput | SortOrder
+    activity?: SortOrderInput | SortOrder
+    organization?: SortOrderInput | SortOrder
+    exemptStatus?: SortOrderInput | SortOrder
+    taxPeriod?: SortOrderInput | SortOrder
+    assetCode?: SortOrderInput | SortOrder
+    incomeCode?: SortOrderInput | SortOrder
+    filingReqCode?: SortOrderInput | SortOrder
+    pfFilingReqCode?: SortOrderInput | SortOrder
+    accountingPeriod?: SortOrderInput | SortOrder
+    assetAmount?: SortOrderInput | SortOrder
+    incomeAmount?: SortOrderInput | SortOrder
+    revenueAmount?: SortOrderInput | SortOrder
+    nteeCode?: SortOrderInput | SortOrder
+    groupNumber?: SortOrderInput | SortOrder
+    ngoId?: SortOrderInput | SortOrder
+    bmfLastUpdated?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: IrsOrganizationCountOrderByAggregateInput
+    _avg?: IrsOrganizationAvgOrderByAggregateInput
+    _max?: IrsOrganizationMaxOrderByAggregateInput
+    _min?: IrsOrganizationMinOrderByAggregateInput
+    _sum?: IrsOrganizationSumOrderByAggregateInput
+  }
+
+  export type IrsOrganizationScalarWhereWithAggregatesInput = {
+    AND?: IrsOrganizationScalarWhereWithAggregatesInput | IrsOrganizationScalarWhereWithAggregatesInput[]
+    OR?: IrsOrganizationScalarWhereWithAggregatesInput[]
+    NOT?: IrsOrganizationScalarWhereWithAggregatesInput | IrsOrganizationScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"IrsOrganization"> | string
+    ein?: StringWithAggregatesFilter<"IrsOrganization"> | string
+    name?: StringWithAggregatesFilter<"IrsOrganization"> | string
+    sortName?: StringNullableWithAggregatesFilter<"IrsOrganization"> | string | null
+    ico?: StringNullableWithAggregatesFilter<"IrsOrganization"> | string | null
+    street?: StringNullableWithAggregatesFilter<"IrsOrganization"> | string | null
+    city?: StringNullableWithAggregatesFilter<"IrsOrganization"> | string | null
+    state?: StringNullableWithAggregatesFilter<"IrsOrganization"> | string | null
+    zip?: StringNullableWithAggregatesFilter<"IrsOrganization"> | string | null
+    subsection?: IntNullableWithAggregatesFilter<"IrsOrganization"> | number | null
+    affiliation?: IntNullableWithAggregatesFilter<"IrsOrganization"> | number | null
+    classification?: IntNullableWithAggregatesFilter<"IrsOrganization"> | number | null
+    ruling?: StringNullableWithAggregatesFilter<"IrsOrganization"> | string | null
+    deductibility?: IntNullableWithAggregatesFilter<"IrsOrganization"> | number | null
+    foundation?: IntNullableWithAggregatesFilter<"IrsOrganization"> | number | null
+    activity?: StringNullableWithAggregatesFilter<"IrsOrganization"> | string | null
+    organization?: IntNullableWithAggregatesFilter<"IrsOrganization"> | number | null
+    exemptStatus?: IntNullableWithAggregatesFilter<"IrsOrganization"> | number | null
+    taxPeriod?: StringNullableWithAggregatesFilter<"IrsOrganization"> | string | null
+    assetCode?: IntNullableWithAggregatesFilter<"IrsOrganization"> | number | null
+    incomeCode?: IntNullableWithAggregatesFilter<"IrsOrganization"> | number | null
+    filingReqCode?: IntNullableWithAggregatesFilter<"IrsOrganization"> | number | null
+    pfFilingReqCode?: IntNullableWithAggregatesFilter<"IrsOrganization"> | number | null
+    accountingPeriod?: IntNullableWithAggregatesFilter<"IrsOrganization"> | number | null
+    assetAmount?: BigIntNullableWithAggregatesFilter<"IrsOrganization"> | bigint | number | null
+    incomeAmount?: BigIntNullableWithAggregatesFilter<"IrsOrganization"> | bigint | number | null
+    revenueAmount?: BigIntNullableWithAggregatesFilter<"IrsOrganization"> | bigint | number | null
+    nteeCode?: StringNullableWithAggregatesFilter<"IrsOrganization"> | string | null
+    groupNumber?: StringNullableWithAggregatesFilter<"IrsOrganization"> | string | null
+    ngoId?: StringNullableWithAggregatesFilter<"IrsOrganization"> | string | null
+    bmfLastUpdated?: DateTimeNullableWithAggregatesFilter<"IrsOrganization"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"IrsOrganization"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"IrsOrganization"> | Date | string
+  }
+
+  export type IrsFilingWhereInput = {
+    AND?: IrsFilingWhereInput | IrsFilingWhereInput[]
+    OR?: IrsFilingWhereInput[]
+    NOT?: IrsFilingWhereInput | IrsFilingWhereInput[]
+    id?: StringFilter<"IrsFiling"> | string
+    ein?: StringFilter<"IrsFiling"> | string
+    taxYear?: IntFilter<"IrsFiling"> | number
+    taxPeriodBegin?: DateTimeNullableFilter<"IrsFiling"> | Date | string | null
+    taxPeriodEnd?: DateTimeNullableFilter<"IrsFiling"> | Date | string | null
+    returnType?: StringNullableFilter<"IrsFiling"> | string | null
+    totalRevenue?: BigIntNullableFilter<"IrsFiling"> | bigint | number | null
+    totalExpenses?: BigIntNullableFilter<"IrsFiling"> | bigint | number | null
+    totalAssetsEOY?: BigIntNullableFilter<"IrsFiling"> | bigint | number | null
+    totalAssetsBOY?: BigIntNullableFilter<"IrsFiling"> | bigint | number | null
+    totalLiabilitiesEOY?: BigIntNullableFilter<"IrsFiling"> | bigint | number | null
+    totalLiabilitiesBOY?: BigIntNullableFilter<"IrsFiling"> | bigint | number | null
+    netAssetsEOY?: BigIntNullableFilter<"IrsFiling"> | bigint | number | null
+    contributionsAndGrants?: BigIntNullableFilter<"IrsFiling"> | bigint | number | null
+    programServiceRevenue?: BigIntNullableFilter<"IrsFiling"> | bigint | number | null
+    investmentIncome?: BigIntNullableFilter<"IrsFiling"> | bigint | number | null
+    otherRevenue?: BigIntNullableFilter<"IrsFiling"> | bigint | number | null
+    salariesAndWages?: BigIntNullableFilter<"IrsFiling"> | bigint | number | null
+    compensationOfficers?: BigIntNullableFilter<"IrsFiling"> | bigint | number | null
+    otherExpenses?: BigIntNullableFilter<"IrsFiling"> | bigint | number | null
+    pctOfficerCompensation?: FloatNullableFilter<"IrsFiling"> | number | null
+    employeeCount?: IntNullableFilter<"IrsFiling"> | number | null
+    volunteerCount?: IntNullableFilter<"IrsFiling"> | number | null
+    objectId?: StringNullableFilter<"IrsFiling"> | string | null
+    xmlBatchId?: StringNullableFilter<"IrsFiling"> | string | null
+    filingType?: StringNullableFilter<"IrsFiling"> | string | null
+    pdfUrl?: StringNullableFilter<"IrsFiling"> | string | null
+    createdAt?: DateTimeFilter<"IrsFiling"> | Date | string
+    updatedAt?: DateTimeFilter<"IrsFiling"> | Date | string
+    organization?: XOR<IrsOrganizationScalarRelationFilter, IrsOrganizationWhereInput>
+  }
+
+  export type IrsFilingOrderByWithRelationInput = {
+    id?: SortOrder
+    ein?: SortOrder
+    taxYear?: SortOrder
+    taxPeriodBegin?: SortOrderInput | SortOrder
+    taxPeriodEnd?: SortOrderInput | SortOrder
+    returnType?: SortOrderInput | SortOrder
+    totalRevenue?: SortOrderInput | SortOrder
+    totalExpenses?: SortOrderInput | SortOrder
+    totalAssetsEOY?: SortOrderInput | SortOrder
+    totalAssetsBOY?: SortOrderInput | SortOrder
+    totalLiabilitiesEOY?: SortOrderInput | SortOrder
+    totalLiabilitiesBOY?: SortOrderInput | SortOrder
+    netAssetsEOY?: SortOrderInput | SortOrder
+    contributionsAndGrants?: SortOrderInput | SortOrder
+    programServiceRevenue?: SortOrderInput | SortOrder
+    investmentIncome?: SortOrderInput | SortOrder
+    otherRevenue?: SortOrderInput | SortOrder
+    salariesAndWages?: SortOrderInput | SortOrder
+    compensationOfficers?: SortOrderInput | SortOrder
+    otherExpenses?: SortOrderInput | SortOrder
+    pctOfficerCompensation?: SortOrderInput | SortOrder
+    employeeCount?: SortOrderInput | SortOrder
+    volunteerCount?: SortOrderInput | SortOrder
+    objectId?: SortOrderInput | SortOrder
+    xmlBatchId?: SortOrderInput | SortOrder
+    filingType?: SortOrderInput | SortOrder
+    pdfUrl?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    organization?: IrsOrganizationOrderByWithRelationInput
+  }
+
+  export type IrsFilingWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    ein_taxYear?: IrsFilingEinTaxYearCompoundUniqueInput
+    AND?: IrsFilingWhereInput | IrsFilingWhereInput[]
+    OR?: IrsFilingWhereInput[]
+    NOT?: IrsFilingWhereInput | IrsFilingWhereInput[]
+    ein?: StringFilter<"IrsFiling"> | string
+    taxYear?: IntFilter<"IrsFiling"> | number
+    taxPeriodBegin?: DateTimeNullableFilter<"IrsFiling"> | Date | string | null
+    taxPeriodEnd?: DateTimeNullableFilter<"IrsFiling"> | Date | string | null
+    returnType?: StringNullableFilter<"IrsFiling"> | string | null
+    totalRevenue?: BigIntNullableFilter<"IrsFiling"> | bigint | number | null
+    totalExpenses?: BigIntNullableFilter<"IrsFiling"> | bigint | number | null
+    totalAssetsEOY?: BigIntNullableFilter<"IrsFiling"> | bigint | number | null
+    totalAssetsBOY?: BigIntNullableFilter<"IrsFiling"> | bigint | number | null
+    totalLiabilitiesEOY?: BigIntNullableFilter<"IrsFiling"> | bigint | number | null
+    totalLiabilitiesBOY?: BigIntNullableFilter<"IrsFiling"> | bigint | number | null
+    netAssetsEOY?: BigIntNullableFilter<"IrsFiling"> | bigint | number | null
+    contributionsAndGrants?: BigIntNullableFilter<"IrsFiling"> | bigint | number | null
+    programServiceRevenue?: BigIntNullableFilter<"IrsFiling"> | bigint | number | null
+    investmentIncome?: BigIntNullableFilter<"IrsFiling"> | bigint | number | null
+    otherRevenue?: BigIntNullableFilter<"IrsFiling"> | bigint | number | null
+    salariesAndWages?: BigIntNullableFilter<"IrsFiling"> | bigint | number | null
+    compensationOfficers?: BigIntNullableFilter<"IrsFiling"> | bigint | number | null
+    otherExpenses?: BigIntNullableFilter<"IrsFiling"> | bigint | number | null
+    pctOfficerCompensation?: FloatNullableFilter<"IrsFiling"> | number | null
+    employeeCount?: IntNullableFilter<"IrsFiling"> | number | null
+    volunteerCount?: IntNullableFilter<"IrsFiling"> | number | null
+    objectId?: StringNullableFilter<"IrsFiling"> | string | null
+    xmlBatchId?: StringNullableFilter<"IrsFiling"> | string | null
+    filingType?: StringNullableFilter<"IrsFiling"> | string | null
+    pdfUrl?: StringNullableFilter<"IrsFiling"> | string | null
+    createdAt?: DateTimeFilter<"IrsFiling"> | Date | string
+    updatedAt?: DateTimeFilter<"IrsFiling"> | Date | string
+    organization?: XOR<IrsOrganizationScalarRelationFilter, IrsOrganizationWhereInput>
+  }, "id" | "ein_taxYear">
+
+  export type IrsFilingOrderByWithAggregationInput = {
+    id?: SortOrder
+    ein?: SortOrder
+    taxYear?: SortOrder
+    taxPeriodBegin?: SortOrderInput | SortOrder
+    taxPeriodEnd?: SortOrderInput | SortOrder
+    returnType?: SortOrderInput | SortOrder
+    totalRevenue?: SortOrderInput | SortOrder
+    totalExpenses?: SortOrderInput | SortOrder
+    totalAssetsEOY?: SortOrderInput | SortOrder
+    totalAssetsBOY?: SortOrderInput | SortOrder
+    totalLiabilitiesEOY?: SortOrderInput | SortOrder
+    totalLiabilitiesBOY?: SortOrderInput | SortOrder
+    netAssetsEOY?: SortOrderInput | SortOrder
+    contributionsAndGrants?: SortOrderInput | SortOrder
+    programServiceRevenue?: SortOrderInput | SortOrder
+    investmentIncome?: SortOrderInput | SortOrder
+    otherRevenue?: SortOrderInput | SortOrder
+    salariesAndWages?: SortOrderInput | SortOrder
+    compensationOfficers?: SortOrderInput | SortOrder
+    otherExpenses?: SortOrderInput | SortOrder
+    pctOfficerCompensation?: SortOrderInput | SortOrder
+    employeeCount?: SortOrderInput | SortOrder
+    volunteerCount?: SortOrderInput | SortOrder
+    objectId?: SortOrderInput | SortOrder
+    xmlBatchId?: SortOrderInput | SortOrder
+    filingType?: SortOrderInput | SortOrder
+    pdfUrl?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: IrsFilingCountOrderByAggregateInput
+    _avg?: IrsFilingAvgOrderByAggregateInput
+    _max?: IrsFilingMaxOrderByAggregateInput
+    _min?: IrsFilingMinOrderByAggregateInput
+    _sum?: IrsFilingSumOrderByAggregateInput
+  }
+
+  export type IrsFilingScalarWhereWithAggregatesInput = {
+    AND?: IrsFilingScalarWhereWithAggregatesInput | IrsFilingScalarWhereWithAggregatesInput[]
+    OR?: IrsFilingScalarWhereWithAggregatesInput[]
+    NOT?: IrsFilingScalarWhereWithAggregatesInput | IrsFilingScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"IrsFiling"> | string
+    ein?: StringWithAggregatesFilter<"IrsFiling"> | string
+    taxYear?: IntWithAggregatesFilter<"IrsFiling"> | number
+    taxPeriodBegin?: DateTimeNullableWithAggregatesFilter<"IrsFiling"> | Date | string | null
+    taxPeriodEnd?: DateTimeNullableWithAggregatesFilter<"IrsFiling"> | Date | string | null
+    returnType?: StringNullableWithAggregatesFilter<"IrsFiling"> | string | null
+    totalRevenue?: BigIntNullableWithAggregatesFilter<"IrsFiling"> | bigint | number | null
+    totalExpenses?: BigIntNullableWithAggregatesFilter<"IrsFiling"> | bigint | number | null
+    totalAssetsEOY?: BigIntNullableWithAggregatesFilter<"IrsFiling"> | bigint | number | null
+    totalAssetsBOY?: BigIntNullableWithAggregatesFilter<"IrsFiling"> | bigint | number | null
+    totalLiabilitiesEOY?: BigIntNullableWithAggregatesFilter<"IrsFiling"> | bigint | number | null
+    totalLiabilitiesBOY?: BigIntNullableWithAggregatesFilter<"IrsFiling"> | bigint | number | null
+    netAssetsEOY?: BigIntNullableWithAggregatesFilter<"IrsFiling"> | bigint | number | null
+    contributionsAndGrants?: BigIntNullableWithAggregatesFilter<"IrsFiling"> | bigint | number | null
+    programServiceRevenue?: BigIntNullableWithAggregatesFilter<"IrsFiling"> | bigint | number | null
+    investmentIncome?: BigIntNullableWithAggregatesFilter<"IrsFiling"> | bigint | number | null
+    otherRevenue?: BigIntNullableWithAggregatesFilter<"IrsFiling"> | bigint | number | null
+    salariesAndWages?: BigIntNullableWithAggregatesFilter<"IrsFiling"> | bigint | number | null
+    compensationOfficers?: BigIntNullableWithAggregatesFilter<"IrsFiling"> | bigint | number | null
+    otherExpenses?: BigIntNullableWithAggregatesFilter<"IrsFiling"> | bigint | number | null
+    pctOfficerCompensation?: FloatNullableWithAggregatesFilter<"IrsFiling"> | number | null
+    employeeCount?: IntNullableWithAggregatesFilter<"IrsFiling"> | number | null
+    volunteerCount?: IntNullableWithAggregatesFilter<"IrsFiling"> | number | null
+    objectId?: StringNullableWithAggregatesFilter<"IrsFiling"> | string | null
+    xmlBatchId?: StringNullableWithAggregatesFilter<"IrsFiling"> | string | null
+    filingType?: StringNullableWithAggregatesFilter<"IrsFiling"> | string | null
+    pdfUrl?: StringNullableWithAggregatesFilter<"IrsFiling"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"IrsFiling"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"IrsFiling"> | Date | string
+  }
+
   export type AccountCreateInput = {
     id?: string
     type: string
@@ -51829,6 +55567,7 @@ export namespace Prisma {
     documents?: NgoDocumentCreateNestedManyWithoutNgoInput
     roles?: NgoRoleCreateNestedManyWithoutNgoInput
     challenges?: DonorChallengeCreateNestedManyWithoutNgoInput
+    irsOrganization?: IrsOrganizationCreateNestedOneWithoutNgoInput
   }
 
   export type NgoUncheckedCreateInput = {
@@ -51858,6 +55597,7 @@ export namespace Prisma {
     documents?: NgoDocumentUncheckedCreateNestedManyWithoutNgoInput
     roles?: NgoRoleUncheckedCreateNestedManyWithoutNgoInput
     challenges?: DonorChallengeUncheckedCreateNestedManyWithoutNgoInput
+    irsOrganization?: IrsOrganizationUncheckedCreateNestedOneWithoutNgoInput
   }
 
   export type NgoUpdateInput = {
@@ -51887,6 +55627,7 @@ export namespace Prisma {
     documents?: NgoDocumentUpdateManyWithoutNgoNestedInput
     roles?: NgoRoleUpdateManyWithoutNgoNestedInput
     challenges?: DonorChallengeUpdateManyWithoutNgoNestedInput
+    irsOrganization?: IrsOrganizationUpdateOneWithoutNgoNestedInput
   }
 
   export type NgoUncheckedUpdateInput = {
@@ -51916,6 +55657,7 @@ export namespace Prisma {
     documents?: NgoDocumentUncheckedUpdateManyWithoutNgoNestedInput
     roles?: NgoRoleUncheckedUpdateManyWithoutNgoNestedInput
     challenges?: DonorChallengeUncheckedUpdateManyWithoutNgoNestedInput
+    irsOrganization?: IrsOrganizationUncheckedUpdateOneWithoutNgoNestedInput
   }
 
   export type NgoCreateManyInput = {
@@ -54505,6 +58247,484 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type IrsOrganizationCreateInput = {
+    id?: string
+    ein: string
+    name: string
+    sortName?: string | null
+    ico?: string | null
+    street?: string | null
+    city?: string | null
+    state?: string | null
+    zip?: string | null
+    subsection?: number | null
+    affiliation?: number | null
+    classification?: number | null
+    ruling?: string | null
+    deductibility?: number | null
+    foundation?: number | null
+    activity?: string | null
+    organization?: number | null
+    exemptStatus?: number | null
+    taxPeriod?: string | null
+    assetCode?: number | null
+    incomeCode?: number | null
+    filingReqCode?: number | null
+    pfFilingReqCode?: number | null
+    accountingPeriod?: number | null
+    assetAmount?: bigint | number | null
+    incomeAmount?: bigint | number | null
+    revenueAmount?: bigint | number | null
+    nteeCode?: string | null
+    groupNumber?: string | null
+    bmfLastUpdated?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    ngo?: NgoCreateNestedOneWithoutIrsOrganizationInput
+    filings?: IrsFilingCreateNestedManyWithoutOrganizationInput
+  }
+
+  export type IrsOrganizationUncheckedCreateInput = {
+    id?: string
+    ein: string
+    name: string
+    sortName?: string | null
+    ico?: string | null
+    street?: string | null
+    city?: string | null
+    state?: string | null
+    zip?: string | null
+    subsection?: number | null
+    affiliation?: number | null
+    classification?: number | null
+    ruling?: string | null
+    deductibility?: number | null
+    foundation?: number | null
+    activity?: string | null
+    organization?: number | null
+    exemptStatus?: number | null
+    taxPeriod?: string | null
+    assetCode?: number | null
+    incomeCode?: number | null
+    filingReqCode?: number | null
+    pfFilingReqCode?: number | null
+    accountingPeriod?: number | null
+    assetAmount?: bigint | number | null
+    incomeAmount?: bigint | number | null
+    revenueAmount?: bigint | number | null
+    nteeCode?: string | null
+    groupNumber?: string | null
+    ngoId?: string | null
+    bmfLastUpdated?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    filings?: IrsFilingUncheckedCreateNestedManyWithoutOrganizationInput
+  }
+
+  export type IrsOrganizationUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ein?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    sortName?: NullableStringFieldUpdateOperationsInput | string | null
+    ico?: NullableStringFieldUpdateOperationsInput | string | null
+    street?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    zip?: NullableStringFieldUpdateOperationsInput | string | null
+    subsection?: NullableIntFieldUpdateOperationsInput | number | null
+    affiliation?: NullableIntFieldUpdateOperationsInput | number | null
+    classification?: NullableIntFieldUpdateOperationsInput | number | null
+    ruling?: NullableStringFieldUpdateOperationsInput | string | null
+    deductibility?: NullableIntFieldUpdateOperationsInput | number | null
+    foundation?: NullableIntFieldUpdateOperationsInput | number | null
+    activity?: NullableStringFieldUpdateOperationsInput | string | null
+    organization?: NullableIntFieldUpdateOperationsInput | number | null
+    exemptStatus?: NullableIntFieldUpdateOperationsInput | number | null
+    taxPeriod?: NullableStringFieldUpdateOperationsInput | string | null
+    assetCode?: NullableIntFieldUpdateOperationsInput | number | null
+    incomeCode?: NullableIntFieldUpdateOperationsInput | number | null
+    filingReqCode?: NullableIntFieldUpdateOperationsInput | number | null
+    pfFilingReqCode?: NullableIntFieldUpdateOperationsInput | number | null
+    accountingPeriod?: NullableIntFieldUpdateOperationsInput | number | null
+    assetAmount?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    incomeAmount?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    revenueAmount?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    nteeCode?: NullableStringFieldUpdateOperationsInput | string | null
+    groupNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    bmfLastUpdated?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ngo?: NgoUpdateOneWithoutIrsOrganizationNestedInput
+    filings?: IrsFilingUpdateManyWithoutOrganizationNestedInput
+  }
+
+  export type IrsOrganizationUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ein?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    sortName?: NullableStringFieldUpdateOperationsInput | string | null
+    ico?: NullableStringFieldUpdateOperationsInput | string | null
+    street?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    zip?: NullableStringFieldUpdateOperationsInput | string | null
+    subsection?: NullableIntFieldUpdateOperationsInput | number | null
+    affiliation?: NullableIntFieldUpdateOperationsInput | number | null
+    classification?: NullableIntFieldUpdateOperationsInput | number | null
+    ruling?: NullableStringFieldUpdateOperationsInput | string | null
+    deductibility?: NullableIntFieldUpdateOperationsInput | number | null
+    foundation?: NullableIntFieldUpdateOperationsInput | number | null
+    activity?: NullableStringFieldUpdateOperationsInput | string | null
+    organization?: NullableIntFieldUpdateOperationsInput | number | null
+    exemptStatus?: NullableIntFieldUpdateOperationsInput | number | null
+    taxPeriod?: NullableStringFieldUpdateOperationsInput | string | null
+    assetCode?: NullableIntFieldUpdateOperationsInput | number | null
+    incomeCode?: NullableIntFieldUpdateOperationsInput | number | null
+    filingReqCode?: NullableIntFieldUpdateOperationsInput | number | null
+    pfFilingReqCode?: NullableIntFieldUpdateOperationsInput | number | null
+    accountingPeriod?: NullableIntFieldUpdateOperationsInput | number | null
+    assetAmount?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    incomeAmount?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    revenueAmount?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    nteeCode?: NullableStringFieldUpdateOperationsInput | string | null
+    groupNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    ngoId?: NullableStringFieldUpdateOperationsInput | string | null
+    bmfLastUpdated?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    filings?: IrsFilingUncheckedUpdateManyWithoutOrganizationNestedInput
+  }
+
+  export type IrsOrganizationCreateManyInput = {
+    id?: string
+    ein: string
+    name: string
+    sortName?: string | null
+    ico?: string | null
+    street?: string | null
+    city?: string | null
+    state?: string | null
+    zip?: string | null
+    subsection?: number | null
+    affiliation?: number | null
+    classification?: number | null
+    ruling?: string | null
+    deductibility?: number | null
+    foundation?: number | null
+    activity?: string | null
+    organization?: number | null
+    exemptStatus?: number | null
+    taxPeriod?: string | null
+    assetCode?: number | null
+    incomeCode?: number | null
+    filingReqCode?: number | null
+    pfFilingReqCode?: number | null
+    accountingPeriod?: number | null
+    assetAmount?: bigint | number | null
+    incomeAmount?: bigint | number | null
+    revenueAmount?: bigint | number | null
+    nteeCode?: string | null
+    groupNumber?: string | null
+    ngoId?: string | null
+    bmfLastUpdated?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type IrsOrganizationUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ein?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    sortName?: NullableStringFieldUpdateOperationsInput | string | null
+    ico?: NullableStringFieldUpdateOperationsInput | string | null
+    street?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    zip?: NullableStringFieldUpdateOperationsInput | string | null
+    subsection?: NullableIntFieldUpdateOperationsInput | number | null
+    affiliation?: NullableIntFieldUpdateOperationsInput | number | null
+    classification?: NullableIntFieldUpdateOperationsInput | number | null
+    ruling?: NullableStringFieldUpdateOperationsInput | string | null
+    deductibility?: NullableIntFieldUpdateOperationsInput | number | null
+    foundation?: NullableIntFieldUpdateOperationsInput | number | null
+    activity?: NullableStringFieldUpdateOperationsInput | string | null
+    organization?: NullableIntFieldUpdateOperationsInput | number | null
+    exemptStatus?: NullableIntFieldUpdateOperationsInput | number | null
+    taxPeriod?: NullableStringFieldUpdateOperationsInput | string | null
+    assetCode?: NullableIntFieldUpdateOperationsInput | number | null
+    incomeCode?: NullableIntFieldUpdateOperationsInput | number | null
+    filingReqCode?: NullableIntFieldUpdateOperationsInput | number | null
+    pfFilingReqCode?: NullableIntFieldUpdateOperationsInput | number | null
+    accountingPeriod?: NullableIntFieldUpdateOperationsInput | number | null
+    assetAmount?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    incomeAmount?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    revenueAmount?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    nteeCode?: NullableStringFieldUpdateOperationsInput | string | null
+    groupNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    bmfLastUpdated?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type IrsOrganizationUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ein?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    sortName?: NullableStringFieldUpdateOperationsInput | string | null
+    ico?: NullableStringFieldUpdateOperationsInput | string | null
+    street?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    zip?: NullableStringFieldUpdateOperationsInput | string | null
+    subsection?: NullableIntFieldUpdateOperationsInput | number | null
+    affiliation?: NullableIntFieldUpdateOperationsInput | number | null
+    classification?: NullableIntFieldUpdateOperationsInput | number | null
+    ruling?: NullableStringFieldUpdateOperationsInput | string | null
+    deductibility?: NullableIntFieldUpdateOperationsInput | number | null
+    foundation?: NullableIntFieldUpdateOperationsInput | number | null
+    activity?: NullableStringFieldUpdateOperationsInput | string | null
+    organization?: NullableIntFieldUpdateOperationsInput | number | null
+    exemptStatus?: NullableIntFieldUpdateOperationsInput | number | null
+    taxPeriod?: NullableStringFieldUpdateOperationsInput | string | null
+    assetCode?: NullableIntFieldUpdateOperationsInput | number | null
+    incomeCode?: NullableIntFieldUpdateOperationsInput | number | null
+    filingReqCode?: NullableIntFieldUpdateOperationsInput | number | null
+    pfFilingReqCode?: NullableIntFieldUpdateOperationsInput | number | null
+    accountingPeriod?: NullableIntFieldUpdateOperationsInput | number | null
+    assetAmount?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    incomeAmount?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    revenueAmount?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    nteeCode?: NullableStringFieldUpdateOperationsInput | string | null
+    groupNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    ngoId?: NullableStringFieldUpdateOperationsInput | string | null
+    bmfLastUpdated?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type IrsFilingCreateInput = {
+    id?: string
+    taxYear: number
+    taxPeriodBegin?: Date | string | null
+    taxPeriodEnd?: Date | string | null
+    returnType?: string | null
+    totalRevenue?: bigint | number | null
+    totalExpenses?: bigint | number | null
+    totalAssetsEOY?: bigint | number | null
+    totalAssetsBOY?: bigint | number | null
+    totalLiabilitiesEOY?: bigint | number | null
+    totalLiabilitiesBOY?: bigint | number | null
+    netAssetsEOY?: bigint | number | null
+    contributionsAndGrants?: bigint | number | null
+    programServiceRevenue?: bigint | number | null
+    investmentIncome?: bigint | number | null
+    otherRevenue?: bigint | number | null
+    salariesAndWages?: bigint | number | null
+    compensationOfficers?: bigint | number | null
+    otherExpenses?: bigint | number | null
+    pctOfficerCompensation?: number | null
+    employeeCount?: number | null
+    volunteerCount?: number | null
+    objectId?: string | null
+    xmlBatchId?: string | null
+    filingType?: string | null
+    pdfUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    organization: IrsOrganizationCreateNestedOneWithoutFilingsInput
+  }
+
+  export type IrsFilingUncheckedCreateInput = {
+    id?: string
+    ein: string
+    taxYear: number
+    taxPeriodBegin?: Date | string | null
+    taxPeriodEnd?: Date | string | null
+    returnType?: string | null
+    totalRevenue?: bigint | number | null
+    totalExpenses?: bigint | number | null
+    totalAssetsEOY?: bigint | number | null
+    totalAssetsBOY?: bigint | number | null
+    totalLiabilitiesEOY?: bigint | number | null
+    totalLiabilitiesBOY?: bigint | number | null
+    netAssetsEOY?: bigint | number | null
+    contributionsAndGrants?: bigint | number | null
+    programServiceRevenue?: bigint | number | null
+    investmentIncome?: bigint | number | null
+    otherRevenue?: bigint | number | null
+    salariesAndWages?: bigint | number | null
+    compensationOfficers?: bigint | number | null
+    otherExpenses?: bigint | number | null
+    pctOfficerCompensation?: number | null
+    employeeCount?: number | null
+    volunteerCount?: number | null
+    objectId?: string | null
+    xmlBatchId?: string | null
+    filingType?: string | null
+    pdfUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type IrsFilingUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    taxYear?: IntFieldUpdateOperationsInput | number
+    taxPeriodBegin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    taxPeriodEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    returnType?: NullableStringFieldUpdateOperationsInput | string | null
+    totalRevenue?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    totalExpenses?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    totalAssetsEOY?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    totalAssetsBOY?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    totalLiabilitiesEOY?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    totalLiabilitiesBOY?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    netAssetsEOY?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    contributionsAndGrants?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    programServiceRevenue?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    investmentIncome?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    otherRevenue?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    salariesAndWages?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    compensationOfficers?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    otherExpenses?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    pctOfficerCompensation?: NullableFloatFieldUpdateOperationsInput | number | null
+    employeeCount?: NullableIntFieldUpdateOperationsInput | number | null
+    volunteerCount?: NullableIntFieldUpdateOperationsInput | number | null
+    objectId?: NullableStringFieldUpdateOperationsInput | string | null
+    xmlBatchId?: NullableStringFieldUpdateOperationsInput | string | null
+    filingType?: NullableStringFieldUpdateOperationsInput | string | null
+    pdfUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    organization?: IrsOrganizationUpdateOneRequiredWithoutFilingsNestedInput
+  }
+
+  export type IrsFilingUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ein?: StringFieldUpdateOperationsInput | string
+    taxYear?: IntFieldUpdateOperationsInput | number
+    taxPeriodBegin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    taxPeriodEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    returnType?: NullableStringFieldUpdateOperationsInput | string | null
+    totalRevenue?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    totalExpenses?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    totalAssetsEOY?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    totalAssetsBOY?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    totalLiabilitiesEOY?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    totalLiabilitiesBOY?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    netAssetsEOY?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    contributionsAndGrants?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    programServiceRevenue?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    investmentIncome?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    otherRevenue?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    salariesAndWages?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    compensationOfficers?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    otherExpenses?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    pctOfficerCompensation?: NullableFloatFieldUpdateOperationsInput | number | null
+    employeeCount?: NullableIntFieldUpdateOperationsInput | number | null
+    volunteerCount?: NullableIntFieldUpdateOperationsInput | number | null
+    objectId?: NullableStringFieldUpdateOperationsInput | string | null
+    xmlBatchId?: NullableStringFieldUpdateOperationsInput | string | null
+    filingType?: NullableStringFieldUpdateOperationsInput | string | null
+    pdfUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type IrsFilingCreateManyInput = {
+    id?: string
+    ein: string
+    taxYear: number
+    taxPeriodBegin?: Date | string | null
+    taxPeriodEnd?: Date | string | null
+    returnType?: string | null
+    totalRevenue?: bigint | number | null
+    totalExpenses?: bigint | number | null
+    totalAssetsEOY?: bigint | number | null
+    totalAssetsBOY?: bigint | number | null
+    totalLiabilitiesEOY?: bigint | number | null
+    totalLiabilitiesBOY?: bigint | number | null
+    netAssetsEOY?: bigint | number | null
+    contributionsAndGrants?: bigint | number | null
+    programServiceRevenue?: bigint | number | null
+    investmentIncome?: bigint | number | null
+    otherRevenue?: bigint | number | null
+    salariesAndWages?: bigint | number | null
+    compensationOfficers?: bigint | number | null
+    otherExpenses?: bigint | number | null
+    pctOfficerCompensation?: number | null
+    employeeCount?: number | null
+    volunteerCount?: number | null
+    objectId?: string | null
+    xmlBatchId?: string | null
+    filingType?: string | null
+    pdfUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type IrsFilingUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    taxYear?: IntFieldUpdateOperationsInput | number
+    taxPeriodBegin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    taxPeriodEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    returnType?: NullableStringFieldUpdateOperationsInput | string | null
+    totalRevenue?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    totalExpenses?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    totalAssetsEOY?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    totalAssetsBOY?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    totalLiabilitiesEOY?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    totalLiabilitiesBOY?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    netAssetsEOY?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    contributionsAndGrants?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    programServiceRevenue?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    investmentIncome?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    otherRevenue?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    salariesAndWages?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    compensationOfficers?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    otherExpenses?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    pctOfficerCompensation?: NullableFloatFieldUpdateOperationsInput | number | null
+    employeeCount?: NullableIntFieldUpdateOperationsInput | number | null
+    volunteerCount?: NullableIntFieldUpdateOperationsInput | number | null
+    objectId?: NullableStringFieldUpdateOperationsInput | string | null
+    xmlBatchId?: NullableStringFieldUpdateOperationsInput | string | null
+    filingType?: NullableStringFieldUpdateOperationsInput | string | null
+    pdfUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type IrsFilingUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ein?: StringFieldUpdateOperationsInput | string
+    taxYear?: IntFieldUpdateOperationsInput | number
+    taxPeriodBegin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    taxPeriodEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    returnType?: NullableStringFieldUpdateOperationsInput | string | null
+    totalRevenue?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    totalExpenses?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    totalAssetsEOY?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    totalAssetsBOY?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    totalLiabilitiesEOY?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    totalLiabilitiesBOY?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    netAssetsEOY?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    contributionsAndGrants?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    programServiceRevenue?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    investmentIncome?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    otherRevenue?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    salariesAndWages?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    compensationOfficers?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    otherExpenses?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    pctOfficerCompensation?: NullableFloatFieldUpdateOperationsInput | number | null
+    employeeCount?: NullableIntFieldUpdateOperationsInput | number | null
+    volunteerCount?: NullableIntFieldUpdateOperationsInput | number | null
+    objectId?: NullableStringFieldUpdateOperationsInput | string | null
+    xmlBatchId?: NullableStringFieldUpdateOperationsInput | string | null
+    filingType?: NullableStringFieldUpdateOperationsInput | string | null
+    pdfUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -55216,6 +59436,11 @@ export namespace Prisma {
     every?: NgoRoleWhereInput
     some?: NgoRoleWhereInput
     none?: NgoRoleWhereInput
+  }
+
+  export type IrsOrganizationNullableScalarRelationFilter = {
+    is?: IrsOrganizationWhereInput | null
+    isNot?: IrsOrganizationWhereInput | null
   }
 
   export type ProjectOrderByRelationAggregateInput = {
@@ -56920,6 +61145,335 @@ export namespace Prisma {
     _max?: NestedEnumSubscriptionPlanFilter<$PrismaModel>
   }
 
+  export type BigIntNullableFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel> | null
+    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel> | null
+    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel> | null
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntNullableFilter<$PrismaModel> | bigint | number | null
+  }
+
+  export type IrsFilingListRelationFilter = {
+    every?: IrsFilingWhereInput
+    some?: IrsFilingWhereInput
+    none?: IrsFilingWhereInput
+  }
+
+  export type IrsFilingOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type IrsOrganizationCountOrderByAggregateInput = {
+    id?: SortOrder
+    ein?: SortOrder
+    name?: SortOrder
+    sortName?: SortOrder
+    ico?: SortOrder
+    street?: SortOrder
+    city?: SortOrder
+    state?: SortOrder
+    zip?: SortOrder
+    subsection?: SortOrder
+    affiliation?: SortOrder
+    classification?: SortOrder
+    ruling?: SortOrder
+    deductibility?: SortOrder
+    foundation?: SortOrder
+    activity?: SortOrder
+    organization?: SortOrder
+    exemptStatus?: SortOrder
+    taxPeriod?: SortOrder
+    assetCode?: SortOrder
+    incomeCode?: SortOrder
+    filingReqCode?: SortOrder
+    pfFilingReqCode?: SortOrder
+    accountingPeriod?: SortOrder
+    assetAmount?: SortOrder
+    incomeAmount?: SortOrder
+    revenueAmount?: SortOrder
+    nteeCode?: SortOrder
+    groupNumber?: SortOrder
+    ngoId?: SortOrder
+    bmfLastUpdated?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type IrsOrganizationAvgOrderByAggregateInput = {
+    subsection?: SortOrder
+    affiliation?: SortOrder
+    classification?: SortOrder
+    deductibility?: SortOrder
+    foundation?: SortOrder
+    organization?: SortOrder
+    exemptStatus?: SortOrder
+    assetCode?: SortOrder
+    incomeCode?: SortOrder
+    filingReqCode?: SortOrder
+    pfFilingReqCode?: SortOrder
+    accountingPeriod?: SortOrder
+    assetAmount?: SortOrder
+    incomeAmount?: SortOrder
+    revenueAmount?: SortOrder
+  }
+
+  export type IrsOrganizationMaxOrderByAggregateInput = {
+    id?: SortOrder
+    ein?: SortOrder
+    name?: SortOrder
+    sortName?: SortOrder
+    ico?: SortOrder
+    street?: SortOrder
+    city?: SortOrder
+    state?: SortOrder
+    zip?: SortOrder
+    subsection?: SortOrder
+    affiliation?: SortOrder
+    classification?: SortOrder
+    ruling?: SortOrder
+    deductibility?: SortOrder
+    foundation?: SortOrder
+    activity?: SortOrder
+    organization?: SortOrder
+    exemptStatus?: SortOrder
+    taxPeriod?: SortOrder
+    assetCode?: SortOrder
+    incomeCode?: SortOrder
+    filingReqCode?: SortOrder
+    pfFilingReqCode?: SortOrder
+    accountingPeriod?: SortOrder
+    assetAmount?: SortOrder
+    incomeAmount?: SortOrder
+    revenueAmount?: SortOrder
+    nteeCode?: SortOrder
+    groupNumber?: SortOrder
+    ngoId?: SortOrder
+    bmfLastUpdated?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type IrsOrganizationMinOrderByAggregateInput = {
+    id?: SortOrder
+    ein?: SortOrder
+    name?: SortOrder
+    sortName?: SortOrder
+    ico?: SortOrder
+    street?: SortOrder
+    city?: SortOrder
+    state?: SortOrder
+    zip?: SortOrder
+    subsection?: SortOrder
+    affiliation?: SortOrder
+    classification?: SortOrder
+    ruling?: SortOrder
+    deductibility?: SortOrder
+    foundation?: SortOrder
+    activity?: SortOrder
+    organization?: SortOrder
+    exemptStatus?: SortOrder
+    taxPeriod?: SortOrder
+    assetCode?: SortOrder
+    incomeCode?: SortOrder
+    filingReqCode?: SortOrder
+    pfFilingReqCode?: SortOrder
+    accountingPeriod?: SortOrder
+    assetAmount?: SortOrder
+    incomeAmount?: SortOrder
+    revenueAmount?: SortOrder
+    nteeCode?: SortOrder
+    groupNumber?: SortOrder
+    ngoId?: SortOrder
+    bmfLastUpdated?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type IrsOrganizationSumOrderByAggregateInput = {
+    subsection?: SortOrder
+    affiliation?: SortOrder
+    classification?: SortOrder
+    deductibility?: SortOrder
+    foundation?: SortOrder
+    organization?: SortOrder
+    exemptStatus?: SortOrder
+    assetCode?: SortOrder
+    incomeCode?: SortOrder
+    filingReqCode?: SortOrder
+    pfFilingReqCode?: SortOrder
+    accountingPeriod?: SortOrder
+    assetAmount?: SortOrder
+    incomeAmount?: SortOrder
+    revenueAmount?: SortOrder
+  }
+
+  export type BigIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel> | null
+    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel> | null
+    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel> | null
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntNullableWithAggregatesFilter<$PrismaModel> | bigint | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedBigIntNullableFilter<$PrismaModel>
+    _min?: NestedBigIntNullableFilter<$PrismaModel>
+    _max?: NestedBigIntNullableFilter<$PrismaModel>
+  }
+
+  export type IrsOrganizationScalarRelationFilter = {
+    is?: IrsOrganizationWhereInput
+    isNot?: IrsOrganizationWhereInput
+  }
+
+  export type IrsFilingEinTaxYearCompoundUniqueInput = {
+    ein: string
+    taxYear: number
+  }
+
+  export type IrsFilingCountOrderByAggregateInput = {
+    id?: SortOrder
+    ein?: SortOrder
+    taxYear?: SortOrder
+    taxPeriodBegin?: SortOrder
+    taxPeriodEnd?: SortOrder
+    returnType?: SortOrder
+    totalRevenue?: SortOrder
+    totalExpenses?: SortOrder
+    totalAssetsEOY?: SortOrder
+    totalAssetsBOY?: SortOrder
+    totalLiabilitiesEOY?: SortOrder
+    totalLiabilitiesBOY?: SortOrder
+    netAssetsEOY?: SortOrder
+    contributionsAndGrants?: SortOrder
+    programServiceRevenue?: SortOrder
+    investmentIncome?: SortOrder
+    otherRevenue?: SortOrder
+    salariesAndWages?: SortOrder
+    compensationOfficers?: SortOrder
+    otherExpenses?: SortOrder
+    pctOfficerCompensation?: SortOrder
+    employeeCount?: SortOrder
+    volunteerCount?: SortOrder
+    objectId?: SortOrder
+    xmlBatchId?: SortOrder
+    filingType?: SortOrder
+    pdfUrl?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type IrsFilingAvgOrderByAggregateInput = {
+    taxYear?: SortOrder
+    totalRevenue?: SortOrder
+    totalExpenses?: SortOrder
+    totalAssetsEOY?: SortOrder
+    totalAssetsBOY?: SortOrder
+    totalLiabilitiesEOY?: SortOrder
+    totalLiabilitiesBOY?: SortOrder
+    netAssetsEOY?: SortOrder
+    contributionsAndGrants?: SortOrder
+    programServiceRevenue?: SortOrder
+    investmentIncome?: SortOrder
+    otherRevenue?: SortOrder
+    salariesAndWages?: SortOrder
+    compensationOfficers?: SortOrder
+    otherExpenses?: SortOrder
+    pctOfficerCompensation?: SortOrder
+    employeeCount?: SortOrder
+    volunteerCount?: SortOrder
+  }
+
+  export type IrsFilingMaxOrderByAggregateInput = {
+    id?: SortOrder
+    ein?: SortOrder
+    taxYear?: SortOrder
+    taxPeriodBegin?: SortOrder
+    taxPeriodEnd?: SortOrder
+    returnType?: SortOrder
+    totalRevenue?: SortOrder
+    totalExpenses?: SortOrder
+    totalAssetsEOY?: SortOrder
+    totalAssetsBOY?: SortOrder
+    totalLiabilitiesEOY?: SortOrder
+    totalLiabilitiesBOY?: SortOrder
+    netAssetsEOY?: SortOrder
+    contributionsAndGrants?: SortOrder
+    programServiceRevenue?: SortOrder
+    investmentIncome?: SortOrder
+    otherRevenue?: SortOrder
+    salariesAndWages?: SortOrder
+    compensationOfficers?: SortOrder
+    otherExpenses?: SortOrder
+    pctOfficerCompensation?: SortOrder
+    employeeCount?: SortOrder
+    volunteerCount?: SortOrder
+    objectId?: SortOrder
+    xmlBatchId?: SortOrder
+    filingType?: SortOrder
+    pdfUrl?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type IrsFilingMinOrderByAggregateInput = {
+    id?: SortOrder
+    ein?: SortOrder
+    taxYear?: SortOrder
+    taxPeriodBegin?: SortOrder
+    taxPeriodEnd?: SortOrder
+    returnType?: SortOrder
+    totalRevenue?: SortOrder
+    totalExpenses?: SortOrder
+    totalAssetsEOY?: SortOrder
+    totalAssetsBOY?: SortOrder
+    totalLiabilitiesEOY?: SortOrder
+    totalLiabilitiesBOY?: SortOrder
+    netAssetsEOY?: SortOrder
+    contributionsAndGrants?: SortOrder
+    programServiceRevenue?: SortOrder
+    investmentIncome?: SortOrder
+    otherRevenue?: SortOrder
+    salariesAndWages?: SortOrder
+    compensationOfficers?: SortOrder
+    otherExpenses?: SortOrder
+    pctOfficerCompensation?: SortOrder
+    employeeCount?: SortOrder
+    volunteerCount?: SortOrder
+    objectId?: SortOrder
+    xmlBatchId?: SortOrder
+    filingType?: SortOrder
+    pdfUrl?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type IrsFilingSumOrderByAggregateInput = {
+    taxYear?: SortOrder
+    totalRevenue?: SortOrder
+    totalExpenses?: SortOrder
+    totalAssetsEOY?: SortOrder
+    totalAssetsBOY?: SortOrder
+    totalLiabilitiesEOY?: SortOrder
+    totalLiabilitiesBOY?: SortOrder
+    netAssetsEOY?: SortOrder
+    contributionsAndGrants?: SortOrder
+    programServiceRevenue?: SortOrder
+    investmentIncome?: SortOrder
+    otherRevenue?: SortOrder
+    salariesAndWages?: SortOrder
+    compensationOfficers?: SortOrder
+    otherExpenses?: SortOrder
+    pctOfficerCompensation?: SortOrder
+    employeeCount?: SortOrder
+    volunteerCount?: SortOrder
+  }
+
   export type UserCreateNestedOneWithoutAccountsInput = {
     create?: XOR<UserCreateWithoutAccountsInput, UserUncheckedCreateWithoutAccountsInput>
     connectOrCreate?: UserCreateOrConnectWithoutAccountsInput
@@ -57964,6 +62518,12 @@ export namespace Prisma {
     connect?: DonorChallengeWhereUniqueInput | DonorChallengeWhereUniqueInput[]
   }
 
+  export type IrsOrganizationCreateNestedOneWithoutNgoInput = {
+    create?: XOR<IrsOrganizationCreateWithoutNgoInput, IrsOrganizationUncheckedCreateWithoutNgoInput>
+    connectOrCreate?: IrsOrganizationCreateOrConnectWithoutNgoInput
+    connect?: IrsOrganizationWhereUniqueInput
+  }
+
   export type ProjectUncheckedCreateNestedManyWithoutNgoInput = {
     create?: XOR<ProjectCreateWithoutNgoInput, ProjectUncheckedCreateWithoutNgoInput> | ProjectCreateWithoutNgoInput[] | ProjectUncheckedCreateWithoutNgoInput[]
     connectOrCreate?: ProjectCreateOrConnectWithoutNgoInput | ProjectCreateOrConnectWithoutNgoInput[]
@@ -58025,6 +62585,12 @@ export namespace Prisma {
     connectOrCreate?: DonorChallengeCreateOrConnectWithoutNgoInput | DonorChallengeCreateOrConnectWithoutNgoInput[]
     createMany?: DonorChallengeCreateManyNgoInputEnvelope
     connect?: DonorChallengeWhereUniqueInput | DonorChallengeWhereUniqueInput[]
+  }
+
+  export type IrsOrganizationUncheckedCreateNestedOneWithoutNgoInput = {
+    create?: XOR<IrsOrganizationCreateWithoutNgoInput, IrsOrganizationUncheckedCreateWithoutNgoInput>
+    connectOrCreate?: IrsOrganizationCreateOrConnectWithoutNgoInput
+    connect?: IrsOrganizationWhereUniqueInput
   }
 
   export type FloatFieldUpdateOperationsInput = {
@@ -58173,6 +62739,16 @@ export namespace Prisma {
     deleteMany?: DonorChallengeScalarWhereInput | DonorChallengeScalarWhereInput[]
   }
 
+  export type IrsOrganizationUpdateOneWithoutNgoNestedInput = {
+    create?: XOR<IrsOrganizationCreateWithoutNgoInput, IrsOrganizationUncheckedCreateWithoutNgoInput>
+    connectOrCreate?: IrsOrganizationCreateOrConnectWithoutNgoInput
+    upsert?: IrsOrganizationUpsertWithoutNgoInput
+    disconnect?: IrsOrganizationWhereInput | boolean
+    delete?: IrsOrganizationWhereInput | boolean
+    connect?: IrsOrganizationWhereUniqueInput
+    update?: XOR<XOR<IrsOrganizationUpdateToOneWithWhereWithoutNgoInput, IrsOrganizationUpdateWithoutNgoInput>, IrsOrganizationUncheckedUpdateWithoutNgoInput>
+  }
+
   export type ProjectUncheckedUpdateManyWithoutNgoNestedInput = {
     create?: XOR<ProjectCreateWithoutNgoInput, ProjectUncheckedCreateWithoutNgoInput> | ProjectCreateWithoutNgoInput[] | ProjectUncheckedCreateWithoutNgoInput[]
     connectOrCreate?: ProjectCreateOrConnectWithoutNgoInput | ProjectCreateOrConnectWithoutNgoInput[]
@@ -58297,6 +62873,16 @@ export namespace Prisma {
     update?: DonorChallengeUpdateWithWhereUniqueWithoutNgoInput | DonorChallengeUpdateWithWhereUniqueWithoutNgoInput[]
     updateMany?: DonorChallengeUpdateManyWithWhereWithoutNgoInput | DonorChallengeUpdateManyWithWhereWithoutNgoInput[]
     deleteMany?: DonorChallengeScalarWhereInput | DonorChallengeScalarWhereInput[]
+  }
+
+  export type IrsOrganizationUncheckedUpdateOneWithoutNgoNestedInput = {
+    create?: XOR<IrsOrganizationCreateWithoutNgoInput, IrsOrganizationUncheckedCreateWithoutNgoInput>
+    connectOrCreate?: IrsOrganizationCreateOrConnectWithoutNgoInput
+    upsert?: IrsOrganizationUpsertWithoutNgoInput
+    disconnect?: IrsOrganizationWhereInput | boolean
+    delete?: IrsOrganizationWhereInput | boolean
+    connect?: IrsOrganizationWhereUniqueInput
+    update?: XOR<XOR<IrsOrganizationUpdateToOneWithWhereWithoutNgoInput, IrsOrganizationUpdateWithoutNgoInput>, IrsOrganizationUncheckedUpdateWithoutNgoInput>
   }
 
   export type NgoCreateNestedOneWithoutProjectsInput = {
@@ -59671,6 +64257,86 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSubscriptionInput, UserUpdateWithoutSubscriptionInput>, UserUncheckedUpdateWithoutSubscriptionInput>
   }
 
+  export type NgoCreateNestedOneWithoutIrsOrganizationInput = {
+    create?: XOR<NgoCreateWithoutIrsOrganizationInput, NgoUncheckedCreateWithoutIrsOrganizationInput>
+    connectOrCreate?: NgoCreateOrConnectWithoutIrsOrganizationInput
+    connect?: NgoWhereUniqueInput
+  }
+
+  export type IrsFilingCreateNestedManyWithoutOrganizationInput = {
+    create?: XOR<IrsFilingCreateWithoutOrganizationInput, IrsFilingUncheckedCreateWithoutOrganizationInput> | IrsFilingCreateWithoutOrganizationInput[] | IrsFilingUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: IrsFilingCreateOrConnectWithoutOrganizationInput | IrsFilingCreateOrConnectWithoutOrganizationInput[]
+    createMany?: IrsFilingCreateManyOrganizationInputEnvelope
+    connect?: IrsFilingWhereUniqueInput | IrsFilingWhereUniqueInput[]
+  }
+
+  export type IrsFilingUncheckedCreateNestedManyWithoutOrganizationInput = {
+    create?: XOR<IrsFilingCreateWithoutOrganizationInput, IrsFilingUncheckedCreateWithoutOrganizationInput> | IrsFilingCreateWithoutOrganizationInput[] | IrsFilingUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: IrsFilingCreateOrConnectWithoutOrganizationInput | IrsFilingCreateOrConnectWithoutOrganizationInput[]
+    createMany?: IrsFilingCreateManyOrganizationInputEnvelope
+    connect?: IrsFilingWhereUniqueInput | IrsFilingWhereUniqueInput[]
+  }
+
+  export type NullableBigIntFieldUpdateOperationsInput = {
+    set?: bigint | number | null
+    increment?: bigint | number
+    decrement?: bigint | number
+    multiply?: bigint | number
+    divide?: bigint | number
+  }
+
+  export type NgoUpdateOneWithoutIrsOrganizationNestedInput = {
+    create?: XOR<NgoCreateWithoutIrsOrganizationInput, NgoUncheckedCreateWithoutIrsOrganizationInput>
+    connectOrCreate?: NgoCreateOrConnectWithoutIrsOrganizationInput
+    upsert?: NgoUpsertWithoutIrsOrganizationInput
+    disconnect?: NgoWhereInput | boolean
+    delete?: NgoWhereInput | boolean
+    connect?: NgoWhereUniqueInput
+    update?: XOR<XOR<NgoUpdateToOneWithWhereWithoutIrsOrganizationInput, NgoUpdateWithoutIrsOrganizationInput>, NgoUncheckedUpdateWithoutIrsOrganizationInput>
+  }
+
+  export type IrsFilingUpdateManyWithoutOrganizationNestedInput = {
+    create?: XOR<IrsFilingCreateWithoutOrganizationInput, IrsFilingUncheckedCreateWithoutOrganizationInput> | IrsFilingCreateWithoutOrganizationInput[] | IrsFilingUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: IrsFilingCreateOrConnectWithoutOrganizationInput | IrsFilingCreateOrConnectWithoutOrganizationInput[]
+    upsert?: IrsFilingUpsertWithWhereUniqueWithoutOrganizationInput | IrsFilingUpsertWithWhereUniqueWithoutOrganizationInput[]
+    createMany?: IrsFilingCreateManyOrganizationInputEnvelope
+    set?: IrsFilingWhereUniqueInput | IrsFilingWhereUniqueInput[]
+    disconnect?: IrsFilingWhereUniqueInput | IrsFilingWhereUniqueInput[]
+    delete?: IrsFilingWhereUniqueInput | IrsFilingWhereUniqueInput[]
+    connect?: IrsFilingWhereUniqueInput | IrsFilingWhereUniqueInput[]
+    update?: IrsFilingUpdateWithWhereUniqueWithoutOrganizationInput | IrsFilingUpdateWithWhereUniqueWithoutOrganizationInput[]
+    updateMany?: IrsFilingUpdateManyWithWhereWithoutOrganizationInput | IrsFilingUpdateManyWithWhereWithoutOrganizationInput[]
+    deleteMany?: IrsFilingScalarWhereInput | IrsFilingScalarWhereInput[]
+  }
+
+  export type IrsFilingUncheckedUpdateManyWithoutOrganizationNestedInput = {
+    create?: XOR<IrsFilingCreateWithoutOrganizationInput, IrsFilingUncheckedCreateWithoutOrganizationInput> | IrsFilingCreateWithoutOrganizationInput[] | IrsFilingUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: IrsFilingCreateOrConnectWithoutOrganizationInput | IrsFilingCreateOrConnectWithoutOrganizationInput[]
+    upsert?: IrsFilingUpsertWithWhereUniqueWithoutOrganizationInput | IrsFilingUpsertWithWhereUniqueWithoutOrganizationInput[]
+    createMany?: IrsFilingCreateManyOrganizationInputEnvelope
+    set?: IrsFilingWhereUniqueInput | IrsFilingWhereUniqueInput[]
+    disconnect?: IrsFilingWhereUniqueInput | IrsFilingWhereUniqueInput[]
+    delete?: IrsFilingWhereUniqueInput | IrsFilingWhereUniqueInput[]
+    connect?: IrsFilingWhereUniqueInput | IrsFilingWhereUniqueInput[]
+    update?: IrsFilingUpdateWithWhereUniqueWithoutOrganizationInput | IrsFilingUpdateWithWhereUniqueWithoutOrganizationInput[]
+    updateMany?: IrsFilingUpdateManyWithWhereWithoutOrganizationInput | IrsFilingUpdateManyWithWhereWithoutOrganizationInput[]
+    deleteMany?: IrsFilingScalarWhereInput | IrsFilingScalarWhereInput[]
+  }
+
+  export type IrsOrganizationCreateNestedOneWithoutFilingsInput = {
+    create?: XOR<IrsOrganizationCreateWithoutFilingsInput, IrsOrganizationUncheckedCreateWithoutFilingsInput>
+    connectOrCreate?: IrsOrganizationCreateOrConnectWithoutFilingsInput
+    connect?: IrsOrganizationWhereUniqueInput
+  }
+
+  export type IrsOrganizationUpdateOneRequiredWithoutFilingsNestedInput = {
+    create?: XOR<IrsOrganizationCreateWithoutFilingsInput, IrsOrganizationUncheckedCreateWithoutFilingsInput>
+    connectOrCreate?: IrsOrganizationCreateOrConnectWithoutFilingsInput
+    upsert?: IrsOrganizationUpsertWithoutFilingsInput
+    connect?: IrsOrganizationWhereUniqueInput
+    update?: XOR<XOR<IrsOrganizationUpdateToOneWithWhereWithoutFilingsInput, IrsOrganizationUpdateWithoutFilingsInput>, IrsOrganizationUncheckedUpdateWithoutFilingsInput>
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -60106,6 +64772,33 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumSubscriptionPlanFilter<$PrismaModel>
     _max?: NestedEnumSubscriptionPlanFilter<$PrismaModel>
+  }
+
+  export type NestedBigIntNullableFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel> | null
+    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel> | null
+    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel> | null
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntNullableFilter<$PrismaModel> | bigint | number | null
+  }
+
+  export type NestedBigIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel> | null
+    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel> | null
+    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel> | null
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntNullableWithAggregatesFilter<$PrismaModel> | bigint | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedBigIntNullableFilter<$PrismaModel>
+    _min?: NestedBigIntNullableFilter<$PrismaModel>
+    _max?: NestedBigIntNullableFilter<$PrismaModel>
   }
 
   export type UserCreateWithoutAccountsInput = {
@@ -60594,6 +65287,7 @@ export namespace Prisma {
     documents?: NgoDocumentCreateNestedManyWithoutNgoInput
     roles?: NgoRoleCreateNestedManyWithoutNgoInput
     challenges?: DonorChallengeCreateNestedManyWithoutNgoInput
+    irsOrganization?: IrsOrganizationCreateNestedOneWithoutNgoInput
   }
 
   export type NgoUncheckedCreateWithoutUserInput = {
@@ -60622,6 +65316,7 @@ export namespace Prisma {
     documents?: NgoDocumentUncheckedCreateNestedManyWithoutNgoInput
     roles?: NgoRoleUncheckedCreateNestedManyWithoutNgoInput
     challenges?: DonorChallengeUncheckedCreateNestedManyWithoutNgoInput
+    irsOrganization?: IrsOrganizationUncheckedCreateNestedOneWithoutNgoInput
   }
 
   export type NgoCreateOrConnectWithoutUserInput = {
@@ -61284,6 +65979,7 @@ export namespace Prisma {
     documents?: NgoDocumentUpdateManyWithoutNgoNestedInput
     roles?: NgoRoleUpdateManyWithoutNgoNestedInput
     challenges?: DonorChallengeUpdateManyWithoutNgoNestedInput
+    irsOrganization?: IrsOrganizationUpdateOneWithoutNgoNestedInput
   }
 
   export type NgoUncheckedUpdateWithoutUserInput = {
@@ -61312,6 +66008,7 @@ export namespace Prisma {
     documents?: NgoDocumentUncheckedUpdateManyWithoutNgoNestedInput
     roles?: NgoRoleUncheckedUpdateManyWithoutNgoNestedInput
     challenges?: DonorChallengeUncheckedUpdateManyWithoutNgoNestedInput
+    irsOrganization?: IrsOrganizationUncheckedUpdateOneWithoutNgoNestedInput
   }
 
   export type DonationUpsertWithWhereUniqueWithoutUserInput = {
@@ -62701,6 +67398,83 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type IrsOrganizationCreateWithoutNgoInput = {
+    id?: string
+    ein: string
+    name: string
+    sortName?: string | null
+    ico?: string | null
+    street?: string | null
+    city?: string | null
+    state?: string | null
+    zip?: string | null
+    subsection?: number | null
+    affiliation?: number | null
+    classification?: number | null
+    ruling?: string | null
+    deductibility?: number | null
+    foundation?: number | null
+    activity?: string | null
+    organization?: number | null
+    exemptStatus?: number | null
+    taxPeriod?: string | null
+    assetCode?: number | null
+    incomeCode?: number | null
+    filingReqCode?: number | null
+    pfFilingReqCode?: number | null
+    accountingPeriod?: number | null
+    assetAmount?: bigint | number | null
+    incomeAmount?: bigint | number | null
+    revenueAmount?: bigint | number | null
+    nteeCode?: string | null
+    groupNumber?: string | null
+    bmfLastUpdated?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    filings?: IrsFilingCreateNestedManyWithoutOrganizationInput
+  }
+
+  export type IrsOrganizationUncheckedCreateWithoutNgoInput = {
+    id?: string
+    ein: string
+    name: string
+    sortName?: string | null
+    ico?: string | null
+    street?: string | null
+    city?: string | null
+    state?: string | null
+    zip?: string | null
+    subsection?: number | null
+    affiliation?: number | null
+    classification?: number | null
+    ruling?: string | null
+    deductibility?: number | null
+    foundation?: number | null
+    activity?: string | null
+    organization?: number | null
+    exemptStatus?: number | null
+    taxPeriod?: string | null
+    assetCode?: number | null
+    incomeCode?: number | null
+    filingReqCode?: number | null
+    pfFilingReqCode?: number | null
+    accountingPeriod?: number | null
+    assetAmount?: bigint | number | null
+    incomeAmount?: bigint | number | null
+    revenueAmount?: bigint | number | null
+    nteeCode?: string | null
+    groupNumber?: string | null
+    bmfLastUpdated?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    filings?: IrsFilingUncheckedCreateNestedManyWithoutOrganizationInput
+  }
+
+  export type IrsOrganizationCreateOrConnectWithoutNgoInput = {
+    where: IrsOrganizationWhereUniqueInput
+    create: XOR<IrsOrganizationCreateWithoutNgoInput, IrsOrganizationUncheckedCreateWithoutNgoInput>
+  }
+
   export type UserUpsertWithoutNgoInput = {
     update: XOR<UserUpdateWithoutNgoInput, UserUncheckedUpdateWithoutNgoInput>
     create: XOR<UserCreateWithoutNgoInput, UserUncheckedCreateWithoutNgoInput>
@@ -63044,6 +67818,89 @@ export namespace Prisma {
     data: XOR<DonorChallengeUpdateManyMutationInput, DonorChallengeUncheckedUpdateManyWithoutNgoInput>
   }
 
+  export type IrsOrganizationUpsertWithoutNgoInput = {
+    update: XOR<IrsOrganizationUpdateWithoutNgoInput, IrsOrganizationUncheckedUpdateWithoutNgoInput>
+    create: XOR<IrsOrganizationCreateWithoutNgoInput, IrsOrganizationUncheckedCreateWithoutNgoInput>
+    where?: IrsOrganizationWhereInput
+  }
+
+  export type IrsOrganizationUpdateToOneWithWhereWithoutNgoInput = {
+    where?: IrsOrganizationWhereInput
+    data: XOR<IrsOrganizationUpdateWithoutNgoInput, IrsOrganizationUncheckedUpdateWithoutNgoInput>
+  }
+
+  export type IrsOrganizationUpdateWithoutNgoInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ein?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    sortName?: NullableStringFieldUpdateOperationsInput | string | null
+    ico?: NullableStringFieldUpdateOperationsInput | string | null
+    street?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    zip?: NullableStringFieldUpdateOperationsInput | string | null
+    subsection?: NullableIntFieldUpdateOperationsInput | number | null
+    affiliation?: NullableIntFieldUpdateOperationsInput | number | null
+    classification?: NullableIntFieldUpdateOperationsInput | number | null
+    ruling?: NullableStringFieldUpdateOperationsInput | string | null
+    deductibility?: NullableIntFieldUpdateOperationsInput | number | null
+    foundation?: NullableIntFieldUpdateOperationsInput | number | null
+    activity?: NullableStringFieldUpdateOperationsInput | string | null
+    organization?: NullableIntFieldUpdateOperationsInput | number | null
+    exemptStatus?: NullableIntFieldUpdateOperationsInput | number | null
+    taxPeriod?: NullableStringFieldUpdateOperationsInput | string | null
+    assetCode?: NullableIntFieldUpdateOperationsInput | number | null
+    incomeCode?: NullableIntFieldUpdateOperationsInput | number | null
+    filingReqCode?: NullableIntFieldUpdateOperationsInput | number | null
+    pfFilingReqCode?: NullableIntFieldUpdateOperationsInput | number | null
+    accountingPeriod?: NullableIntFieldUpdateOperationsInput | number | null
+    assetAmount?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    incomeAmount?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    revenueAmount?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    nteeCode?: NullableStringFieldUpdateOperationsInput | string | null
+    groupNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    bmfLastUpdated?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    filings?: IrsFilingUpdateManyWithoutOrganizationNestedInput
+  }
+
+  export type IrsOrganizationUncheckedUpdateWithoutNgoInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ein?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    sortName?: NullableStringFieldUpdateOperationsInput | string | null
+    ico?: NullableStringFieldUpdateOperationsInput | string | null
+    street?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    zip?: NullableStringFieldUpdateOperationsInput | string | null
+    subsection?: NullableIntFieldUpdateOperationsInput | number | null
+    affiliation?: NullableIntFieldUpdateOperationsInput | number | null
+    classification?: NullableIntFieldUpdateOperationsInput | number | null
+    ruling?: NullableStringFieldUpdateOperationsInput | string | null
+    deductibility?: NullableIntFieldUpdateOperationsInput | number | null
+    foundation?: NullableIntFieldUpdateOperationsInput | number | null
+    activity?: NullableStringFieldUpdateOperationsInput | string | null
+    organization?: NullableIntFieldUpdateOperationsInput | number | null
+    exemptStatus?: NullableIntFieldUpdateOperationsInput | number | null
+    taxPeriod?: NullableStringFieldUpdateOperationsInput | string | null
+    assetCode?: NullableIntFieldUpdateOperationsInput | number | null
+    incomeCode?: NullableIntFieldUpdateOperationsInput | number | null
+    filingReqCode?: NullableIntFieldUpdateOperationsInput | number | null
+    pfFilingReqCode?: NullableIntFieldUpdateOperationsInput | number | null
+    accountingPeriod?: NullableIntFieldUpdateOperationsInput | number | null
+    assetAmount?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    incomeAmount?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    revenueAmount?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    nteeCode?: NullableStringFieldUpdateOperationsInput | string | null
+    groupNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    bmfLastUpdated?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    filings?: IrsFilingUncheckedUpdateManyWithoutOrganizationNestedInput
+  }
+
   export type NgoCreateWithoutProjectsInput = {
     id?: string
     orgName: string
@@ -63070,6 +67927,7 @@ export namespace Prisma {
     documents?: NgoDocumentCreateNestedManyWithoutNgoInput
     roles?: NgoRoleCreateNestedManyWithoutNgoInput
     challenges?: DonorChallengeCreateNestedManyWithoutNgoInput
+    irsOrganization?: IrsOrganizationCreateNestedOneWithoutNgoInput
   }
 
   export type NgoUncheckedCreateWithoutProjectsInput = {
@@ -63098,6 +67956,7 @@ export namespace Prisma {
     documents?: NgoDocumentUncheckedCreateNestedManyWithoutNgoInput
     roles?: NgoRoleUncheckedCreateNestedManyWithoutNgoInput
     challenges?: DonorChallengeUncheckedCreateNestedManyWithoutNgoInput
+    irsOrganization?: IrsOrganizationUncheckedCreateNestedOneWithoutNgoInput
   }
 
   export type NgoCreateOrConnectWithoutProjectsInput = {
@@ -63462,6 +68321,7 @@ export namespace Prisma {
     documents?: NgoDocumentUpdateManyWithoutNgoNestedInput
     roles?: NgoRoleUpdateManyWithoutNgoNestedInput
     challenges?: DonorChallengeUpdateManyWithoutNgoNestedInput
+    irsOrganization?: IrsOrganizationUpdateOneWithoutNgoNestedInput
   }
 
   export type NgoUncheckedUpdateWithoutProjectsInput = {
@@ -63490,6 +68350,7 @@ export namespace Prisma {
     documents?: NgoDocumentUncheckedUpdateManyWithoutNgoNestedInput
     roles?: NgoRoleUncheckedUpdateManyWithoutNgoNestedInput
     challenges?: DonorChallengeUncheckedUpdateManyWithoutNgoNestedInput
+    irsOrganization?: IrsOrganizationUncheckedUpdateOneWithoutNgoNestedInput
   }
 
   export type MilestoneUpsertWithWhereUniqueWithoutProjectInput = {
@@ -64680,6 +69541,7 @@ export namespace Prisma {
     documents?: NgoDocumentCreateNestedManyWithoutNgoInput
     roles?: NgoRoleCreateNestedManyWithoutNgoInput
     challenges?: DonorChallengeCreateNestedManyWithoutNgoInput
+    irsOrganization?: IrsOrganizationCreateNestedOneWithoutNgoInput
   }
 
   export type NgoUncheckedCreateWithoutExpensesInput = {
@@ -64708,6 +69570,7 @@ export namespace Prisma {
     documents?: NgoDocumentUncheckedCreateNestedManyWithoutNgoInput
     roles?: NgoRoleUncheckedCreateNestedManyWithoutNgoInput
     challenges?: DonorChallengeUncheckedCreateNestedManyWithoutNgoInput
+    irsOrganization?: IrsOrganizationUncheckedCreateNestedOneWithoutNgoInput
   }
 
   export type NgoCreateOrConnectWithoutExpensesInput = {
@@ -64809,6 +69672,7 @@ export namespace Prisma {
     documents?: NgoDocumentUpdateManyWithoutNgoNestedInput
     roles?: NgoRoleUpdateManyWithoutNgoNestedInput
     challenges?: DonorChallengeUpdateManyWithoutNgoNestedInput
+    irsOrganization?: IrsOrganizationUpdateOneWithoutNgoNestedInput
   }
 
   export type NgoUncheckedUpdateWithoutExpensesInput = {
@@ -64837,6 +69701,7 @@ export namespace Prisma {
     documents?: NgoDocumentUncheckedUpdateManyWithoutNgoNestedInput
     roles?: NgoRoleUncheckedUpdateManyWithoutNgoNestedInput
     challenges?: DonorChallengeUncheckedUpdateManyWithoutNgoNestedInput
+    irsOrganization?: IrsOrganizationUncheckedUpdateOneWithoutNgoNestedInput
   }
 
   export type ProjectUpsertWithoutExpensesInput = {
@@ -65165,6 +70030,7 @@ export namespace Prisma {
     documents?: NgoDocumentCreateNestedManyWithoutNgoInput
     roles?: NgoRoleCreateNestedManyWithoutNgoInput
     challenges?: DonorChallengeCreateNestedManyWithoutNgoInput
+    irsOrganization?: IrsOrganizationCreateNestedOneWithoutNgoInput
   }
 
   export type NgoUncheckedCreateWithoutRatingsInput = {
@@ -65193,6 +70059,7 @@ export namespace Prisma {
     documents?: NgoDocumentUncheckedCreateNestedManyWithoutNgoInput
     roles?: NgoRoleUncheckedCreateNestedManyWithoutNgoInput
     challenges?: DonorChallengeUncheckedCreateNestedManyWithoutNgoInput
+    irsOrganization?: IrsOrganizationUncheckedCreateNestedOneWithoutNgoInput
   }
 
   export type NgoCreateOrConnectWithoutRatingsInput = {
@@ -65340,6 +70207,7 @@ export namespace Prisma {
     documents?: NgoDocumentUpdateManyWithoutNgoNestedInput
     roles?: NgoRoleUpdateManyWithoutNgoNestedInput
     challenges?: DonorChallengeUpdateManyWithoutNgoNestedInput
+    irsOrganization?: IrsOrganizationUpdateOneWithoutNgoNestedInput
   }
 
   export type NgoUncheckedUpdateWithoutRatingsInput = {
@@ -65368,6 +70236,7 @@ export namespace Prisma {
     documents?: NgoDocumentUncheckedUpdateManyWithoutNgoNestedInput
     roles?: NgoRoleUncheckedUpdateManyWithoutNgoNestedInput
     challenges?: DonorChallengeUncheckedUpdateManyWithoutNgoNestedInput
+    irsOrganization?: IrsOrganizationUncheckedUpdateOneWithoutNgoNestedInput
   }
 
   export type UserCreateWithoutNotificationsInput = {
@@ -67148,6 +72017,7 @@ export namespace Prisma {
     documents?: NgoDocumentCreateNestedManyWithoutNgoInput
     roles?: NgoRoleCreateNestedManyWithoutNgoInput
     challenges?: DonorChallengeCreateNestedManyWithoutNgoInput
+    irsOrganization?: IrsOrganizationCreateNestedOneWithoutNgoInput
   }
 
   export type NgoUncheckedCreateWithoutBoardMembersInput = {
@@ -67176,6 +72046,7 @@ export namespace Prisma {
     documents?: NgoDocumentUncheckedCreateNestedManyWithoutNgoInput
     roles?: NgoRoleUncheckedCreateNestedManyWithoutNgoInput
     challenges?: DonorChallengeUncheckedCreateNestedManyWithoutNgoInput
+    irsOrganization?: IrsOrganizationUncheckedCreateNestedOneWithoutNgoInput
   }
 
   export type NgoCreateOrConnectWithoutBoardMembersInput = {
@@ -67220,6 +72091,7 @@ export namespace Prisma {
     documents?: NgoDocumentUpdateManyWithoutNgoNestedInput
     roles?: NgoRoleUpdateManyWithoutNgoNestedInput
     challenges?: DonorChallengeUpdateManyWithoutNgoNestedInput
+    irsOrganization?: IrsOrganizationUpdateOneWithoutNgoNestedInput
   }
 
   export type NgoUncheckedUpdateWithoutBoardMembersInput = {
@@ -67248,6 +72120,7 @@ export namespace Prisma {
     documents?: NgoDocumentUncheckedUpdateManyWithoutNgoNestedInput
     roles?: NgoRoleUncheckedUpdateManyWithoutNgoNestedInput
     challenges?: DonorChallengeUncheckedUpdateManyWithoutNgoNestedInput
+    irsOrganization?: IrsOrganizationUncheckedUpdateOneWithoutNgoNestedInput
   }
 
   export type UserCreateWithoutSkillContributionsInput = {
@@ -67373,6 +72246,7 @@ export namespace Prisma {
     documents?: NgoDocumentCreateNestedManyWithoutNgoInput
     roles?: NgoRoleCreateNestedManyWithoutNgoInput
     challenges?: DonorChallengeCreateNestedManyWithoutNgoInput
+    irsOrganization?: IrsOrganizationCreateNestedOneWithoutNgoInput
   }
 
   export type NgoUncheckedCreateWithoutSkillContributionsInput = {
@@ -67401,6 +72275,7 @@ export namespace Prisma {
     documents?: NgoDocumentUncheckedCreateNestedManyWithoutNgoInput
     roles?: NgoRoleUncheckedCreateNestedManyWithoutNgoInput
     challenges?: DonorChallengeUncheckedCreateNestedManyWithoutNgoInput
+    irsOrganization?: IrsOrganizationUncheckedCreateNestedOneWithoutNgoInput
   }
 
   export type NgoCreateOrConnectWithoutSkillContributionsInput = {
@@ -67624,6 +72499,7 @@ export namespace Prisma {
     documents?: NgoDocumentUpdateManyWithoutNgoNestedInput
     roles?: NgoRoleUpdateManyWithoutNgoNestedInput
     challenges?: DonorChallengeUpdateManyWithoutNgoNestedInput
+    irsOrganization?: IrsOrganizationUpdateOneWithoutNgoNestedInput
   }
 
   export type NgoUncheckedUpdateWithoutSkillContributionsInput = {
@@ -67652,6 +72528,7 @@ export namespace Prisma {
     documents?: NgoDocumentUncheckedUpdateManyWithoutNgoNestedInput
     roles?: NgoRoleUncheckedUpdateManyWithoutNgoNestedInput
     challenges?: DonorChallengeUncheckedUpdateManyWithoutNgoNestedInput
+    irsOrganization?: IrsOrganizationUncheckedUpdateOneWithoutNgoNestedInput
   }
 
   export type ProjectUpsertWithoutSkillContributionsInput = {
@@ -67945,6 +72822,7 @@ export namespace Prisma {
     documents?: NgoDocumentCreateNestedManyWithoutNgoInput
     roles?: NgoRoleCreateNestedManyWithoutNgoInput
     challenges?: DonorChallengeCreateNestedManyWithoutNgoInput
+    irsOrganization?: IrsOrganizationCreateNestedOneWithoutNgoInput
   }
 
   export type NgoUncheckedCreateWithoutDonorEndorsementsInput = {
@@ -67973,6 +72851,7 @@ export namespace Prisma {
     documents?: NgoDocumentUncheckedCreateNestedManyWithoutNgoInput
     roles?: NgoRoleUncheckedCreateNestedManyWithoutNgoInput
     challenges?: DonorChallengeUncheckedCreateNestedManyWithoutNgoInput
+    irsOrganization?: IrsOrganizationUncheckedCreateNestedOneWithoutNgoInput
   }
 
   export type NgoCreateOrConnectWithoutDonorEndorsementsInput = {
@@ -68217,6 +73096,7 @@ export namespace Prisma {
     documents?: NgoDocumentUpdateManyWithoutNgoNestedInput
     roles?: NgoRoleUpdateManyWithoutNgoNestedInput
     challenges?: DonorChallengeUpdateManyWithoutNgoNestedInput
+    irsOrganization?: IrsOrganizationUpdateOneWithoutNgoNestedInput
   }
 
   export type NgoUncheckedUpdateWithoutDonorEndorsementsInput = {
@@ -68245,6 +73125,7 @@ export namespace Prisma {
     documents?: NgoDocumentUncheckedUpdateManyWithoutNgoNestedInput
     roles?: NgoRoleUncheckedUpdateManyWithoutNgoNestedInput
     challenges?: DonorChallengeUncheckedUpdateManyWithoutNgoNestedInput
+    irsOrganization?: IrsOrganizationUncheckedUpdateOneWithoutNgoNestedInput
   }
 
   export type UserUpsertWithoutEndorsementsGivenInput = {
@@ -68576,6 +73457,7 @@ export namespace Prisma {
     donorEndorsements?: DonorEndorsementCreateNestedManyWithoutNgoInput
     roles?: NgoRoleCreateNestedManyWithoutNgoInput
     challenges?: DonorChallengeCreateNestedManyWithoutNgoInput
+    irsOrganization?: IrsOrganizationCreateNestedOneWithoutNgoInput
   }
 
   export type NgoUncheckedCreateWithoutDocumentsInput = {
@@ -68604,6 +73486,7 @@ export namespace Prisma {
     donorEndorsements?: DonorEndorsementUncheckedCreateNestedManyWithoutNgoInput
     roles?: NgoRoleUncheckedCreateNestedManyWithoutNgoInput
     challenges?: DonorChallengeUncheckedCreateNestedManyWithoutNgoInput
+    irsOrganization?: IrsOrganizationUncheckedCreateNestedOneWithoutNgoInput
   }
 
   export type NgoCreateOrConnectWithoutDocumentsInput = {
@@ -68648,6 +73531,7 @@ export namespace Prisma {
     donorEndorsements?: DonorEndorsementUpdateManyWithoutNgoNestedInput
     roles?: NgoRoleUpdateManyWithoutNgoNestedInput
     challenges?: DonorChallengeUpdateManyWithoutNgoNestedInput
+    irsOrganization?: IrsOrganizationUpdateOneWithoutNgoNestedInput
   }
 
   export type NgoUncheckedUpdateWithoutDocumentsInput = {
@@ -68676,6 +73560,7 @@ export namespace Prisma {
     donorEndorsements?: DonorEndorsementUncheckedUpdateManyWithoutNgoNestedInput
     roles?: NgoRoleUncheckedUpdateManyWithoutNgoNestedInput
     challenges?: DonorChallengeUncheckedUpdateManyWithoutNgoNestedInput
+    irsOrganization?: IrsOrganizationUncheckedUpdateOneWithoutNgoNestedInput
   }
 
   export type NgoCreateWithoutRolesInput = {
@@ -68704,6 +73589,7 @@ export namespace Prisma {
     donorEndorsements?: DonorEndorsementCreateNestedManyWithoutNgoInput
     documents?: NgoDocumentCreateNestedManyWithoutNgoInput
     challenges?: DonorChallengeCreateNestedManyWithoutNgoInput
+    irsOrganization?: IrsOrganizationCreateNestedOneWithoutNgoInput
   }
 
   export type NgoUncheckedCreateWithoutRolesInput = {
@@ -68732,6 +73618,7 @@ export namespace Prisma {
     donorEndorsements?: DonorEndorsementUncheckedCreateNestedManyWithoutNgoInput
     documents?: NgoDocumentUncheckedCreateNestedManyWithoutNgoInput
     challenges?: DonorChallengeUncheckedCreateNestedManyWithoutNgoInput
+    irsOrganization?: IrsOrganizationUncheckedCreateNestedOneWithoutNgoInput
   }
 
   export type NgoCreateOrConnectWithoutRolesInput = {
@@ -68867,6 +73754,7 @@ export namespace Prisma {
     donorEndorsements?: DonorEndorsementUpdateManyWithoutNgoNestedInput
     documents?: NgoDocumentUpdateManyWithoutNgoNestedInput
     challenges?: DonorChallengeUpdateManyWithoutNgoNestedInput
+    irsOrganization?: IrsOrganizationUpdateOneWithoutNgoNestedInput
   }
 
   export type NgoUncheckedUpdateWithoutRolesInput = {
@@ -68895,6 +73783,7 @@ export namespace Prisma {
     donorEndorsements?: DonorEndorsementUncheckedUpdateManyWithoutNgoNestedInput
     documents?: NgoDocumentUncheckedUpdateManyWithoutNgoNestedInput
     challenges?: DonorChallengeUncheckedUpdateManyWithoutNgoNestedInput
+    irsOrganization?: IrsOrganizationUncheckedUpdateOneWithoutNgoNestedInput
   }
 
   export type ProjectUpsertWithoutRolesInput = {
@@ -69596,6 +74485,7 @@ export namespace Prisma {
     donorEndorsements?: DonorEndorsementCreateNestedManyWithoutNgoInput
     documents?: NgoDocumentCreateNestedManyWithoutNgoInput
     roles?: NgoRoleCreateNestedManyWithoutNgoInput
+    irsOrganization?: IrsOrganizationCreateNestedOneWithoutNgoInput
   }
 
   export type NgoUncheckedCreateWithoutChallengesInput = {
@@ -69624,6 +74514,7 @@ export namespace Prisma {
     donorEndorsements?: DonorEndorsementUncheckedCreateNestedManyWithoutNgoInput
     documents?: NgoDocumentUncheckedCreateNestedManyWithoutNgoInput
     roles?: NgoRoleUncheckedCreateNestedManyWithoutNgoInput
+    irsOrganization?: IrsOrganizationUncheckedCreateNestedOneWithoutNgoInput
   }
 
   export type NgoCreateOrConnectWithoutChallengesInput = {
@@ -69856,6 +74747,7 @@ export namespace Prisma {
     donorEndorsements?: DonorEndorsementUpdateManyWithoutNgoNestedInput
     documents?: NgoDocumentUpdateManyWithoutNgoNestedInput
     roles?: NgoRoleUpdateManyWithoutNgoNestedInput
+    irsOrganization?: IrsOrganizationUpdateOneWithoutNgoNestedInput
   }
 
   export type NgoUncheckedUpdateWithoutChallengesInput = {
@@ -69884,6 +74776,7 @@ export namespace Prisma {
     donorEndorsements?: DonorEndorsementUncheckedUpdateManyWithoutNgoNestedInput
     documents?: NgoDocumentUncheckedUpdateManyWithoutNgoNestedInput
     roles?: NgoRoleUncheckedUpdateManyWithoutNgoNestedInput
+    irsOrganization?: IrsOrganizationUncheckedUpdateOneWithoutNgoNestedInput
   }
 
   export type ChallengeAcceptanceUpsertWithWhereUniqueWithoutChallengeInput = {
@@ -70186,6 +75079,421 @@ export namespace Prisma {
     challenges?: DonorChallengeUncheckedUpdateManyWithoutDonorNestedInput
     betaTesterProfile?: BetaTesterProfileUncheckedUpdateOneWithoutUserNestedInput
     applicationProfiles?: DonorApplicationProfileUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type NgoCreateWithoutIrsOrganizationInput = {
+    id?: string
+    orgName: string
+    ein?: string | null
+    regNumber?: string | null
+    state?: string | null
+    country?: string | null
+    website?: string | null
+    description?: string | null
+    logoUrl?: string | null
+    trustScore?: number
+    status?: $Enums.NgoStatus
+    approvedAt?: Date | string | null
+    rejectReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    aiSummary?: string | null
+    user: UserCreateNestedOneWithoutNgoInput
+    projects?: ProjectCreateNestedManyWithoutNgoInput
+    expenses?: ExpenseCreateNestedManyWithoutNgoInput
+    ratings?: RatingCreateNestedManyWithoutNgoInput
+    boardMembers?: BoardMemberCreateNestedManyWithoutNgoInput
+    skillContributions?: SkillContributionCreateNestedManyWithoutNgoInput
+    donorEndorsements?: DonorEndorsementCreateNestedManyWithoutNgoInput
+    documents?: NgoDocumentCreateNestedManyWithoutNgoInput
+    roles?: NgoRoleCreateNestedManyWithoutNgoInput
+    challenges?: DonorChallengeCreateNestedManyWithoutNgoInput
+  }
+
+  export type NgoUncheckedCreateWithoutIrsOrganizationInput = {
+    id?: string
+    userId: string
+    orgName: string
+    ein?: string | null
+    regNumber?: string | null
+    state?: string | null
+    country?: string | null
+    website?: string | null
+    description?: string | null
+    logoUrl?: string | null
+    trustScore?: number
+    status?: $Enums.NgoStatus
+    approvedAt?: Date | string | null
+    rejectReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    aiSummary?: string | null
+    projects?: ProjectUncheckedCreateNestedManyWithoutNgoInput
+    expenses?: ExpenseUncheckedCreateNestedManyWithoutNgoInput
+    ratings?: RatingUncheckedCreateNestedManyWithoutNgoInput
+    boardMembers?: BoardMemberUncheckedCreateNestedManyWithoutNgoInput
+    skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutNgoInput
+    donorEndorsements?: DonorEndorsementUncheckedCreateNestedManyWithoutNgoInput
+    documents?: NgoDocumentUncheckedCreateNestedManyWithoutNgoInput
+    roles?: NgoRoleUncheckedCreateNestedManyWithoutNgoInput
+    challenges?: DonorChallengeUncheckedCreateNestedManyWithoutNgoInput
+  }
+
+  export type NgoCreateOrConnectWithoutIrsOrganizationInput = {
+    where: NgoWhereUniqueInput
+    create: XOR<NgoCreateWithoutIrsOrganizationInput, NgoUncheckedCreateWithoutIrsOrganizationInput>
+  }
+
+  export type IrsFilingCreateWithoutOrganizationInput = {
+    id?: string
+    taxYear: number
+    taxPeriodBegin?: Date | string | null
+    taxPeriodEnd?: Date | string | null
+    returnType?: string | null
+    totalRevenue?: bigint | number | null
+    totalExpenses?: bigint | number | null
+    totalAssetsEOY?: bigint | number | null
+    totalAssetsBOY?: bigint | number | null
+    totalLiabilitiesEOY?: bigint | number | null
+    totalLiabilitiesBOY?: bigint | number | null
+    netAssetsEOY?: bigint | number | null
+    contributionsAndGrants?: bigint | number | null
+    programServiceRevenue?: bigint | number | null
+    investmentIncome?: bigint | number | null
+    otherRevenue?: bigint | number | null
+    salariesAndWages?: bigint | number | null
+    compensationOfficers?: bigint | number | null
+    otherExpenses?: bigint | number | null
+    pctOfficerCompensation?: number | null
+    employeeCount?: number | null
+    volunteerCount?: number | null
+    objectId?: string | null
+    xmlBatchId?: string | null
+    filingType?: string | null
+    pdfUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type IrsFilingUncheckedCreateWithoutOrganizationInput = {
+    id?: string
+    taxYear: number
+    taxPeriodBegin?: Date | string | null
+    taxPeriodEnd?: Date | string | null
+    returnType?: string | null
+    totalRevenue?: bigint | number | null
+    totalExpenses?: bigint | number | null
+    totalAssetsEOY?: bigint | number | null
+    totalAssetsBOY?: bigint | number | null
+    totalLiabilitiesEOY?: bigint | number | null
+    totalLiabilitiesBOY?: bigint | number | null
+    netAssetsEOY?: bigint | number | null
+    contributionsAndGrants?: bigint | number | null
+    programServiceRevenue?: bigint | number | null
+    investmentIncome?: bigint | number | null
+    otherRevenue?: bigint | number | null
+    salariesAndWages?: bigint | number | null
+    compensationOfficers?: bigint | number | null
+    otherExpenses?: bigint | number | null
+    pctOfficerCompensation?: number | null
+    employeeCount?: number | null
+    volunteerCount?: number | null
+    objectId?: string | null
+    xmlBatchId?: string | null
+    filingType?: string | null
+    pdfUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type IrsFilingCreateOrConnectWithoutOrganizationInput = {
+    where: IrsFilingWhereUniqueInput
+    create: XOR<IrsFilingCreateWithoutOrganizationInput, IrsFilingUncheckedCreateWithoutOrganizationInput>
+  }
+
+  export type IrsFilingCreateManyOrganizationInputEnvelope = {
+    data: IrsFilingCreateManyOrganizationInput | IrsFilingCreateManyOrganizationInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type NgoUpsertWithoutIrsOrganizationInput = {
+    update: XOR<NgoUpdateWithoutIrsOrganizationInput, NgoUncheckedUpdateWithoutIrsOrganizationInput>
+    create: XOR<NgoCreateWithoutIrsOrganizationInput, NgoUncheckedCreateWithoutIrsOrganizationInput>
+    where?: NgoWhereInput
+  }
+
+  export type NgoUpdateToOneWithWhereWithoutIrsOrganizationInput = {
+    where?: NgoWhereInput
+    data: XOR<NgoUpdateWithoutIrsOrganizationInput, NgoUncheckedUpdateWithoutIrsOrganizationInput>
+  }
+
+  export type NgoUpdateWithoutIrsOrganizationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    orgName?: StringFieldUpdateOperationsInput | string
+    ein?: NullableStringFieldUpdateOperationsInput | string | null
+    regNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    trustScore?: FloatFieldUpdateOperationsInput | number
+    status?: EnumNgoStatusFieldUpdateOperationsInput | $Enums.NgoStatus
+    approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejectReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    user?: UserUpdateOneRequiredWithoutNgoNestedInput
+    projects?: ProjectUpdateManyWithoutNgoNestedInput
+    expenses?: ExpenseUpdateManyWithoutNgoNestedInput
+    ratings?: RatingUpdateManyWithoutNgoNestedInput
+    boardMembers?: BoardMemberUpdateManyWithoutNgoNestedInput
+    skillContributions?: SkillContributionUpdateManyWithoutNgoNestedInput
+    donorEndorsements?: DonorEndorsementUpdateManyWithoutNgoNestedInput
+    documents?: NgoDocumentUpdateManyWithoutNgoNestedInput
+    roles?: NgoRoleUpdateManyWithoutNgoNestedInput
+    challenges?: DonorChallengeUpdateManyWithoutNgoNestedInput
+  }
+
+  export type NgoUncheckedUpdateWithoutIrsOrganizationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    orgName?: StringFieldUpdateOperationsInput | string
+    ein?: NullableStringFieldUpdateOperationsInput | string | null
+    regNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    trustScore?: FloatFieldUpdateOperationsInput | number
+    status?: EnumNgoStatusFieldUpdateOperationsInput | $Enums.NgoStatus
+    approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejectReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    projects?: ProjectUncheckedUpdateManyWithoutNgoNestedInput
+    expenses?: ExpenseUncheckedUpdateManyWithoutNgoNestedInput
+    ratings?: RatingUncheckedUpdateManyWithoutNgoNestedInput
+    boardMembers?: BoardMemberUncheckedUpdateManyWithoutNgoNestedInput
+    skillContributions?: SkillContributionUncheckedUpdateManyWithoutNgoNestedInput
+    donorEndorsements?: DonorEndorsementUncheckedUpdateManyWithoutNgoNestedInput
+    documents?: NgoDocumentUncheckedUpdateManyWithoutNgoNestedInput
+    roles?: NgoRoleUncheckedUpdateManyWithoutNgoNestedInput
+    challenges?: DonorChallengeUncheckedUpdateManyWithoutNgoNestedInput
+  }
+
+  export type IrsFilingUpsertWithWhereUniqueWithoutOrganizationInput = {
+    where: IrsFilingWhereUniqueInput
+    update: XOR<IrsFilingUpdateWithoutOrganizationInput, IrsFilingUncheckedUpdateWithoutOrganizationInput>
+    create: XOR<IrsFilingCreateWithoutOrganizationInput, IrsFilingUncheckedCreateWithoutOrganizationInput>
+  }
+
+  export type IrsFilingUpdateWithWhereUniqueWithoutOrganizationInput = {
+    where: IrsFilingWhereUniqueInput
+    data: XOR<IrsFilingUpdateWithoutOrganizationInput, IrsFilingUncheckedUpdateWithoutOrganizationInput>
+  }
+
+  export type IrsFilingUpdateManyWithWhereWithoutOrganizationInput = {
+    where: IrsFilingScalarWhereInput
+    data: XOR<IrsFilingUpdateManyMutationInput, IrsFilingUncheckedUpdateManyWithoutOrganizationInput>
+  }
+
+  export type IrsFilingScalarWhereInput = {
+    AND?: IrsFilingScalarWhereInput | IrsFilingScalarWhereInput[]
+    OR?: IrsFilingScalarWhereInput[]
+    NOT?: IrsFilingScalarWhereInput | IrsFilingScalarWhereInput[]
+    id?: StringFilter<"IrsFiling"> | string
+    ein?: StringFilter<"IrsFiling"> | string
+    taxYear?: IntFilter<"IrsFiling"> | number
+    taxPeriodBegin?: DateTimeNullableFilter<"IrsFiling"> | Date | string | null
+    taxPeriodEnd?: DateTimeNullableFilter<"IrsFiling"> | Date | string | null
+    returnType?: StringNullableFilter<"IrsFiling"> | string | null
+    totalRevenue?: BigIntNullableFilter<"IrsFiling"> | bigint | number | null
+    totalExpenses?: BigIntNullableFilter<"IrsFiling"> | bigint | number | null
+    totalAssetsEOY?: BigIntNullableFilter<"IrsFiling"> | bigint | number | null
+    totalAssetsBOY?: BigIntNullableFilter<"IrsFiling"> | bigint | number | null
+    totalLiabilitiesEOY?: BigIntNullableFilter<"IrsFiling"> | bigint | number | null
+    totalLiabilitiesBOY?: BigIntNullableFilter<"IrsFiling"> | bigint | number | null
+    netAssetsEOY?: BigIntNullableFilter<"IrsFiling"> | bigint | number | null
+    contributionsAndGrants?: BigIntNullableFilter<"IrsFiling"> | bigint | number | null
+    programServiceRevenue?: BigIntNullableFilter<"IrsFiling"> | bigint | number | null
+    investmentIncome?: BigIntNullableFilter<"IrsFiling"> | bigint | number | null
+    otherRevenue?: BigIntNullableFilter<"IrsFiling"> | bigint | number | null
+    salariesAndWages?: BigIntNullableFilter<"IrsFiling"> | bigint | number | null
+    compensationOfficers?: BigIntNullableFilter<"IrsFiling"> | bigint | number | null
+    otherExpenses?: BigIntNullableFilter<"IrsFiling"> | bigint | number | null
+    pctOfficerCompensation?: FloatNullableFilter<"IrsFiling"> | number | null
+    employeeCount?: IntNullableFilter<"IrsFiling"> | number | null
+    volunteerCount?: IntNullableFilter<"IrsFiling"> | number | null
+    objectId?: StringNullableFilter<"IrsFiling"> | string | null
+    xmlBatchId?: StringNullableFilter<"IrsFiling"> | string | null
+    filingType?: StringNullableFilter<"IrsFiling"> | string | null
+    pdfUrl?: StringNullableFilter<"IrsFiling"> | string | null
+    createdAt?: DateTimeFilter<"IrsFiling"> | Date | string
+    updatedAt?: DateTimeFilter<"IrsFiling"> | Date | string
+  }
+
+  export type IrsOrganizationCreateWithoutFilingsInput = {
+    id?: string
+    ein: string
+    name: string
+    sortName?: string | null
+    ico?: string | null
+    street?: string | null
+    city?: string | null
+    state?: string | null
+    zip?: string | null
+    subsection?: number | null
+    affiliation?: number | null
+    classification?: number | null
+    ruling?: string | null
+    deductibility?: number | null
+    foundation?: number | null
+    activity?: string | null
+    organization?: number | null
+    exemptStatus?: number | null
+    taxPeriod?: string | null
+    assetCode?: number | null
+    incomeCode?: number | null
+    filingReqCode?: number | null
+    pfFilingReqCode?: number | null
+    accountingPeriod?: number | null
+    assetAmount?: bigint | number | null
+    incomeAmount?: bigint | number | null
+    revenueAmount?: bigint | number | null
+    nteeCode?: string | null
+    groupNumber?: string | null
+    bmfLastUpdated?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    ngo?: NgoCreateNestedOneWithoutIrsOrganizationInput
+  }
+
+  export type IrsOrganizationUncheckedCreateWithoutFilingsInput = {
+    id?: string
+    ein: string
+    name: string
+    sortName?: string | null
+    ico?: string | null
+    street?: string | null
+    city?: string | null
+    state?: string | null
+    zip?: string | null
+    subsection?: number | null
+    affiliation?: number | null
+    classification?: number | null
+    ruling?: string | null
+    deductibility?: number | null
+    foundation?: number | null
+    activity?: string | null
+    organization?: number | null
+    exemptStatus?: number | null
+    taxPeriod?: string | null
+    assetCode?: number | null
+    incomeCode?: number | null
+    filingReqCode?: number | null
+    pfFilingReqCode?: number | null
+    accountingPeriod?: number | null
+    assetAmount?: bigint | number | null
+    incomeAmount?: bigint | number | null
+    revenueAmount?: bigint | number | null
+    nteeCode?: string | null
+    groupNumber?: string | null
+    ngoId?: string | null
+    bmfLastUpdated?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type IrsOrganizationCreateOrConnectWithoutFilingsInput = {
+    where: IrsOrganizationWhereUniqueInput
+    create: XOR<IrsOrganizationCreateWithoutFilingsInput, IrsOrganizationUncheckedCreateWithoutFilingsInput>
+  }
+
+  export type IrsOrganizationUpsertWithoutFilingsInput = {
+    update: XOR<IrsOrganizationUpdateWithoutFilingsInput, IrsOrganizationUncheckedUpdateWithoutFilingsInput>
+    create: XOR<IrsOrganizationCreateWithoutFilingsInput, IrsOrganizationUncheckedCreateWithoutFilingsInput>
+    where?: IrsOrganizationWhereInput
+  }
+
+  export type IrsOrganizationUpdateToOneWithWhereWithoutFilingsInput = {
+    where?: IrsOrganizationWhereInput
+    data: XOR<IrsOrganizationUpdateWithoutFilingsInput, IrsOrganizationUncheckedUpdateWithoutFilingsInput>
+  }
+
+  export type IrsOrganizationUpdateWithoutFilingsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ein?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    sortName?: NullableStringFieldUpdateOperationsInput | string | null
+    ico?: NullableStringFieldUpdateOperationsInput | string | null
+    street?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    zip?: NullableStringFieldUpdateOperationsInput | string | null
+    subsection?: NullableIntFieldUpdateOperationsInput | number | null
+    affiliation?: NullableIntFieldUpdateOperationsInput | number | null
+    classification?: NullableIntFieldUpdateOperationsInput | number | null
+    ruling?: NullableStringFieldUpdateOperationsInput | string | null
+    deductibility?: NullableIntFieldUpdateOperationsInput | number | null
+    foundation?: NullableIntFieldUpdateOperationsInput | number | null
+    activity?: NullableStringFieldUpdateOperationsInput | string | null
+    organization?: NullableIntFieldUpdateOperationsInput | number | null
+    exemptStatus?: NullableIntFieldUpdateOperationsInput | number | null
+    taxPeriod?: NullableStringFieldUpdateOperationsInput | string | null
+    assetCode?: NullableIntFieldUpdateOperationsInput | number | null
+    incomeCode?: NullableIntFieldUpdateOperationsInput | number | null
+    filingReqCode?: NullableIntFieldUpdateOperationsInput | number | null
+    pfFilingReqCode?: NullableIntFieldUpdateOperationsInput | number | null
+    accountingPeriod?: NullableIntFieldUpdateOperationsInput | number | null
+    assetAmount?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    incomeAmount?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    revenueAmount?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    nteeCode?: NullableStringFieldUpdateOperationsInput | string | null
+    groupNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    bmfLastUpdated?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ngo?: NgoUpdateOneWithoutIrsOrganizationNestedInput
+  }
+
+  export type IrsOrganizationUncheckedUpdateWithoutFilingsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ein?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    sortName?: NullableStringFieldUpdateOperationsInput | string | null
+    ico?: NullableStringFieldUpdateOperationsInput | string | null
+    street?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    zip?: NullableStringFieldUpdateOperationsInput | string | null
+    subsection?: NullableIntFieldUpdateOperationsInput | number | null
+    affiliation?: NullableIntFieldUpdateOperationsInput | number | null
+    classification?: NullableIntFieldUpdateOperationsInput | number | null
+    ruling?: NullableStringFieldUpdateOperationsInput | string | null
+    deductibility?: NullableIntFieldUpdateOperationsInput | number | null
+    foundation?: NullableIntFieldUpdateOperationsInput | number | null
+    activity?: NullableStringFieldUpdateOperationsInput | string | null
+    organization?: NullableIntFieldUpdateOperationsInput | number | null
+    exemptStatus?: NullableIntFieldUpdateOperationsInput | number | null
+    taxPeriod?: NullableStringFieldUpdateOperationsInput | string | null
+    assetCode?: NullableIntFieldUpdateOperationsInput | number | null
+    incomeCode?: NullableIntFieldUpdateOperationsInput | number | null
+    filingReqCode?: NullableIntFieldUpdateOperationsInput | number | null
+    pfFilingReqCode?: NullableIntFieldUpdateOperationsInput | number | null
+    accountingPeriod?: NullableIntFieldUpdateOperationsInput | number | null
+    assetAmount?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    incomeAmount?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    revenueAmount?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    nteeCode?: NullableStringFieldUpdateOperationsInput | string | null
+    groupNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    ngoId?: NullableStringFieldUpdateOperationsInput | string | null
+    bmfLastUpdated?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AccountCreateManyUserInput = {
@@ -72064,6 +77372,130 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type IrsFilingCreateManyOrganizationInput = {
+    id?: string
+    taxYear: number
+    taxPeriodBegin?: Date | string | null
+    taxPeriodEnd?: Date | string | null
+    returnType?: string | null
+    totalRevenue?: bigint | number | null
+    totalExpenses?: bigint | number | null
+    totalAssetsEOY?: bigint | number | null
+    totalAssetsBOY?: bigint | number | null
+    totalLiabilitiesEOY?: bigint | number | null
+    totalLiabilitiesBOY?: bigint | number | null
+    netAssetsEOY?: bigint | number | null
+    contributionsAndGrants?: bigint | number | null
+    programServiceRevenue?: bigint | number | null
+    investmentIncome?: bigint | number | null
+    otherRevenue?: bigint | number | null
+    salariesAndWages?: bigint | number | null
+    compensationOfficers?: bigint | number | null
+    otherExpenses?: bigint | number | null
+    pctOfficerCompensation?: number | null
+    employeeCount?: number | null
+    volunteerCount?: number | null
+    objectId?: string | null
+    xmlBatchId?: string | null
+    filingType?: string | null
+    pdfUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type IrsFilingUpdateWithoutOrganizationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    taxYear?: IntFieldUpdateOperationsInput | number
+    taxPeriodBegin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    taxPeriodEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    returnType?: NullableStringFieldUpdateOperationsInput | string | null
+    totalRevenue?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    totalExpenses?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    totalAssetsEOY?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    totalAssetsBOY?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    totalLiabilitiesEOY?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    totalLiabilitiesBOY?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    netAssetsEOY?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    contributionsAndGrants?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    programServiceRevenue?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    investmentIncome?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    otherRevenue?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    salariesAndWages?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    compensationOfficers?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    otherExpenses?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    pctOfficerCompensation?: NullableFloatFieldUpdateOperationsInput | number | null
+    employeeCount?: NullableIntFieldUpdateOperationsInput | number | null
+    volunteerCount?: NullableIntFieldUpdateOperationsInput | number | null
+    objectId?: NullableStringFieldUpdateOperationsInput | string | null
+    xmlBatchId?: NullableStringFieldUpdateOperationsInput | string | null
+    filingType?: NullableStringFieldUpdateOperationsInput | string | null
+    pdfUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type IrsFilingUncheckedUpdateWithoutOrganizationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    taxYear?: IntFieldUpdateOperationsInput | number
+    taxPeriodBegin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    taxPeriodEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    returnType?: NullableStringFieldUpdateOperationsInput | string | null
+    totalRevenue?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    totalExpenses?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    totalAssetsEOY?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    totalAssetsBOY?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    totalLiabilitiesEOY?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    totalLiabilitiesBOY?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    netAssetsEOY?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    contributionsAndGrants?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    programServiceRevenue?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    investmentIncome?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    otherRevenue?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    salariesAndWages?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    compensationOfficers?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    otherExpenses?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    pctOfficerCompensation?: NullableFloatFieldUpdateOperationsInput | number | null
+    employeeCount?: NullableIntFieldUpdateOperationsInput | number | null
+    volunteerCount?: NullableIntFieldUpdateOperationsInput | number | null
+    objectId?: NullableStringFieldUpdateOperationsInput | string | null
+    xmlBatchId?: NullableStringFieldUpdateOperationsInput | string | null
+    filingType?: NullableStringFieldUpdateOperationsInput | string | null
+    pdfUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type IrsFilingUncheckedUpdateManyWithoutOrganizationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    taxYear?: IntFieldUpdateOperationsInput | number
+    taxPeriodBegin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    taxPeriodEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    returnType?: NullableStringFieldUpdateOperationsInput | string | null
+    totalRevenue?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    totalExpenses?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    totalAssetsEOY?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    totalAssetsBOY?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    totalLiabilitiesEOY?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    totalLiabilitiesBOY?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    netAssetsEOY?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    contributionsAndGrants?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    programServiceRevenue?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    investmentIncome?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    otherRevenue?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    salariesAndWages?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    compensationOfficers?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    otherExpenses?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    pctOfficerCompensation?: NullableFloatFieldUpdateOperationsInput | number | null
+    employeeCount?: NullableIntFieldUpdateOperationsInput | number | null
+    volunteerCount?: NullableIntFieldUpdateOperationsInput | number | null
+    objectId?: NullableStringFieldUpdateOperationsInput | string | null
+    xmlBatchId?: NullableStringFieldUpdateOperationsInput | string | null
+    filingType?: NullableStringFieldUpdateOperationsInput | string | null
+    pdfUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

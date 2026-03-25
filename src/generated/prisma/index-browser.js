@@ -579,6 +579,74 @@ exports.Prisma.SubscriptionScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.IrsOrganizationScalarFieldEnum = {
+  id: 'id',
+  ein: 'ein',
+  name: 'name',
+  sortName: 'sortName',
+  ico: 'ico',
+  street: 'street',
+  city: 'city',
+  state: 'state',
+  zip: 'zip',
+  subsection: 'subsection',
+  affiliation: 'affiliation',
+  classification: 'classification',
+  ruling: 'ruling',
+  deductibility: 'deductibility',
+  foundation: 'foundation',
+  activity: 'activity',
+  organization: 'organization',
+  exemptStatus: 'exemptStatus',
+  taxPeriod: 'taxPeriod',
+  assetCode: 'assetCode',
+  incomeCode: 'incomeCode',
+  filingReqCode: 'filingReqCode',
+  pfFilingReqCode: 'pfFilingReqCode',
+  accountingPeriod: 'accountingPeriod',
+  assetAmount: 'assetAmount',
+  incomeAmount: 'incomeAmount',
+  revenueAmount: 'revenueAmount',
+  nteeCode: 'nteeCode',
+  groupNumber: 'groupNumber',
+  ngoId: 'ngoId',
+  bmfLastUpdated: 'bmfLastUpdated',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.IrsFilingScalarFieldEnum = {
+  id: 'id',
+  ein: 'ein',
+  taxYear: 'taxYear',
+  taxPeriodBegin: 'taxPeriodBegin',
+  taxPeriodEnd: 'taxPeriodEnd',
+  returnType: 'returnType',
+  totalRevenue: 'totalRevenue',
+  totalExpenses: 'totalExpenses',
+  totalAssetsEOY: 'totalAssetsEOY',
+  totalAssetsBOY: 'totalAssetsBOY',
+  totalLiabilitiesEOY: 'totalLiabilitiesEOY',
+  totalLiabilitiesBOY: 'totalLiabilitiesBOY',
+  netAssetsEOY: 'netAssetsEOY',
+  contributionsAndGrants: 'contributionsAndGrants',
+  programServiceRevenue: 'programServiceRevenue',
+  investmentIncome: 'investmentIncome',
+  otherRevenue: 'otherRevenue',
+  salariesAndWages: 'salariesAndWages',
+  compensationOfficers: 'compensationOfficers',
+  otherExpenses: 'otherExpenses',
+  pctOfficerCompensation: 'pctOfficerCompensation',
+  employeeCount: 'employeeCount',
+  volunteerCount: 'volunteerCount',
+  objectId: 'objectId',
+  xmlBatchId: 'xmlBatchId',
+  filingType: 'filingType',
+  pdfUrl: 'pdfUrl',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -712,7 +780,9 @@ exports.Prisma.ModelName = {
   RoleEngagement: 'RoleEngagement',
   DonorChallenge: 'DonorChallenge',
   ChallengeAcceptance: 'ChallengeAcceptance',
-  Subscription: 'Subscription'
+  Subscription: 'Subscription',
+  IrsOrganization: 'IrsOrganization',
+  IrsFiling: 'IrsFiling'
 };
 
 /**
