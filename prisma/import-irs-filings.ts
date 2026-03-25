@@ -11,7 +11,7 @@
  */
 
 import "dotenv/config";
-import { PrismaClient, Prisma } from "../src/generated/prisma";
+import { PrismaClient } from "../src/generated/prisma";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { parse } from "csv-parse";
 import { createReadStream } from "fs";
@@ -49,20 +49,6 @@ const SOI_ZIPS = [
   { url: "https://www.irs.gov/pub/irs-soi/22eoextract990.zip",   label: "2022 Form 990" },
   { url: "https://www.irs.gov/pub/irs-soi/22eoextractez.zip",    label: "2022 Form 990-EZ" },
   { url: "https://www.irs.gov/pub/irs-soi/22eoextract990pf.zip", label: "2022 Form 990-PF" },
-  // 2021
-  { url: "https://www.irs.gov/pub/irs-soi/21eoextract990.zip",   label: "2021 Form 990" },
-  { url: "https://www.irs.gov/pub/irs-soi/21eoextractez.zip",    label: "2021 Form 990-EZ" },
-  { url: "https://www.irs.gov/pub/irs-soi/21eoextract990pf.zip", label: "2021 Form 990-PF" },
-  // 2020
-  { url: "https://www.irs.gov/pub/irs-soi/20eoextract990.zip",   label: "2020 Form 990" },
-  { url: "https://www.irs.gov/pub/irs-soi/20eoextractez.zip",    label: "2020 Form 990-EZ" },
-  { url: "https://www.irs.gov/pub/irs-soi/20eoextract990pf.zip", label: "2020 Form 990-PF" },
-  // 2019
-  { url: "https://www.irs.gov/pub/irs-soi/19eoextract990.zip",   label: "2019 Form 990" },
-  { url: "https://www.irs.gov/pub/irs-soi/19eoextractez.zip",    label: "2019 Form 990-EZ" },
-  // 2018
-  { url: "https://www.irs.gov/pub/irs-soi/18eoextract990.zip",   label: "2018 Form 990" },
-  { url: "https://www.irs.gov/pub/irs-soi/18eoextractez.zip",    label: "2018 Form 990-EZ" },
 ];
 
 // ─── Download helpers ────────────────────────────────────────────────────────
@@ -144,12 +130,28 @@ function parseFloatOrNull(val: string | undefined): number | null {
 // The SOI CSV columns use the IRS "element names" which vary by form type.
 // We normalize to our schema's field names.
 
-function mapFilingRow(row: Record<string, string>): Prisma.IrsFilingCreateManyInput | null {
+type FilingRow = {
+  ein: string; taxYear: number; returnType: string;
+  totalRevenue: bigint | null; totalExpenses: bigint | null;
+  totalAssetsEOY: bigint | null; totalAssetsBOY: bigint | null;
+  totalLiabilitiesEOY: bigint | null; totalLiabilitiesBOY: bigint | null;
+  netAssetsEOY: bigint | null; contributionsAndGrants: bigint | null;
+  programServiceRevenue: bigint | null; investmentIncome: bigint | null;
+  compensationOfficers: bigint | null; salariesAndWages: bigint | null;
+  pctOfficerCompensation: number | null; employeeCount: number | null;
+  volunteerCount: number | null; objectId: string | null; filingType: string | null;
+};
+
+function mapFilingRow(row: Record<string, string>): FilingRow | null {
   const ein = (row.ein || row.EIN || "").replace(/-/g, "").padStart(9, "0");
   if (!ein || ein === "000000000") return null;
 
-  const taxPeriod = row.tax_prd || row.TAX_PRD || row.tax_pd || "";
-  const taxYear = parseInt(taxPeriod.substring(0, 4), 10);
+  // tax_pd = 990, TAX_PRD = 990-PF, taxpd = 990-EZ (no underscore), TAX_YR = 990-PF direct year
+  const taxPeriod = row.tax_prd || row.TAX_PRD || row.tax_pd || row.taxpd || "";
+  const taxYrDirect = parseInt(row.TAX_YR || "", 10);
+  const taxYear = !isNaN(taxYrDirect) && taxYrDirect >= 2000
+    ? taxYrDirect
+    : parseInt(taxPeriod.substring(0, 4), 10);
   if (isNaN(taxYear) || taxYear < 2000) return null;
 
   const formType = row.formtype || row.FORMTYPE || row.rtrn_tp || "";
@@ -157,7 +159,7 @@ function mapFilingRow(row: Record<string, string>): Prisma.IrsFilingCreateManyIn
   if (formType === "1" || formType.includes("EZ")) returnType = "990EZ";
   if (formType === "2" || formType.includes("PF")) returnType = "990PF";
 
-  // Revenue — try multiple possible column names
+  // Revenue — try multiple possible column names (990: totrevenue, 990-EZ: totrevnue, 990-PF: totrcptperbks)
   const totalRevenue = parseBigIntOrNull(
     row.totrevenue || row.totrevnue || row.totrcptperbks ||
     row.cy_tot_rev || row.CYTotalRevenueAmt || row.totrev
@@ -188,19 +190,20 @@ function mapFilingRow(row: Record<string, string>): Prisma.IrsFilingCreateManyIn
     row.totliabbe || row.totliabb || row.boy_tot_lia || row.totlia_boy
   );
 
-  // Net assets
+  // Net assets (990-EZ: totnetassetsend with extra 's')
   const netAssetsEOY = parseBigIntOrNull(
-    row.totnetassetend || row.tnae || row.eoy_net_ast || row.netast_eoy
+    row.totnetassetend || row.totnetassetsend || row.networthend ||
+    row.tnae || row.eoy_net_ast || row.netast_eoy
   );
 
-  // Revenue breakdown
+  // Revenue breakdown (990-EZ: totcntrbs, prgmservrev)
   const contributionsAndGrants = parseBigIntOrNull(
-    row.grscontman || row.contrigifts || row.cy_contri ||
-    row.CYContributionsGrantsAmt || row.contrbtns
+    row.grscontman || row.contrigifts || row.totcntrbs ||
+    row.cy_contri || row.CYContributionsGrantsAmt || row.contrbtns
   );
   const programServiceRevenue = parseBigIntOrNull(
-    row.grsprfrev || row.svcrev || row.cy_prog_svc ||
-    row.CYProgramServiceRevenueAmt || row.progrev
+    row.grsprfrev || row.svcrev || row.prgmservrev ||
+    row.cy_prog_svc || row.CYProgramServiceRevenueAmt || row.progrev
   );
   const investmentIncome = parseBigIntOrNull(
     row.invstmntinc || row.invstinc || row.cy_inv_inc ||
@@ -256,10 +259,20 @@ function mapFilingRow(row: Record<string, string>): Prisma.IrsFilingCreateManyIn
   };
 }
 
+// Convert BigInt to string for pg parameterized queries (pg can't serialize JS BigInt natively)
+function bigStr(v: bigint | null): string | null {
+  return v !== null ? v.toString() : null;
+}
+
+let _idCounter = 0;
+function newId(): string {
+  return `f${Date.now()}${(++_idCounter).toString(36)}`;
+}
+
 // ─── Import logic ────────────────────────────────────────────────────────────
 
 async function importFilingCsv(filePath: string, label: string): Promise<number> {
-  let batch: Prisma.IrsFilingCreateManyInput[] = [];
+  let batch: ReturnType<typeof mapFilingRow>[] = [];
   let total = 0;
   let skipped = 0;
 
@@ -275,86 +288,99 @@ async function importFilingCsv(filePath: string, label: string): Promise<number>
 
   for await (const row of parser as AsyncIterable<Record<string, string>>) {
     const mapped = mapFilingRow(row);
-    if (!mapped) {
-      skipped++;
-      continue;
-    }
-
+    if (!mapped) { skipped++; continue; }
     batch.push(mapped);
 
     if (batch.length >= BATCH_SIZE) {
-      await upsertFilingBatch(batch);
-      total += batch.length;
-      process.stdout.write(`\r  [${label}] ${total.toLocaleString()} filings imported`);
+      total += await insertFilingBatch(batch);
+      process.stdout.write(`\r  [${label}] ${total.toLocaleString()} rows inserted`);
       batch = [];
     }
   }
 
-  if (batch.length > 0) {
-    await upsertFilingBatch(batch);
-    total += batch.length;
-  }
+  if (batch.length > 0) total += await insertFilingBatch(batch);
 
-  console.log(`\r  [${label}] ${total.toLocaleString()} filings imported (${skipped} skipped)`);
+  console.log(`\r  [${label}] ${total.toLocaleString()} rows inserted (${skipped} skipped/unmatched)`);
   return total;
 }
 
-// Loaded once at startup — used to filter rows without per-batch DB queries
-let knownEins: Set<string> | null = null;
+// Insert a batch using raw SQL so we can filter by FK existence in one query.
+// ON CONFLICT DO NOTHING handles (ein, taxYear) duplicates.
+// INNER JOIN "IrsOrganization" handles FK — rows with unknown EINs are silently dropped.
+// No in-memory EIN Set needed — Postgres handles it with the existing index.
+async function insertFilingBatch(rows: ReturnType<typeof mapFilingRow>[]): Promise<number> {
+  const valid = rows.filter((r): r is NonNullable<typeof r> => r !== null);
+  if (valid.length === 0) return 0;
 
-async function loadKnownEins(): Promise<Set<string>> {
-  if (knownEins) return knownEins;
-  process.stdout.write("  Loading known EINs from IrsOrganization...");
-  // Stream in pages of 50k to avoid one huge result set
-  const pageSize = 50_000;
-  let cursor: string | undefined;
-  const eins = new Set<string>();
-  for (;;) {
-    const rows = await prisma.irsOrganization.findMany({
-      select: { ein: true },
-      take: pageSize,
-      ...(cursor ? { skip: 1, cursor: { ein: cursor } } : {}),
-      orderBy: { ein: "asc" },
-    });
-    for (const r of rows) eins.add(r.ein);
-    if (rows.length < pageSize) break;
-    cursor = rows[rows.length - 1].ein;
-  }
-  console.log(` ${eins.size.toLocaleString()} orgs`);
-  knownEins = eins;
-  return eins;
-}
-
-async function upsertFilingBatch(rows: Prisma.IrsFilingCreateManyInput[]) {
-  const eins = await loadKnownEins();
-  const validRows = rows.filter(r => eins.has(r.ein));
-  if (validRows.length === 0) return;
+  // Build VALUES list. Use $1, $2... positional params to avoid SQL injection.
+  // Columns: id, ein, taxYear, returnType, totalRevenue, totalExpenses, totalAssetsEOY,
+  //   totalAssetsBOY, totalLiabilitiesEOY, totalLiabilitiesBOY, netAssetsEOY,
+  //   contributionsAndGrants, programServiceRevenue, investmentIncome,
+  //   compensationOfficers, salariesAndWages, pctOfficerCompensation,
+  //   employeeCount, volunteerCount, objectId, filingType, createdAt, updatedAt
+  const COLS = 23;
+  const params: unknown[] = [];
+  const valuePlaceholders = valid.map((r, i) => {
+    const base = i * COLS;
+    params.push(
+      newId(),
+      r.ein, r.taxYear, r.returnType ?? null,
+      bigStr(r.totalRevenue), bigStr(r.totalExpenses),
+      bigStr(r.totalAssetsEOY), bigStr(r.totalAssetsBOY),
+      bigStr(r.totalLiabilitiesEOY), bigStr(r.totalLiabilitiesBOY),
+      bigStr(r.netAssetsEOY),
+      bigStr(r.contributionsAndGrants), bigStr(r.programServiceRevenue),
+      bigStr(r.investmentIncome),
+      bigStr(r.compensationOfficers), bigStr(r.salariesAndWages),
+      r.pctOfficerCompensation ?? null,
+      r.employeeCount ?? null, r.volunteerCount ?? null,
+      r.objectId ?? null, r.filingType ?? null,
+      new Date(), new Date()
+    );
+    const p = (n: number) => `$${base + n + 1}`;
+    return `(${Array.from({ length: COLS }, (_, n) => p(n)).join(",")})`;
+  }).join(",");
 
   try {
-    await prisma.irsFiling.createMany({
-      data: validRows,
-      skipDuplicates: true,
-    });
-  } catch {
-    // Row-by-row fallback for any conflict errors
-    for (const row of validRows) {
-      try {
-        await prisma.irsFiling.upsert({
-          where: { ein_taxYear: { ein: row.ein, taxYear: row.taxYear } },
-          create: row,
-          update: {
-            totalRevenue: row.totalRevenue,
-            totalExpenses: row.totalExpenses,
-            totalAssetsEOY: row.totalAssetsEOY,
-            totalLiabilitiesEOY: row.totalLiabilitiesEOY,
-            compensationOfficers: row.compensationOfficers,
-            pctOfficerCompensation: row.pctOfficerCompensation,
-            employeeCount: row.employeeCount,
-            volunteerCount: row.volunteerCount,
-          },
-        });
-      } catch {}
-    }
+    const result = await prisma.$executeRawUnsafe(`
+      INSERT INTO "IrsFiling" (
+        id, ein, "taxYear", "returnType",
+        "totalRevenue", "totalExpenses",
+        "totalAssetsEOY", "totalAssetsBOY",
+        "totalLiabilitiesEOY", "totalLiabilitiesBOY", "netAssetsEOY",
+        "contributionsAndGrants", "programServiceRevenue", "investmentIncome",
+        "compensationOfficers", "salariesAndWages", "pctOfficerCompensation",
+        "employeeCount", "volunteerCount",
+        "objectId", "filingType", "createdAt", "updatedAt"
+      )
+      SELECT v.id, v.ein, v."taxYear"::int, v."returnType",
+        v."totalRevenue"::bigint, v."totalExpenses"::bigint,
+        v."totalAssetsEOY"::bigint, v."totalAssetsBOY"::bigint,
+        v."totalLiabilitiesEOY"::bigint, v."totalLiabilitiesBOY"::bigint,
+        v."netAssetsEOY"::bigint,
+        v."contributionsAndGrants"::bigint, v."programServiceRevenue"::bigint,
+        v."investmentIncome"::bigint,
+        v."compensationOfficers"::bigint, v."salariesAndWages"::bigint,
+        v."pctOfficerCompensation"::float, v."employeeCount"::int,
+        v."volunteerCount"::int,
+        v."objectId", v."filingType", v."createdAt"::timestamp, v."updatedAt"::timestamp
+      FROM (VALUES ${valuePlaceholders}) AS v(
+        id, ein, "taxYear", "returnType",
+        "totalRevenue", "totalExpenses",
+        "totalAssetsEOY", "totalAssetsBOY",
+        "totalLiabilitiesEOY", "totalLiabilitiesBOY", "netAssetsEOY",
+        "contributionsAndGrants", "programServiceRevenue", "investmentIncome",
+        "compensationOfficers", "salariesAndWages", "pctOfficerCompensation",
+        "employeeCount", "volunteerCount",
+        "objectId", "filingType", "createdAt", "updatedAt"
+      )
+      INNER JOIN "IrsOrganization" org ON org.ein = v.ein
+      ON CONFLICT (ein, "taxYear") DO NOTHING
+    `, ...params);
+    return result;
+  } catch (err) {
+    console.error("\n  [batch error]", (err as Error).message?.slice(0, 200));
+    return 0;
   }
 }
 
