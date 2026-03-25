@@ -1157,7 +1157,32 @@ async function FeedPage({ session }: { session: Session | null }) {
 
 /* ─── Root page — branches on session ───────────────────── */
 export default async function HomePage() {
-  const session = await auth();
-  if (session?.user) return <FeedPage session={session} />;
-  return <LandingPage session={session} />;
+  let session = null;
+  try {
+    session = await auth();
+  } catch {
+    // stale JWT or auth error — treat as guest
+  }
+  try {
+    if (session?.user) return <FeedPage session={session} />;
+    return <LandingPage session={session} />;
+  } catch (err) {
+    console.error("[HomePage] render error:", err);
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center px-4">
+        <div className="text-center max-w-md">
+          <div className="w-16 h-16 bg-emerald-50 rounded-2xl flex items-center justify-center mx-auto mb-6">
+            <Shield className="w-8 h-8 text-emerald-600" />
+          </div>
+          <h1 className="text-2xl font-bold text-gray-900 mb-3">Back in a moment</h1>
+          <p className="text-gray-500 mb-6">
+            GiveLedger is undergoing a brief maintenance window. Please refresh in a few minutes.
+          </p>
+          <a href="/" className="inline-flex items-center gap-2 bg-emerald-700 text-white px-6 py-3 rounded-xl font-semibold hover:bg-emerald-800 transition">
+            Try again
+          </a>
+        </div>
+      </div>
+    );
+  }
 }
