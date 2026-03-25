@@ -86,44 +86,85 @@ export default async function NgoProfilePage({
 
   if (!ngo || ngo.status !== "ACTIVE") notFound();
 
-  // Fetch IRS financial data from ProPublica if EIN is available
+  // ── IRS financial data: local DB first, ProPublica fallback ────────────────
   let irsData: {
     revenue?: number; expenses?: number; assets?: number; taxYear?: number;
     filings: { year: number; revenue?: number; expenses?: number; assets?: number }[];
     nteeCode?: string; subsection?: number; pdfUrl?: string; formType?: string;
+    source: "local" | "propublica";
   } | null = null;
 
   if (ngo.ein) {
+    const cleanEin = ngo.ein.replace(/-/g, "").replace(/\s/g, "");
+
+    // Primary: local IRS database
     try {
-      const cleanEin = ngo.ein.replace(/-/g, "").replace(/\s/g, "");
-      const res = await fetch(
-        `https://projects.propublica.org/nonprofits/api/v2/organizations/${cleanEin}.json`,
-        { next: { revalidate: 3600 } }
-      );
-      if (res.ok) {
-        const data = await res.json();
-        const filings: { tax_prd_yr: number; totrevenue?: number; totfuncexpns?: number; totassetsend?: number }[] =
-          data?.filings_with_data ?? [];
-        const latest = filings[filings.length - 1];
+      const irsOrg = await prisma.irsOrganization.findUnique({
+        where: { ein: cleanEin },
+        include: {
+          filings: { orderBy: { taxYear: "asc" }, take: 5 },
+        },
+      });
+
+      if (irsOrg) {
+        const latestFiling = irsOrg.filings[irsOrg.filings.length - 1];
         irsData = {
-          revenue: latest?.totrevenue ?? data?.organization?.revenue_amount,
-          expenses: latest?.totfuncexpns,
-          assets: latest?.totassetsend ?? data?.organization?.asset_amount,
-          taxYear: latest?.tax_prd_yr,
-          filings: filings.slice(-5).map((f) => ({
-            year: f.tax_prd_yr,
-            revenue: f.totrevenue,
-            expenses: f.totfuncexpns,
-            assets: f.totassetsend,
+          revenue: latestFiling?.totalRevenue
+            ? Number(latestFiling.totalRevenue)
+            : irsOrg.revenueAmount ? Number(irsOrg.revenueAmount) : undefined,
+          expenses: latestFiling?.totalExpenses ? Number(latestFiling.totalExpenses) : undefined,
+          assets: latestFiling?.totalAssetsEOY
+            ? Number(latestFiling.totalAssetsEOY)
+            : irsOrg.assetAmount ? Number(irsOrg.assetAmount) : undefined,
+          taxYear: latestFiling?.taxYear ?? undefined,
+          filings: irsOrg.filings.map((f) => ({
+            year: f.taxYear,
+            revenue: f.totalRevenue ? Number(f.totalRevenue) : undefined,
+            expenses: f.totalExpenses ? Number(f.totalExpenses) : undefined,
+            assets: f.totalAssetsEOY ? Number(f.totalAssetsEOY) : undefined,
           })),
-          nteeCode: data?.organization?.ntee_code,
-          subsection: data?.organization?.subsection_code,
-          pdfUrl: data?.organization?.latest_filing?.pdf_url,
-          formType: data?.organization?.latest_filing?.formtype,
+          nteeCode: irsOrg.nteeCode ?? undefined,
+          subsection: irsOrg.subsection ?? undefined,
+          source: "local",
         };
       }
     } catch {
-      // IRS data unavailable — continue without it
+      // local DB failed — fall through to ProPublica
+    }
+
+    // Fallback: ProPublica
+    if (!irsData) {
+      try {
+        const res = await fetch(
+          `https://projects.propublica.org/nonprofits/api/v2/organizations/${cleanEin}.json`,
+          { next: { revalidate: 3600 } }
+        );
+        if (res.ok) {
+          const data = await res.json();
+          const filings: { tax_prd_yr: number; totrevenue?: number; totfuncexpns?: number; totassetsend?: number }[] =
+            data?.filings_with_data ?? [];
+          const latest = filings[filings.length - 1];
+          irsData = {
+            revenue: latest?.totrevenue ?? data?.organization?.revenue_amount,
+            expenses: latest?.totfuncexpns,
+            assets: latest?.totassetsend ?? data?.organization?.asset_amount,
+            taxYear: latest?.tax_prd_yr,
+            filings: filings.slice(-5).map((f) => ({
+              year: f.tax_prd_yr,
+              revenue: f.totrevenue,
+              expenses: f.totfuncexpns,
+              assets: f.totassetsend,
+            })),
+            nteeCode: data?.organization?.ntee_code,
+            subsection: data?.organization?.subsection_code,
+            pdfUrl: data?.organization?.latest_filing?.pdf_url,
+            formType: data?.organization?.latest_filing?.formtype,
+            source: "propublica",
+          };
+        }
+      } catch {
+        // IRS data unavailable — continue without it
+      }
     }
   }
 
@@ -312,8 +353,14 @@ export default async function NgoProfilePage({
             {/* Form 990 link */}
             <div className="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">
               <p className="text-xs text-gray-400">
-                Source: IRS Form 990 via{" "}
-                <a href="https://projects.propublica.org/nonprofits/" target="_blank" rel="noopener noreferrer" className="underline">ProPublica</a>
+                {irsData.source === "local" ? (
+                  "Source: IRS Business Master File (GiveLedger)"
+                ) : (
+                  <>
+                    Source: IRS Form 990 via{" "}
+                    <a href="https://projects.propublica.org/nonprofits/" target="_blank" rel="noopener noreferrer" className="underline">ProPublica</a>
+                  </>
+                )}
               </p>
               {irsData.pdfUrl && (
                 <a href={irsData.pdfUrl} target="_blank" rel="noopener noreferrer"
