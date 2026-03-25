@@ -11,6 +11,31 @@ import {
   TrendingUp, DollarSign, Landmark, BarChart3,
 } from "lucide-react";
 
+const NTEE_CATEGORIES: Record<string, string> = {
+  A: "Arts & Culture", B: "Education", C: "Environment", D: "Animal-Related",
+  E: "Health Care", F: "Mental Health", G: "Disease & Medical", H: "Medical Research",
+  I: "Crime & Legal", J: "Employment", K: "Food & Agriculture", L: "Housing",
+  M: "Public Safety", N: "Recreation & Sports", O: "Youth Development",
+  P: "Human Services", Q: "International Affairs", R: "Civil Rights",
+  S: "Community Improvement", T: "Philanthropy", U: "Science & Technology",
+  V: "Social Science", W: "Public & Societal Benefit", X: "Religion",
+  Y: "Mutual Benefit", Z: "Unknown",
+};
+
+function nteeCategory(code?: string): string {
+  if (!code) return "";
+  return NTEE_CATEGORIES[code.charAt(0).toUpperCase()] ?? code;
+}
+
+// ruling stored as "YYYYMM" e.g. "201509" → "Sep 2015"
+function formatRulingDate(ruling: string): string {
+  if (!ruling || ruling.length < 6) return ruling;
+  const year = ruling.slice(0, 4);
+  const month = parseInt(ruling.slice(4, 6), 10);
+  const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  return `${months[(month - 1) % 12] ?? ""} ${year}`;
+}
+
 function formatIrsDollars(n?: number | null): string {
   if (n == null) return "—";
   if (n >= 1_000_000_000) return `$${(n / 1_000_000_000).toFixed(1)}B`;
@@ -88,9 +113,24 @@ export default async function NgoProfilePage({
 
   // ── IRS financial data: local DB first, ProPublica fallback ────────────────
   let irsData: {
-    revenue?: number; expenses?: number; assets?: number; taxYear?: number;
+    // Latest filing snapshot
+    revenue?: number; expenses?: number; assets?: number; liabilities?: number;
+    netAssets?: number; taxYear?: number; returnType?: string;
+    // Revenue breakdown
+    contributions?: number; programServiceRevenue?: number; investmentIncome?: number;
+    // Expense breakdown
+    salariesAndWages?: number; compensationOfficers?: number; otherExpenses?: number;
+    // Officer compensation
+    officerCompPct?: number;
+    // Workforce
+    employeeCount?: number; volunteerCount?: number;
+    // Multi-year trend
     filings: { year: number; revenue?: number; expenses?: number; assets?: number }[];
-    nteeCode?: string; subsection?: number; pdfUrl?: string; formType?: string;
+    // Org classification
+    nteeCode?: string; subsection?: number; deductibility?: number;
+    ruling?: string; taxPeriod?: string;
+    // Source
+    pdfUrl?: string; formType?: string;
     source: "local" | "propublica";
   } | null = null;
 
@@ -107,24 +147,37 @@ export default async function NgoProfilePage({
       });
 
       if (irsOrg) {
-        const latestFiling = irsOrg.filings[irsOrg.filings.length - 1];
+        const f = irsOrg.filings[irsOrg.filings.length - 1];
         irsData = {
-          revenue: latestFiling?.totalRevenue
-            ? Number(latestFiling.totalRevenue)
+          revenue: f?.totalRevenue ? Number(f.totalRevenue)
             : irsOrg.revenueAmount ? Number(irsOrg.revenueAmount) : undefined,
-          expenses: latestFiling?.totalExpenses ? Number(latestFiling.totalExpenses) : undefined,
-          assets: latestFiling?.totalAssetsEOY
-            ? Number(latestFiling.totalAssetsEOY)
+          expenses: f?.totalExpenses ? Number(f.totalExpenses) : undefined,
+          assets: f?.totalAssetsEOY ? Number(f.totalAssetsEOY)
             : irsOrg.assetAmount ? Number(irsOrg.assetAmount) : undefined,
-          taxYear: latestFiling?.taxYear ?? undefined,
-          filings: irsOrg.filings.map((f) => ({
-            year: f.taxYear,
-            revenue: f.totalRevenue ? Number(f.totalRevenue) : undefined,
-            expenses: f.totalExpenses ? Number(f.totalExpenses) : undefined,
-            assets: f.totalAssetsEOY ? Number(f.totalAssetsEOY) : undefined,
+          liabilities: f?.totalLiabilitiesEOY ? Number(f.totalLiabilitiesEOY) : undefined,
+          netAssets: f?.netAssetsEOY ? Number(f.netAssetsEOY) : undefined,
+          taxYear: f?.taxYear ?? undefined,
+          returnType: f?.returnType ?? undefined,
+          contributions: f?.contributionsAndGrants ? Number(f.contributionsAndGrants) : undefined,
+          programServiceRevenue: f?.programServiceRevenue ? Number(f.programServiceRevenue) : undefined,
+          investmentIncome: f?.investmentIncome ? Number(f.investmentIncome) : undefined,
+          salariesAndWages: f?.salariesAndWages ? Number(f.salariesAndWages) : undefined,
+          compensationOfficers: f?.compensationOfficers ? Number(f.compensationOfficers) : undefined,
+          otherExpenses: f?.otherExpenses ? Number(f.otherExpenses) : undefined,
+          officerCompPct: f?.pctOfficerCompensation ?? undefined,
+          employeeCount: f?.employeeCount ?? undefined,
+          volunteerCount: f?.volunteerCount ?? undefined,
+          filings: irsOrg.filings.map((filing) => ({
+            year: filing.taxYear,
+            revenue: filing.totalRevenue ? Number(filing.totalRevenue) : undefined,
+            expenses: filing.totalExpenses ? Number(filing.totalExpenses) : undefined,
+            assets: filing.totalAssetsEOY ? Number(filing.totalAssetsEOY) : undefined,
           })),
           nteeCode: irsOrg.nteeCode ?? undefined,
           subsection: irsOrg.subsection ?? undefined,
+          deductibility: irsOrg.deductibility ?? undefined,
+          ruling: irsOrg.ruling ?? undefined,
+          taxPeriod: irsOrg.taxPeriod ?? undefined,
           source: "local",
         };
       }
@@ -141,7 +194,7 @@ export default async function NgoProfilePage({
         );
         if (res.ok) {
           const data = await res.json();
-          const filings: { tax_prd_yr: number; totrevenue?: number; totfuncexpns?: number; totassetsend?: number }[] =
+          const filings: { tax_prd_yr: number; totrevenue?: number; totfuncexpns?: number; totassetsend?: number; pct_compnsatncurrofcr?: number; noemployes?: number }[] =
             data?.filings_with_data ?? [];
           const latest = filings[filings.length - 1];
           irsData = {
@@ -149,6 +202,8 @@ export default async function NgoProfilePage({
             expenses: latest?.totfuncexpns,
             assets: latest?.totassetsend ?? data?.organization?.asset_amount,
             taxYear: latest?.tax_prd_yr,
+            officerCompPct: latest?.pct_compnsatncurrofcr,
+            employeeCount: latest?.noemployes,
             filings: filings.slice(-5).map((f) => ({
               year: f.tax_prd_yr,
               revenue: f.totrevenue,
@@ -293,9 +348,11 @@ export default async function NgoProfilePage({
 
         {/* IRS Financial Overview — shown when EIN is on file */}
         {irsData && (
-          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center gap-2">
+          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 space-y-5">
+
+            {/* Header */}
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2 flex-wrap">
                 <BarChart3 className="w-5 h-5 text-blue-600" />
                 <h2 className="text-base font-bold text-gray-900">IRS Financial Data</h2>
                 {irsData.taxYear && (
@@ -303,46 +360,58 @@ export default async function NgoProfilePage({
                     {irsData.taxYear} filing
                   </span>
                 )}
+                {(irsData.returnType || irsData.formType) && (
+                  <span className="text-xs text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full font-medium">
+                    Form {irsData.returnType ?? irsData.formType}
+                  </span>
+                )}
               </div>
               {ngo.ein && (
                 <Link
                   href={`/irs-directory/${ngo.ein.replace(/-/g, "")}`}
-                  className="text-xs text-blue-600 hover:underline flex items-center gap-1"
+                  className="text-xs text-blue-600 hover:underline flex items-center gap-1 shrink-0"
                 >
-                  Full profile <ExternalLink className="w-3 h-3" />
+                  Full IRS profile <ExternalLink className="w-3 h-3" />
                 </Link>
               )}
             </div>
 
-            {/* Key metrics */}
-            <div className="grid grid-cols-3 gap-4 mb-4">
+            {/* Key financial metrics — 2×2 grid */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
               {[
-                { label: "Revenue", value: irsData.revenue, icon: <DollarSign className="w-4 h-4 text-emerald-500" /> },
-                { label: "Expenses", value: irsData.expenses, icon: <TrendingUp className="w-4 h-4 text-amber-500" /> },
-                { label: "Total Assets", value: irsData.assets, icon: <Landmark className="w-4 h-4 text-blue-500" /> },
-              ].map(({ label, value, icon }) => (
-                <div key={label} className="bg-gray-50 rounded-xl p-3 text-center">
+                { label: "Total Revenue", value: irsData.revenue, icon: <DollarSign className="w-4 h-4 text-emerald-500" />, color: "bg-emerald-50" },
+                { label: "Total Expenses", value: irsData.expenses, icon: <TrendingUp className="w-4 h-4 text-amber-500" />, color: "bg-amber-50" },
+                { label: "Net Assets", value: irsData.netAssets ?? (irsData.assets != null && irsData.liabilities != null ? irsData.assets - irsData.liabilities : irsData.assets), icon: <Landmark className="w-4 h-4 text-blue-500" />, color: "bg-blue-50" },
+                { label: "Total Liabilities", value: irsData.liabilities, icon: <BarChart3 className="w-4 h-4 text-red-400" />, color: "bg-red-50" },
+              ].map(({ label, value, icon, color }) => (
+                <div key={label} className={`${color} rounded-xl p-3 text-center`}>
                   <div className="flex justify-center mb-1">{icon}</div>
-                  <p className="text-lg font-bold text-gray-900">{formatIrsDollars(value)}</p>
-                  <p className="text-xs text-gray-500">{label}</p>
+                  <p className="text-base font-bold text-gray-900">{formatIrsDollars(value)}</p>
+                  <p className="text-xs text-gray-500 mt-0.5">{label}</p>
                 </div>
               ))}
             </div>
 
-            {/* Revenue trend bar chart */}
-            {irsData.filings.length > 1 && (
-              <div className="mt-2">
-                <p className="text-xs font-medium text-gray-500 mb-2">Revenue trend</p>
-                <div className="flex items-end gap-1.5 h-16">
-                  {irsData.filings.map((f) => {
-                    const maxRevenue = Math.max(...irsData!.filings.map((x) => x.revenue ?? 0));
-                    const pct = maxRevenue > 0 ? Math.round(((f.revenue ?? 0) / maxRevenue) * 100) : 0;
+            {/* Revenue breakdown */}
+            {(irsData.contributions != null || irsData.programServiceRevenue != null) && (
+              <div>
+                <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Revenue Breakdown</p>
+                <div className="space-y-2">
+                  {[
+                    { label: "Contributions & Grants", value: irsData.contributions, color: "bg-emerald-400" },
+                    { label: "Program Service Revenue", value: irsData.programServiceRevenue, color: "bg-blue-400" },
+                    { label: "Investment Income", value: irsData.investmentIncome, color: "bg-violet-400" },
+                  ].filter(r => r.value != null && r.value > 0).map((row) => {
+                    const total = irsData!.revenue ?? 1;
+                    const pct = Math.round((row.value! / total) * 100);
                     return (
-                      <div key={f.year} className="flex-1 flex flex-col items-center gap-1">
-                        <div className="w-full bg-blue-100 rounded-t" style={{ height: `${Math.max(4, pct * 0.56)}px` }}>
-                          <div className="w-full h-full bg-blue-500 rounded-t opacity-80" />
+                      <div key={row.label} className="flex items-center gap-3">
+                        <p className="text-xs text-gray-600 w-44 shrink-0">{row.label}</p>
+                        <div className="flex-1 bg-gray-100 rounded-full h-2">
+                          <div className={`${row.color} h-2 rounded-full`} style={{ width: `${pct}%` }} />
                         </div>
-                        <span className="text-[10px] text-gray-400">{f.year}</span>
+                        <p className="text-xs font-medium text-gray-700 w-16 text-right">{formatIrsDollars(row.value)}</p>
+                        <p className="text-xs text-gray-400 w-8 text-right">{pct}%</p>
                       </div>
                     );
                   })}
@@ -350,14 +419,127 @@ export default async function NgoProfilePage({
               </div>
             )}
 
-            {/* Form 990 link */}
-            <div className="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">
+            {/* Expense breakdown */}
+            {(irsData.salariesAndWages != null || irsData.compensationOfficers != null) && (
+              <div>
+                <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Expense Breakdown</p>
+                <div className="space-y-2">
+                  {[
+                    { label: "Salaries & Wages", value: irsData.salariesAndWages, color: "bg-amber-400" },
+                    { label: "Officer Compensation", value: irsData.compensationOfficers, color: "bg-orange-400" },
+                    { label: "Other Expenses", value: irsData.otherExpenses, color: "bg-gray-400" },
+                  ].filter(r => r.value != null && r.value > 0).map((row) => {
+                    const total = irsData!.expenses ?? 1;
+                    const pct = Math.round((row.value! / total) * 100);
+                    return (
+                      <div key={row.label} className="flex items-center gap-3">
+                        <p className="text-xs text-gray-600 w-44 shrink-0">{row.label}</p>
+                        <div className="flex-1 bg-gray-100 rounded-full h-2">
+                          <div className={`${row.color} h-2 rounded-full`} style={{ width: `${pct}%` }} />
+                        </div>
+                        <p className="text-xs font-medium text-gray-700 w-16 text-right">{formatIrsDollars(row.value)}</p>
+                        <p className="text-xs text-gray-400 w-8 text-right">{pct}%</p>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+
+            {/* Workforce & Compensation */}
+            {(irsData.employeeCount != null || irsData.volunteerCount != null || irsData.officerCompPct != null) && (
+              <div>
+                <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Workforce</p>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                  {irsData.employeeCount != null && (
+                    <div className="bg-gray-50 rounded-lg p-3 text-center">
+                      <p className="text-xl font-bold text-gray-900">{irsData.employeeCount.toLocaleString()}</p>
+                      <p className="text-xs text-gray-500 mt-0.5">Employees</p>
+                    </div>
+                  )}
+                  {irsData.volunteerCount != null && irsData.volunteerCount > 0 && (
+                    <div className="bg-gray-50 rounded-lg p-3 text-center">
+                      <p className="text-xl font-bold text-gray-900">{irsData.volunteerCount.toLocaleString()}</p>
+                      <p className="text-xs text-gray-500 mt-0.5">Volunteers</p>
+                    </div>
+                  )}
+                  {irsData.officerCompPct != null && (
+                    <div className="bg-gray-50 rounded-lg p-3 text-center">
+                      <p className="text-xl font-bold text-gray-900">{irsData.officerCompPct.toFixed(1)}%</p>
+                      <p className="text-xs text-gray-500 mt-0.5">Officer Comp of Expenses</p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {/* Revenue trend chart */}
+            {irsData.filings.length > 1 && (
+              <div>
+                <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Revenue vs Expenses Trend</p>
+                <div className="flex items-end gap-2 h-20">
+                  {irsData.filings.map((f) => {
+                    const maxVal = Math.max(...irsData!.filings.flatMap((x) => [x.revenue ?? 0, x.expenses ?? 0]));
+                    const revPct = maxVal > 0 ? Math.round(((f.revenue ?? 0) / maxVal) * 100) : 0;
+                    const expPct = maxVal > 0 ? Math.round(((f.expenses ?? 0) / maxVal) * 100) : 0;
+                    return (
+                      <div key={f.year} className="flex-1 flex flex-col items-center gap-1">
+                        <div className="w-full flex gap-0.5 items-end" style={{ height: "60px" }}>
+                          <div className="flex-1 bg-blue-200 rounded-sm flex items-end">
+                            <div className="w-full bg-blue-500 rounded-sm" style={{ height: `${Math.max(2, revPct * 0.6)}px` }} />
+                          </div>
+                          <div className="flex-1 bg-amber-200 rounded-sm flex items-end">
+                            <div className="w-full bg-amber-400 rounded-sm" style={{ height: `${Math.max(2, expPct * 0.6)}px` }} />
+                          </div>
+                        </div>
+                        <span className="text-[10px] text-gray-400">{f.year}</span>
+                      </div>
+                    );
+                  })}
+                </div>
+                <div className="flex gap-4 mt-1">
+                  <span className="flex items-center gap-1 text-[10px] text-gray-400"><span className="w-2 h-2 rounded-sm bg-blue-500 inline-block" /> Revenue</span>
+                  <span className="flex items-center gap-1 text-[10px] text-gray-400"><span className="w-2 h-2 rounded-sm bg-amber-400 inline-block" /> Expenses</span>
+                </div>
+              </div>
+            )}
+
+            {/* Org classification */}
+            {(irsData.nteeCode || irsData.subsection != null || irsData.deductibility != null || irsData.ruling) && (
+              <div className="pt-4 border-t border-gray-100">
+                <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">IRS Classification</p>
+                <div className="flex flex-wrap gap-2">
+                  {irsData.subsection != null && (
+                    <span className="text-xs bg-blue-50 text-blue-700 px-2 py-1 rounded-full">
+                      501(c)({irsData.subsection})
+                    </span>
+                  )}
+                  {irsData.nteeCode && (
+                    <span className="text-xs bg-emerald-50 text-emerald-700 px-2 py-1 rounded-full">
+                      NTEE: {irsData.nteeCode} · {nteeCategory(irsData.nteeCode)}
+                    </span>
+                  )}
+                  {irsData.deductibility === 1 && (
+                    <span className="text-xs bg-green-50 text-green-700 px-2 py-1 rounded-full">
+                      ✓ Donations tax-deductible
+                    </span>
+                  )}
+                  {irsData.ruling && (
+                    <span className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-full">
+                      501(c)(3) since {formatRulingDate(irsData.ruling)}
+                    </span>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {/* Footer */}
+            <div className="flex items-center justify-between pt-4 border-t border-gray-100">
               <p className="text-xs text-gray-400">
                 {irsData.source === "local" ? (
                   "Source: IRS Business Master File (GiveLedger)"
                 ) : (
-                  <>
-                    Source: IRS Form 990 via{" "}
+                  <>Source: IRS Form 990 via{" "}
                     <a href="https://projects.propublica.org/nonprofits/" target="_blank" rel="noopener noreferrer" className="underline">ProPublica</a>
                   </>
                 )}
