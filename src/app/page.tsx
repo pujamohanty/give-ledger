@@ -176,15 +176,7 @@ function MilestoneMockup() {
 
 /* ─── Landing page (logged-out) ──────────────────────────── */
 async function LandingPage({ session }: { session: Session | null }) {
-  const [
-    donorCount,
-    ngoCount,
-    milestoneCount,
-    disbursedTotal,
-    openRoles,
-    featuredProjects,
-    openRolesCount,
-  ] = await Promise.all([
+  const data = await Promise.all([
     prisma.user.count({ where: { role: "DONOR" } }),
     prisma.ngo.count({ where: { status: "ACTIVE" } }),
     prisma.milestone.count({ where: { status: "COMPLETED" } }),
@@ -202,9 +194,15 @@ async function LandingPage({ session }: { session: Session | null }) {
       orderBy: { raisedAmount: "desc" },
     }),
     prisma.ngoRole.count({ where: { status: "OPEN" } }),
-  ]);
+  ]).catch(() => null);
 
-  const totalDisbursed = disbursedTotal._sum.requestedAmount ?? 0;
+  const donorCount = data?.[0] ?? 0;
+  const ngoCount = data?.[1] ?? 0;
+  const milestoneCount = data?.[2] ?? 0;
+  const totalDisbursed = data?.[3]._sum.requestedAmount ?? 0;
+  const openRoles = data?.[4] ?? [];
+  const featuredProjects = data?.[5] ?? [];
+  const openRolesCount = data?.[6] ?? 0;
 
   return (
     <div className="min-h-screen bg-white">
@@ -1079,41 +1077,52 @@ async function LandingPage({ session }: { session: Session | null }) {
 async function FeedPage({ session }: { session: Session | null }) {
   const LIMIT = 20;
 
-  const [events, donorCount, ngoCount, projectCount, milestoneCount, featuredProjectsRaw, recentNgosRaw, allProjectsRaw, openRolesRaw, openRolesCount, subscription] =
-    await Promise.all([
-      prisma.activityEvent.findMany({ take: LIMIT + 1, orderBy: { createdAt: "desc" } }),
-      prisma.user.count({ where: { role: "DONOR" } }),
-      prisma.ngo.count({ where: { status: "ACTIVE" } }),
-      prisma.project.count(),
-      prisma.milestone.count({ where: { status: "COMPLETED" } }),
-      prisma.project.findMany({
-        take: 3,
-        where: { status: "ACTIVE" },
-        include: { ngo: { select: { orgName: true } } },
-        orderBy: { raisedAmount: "desc" },
-      }),
-      prisma.ngo.findMany({
-        take: 5,
-        where: { status: "ACTIVE" },
-        select: { id: true, orgName: true, description: true },
-        orderBy: { createdAt: "desc" },
-      }),
-      prisma.project.findMany({
-        where: { status: "ACTIVE" },
-        include: { ngo: { select: { orgName: true } }, _count: { select: { milestones: true } } },
-        orderBy: { createdAt: "desc" },
-      }),
-      prisma.ngoRole.findMany({
-        take: 4,
-        where: { status: "OPEN" },
-        include: { ngo: { select: { id: true, orgName: true } } },
-        orderBy: { createdAt: "desc" },
-      }),
-      prisma.ngoRole.count({ where: { status: "OPEN" } }),
-      session?.user?.role === "DONOR"
-        ? prisma.subscription.findUnique({ where: { userId: session.user.id }, select: { plan: true } })
-        : Promise.resolve(null),
-    ]);
+  const data = await Promise.all([
+    prisma.activityEvent.findMany({ take: LIMIT + 1, orderBy: { createdAt: "desc" } }),
+    prisma.user.count({ where: { role: "DONOR" } }),
+    prisma.ngo.count({ where: { status: "ACTIVE" } }),
+    prisma.project.count(),
+    prisma.milestone.count({ where: { status: "COMPLETED" } }),
+    prisma.project.findMany({
+      take: 3,
+      where: { status: "ACTIVE" },
+      include: { ngo: { select: { orgName: true } } },
+      orderBy: { raisedAmount: "desc" },
+    }),
+    prisma.ngo.findMany({
+      take: 5,
+      where: { status: "ACTIVE" },
+      select: { id: true, orgName: true, description: true },
+      orderBy: { createdAt: "desc" },
+    }),
+    prisma.project.findMany({
+      where: { status: "ACTIVE" },
+      include: { ngo: { select: { orgName: true } }, _count: { select: { milestones: true } } },
+      orderBy: { createdAt: "desc" },
+    }),
+    prisma.ngoRole.findMany({
+      take: 4,
+      where: { status: "OPEN" },
+      include: { ngo: { select: { id: true, orgName: true } } },
+      orderBy: { createdAt: "desc" },
+    }),
+    prisma.ngoRole.count({ where: { status: "OPEN" } }),
+    session?.user?.role === "DONOR"
+      ? prisma.subscription.findUnique({ where: { userId: session.user.id }, select: { plan: true } })
+      : Promise.resolve(null),
+  ]).catch(() => null);
+
+  const events = data?.[0] ?? [];
+  const donorCount = data?.[1] ?? 0;
+  const ngoCount = data?.[2] ?? 0;
+  const projectCount = data?.[3] ?? 0;
+  const milestoneCount = data?.[4] ?? 0;
+  const featuredProjectsRaw = data?.[5] ?? [];
+  const recentNgosRaw = data?.[6] ?? [];
+  const allProjectsRaw = data?.[7] ?? [];
+  const openRolesRaw = data?.[8] ?? [];
+  const openRolesCount = data?.[9] ?? 0;
+  const subscription = data?.[10] ?? null;
 
   const isPro = subscription?.plan === "PRO";
 
