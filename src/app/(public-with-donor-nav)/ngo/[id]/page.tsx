@@ -8,7 +8,16 @@ import { Badge } from "@/components/ui/badge";
 import {
   Globe, MapPin, Users, Target, CheckCircle, Linkedin, ExternalLink,
   Star, FileText, Image as ImageIcon, Sparkles, ArrowLeft,
+  TrendingUp, DollarSign, Landmark, BarChart3,
 } from "lucide-react";
+
+function formatIrsDollars(n?: number | null): string {
+  if (n == null) return "—";
+  if (n >= 1_000_000_000) return `$${(n / 1_000_000_000).toFixed(1)}B`;
+  if (n >= 1_000_000) return `$${(n / 1_000_000).toFixed(1)}M`;
+  if (n >= 1_000) return `$${(n / 1_000).toFixed(0)}K`;
+  return `$${n.toLocaleString()}`;
+}
 
 function formatCurrency(amount: number) {
   if (amount >= 1_000_000) return `$${(amount / 1_000_000).toFixed(1)}M`;
@@ -76,6 +85,47 @@ export default async function NgoProfilePage({
   });
 
   if (!ngo || ngo.status !== "ACTIVE") notFound();
+
+  // Fetch IRS financial data from ProPublica if EIN is available
+  let irsData: {
+    revenue?: number; expenses?: number; assets?: number; taxYear?: number;
+    filings: { year: number; revenue?: number; expenses?: number; assets?: number }[];
+    nteeCode?: string; subsection?: number; pdfUrl?: string; formType?: string;
+  } | null = null;
+
+  if (ngo.ein) {
+    try {
+      const cleanEin = ngo.ein.replace(/-/g, "").replace(/\s/g, "");
+      const res = await fetch(
+        `https://projects.propublica.org/nonprofits/api/v2/organizations/${cleanEin}.json`,
+        { next: { revalidate: 3600 } }
+      );
+      if (res.ok) {
+        const data = await res.json();
+        const filings: { tax_prd_yr: number; totrevenue?: number; totfuncexpns?: number; totassetsend?: number }[] =
+          data?.filings_with_data ?? [];
+        const latest = filings[filings.length - 1];
+        irsData = {
+          revenue: latest?.totrevenue ?? data?.organization?.revenue_amount,
+          expenses: latest?.totfuncexpns,
+          assets: latest?.totassetsend ?? data?.organization?.asset_amount,
+          taxYear: latest?.tax_prd_yr,
+          filings: filings.slice(-5).map((f) => ({
+            year: f.tax_prd_yr,
+            revenue: f.totrevenue,
+            expenses: f.totfuncexpns,
+            assets: f.totassetsend,
+          })),
+          nteeCode: data?.organization?.ntee_code,
+          subsection: data?.organization?.subsection_code,
+          pdfUrl: data?.organization?.latest_filing?.pdf_url,
+          formType: data?.organization?.latest_filing?.formtype,
+        };
+      }
+    } catch {
+      // IRS data unavailable — continue without it
+    }
+  }
 
   // Compute stats
   const totalRaised = ngo.projects.reduce((sum, p) => sum + p.raisedAmount, 0);
@@ -199,6 +249,81 @@ export default async function NgoProfilePage({
             </Card>
           ))}
         </div>
+
+        {/* IRS Financial Overview — shown when EIN is on file */}
+        {irsData && (
+          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-2">
+                <BarChart3 className="w-5 h-5 text-blue-600" />
+                <h2 className="text-base font-bold text-gray-900">IRS Financial Data</h2>
+                {irsData.taxYear && (
+                  <span className="text-xs text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full">
+                    {irsData.taxYear} filing
+                  </span>
+                )}
+              </div>
+              {ngo.ein && (
+                <Link
+                  href={`/irs-directory/${ngo.ein.replace(/-/g, "")}`}
+                  className="text-xs text-blue-600 hover:underline flex items-center gap-1"
+                >
+                  Full profile <ExternalLink className="w-3 h-3" />
+                </Link>
+              )}
+            </div>
+
+            {/* Key metrics */}
+            <div className="grid grid-cols-3 gap-4 mb-4">
+              {[
+                { label: "Revenue", value: irsData.revenue, icon: <DollarSign className="w-4 h-4 text-emerald-500" /> },
+                { label: "Expenses", value: irsData.expenses, icon: <TrendingUp className="w-4 h-4 text-amber-500" /> },
+                { label: "Total Assets", value: irsData.assets, icon: <Landmark className="w-4 h-4 text-blue-500" /> },
+              ].map(({ label, value, icon }) => (
+                <div key={label} className="bg-gray-50 rounded-xl p-3 text-center">
+                  <div className="flex justify-center mb-1">{icon}</div>
+                  <p className="text-lg font-bold text-gray-900">{formatIrsDollars(value)}</p>
+                  <p className="text-xs text-gray-500">{label}</p>
+                </div>
+              ))}
+            </div>
+
+            {/* Revenue trend bar chart */}
+            {irsData.filings.length > 1 && (
+              <div className="mt-2">
+                <p className="text-xs font-medium text-gray-500 mb-2">Revenue trend</p>
+                <div className="flex items-end gap-1.5 h-16">
+                  {irsData.filings.map((f) => {
+                    const maxRevenue = Math.max(...irsData!.filings.map((x) => x.revenue ?? 0));
+                    const pct = maxRevenue > 0 ? Math.round(((f.revenue ?? 0) / maxRevenue) * 100) : 0;
+                    return (
+                      <div key={f.year} className="flex-1 flex flex-col items-center gap-1">
+                        <div className="w-full bg-blue-100 rounded-t" style={{ height: `${Math.max(4, pct * 0.56)}px` }}>
+                          <div className="w-full h-full bg-blue-500 rounded-t opacity-80" />
+                        </div>
+                        <span className="text-[10px] text-gray-400">{f.year}</span>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+
+            {/* Form 990 link */}
+            <div className="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">
+              <p className="text-xs text-gray-400">
+                Source: IRS Form 990 via{" "}
+                <a href="https://projects.propublica.org/nonprofits/" target="_blank" rel="noopener noreferrer" className="underline">ProPublica</a>
+              </p>
+              {irsData.pdfUrl && (
+                <a href={irsData.pdfUrl} target="_blank" rel="noopener noreferrer"
+                  className="text-xs text-blue-600 hover:underline flex items-center gap-1">
+                  View Form 990 <ExternalLink className="w-3 h-3" />
+                </a>
+              )}
+            </div>
+          </div>
+        )}
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Main column */}

@@ -8,19 +8,54 @@ import { ArrowLeft, Building2, Calendar, DollarSign, ExternalLink, Landmark, Map
 import { getNteeCategory, getSubsectionLabel, formatEin, formatDollars } from "@/lib/ntee-codes";
 import IrsOrgCharts from "./IrsOrgCharts";
 
+interface ProPublicaOrg {
+  ein: string;
+  name: string;
+  address?: string;
+  city?: string;
+  state?: string;
+  zipcode?: string;
+  subsection_code?: number;
+  ntee_code?: string;
+  deductibility_code?: number;
+  asset_amount?: number;
+  income_amount?: number;
+  revenue_amount?: number;
+  ruling_date?: string;
+  tax_period?: string;
+  have_pdfs?: boolean;
+  latest_filing?: { tax_prd_yr?: number; formtype?: string; pdf_url?: string };
+}
+
+interface ProPublicaFiling {
+  tax_prd_yr: number;
+  formtype?: string;
+  totrevenue?: number;
+  totfuncexpns?: number;
+  totassetsend?: number;
+  totliabend?: number;
+  pct_compnsatncurrofcr?: number;
+  noemployes?: number;
+}
+
 export async function generateMetadata(
   { params }: { params: Promise<{ ein: string }> }
 ): Promise<Metadata> {
   const { ein } = await params;
-  const cleanEin = ein.replace(/-/g, "").padStart(9, "0");
-  const org = await prisma.irsOrganization.findUnique({
-    where: { ein: cleanEin },
-    select: { name: true },
-  });
-  return {
-    title: org ? `${org.name} — GiveLedger` : "Organization Not Found",
-    description: org ? `IRS tax-exempt organization ${formatEin(cleanEin)} — financial data, filings, and more.` : undefined,
-  };
+  const cleanEin = ein.replace(/-/g, "");
+  try {
+    const res = await fetch(
+      `https://projects.propublica.org/nonprofits/api/v2/organizations/${cleanEin}.json`,
+      { next: { revalidate: 3600 } }
+    );
+    const data = await res.json();
+    const name = data?.organization?.name;
+    return {
+      title: name ? `${name} — GiveLedger` : "Organization Not Found",
+    };
+  } catch {
+    return { title: "Organization — GiveLedger" };
+  }
 }
 
 export default async function IrsOrgDetailPage({
@@ -29,48 +64,69 @@ export default async function IrsOrgDetailPage({
   params: Promise<{ ein: string }>;
 }) {
   const { ein } = await params;
-  const cleanEin = ein.replace(/-/g, "").padStart(9, "0");
+  const cleanEin = ein.replace(/-/g, "");
   const session = await auth();
 
-  const org = await prisma.irsOrganization.findUnique({
-    where: { ein: cleanEin },
-    include: {
-      filings: { orderBy: { taxYear: "asc" } },
-      ngo: {
-        select: { id: true, orgName: true, status: true, trustScore: true, logoUrl: true },
-      },
-    },
-  });
+  let org: ProPublicaOrg | null = null;
+  let filings: ProPublicaFiling[] = [];
+
+  try {
+    const res = await fetch(
+      `https://projects.propublica.org/nonprofits/api/v2/organizations/${cleanEin}.json`,
+      { next: { revalidate: 3600 } }
+    );
+    if (res.ok) {
+      const data = await res.json();
+      org = data?.organization ?? null;
+      filings = data?.filings_with_data ?? [];
+    }
+  } catch {
+    /* show not found */
+  }
 
   if (!org) notFound();
 
-  const latestFiling = org.filings[org.filings.length - 1];
-  const nteeCategory = getNteeCategory(org.nteeCode);
-  const subsectionLabel = getSubsectionLabel(org.subsection);
+  // Check if this EIN is claimed by a GiveLedger NGO
+  const linkedNgo = await prisma.ngo.findFirst({
+    where: { ein: cleanEin },
+    select: { id: true, orgName: true, status: true, trustScore: true, logoUrl: true },
+  });
 
-  // Serialize filings for the client chart component
-  const filingsForCharts = org.filings.map((f) => ({
-    taxYear: f.taxYear,
-    totalRevenue: f.totalRevenue ? Number(f.totalRevenue) : null,
-    totalExpenses: f.totalExpenses ? Number(f.totalExpenses) : null,
-    totalAssetsEOY: f.totalAssetsEOY ? Number(f.totalAssetsEOY) : null,
-    totalLiabilitiesEOY: f.totalLiabilitiesEOY ? Number(f.totalLiabilitiesEOY) : null,
-    netAssetsEOY: f.netAssetsEOY ? Number(f.netAssetsEOY) : null,
-    compensationOfficers: f.compensationOfficers ? Number(f.compensationOfficers) : null,
-    pctOfficerCompensation: f.pctOfficerCompensation,
-    employeeCount: f.employeeCount,
-    volunteerCount: f.volunteerCount,
-    contributionsAndGrants: f.contributionsAndGrants ? Number(f.contributionsAndGrants) : null,
-    programServiceRevenue: f.programServiceRevenue ? Number(f.programServiceRevenue) : null,
-    returnType: f.returnType,
+  const nteeCategory = getNteeCategory(org.ntee_code);
+  const subsectionLabel = getSubsectionLabel(org.subsection_code);
+  const latestFiling = filings[filings.length - 1];
+
+  const filingsForCharts = filings.map((f) => ({
+    taxYear: f.tax_prd_yr,
+    totalRevenue: f.totrevenue ?? null,
+    totalExpenses: f.totfuncexpns ?? null,
+    totalAssetsEOY: f.totassetsend ?? null,
+    totalLiabilitiesEOY: f.totliabend ?? null,
+    netAssetsEOY: f.totassetsend != null && f.totliabend != null ? f.totassetsend - f.totliabend : null,
+    compensationOfficers: null,
+    pctOfficerCompensation: f.pct_compnsatncurrofcr ?? null,
+    employeeCount: f.noemployes ?? null,
+    volunteerCount: null,
+    contributionsAndGrants: null,
+    programServiceRevenue: null,
+    returnType: f.formtype ?? null,
   }));
+
+  function StatCard({ label, value, icon }: { label: string; value: string; icon: React.ReactNode }) {
+    return (
+      <div className="bg-white rounded-xl border border-gray-100 p-4 shadow-sm">
+        <div className="flex items-center gap-2 mb-1 text-gray-400">{icon}</div>
+        <p className="text-xl font-bold text-gray-900">{value}</p>
+        <p className="text-xs text-gray-500 mt-0.5">{label}</p>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#f3f2ef]">
       <Navbar session={session} />
 
       <div className="max-w-5xl mx-auto px-4 py-10 sm:px-6">
-        {/* Back link */}
         <Link href="/irs-directory" className="inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-700 mb-6 transition">
           <ArrowLeft className="w-4 h-4" /> All Organizations
         </Link>
@@ -78,7 +134,7 @@ export default async function IrsOrgDetailPage({
         {/* Hero */}
         <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 sm:p-8 mb-6">
           <div className="flex items-start gap-4">
-            <div className={`w-16 h-16 rounded-2xl bg-blue-500 flex items-center justify-center text-white font-bold text-xl shrink-0`}>
+            <div className="w-16 h-16 rounded-2xl bg-blue-500 flex items-center justify-center text-white font-bold text-xl shrink-0">
               {org.name.trim().split(" ").map(p => p[0]).slice(0, 2).join("").toUpperCase()}
             </div>
             <div className="min-w-0 flex-1">
@@ -87,32 +143,24 @@ export default async function IrsOrgDetailPage({
                 {(org.city || org.state) && (
                   <span className="flex items-center gap-1">
                     <MapPin className="w-4 h-4 text-gray-400" />
-                    {[org.city, org.state].filter(Boolean).join(", ")} {org.zip}
+                    {[org.city, org.state].filter(Boolean).join(", ")} {org.zipcode}
                   </span>
                 )}
-                <span className="font-mono text-gray-400">EIN: {formatEin(org.ein)}</span>
+                <span className="font-mono text-gray-400">EIN: {formatEin(cleanEin)}</span>
               </div>
-
-              {/* Badges */}
               <div className="flex flex-wrap gap-2 mt-3">
-                <span className="text-xs font-semibold text-blue-700 bg-blue-50 px-2.5 py-1 rounded-full">
-                  {subsectionLabel}
-                </span>
-                <span className="text-xs font-semibold text-violet-700 bg-violet-50 px-2.5 py-1 rounded-full">
-                  {nteeCategory}
-                </span>
-                {org.nteeCode && (
-                  <span className="text-xs font-mono text-gray-400 bg-gray-50 px-2.5 py-1 rounded-full">
-                    NTEE: {org.nteeCode}
-                  </span>
+                <span className="text-xs font-semibold text-blue-700 bg-blue-50 px-2.5 py-1 rounded-full">{subsectionLabel}</span>
+                <span className="text-xs font-semibold text-violet-700 bg-violet-50 px-2.5 py-1 rounded-full">{nteeCategory}</span>
+                {org.ntee_code && (
+                  <span className="text-xs font-mono text-gray-400 bg-gray-50 px-2.5 py-1 rounded-full">NTEE: {org.ntee_code}</span>
                 )}
-                {org.deductibility === 1 && (
+                {org.deductibility_code === 1 && (
                   <span className="text-xs font-semibold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full flex items-center gap-1">
                     <Shield className="w-3 h-3" /> Tax Deductible
                   </span>
                 )}
-                {org.ngo && (
-                  <Link href={`/ngo/${org.ngo.id}`}
+                {linkedNgo && (
+                  <Link href={`/ngo/${linkedNgo.id}`}
                     className="text-xs font-semibold text-amber-700 bg-amber-50 px-2.5 py-1 rounded-full flex items-center gap-1 hover:bg-amber-100 transition">
                     <Shield className="w-3 h-3" /> Active on GiveLedger
                   </Link>
@@ -122,85 +170,47 @@ export default async function IrsOrgDetailPage({
           </div>
         </div>
 
-        {/* Stats cards */}
+        {/* Stats */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
-          <StatCard
-            label="Revenue"
-            value={formatDollars(latestFiling?.totalRevenue ?? org.revenueAmount)}
-            sub={latestFiling ? `FY ${latestFiling.taxYear}` : "BMF"}
-            icon={<DollarSign className="w-5 h-5 text-emerald-500" />}
-          />
-          <StatCard
-            label="Total Assets"
-            value={formatDollars(latestFiling?.totalAssetsEOY ?? org.assetAmount)}
-            sub={latestFiling ? `FY ${latestFiling.taxYear}` : "BMF"}
-            icon={<Landmark className="w-5 h-5 text-blue-500" />}
-          />
-          <StatCard
-            label="Filings"
-            value={String(org.filings.length)}
-            sub={org.filings.length > 0 ? `${org.filings[0].taxYear}–${org.filings[org.filings.length - 1].taxYear}` : "None"}
-            icon={<Calendar className="w-5 h-5 text-violet-500" />}
-          />
-          <StatCard
-            label="Employees"
-            value={latestFiling?.employeeCount?.toLocaleString() ?? "N/A"}
-            sub={latestFiling?.volunteerCount ? `${latestFiling.volunteerCount.toLocaleString()} volunteers` : ""}
-            icon={<Users className="w-5 h-5 text-amber-500" />}
-          />
+          <StatCard label="Latest Revenue" value={formatDollars(latestFiling?.totrevenue ?? org.revenue_amount)} icon={<DollarSign className="w-4 h-4" />} />
+          <StatCard label="Total Assets" value={formatDollars(latestFiling?.totassetsend ?? org.asset_amount)} icon={<Landmark className="w-4 h-4" />} />
+          <StatCard label="Tax Year" value={latestFiling?.tax_prd_yr?.toString() ?? "—"} icon={<Calendar className="w-4 h-4" />} />
+          <StatCard label="Form Type" value={latestFiling?.formtype ?? org.latest_filing?.formtype ?? "—"} icon={<Building2 className="w-4 h-4" />} />
         </div>
 
-        {/* Financial charts */}
-        {filingsForCharts.length > 0 ? (
-          <IrsOrgCharts filings={filingsForCharts} orgName={org.name} />
-        ) : (
-          <div className="bg-white rounded-2xl border border-gray-100 p-8 text-center text-gray-400">
-            <Building2 className="w-10 h-10 mx-auto mb-3 opacity-30" />
-            <p className="text-sm">No financial filings available for this organization.</p>
-            <p className="text-xs mt-1">Financial data comes from IRS Form 990 filings.</p>
+        {/* Charts */}
+        {filingsForCharts.length > 0 && (
+          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 mb-6">
+            <h2 className="text-lg font-bold text-gray-900 mb-4">Financial History</h2>
+            <IrsOrgCharts filings={filingsForCharts} orgName={org.name} />
           </div>
         )}
 
-        {/* Organization details */}
-        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 mt-6">
-          <h2 className="text-lg font-bold text-gray-900 mb-4">Organization Details</h2>
-          <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3 text-sm">
-            <DetailRow label="EIN" value={formatEin(org.ein)} />
-            <DetailRow label="Classification" value={subsectionLabel} />
-            <DetailRow label="NTEE Code" value={org.nteeCode ? `${org.nteeCode} — ${nteeCategory}` : "N/A"} />
-            <DetailRow label="Ruling Date" value={org.ruling ? `${org.ruling.slice(0, 4)}-${org.ruling.slice(4)}` : "N/A"} />
-            <DetailRow label="Foundation Type" value={org.foundation !== null ? String(org.foundation) : "N/A"} />
-            <DetailRow label="Accounting Period" value={org.accountingPeriod ? `Month ${org.accountingPeriod}` : "N/A"} />
-            {org.street && <DetailRow label="Address" value={`${org.street}, ${org.city}, ${org.state} ${org.zip}`} />}
-            {org.ico && <DetailRow label="In Care Of" value={org.ico} />}
-            {org.groupNumber && org.groupNumber !== "0000" && (
-              <DetailRow label="Group Exemption" value={org.groupNumber} />
-            )}
-          </dl>
-        </div>
-      </div>
-    </div>
-  );
-}
+        {/* Latest 990 PDF */}
+        {org.latest_filing?.pdf_url && (
+          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 mb-6 flex items-center justify-between">
+            <div>
+              <p className="font-semibold text-gray-900 text-sm">Latest Form 990</p>
+              <p className="text-xs text-gray-500">
+                {org.latest_filing.tax_prd_yr} · {org.latest_filing.formtype}
+              </p>
+            </div>
+            <a href={org.latest_filing.pdf_url} target="_blank" rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-sm font-medium text-blue-600 hover:underline">
+              View PDF <ExternalLink className="w-4 h-4" />
+            </a>
+          </div>
+        )}
 
-function StatCard({ label, value, sub, icon }: { label: string; value: string; sub: string; icon: React.ReactNode }) {
-  return (
-    <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-4">
-      <div className="flex items-center gap-2 mb-2">
-        {icon}
-        <span className="text-xs font-medium text-gray-500">{label}</span>
+        {/* Data source */}
+        <p className="text-xs text-gray-400 text-center mt-4">
+          Financial data sourced from{" "}
+          <a href="https://projects.propublica.org/nonprofits/" target="_blank" rel="noopener noreferrer" className="underline hover:text-gray-600">
+            ProPublica Nonprofit Explorer
+          </a>{" "}
+          · IRS Form 990 filings
+        </p>
       </div>
-      <p className="text-xl font-bold text-gray-900">{value}</p>
-      {sub && <p className="text-xs text-gray-400 mt-0.5">{sub}</p>}
-    </div>
-  );
-}
-
-function DetailRow({ label, value }: { label: string; value: string }) {
-  return (
-    <div>
-      <dt className="text-gray-400 text-xs font-medium">{label}</dt>
-      <dd className="text-gray-900 font-medium">{value}</dd>
     </div>
   );
 }
