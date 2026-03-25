@@ -213,7 +213,7 @@ export default async function NgosPage({
                       {category && (
                         <span className="bg-gray-100 px-2 py-0.5 rounded-full truncate max-w-[60%]">{category}</span>
                       )}
-                      {org.revenueAmount && Number(org.revenueAmount) > 0 && (
+                      {org.revenueAmount != null && Number(org.revenueAmount) > 0 && (
                         <span className="flex items-center gap-1 text-emerald-700 font-medium ml-auto">
                           <DollarSign className="w-3 h-3" />
                           {formatRevenue(org.revenueAmount)} revenue
