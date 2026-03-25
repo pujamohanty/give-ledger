@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { auth } from "@/lib/auth";
@@ -8,7 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import {
   Globe, MapPin, Users, Target, CheckCircle, Linkedin, ExternalLink,
   Star, FileText, Image as ImageIcon, Sparkles, ArrowLeft,
-  TrendingUp, DollarSign, Landmark, BarChart3,
+  TrendingUp, DollarSign, Landmark, BarChart3, Building2,
 } from "lucide-react";
 
 const NTEE_CATEGORIES: Record<string, string> = {
@@ -80,170 +81,142 @@ const docCategoryLabel: Record<string, string> = {
 export default async function NgoProfilePage({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: Promise<{ ein: string }>;
 }) {
-  const { id } = await params;
-  const session = await auth();
+  const { ein: rawEin } = await params;
+  const cleanEin = rawEin.replace(/-/g, "").replace(/\s/g, "");
 
-  const ngo = await prisma.ngo.findUnique({
-    where: { id },
-    include: {
-      boardMembers: { orderBy: { orderIndex: "asc" } },
-      documents: {
-        select: { id: true, fileName: true, category: true, mimeType: true, fileSize: true, caption: true, createdAt: true },
-        orderBy: { createdAt: "desc" },
-      },
-      projects: {
-        where: { status: "ACTIVE" },
-        include: {
-          milestones: true,
-          donations: { select: { userId: true } },
+  // Fetch IRS org + GiveLedger NGO record in parallel
+  const [irsOrg, ngo, session] = await Promise.all([
+    prisma.irsOrganization.findUnique({
+      where: { ein: cleanEin },
+      include: { filings: { orderBy: { taxYear: "asc" }, take: 5 } },
+    }).catch(() => null),
+    prisma.ngo.findFirst({
+      where: { ein: cleanEin, status: "ACTIVE" },
+      include: {
+        boardMembers: { orderBy: { orderIndex: "asc" } },
+        documents: {
+          select: { id: true, fileName: true, category: true, mimeType: true, fileSize: true, caption: true, createdAt: true },
+          orderBy: { createdAt: "desc" },
         },
-        orderBy: { createdAt: "desc" },
+        projects: {
+          where: { status: "ACTIVE" },
+          include: { milestones: true, donations: { select: { userId: true } } },
+          orderBy: { createdAt: "desc" },
+        },
+        ratings: {
+          include: { donor: { select: { id: true, name: true } } },
+          orderBy: { createdAt: "desc" },
+          take: 5,
+        },
       },
-      ratings: {
-        include: { donor: { select: { id: true, name: true } } },
-        orderBy: { createdAt: "desc" },
-        take: 5,
-      },
-    },
-  });
+    }).catch(() => null),
+    auth(),
+  ]);
 
-  if (!ngo || ngo.status !== "ACTIVE") notFound();
+  // Need at least one of them to render
+  if (!irsOrg && !ngo) notFound();
 
-  // ── IRS financial data: local DB first, ProPublica fallback ────────────────
+  // Canonical name + location: prefer IRS (authoritative), fall back to GiveLedger record
+  const orgName = irsOrg?.name ?? ngo?.orgName ?? "";
+  const orgCity = irsOrg?.city ?? null;
+  const orgState = irsOrg?.state ?? ngo?.state ?? null;
+
+  // ── IRS financial data ────────────────────────────────────────────────────
   let irsData: {
-    // Latest filing snapshot
     revenue?: number; expenses?: number; assets?: number; liabilities?: number;
     netAssets?: number; taxYear?: number; returnType?: string;
-    // Revenue breakdown
     contributions?: number; programServiceRevenue?: number; investmentIncome?: number;
-    // Expense breakdown
     salariesAndWages?: number; compensationOfficers?: number; otherExpenses?: number;
-    // Officer compensation
-    officerCompPct?: number;
-    // Workforce
-    employeeCount?: number; volunteerCount?: number;
-    // Multi-year trend
+    officerCompPct?: number; employeeCount?: number; volunteerCount?: number;
     filings: { year: number; revenue?: number; expenses?: number; assets?: number }[];
-    // Org classification
     nteeCode?: string; subsection?: number; deductibility?: number;
     ruling?: string; taxPeriod?: string;
-    // Source
     pdfUrl?: string; formType?: string;
     source: "local" | "propublica";
   } | null = null;
 
-  if (ngo.ein) {
-    const cleanEin = ngo.ein.replace(/-/g, "").replace(/\s/g, "");
-
-    // Primary: local IRS database
+  if (irsOrg) {
+    // Build from local DB (already fetched above)
+    const f = irsOrg.filings[irsOrg.filings.length - 1];
+    irsData = {
+      revenue: f?.totalRevenue ? Number(f.totalRevenue) : irsOrg.revenueAmount ? Number(irsOrg.revenueAmount) : undefined,
+      expenses: f?.totalExpenses ? Number(f.totalExpenses) : undefined,
+      assets: f?.totalAssetsEOY ? Number(f.totalAssetsEOY) : irsOrg.assetAmount ? Number(irsOrg.assetAmount) : undefined,
+      liabilities: f?.totalLiabilitiesEOY ? Number(f.totalLiabilitiesEOY) : undefined,
+      netAssets: f?.netAssetsEOY ? Number(f.netAssetsEOY) : undefined,
+      taxYear: f?.taxYear ?? undefined,
+      returnType: f?.returnType ?? undefined,
+      contributions: f?.contributionsAndGrants ? Number(f.contributionsAndGrants) : undefined,
+      programServiceRevenue: f?.programServiceRevenue ? Number(f.programServiceRevenue) : undefined,
+      investmentIncome: f?.investmentIncome ? Number(f.investmentIncome) : undefined,
+      salariesAndWages: f?.salariesAndWages ? Number(f.salariesAndWages) : undefined,
+      compensationOfficers: f?.compensationOfficers ? Number(f.compensationOfficers) : undefined,
+      otherExpenses: f?.otherExpenses ? Number(f.otherExpenses) : undefined,
+      officerCompPct: f?.pctOfficerCompensation ?? undefined,
+      employeeCount: f?.employeeCount ?? undefined,
+      volunteerCount: f?.volunteerCount ?? undefined,
+      filings: irsOrg.filings.map((filing) => ({
+        year: filing.taxYear,
+        revenue: filing.totalRevenue ? Number(filing.totalRevenue) : undefined,
+        expenses: filing.totalExpenses ? Number(filing.totalExpenses) : undefined,
+        assets: filing.totalAssetsEOY ? Number(filing.totalAssetsEOY) : undefined,
+      })),
+      nteeCode: irsOrg.nteeCode ?? undefined,
+      subsection: irsOrg.subsection ?? undefined,
+      deductibility: irsOrg.deductibility ?? undefined,
+      ruling: irsOrg.ruling ?? undefined,
+      taxPeriod: irsOrg.taxPeriod ?? undefined,
+      source: "local",
+    };
+  } else {
+    // Fallback: ProPublica
     try {
-      const irsOrg = await prisma.irsOrganization.findUnique({
-        where: { ein: cleanEin },
-        include: {
-          filings: { orderBy: { taxYear: "asc" }, take: 5 },
-        },
-      });
-
-      if (irsOrg) {
-        const f = irsOrg.filings[irsOrg.filings.length - 1];
+      const res = await fetch(
+        `https://projects.propublica.org/nonprofits/api/v2/organizations/${cleanEin}.json`,
+        { next: { revalidate: 3600 } }
+      );
+      if (res.ok) {
+        const data = await res.json();
+        const filings: { tax_prd_yr: number; totrevenue?: number; totfuncexpns?: number; totassetsend?: number; pct_compnsatncurrofcr?: number; noemployes?: number }[] =
+          data?.filings_with_data ?? [];
+        const latest = filings[filings.length - 1];
         irsData = {
-          revenue: f?.totalRevenue ? Number(f.totalRevenue)
-            : irsOrg.revenueAmount ? Number(irsOrg.revenueAmount) : undefined,
-          expenses: f?.totalExpenses ? Number(f.totalExpenses) : undefined,
-          assets: f?.totalAssetsEOY ? Number(f.totalAssetsEOY)
-            : irsOrg.assetAmount ? Number(irsOrg.assetAmount) : undefined,
-          liabilities: f?.totalLiabilitiesEOY ? Number(f.totalLiabilitiesEOY) : undefined,
-          netAssets: f?.netAssetsEOY ? Number(f.netAssetsEOY) : undefined,
-          taxYear: f?.taxYear ?? undefined,
-          returnType: f?.returnType ?? undefined,
-          contributions: f?.contributionsAndGrants ? Number(f.contributionsAndGrants) : undefined,
-          programServiceRevenue: f?.programServiceRevenue ? Number(f.programServiceRevenue) : undefined,
-          investmentIncome: f?.investmentIncome ? Number(f.investmentIncome) : undefined,
-          salariesAndWages: f?.salariesAndWages ? Number(f.salariesAndWages) : undefined,
-          compensationOfficers: f?.compensationOfficers ? Number(f.compensationOfficers) : undefined,
-          otherExpenses: f?.otherExpenses ? Number(f.otherExpenses) : undefined,
-          officerCompPct: f?.pctOfficerCompensation ?? undefined,
-          employeeCount: f?.employeeCount ?? undefined,
-          volunteerCount: f?.volunteerCount ?? undefined,
-          filings: irsOrg.filings.map((filing) => ({
-            year: filing.taxYear,
-            revenue: filing.totalRevenue ? Number(filing.totalRevenue) : undefined,
-            expenses: filing.totalExpenses ? Number(filing.totalExpenses) : undefined,
-            assets: filing.totalAssetsEOY ? Number(filing.totalAssetsEOY) : undefined,
+          revenue: latest?.totrevenue ?? data?.organization?.revenue_amount,
+          expenses: latest?.totfuncexpns,
+          assets: latest?.totassetsend ?? data?.organization?.asset_amount,
+          taxYear: latest?.tax_prd_yr,
+          officerCompPct: latest?.pct_compnsatncurrofcr,
+          employeeCount: latest?.noemployes,
+          filings: filings.slice(-5).map((fi) => ({
+            year: fi.tax_prd_yr, revenue: fi.totrevenue,
+            expenses: fi.totfuncexpns, assets: fi.totassetsend,
           })),
-          nteeCode: irsOrg.nteeCode ?? undefined,
-          subsection: irsOrg.subsection ?? undefined,
-          deductibility: irsOrg.deductibility ?? undefined,
-          ruling: irsOrg.ruling ?? undefined,
-          taxPeriod: irsOrg.taxPeriod ?? undefined,
-          source: "local",
+          nteeCode: data?.organization?.ntee_code,
+          subsection: data?.organization?.subsection_code,
+          pdfUrl: data?.organization?.latest_filing?.pdf_url,
+          formType: data?.organization?.latest_filing?.formtype,
+          source: "propublica",
         };
       }
-    } catch {
-      // local DB failed — fall through to ProPublica
-    }
-
-    // Fallback: ProPublica
-    if (!irsData) {
-      try {
-        const res = await fetch(
-          `https://projects.propublica.org/nonprofits/api/v2/organizations/${cleanEin}.json`,
-          { next: { revalidate: 3600 } }
-        );
-        if (res.ok) {
-          const data = await res.json();
-          const filings: { tax_prd_yr: number; totrevenue?: number; totfuncexpns?: number; totassetsend?: number; pct_compnsatncurrofcr?: number; noemployes?: number }[] =
-            data?.filings_with_data ?? [];
-          const latest = filings[filings.length - 1];
-          irsData = {
-            revenue: latest?.totrevenue ?? data?.organization?.revenue_amount,
-            expenses: latest?.totfuncexpns,
-            assets: latest?.totassetsend ?? data?.organization?.asset_amount,
-            taxYear: latest?.tax_prd_yr,
-            officerCompPct: latest?.pct_compnsatncurrofcr,
-            employeeCount: latest?.noemployes,
-            filings: filings.slice(-5).map((f) => ({
-              year: f.tax_prd_yr,
-              revenue: f.totrevenue,
-              expenses: f.totfuncexpns,
-              assets: f.totassetsend,
-            })),
-            nteeCode: data?.organization?.ntee_code,
-            subsection: data?.organization?.subsection_code,
-            pdfUrl: data?.organization?.latest_filing?.pdf_url,
-            formType: data?.organization?.latest_filing?.formtype,
-            source: "propublica",
-          };
-        }
-      } catch {
-        // IRS data unavailable — continue without it
-      }
-    }
+    } catch { /* IRS data unavailable */ }
   }
 
-  // Compute stats
-  const totalRaised = ngo.projects.reduce((sum, p) => sum + p.raisedAmount, 0);
-  const totalGoal = ngo.projects.reduce((sum, p) => sum + p.goalAmount, 0);
-  const completedMilestones = ngo.projects.reduce(
+  // GiveLedger platform stats (only when NGO has registered on platform)
+  const totalRaised = ngo?.projects.reduce((sum, p) => sum + p.raisedAmount, 0) ?? 0;
+  const totalGoal = ngo?.projects.reduce((sum, p) => sum + p.goalAmount, 0) ?? 0;
+  const completedMilestones = ngo?.projects.reduce(
     (sum, p) => sum + p.milestones.filter((m) => m.status === "COMPLETED").length, 0
-  );
-  const uniqueDonors = new Set(ngo.projects.flatMap((p) => p.donations.map((d) => d.userId))).size;
-  const avgRating =
-    ngo.ratings.length > 0
-      ? ngo.ratings.reduce((sum, r) => sum + r.stars, 0) / ngo.ratings.length
-      : null;
-  const foundedYear = ngo.approvedAt
-    ? new Date(ngo.approvedAt).getFullYear()
-    : new Date(ngo.createdAt).getFullYear();
-
-  const founders = ngo.boardMembers.filter((m) => m.memberType === "FOUNDER");
-  const boardOnly = ngo.boardMembers.filter((m) => m.memberType !== "FOUNDER");
-
-  // Separate docs by type
-  const galleryDocs = ngo.documents.filter((d) => d.category === "GALLERY");
-  const otherDocs = ngo.documents.filter((d) => d.category !== "GALLERY");
+  ) ?? 0;
+  const uniqueDonors = new Set(ngo?.projects.flatMap((p) => p.donations.map((d) => d.userId)) ?? []).size;
+  const avgRating = ngo && ngo.ratings.length > 0
+    ? ngo.ratings.reduce((sum, r) => sum + r.stars, 0) / ngo.ratings.length
+    : null;
+  const founders = ngo?.boardMembers.filter((m) => m.memberType === "FOUNDER") ?? [];
+  const boardOnly = ngo?.boardMembers.filter((m) => m.memberType !== "FOUNDER") ?? [];
+  const galleryDocs = ngo?.documents.filter((d) => d.category === "GALLERY") ?? [];
+  const otherDocs = ngo?.documents.filter((d) => d.category !== "GALLERY") ?? [];
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -251,11 +224,8 @@ export default async function NgoProfilePage({
 
       {/* Breadcrumb */}
       <div className="max-w-5xl mx-auto px-4 pt-5 sm:px-6 lg:px-8">
-        <Link
-          href="/ngos"
-          className="inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-800 transition-colors"
-        >
-          <ArrowLeft className="w-4 h-4" /> All NGOs
+        <Link href="/ngos" className="inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-800 transition-colors">
+          <ArrowLeft className="w-4 h-4" /> All Nonprofits
         </Link>
       </div>
 
@@ -263,35 +233,29 @@ export default async function NgoProfilePage({
       <div className="bg-white border-b border-gray-100 mt-4">
         <div className="max-w-5xl mx-auto px-4 py-10 sm:px-6 lg:px-8">
           <div className="flex items-start gap-6">
-            {ngo.logoUrl ? (
+            {ngo?.logoUrl ? (
               // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={ngo.logoUrl}
-                alt={ngo.orgName}
-                className="w-20 h-20 rounded-xl object-cover border border-gray-100 bg-gray-50 shrink-0"
-              />
+              <img src={ngo.logoUrl} alt={orgName}
+                className="w-20 h-20 rounded-xl object-cover border border-gray-100 bg-gray-50 shrink-0" />
             ) : (
               <div className="w-20 h-20 rounded-xl bg-emerald-100 flex items-center justify-center shrink-0">
-                <span className="text-3xl font-bold text-emerald-700">
-                  {ngo.orgName.charAt(0).toUpperCase()}
-                </span>
+                <span className="text-3xl font-bold text-emerald-700">{orgName.charAt(0).toUpperCase()}</span>
               </div>
             )}
             <div className="flex-1 min-w-0">
               <div className="flex flex-wrap items-center gap-2 mb-1">
-                <h1 className="text-2xl font-bold text-gray-900">{ngo.orgName}</h1>
-                <Badge className="bg-emerald-100 text-emerald-800 text-xs">Verified NGO</Badge>
+                <h1 className="text-2xl font-bold text-gray-900">{orgName}</h1>
+                {ngo && <Badge className="bg-emerald-100 text-emerald-800 text-xs">On GiveLedger</Badge>}
+                {irsData?.subsection === 3 && <Badge className="bg-blue-50 text-blue-700 text-xs">501(c)(3)</Badge>}
               </div>
-              {ngo.state && (
+              {(orgCity || orgState) && (
                 <p className="text-sm text-gray-500 flex items-center gap-1 mb-2">
                   <MapPin className="w-3.5 h-3.5" />
-                  {ngo.state}, United States
+                  {[orgCity, orgState].filter(Boolean).join(", ")}, United States
                 </p>
               )}
-              {ngo.description && (
-                <p className="text-sm text-gray-600 max-w-2xl">{ngo.description}</p>
-              )}
-              {ngo.aiSummary && !ngo.description && (
+              {ngo?.description && <p className="text-sm text-gray-600 max-w-2xl">{ngo.description}</p>}
+              {ngo?.aiSummary && !ngo.description && (
                 <div className="max-w-2xl">
                   <p className="text-sm text-gray-600">{ngo.aiSummary}</p>
                   <p className="text-xs text-violet-500 flex items-center gap-1 mt-1">
@@ -300,25 +264,23 @@ export default async function NgoProfilePage({
                 </div>
               )}
               <div className="flex flex-wrap gap-4 mt-3">
-                {ngo.website && (
-                  <a
-                    href={ngo.website}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-xs text-emerald-700 hover:underline"
-                  >
+                {ngo?.website && (
+                  <a href={ngo.website} target="_blank" rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-xs text-emerald-700 hover:underline">
                     <Globe className="w-3.5 h-3.5" />
                     {ngo.website.replace(/^https?:\/\//, "")}
                   </a>
                 )}
-                <span className="text-xs text-gray-400 flex items-center gap-1">Founded {foundedYear}</span>
-                {ngo.ein && (
-                  <span className="text-xs text-gray-400">EIN: {ngo.ein}</span>
+                <span className="text-xs text-gray-400">EIN: {cleanEin}</span>
+                {irsData?.ruling && (
+                  <span className="text-xs text-gray-400">
+                    501(c)(3) since {formatRulingDate(irsData.ruling)}
+                  </span>
                 )}
                 {avgRating !== null && (
                   <span className="text-xs text-amber-600 flex items-center gap-1">
                     <Star className="w-3.5 h-3.5 fill-amber-500 text-amber-500" />
-                    {avgRating.toFixed(1)} ({ngo.ratings.length} review{ngo.ratings.length !== 1 ? "s" : ""})
+                    {avgRating.toFixed(1)} ({ngo!.ratings.length} review{ngo!.ratings.length !== 1 ? "s" : ""})
                   </span>
                 )}
               </div>
@@ -328,23 +290,26 @@ export default async function NgoProfilePage({
       </div>
 
       <div className="max-w-5xl mx-auto px-4 py-8 sm:px-6 lg:px-8 space-y-8">
-        {/* Stats */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-          {[
-            { label: "Total Raised", value: formatCurrency(totalRaised), sub: `of ${formatCurrency(totalGoal)} goal` },
-            { label: "Active Projects", value: ngo.projects.length.toString(), sub: "currently running" },
-            { label: "Milestones Completed", value: completedMilestones.toString(), sub: "verified on-chain" },
-            { label: "Donors", value: uniqueDonors.toString(), sub: "unique supporters" },
-          ].map((stat) => (
-            <Card key={stat.label} className="text-center">
-              <CardContent className="pt-5 pb-4">
-                <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
-                <p className="text-xs font-medium text-gray-600 mt-0.5">{stat.label}</p>
-                <p className="text-xs text-gray-400 mt-0.5">{stat.sub}</p>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+
+        {/* GiveLedger platform stats — only shown when registered */}
+        {ngo && (
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            {[
+              { label: "Total Raised", value: formatCurrency(totalRaised), sub: `of ${formatCurrency(totalGoal)} goal` },
+              { label: "Active Projects", value: ngo.projects.length.toString(), sub: "currently running" },
+              { label: "Milestones Completed", value: completedMilestones.toString(), sub: "verified on-chain" },
+              { label: "Donors", value: uniqueDonors.toString(), sub: "unique supporters" },
+            ].map((stat) => (
+              <Card key={stat.label} className="text-center">
+                <CardContent className="pt-5 pb-4">
+                  <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
+                  <p className="text-xs font-medium text-gray-600 mt-0.5">{stat.label}</p>
+                  <p className="text-xs text-gray-400 mt-0.5">{stat.sub}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        )}
 
         {/* IRS Financial Overview — shown when EIN is on file */}
         {irsData && (
@@ -366,14 +331,12 @@ export default async function NgoProfilePage({
                   </span>
                 )}
               </div>
-              {ngo.ein && (
-                <Link
-                  href={`/irs-directory/${ngo.ein.replace(/-/g, "")}`}
-                  className="text-xs text-blue-600 hover:underline flex items-center gap-1 shrink-0"
-                >
-                  Full IRS profile <ExternalLink className="w-3 h-3" />
-                </Link>
-              )}
+              <Link
+                href={`/irs-directory/${cleanEin}`}
+                className="text-xs text-blue-600 hover:underline flex items-center gap-1 shrink-0"
+              >
+                Full IRS profile <ExternalLink className="w-3 h-3" />
+              </Link>
             </div>
 
             {/* Key financial metrics — 2×2 grid */}
@@ -559,7 +522,7 @@ export default async function NgoProfilePage({
           <div className="lg:col-span-2 space-y-8">
 
             {/* Active Projects */}
-            {ngo.projects.length > 0 && (
+            {ngo && ngo.projects.length > 0 && (
               <Card>
                 <CardHeader>
                   <CardTitle className="text-base flex items-center gap-2">
@@ -699,44 +662,47 @@ export default async function NgoProfilePage({
 
           {/* Sidebar */}
           <div className="space-y-6">
-            {/* Trust indicators */}
+            {/* IRS / Platform verification */}
             <Card>
               <CardHeader>
-                <CardTitle className="text-base">Trust &amp; Verification</CardTitle>
+                <CardTitle className="text-base">Verification</CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
                 {[
-                  { label: "Platform verified", icon: "✅" },
-                  { label: "Milestone-locked funding", icon: "🔒" },
-                  { label: "On-chain disbursements", icon: "⛓️" },
-                  { label: "501(c)(3) Non-Profit", icon: "📋" },
-                  ngo.ein ? { label: `EIN: ${ngo.ein}`, icon: "🆔" } : null,
-                  ngo.regNumber ? { label: `Reg: ${ngo.regNumber}`, icon: "📄" } : null,
+                  { label: `EIN: ${cleanEin}`, icon: "🆔" },
+                  irsData?.subsection === 3 ? { label: "501(c)(3) Non-Profit", icon: "📋" } : null,
+                  irsData?.deductibility === 1 ? { label: "Tax-deductible donations", icon: "✅" } : null,
+                  ngo ? { label: "GiveLedger verified", icon: "🟢" } : null,
+                  ngo ? { label: "Milestone-locked funding", icon: "🔒" } : null,
+                  ngo ? { label: "On-chain disbursements", icon: "⛓️" } : null,
+                  ngo?.regNumber ? { label: `Reg: ${ngo.regNumber}`, icon: "📄" } : null,
                 ].filter(Boolean).map((item) => (
                   <div key={item!.label} className="flex items-center gap-2 text-sm text-gray-700">
                     <span>{item!.icon}</span>
                     <span>{item!.label}</span>
                   </div>
                 ))}
-                <div className="pt-2 border-t border-gray-100">
-                  <p className="text-xs text-gray-400">Trust Score</p>
-                  <div className="flex items-center gap-2 mt-1">
-                    <div className="flex-1 bg-gray-100 rounded-full h-2">
-                      <div
-                        className="bg-emerald-500 h-2 rounded-full"
-                        style={{ width: `${Math.min(100, ngo.trustScore)}%` }}
-                      />
+                {ngo && (
+                  <div className="pt-2 border-t border-gray-100">
+                    <p className="text-xs text-gray-400">GiveLedger Trust Score</p>
+                    <div className="flex items-center gap-2 mt-1">
+                      <div className="flex-1 bg-gray-100 rounded-full h-2">
+                        <div
+                          className="bg-emerald-500 h-2 rounded-full"
+                          style={{ width: `${Math.min(100, ngo.trustScore)}%` }}
+                        />
+                      </div>
+                      <span className="text-xs font-semibold text-emerald-700">
+                        {ngo.trustScore.toFixed(0)}/100
+                      </span>
                     </div>
-                    <span className="text-xs font-semibold text-emerald-700">
-                      {ngo.trustScore.toFixed(0)}/100
-                    </span>
                   </div>
-                </div>
+                )}
               </CardContent>
             </Card>
 
-            {/* Donor reviews */}
-            {ngo.ratings.length > 0 && (
+            {/* Donor reviews — only when on platform */}
+            {ngo && ngo.ratings.length > 0 && (
               <Card>
                 <CardHeader>
                   <CardTitle className="text-base flex items-center gap-2">
@@ -771,22 +737,38 @@ export default async function NgoProfilePage({
               </Card>
             )}
 
-            {/* CTA */}
-            <div className="bg-emerald-50 rounded-xl p-4 text-center space-y-3">
-              <p className="text-sm font-semibold text-emerald-800">Support this NGO</p>
-              <p className="text-xs text-emerald-700">
-                Every donation is milestone-locked and recorded on-chain.
-              </p>
-              {ngo.projects.length > 0 && (
+            {/* CTA — differs based on platform presence */}
+            {ngo ? (
+              <div className="bg-emerald-50 rounded-xl p-4 text-center space-y-3">
+                <p className="text-sm font-semibold text-emerald-800">Support this NGO</p>
+                <p className="text-xs text-emerald-700">
+                  Every donation is milestone-locked and recorded on-chain.
+                </p>
+                {ngo.projects.length > 0 && (
+                  <Link
+                    href={`/projects/${ngo.projects[0].id}`}
+                    className="inline-flex items-center justify-center w-full bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors"
+                  >
+                    <CheckCircle className="w-4 h-4 mr-1.5" />
+                    View Projects
+                  </Link>
+                )}
+              </div>
+            ) : (
+              <div className="bg-amber-50 border border-amber-100 rounded-xl p-4 text-center space-y-3">
+                <Building2 className="w-8 h-8 text-amber-400 mx-auto" />
+                <p className="text-sm font-semibold text-amber-800">Is this your organisation?</p>
+                <p className="text-xs text-amber-700">
+                  Claim this profile to start receiving milestone-locked donations and build your GiveLedger trust score.
+                </p>
                 <Link
-                  href={`/projects/${ngo.projects[0].id}`}
-                  className="inline-flex items-center justify-center w-full bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors"
+                  href="/signup?role=ngo"
+                  className="inline-flex items-center justify-center w-full bg-amber-500 hover:bg-amber-600 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors"
                 >
-                  <CheckCircle className="w-4 h-4 mr-1.5" />
-                  View Projects
+                  Claim this profile
                 </Link>
-              )}
-            </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
