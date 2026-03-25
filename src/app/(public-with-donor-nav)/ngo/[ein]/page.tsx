@@ -78,6 +78,31 @@ const docCategoryLabel: Record<string, string> = {
   OTHER: "Document",
 };
 
+function fetchIrsOrg(ein: string) {
+  return prisma.irsOrganization.findUnique({
+    where: { ein },
+    include: { filings: { orderBy: { taxYear: "asc" as const }, take: 5 } },
+  });
+}
+
+const NGO_INCLUDES = {
+  boardMembers: { orderBy: { orderIndex: "asc" } as const },
+  documents: {
+    select: { id: true, fileName: true, category: true, mimeType: true, fileSize: true, caption: true, createdAt: true },
+    orderBy: { createdAt: "desc" } as const,
+  },
+  projects: {
+    where: { status: "ACTIVE" as const },
+    include: { milestones: true, donations: { select: { userId: true } } },
+    orderBy: { createdAt: "desc" } as const,
+  },
+  ratings: {
+    include: { donor: { select: { id: true, name: true } } },
+    orderBy: { createdAt: "desc" } as const,
+    take: 5,
+  },
+};
+
 export default async function NgoProfilePage({
   params,
 }: {
@@ -86,37 +111,40 @@ export default async function NgoProfilePage({
   const { ein: rawEin } = await params;
   const cleanEin = rawEin.replace(/-/g, "").replace(/\s/g, "");
 
-  // Fetch IRS org + GiveLedger NGO record in parallel
-  const [irsOrg, ngo, session] = await Promise.all([
-    prisma.irsOrganization.findUnique({
-      where: { ein: cleanEin },
-      include: { filings: { orderBy: { taxYear: "asc" }, take: 5 } },
-    }).catch(() => null),
-    prisma.ngo.findFirst({
-      where: { ein: cleanEin, status: "ACTIVE" },
-      include: {
-        boardMembers: { orderBy: { orderIndex: "asc" } },
-        documents: {
-          select: { id: true, fileName: true, category: true, mimeType: true, fileSize: true, caption: true, createdAt: true },
-          orderBy: { createdAt: "desc" },
-        },
-        projects: {
-          where: { status: "ACTIVE" },
-          include: { milestones: true, donations: { select: { userId: true } } },
-          orderBy: { createdAt: "desc" },
-        },
-        ratings: {
-          include: { donor: { select: { id: true, name: true } } },
-          orderBy: { createdAt: "desc" },
-          take: 5,
-        },
-      },
-    }).catch(() => null),
-    auth(),
-  ]);
+  // Detect whether the param is an EIN (9 digits) or an internal cuid
+  const isEin = /^\d{9}$/.test(cleanEin);
+
+  let irsOrg: Awaited<ReturnType<typeof fetchIrsOrg>> = null;
+  let ngo: Awaited<ReturnType<typeof prisma.ngo.findFirst<{ include: typeof NGO_INCLUDES }>>> | null = null;
+  const session = await auth();
+
+  if (isEin) {
+    // EIN-based lookup: used by /ngos directory and IRS profile links
+    [irsOrg, ngo] = await Promise.all([
+      fetchIrsOrg(cleanEin).catch(() => null),
+      prisma.ngo.findFirst({
+        where: { ein: cleanEin, status: "ACTIVE" },
+        include: NGO_INCLUDES,
+      }).catch(() => null),
+    ]);
+  } else {
+    // Internal ID lookup: used by seeded/registered NGO links throughout the platform
+    ngo = await prisma.ngo.findUnique({
+      where: { id: rawEin },
+      include: NGO_INCLUDES,
+    }).catch(() => null);
+
+    // If the NGO has an EIN on file, also fetch IRS data
+    if (ngo?.ein) {
+      irsOrg = await fetchIrsOrg(ngo.ein.replace(/-/g, "")).catch(() => null);
+    }
+  }
 
   // Need at least one of them to render
   if (!irsOrg && !ngo) notFound();
+
+  // Canonical EIN for links (prefer IRS org EIN, fall back to ngo.ein, then the raw param if it's an EIN)
+  const canonicalEin = irsOrg?.ein ?? ngo?.ein?.replace(/-/g, "") ?? (isEin ? cleanEin : null);
 
   // Canonical name + location: prefer IRS (authoritative), fall back to GiveLedger record
   const orgName = irsOrg?.name ?? ngo?.orgName ?? "";
@@ -271,7 +299,7 @@ export default async function NgoProfilePage({
                     {ngo.website.replace(/^https?:\/\//, "")}
                   </a>
                 )}
-                <span className="text-xs text-gray-400">EIN: {cleanEin}</span>
+                {canonicalEin && <span className="text-xs text-gray-400">EIN: {canonicalEin}</span>}
                 {irsData?.ruling && (
                   <span className="text-xs text-gray-400">
                     501(c)(3) since {formatRulingDate(irsData.ruling)}
@@ -331,12 +359,14 @@ export default async function NgoProfilePage({
                   </span>
                 )}
               </div>
-              <Link
-                href={`/irs-directory/${cleanEin}`}
-                className="text-xs text-blue-600 hover:underline flex items-center gap-1 shrink-0"
-              >
-                Full IRS profile <ExternalLink className="w-3 h-3" />
-              </Link>
+              {canonicalEin && (
+                <Link
+                  href={`/irs-directory/${canonicalEin}`}
+                  className="text-xs text-blue-600 hover:underline flex items-center gap-1 shrink-0"
+                >
+                  Full IRS profile <ExternalLink className="w-3 h-3" />
+                </Link>
+              )}
             </div>
 
             {/* Key financial metrics — 2×2 grid */}
@@ -669,7 +699,7 @@ export default async function NgoProfilePage({
               </CardHeader>
               <CardContent className="space-y-3">
                 {[
-                  { label: `EIN: ${cleanEin}`, icon: "🆔" },
+                  canonicalEin ? { label: `EIN: ${canonicalEin}`, icon: "🆔" } : null,
                   irsData?.subsection === 3 ? { label: "501(c)(3) Non-Profit", icon: "📋" } : null,
                   irsData?.deductibility === 1 ? { label: "Tax-deductible donations", icon: "✅" } : null,
                   ngo ? { label: "GiveLedger verified", icon: "🟢" } : null,
