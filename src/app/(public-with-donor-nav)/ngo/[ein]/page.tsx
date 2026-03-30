@@ -11,6 +11,7 @@ import {
   Star, FileText, Image as ImageIcon, Sparkles, ArrowLeft,
   TrendingUp, DollarSign, Landmark, BarChart3, Building2,
 } from "lucide-react";
+import SuggestedRolesSection from "./SuggestedRolesSection";
 
 const NTEE_CATEGORIES: Record<string, string> = {
   A: "Arts & Culture", B: "Education", C: "Environment", D: "Animal-Related",
@@ -251,6 +252,14 @@ export default async function NgoProfilePage({
     // irsOrg was null but proPublicaData was also null (ProPublica fallback already attempted above)
     // Nothing more to try
   }
+
+  // Fetch cached AI-suggested roles for this EIN (non-blocking)
+  const suggestedRoles = canonicalEin
+    ? await prisma.suggestedRole.findMany({
+        where: { ein: canonicalEin, expiresAt: { gt: new Date() } },
+        orderBy: { generatedAt: "desc" },
+      }).catch(() => [])
+    : [];
 
   // GiveLedger platform stats (only when NGO has registered on platform)
   const totalRaised = ngo?.projects.reduce((sum, p) => sum + p.raisedAmount, 0) ?? 0;
@@ -566,6 +575,24 @@ export default async function NgoProfilePage({
               )}
             </div>
           </div>
+        )}
+
+        {/* AI-Suggested Potential Roles — shown when we have an EIN */}
+        {canonicalEin && (
+          <SuggestedRolesSection
+            ein={canonicalEin}
+            initialRoles={suggestedRoles.map((r) => ({
+              id: r.id,
+              title: r.title,
+              description: r.description,
+              skills: r.skills,
+              roleType: r.roleType,
+              timeCommitment: r.timeCommitment,
+              salaryMin: r.salaryMin,
+              salaryMax: r.salaryMax,
+              source: r.source,
+            }))}
+          />
         )}
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">

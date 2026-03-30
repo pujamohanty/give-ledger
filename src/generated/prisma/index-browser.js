@@ -615,6 +615,21 @@ exports.Prisma.IrsOrganizationScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.SuggestedRoleScalarFieldEnum = {
+  id: 'id',
+  ein: 'ein',
+  title: 'title',
+  description: 'description',
+  skills: 'skills',
+  roleType: 'roleType',
+  timeCommitment: 'timeCommitment',
+  salaryMin: 'salaryMin',
+  salaryMax: 'salaryMax',
+  source: 'source',
+  generatedAt: 'generatedAt',
+  expiresAt: 'expiresAt'
+};
+
 exports.Prisma.IrsFilingScalarFieldEnum = {
   id: 'id',
   ein: 'ein',
@@ -782,6 +797,7 @@ exports.Prisma.ModelName = {
   ChallengeAcceptance: 'ChallengeAcceptance',
   Subscription: 'Subscription',
   IrsOrganization: 'IrsOrganization',
+  SuggestedRole: 'SuggestedRole',
   IrsFiling: 'IrsFiling'
 };
 
