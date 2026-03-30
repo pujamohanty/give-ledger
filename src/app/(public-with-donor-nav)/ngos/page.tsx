@@ -2,14 +2,25 @@ import Link from "next/link";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import Navbar from "@/components/Navbar";
-import { Landmark, MapPin, Search, ChevronLeft, ChevronRight, Shield } from "lucide-react";
+import { Landmark, MapPin, Search, DollarSign, ChevronLeft, ChevronRight } from "lucide-react";
 
 export const metadata = {
   title: "Nonprofits — GiveLedger",
-  description: "Browse IRS-verified US nonprofits on GiveLedger.",
+  description: "Search 1.9 million IRS-verified US nonprofits.",
 };
 
-const PER_PAGE = 50;
+const PER_PAGE = 100;
+
+const NTEE_CATEGORIES: Record<string, string> = {
+  A: "Arts & Culture", B: "Education", C: "Environment", D: "Animal-Related",
+  E: "Health Care", F: "Mental Health", G: "Disease & Medical", H: "Medical Research",
+  I: "Crime & Legal", J: "Employment", K: "Food & Agriculture", L: "Housing",
+  M: "Public Safety", N: "Recreation & Sports", O: "Youth Development",
+  P: "Human Services", Q: "International Affairs", R: "Civil Rights",
+  S: "Community Improvement", T: "Philanthropy", U: "Science & Technology",
+  V: "Social Science", W: "Public & Societal Benefit", X: "Religion",
+  Y: "Mutual Benefit",
+};
 
 const STATE_LABELS: Record<string, string> = {
   AL: "Alabama", AK: "Alaska", AZ: "Arizona", AR: "Arkansas", CA: "California",
@@ -42,71 +53,72 @@ function initials(name: string) {
   return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
 }
 
-type NgoItem = {
-  id: string;
-  orgName: string;
-  state: string | null;
-  description: string | null;
-  ein: string | null;
-  trustScore: number;
-  _count: { projects: number };
+function formatRevenue(n: bigint | null | undefined): string {
+  if (n == null) return "";
+  const v = Number(n);
+  if (v >= 1_000_000_000) return `$${(v / 1_000_000_000).toFixed(1)}B`;
+  if (v >= 1_000_000) return `$${(v / 1_000_000).toFixed(1)}M`;
+  if (v >= 1_000) return `$${(v / 1_000).toFixed(0)}K`;
+  return `$${v.toLocaleString()}`;
+}
+
+type OrgItem = {
+  ein: string; name: string; city: string | null; state: string | null;
+  nteeCode: string | null; subsection: number | null; revenueAmount: bigint | null;
+  ngo: { id: string } | null;
 };
 
-function NgoCard({ ngo }: { ngo: NgoItem }) {
+function OrgCard({ org }: { org: OrgItem }) {
+  const nteeLetter = org.nteeCode?.charAt(0).toUpperCase();
+  const category = nteeLetter ? (NTEE_CATEGORIES[nteeLetter] ?? null) : null;
+  const isOnPlatform = !!org.ngo;
   return (
     <Link
-      href={`/ngo/${ngo.id}`}
+      href={`/ngo/${org.ein}`}
       className="bg-white rounded-xl border border-gray-100 hover:border-emerald-200 hover:shadow-md transition-all duration-150 p-5 flex flex-col gap-3 group"
     >
       <div className="flex items-start gap-3">
-        <div className={`w-11 h-11 rounded-full ${avatarColor(ngo.orgName)} flex items-center justify-center text-white font-bold text-sm shrink-0`}>
-          {initials(ngo.orgName)}
+        <div className={`w-11 h-11 rounded-full ${avatarColor(org.name)} flex items-center justify-center text-white font-bold text-sm shrink-0`}>
+          {initials(org.name)}
         </div>
         <div className="min-w-0 flex-1">
           <p className="font-semibold text-gray-900 text-sm leading-snug group-hover:text-emerald-700 line-clamp-2">
-            {ngo.orgName}
+            {org.name}
           </p>
-          {ngo.state && (
+          {(org.city || org.state) && (
             <p className="text-xs text-gray-400 flex items-center gap-1 mt-0.5">
               <MapPin className="w-3 h-3 shrink-0" />
-              {STATE_LABELS[ngo.state] ?? ngo.state}, United States
+              {[org.city, org.state ? (STATE_LABELS[org.state] ?? org.state) : null].filter(Boolean).join(", ")}
             </p>
           )}
         </div>
       </div>
-
-      {ngo.description && (
-        <p className="text-xs text-gray-500 line-clamp-2">{ngo.description}</p>
-      )}
-
-      <div className="flex flex-wrap gap-1 mt-auto pt-2 border-t border-gray-50 items-center">
-        {ngo.ein && (
-          <span className="text-[10px] font-medium text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full">
-            EIN {ngo.ein}
-          </span>
+      <div className="flex items-center justify-between text-xs text-gray-500">
+        {category && (
+          <span className="bg-gray-100 px-2 py-0.5 rounded-full truncate max-w-[60%]">{category}</span>
         )}
-        <span className="text-[10px] font-medium text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full">
-          On GiveLedger
-        </span>
-        {ngo._count.projects > 0 && (
-          <span className="text-[10px] font-medium text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full ml-auto">
-            {ngo._count.projects} project{ngo._count.projects !== 1 ? "s" : ""}
+        {org.revenueAmount != null && Number(org.revenueAmount) > 0 && (
+          <span className="flex items-center gap-1 text-emerald-700 font-medium ml-auto">
+            <DollarSign className="w-3 h-3" />
+            {formatRevenue(org.revenueAmount)} revenue
           </span>
         )}
       </div>
-
-      {ngo.trustScore > 0 && (
-        <div className="flex items-center gap-2">
-          <Shield className="w-3 h-3 text-emerald-500 shrink-0" />
-          <div className="flex-1 bg-gray-100 rounded-full h-1.5">
-            <div
-              className="bg-emerald-500 h-1.5 rounded-full"
-              style={{ width: `${Math.min(100, ngo.trustScore)}%` }}
-            />
-          </div>
-          <span className="text-[10px] text-emerald-700 font-medium">{ngo.trustScore.toFixed(0)}/100</span>
-        </div>
-      )}
+      <div className="flex flex-wrap gap-1 mt-auto pt-2 border-t border-gray-50">
+        <span className="text-[10px] font-medium text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full">
+          EIN {org.ein}
+        </span>
+        {org.subsection === 3 && (
+          <span className="text-[10px] font-medium text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full">
+            501(c)(3)
+          </span>
+        )}
+        {isOnPlatform && (
+          <span className="text-[10px] font-medium text-violet-700 bg-violet-50 px-2 py-0.5 rounded-full">
+            On GiveLedger
+          </span>
+        )}
+      </div>
     </Link>
   );
 }
@@ -114,46 +126,51 @@ function NgoCard({ ngo }: { ngo: NgoItem }) {
 export default async function NgosPage({
   searchParams,
 }: {
-  searchParams: Promise<{ q?: string; state?: string; page?: string }>;
+  searchParams: Promise<{ q?: string; state?: string; ntee?: string; page?: string }>;
 }) {
-  const { q = "", state = "", page: pageStr = "0" } = await searchParams;
+  const { q = "", state = "", ntee = "", page: pageStr = "0" } = await searchParams;
   const page = Math.max(0, parseInt(pageStr, 10) || 0);
   const session = await auth();
 
   const where = {
-    status: "ACTIVE" as const,
-    ...(q ? { orgName: { contains: q, mode: "insensitive" as const } } : {}),
+    // startsWith (not contains) so the btree index on name is used — ILIKE '%q%' causes a full scan on 1.9M rows
+    ...(q ? { name: { startsWith: q, mode: "insensitive" as const } } : {}),
     ...(state ? { state } : {}),
+    ...(ntee ? { nteeCode: { startsWith: ntee } } : {}),
   };
 
-  const [ngos, total] = await Promise.all([
-    prisma.ngo.findMany({
+  const [orgs, total] = await Promise.all([
+    prisma.irsOrganization.findMany({
       where,
       select: {
-        id: true,
-        orgName: true,
-        state: true,
-        description: true,
         ein: true,
-        trustScore: true,
-        _count: { select: { projects: true } },
+        name: true,
+        city: true,
+        state: true,
+        nteeCode: true,
+        subsection: true,
+        revenueAmount: true,
+        ngo: { select: { id: true } },
       },
-      orderBy: state
-        ? [{ orgName: "asc" as const }]
-        : [{ state: "asc" as const }, { orgName: "asc" as const }],
+      orderBy: q || ntee
+        ? [{ name: "asc" as const }]
+        : state
+          ? [{ revenueAmount: { sort: "desc" as const, nulls: "last" as const } }, { name: "asc" as const }]
+          : [{ revenueAmount: { sort: "desc" as const, nulls: "last" as const } }, { state: "asc" as const }, { name: "asc" as const }],
       skip: page * PER_PAGE,
       take: PER_PAGE,
     }),
-    prisma.ngo.count({ where }),
+    prisma.irsOrganization.count({ where }),
   ]).catch(() => [[], 0] as const);
 
   const totalPages = Math.ceil(total / PER_PAGE);
-  const hasFilters = !!(q || state);
+  const hasFilters = !!(q || state || ntee);
 
   const buildUrl = (p: number) => {
     const params = new URLSearchParams();
     if (q) params.set("q", q);
     if (state) params.set("state", state);
+    if (ntee) params.set("ntee", ntee);
     if (p > 0) params.set("page", String(p));
     const s = params.toString();
     return `/ngos${s ? `?${s}` : ""}`;
@@ -176,18 +193,18 @@ export default async function NgosPage({
           <p className="text-sm text-gray-500 ml-13 pl-1">
             {hasFilters
               ? `${total.toLocaleString()} result${total !== 1 ? "s" : ""}`
-              : `${total.toLocaleString()} verified nonprofit${total !== 1 ? "s" : ""} on GiveLedger`}
+              : "Search 1,938,732 IRS-verified nonprofit organisations"}
           </p>
         </div>
 
-        {/* Search & Filters */}
+        {/* Search & Filters — GET form, no JS needed */}
         <form method="GET" action="/ngos" className="bg-white rounded-xl border border-gray-200 p-4 mb-6 flex flex-col sm:flex-row gap-3">
           <div className="flex-1 relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
             <input
               name="q"
               defaultValue={q}
-              placeholder="Search by organisation name..."
+              placeholder="Type the start of an organisation name…"
               className="w-full pl-9 pr-4 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-400"
             />
           </div>
@@ -198,6 +215,16 @@ export default async function NgosPage({
           >
             <option value="">All states</option>
             {Object.entries(STATE_LABELS).sort((a, b) => a[1].localeCompare(b[1])).map(([code, label]) => (
+              <option key={code} value={code}>{label}</option>
+            ))}
+          </select>
+          <select
+            name="ntee"
+            defaultValue={ntee}
+            className="text-sm border border-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-400 bg-white"
+          >
+            <option value="">All categories</option>
+            {Object.entries(NTEE_CATEGORIES).map(([code, label]) => (
               <option key={code} value={code}>{label}</option>
             ))}
           </select>
@@ -214,49 +241,29 @@ export default async function NgosPage({
           )}
         </form>
 
-        {/* Results */}
-        {ngos.length > 0 ? (
+        {/* Results grid */}
+        {orgs.length > 0 ? (
           <>
-            {(() => {
-              if (!state) {
-                // Group by state
-                const groups: { stateCode: string; items: NgoItem[] }[] = [];
-                for (const ngo of ngos) {
-                  const key = ngo.state ?? "";
-                  const last = groups[groups.length - 1];
-                  if (last && last.stateCode === key) {
-                    last.items.push(ngo);
-                  } else {
-                    groups.push({ stateCode: key, items: [ngo] });
-                  }
-                }
-                return (
-                  <div className="space-y-8 mb-8">
-                    {groups.map(({ stateCode, items }) => (
-                      <div key={stateCode}>
-                        {stateCode && (
-                          <div className="flex items-center gap-3 mb-4">
-                            <h2 className="text-sm font-semibold text-gray-700 uppercase tracking-wide whitespace-nowrap">
-                              {STATE_LABELS[stateCode] ?? stateCode}
-                            </h2>
-                            <div className="flex-1 h-px bg-gray-200" />
-                            <span className="text-xs text-gray-400 whitespace-nowrap">{items.length} org{items.length !== 1 ? "s" : ""}</span>
-                          </div>
-                        )}
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                          {items.map((ngo) => <NgoCard key={ngo.id} ngo={ngo} />)}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                );
-              }
-              return (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
-                  {ngos.map((ngo) => <NgoCard key={ngo.id} ngo={ngo} />)}
+            {state && !q && !ntee ? (
+              // When filtering by state: group by state header
+              <div className="mb-8">
+                <div className="flex items-center gap-3 mb-4">
+                  <h2 className="text-sm font-semibold text-gray-700 uppercase tracking-wide">
+                    {STATE_LABELS[state] ?? state}
+                  </h2>
+                  <div className="flex-1 h-px bg-gray-200" />
+                  <span className="text-xs text-gray-400">{total.toLocaleString()} orgs</span>
                 </div>
-              );
-            })()}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {orgs.map((org) => <OrgCard key={org.ein} org={org} />)}
+                </div>
+              </div>
+            ) : (
+              // Default: flat grid ordered by revenue
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+                {orgs.map((org) => <OrgCard key={org.ein} org={org} />)}
+              </div>
+            )}
 
             {/* Pagination */}
             {totalPages > 1 && (
@@ -285,9 +292,7 @@ export default async function NgosPage({
           <div className="text-center py-20 text-gray-400">
             <Landmark className="w-10 h-10 mx-auto mb-3 opacity-30" />
             <p className="text-sm font-medium">No organisations found</p>
-            <p className="text-xs mt-1">
-              {hasFilters ? "Try a different name or state" : "No approved NGOs yet"}
-            </p>
+            <p className="text-xs mt-1">Try a different name, state, or category</p>
           </div>
         )}
       </div>
