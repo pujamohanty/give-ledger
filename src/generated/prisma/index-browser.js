@@ -513,6 +513,8 @@ exports.Prisma.NgoRoleScalarFieldEnum = {
   openings: 'openings',
   salaryMin: 'salaryMin',
   salaryMax: 'salaryMax',
+  isAiAugmented: 'isAiAugmented',
+  aiTools: 'aiTools',
   status: 'status',
   applicationDeadline: 'applicationDeadline',
   startDate: 'startDate',
@@ -625,6 +627,8 @@ exports.Prisma.SuggestedRoleScalarFieldEnum = {
   timeCommitment: 'timeCommitment',
   salaryMin: 'salaryMin',
   salaryMax: 'salaryMax',
+  isAiAugmented: 'isAiAugmented',
+  aiTools: 'aiTools',
   source: 'source',
   generatedAt: 'generatedAt',
   expiresAt: 'expiresAt'

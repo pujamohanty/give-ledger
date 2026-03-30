@@ -590,6 +590,8 @@ export default async function NgoProfilePage({
               timeCommitment: r.timeCommitment,
               salaryMin: r.salaryMin,
               salaryMax: r.salaryMax,
+              isAiAugmented: r.isAiAugmented,
+              aiTools: r.aiTools,
               source: r.source,
             }))}
           />

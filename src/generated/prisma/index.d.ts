@@ -40477,6 +40477,8 @@ export namespace Prisma {
     openings: number | null
     salaryMin: number | null
     salaryMax: number | null
+    isAiAugmented: boolean | null
+    aiTools: string | null
     status: $Enums.RoleStatus | null
     applicationDeadline: Date | null
     startDate: Date | null
@@ -40501,6 +40503,8 @@ export namespace Prisma {
     openings: number | null
     salaryMin: number | null
     salaryMax: number | null
+    isAiAugmented: boolean | null
+    aiTools: string | null
     status: $Enums.RoleStatus | null
     applicationDeadline: Date | null
     startDate: Date | null
@@ -40525,6 +40529,8 @@ export namespace Prisma {
     openings: number
     salaryMin: number
     salaryMax: number
+    isAiAugmented: number
+    aiTools: number
     status: number
     applicationDeadline: number
     startDate: number
@@ -40565,6 +40571,8 @@ export namespace Prisma {
     openings?: true
     salaryMin?: true
     salaryMax?: true
+    isAiAugmented?: true
+    aiTools?: true
     status?: true
     applicationDeadline?: true
     startDate?: true
@@ -40589,6 +40597,8 @@ export namespace Prisma {
     openings?: true
     salaryMin?: true
     salaryMax?: true
+    isAiAugmented?: true
+    aiTools?: true
     status?: true
     applicationDeadline?: true
     startDate?: true
@@ -40613,6 +40623,8 @@ export namespace Prisma {
     openings?: true
     salaryMin?: true
     salaryMax?: true
+    isAiAugmented?: true
+    aiTools?: true
     status?: true
     applicationDeadline?: true
     startDate?: true
@@ -40724,6 +40736,8 @@ export namespace Prisma {
     openings: number
     salaryMin: number | null
     salaryMax: number | null
+    isAiAugmented: boolean
+    aiTools: string | null
     status: $Enums.RoleStatus
     applicationDeadline: Date | null
     startDate: Date | null
@@ -40767,6 +40781,8 @@ export namespace Prisma {
     openings?: boolean
     salaryMin?: boolean
     salaryMax?: boolean
+    isAiAugmented?: boolean
+    aiTools?: boolean
     status?: boolean
     applicationDeadline?: boolean
     startDate?: boolean
@@ -40795,6 +40811,8 @@ export namespace Prisma {
     openings?: boolean
     salaryMin?: boolean
     salaryMax?: boolean
+    isAiAugmented?: boolean
+    aiTools?: boolean
     status?: boolean
     applicationDeadline?: boolean
     startDate?: boolean
@@ -40821,6 +40839,8 @@ export namespace Prisma {
     openings?: boolean
     salaryMin?: boolean
     salaryMax?: boolean
+    isAiAugmented?: boolean
+    aiTools?: boolean
     status?: boolean
     applicationDeadline?: boolean
     startDate?: boolean
@@ -40847,6 +40867,8 @@ export namespace Prisma {
     openings?: boolean
     salaryMin?: boolean
     salaryMax?: boolean
+    isAiAugmented?: boolean
+    aiTools?: boolean
     status?: boolean
     applicationDeadline?: boolean
     startDate?: boolean
@@ -40854,7 +40876,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type NgoRoleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "ngoId" | "projectId" | "title" | "department" | "roleType" | "description" | "responsibilities" | "skillsRequired" | "timeCommitment" | "durationWeeks" | "isRemote" | "location" | "openings" | "salaryMin" | "salaryMax" | "status" | "applicationDeadline" | "startDate" | "createdAt" | "updatedAt", ExtArgs["result"]["ngoRole"]>
+  export type NgoRoleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "ngoId" | "projectId" | "title" | "department" | "roleType" | "description" | "responsibilities" | "skillsRequired" | "timeCommitment" | "durationWeeks" | "isRemote" | "location" | "openings" | "salaryMin" | "salaryMax" | "isAiAugmented" | "aiTools" | "status" | "applicationDeadline" | "startDate" | "createdAt" | "updatedAt", ExtArgs["result"]["ngoRole"]>
   export type NgoRoleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     ngo?: boolean | NgoDefaultArgs<ExtArgs>
     project?: boolean | NgoRole$projectArgs<ExtArgs>
@@ -40894,6 +40916,8 @@ export namespace Prisma {
       openings: number
       salaryMin: number | null
       salaryMax: number | null
+      isAiAugmented: boolean
+      aiTools: string | null
       status: $Enums.RoleStatus
       applicationDeadline: Date | null
       startDate: Date | null
@@ -41341,6 +41365,8 @@ export namespace Prisma {
     readonly openings: FieldRef<"NgoRole", 'Int'>
     readonly salaryMin: FieldRef<"NgoRole", 'Int'>
     readonly salaryMax: FieldRef<"NgoRole", 'Int'>
+    readonly isAiAugmented: FieldRef<"NgoRole", 'Boolean'>
+    readonly aiTools: FieldRef<"NgoRole", 'String'>
     readonly status: FieldRef<"NgoRole", 'RoleStatus'>
     readonly applicationDeadline: FieldRef<"NgoRole", 'DateTime'>
     readonly startDate: FieldRef<"NgoRole", 'DateTime'>
@@ -49158,6 +49184,8 @@ export namespace Prisma {
     timeCommitment: string | null
     salaryMin: number | null
     salaryMax: number | null
+    isAiAugmented: boolean | null
+    aiTools: string | null
     source: string | null
     generatedAt: Date | null
     expiresAt: Date | null
@@ -49173,6 +49201,8 @@ export namespace Prisma {
     timeCommitment: string | null
     salaryMin: number | null
     salaryMax: number | null
+    isAiAugmented: boolean | null
+    aiTools: string | null
     source: string | null
     generatedAt: Date | null
     expiresAt: Date | null
@@ -49188,6 +49218,8 @@ export namespace Prisma {
     timeCommitment: number
     salaryMin: number
     salaryMax: number
+    isAiAugmented: number
+    aiTools: number
     source: number
     generatedAt: number
     expiresAt: number
@@ -49215,6 +49247,8 @@ export namespace Prisma {
     timeCommitment?: true
     salaryMin?: true
     salaryMax?: true
+    isAiAugmented?: true
+    aiTools?: true
     source?: true
     generatedAt?: true
     expiresAt?: true
@@ -49230,6 +49264,8 @@ export namespace Prisma {
     timeCommitment?: true
     salaryMin?: true
     salaryMax?: true
+    isAiAugmented?: true
+    aiTools?: true
     source?: true
     generatedAt?: true
     expiresAt?: true
@@ -49245,6 +49281,8 @@ export namespace Prisma {
     timeCommitment?: true
     salaryMin?: true
     salaryMax?: true
+    isAiAugmented?: true
+    aiTools?: true
     source?: true
     generatedAt?: true
     expiresAt?: true
@@ -49347,6 +49385,8 @@ export namespace Prisma {
     timeCommitment: string
     salaryMin: number | null
     salaryMax: number | null
+    isAiAugmented: boolean
+    aiTools: string | null
     source: string
     generatedAt: Date
     expiresAt: Date
@@ -49381,6 +49421,8 @@ export namespace Prisma {
     timeCommitment?: boolean
     salaryMin?: boolean
     salaryMax?: boolean
+    isAiAugmented?: boolean
+    aiTools?: boolean
     source?: boolean
     generatedAt?: boolean
     expiresAt?: boolean
@@ -49396,6 +49438,8 @@ export namespace Prisma {
     timeCommitment?: boolean
     salaryMin?: boolean
     salaryMax?: boolean
+    isAiAugmented?: boolean
+    aiTools?: boolean
     source?: boolean
     generatedAt?: boolean
     expiresAt?: boolean
@@ -49411,6 +49455,8 @@ export namespace Prisma {
     timeCommitment?: boolean
     salaryMin?: boolean
     salaryMax?: boolean
+    isAiAugmented?: boolean
+    aiTools?: boolean
     source?: boolean
     generatedAt?: boolean
     expiresAt?: boolean
@@ -49426,12 +49472,14 @@ export namespace Prisma {
     timeCommitment?: boolean
     salaryMin?: boolean
     salaryMax?: boolean
+    isAiAugmented?: boolean
+    aiTools?: boolean
     source?: boolean
     generatedAt?: boolean
     expiresAt?: boolean
   }
 
-  export type SuggestedRoleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "ein" | "title" | "description" | "skills" | "roleType" | "timeCommitment" | "salaryMin" | "salaryMax" | "source" | "generatedAt" | "expiresAt", ExtArgs["result"]["suggestedRole"]>
+  export type SuggestedRoleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "ein" | "title" | "description" | "skills" | "roleType" | "timeCommitment" | "salaryMin" | "salaryMax" | "isAiAugmented" | "aiTools" | "source" | "generatedAt" | "expiresAt", ExtArgs["result"]["suggestedRole"]>
 
   export type $SuggestedRolePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "SuggestedRole"
@@ -49446,6 +49494,8 @@ export namespace Prisma {
       timeCommitment: string
       salaryMin: number | null
       salaryMax: number | null
+      isAiAugmented: boolean
+      aiTools: string | null
       source: string
       generatedAt: Date
       expiresAt: Date
@@ -49881,6 +49931,8 @@ export namespace Prisma {
     readonly timeCommitment: FieldRef<"SuggestedRole", 'String'>
     readonly salaryMin: FieldRef<"SuggestedRole", 'Int'>
     readonly salaryMax: FieldRef<"SuggestedRole", 'Int'>
+    readonly isAiAugmented: FieldRef<"SuggestedRole", 'Boolean'>
+    readonly aiTools: FieldRef<"SuggestedRole", 'String'>
     readonly source: FieldRef<"SuggestedRole", 'String'>
     readonly generatedAt: FieldRef<"SuggestedRole", 'DateTime'>
     readonly expiresAt: FieldRef<"SuggestedRole", 'DateTime'>
@@ -52219,6 +52271,8 @@ export namespace Prisma {
     openings: 'openings',
     salaryMin: 'salaryMin',
     salaryMax: 'salaryMax',
+    isAiAugmented: 'isAiAugmented',
+    aiTools: 'aiTools',
     status: 'status',
     applicationDeadline: 'applicationDeadline',
     startDate: 'startDate',
@@ -52352,6 +52406,8 @@ export namespace Prisma {
     timeCommitment: 'timeCommitment',
     salaryMin: 'salaryMin',
     salaryMax: 'salaryMax',
+    isAiAugmented: 'isAiAugmented',
+    aiTools: 'aiTools',
     source: 'source',
     generatedAt: 'generatedAt',
     expiresAt: 'expiresAt'
@@ -55226,6 +55282,8 @@ export namespace Prisma {
     openings?: IntFilter<"NgoRole"> | number
     salaryMin?: IntNullableFilter<"NgoRole"> | number | null
     salaryMax?: IntNullableFilter<"NgoRole"> | number | null
+    isAiAugmented?: BoolFilter<"NgoRole"> | boolean
+    aiTools?: StringNullableFilter<"NgoRole"> | string | null
     status?: EnumRoleStatusFilter<"NgoRole"> | $Enums.RoleStatus
     applicationDeadline?: DateTimeNullableFilter<"NgoRole"> | Date | string | null
     startDate?: DateTimeNullableFilter<"NgoRole"> | Date | string | null
@@ -55253,6 +55311,8 @@ export namespace Prisma {
     openings?: SortOrder
     salaryMin?: SortOrderInput | SortOrder
     salaryMax?: SortOrderInput | SortOrder
+    isAiAugmented?: SortOrder
+    aiTools?: SortOrderInput | SortOrder
     status?: SortOrder
     applicationDeadline?: SortOrderInput | SortOrder
     startDate?: SortOrderInput | SortOrder
@@ -55283,6 +55343,8 @@ export namespace Prisma {
     openings?: IntFilter<"NgoRole"> | number
     salaryMin?: IntNullableFilter<"NgoRole"> | number | null
     salaryMax?: IntNullableFilter<"NgoRole"> | number | null
+    isAiAugmented?: BoolFilter<"NgoRole"> | boolean
+    aiTools?: StringNullableFilter<"NgoRole"> | string | null
     status?: EnumRoleStatusFilter<"NgoRole"> | $Enums.RoleStatus
     applicationDeadline?: DateTimeNullableFilter<"NgoRole"> | Date | string | null
     startDate?: DateTimeNullableFilter<"NgoRole"> | Date | string | null
@@ -55310,6 +55372,8 @@ export namespace Prisma {
     openings?: SortOrder
     salaryMin?: SortOrderInput | SortOrder
     salaryMax?: SortOrderInput | SortOrder
+    isAiAugmented?: SortOrder
+    aiTools?: SortOrderInput | SortOrder
     status?: SortOrder
     applicationDeadline?: SortOrderInput | SortOrder
     startDate?: SortOrderInput | SortOrder
@@ -55342,6 +55406,8 @@ export namespace Prisma {
     openings?: IntWithAggregatesFilter<"NgoRole"> | number
     salaryMin?: IntNullableWithAggregatesFilter<"NgoRole"> | number | null
     salaryMax?: IntNullableWithAggregatesFilter<"NgoRole"> | number | null
+    isAiAugmented?: BoolWithAggregatesFilter<"NgoRole"> | boolean
+    aiTools?: StringNullableWithAggregatesFilter<"NgoRole"> | string | null
     status?: EnumRoleStatusWithAggregatesFilter<"NgoRole"> | $Enums.RoleStatus
     applicationDeadline?: DateTimeNullableWithAggregatesFilter<"NgoRole"> | Date | string | null
     startDate?: DateTimeNullableWithAggregatesFilter<"NgoRole"> | Date | string | null
@@ -55954,6 +56020,8 @@ export namespace Prisma {
     timeCommitment?: StringFilter<"SuggestedRole"> | string
     salaryMin?: IntNullableFilter<"SuggestedRole"> | number | null
     salaryMax?: IntNullableFilter<"SuggestedRole"> | number | null
+    isAiAugmented?: BoolFilter<"SuggestedRole"> | boolean
+    aiTools?: StringNullableFilter<"SuggestedRole"> | string | null
     source?: StringFilter<"SuggestedRole"> | string
     generatedAt?: DateTimeFilter<"SuggestedRole"> | Date | string
     expiresAt?: DateTimeFilter<"SuggestedRole"> | Date | string
@@ -55969,6 +56037,8 @@ export namespace Prisma {
     timeCommitment?: SortOrder
     salaryMin?: SortOrderInput | SortOrder
     salaryMax?: SortOrderInput | SortOrder
+    isAiAugmented?: SortOrder
+    aiTools?: SortOrderInput | SortOrder
     source?: SortOrder
     generatedAt?: SortOrder
     expiresAt?: SortOrder
@@ -55988,6 +56058,8 @@ export namespace Prisma {
     timeCommitment?: StringFilter<"SuggestedRole"> | string
     salaryMin?: IntNullableFilter<"SuggestedRole"> | number | null
     salaryMax?: IntNullableFilter<"SuggestedRole"> | number | null
+    isAiAugmented?: BoolFilter<"SuggestedRole"> | boolean
+    aiTools?: StringNullableFilter<"SuggestedRole"> | string | null
     source?: StringFilter<"SuggestedRole"> | string
     generatedAt?: DateTimeFilter<"SuggestedRole"> | Date | string
     expiresAt?: DateTimeFilter<"SuggestedRole"> | Date | string
@@ -56003,6 +56075,8 @@ export namespace Prisma {
     timeCommitment?: SortOrder
     salaryMin?: SortOrderInput | SortOrder
     salaryMax?: SortOrderInput | SortOrder
+    isAiAugmented?: SortOrder
+    aiTools?: SortOrderInput | SortOrder
     source?: SortOrder
     generatedAt?: SortOrder
     expiresAt?: SortOrder
@@ -56026,6 +56100,8 @@ export namespace Prisma {
     timeCommitment?: StringWithAggregatesFilter<"SuggestedRole"> | string
     salaryMin?: IntNullableWithAggregatesFilter<"SuggestedRole"> | number | null
     salaryMax?: IntNullableWithAggregatesFilter<"SuggestedRole"> | number | null
+    isAiAugmented?: BoolWithAggregatesFilter<"SuggestedRole"> | boolean
+    aiTools?: StringNullableWithAggregatesFilter<"SuggestedRole"> | string | null
     source?: StringWithAggregatesFilter<"SuggestedRole"> | string
     generatedAt?: DateTimeWithAggregatesFilter<"SuggestedRole"> | Date | string
     expiresAt?: DateTimeWithAggregatesFilter<"SuggestedRole"> | Date | string
@@ -59002,6 +59078,8 @@ export namespace Prisma {
     openings?: number
     salaryMin?: number | null
     salaryMax?: number | null
+    isAiAugmented?: boolean
+    aiTools?: string | null
     status?: $Enums.RoleStatus
     applicationDeadline?: Date | string | null
     startDate?: Date | string | null
@@ -59029,6 +59107,8 @@ export namespace Prisma {
     openings?: number
     salaryMin?: number | null
     salaryMax?: number | null
+    isAiAugmented?: boolean
+    aiTools?: string | null
     status?: $Enums.RoleStatus
     applicationDeadline?: Date | string | null
     startDate?: Date | string | null
@@ -59052,6 +59132,8 @@ export namespace Prisma {
     openings?: IntFieldUpdateOperationsInput | number
     salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
     salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
+    isAiAugmented?: BoolFieldUpdateOperationsInput | boolean
+    aiTools?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumRoleStatusFieldUpdateOperationsInput | $Enums.RoleStatus
     applicationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -59079,6 +59161,8 @@ export namespace Prisma {
     openings?: IntFieldUpdateOperationsInput | number
     salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
     salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
+    isAiAugmented?: BoolFieldUpdateOperationsInput | boolean
+    aiTools?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumRoleStatusFieldUpdateOperationsInput | $Enums.RoleStatus
     applicationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -59104,6 +59188,8 @@ export namespace Prisma {
     openings?: number
     salaryMin?: number | null
     salaryMax?: number | null
+    isAiAugmented?: boolean
+    aiTools?: string | null
     status?: $Enums.RoleStatus
     applicationDeadline?: Date | string | null
     startDate?: Date | string | null
@@ -59126,6 +59212,8 @@ export namespace Prisma {
     openings?: IntFieldUpdateOperationsInput | number
     salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
     salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
+    isAiAugmented?: BoolFieldUpdateOperationsInput | boolean
+    aiTools?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumRoleStatusFieldUpdateOperationsInput | $Enums.RoleStatus
     applicationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -59150,6 +59238,8 @@ export namespace Prisma {
     openings?: IntFieldUpdateOperationsInput | number
     salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
     salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
+    isAiAugmented?: BoolFieldUpdateOperationsInput | boolean
+    aiTools?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumRoleStatusFieldUpdateOperationsInput | $Enums.RoleStatus
     applicationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -59835,6 +59925,8 @@ export namespace Prisma {
     timeCommitment?: string
     salaryMin?: number | null
     salaryMax?: number | null
+    isAiAugmented?: boolean
+    aiTools?: string | null
     source?: string
     generatedAt?: Date | string
     expiresAt: Date | string
@@ -59850,6 +59942,8 @@ export namespace Prisma {
     timeCommitment?: string
     salaryMin?: number | null
     salaryMax?: number | null
+    isAiAugmented?: boolean
+    aiTools?: string | null
     source?: string
     generatedAt?: Date | string
     expiresAt: Date | string
@@ -59865,6 +59959,8 @@ export namespace Prisma {
     timeCommitment?: StringFieldUpdateOperationsInput | string
     salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
     salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
+    isAiAugmented?: BoolFieldUpdateOperationsInput | boolean
+    aiTools?: NullableStringFieldUpdateOperationsInput | string | null
     source?: StringFieldUpdateOperationsInput | string
     generatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -59880,6 +59976,8 @@ export namespace Prisma {
     timeCommitment?: StringFieldUpdateOperationsInput | string
     salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
     salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
+    isAiAugmented?: BoolFieldUpdateOperationsInput | boolean
+    aiTools?: NullableStringFieldUpdateOperationsInput | string | null
     source?: StringFieldUpdateOperationsInput | string
     generatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -59895,6 +59993,8 @@ export namespace Prisma {
     timeCommitment?: string
     salaryMin?: number | null
     salaryMax?: number | null
+    isAiAugmented?: boolean
+    aiTools?: string | null
     source?: string
     generatedAt?: Date | string
     expiresAt: Date | string
@@ -59910,6 +60010,8 @@ export namespace Prisma {
     timeCommitment?: StringFieldUpdateOperationsInput | string
     salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
     salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
+    isAiAugmented?: BoolFieldUpdateOperationsInput | boolean
+    aiTools?: NullableStringFieldUpdateOperationsInput | string | null
     source?: StringFieldUpdateOperationsInput | string
     generatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -59925,6 +60027,8 @@ export namespace Prisma {
     timeCommitment?: StringFieldUpdateOperationsInput | string
     salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
     salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
+    isAiAugmented?: BoolFieldUpdateOperationsInput | boolean
+    aiTools?: NullableStringFieldUpdateOperationsInput | string | null
     source?: StringFieldUpdateOperationsInput | string
     generatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -62193,6 +62297,8 @@ export namespace Prisma {
     openings?: SortOrder
     salaryMin?: SortOrder
     salaryMax?: SortOrder
+    isAiAugmented?: SortOrder
+    aiTools?: SortOrder
     status?: SortOrder
     applicationDeadline?: SortOrder
     startDate?: SortOrder
@@ -62224,6 +62330,8 @@ export namespace Prisma {
     openings?: SortOrder
     salaryMin?: SortOrder
     salaryMax?: SortOrder
+    isAiAugmented?: SortOrder
+    aiTools?: SortOrder
     status?: SortOrder
     applicationDeadline?: SortOrder
     startDate?: SortOrder
@@ -62248,6 +62356,8 @@ export namespace Prisma {
     openings?: SortOrder
     salaryMin?: SortOrder
     salaryMax?: SortOrder
+    isAiAugmented?: SortOrder
+    aiTools?: SortOrder
     status?: SortOrder
     applicationDeadline?: SortOrder
     startDate?: SortOrder
@@ -62769,6 +62879,8 @@ export namespace Prisma {
     timeCommitment?: SortOrder
     salaryMin?: SortOrder
     salaryMax?: SortOrder
+    isAiAugmented?: SortOrder
+    aiTools?: SortOrder
     source?: SortOrder
     generatedAt?: SortOrder
     expiresAt?: SortOrder
@@ -62789,6 +62901,8 @@ export namespace Prisma {
     timeCommitment?: SortOrder
     salaryMin?: SortOrder
     salaryMax?: SortOrder
+    isAiAugmented?: SortOrder
+    aiTools?: SortOrder
     source?: SortOrder
     generatedAt?: SortOrder
     expiresAt?: SortOrder
@@ -62804,6 +62918,8 @@ export namespace Prisma {
     timeCommitment?: SortOrder
     salaryMin?: SortOrder
     salaryMax?: SortOrder
+    isAiAugmented?: SortOrder
+    aiTools?: SortOrder
     source?: SortOrder
     generatedAt?: SortOrder
     expiresAt?: SortOrder
@@ -68803,6 +68919,8 @@ export namespace Prisma {
     openings?: number
     salaryMin?: number | null
     salaryMax?: number | null
+    isAiAugmented?: boolean
+    aiTools?: string | null
     status?: $Enums.RoleStatus
     applicationDeadline?: Date | string | null
     startDate?: Date | string | null
@@ -68828,6 +68946,8 @@ export namespace Prisma {
     openings?: number
     salaryMin?: number | null
     salaryMax?: number | null
+    isAiAugmented?: boolean
+    aiTools?: string | null
     status?: $Enums.RoleStatus
     applicationDeadline?: Date | string | null
     startDate?: Date | string | null
@@ -69283,6 +69403,8 @@ export namespace Prisma {
     openings?: IntFilter<"NgoRole"> | number
     salaryMin?: IntNullableFilter<"NgoRole"> | number | null
     salaryMax?: IntNullableFilter<"NgoRole"> | number | null
+    isAiAugmented?: BoolFilter<"NgoRole"> | boolean
+    aiTools?: StringNullableFilter<"NgoRole"> | string | null
     status?: EnumRoleStatusFilter<"NgoRole"> | $Enums.RoleStatus
     applicationDeadline?: DateTimeNullableFilter<"NgoRole"> | Date | string | null
     startDate?: DateTimeNullableFilter<"NgoRole"> | Date | string | null
@@ -69689,6 +69811,8 @@ export namespace Prisma {
     openings?: number
     salaryMin?: number | null
     salaryMax?: number | null
+    isAiAugmented?: boolean
+    aiTools?: string | null
     status?: $Enums.RoleStatus
     applicationDeadline?: Date | string | null
     startDate?: Date | string | null
@@ -69714,6 +69838,8 @@ export namespace Prisma {
     openings?: number
     salaryMin?: number | null
     salaryMax?: number | null
+    isAiAugmented?: boolean
+    aiTools?: string | null
     status?: $Enums.RoleStatus
     applicationDeadline?: Date | string | null
     startDate?: Date | string | null
@@ -75368,6 +75494,8 @@ export namespace Prisma {
     openings?: number
     salaryMin?: number | null
     salaryMax?: number | null
+    isAiAugmented?: boolean
+    aiTools?: string | null
     status?: $Enums.RoleStatus
     applicationDeadline?: Date | string | null
     startDate?: Date | string | null
@@ -75394,6 +75522,8 @@ export namespace Prisma {
     openings?: number
     salaryMin?: number | null
     salaryMax?: number | null
+    isAiAugmented?: boolean
+    aiTools?: string | null
     status?: $Enums.RoleStatus
     applicationDeadline?: Date | string | null
     startDate?: Date | string | null
@@ -75558,6 +75688,8 @@ export namespace Prisma {
     openings?: IntFieldUpdateOperationsInput | number
     salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
     salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
+    isAiAugmented?: BoolFieldUpdateOperationsInput | boolean
+    aiTools?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumRoleStatusFieldUpdateOperationsInput | $Enums.RoleStatus
     applicationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -75584,6 +75716,8 @@ export namespace Prisma {
     openings?: IntFieldUpdateOperationsInput | number
     salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
     salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
+    isAiAugmented?: BoolFieldUpdateOperationsInput | boolean
+    aiTools?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumRoleStatusFieldUpdateOperationsInput | $Enums.RoleStatus
     applicationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -77819,6 +77953,8 @@ export namespace Prisma {
     openings?: number
     salaryMin?: number | null
     salaryMax?: number | null
+    isAiAugmented?: boolean
+    aiTools?: string | null
     status?: $Enums.RoleStatus
     applicationDeadline?: Date | string | null
     startDate?: Date | string | null
@@ -78128,6 +78264,8 @@ export namespace Prisma {
     openings?: IntFieldUpdateOperationsInput | number
     salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
     salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
+    isAiAugmented?: BoolFieldUpdateOperationsInput | boolean
+    aiTools?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumRoleStatusFieldUpdateOperationsInput | $Enums.RoleStatus
     applicationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -78153,6 +78291,8 @@ export namespace Prisma {
     openings?: IntFieldUpdateOperationsInput | number
     salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
     salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
+    isAiAugmented?: BoolFieldUpdateOperationsInput | boolean
+    aiTools?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumRoleStatusFieldUpdateOperationsInput | $Enums.RoleStatus
     applicationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -78177,6 +78317,8 @@ export namespace Prisma {
     openings?: IntFieldUpdateOperationsInput | number
     salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
     salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
+    isAiAugmented?: BoolFieldUpdateOperationsInput | boolean
+    aiTools?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumRoleStatusFieldUpdateOperationsInput | $Enums.RoleStatus
     applicationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -78319,6 +78461,8 @@ export namespace Prisma {
     openings?: number
     salaryMin?: number | null
     salaryMax?: number | null
+    isAiAugmented?: boolean
+    aiTools?: string | null
     status?: $Enums.RoleStatus
     applicationDeadline?: Date | string | null
     startDate?: Date | string | null
@@ -78592,6 +78736,8 @@ export namespace Prisma {
     openings?: IntFieldUpdateOperationsInput | number
     salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
     salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
+    isAiAugmented?: BoolFieldUpdateOperationsInput | boolean
+    aiTools?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumRoleStatusFieldUpdateOperationsInput | $Enums.RoleStatus
     applicationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -78617,6 +78763,8 @@ export namespace Prisma {
     openings?: IntFieldUpdateOperationsInput | number
     salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
     salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
+    isAiAugmented?: BoolFieldUpdateOperationsInput | boolean
+    aiTools?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumRoleStatusFieldUpdateOperationsInput | $Enums.RoleStatus
     applicationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -78641,6 +78789,8 @@ export namespace Prisma {
     openings?: IntFieldUpdateOperationsInput | number
     salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
     salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
+    isAiAugmented?: BoolFieldUpdateOperationsInput | boolean
+    aiTools?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumRoleStatusFieldUpdateOperationsInput | $Enums.RoleStatus
     applicationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null

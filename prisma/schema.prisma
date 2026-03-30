@@ -586,6 +586,8 @@ model NgoRole {
   openings            Int               @default(1)
   salaryMin           Int? // USD/year for paid roles; null = volunteer / unpaid
   salaryMax           Int?
+  isAiAugmented       Boolean           @default(false) // role designed for AI-fluent generalists
+  aiTools             String? // comma-sep recommended AI tools: "Claude,Gemini,ChatGPT"
   status              RoleStatus        @default(OPEN)
   applicationDeadline DateTime?
   startDate           DateTime?
@@ -728,18 +730,20 @@ model IrsOrganization {
 
 // AI-generated potential role profiles for any IRS org (cached, 30-day expiry)
 model SuggestedRole {
-  id             String   @id @default(cuid())
-  ein            String
-  title          String
-  description    String   @db.Text
-  skills         String   // comma-separated skill tags
-  roleType       String   @default("VOLUNTEER") // VOLUNTEER | INTERNSHIP | CAREER_TRANSITION | INTERIM
-  timeCommitment String   @default("5-10 hours/week")
-  salaryMin      Int?     // null = unpaid/volunteer
-  salaryMax      Int?
-  source         String   @default("AI")
-  generatedAt    DateTime @default(now())
-  expiresAt      DateTime // generatedAt + 30 days
+  id              String   @id @default(cuid())
+  ein             String
+  title           String
+  description     String   @db.Text
+  skills          String   // comma-separated skill tags
+  roleType        String   @default("VOLUNTEER") // VOLUNTEER | INTERNSHIP | CAREER_TRANSITION | INTERIM
+  timeCommitment  String   @default("5-10 hours/week")
+  salaryMin       Int?     // null = unpaid/volunteer
+  salaryMax       Int?
+  isAiAugmented   Boolean  @default(false) // role designed for AI-fluent generalists
+  aiTools         String?  // comma-sep recommended tools: "Claude,Gemini,ChatGPT"
+  source          String   @default("AI")
+  generatedAt     DateTime @default(now())
+  expiresAt       DateTime // generatedAt + 30 days
 
   @@unique([ein, title])
   @@index([ein])

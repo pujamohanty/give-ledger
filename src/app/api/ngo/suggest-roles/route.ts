@@ -33,11 +33,10 @@ interface GeneratedRole {
   timeCommitment: string;
   salaryMin?: number;
   salaryMax?: number;
+  isAiAugmented: boolean;
+  aiTools?: string;
 }
 
-// POST /api/ngo/suggest-roles
-// Body: { ein: string }
-// Returns: { roles: SuggestedRole[] }
 export async function POST(req: NextRequest) {
   const { ein } = await req.json() as { ein: string };
   if (!ein) return NextResponse.json({ error: "Missing ein" }, { status: 400 });
@@ -48,7 +47,7 @@ export async function POST(req: NextRequest) {
   const now = new Date();
   const cached = await prisma.suggestedRole.findMany({
     where: { ein: cleanEin, expiresAt: { gt: now } },
-    orderBy: { generatedAt: "desc" },
+    orderBy: [{ isAiAugmented: "asc" }, { generatedAt: "desc" }],
   });
   if (cached.length >= 3) {
     return NextResponse.json({ roles: cached, cached: true });
@@ -67,14 +66,17 @@ export async function POST(req: NextRequest) {
   const sizeLabel = orgSizeLabel(revenue);
   const state = irsOrg?.state ?? "United States";
   const description = ngo?.description ?? "";
-  const employeeCount = null; // not fetched here to keep it simple
-  void employeeCount;
 
   const groqKey = process.env.GROQ_API_KEY;
   let generated: GeneratedRole[] = [];
 
   if (groqKey) {
-    const prompt = `You are an expert nonprofit HR consultant. Based on the information below about a US nonprofit organization, generate exactly 5 realistic potential role profiles that this organization would likely need — a mix of paid staff roles and volunteer/internship opportunities.
+    const prompt = `You are an expert nonprofit HR consultant with deep knowledge of how AI tools (Claude, Gemini, ChatGPT, Perplexity) are changing who can do specialist work.
+
+Based on the nonprofit below, generate exactly 8 role profiles in two groups:
+
+GROUP 1 — 5 standard roles that require domain expertise (grant writers, programme managers, etc.)
+GROUP 2 — 3 AI-Augmented Universal Skill roles: roles specifically designed for generalists who use AI tools to cross domain barriers. These are remote-first, flexible roles that would NOT normally be accessible to someone without specialist credentials — but become accessible with AI fluency. Think: someone who has never written a grant before but can use Claude to research, structure and draft one; or someone with no legal background who can use AI to review compliance documents.
 
 Organization: ${orgName}
 Mission area: ${ntee}
@@ -82,21 +84,23 @@ Organization size: ${sizeLabel}
 State: ${state}
 ${description ? `About: ${description}` : ""}
 
-Return ONLY a valid JSON array (no explanation, no markdown) with exactly 5 objects. Each object must have these exact fields:
+Return ONLY a valid JSON array (no explanation, no markdown) with exactly 8 objects total. Each object must have:
 - "title": job title (string, max 60 chars)
-- "description": 2-sentence role overview focused on impact (string)
-- "skills": comma-separated skill tags, 3-6 tags (string), e.g. "Grant Writing,Financial Analysis,Excel"
+- "description": 2-sentence role overview. For AI-augmented roles, explicitly state what AI enables the person to do.
+- "skills": comma-separated skill tags, 3-6 tags. For AI-augmented roles, include the AI tool as a skill e.g. "Claude AI,Research,Writing"
 - "roleType": one of "VOLUNTEER", "INTERNSHIP", "CAREER_TRANSITION", "INTERIM"
 - "timeCommitment": e.g. "10 hours/week" or "Full-time"
-- "salaryMin": annual USD salary as integer for paid roles, omit for volunteer/internship
-- "salaryMax": annual USD salary as integer for paid roles, omit for volunteer/internship
+- "isAiAugmented": false for group 1, true for group 2
+- "aiTools": for AI-augmented roles only, comma-sep string of recommended tools e.g. "Claude,Gemini" — omit for standard roles
+- "salaryMin": annual USD integer for paid roles only — omit for volunteer/internship
+- "salaryMax": annual USD integer for paid roles only — omit for volunteer/internship
 
 Rules:
-- Include at least 2 volunteer or internship roles
-- Include at least 1 paid staff role relevant to this org's mission
-- Skills should be specific and professionally useful (e.g. "Salesforce CRM" not just "Tech")
-- Descriptions should mention the mission area specifically
-- Salary ranges should be realistic for US nonprofits in this size category`;
+- All AI-Augmented roles must be fully remote and flexible
+- AI-Augmented roles should have timeCommitment of 5-15 hours/week (accessible alongside a day job)
+- AI-Augmented roles should state clearly in the description that "no prior specialist experience required — AI fluency is the core qualification"
+- Standard roles should include at least 1 paid staff role realistic for this org size
+- Salary ranges should be realistic for US nonprofits`;
 
     try {
       const groqRes = await fetch("https://api.groq.com/openai/v1/chat/completions", {
@@ -106,7 +110,7 @@ Rules:
           model: "llama-3.1-8b-instant",
           stream: false,
           messages: [{ role: "user", content: prompt }],
-          max_tokens: 1200,
+          max_tokens: 1800,
           temperature: 0.7,
         }),
       });
@@ -114,30 +118,27 @@ Rules:
       if (groqRes.ok) {
         const data = await groqRes.json() as { choices?: { message?: { content?: string } }[] };
         const raw = data?.choices?.[0]?.message?.content ?? "";
-        // Extract JSON array from response (handle any surrounding text)
         const match = raw.match(/\[[\s\S]*\]/);
         if (match) {
           const parsed = JSON.parse(match[0]) as GeneratedRole[];
           if (Array.isArray(parsed) && parsed.length > 0) {
-            generated = parsed.slice(0, 5);
+            generated = parsed.slice(0, 8);
           }
         }
       }
     } catch {
-      // Groq failed — fall through to fallback
+      // fall through to fallback
     }
   }
 
-  // Fallback: generate plausible roles from NTEE category if Groq is unavailable or failed
   if (generated.length === 0) {
-    generated = buildFallbackRoles(ntee, orgName, revenue);
+    generated = buildFallbackRoles(ntee, revenue);
   }
 
-  // Delete any stale cached roles for this EIN
+  // Delete stale cache
   await prisma.suggestedRole.deleteMany({ where: { ein: cleanEin } });
 
-  // Save new roles to DB
-  const expiresAt = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000); // 30 days
+  const expiresAt = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
   const created = await Promise.all(
     generated.map((r) =>
       prisma.suggestedRole.create({
@@ -150,6 +151,8 @@ Rules:
           timeCommitment: r.timeCommitment,
           salaryMin: r.salaryMin ?? null,
           salaryMax: r.salaryMax ?? null,
+          isAiAugmented: r.isAiAugmented,
+          aiTools: r.aiTools ?? null,
           source: groqKey ? "AI" : "TEMPLATE",
           expiresAt,
         },
@@ -160,59 +163,84 @@ Rules:
   return NextResponse.json({ roles: created, cached: false });
 }
 
-function buildFallbackRoles(ntee: string, orgName: string, revenue: number | null): GeneratedRole[] {
-  void orgName;
+function buildFallbackRoles(ntee: string, revenue: number | null): GeneratedRole[] {
   const isPaid = (revenue ?? 0) > 500_000;
-  const roles: GeneratedRole[] = [
+  const standard: GeneratedRole[] = [
     {
       title: "Volunteer Programme Coordinator",
-      description: `Support the coordination of volunteers contributing to ${ntee} programmes. Help onboard, schedule, and recognise volunteer contributions across active initiatives.`,
+      description: `Support volunteer coordination across ${ntee} programmes. Help onboard, schedule, and recognise contributor efforts.`,
       skills: "Volunteer Management,Scheduling,Communication,Google Workspace",
       roleType: "VOLUNTEER",
       timeCommitment: "8 hours/week",
+      isAiAugmented: false,
     },
     {
       title: "Fundraising & Grants Intern",
-      description: `Research grant opportunities and support proposal writing for ${ntee} projects. Gain hands-on experience with nonprofit fundraising strategy and donor reporting.`,
+      description: `Research grant opportunities and support proposal writing for ${ntee} projects. Gain hands-on nonprofit fundraising experience.`,
       skills: "Grant Writing,Research,Microsoft Word,Nonprofit Finance",
       roleType: "INTERNSHIP",
       timeCommitment: "15 hours/week",
+      isAiAugmented: false,
     },
     {
-      title: "Social Media & Communications Volunteer",
-      description: `Create and schedule content across social platforms to amplify the organisation's ${ntee} mission. Help build community engagement and grow digital reach.`,
-      skills: "Social Media,Copywriting,Canva,Content Strategy",
-      roleType: "VOLUNTEER",
-      timeCommitment: "5 hours/week",
+      title: "Social Media Manager",
+      description: `Create and manage content across social platforms for this ${ntee} organisation. Grow community engagement and digital presence.`,
+      skills: "Social Media,Content Strategy,Canva,Copywriting",
+      roleType: "CAREER_TRANSITION",
+      timeCommitment: "10 hours/week",
+      isAiAugmented: false,
     },
     {
       title: "Data & Impact Analyst",
-      description: `Analyse programme data to measure impact and prepare reporting for donors and the board. Support evidence-based decision-making across ${ntee} initiatives.`,
-      skills: "Data Analysis,Excel,Google Sheets,Impact Measurement",
+      description: `Analyse programme data and prepare impact reports for donors and the board. Support evidence-based decision-making across ${ntee} initiatives.`,
+      skills: "Data Analysis,Excel,Impact Measurement,Google Sheets",
       roleType: "CAREER_TRANSITION",
       timeCommitment: "10 hours/week",
+      isAiAugmented: false,
+    },
+    {
+      title: isPaid ? "Programme Manager" : "Website & Digital Volunteer",
+      description: isPaid
+        ? `Lead day-to-day delivery of ${ntee} programmes, manage budgets and coordinate staff. Report on outcomes and milestones to senior leadership.`
+        : `Maintain and improve the organisation's digital presence to support ${ntee} outreach. Assist with content updates, SEO, and UX improvements.`,
+      skills: isPaid ? "Programme Management,Budget Management,Stakeholder Engagement" : "Web Development,WordPress,SEO,HTML/CSS",
+      roleType: "CAREER_TRANSITION",
+      timeCommitment: isPaid ? "Full-time" : "5 hours/week",
+      salaryMin: isPaid ? 52000 : undefined,
+      salaryMax: isPaid ? 72000 : undefined,
+      isAiAugmented: false,
     },
   ];
 
-  if (isPaid) {
-    roles.push({
-      title: "Programme Manager",
-      description: `Lead day-to-day delivery of ${ntee} programmes, manage budgets, and coordinate staff and volunteers. Report directly to senior leadership on outcomes and milestones.`,
-      skills: "Programme Management,Budget Management,Stakeholder Engagement,Reporting",
-      roleType: "CAREER_TRANSITION",
-      timeCommitment: "Full-time",
-      salaryMin: 52000,
-      salaryMax: 72000,
-    });
-  } else {
-    roles.push({
-      title: "Website & Digital Volunteer",
-      description: `Maintain and improve the organisation's digital presence to support ${ntee} outreach goals. Assist with content updates, SEO, and user experience improvements.`,
-      skills: "Web Development,WordPress,SEO,HTML/CSS",
+  const aiAugmented: GeneratedRole[] = [
+    {
+      title: "AI-Assisted Grant Researcher",
+      description: `Use Claude or ChatGPT to research funding opportunities, analyse grant criteria, and draft initial proposals for this ${ntee} organisation. No prior grant writing experience required — AI fluency is the core qualification.`,
+      skills: "Claude AI,Grant Research,Writing,Prompting",
       roleType: "VOLUNTEER",
+      timeCommitment: "6 hours/week",
+      isAiAugmented: true,
+      aiTools: "Claude,ChatGPT",
+    },
+    {
+      title: "AI-Powered Content Creator",
+      description: `Use Gemini or Claude to generate, edit, and repurpose mission-driven content across blogs, newsletters, and social media for this ${ntee} organisation. No marketing degree required — strong prompting skills and a good editorial eye are all you need.`,
+      skills: "Gemini AI,Content Creation,Editing,Social Media",
+      roleType: "INTERNSHIP",
       timeCommitment: "5 hours/week",
-    });
-  }
+      isAiAugmented: true,
+      aiTools: "Gemini,Claude",
+    },
+    {
+      title: "AI-Augmented Impact Report Analyst",
+      description: `Use AI tools to synthesise programme data, generate narrative impact summaries, and format donor-ready reports for this ${ntee} organisation. No data science background required — comfort with AI analysis tools is the entry point.`,
+      skills: "Claude AI,Data Interpretation,Report Writing,Prompting",
+      roleType: "CAREER_TRANSITION",
+      timeCommitment: "8 hours/week",
+      isAiAugmented: true,
+      aiTools: "Claude,ChatGPT,Perplexity",
+    },
+  ];
 
-  return roles;
+  return [...standard, ...aiAugmented];
 }

@@ -586,6 +586,8 @@ model NgoRole {
   openings            Int               @default(1)
   salaryMin           Int? // USD/year for paid roles; null = volunteer / unpaid
   salaryMax           Int?
+  isAiAugmented       Boolean           @default(false) // role designed for AI-fluent generalists
+  aiTools             String? // comma-sep recommended AI tools: "Claude,Gemini,ChatGPT"
   status              RoleStatus        @default(OPEN)
   applicationDeadline DateTime?
   startDate           DateTime?
@@ -737,6 +739,8 @@ model SuggestedRole {
   timeCommitment String   @default("5-10 hours/week")
   salaryMin      Int? // null = unpaid/volunteer
   salaryMax      Int?
+  isAiAugmented  Boolean  @default(false) // role designed for AI-fluent generalists
+  aiTools        String? // comma-sep recommended tools: "Claude,Gemini,ChatGPT"
   source         String   @default("AI")
   generatedAt    DateTime @default(now())
   expiresAt      DateTime // generatedAt + 30 days
