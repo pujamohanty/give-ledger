@@ -58,13 +58,8 @@ export default async function NgoFinancesPage() {
       pct: Math.round((amount / totalExpenses) * 100),
       color: colors[i % colors.length],
     }));
-  } else {
-    expenseBreakdown = [
-      { label: "Direct project costs", amount: 0, pct: 82, color: "bg-emerald-500" },
-      { label: "Staff & operations", amount: 0, pct: 11, color: "bg-blue-400" },
-      { label: "Fundraising & admin", amount: 0, pct: 7, color: "bg-gray-300" },
-    ];
   }
+  // No fake fallback — show empty state if no expenses logged
 
   const sortedDisbursements = [...allDisbursements].sort(
     (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
@@ -169,20 +164,29 @@ export default async function NgoFinancesPage() {
               <CardTitle className="text-base">Expense Breakdown</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              {expenseBreakdown.map((item) => (
-                <div key={item.label}>
-                  <div className="flex justify-between text-sm mb-1">
-                    <span className="text-gray-600">{item.label}</span>
-                    <span className="font-semibold text-gray-900">{item.pct}%</span>
-                  </div>
-                  <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
-                    <div className={`h-full ${item.color} rounded-full`} style={{ width: `${item.pct}%` }} />
-                  </div>
+              {expenseBreakdown.length > 0 ? (
+                <>
+                  {expenseBreakdown.map((item) => (
+                    <div key={item.label}>
+                      <div className="flex justify-between text-sm mb-1">
+                        <span className="text-gray-600">{item.label}</span>
+                        <span className="font-semibold text-gray-900">{item.pct}%</span>
+                      </div>
+                      <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+                        <div className={`h-full ${item.color} rounded-full`} style={{ width: `${item.pct}%` }} />
+                      </div>
+                    </div>
+                  ))}
+                  <p className="text-xs text-gray-400 mt-2">
+                    Based on all logged expenses across active projects.
+                  </p>
+                </>
+              ) : (
+                <div className="text-center py-6 text-gray-400">
+                  <p className="text-sm">No expenses logged yet.</p>
+                  <p className="text-xs mt-1">Log expenses against your projects to see the breakdown here.</p>
                 </div>
-              ))}
-              <p className="text-xs text-gray-400 mt-2">
-                Based on all logged expenses across active projects.
-              </p>
+              )}
             </CardContent>
           </Card>
 
