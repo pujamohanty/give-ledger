@@ -204,6 +204,16 @@ export type IrsOrganization = $Result.DefaultSelection<Prisma.$IrsOrganizationPa
  */
 export type SuggestedRole = $Result.DefaultSelection<Prisma.$SuggestedRolePayload>
 /**
+ * Model Company
+ * 
+ */
+export type Company = $Result.DefaultSelection<Prisma.$CompanyPayload>
+/**
+ * Model CompanySuggestedRole
+ * 
+ */
+export type CompanySuggestedRole = $Result.DefaultSelection<Prisma.$CompanySuggestedRolePayload>
+/**
  * Model IrsFiling
  * 
  */
@@ -883,6 +893,26 @@ export class PrismaClient<
   get suggestedRole(): Prisma.SuggestedRoleDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.company`: Exposes CRUD operations for the **Company** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Companies
+    * const companies = await prisma.company.findMany()
+    * ```
+    */
+  get company(): Prisma.CompanyDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.companySuggestedRole`: Exposes CRUD operations for the **CompanySuggestedRole** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CompanySuggestedRoles
+    * const companySuggestedRoles = await prisma.companySuggestedRole.findMany()
+    * ```
+    */
+  get companySuggestedRole(): Prisma.CompanySuggestedRoleDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.irsFiling`: Exposes CRUD operations for the **IrsFiling** model.
     * Example usage:
     * ```ts
@@ -1363,6 +1393,8 @@ export namespace Prisma {
     Subscription: 'Subscription',
     IrsOrganization: 'IrsOrganization',
     SuggestedRole: 'SuggestedRole',
+    Company: 'Company',
+    CompanySuggestedRole: 'CompanySuggestedRole',
     IrsFiling: 'IrsFiling'
   };
 
@@ -1379,7 +1411,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "account" | "session" | "verificationToken" | "user" | "donorApplicationProfile" | "betaTesterProfile" | "ngo" | "project" | "milestone" | "evidenceFile" | "outputMarker" | "donation" | "disbursement" | "expense" | "blockchainRecord" | "rating" | "platformSetting" | "notification" | "spotlightVote" | "campaign" | "campaignContributor" | "ngoSuggestion" | "referral" | "activityEvent" | "boardMember" | "skillContribution" | "skillBlockchainRecord" | "donorEndorsement" | "donorDocument" | "ngoDocument" | "ngoRole" | "roleApplication" | "roleEngagement" | "donorChallenge" | "challengeAcceptance" | "subscription" | "irsOrganization" | "suggestedRole" | "irsFiling"
+      modelProps: "account" | "session" | "verificationToken" | "user" | "donorApplicationProfile" | "betaTesterProfile" | "ngo" | "project" | "milestone" | "evidenceFile" | "outputMarker" | "donation" | "disbursement" | "expense" | "blockchainRecord" | "rating" | "platformSetting" | "notification" | "spotlightVote" | "campaign" | "campaignContributor" | "ngoSuggestion" | "referral" | "activityEvent" | "boardMember" | "skillContribution" | "skillBlockchainRecord" | "donorEndorsement" | "donorDocument" | "ngoDocument" | "ngoRole" | "roleApplication" | "roleEngagement" | "donorChallenge" | "challengeAcceptance" | "subscription" | "irsOrganization" | "suggestedRole" | "company" | "companySuggestedRole" | "irsFiling"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -4195,6 +4227,154 @@ export namespace Prisma {
           }
         }
       }
+      Company: {
+        payload: Prisma.$CompanyPayload<ExtArgs>
+        fields: Prisma.CompanyFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CompanyFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompanyPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CompanyFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompanyPayload>
+          }
+          findFirst: {
+            args: Prisma.CompanyFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompanyPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CompanyFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompanyPayload>
+          }
+          findMany: {
+            args: Prisma.CompanyFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompanyPayload>[]
+          }
+          create: {
+            args: Prisma.CompanyCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompanyPayload>
+          }
+          createMany: {
+            args: Prisma.CompanyCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CompanyCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompanyPayload>[]
+          }
+          delete: {
+            args: Prisma.CompanyDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompanyPayload>
+          }
+          update: {
+            args: Prisma.CompanyUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompanyPayload>
+          }
+          deleteMany: {
+            args: Prisma.CompanyDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CompanyUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.CompanyUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompanyPayload>[]
+          }
+          upsert: {
+            args: Prisma.CompanyUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompanyPayload>
+          }
+          aggregate: {
+            args: Prisma.CompanyAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCompany>
+          }
+          groupBy: {
+            args: Prisma.CompanyGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CompanyGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CompanyCountArgs<ExtArgs>
+            result: $Utils.Optional<CompanyCountAggregateOutputType> | number
+          }
+        }
+      }
+      CompanySuggestedRole: {
+        payload: Prisma.$CompanySuggestedRolePayload<ExtArgs>
+        fields: Prisma.CompanySuggestedRoleFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CompanySuggestedRoleFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompanySuggestedRolePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CompanySuggestedRoleFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompanySuggestedRolePayload>
+          }
+          findFirst: {
+            args: Prisma.CompanySuggestedRoleFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompanySuggestedRolePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CompanySuggestedRoleFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompanySuggestedRolePayload>
+          }
+          findMany: {
+            args: Prisma.CompanySuggestedRoleFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompanySuggestedRolePayload>[]
+          }
+          create: {
+            args: Prisma.CompanySuggestedRoleCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompanySuggestedRolePayload>
+          }
+          createMany: {
+            args: Prisma.CompanySuggestedRoleCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CompanySuggestedRoleCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompanySuggestedRolePayload>[]
+          }
+          delete: {
+            args: Prisma.CompanySuggestedRoleDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompanySuggestedRolePayload>
+          }
+          update: {
+            args: Prisma.CompanySuggestedRoleUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompanySuggestedRolePayload>
+          }
+          deleteMany: {
+            args: Prisma.CompanySuggestedRoleDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CompanySuggestedRoleUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.CompanySuggestedRoleUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompanySuggestedRolePayload>[]
+          }
+          upsert: {
+            args: Prisma.CompanySuggestedRoleUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CompanySuggestedRolePayload>
+          }
+          aggregate: {
+            args: Prisma.CompanySuggestedRoleAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCompanySuggestedRole>
+          }
+          groupBy: {
+            args: Prisma.CompanySuggestedRoleGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CompanySuggestedRoleGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CompanySuggestedRoleCountArgs<ExtArgs>
+            result: $Utils.Optional<CompanySuggestedRoleCountAggregateOutputType> | number
+          }
+        }
+      }
       IrsFiling: {
         payload: Prisma.$IrsFilingPayload<ExtArgs>
         fields: Prisma.IrsFilingFieldRefs
@@ -4415,6 +4595,8 @@ export namespace Prisma {
     subscription?: SubscriptionOmit
     irsOrganization?: IrsOrganizationOmit
     suggestedRole?: SuggestedRoleOmit
+    company?: CompanyOmit
+    companySuggestedRole?: CompanySuggestedRoleOmit
     irsFiling?: IrsFilingOmit
   }
 
@@ -5033,6 +5215,37 @@ export namespace Prisma {
    */
   export type IrsOrganizationCountOutputTypeCountFilingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: IrsFilingWhereInput
+  }
+
+
+  /**
+   * Count Type CompanyCountOutputType
+   */
+
+  export type CompanyCountOutputType = {
+    suggestedRoles: number
+  }
+
+  export type CompanyCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    suggestedRoles?: boolean | CompanyCountOutputTypeCountSuggestedRolesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * CompanyCountOutputType without action
+   */
+  export type CompanyCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompanyCountOutputType
+     */
+    select?: CompanyCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * CompanyCountOutputType without action
+   */
+  export type CompanyCountOutputTypeCountSuggestedRolesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CompanySuggestedRoleWhereInput
   }
 
 
@@ -50303,6 +50516,2589 @@ export namespace Prisma {
 
 
   /**
+   * Model Company
+   */
+
+  export type AggregateCompany = {
+    _count: CompanyCountAggregateOutputType | null
+    _min: CompanyMinAggregateOutputType | null
+    _max: CompanyMaxAggregateOutputType | null
+  }
+
+  export type CompanyMinAggregateOutputType = {
+    id: string | null
+    uei: string | null
+    cageCode: string | null
+    legalName: string | null
+    dbaName: string | null
+    ein: string | null
+    ocCompanyNumber: string | null
+    ocJurisdiction: string | null
+    incorporationDate: Date | null
+    naicsPrimary: string | null
+    naicsDescription: string | null
+    entityStructure: string | null
+    streetAddress: string | null
+    city: string | null
+    state: string | null
+    zipCode: string | null
+    contactName: string | null
+    contactEmail: string | null
+    website: string | null
+    employeeRange: string | null
+    revenueRange: string | null
+    samRegistered: boolean | null
+    ocRegistered: boolean | null
+    isActive: boolean | null
+    registrationDate: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type CompanyMaxAggregateOutputType = {
+    id: string | null
+    uei: string | null
+    cageCode: string | null
+    legalName: string | null
+    dbaName: string | null
+    ein: string | null
+    ocCompanyNumber: string | null
+    ocJurisdiction: string | null
+    incorporationDate: Date | null
+    naicsPrimary: string | null
+    naicsDescription: string | null
+    entityStructure: string | null
+    streetAddress: string | null
+    city: string | null
+    state: string | null
+    zipCode: string | null
+    contactName: string | null
+    contactEmail: string | null
+    website: string | null
+    employeeRange: string | null
+    revenueRange: string | null
+    samRegistered: boolean | null
+    ocRegistered: boolean | null
+    isActive: boolean | null
+    registrationDate: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type CompanyCountAggregateOutputType = {
+    id: number
+    uei: number
+    cageCode: number
+    legalName: number
+    dbaName: number
+    ein: number
+    ocCompanyNumber: number
+    ocJurisdiction: number
+    incorporationDate: number
+    naicsCodes: number
+    naicsPrimary: number
+    naicsDescription: number
+    businessTypes: number
+    sbaDesignations: number
+    entityStructure: number
+    streetAddress: number
+    city: number
+    state: number
+    zipCode: number
+    contactName: number
+    contactEmail: number
+    website: number
+    employeeRange: number
+    revenueRange: number
+    samRegistered: number
+    ocRegistered: number
+    isActive: number
+    registrationDate: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type CompanyMinAggregateInputType = {
+    id?: true
+    uei?: true
+    cageCode?: true
+    legalName?: true
+    dbaName?: true
+    ein?: true
+    ocCompanyNumber?: true
+    ocJurisdiction?: true
+    incorporationDate?: true
+    naicsPrimary?: true
+    naicsDescription?: true
+    entityStructure?: true
+    streetAddress?: true
+    city?: true
+    state?: true
+    zipCode?: true
+    contactName?: true
+    contactEmail?: true
+    website?: true
+    employeeRange?: true
+    revenueRange?: true
+    samRegistered?: true
+    ocRegistered?: true
+    isActive?: true
+    registrationDate?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type CompanyMaxAggregateInputType = {
+    id?: true
+    uei?: true
+    cageCode?: true
+    legalName?: true
+    dbaName?: true
+    ein?: true
+    ocCompanyNumber?: true
+    ocJurisdiction?: true
+    incorporationDate?: true
+    naicsPrimary?: true
+    naicsDescription?: true
+    entityStructure?: true
+    streetAddress?: true
+    city?: true
+    state?: true
+    zipCode?: true
+    contactName?: true
+    contactEmail?: true
+    website?: true
+    employeeRange?: true
+    revenueRange?: true
+    samRegistered?: true
+    ocRegistered?: true
+    isActive?: true
+    registrationDate?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type CompanyCountAggregateInputType = {
+    id?: true
+    uei?: true
+    cageCode?: true
+    legalName?: true
+    dbaName?: true
+    ein?: true
+    ocCompanyNumber?: true
+    ocJurisdiction?: true
+    incorporationDate?: true
+    naicsCodes?: true
+    naicsPrimary?: true
+    naicsDescription?: true
+    businessTypes?: true
+    sbaDesignations?: true
+    entityStructure?: true
+    streetAddress?: true
+    city?: true
+    state?: true
+    zipCode?: true
+    contactName?: true
+    contactEmail?: true
+    website?: true
+    employeeRange?: true
+    revenueRange?: true
+    samRegistered?: true
+    ocRegistered?: true
+    isActive?: true
+    registrationDate?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type CompanyAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Company to aggregate.
+     */
+    where?: CompanyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Companies to fetch.
+     */
+    orderBy?: CompanyOrderByWithRelationInput | CompanyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CompanyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Companies from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Companies.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Companies
+    **/
+    _count?: true | CompanyCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CompanyMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CompanyMaxAggregateInputType
+  }
+
+  export type GetCompanyAggregateType<T extends CompanyAggregateArgs> = {
+        [P in keyof T & keyof AggregateCompany]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCompany[P]>
+      : GetScalarType<T[P], AggregateCompany[P]>
+  }
+
+
+
+
+  export type CompanyGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CompanyWhereInput
+    orderBy?: CompanyOrderByWithAggregationInput | CompanyOrderByWithAggregationInput[]
+    by: CompanyScalarFieldEnum[] | CompanyScalarFieldEnum
+    having?: CompanyScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CompanyCountAggregateInputType | true
+    _min?: CompanyMinAggregateInputType
+    _max?: CompanyMaxAggregateInputType
+  }
+
+  export type CompanyGroupByOutputType = {
+    id: string
+    uei: string | null
+    cageCode: string | null
+    legalName: string
+    dbaName: string | null
+    ein: string | null
+    ocCompanyNumber: string | null
+    ocJurisdiction: string | null
+    incorporationDate: Date | null
+    naicsCodes: string[]
+    naicsPrimary: string | null
+    naicsDescription: string | null
+    businessTypes: string[]
+    sbaDesignations: string[]
+    entityStructure: string | null
+    streetAddress: string | null
+    city: string | null
+    state: string | null
+    zipCode: string | null
+    contactName: string | null
+    contactEmail: string | null
+    website: string | null
+    employeeRange: string | null
+    revenueRange: string | null
+    samRegistered: boolean
+    ocRegistered: boolean
+    isActive: boolean
+    registrationDate: Date | null
+    createdAt: Date
+    updatedAt: Date
+    _count: CompanyCountAggregateOutputType | null
+    _min: CompanyMinAggregateOutputType | null
+    _max: CompanyMaxAggregateOutputType | null
+  }
+
+  type GetCompanyGroupByPayload<T extends CompanyGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CompanyGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CompanyGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CompanyGroupByOutputType[P]>
+            : GetScalarType<T[P], CompanyGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CompanySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    uei?: boolean
+    cageCode?: boolean
+    legalName?: boolean
+    dbaName?: boolean
+    ein?: boolean
+    ocCompanyNumber?: boolean
+    ocJurisdiction?: boolean
+    incorporationDate?: boolean
+    naicsCodes?: boolean
+    naicsPrimary?: boolean
+    naicsDescription?: boolean
+    businessTypes?: boolean
+    sbaDesignations?: boolean
+    entityStructure?: boolean
+    streetAddress?: boolean
+    city?: boolean
+    state?: boolean
+    zipCode?: boolean
+    contactName?: boolean
+    contactEmail?: boolean
+    website?: boolean
+    employeeRange?: boolean
+    revenueRange?: boolean
+    samRegistered?: boolean
+    ocRegistered?: boolean
+    isActive?: boolean
+    registrationDate?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    suggestedRoles?: boolean | Company$suggestedRolesArgs<ExtArgs>
+    _count?: boolean | CompanyCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["company"]>
+
+  export type CompanySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    uei?: boolean
+    cageCode?: boolean
+    legalName?: boolean
+    dbaName?: boolean
+    ein?: boolean
+    ocCompanyNumber?: boolean
+    ocJurisdiction?: boolean
+    incorporationDate?: boolean
+    naicsCodes?: boolean
+    naicsPrimary?: boolean
+    naicsDescription?: boolean
+    businessTypes?: boolean
+    sbaDesignations?: boolean
+    entityStructure?: boolean
+    streetAddress?: boolean
+    city?: boolean
+    state?: boolean
+    zipCode?: boolean
+    contactName?: boolean
+    contactEmail?: boolean
+    website?: boolean
+    employeeRange?: boolean
+    revenueRange?: boolean
+    samRegistered?: boolean
+    ocRegistered?: boolean
+    isActive?: boolean
+    registrationDate?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["company"]>
+
+  export type CompanySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    uei?: boolean
+    cageCode?: boolean
+    legalName?: boolean
+    dbaName?: boolean
+    ein?: boolean
+    ocCompanyNumber?: boolean
+    ocJurisdiction?: boolean
+    incorporationDate?: boolean
+    naicsCodes?: boolean
+    naicsPrimary?: boolean
+    naicsDescription?: boolean
+    businessTypes?: boolean
+    sbaDesignations?: boolean
+    entityStructure?: boolean
+    streetAddress?: boolean
+    city?: boolean
+    state?: boolean
+    zipCode?: boolean
+    contactName?: boolean
+    contactEmail?: boolean
+    website?: boolean
+    employeeRange?: boolean
+    revenueRange?: boolean
+    samRegistered?: boolean
+    ocRegistered?: boolean
+    isActive?: boolean
+    registrationDate?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["company"]>
+
+  export type CompanySelectScalar = {
+    id?: boolean
+    uei?: boolean
+    cageCode?: boolean
+    legalName?: boolean
+    dbaName?: boolean
+    ein?: boolean
+    ocCompanyNumber?: boolean
+    ocJurisdiction?: boolean
+    incorporationDate?: boolean
+    naicsCodes?: boolean
+    naicsPrimary?: boolean
+    naicsDescription?: boolean
+    businessTypes?: boolean
+    sbaDesignations?: boolean
+    entityStructure?: boolean
+    streetAddress?: boolean
+    city?: boolean
+    state?: boolean
+    zipCode?: boolean
+    contactName?: boolean
+    contactEmail?: boolean
+    website?: boolean
+    employeeRange?: boolean
+    revenueRange?: boolean
+    samRegistered?: boolean
+    ocRegistered?: boolean
+    isActive?: boolean
+    registrationDate?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type CompanyOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "uei" | "cageCode" | "legalName" | "dbaName" | "ein" | "ocCompanyNumber" | "ocJurisdiction" | "incorporationDate" | "naicsCodes" | "naicsPrimary" | "naicsDescription" | "businessTypes" | "sbaDesignations" | "entityStructure" | "streetAddress" | "city" | "state" | "zipCode" | "contactName" | "contactEmail" | "website" | "employeeRange" | "revenueRange" | "samRegistered" | "ocRegistered" | "isActive" | "registrationDate" | "createdAt" | "updatedAt", ExtArgs["result"]["company"]>
+  export type CompanyInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    suggestedRoles?: boolean | Company$suggestedRolesArgs<ExtArgs>
+    _count?: boolean | CompanyCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type CompanyIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type CompanyIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $CompanyPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Company"
+    objects: {
+      suggestedRoles: Prisma.$CompanySuggestedRolePayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      uei: string | null
+      cageCode: string | null
+      legalName: string
+      dbaName: string | null
+      ein: string | null
+      ocCompanyNumber: string | null
+      ocJurisdiction: string | null
+      incorporationDate: Date | null
+      naicsCodes: string[]
+      naicsPrimary: string | null
+      naicsDescription: string | null
+      businessTypes: string[]
+      sbaDesignations: string[]
+      entityStructure: string | null
+      streetAddress: string | null
+      city: string | null
+      state: string | null
+      zipCode: string | null
+      contactName: string | null
+      contactEmail: string | null
+      website: string | null
+      employeeRange: string | null
+      revenueRange: string | null
+      samRegistered: boolean
+      ocRegistered: boolean
+      isActive: boolean
+      registrationDate: Date | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["company"]>
+    composites: {}
+  }
+
+  type CompanyGetPayload<S extends boolean | null | undefined | CompanyDefaultArgs> = $Result.GetResult<Prisma.$CompanyPayload, S>
+
+  type CompanyCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CompanyFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CompanyCountAggregateInputType | true
+    }
+
+  export interface CompanyDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Company'], meta: { name: 'Company' } }
+    /**
+     * Find zero or one Company that matches the filter.
+     * @param {CompanyFindUniqueArgs} args - Arguments to find a Company
+     * @example
+     * // Get one Company
+     * const company = await prisma.company.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CompanyFindUniqueArgs>(args: SelectSubset<T, CompanyFindUniqueArgs<ExtArgs>>): Prisma__CompanyClient<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Company that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CompanyFindUniqueOrThrowArgs} args - Arguments to find a Company
+     * @example
+     * // Get one Company
+     * const company = await prisma.company.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CompanyFindUniqueOrThrowArgs>(args: SelectSubset<T, CompanyFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CompanyClient<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Company that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CompanyFindFirstArgs} args - Arguments to find a Company
+     * @example
+     * // Get one Company
+     * const company = await prisma.company.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CompanyFindFirstArgs>(args?: SelectSubset<T, CompanyFindFirstArgs<ExtArgs>>): Prisma__CompanyClient<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Company that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CompanyFindFirstOrThrowArgs} args - Arguments to find a Company
+     * @example
+     * // Get one Company
+     * const company = await prisma.company.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CompanyFindFirstOrThrowArgs>(args?: SelectSubset<T, CompanyFindFirstOrThrowArgs<ExtArgs>>): Prisma__CompanyClient<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Companies that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CompanyFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Companies
+     * const companies = await prisma.company.findMany()
+     * 
+     * // Get first 10 Companies
+     * const companies = await prisma.company.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const companyWithIdOnly = await prisma.company.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CompanyFindManyArgs>(args?: SelectSubset<T, CompanyFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Company.
+     * @param {CompanyCreateArgs} args - Arguments to create a Company.
+     * @example
+     * // Create one Company
+     * const Company = await prisma.company.create({
+     *   data: {
+     *     // ... data to create a Company
+     *   }
+     * })
+     * 
+     */
+    create<T extends CompanyCreateArgs>(args: SelectSubset<T, CompanyCreateArgs<ExtArgs>>): Prisma__CompanyClient<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Companies.
+     * @param {CompanyCreateManyArgs} args - Arguments to create many Companies.
+     * @example
+     * // Create many Companies
+     * const company = await prisma.company.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CompanyCreateManyArgs>(args?: SelectSubset<T, CompanyCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Companies and returns the data saved in the database.
+     * @param {CompanyCreateManyAndReturnArgs} args - Arguments to create many Companies.
+     * @example
+     * // Create many Companies
+     * const company = await prisma.company.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Companies and only return the `id`
+     * const companyWithIdOnly = await prisma.company.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CompanyCreateManyAndReturnArgs>(args?: SelectSubset<T, CompanyCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Company.
+     * @param {CompanyDeleteArgs} args - Arguments to delete one Company.
+     * @example
+     * // Delete one Company
+     * const Company = await prisma.company.delete({
+     *   where: {
+     *     // ... filter to delete one Company
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CompanyDeleteArgs>(args: SelectSubset<T, CompanyDeleteArgs<ExtArgs>>): Prisma__CompanyClient<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Company.
+     * @param {CompanyUpdateArgs} args - Arguments to update one Company.
+     * @example
+     * // Update one Company
+     * const company = await prisma.company.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CompanyUpdateArgs>(args: SelectSubset<T, CompanyUpdateArgs<ExtArgs>>): Prisma__CompanyClient<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Companies.
+     * @param {CompanyDeleteManyArgs} args - Arguments to filter Companies to delete.
+     * @example
+     * // Delete a few Companies
+     * const { count } = await prisma.company.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CompanyDeleteManyArgs>(args?: SelectSubset<T, CompanyDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Companies.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CompanyUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Companies
+     * const company = await prisma.company.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CompanyUpdateManyArgs>(args: SelectSubset<T, CompanyUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Companies and returns the data updated in the database.
+     * @param {CompanyUpdateManyAndReturnArgs} args - Arguments to update many Companies.
+     * @example
+     * // Update many Companies
+     * const company = await prisma.company.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Companies and only return the `id`
+     * const companyWithIdOnly = await prisma.company.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends CompanyUpdateManyAndReturnArgs>(args: SelectSubset<T, CompanyUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Company.
+     * @param {CompanyUpsertArgs} args - Arguments to update or create a Company.
+     * @example
+     * // Update or create a Company
+     * const company = await prisma.company.upsert({
+     *   create: {
+     *     // ... data to create a Company
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Company we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CompanyUpsertArgs>(args: SelectSubset<T, CompanyUpsertArgs<ExtArgs>>): Prisma__CompanyClient<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Companies.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CompanyCountArgs} args - Arguments to filter Companies to count.
+     * @example
+     * // Count the number of Companies
+     * const count = await prisma.company.count({
+     *   where: {
+     *     // ... the filter for the Companies we want to count
+     *   }
+     * })
+    **/
+    count<T extends CompanyCountArgs>(
+      args?: Subset<T, CompanyCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CompanyCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Company.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CompanyAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CompanyAggregateArgs>(args: Subset<T, CompanyAggregateArgs>): Prisma.PrismaPromise<GetCompanyAggregateType<T>>
+
+    /**
+     * Group by Company.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CompanyGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CompanyGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CompanyGroupByArgs['orderBy'] }
+        : { orderBy?: CompanyGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CompanyGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCompanyGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Company model
+   */
+  readonly fields: CompanyFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Company.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CompanyClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    suggestedRoles<T extends Company$suggestedRolesArgs<ExtArgs> = {}>(args?: Subset<T, Company$suggestedRolesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CompanySuggestedRolePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Company model
+   */
+  interface CompanyFieldRefs {
+    readonly id: FieldRef<"Company", 'String'>
+    readonly uei: FieldRef<"Company", 'String'>
+    readonly cageCode: FieldRef<"Company", 'String'>
+    readonly legalName: FieldRef<"Company", 'String'>
+    readonly dbaName: FieldRef<"Company", 'String'>
+    readonly ein: FieldRef<"Company", 'String'>
+    readonly ocCompanyNumber: FieldRef<"Company", 'String'>
+    readonly ocJurisdiction: FieldRef<"Company", 'String'>
+    readonly incorporationDate: FieldRef<"Company", 'DateTime'>
+    readonly naicsCodes: FieldRef<"Company", 'String[]'>
+    readonly naicsPrimary: FieldRef<"Company", 'String'>
+    readonly naicsDescription: FieldRef<"Company", 'String'>
+    readonly businessTypes: FieldRef<"Company", 'String[]'>
+    readonly sbaDesignations: FieldRef<"Company", 'String[]'>
+    readonly entityStructure: FieldRef<"Company", 'String'>
+    readonly streetAddress: FieldRef<"Company", 'String'>
+    readonly city: FieldRef<"Company", 'String'>
+    readonly state: FieldRef<"Company", 'String'>
+    readonly zipCode: FieldRef<"Company", 'String'>
+    readonly contactName: FieldRef<"Company", 'String'>
+    readonly contactEmail: FieldRef<"Company", 'String'>
+    readonly website: FieldRef<"Company", 'String'>
+    readonly employeeRange: FieldRef<"Company", 'String'>
+    readonly revenueRange: FieldRef<"Company", 'String'>
+    readonly samRegistered: FieldRef<"Company", 'Boolean'>
+    readonly ocRegistered: FieldRef<"Company", 'Boolean'>
+    readonly isActive: FieldRef<"Company", 'Boolean'>
+    readonly registrationDate: FieldRef<"Company", 'DateTime'>
+    readonly createdAt: FieldRef<"Company", 'DateTime'>
+    readonly updatedAt: FieldRef<"Company", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Company findUnique
+   */
+  export type CompanyFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Company
+     */
+    select?: CompanySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Company
+     */
+    omit?: CompanyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanyInclude<ExtArgs> | null
+    /**
+     * Filter, which Company to fetch.
+     */
+    where: CompanyWhereUniqueInput
+  }
+
+  /**
+   * Company findUniqueOrThrow
+   */
+  export type CompanyFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Company
+     */
+    select?: CompanySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Company
+     */
+    omit?: CompanyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanyInclude<ExtArgs> | null
+    /**
+     * Filter, which Company to fetch.
+     */
+    where: CompanyWhereUniqueInput
+  }
+
+  /**
+   * Company findFirst
+   */
+  export type CompanyFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Company
+     */
+    select?: CompanySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Company
+     */
+    omit?: CompanyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanyInclude<ExtArgs> | null
+    /**
+     * Filter, which Company to fetch.
+     */
+    where?: CompanyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Companies to fetch.
+     */
+    orderBy?: CompanyOrderByWithRelationInput | CompanyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Companies.
+     */
+    cursor?: CompanyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Companies from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Companies.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Companies.
+     */
+    distinct?: CompanyScalarFieldEnum | CompanyScalarFieldEnum[]
+  }
+
+  /**
+   * Company findFirstOrThrow
+   */
+  export type CompanyFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Company
+     */
+    select?: CompanySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Company
+     */
+    omit?: CompanyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanyInclude<ExtArgs> | null
+    /**
+     * Filter, which Company to fetch.
+     */
+    where?: CompanyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Companies to fetch.
+     */
+    orderBy?: CompanyOrderByWithRelationInput | CompanyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Companies.
+     */
+    cursor?: CompanyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Companies from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Companies.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Companies.
+     */
+    distinct?: CompanyScalarFieldEnum | CompanyScalarFieldEnum[]
+  }
+
+  /**
+   * Company findMany
+   */
+  export type CompanyFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Company
+     */
+    select?: CompanySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Company
+     */
+    omit?: CompanyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanyInclude<ExtArgs> | null
+    /**
+     * Filter, which Companies to fetch.
+     */
+    where?: CompanyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Companies to fetch.
+     */
+    orderBy?: CompanyOrderByWithRelationInput | CompanyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Companies.
+     */
+    cursor?: CompanyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Companies from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Companies.
+     */
+    skip?: number
+    distinct?: CompanyScalarFieldEnum | CompanyScalarFieldEnum[]
+  }
+
+  /**
+   * Company create
+   */
+  export type CompanyCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Company
+     */
+    select?: CompanySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Company
+     */
+    omit?: CompanyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanyInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Company.
+     */
+    data: XOR<CompanyCreateInput, CompanyUncheckedCreateInput>
+  }
+
+  /**
+   * Company createMany
+   */
+  export type CompanyCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Companies.
+     */
+    data: CompanyCreateManyInput | CompanyCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Company createManyAndReturn
+   */
+  export type CompanyCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Company
+     */
+    select?: CompanySelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Company
+     */
+    omit?: CompanyOmit<ExtArgs> | null
+    /**
+     * The data used to create many Companies.
+     */
+    data: CompanyCreateManyInput | CompanyCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Company update
+   */
+  export type CompanyUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Company
+     */
+    select?: CompanySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Company
+     */
+    omit?: CompanyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanyInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Company.
+     */
+    data: XOR<CompanyUpdateInput, CompanyUncheckedUpdateInput>
+    /**
+     * Choose, which Company to update.
+     */
+    where: CompanyWhereUniqueInput
+  }
+
+  /**
+   * Company updateMany
+   */
+  export type CompanyUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Companies.
+     */
+    data: XOR<CompanyUpdateManyMutationInput, CompanyUncheckedUpdateManyInput>
+    /**
+     * Filter which Companies to update
+     */
+    where?: CompanyWhereInput
+    /**
+     * Limit how many Companies to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Company updateManyAndReturn
+   */
+  export type CompanyUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Company
+     */
+    select?: CompanySelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Company
+     */
+    omit?: CompanyOmit<ExtArgs> | null
+    /**
+     * The data used to update Companies.
+     */
+    data: XOR<CompanyUpdateManyMutationInput, CompanyUncheckedUpdateManyInput>
+    /**
+     * Filter which Companies to update
+     */
+    where?: CompanyWhereInput
+    /**
+     * Limit how many Companies to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Company upsert
+   */
+  export type CompanyUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Company
+     */
+    select?: CompanySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Company
+     */
+    omit?: CompanyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanyInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Company to update in case it exists.
+     */
+    where: CompanyWhereUniqueInput
+    /**
+     * In case the Company found by the `where` argument doesn't exist, create a new Company with this data.
+     */
+    create: XOR<CompanyCreateInput, CompanyUncheckedCreateInput>
+    /**
+     * In case the Company was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CompanyUpdateInput, CompanyUncheckedUpdateInput>
+  }
+
+  /**
+   * Company delete
+   */
+  export type CompanyDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Company
+     */
+    select?: CompanySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Company
+     */
+    omit?: CompanyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanyInclude<ExtArgs> | null
+    /**
+     * Filter which Company to delete.
+     */
+    where: CompanyWhereUniqueInput
+  }
+
+  /**
+   * Company deleteMany
+   */
+  export type CompanyDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Companies to delete
+     */
+    where?: CompanyWhereInput
+    /**
+     * Limit how many Companies to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Company.suggestedRoles
+   */
+  export type Company$suggestedRolesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompanySuggestedRole
+     */
+    select?: CompanySuggestedRoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CompanySuggestedRole
+     */
+    omit?: CompanySuggestedRoleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanySuggestedRoleInclude<ExtArgs> | null
+    where?: CompanySuggestedRoleWhereInput
+    orderBy?: CompanySuggestedRoleOrderByWithRelationInput | CompanySuggestedRoleOrderByWithRelationInput[]
+    cursor?: CompanySuggestedRoleWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CompanySuggestedRoleScalarFieldEnum | CompanySuggestedRoleScalarFieldEnum[]
+  }
+
+  /**
+   * Company without action
+   */
+  export type CompanyDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Company
+     */
+    select?: CompanySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Company
+     */
+    omit?: CompanyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanyInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model CompanySuggestedRole
+   */
+
+  export type AggregateCompanySuggestedRole = {
+    _count: CompanySuggestedRoleCountAggregateOutputType | null
+    _avg: CompanySuggestedRoleAvgAggregateOutputType | null
+    _sum: CompanySuggestedRoleSumAggregateOutputType | null
+    _min: CompanySuggestedRoleMinAggregateOutputType | null
+    _max: CompanySuggestedRoleMaxAggregateOutputType | null
+  }
+
+  export type CompanySuggestedRoleAvgAggregateOutputType = {
+    salaryMin: number | null
+    salaryMax: number | null
+  }
+
+  export type CompanySuggestedRoleSumAggregateOutputType = {
+    salaryMin: number | null
+    salaryMax: number | null
+  }
+
+  export type CompanySuggestedRoleMinAggregateOutputType = {
+    id: string | null
+    companyId: string | null
+    title: string | null
+    description: string | null
+    skills: string | null
+    timeCommitment: string | null
+    salaryMin: number | null
+    salaryMax: number | null
+    isAiAugmented: boolean | null
+    aiTools: string | null
+    source: string | null
+    generatedAt: Date | null
+    expiresAt: Date | null
+  }
+
+  export type CompanySuggestedRoleMaxAggregateOutputType = {
+    id: string | null
+    companyId: string | null
+    title: string | null
+    description: string | null
+    skills: string | null
+    timeCommitment: string | null
+    salaryMin: number | null
+    salaryMax: number | null
+    isAiAugmented: boolean | null
+    aiTools: string | null
+    source: string | null
+    generatedAt: Date | null
+    expiresAt: Date | null
+  }
+
+  export type CompanySuggestedRoleCountAggregateOutputType = {
+    id: number
+    companyId: number
+    title: number
+    description: number
+    skills: number
+    timeCommitment: number
+    salaryMin: number
+    salaryMax: number
+    isAiAugmented: number
+    aiTools: number
+    source: number
+    generatedAt: number
+    expiresAt: number
+    _all: number
+  }
+
+
+  export type CompanySuggestedRoleAvgAggregateInputType = {
+    salaryMin?: true
+    salaryMax?: true
+  }
+
+  export type CompanySuggestedRoleSumAggregateInputType = {
+    salaryMin?: true
+    salaryMax?: true
+  }
+
+  export type CompanySuggestedRoleMinAggregateInputType = {
+    id?: true
+    companyId?: true
+    title?: true
+    description?: true
+    skills?: true
+    timeCommitment?: true
+    salaryMin?: true
+    salaryMax?: true
+    isAiAugmented?: true
+    aiTools?: true
+    source?: true
+    generatedAt?: true
+    expiresAt?: true
+  }
+
+  export type CompanySuggestedRoleMaxAggregateInputType = {
+    id?: true
+    companyId?: true
+    title?: true
+    description?: true
+    skills?: true
+    timeCommitment?: true
+    salaryMin?: true
+    salaryMax?: true
+    isAiAugmented?: true
+    aiTools?: true
+    source?: true
+    generatedAt?: true
+    expiresAt?: true
+  }
+
+  export type CompanySuggestedRoleCountAggregateInputType = {
+    id?: true
+    companyId?: true
+    title?: true
+    description?: true
+    skills?: true
+    timeCommitment?: true
+    salaryMin?: true
+    salaryMax?: true
+    isAiAugmented?: true
+    aiTools?: true
+    source?: true
+    generatedAt?: true
+    expiresAt?: true
+    _all?: true
+  }
+
+  export type CompanySuggestedRoleAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CompanySuggestedRole to aggregate.
+     */
+    where?: CompanySuggestedRoleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CompanySuggestedRoles to fetch.
+     */
+    orderBy?: CompanySuggestedRoleOrderByWithRelationInput | CompanySuggestedRoleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CompanySuggestedRoleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CompanySuggestedRoles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CompanySuggestedRoles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CompanySuggestedRoles
+    **/
+    _count?: true | CompanySuggestedRoleCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: CompanySuggestedRoleAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: CompanySuggestedRoleSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CompanySuggestedRoleMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CompanySuggestedRoleMaxAggregateInputType
+  }
+
+  export type GetCompanySuggestedRoleAggregateType<T extends CompanySuggestedRoleAggregateArgs> = {
+        [P in keyof T & keyof AggregateCompanySuggestedRole]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCompanySuggestedRole[P]>
+      : GetScalarType<T[P], AggregateCompanySuggestedRole[P]>
+  }
+
+
+
+
+  export type CompanySuggestedRoleGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CompanySuggestedRoleWhereInput
+    orderBy?: CompanySuggestedRoleOrderByWithAggregationInput | CompanySuggestedRoleOrderByWithAggregationInput[]
+    by: CompanySuggestedRoleScalarFieldEnum[] | CompanySuggestedRoleScalarFieldEnum
+    having?: CompanySuggestedRoleScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CompanySuggestedRoleCountAggregateInputType | true
+    _avg?: CompanySuggestedRoleAvgAggregateInputType
+    _sum?: CompanySuggestedRoleSumAggregateInputType
+    _min?: CompanySuggestedRoleMinAggregateInputType
+    _max?: CompanySuggestedRoleMaxAggregateInputType
+  }
+
+  export type CompanySuggestedRoleGroupByOutputType = {
+    id: string
+    companyId: string
+    title: string
+    description: string
+    skills: string
+    timeCommitment: string
+    salaryMin: number | null
+    salaryMax: number | null
+    isAiAugmented: boolean
+    aiTools: string | null
+    source: string
+    generatedAt: Date
+    expiresAt: Date
+    _count: CompanySuggestedRoleCountAggregateOutputType | null
+    _avg: CompanySuggestedRoleAvgAggregateOutputType | null
+    _sum: CompanySuggestedRoleSumAggregateOutputType | null
+    _min: CompanySuggestedRoleMinAggregateOutputType | null
+    _max: CompanySuggestedRoleMaxAggregateOutputType | null
+  }
+
+  type GetCompanySuggestedRoleGroupByPayload<T extends CompanySuggestedRoleGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CompanySuggestedRoleGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CompanySuggestedRoleGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CompanySuggestedRoleGroupByOutputType[P]>
+            : GetScalarType<T[P], CompanySuggestedRoleGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CompanySuggestedRoleSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    companyId?: boolean
+    title?: boolean
+    description?: boolean
+    skills?: boolean
+    timeCommitment?: boolean
+    salaryMin?: boolean
+    salaryMax?: boolean
+    isAiAugmented?: boolean
+    aiTools?: boolean
+    source?: boolean
+    generatedAt?: boolean
+    expiresAt?: boolean
+    company?: boolean | CompanyDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["companySuggestedRole"]>
+
+  export type CompanySuggestedRoleSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    companyId?: boolean
+    title?: boolean
+    description?: boolean
+    skills?: boolean
+    timeCommitment?: boolean
+    salaryMin?: boolean
+    salaryMax?: boolean
+    isAiAugmented?: boolean
+    aiTools?: boolean
+    source?: boolean
+    generatedAt?: boolean
+    expiresAt?: boolean
+    company?: boolean | CompanyDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["companySuggestedRole"]>
+
+  export type CompanySuggestedRoleSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    companyId?: boolean
+    title?: boolean
+    description?: boolean
+    skills?: boolean
+    timeCommitment?: boolean
+    salaryMin?: boolean
+    salaryMax?: boolean
+    isAiAugmented?: boolean
+    aiTools?: boolean
+    source?: boolean
+    generatedAt?: boolean
+    expiresAt?: boolean
+    company?: boolean | CompanyDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["companySuggestedRole"]>
+
+  export type CompanySuggestedRoleSelectScalar = {
+    id?: boolean
+    companyId?: boolean
+    title?: boolean
+    description?: boolean
+    skills?: boolean
+    timeCommitment?: boolean
+    salaryMin?: boolean
+    salaryMax?: boolean
+    isAiAugmented?: boolean
+    aiTools?: boolean
+    source?: boolean
+    generatedAt?: boolean
+    expiresAt?: boolean
+  }
+
+  export type CompanySuggestedRoleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "companyId" | "title" | "description" | "skills" | "timeCommitment" | "salaryMin" | "salaryMax" | "isAiAugmented" | "aiTools" | "source" | "generatedAt" | "expiresAt", ExtArgs["result"]["companySuggestedRole"]>
+  export type CompanySuggestedRoleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    company?: boolean | CompanyDefaultArgs<ExtArgs>
+  }
+  export type CompanySuggestedRoleIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    company?: boolean | CompanyDefaultArgs<ExtArgs>
+  }
+  export type CompanySuggestedRoleIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    company?: boolean | CompanyDefaultArgs<ExtArgs>
+  }
+
+  export type $CompanySuggestedRolePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "CompanySuggestedRole"
+    objects: {
+      company: Prisma.$CompanyPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      companyId: string
+      title: string
+      description: string
+      skills: string
+      timeCommitment: string
+      salaryMin: number | null
+      salaryMax: number | null
+      isAiAugmented: boolean
+      aiTools: string | null
+      source: string
+      generatedAt: Date
+      expiresAt: Date
+    }, ExtArgs["result"]["companySuggestedRole"]>
+    composites: {}
+  }
+
+  type CompanySuggestedRoleGetPayload<S extends boolean | null | undefined | CompanySuggestedRoleDefaultArgs> = $Result.GetResult<Prisma.$CompanySuggestedRolePayload, S>
+
+  type CompanySuggestedRoleCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CompanySuggestedRoleFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CompanySuggestedRoleCountAggregateInputType | true
+    }
+
+  export interface CompanySuggestedRoleDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CompanySuggestedRole'], meta: { name: 'CompanySuggestedRole' } }
+    /**
+     * Find zero or one CompanySuggestedRole that matches the filter.
+     * @param {CompanySuggestedRoleFindUniqueArgs} args - Arguments to find a CompanySuggestedRole
+     * @example
+     * // Get one CompanySuggestedRole
+     * const companySuggestedRole = await prisma.companySuggestedRole.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CompanySuggestedRoleFindUniqueArgs>(args: SelectSubset<T, CompanySuggestedRoleFindUniqueArgs<ExtArgs>>): Prisma__CompanySuggestedRoleClient<$Result.GetResult<Prisma.$CompanySuggestedRolePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one CompanySuggestedRole that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CompanySuggestedRoleFindUniqueOrThrowArgs} args - Arguments to find a CompanySuggestedRole
+     * @example
+     * // Get one CompanySuggestedRole
+     * const companySuggestedRole = await prisma.companySuggestedRole.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CompanySuggestedRoleFindUniqueOrThrowArgs>(args: SelectSubset<T, CompanySuggestedRoleFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CompanySuggestedRoleClient<$Result.GetResult<Prisma.$CompanySuggestedRolePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CompanySuggestedRole that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CompanySuggestedRoleFindFirstArgs} args - Arguments to find a CompanySuggestedRole
+     * @example
+     * // Get one CompanySuggestedRole
+     * const companySuggestedRole = await prisma.companySuggestedRole.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CompanySuggestedRoleFindFirstArgs>(args?: SelectSubset<T, CompanySuggestedRoleFindFirstArgs<ExtArgs>>): Prisma__CompanySuggestedRoleClient<$Result.GetResult<Prisma.$CompanySuggestedRolePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CompanySuggestedRole that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CompanySuggestedRoleFindFirstOrThrowArgs} args - Arguments to find a CompanySuggestedRole
+     * @example
+     * // Get one CompanySuggestedRole
+     * const companySuggestedRole = await prisma.companySuggestedRole.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CompanySuggestedRoleFindFirstOrThrowArgs>(args?: SelectSubset<T, CompanySuggestedRoleFindFirstOrThrowArgs<ExtArgs>>): Prisma__CompanySuggestedRoleClient<$Result.GetResult<Prisma.$CompanySuggestedRolePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more CompanySuggestedRoles that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CompanySuggestedRoleFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CompanySuggestedRoles
+     * const companySuggestedRoles = await prisma.companySuggestedRole.findMany()
+     * 
+     * // Get first 10 CompanySuggestedRoles
+     * const companySuggestedRoles = await prisma.companySuggestedRole.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const companySuggestedRoleWithIdOnly = await prisma.companySuggestedRole.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CompanySuggestedRoleFindManyArgs>(args?: SelectSubset<T, CompanySuggestedRoleFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CompanySuggestedRolePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a CompanySuggestedRole.
+     * @param {CompanySuggestedRoleCreateArgs} args - Arguments to create a CompanySuggestedRole.
+     * @example
+     * // Create one CompanySuggestedRole
+     * const CompanySuggestedRole = await prisma.companySuggestedRole.create({
+     *   data: {
+     *     // ... data to create a CompanySuggestedRole
+     *   }
+     * })
+     * 
+     */
+    create<T extends CompanySuggestedRoleCreateArgs>(args: SelectSubset<T, CompanySuggestedRoleCreateArgs<ExtArgs>>): Prisma__CompanySuggestedRoleClient<$Result.GetResult<Prisma.$CompanySuggestedRolePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many CompanySuggestedRoles.
+     * @param {CompanySuggestedRoleCreateManyArgs} args - Arguments to create many CompanySuggestedRoles.
+     * @example
+     * // Create many CompanySuggestedRoles
+     * const companySuggestedRole = await prisma.companySuggestedRole.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CompanySuggestedRoleCreateManyArgs>(args?: SelectSubset<T, CompanySuggestedRoleCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many CompanySuggestedRoles and returns the data saved in the database.
+     * @param {CompanySuggestedRoleCreateManyAndReturnArgs} args - Arguments to create many CompanySuggestedRoles.
+     * @example
+     * // Create many CompanySuggestedRoles
+     * const companySuggestedRole = await prisma.companySuggestedRole.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many CompanySuggestedRoles and only return the `id`
+     * const companySuggestedRoleWithIdOnly = await prisma.companySuggestedRole.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CompanySuggestedRoleCreateManyAndReturnArgs>(args?: SelectSubset<T, CompanySuggestedRoleCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CompanySuggestedRolePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a CompanySuggestedRole.
+     * @param {CompanySuggestedRoleDeleteArgs} args - Arguments to delete one CompanySuggestedRole.
+     * @example
+     * // Delete one CompanySuggestedRole
+     * const CompanySuggestedRole = await prisma.companySuggestedRole.delete({
+     *   where: {
+     *     // ... filter to delete one CompanySuggestedRole
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CompanySuggestedRoleDeleteArgs>(args: SelectSubset<T, CompanySuggestedRoleDeleteArgs<ExtArgs>>): Prisma__CompanySuggestedRoleClient<$Result.GetResult<Prisma.$CompanySuggestedRolePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one CompanySuggestedRole.
+     * @param {CompanySuggestedRoleUpdateArgs} args - Arguments to update one CompanySuggestedRole.
+     * @example
+     * // Update one CompanySuggestedRole
+     * const companySuggestedRole = await prisma.companySuggestedRole.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CompanySuggestedRoleUpdateArgs>(args: SelectSubset<T, CompanySuggestedRoleUpdateArgs<ExtArgs>>): Prisma__CompanySuggestedRoleClient<$Result.GetResult<Prisma.$CompanySuggestedRolePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more CompanySuggestedRoles.
+     * @param {CompanySuggestedRoleDeleteManyArgs} args - Arguments to filter CompanySuggestedRoles to delete.
+     * @example
+     * // Delete a few CompanySuggestedRoles
+     * const { count } = await prisma.companySuggestedRole.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CompanySuggestedRoleDeleteManyArgs>(args?: SelectSubset<T, CompanySuggestedRoleDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CompanySuggestedRoles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CompanySuggestedRoleUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CompanySuggestedRoles
+     * const companySuggestedRole = await prisma.companySuggestedRole.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CompanySuggestedRoleUpdateManyArgs>(args: SelectSubset<T, CompanySuggestedRoleUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CompanySuggestedRoles and returns the data updated in the database.
+     * @param {CompanySuggestedRoleUpdateManyAndReturnArgs} args - Arguments to update many CompanySuggestedRoles.
+     * @example
+     * // Update many CompanySuggestedRoles
+     * const companySuggestedRole = await prisma.companySuggestedRole.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more CompanySuggestedRoles and only return the `id`
+     * const companySuggestedRoleWithIdOnly = await prisma.companySuggestedRole.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends CompanySuggestedRoleUpdateManyAndReturnArgs>(args: SelectSubset<T, CompanySuggestedRoleUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CompanySuggestedRolePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one CompanySuggestedRole.
+     * @param {CompanySuggestedRoleUpsertArgs} args - Arguments to update or create a CompanySuggestedRole.
+     * @example
+     * // Update or create a CompanySuggestedRole
+     * const companySuggestedRole = await prisma.companySuggestedRole.upsert({
+     *   create: {
+     *     // ... data to create a CompanySuggestedRole
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CompanySuggestedRole we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CompanySuggestedRoleUpsertArgs>(args: SelectSubset<T, CompanySuggestedRoleUpsertArgs<ExtArgs>>): Prisma__CompanySuggestedRoleClient<$Result.GetResult<Prisma.$CompanySuggestedRolePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of CompanySuggestedRoles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CompanySuggestedRoleCountArgs} args - Arguments to filter CompanySuggestedRoles to count.
+     * @example
+     * // Count the number of CompanySuggestedRoles
+     * const count = await prisma.companySuggestedRole.count({
+     *   where: {
+     *     // ... the filter for the CompanySuggestedRoles we want to count
+     *   }
+     * })
+    **/
+    count<T extends CompanySuggestedRoleCountArgs>(
+      args?: Subset<T, CompanySuggestedRoleCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CompanySuggestedRoleCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CompanySuggestedRole.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CompanySuggestedRoleAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CompanySuggestedRoleAggregateArgs>(args: Subset<T, CompanySuggestedRoleAggregateArgs>): Prisma.PrismaPromise<GetCompanySuggestedRoleAggregateType<T>>
+
+    /**
+     * Group by CompanySuggestedRole.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CompanySuggestedRoleGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CompanySuggestedRoleGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CompanySuggestedRoleGroupByArgs['orderBy'] }
+        : { orderBy?: CompanySuggestedRoleGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CompanySuggestedRoleGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCompanySuggestedRoleGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the CompanySuggestedRole model
+   */
+  readonly fields: CompanySuggestedRoleFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CompanySuggestedRole.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CompanySuggestedRoleClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    company<T extends CompanyDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CompanyDefaultArgs<ExtArgs>>): Prisma__CompanyClient<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the CompanySuggestedRole model
+   */
+  interface CompanySuggestedRoleFieldRefs {
+    readonly id: FieldRef<"CompanySuggestedRole", 'String'>
+    readonly companyId: FieldRef<"CompanySuggestedRole", 'String'>
+    readonly title: FieldRef<"CompanySuggestedRole", 'String'>
+    readonly description: FieldRef<"CompanySuggestedRole", 'String'>
+    readonly skills: FieldRef<"CompanySuggestedRole", 'String'>
+    readonly timeCommitment: FieldRef<"CompanySuggestedRole", 'String'>
+    readonly salaryMin: FieldRef<"CompanySuggestedRole", 'Int'>
+    readonly salaryMax: FieldRef<"CompanySuggestedRole", 'Int'>
+    readonly isAiAugmented: FieldRef<"CompanySuggestedRole", 'Boolean'>
+    readonly aiTools: FieldRef<"CompanySuggestedRole", 'String'>
+    readonly source: FieldRef<"CompanySuggestedRole", 'String'>
+    readonly generatedAt: FieldRef<"CompanySuggestedRole", 'DateTime'>
+    readonly expiresAt: FieldRef<"CompanySuggestedRole", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * CompanySuggestedRole findUnique
+   */
+  export type CompanySuggestedRoleFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompanySuggestedRole
+     */
+    select?: CompanySuggestedRoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CompanySuggestedRole
+     */
+    omit?: CompanySuggestedRoleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanySuggestedRoleInclude<ExtArgs> | null
+    /**
+     * Filter, which CompanySuggestedRole to fetch.
+     */
+    where: CompanySuggestedRoleWhereUniqueInput
+  }
+
+  /**
+   * CompanySuggestedRole findUniqueOrThrow
+   */
+  export type CompanySuggestedRoleFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompanySuggestedRole
+     */
+    select?: CompanySuggestedRoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CompanySuggestedRole
+     */
+    omit?: CompanySuggestedRoleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanySuggestedRoleInclude<ExtArgs> | null
+    /**
+     * Filter, which CompanySuggestedRole to fetch.
+     */
+    where: CompanySuggestedRoleWhereUniqueInput
+  }
+
+  /**
+   * CompanySuggestedRole findFirst
+   */
+  export type CompanySuggestedRoleFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompanySuggestedRole
+     */
+    select?: CompanySuggestedRoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CompanySuggestedRole
+     */
+    omit?: CompanySuggestedRoleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanySuggestedRoleInclude<ExtArgs> | null
+    /**
+     * Filter, which CompanySuggestedRole to fetch.
+     */
+    where?: CompanySuggestedRoleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CompanySuggestedRoles to fetch.
+     */
+    orderBy?: CompanySuggestedRoleOrderByWithRelationInput | CompanySuggestedRoleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CompanySuggestedRoles.
+     */
+    cursor?: CompanySuggestedRoleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CompanySuggestedRoles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CompanySuggestedRoles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CompanySuggestedRoles.
+     */
+    distinct?: CompanySuggestedRoleScalarFieldEnum | CompanySuggestedRoleScalarFieldEnum[]
+  }
+
+  /**
+   * CompanySuggestedRole findFirstOrThrow
+   */
+  export type CompanySuggestedRoleFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompanySuggestedRole
+     */
+    select?: CompanySuggestedRoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CompanySuggestedRole
+     */
+    omit?: CompanySuggestedRoleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanySuggestedRoleInclude<ExtArgs> | null
+    /**
+     * Filter, which CompanySuggestedRole to fetch.
+     */
+    where?: CompanySuggestedRoleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CompanySuggestedRoles to fetch.
+     */
+    orderBy?: CompanySuggestedRoleOrderByWithRelationInput | CompanySuggestedRoleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CompanySuggestedRoles.
+     */
+    cursor?: CompanySuggestedRoleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CompanySuggestedRoles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CompanySuggestedRoles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CompanySuggestedRoles.
+     */
+    distinct?: CompanySuggestedRoleScalarFieldEnum | CompanySuggestedRoleScalarFieldEnum[]
+  }
+
+  /**
+   * CompanySuggestedRole findMany
+   */
+  export type CompanySuggestedRoleFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompanySuggestedRole
+     */
+    select?: CompanySuggestedRoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CompanySuggestedRole
+     */
+    omit?: CompanySuggestedRoleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanySuggestedRoleInclude<ExtArgs> | null
+    /**
+     * Filter, which CompanySuggestedRoles to fetch.
+     */
+    where?: CompanySuggestedRoleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CompanySuggestedRoles to fetch.
+     */
+    orderBy?: CompanySuggestedRoleOrderByWithRelationInput | CompanySuggestedRoleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CompanySuggestedRoles.
+     */
+    cursor?: CompanySuggestedRoleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CompanySuggestedRoles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CompanySuggestedRoles.
+     */
+    skip?: number
+    distinct?: CompanySuggestedRoleScalarFieldEnum | CompanySuggestedRoleScalarFieldEnum[]
+  }
+
+  /**
+   * CompanySuggestedRole create
+   */
+  export type CompanySuggestedRoleCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompanySuggestedRole
+     */
+    select?: CompanySuggestedRoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CompanySuggestedRole
+     */
+    omit?: CompanySuggestedRoleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanySuggestedRoleInclude<ExtArgs> | null
+    /**
+     * The data needed to create a CompanySuggestedRole.
+     */
+    data: XOR<CompanySuggestedRoleCreateInput, CompanySuggestedRoleUncheckedCreateInput>
+  }
+
+  /**
+   * CompanySuggestedRole createMany
+   */
+  export type CompanySuggestedRoleCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many CompanySuggestedRoles.
+     */
+    data: CompanySuggestedRoleCreateManyInput | CompanySuggestedRoleCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CompanySuggestedRole createManyAndReturn
+   */
+  export type CompanySuggestedRoleCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompanySuggestedRole
+     */
+    select?: CompanySuggestedRoleSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CompanySuggestedRole
+     */
+    omit?: CompanySuggestedRoleOmit<ExtArgs> | null
+    /**
+     * The data used to create many CompanySuggestedRoles.
+     */
+    data: CompanySuggestedRoleCreateManyInput | CompanySuggestedRoleCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanySuggestedRoleIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CompanySuggestedRole update
+   */
+  export type CompanySuggestedRoleUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompanySuggestedRole
+     */
+    select?: CompanySuggestedRoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CompanySuggestedRole
+     */
+    omit?: CompanySuggestedRoleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanySuggestedRoleInclude<ExtArgs> | null
+    /**
+     * The data needed to update a CompanySuggestedRole.
+     */
+    data: XOR<CompanySuggestedRoleUpdateInput, CompanySuggestedRoleUncheckedUpdateInput>
+    /**
+     * Choose, which CompanySuggestedRole to update.
+     */
+    where: CompanySuggestedRoleWhereUniqueInput
+  }
+
+  /**
+   * CompanySuggestedRole updateMany
+   */
+  export type CompanySuggestedRoleUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update CompanySuggestedRoles.
+     */
+    data: XOR<CompanySuggestedRoleUpdateManyMutationInput, CompanySuggestedRoleUncheckedUpdateManyInput>
+    /**
+     * Filter which CompanySuggestedRoles to update
+     */
+    where?: CompanySuggestedRoleWhereInput
+    /**
+     * Limit how many CompanySuggestedRoles to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * CompanySuggestedRole updateManyAndReturn
+   */
+  export type CompanySuggestedRoleUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompanySuggestedRole
+     */
+    select?: CompanySuggestedRoleSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CompanySuggestedRole
+     */
+    omit?: CompanySuggestedRoleOmit<ExtArgs> | null
+    /**
+     * The data used to update CompanySuggestedRoles.
+     */
+    data: XOR<CompanySuggestedRoleUpdateManyMutationInput, CompanySuggestedRoleUncheckedUpdateManyInput>
+    /**
+     * Filter which CompanySuggestedRoles to update
+     */
+    where?: CompanySuggestedRoleWhereInput
+    /**
+     * Limit how many CompanySuggestedRoles to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanySuggestedRoleIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CompanySuggestedRole upsert
+   */
+  export type CompanySuggestedRoleUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompanySuggestedRole
+     */
+    select?: CompanySuggestedRoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CompanySuggestedRole
+     */
+    omit?: CompanySuggestedRoleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanySuggestedRoleInclude<ExtArgs> | null
+    /**
+     * The filter to search for the CompanySuggestedRole to update in case it exists.
+     */
+    where: CompanySuggestedRoleWhereUniqueInput
+    /**
+     * In case the CompanySuggestedRole found by the `where` argument doesn't exist, create a new CompanySuggestedRole with this data.
+     */
+    create: XOR<CompanySuggestedRoleCreateInput, CompanySuggestedRoleUncheckedCreateInput>
+    /**
+     * In case the CompanySuggestedRole was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CompanySuggestedRoleUpdateInput, CompanySuggestedRoleUncheckedUpdateInput>
+  }
+
+  /**
+   * CompanySuggestedRole delete
+   */
+  export type CompanySuggestedRoleDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompanySuggestedRole
+     */
+    select?: CompanySuggestedRoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CompanySuggestedRole
+     */
+    omit?: CompanySuggestedRoleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanySuggestedRoleInclude<ExtArgs> | null
+    /**
+     * Filter which CompanySuggestedRole to delete.
+     */
+    where: CompanySuggestedRoleWhereUniqueInput
+  }
+
+  /**
+   * CompanySuggestedRole deleteMany
+   */
+  export type CompanySuggestedRoleDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CompanySuggestedRoles to delete
+     */
+    where?: CompanySuggestedRoleWhereInput
+    /**
+     * Limit how many CompanySuggestedRoles to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * CompanySuggestedRole without action
+   */
+  export type CompanySuggestedRoleDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompanySuggestedRole
+     */
+    select?: CompanySuggestedRoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CompanySuggestedRole
+     */
+    omit?: CompanySuggestedRoleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanySuggestedRoleInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model IrsFiling
    */
 
@@ -52414,6 +55210,61 @@ export namespace Prisma {
   };
 
   export type SuggestedRoleScalarFieldEnum = (typeof SuggestedRoleScalarFieldEnum)[keyof typeof SuggestedRoleScalarFieldEnum]
+
+
+  export const CompanyScalarFieldEnum: {
+    id: 'id',
+    uei: 'uei',
+    cageCode: 'cageCode',
+    legalName: 'legalName',
+    dbaName: 'dbaName',
+    ein: 'ein',
+    ocCompanyNumber: 'ocCompanyNumber',
+    ocJurisdiction: 'ocJurisdiction',
+    incorporationDate: 'incorporationDate',
+    naicsCodes: 'naicsCodes',
+    naicsPrimary: 'naicsPrimary',
+    naicsDescription: 'naicsDescription',
+    businessTypes: 'businessTypes',
+    sbaDesignations: 'sbaDesignations',
+    entityStructure: 'entityStructure',
+    streetAddress: 'streetAddress',
+    city: 'city',
+    state: 'state',
+    zipCode: 'zipCode',
+    contactName: 'contactName',
+    contactEmail: 'contactEmail',
+    website: 'website',
+    employeeRange: 'employeeRange',
+    revenueRange: 'revenueRange',
+    samRegistered: 'samRegistered',
+    ocRegistered: 'ocRegistered',
+    isActive: 'isActive',
+    registrationDate: 'registrationDate',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type CompanyScalarFieldEnum = (typeof CompanyScalarFieldEnum)[keyof typeof CompanyScalarFieldEnum]
+
+
+  export const CompanySuggestedRoleScalarFieldEnum: {
+    id: 'id',
+    companyId: 'companyId',
+    title: 'title',
+    description: 'description',
+    skills: 'skills',
+    timeCommitment: 'timeCommitment',
+    salaryMin: 'salaryMin',
+    salaryMax: 'salaryMax',
+    isAiAugmented: 'isAiAugmented',
+    aiTools: 'aiTools',
+    source: 'source',
+    generatedAt: 'generatedAt',
+    expiresAt: 'expiresAt'
+  };
+
+  export type CompanySuggestedRoleScalarFieldEnum = (typeof CompanySuggestedRoleScalarFieldEnum)[keyof typeof CompanySuggestedRoleScalarFieldEnum]
 
 
   export const IrsFilingScalarFieldEnum: {
@@ -56105,6 +58956,284 @@ export namespace Prisma {
     source?: StringWithAggregatesFilter<"SuggestedRole"> | string
     generatedAt?: DateTimeWithAggregatesFilter<"SuggestedRole"> | Date | string
     expiresAt?: DateTimeWithAggregatesFilter<"SuggestedRole"> | Date | string
+  }
+
+  export type CompanyWhereInput = {
+    AND?: CompanyWhereInput | CompanyWhereInput[]
+    OR?: CompanyWhereInput[]
+    NOT?: CompanyWhereInput | CompanyWhereInput[]
+    id?: StringFilter<"Company"> | string
+    uei?: StringNullableFilter<"Company"> | string | null
+    cageCode?: StringNullableFilter<"Company"> | string | null
+    legalName?: StringFilter<"Company"> | string
+    dbaName?: StringNullableFilter<"Company"> | string | null
+    ein?: StringNullableFilter<"Company"> | string | null
+    ocCompanyNumber?: StringNullableFilter<"Company"> | string | null
+    ocJurisdiction?: StringNullableFilter<"Company"> | string | null
+    incorporationDate?: DateTimeNullableFilter<"Company"> | Date | string | null
+    naicsCodes?: StringNullableListFilter<"Company">
+    naicsPrimary?: StringNullableFilter<"Company"> | string | null
+    naicsDescription?: StringNullableFilter<"Company"> | string | null
+    businessTypes?: StringNullableListFilter<"Company">
+    sbaDesignations?: StringNullableListFilter<"Company">
+    entityStructure?: StringNullableFilter<"Company"> | string | null
+    streetAddress?: StringNullableFilter<"Company"> | string | null
+    city?: StringNullableFilter<"Company"> | string | null
+    state?: StringNullableFilter<"Company"> | string | null
+    zipCode?: StringNullableFilter<"Company"> | string | null
+    contactName?: StringNullableFilter<"Company"> | string | null
+    contactEmail?: StringNullableFilter<"Company"> | string | null
+    website?: StringNullableFilter<"Company"> | string | null
+    employeeRange?: StringNullableFilter<"Company"> | string | null
+    revenueRange?: StringNullableFilter<"Company"> | string | null
+    samRegistered?: BoolFilter<"Company"> | boolean
+    ocRegistered?: BoolFilter<"Company"> | boolean
+    isActive?: BoolFilter<"Company"> | boolean
+    registrationDate?: DateTimeNullableFilter<"Company"> | Date | string | null
+    createdAt?: DateTimeFilter<"Company"> | Date | string
+    updatedAt?: DateTimeFilter<"Company"> | Date | string
+    suggestedRoles?: CompanySuggestedRoleListRelationFilter
+  }
+
+  export type CompanyOrderByWithRelationInput = {
+    id?: SortOrder
+    uei?: SortOrderInput | SortOrder
+    cageCode?: SortOrderInput | SortOrder
+    legalName?: SortOrder
+    dbaName?: SortOrderInput | SortOrder
+    ein?: SortOrderInput | SortOrder
+    ocCompanyNumber?: SortOrderInput | SortOrder
+    ocJurisdiction?: SortOrderInput | SortOrder
+    incorporationDate?: SortOrderInput | SortOrder
+    naicsCodes?: SortOrder
+    naicsPrimary?: SortOrderInput | SortOrder
+    naicsDescription?: SortOrderInput | SortOrder
+    businessTypes?: SortOrder
+    sbaDesignations?: SortOrder
+    entityStructure?: SortOrderInput | SortOrder
+    streetAddress?: SortOrderInput | SortOrder
+    city?: SortOrderInput | SortOrder
+    state?: SortOrderInput | SortOrder
+    zipCode?: SortOrderInput | SortOrder
+    contactName?: SortOrderInput | SortOrder
+    contactEmail?: SortOrderInput | SortOrder
+    website?: SortOrderInput | SortOrder
+    employeeRange?: SortOrderInput | SortOrder
+    revenueRange?: SortOrderInput | SortOrder
+    samRegistered?: SortOrder
+    ocRegistered?: SortOrder
+    isActive?: SortOrder
+    registrationDate?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    suggestedRoles?: CompanySuggestedRoleOrderByRelationAggregateInput
+  }
+
+  export type CompanyWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    uei?: string
+    AND?: CompanyWhereInput | CompanyWhereInput[]
+    OR?: CompanyWhereInput[]
+    NOT?: CompanyWhereInput | CompanyWhereInput[]
+    cageCode?: StringNullableFilter<"Company"> | string | null
+    legalName?: StringFilter<"Company"> | string
+    dbaName?: StringNullableFilter<"Company"> | string | null
+    ein?: StringNullableFilter<"Company"> | string | null
+    ocCompanyNumber?: StringNullableFilter<"Company"> | string | null
+    ocJurisdiction?: StringNullableFilter<"Company"> | string | null
+    incorporationDate?: DateTimeNullableFilter<"Company"> | Date | string | null
+    naicsCodes?: StringNullableListFilter<"Company">
+    naicsPrimary?: StringNullableFilter<"Company"> | string | null
+    naicsDescription?: StringNullableFilter<"Company"> | string | null
+    businessTypes?: StringNullableListFilter<"Company">
+    sbaDesignations?: StringNullableListFilter<"Company">
+    entityStructure?: StringNullableFilter<"Company"> | string | null
+    streetAddress?: StringNullableFilter<"Company"> | string | null
+    city?: StringNullableFilter<"Company"> | string | null
+    state?: StringNullableFilter<"Company"> | string | null
+    zipCode?: StringNullableFilter<"Company"> | string | null
+    contactName?: StringNullableFilter<"Company"> | string | null
+    contactEmail?: StringNullableFilter<"Company"> | string | null
+    website?: StringNullableFilter<"Company"> | string | null
+    employeeRange?: StringNullableFilter<"Company"> | string | null
+    revenueRange?: StringNullableFilter<"Company"> | string | null
+    samRegistered?: BoolFilter<"Company"> | boolean
+    ocRegistered?: BoolFilter<"Company"> | boolean
+    isActive?: BoolFilter<"Company"> | boolean
+    registrationDate?: DateTimeNullableFilter<"Company"> | Date | string | null
+    createdAt?: DateTimeFilter<"Company"> | Date | string
+    updatedAt?: DateTimeFilter<"Company"> | Date | string
+    suggestedRoles?: CompanySuggestedRoleListRelationFilter
+  }, "id" | "uei">
+
+  export type CompanyOrderByWithAggregationInput = {
+    id?: SortOrder
+    uei?: SortOrderInput | SortOrder
+    cageCode?: SortOrderInput | SortOrder
+    legalName?: SortOrder
+    dbaName?: SortOrderInput | SortOrder
+    ein?: SortOrderInput | SortOrder
+    ocCompanyNumber?: SortOrderInput | SortOrder
+    ocJurisdiction?: SortOrderInput | SortOrder
+    incorporationDate?: SortOrderInput | SortOrder
+    naicsCodes?: SortOrder
+    naicsPrimary?: SortOrderInput | SortOrder
+    naicsDescription?: SortOrderInput | SortOrder
+    businessTypes?: SortOrder
+    sbaDesignations?: SortOrder
+    entityStructure?: SortOrderInput | SortOrder
+    streetAddress?: SortOrderInput | SortOrder
+    city?: SortOrderInput | SortOrder
+    state?: SortOrderInput | SortOrder
+    zipCode?: SortOrderInput | SortOrder
+    contactName?: SortOrderInput | SortOrder
+    contactEmail?: SortOrderInput | SortOrder
+    website?: SortOrderInput | SortOrder
+    employeeRange?: SortOrderInput | SortOrder
+    revenueRange?: SortOrderInput | SortOrder
+    samRegistered?: SortOrder
+    ocRegistered?: SortOrder
+    isActive?: SortOrder
+    registrationDate?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: CompanyCountOrderByAggregateInput
+    _max?: CompanyMaxOrderByAggregateInput
+    _min?: CompanyMinOrderByAggregateInput
+  }
+
+  export type CompanyScalarWhereWithAggregatesInput = {
+    AND?: CompanyScalarWhereWithAggregatesInput | CompanyScalarWhereWithAggregatesInput[]
+    OR?: CompanyScalarWhereWithAggregatesInput[]
+    NOT?: CompanyScalarWhereWithAggregatesInput | CompanyScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Company"> | string
+    uei?: StringNullableWithAggregatesFilter<"Company"> | string | null
+    cageCode?: StringNullableWithAggregatesFilter<"Company"> | string | null
+    legalName?: StringWithAggregatesFilter<"Company"> | string
+    dbaName?: StringNullableWithAggregatesFilter<"Company"> | string | null
+    ein?: StringNullableWithAggregatesFilter<"Company"> | string | null
+    ocCompanyNumber?: StringNullableWithAggregatesFilter<"Company"> | string | null
+    ocJurisdiction?: StringNullableWithAggregatesFilter<"Company"> | string | null
+    incorporationDate?: DateTimeNullableWithAggregatesFilter<"Company"> | Date | string | null
+    naicsCodes?: StringNullableListFilter<"Company">
+    naicsPrimary?: StringNullableWithAggregatesFilter<"Company"> | string | null
+    naicsDescription?: StringNullableWithAggregatesFilter<"Company"> | string | null
+    businessTypes?: StringNullableListFilter<"Company">
+    sbaDesignations?: StringNullableListFilter<"Company">
+    entityStructure?: StringNullableWithAggregatesFilter<"Company"> | string | null
+    streetAddress?: StringNullableWithAggregatesFilter<"Company"> | string | null
+    city?: StringNullableWithAggregatesFilter<"Company"> | string | null
+    state?: StringNullableWithAggregatesFilter<"Company"> | string | null
+    zipCode?: StringNullableWithAggregatesFilter<"Company"> | string | null
+    contactName?: StringNullableWithAggregatesFilter<"Company"> | string | null
+    contactEmail?: StringNullableWithAggregatesFilter<"Company"> | string | null
+    website?: StringNullableWithAggregatesFilter<"Company"> | string | null
+    employeeRange?: StringNullableWithAggregatesFilter<"Company"> | string | null
+    revenueRange?: StringNullableWithAggregatesFilter<"Company"> | string | null
+    samRegistered?: BoolWithAggregatesFilter<"Company"> | boolean
+    ocRegistered?: BoolWithAggregatesFilter<"Company"> | boolean
+    isActive?: BoolWithAggregatesFilter<"Company"> | boolean
+    registrationDate?: DateTimeNullableWithAggregatesFilter<"Company"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Company"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Company"> | Date | string
+  }
+
+  export type CompanySuggestedRoleWhereInput = {
+    AND?: CompanySuggestedRoleWhereInput | CompanySuggestedRoleWhereInput[]
+    OR?: CompanySuggestedRoleWhereInput[]
+    NOT?: CompanySuggestedRoleWhereInput | CompanySuggestedRoleWhereInput[]
+    id?: StringFilter<"CompanySuggestedRole"> | string
+    companyId?: StringFilter<"CompanySuggestedRole"> | string
+    title?: StringFilter<"CompanySuggestedRole"> | string
+    description?: StringFilter<"CompanySuggestedRole"> | string
+    skills?: StringFilter<"CompanySuggestedRole"> | string
+    timeCommitment?: StringFilter<"CompanySuggestedRole"> | string
+    salaryMin?: IntNullableFilter<"CompanySuggestedRole"> | number | null
+    salaryMax?: IntNullableFilter<"CompanySuggestedRole"> | number | null
+    isAiAugmented?: BoolFilter<"CompanySuggestedRole"> | boolean
+    aiTools?: StringNullableFilter<"CompanySuggestedRole"> | string | null
+    source?: StringFilter<"CompanySuggestedRole"> | string
+    generatedAt?: DateTimeFilter<"CompanySuggestedRole"> | Date | string
+    expiresAt?: DateTimeFilter<"CompanySuggestedRole"> | Date | string
+    company?: XOR<CompanyScalarRelationFilter, CompanyWhereInput>
+  }
+
+  export type CompanySuggestedRoleOrderByWithRelationInput = {
+    id?: SortOrder
+    companyId?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    skills?: SortOrder
+    timeCommitment?: SortOrder
+    salaryMin?: SortOrderInput | SortOrder
+    salaryMax?: SortOrderInput | SortOrder
+    isAiAugmented?: SortOrder
+    aiTools?: SortOrderInput | SortOrder
+    source?: SortOrder
+    generatedAt?: SortOrder
+    expiresAt?: SortOrder
+    company?: CompanyOrderByWithRelationInput
+  }
+
+  export type CompanySuggestedRoleWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    companyId_title?: CompanySuggestedRoleCompanyIdTitleCompoundUniqueInput
+    AND?: CompanySuggestedRoleWhereInput | CompanySuggestedRoleWhereInput[]
+    OR?: CompanySuggestedRoleWhereInput[]
+    NOT?: CompanySuggestedRoleWhereInput | CompanySuggestedRoleWhereInput[]
+    companyId?: StringFilter<"CompanySuggestedRole"> | string
+    title?: StringFilter<"CompanySuggestedRole"> | string
+    description?: StringFilter<"CompanySuggestedRole"> | string
+    skills?: StringFilter<"CompanySuggestedRole"> | string
+    timeCommitment?: StringFilter<"CompanySuggestedRole"> | string
+    salaryMin?: IntNullableFilter<"CompanySuggestedRole"> | number | null
+    salaryMax?: IntNullableFilter<"CompanySuggestedRole"> | number | null
+    isAiAugmented?: BoolFilter<"CompanySuggestedRole"> | boolean
+    aiTools?: StringNullableFilter<"CompanySuggestedRole"> | string | null
+    source?: StringFilter<"CompanySuggestedRole"> | string
+    generatedAt?: DateTimeFilter<"CompanySuggestedRole"> | Date | string
+    expiresAt?: DateTimeFilter<"CompanySuggestedRole"> | Date | string
+    company?: XOR<CompanyScalarRelationFilter, CompanyWhereInput>
+  }, "id" | "companyId_title">
+
+  export type CompanySuggestedRoleOrderByWithAggregationInput = {
+    id?: SortOrder
+    companyId?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    skills?: SortOrder
+    timeCommitment?: SortOrder
+    salaryMin?: SortOrderInput | SortOrder
+    salaryMax?: SortOrderInput | SortOrder
+    isAiAugmented?: SortOrder
+    aiTools?: SortOrderInput | SortOrder
+    source?: SortOrder
+    generatedAt?: SortOrder
+    expiresAt?: SortOrder
+    _count?: CompanySuggestedRoleCountOrderByAggregateInput
+    _avg?: CompanySuggestedRoleAvgOrderByAggregateInput
+    _max?: CompanySuggestedRoleMaxOrderByAggregateInput
+    _min?: CompanySuggestedRoleMinOrderByAggregateInput
+    _sum?: CompanySuggestedRoleSumOrderByAggregateInput
+  }
+
+  export type CompanySuggestedRoleScalarWhereWithAggregatesInput = {
+    AND?: CompanySuggestedRoleScalarWhereWithAggregatesInput | CompanySuggestedRoleScalarWhereWithAggregatesInput[]
+    OR?: CompanySuggestedRoleScalarWhereWithAggregatesInput[]
+    NOT?: CompanySuggestedRoleScalarWhereWithAggregatesInput | CompanySuggestedRoleScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"CompanySuggestedRole"> | string
+    companyId?: StringWithAggregatesFilter<"CompanySuggestedRole"> | string
+    title?: StringWithAggregatesFilter<"CompanySuggestedRole"> | string
+    description?: StringWithAggregatesFilter<"CompanySuggestedRole"> | string
+    skills?: StringWithAggregatesFilter<"CompanySuggestedRole"> | string
+    timeCommitment?: StringWithAggregatesFilter<"CompanySuggestedRole"> | string
+    salaryMin?: IntNullableWithAggregatesFilter<"CompanySuggestedRole"> | number | null
+    salaryMax?: IntNullableWithAggregatesFilter<"CompanySuggestedRole"> | number | null
+    isAiAugmented?: BoolWithAggregatesFilter<"CompanySuggestedRole"> | boolean
+    aiTools?: StringNullableWithAggregatesFilter<"CompanySuggestedRole"> | string | null
+    source?: StringWithAggregatesFilter<"CompanySuggestedRole"> | string
+    generatedAt?: DateTimeWithAggregatesFilter<"CompanySuggestedRole"> | Date | string
+    expiresAt?: DateTimeWithAggregatesFilter<"CompanySuggestedRole"> | Date | string
   }
 
   export type IrsFilingWhereInput = {
@@ -60034,6 +63163,352 @@ export namespace Prisma {
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type CompanyCreateInput = {
+    id?: string
+    uei?: string | null
+    cageCode?: string | null
+    legalName: string
+    dbaName?: string | null
+    ein?: string | null
+    ocCompanyNumber?: string | null
+    ocJurisdiction?: string | null
+    incorporationDate?: Date | string | null
+    naicsCodes?: CompanyCreatenaicsCodesInput | string[]
+    naicsPrimary?: string | null
+    naicsDescription?: string | null
+    businessTypes?: CompanyCreatebusinessTypesInput | string[]
+    sbaDesignations?: CompanyCreatesbaDesignationsInput | string[]
+    entityStructure?: string | null
+    streetAddress?: string | null
+    city?: string | null
+    state?: string | null
+    zipCode?: string | null
+    contactName?: string | null
+    contactEmail?: string | null
+    website?: string | null
+    employeeRange?: string | null
+    revenueRange?: string | null
+    samRegistered?: boolean
+    ocRegistered?: boolean
+    isActive?: boolean
+    registrationDate?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    suggestedRoles?: CompanySuggestedRoleCreateNestedManyWithoutCompanyInput
+  }
+
+  export type CompanyUncheckedCreateInput = {
+    id?: string
+    uei?: string | null
+    cageCode?: string | null
+    legalName: string
+    dbaName?: string | null
+    ein?: string | null
+    ocCompanyNumber?: string | null
+    ocJurisdiction?: string | null
+    incorporationDate?: Date | string | null
+    naicsCodes?: CompanyCreatenaicsCodesInput | string[]
+    naicsPrimary?: string | null
+    naicsDescription?: string | null
+    businessTypes?: CompanyCreatebusinessTypesInput | string[]
+    sbaDesignations?: CompanyCreatesbaDesignationsInput | string[]
+    entityStructure?: string | null
+    streetAddress?: string | null
+    city?: string | null
+    state?: string | null
+    zipCode?: string | null
+    contactName?: string | null
+    contactEmail?: string | null
+    website?: string | null
+    employeeRange?: string | null
+    revenueRange?: string | null
+    samRegistered?: boolean
+    ocRegistered?: boolean
+    isActive?: boolean
+    registrationDate?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    suggestedRoles?: CompanySuggestedRoleUncheckedCreateNestedManyWithoutCompanyInput
+  }
+
+  export type CompanyUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    uei?: NullableStringFieldUpdateOperationsInput | string | null
+    cageCode?: NullableStringFieldUpdateOperationsInput | string | null
+    legalName?: StringFieldUpdateOperationsInput | string
+    dbaName?: NullableStringFieldUpdateOperationsInput | string | null
+    ein?: NullableStringFieldUpdateOperationsInput | string | null
+    ocCompanyNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    ocJurisdiction?: NullableStringFieldUpdateOperationsInput | string | null
+    incorporationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    naicsCodes?: CompanyUpdatenaicsCodesInput | string[]
+    naicsPrimary?: NullableStringFieldUpdateOperationsInput | string | null
+    naicsDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    businessTypes?: CompanyUpdatebusinessTypesInput | string[]
+    sbaDesignations?: CompanyUpdatesbaDesignationsInput | string[]
+    entityStructure?: NullableStringFieldUpdateOperationsInput | string | null
+    streetAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
+    contactName?: NullableStringFieldUpdateOperationsInput | string | null
+    contactEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    employeeRange?: NullableStringFieldUpdateOperationsInput | string | null
+    revenueRange?: NullableStringFieldUpdateOperationsInput | string | null
+    samRegistered?: BoolFieldUpdateOperationsInput | boolean
+    ocRegistered?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    registrationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    suggestedRoles?: CompanySuggestedRoleUpdateManyWithoutCompanyNestedInput
+  }
+
+  export type CompanyUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    uei?: NullableStringFieldUpdateOperationsInput | string | null
+    cageCode?: NullableStringFieldUpdateOperationsInput | string | null
+    legalName?: StringFieldUpdateOperationsInput | string
+    dbaName?: NullableStringFieldUpdateOperationsInput | string | null
+    ein?: NullableStringFieldUpdateOperationsInput | string | null
+    ocCompanyNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    ocJurisdiction?: NullableStringFieldUpdateOperationsInput | string | null
+    incorporationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    naicsCodes?: CompanyUpdatenaicsCodesInput | string[]
+    naicsPrimary?: NullableStringFieldUpdateOperationsInput | string | null
+    naicsDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    businessTypes?: CompanyUpdatebusinessTypesInput | string[]
+    sbaDesignations?: CompanyUpdatesbaDesignationsInput | string[]
+    entityStructure?: NullableStringFieldUpdateOperationsInput | string | null
+    streetAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
+    contactName?: NullableStringFieldUpdateOperationsInput | string | null
+    contactEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    employeeRange?: NullableStringFieldUpdateOperationsInput | string | null
+    revenueRange?: NullableStringFieldUpdateOperationsInput | string | null
+    samRegistered?: BoolFieldUpdateOperationsInput | boolean
+    ocRegistered?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    registrationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    suggestedRoles?: CompanySuggestedRoleUncheckedUpdateManyWithoutCompanyNestedInput
+  }
+
+  export type CompanyCreateManyInput = {
+    id?: string
+    uei?: string | null
+    cageCode?: string | null
+    legalName: string
+    dbaName?: string | null
+    ein?: string | null
+    ocCompanyNumber?: string | null
+    ocJurisdiction?: string | null
+    incorporationDate?: Date | string | null
+    naicsCodes?: CompanyCreatenaicsCodesInput | string[]
+    naicsPrimary?: string | null
+    naicsDescription?: string | null
+    businessTypes?: CompanyCreatebusinessTypesInput | string[]
+    sbaDesignations?: CompanyCreatesbaDesignationsInput | string[]
+    entityStructure?: string | null
+    streetAddress?: string | null
+    city?: string | null
+    state?: string | null
+    zipCode?: string | null
+    contactName?: string | null
+    contactEmail?: string | null
+    website?: string | null
+    employeeRange?: string | null
+    revenueRange?: string | null
+    samRegistered?: boolean
+    ocRegistered?: boolean
+    isActive?: boolean
+    registrationDate?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CompanyUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    uei?: NullableStringFieldUpdateOperationsInput | string | null
+    cageCode?: NullableStringFieldUpdateOperationsInput | string | null
+    legalName?: StringFieldUpdateOperationsInput | string
+    dbaName?: NullableStringFieldUpdateOperationsInput | string | null
+    ein?: NullableStringFieldUpdateOperationsInput | string | null
+    ocCompanyNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    ocJurisdiction?: NullableStringFieldUpdateOperationsInput | string | null
+    incorporationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    naicsCodes?: CompanyUpdatenaicsCodesInput | string[]
+    naicsPrimary?: NullableStringFieldUpdateOperationsInput | string | null
+    naicsDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    businessTypes?: CompanyUpdatebusinessTypesInput | string[]
+    sbaDesignations?: CompanyUpdatesbaDesignationsInput | string[]
+    entityStructure?: NullableStringFieldUpdateOperationsInput | string | null
+    streetAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
+    contactName?: NullableStringFieldUpdateOperationsInput | string | null
+    contactEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    employeeRange?: NullableStringFieldUpdateOperationsInput | string | null
+    revenueRange?: NullableStringFieldUpdateOperationsInput | string | null
+    samRegistered?: BoolFieldUpdateOperationsInput | boolean
+    ocRegistered?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    registrationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CompanyUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    uei?: NullableStringFieldUpdateOperationsInput | string | null
+    cageCode?: NullableStringFieldUpdateOperationsInput | string | null
+    legalName?: StringFieldUpdateOperationsInput | string
+    dbaName?: NullableStringFieldUpdateOperationsInput | string | null
+    ein?: NullableStringFieldUpdateOperationsInput | string | null
+    ocCompanyNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    ocJurisdiction?: NullableStringFieldUpdateOperationsInput | string | null
+    incorporationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    naicsCodes?: CompanyUpdatenaicsCodesInput | string[]
+    naicsPrimary?: NullableStringFieldUpdateOperationsInput | string | null
+    naicsDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    businessTypes?: CompanyUpdatebusinessTypesInput | string[]
+    sbaDesignations?: CompanyUpdatesbaDesignationsInput | string[]
+    entityStructure?: NullableStringFieldUpdateOperationsInput | string | null
+    streetAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
+    contactName?: NullableStringFieldUpdateOperationsInput | string | null
+    contactEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    employeeRange?: NullableStringFieldUpdateOperationsInput | string | null
+    revenueRange?: NullableStringFieldUpdateOperationsInput | string | null
+    samRegistered?: BoolFieldUpdateOperationsInput | boolean
+    ocRegistered?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    registrationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CompanySuggestedRoleCreateInput = {
+    id?: string
+    title: string
+    description: string
+    skills: string
+    timeCommitment?: string
+    salaryMin?: number | null
+    salaryMax?: number | null
+    isAiAugmented?: boolean
+    aiTools?: string | null
+    source?: string
+    generatedAt?: Date | string
+    expiresAt: Date | string
+    company: CompanyCreateNestedOneWithoutSuggestedRolesInput
+  }
+
+  export type CompanySuggestedRoleUncheckedCreateInput = {
+    id?: string
+    companyId: string
+    title: string
+    description: string
+    skills: string
+    timeCommitment?: string
+    salaryMin?: number | null
+    salaryMax?: number | null
+    isAiAugmented?: boolean
+    aiTools?: string | null
+    source?: string
+    generatedAt?: Date | string
+    expiresAt: Date | string
+  }
+
+  export type CompanySuggestedRoleUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    skills?: StringFieldUpdateOperationsInput | string
+    timeCommitment?: StringFieldUpdateOperationsInput | string
+    salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
+    salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
+    isAiAugmented?: BoolFieldUpdateOperationsInput | boolean
+    aiTools?: NullableStringFieldUpdateOperationsInput | string | null
+    source?: StringFieldUpdateOperationsInput | string
+    generatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    company?: CompanyUpdateOneRequiredWithoutSuggestedRolesNestedInput
+  }
+
+  export type CompanySuggestedRoleUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    companyId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    skills?: StringFieldUpdateOperationsInput | string
+    timeCommitment?: StringFieldUpdateOperationsInput | string
+    salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
+    salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
+    isAiAugmented?: BoolFieldUpdateOperationsInput | boolean
+    aiTools?: NullableStringFieldUpdateOperationsInput | string | null
+    source?: StringFieldUpdateOperationsInput | string
+    generatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CompanySuggestedRoleCreateManyInput = {
+    id?: string
+    companyId: string
+    title: string
+    description: string
+    skills: string
+    timeCommitment?: string
+    salaryMin?: number | null
+    salaryMax?: number | null
+    isAiAugmented?: boolean
+    aiTools?: string | null
+    source?: string
+    generatedAt?: Date | string
+    expiresAt: Date | string
+  }
+
+  export type CompanySuggestedRoleUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    skills?: StringFieldUpdateOperationsInput | string
+    timeCommitment?: StringFieldUpdateOperationsInput | string
+    salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
+    salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
+    isAiAugmented?: BoolFieldUpdateOperationsInput | boolean
+    aiTools?: NullableStringFieldUpdateOperationsInput | string | null
+    source?: StringFieldUpdateOperationsInput | string
+    generatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CompanySuggestedRoleUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    companyId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    skills?: StringFieldUpdateOperationsInput | string
+    timeCommitment?: StringFieldUpdateOperationsInput | string
+    salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
+    salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
+    isAiAugmented?: BoolFieldUpdateOperationsInput | boolean
+    aiTools?: NullableStringFieldUpdateOperationsInput | string | null
+    source?: StringFieldUpdateOperationsInput | string
+    generatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type IrsFilingCreateInput = {
     id?: string
     taxYear: number
@@ -62926,6 +66401,177 @@ export namespace Prisma {
   }
 
   export type SuggestedRoleSumOrderByAggregateInput = {
+    salaryMin?: SortOrder
+    salaryMax?: SortOrder
+  }
+
+  export type CompanySuggestedRoleListRelationFilter = {
+    every?: CompanySuggestedRoleWhereInput
+    some?: CompanySuggestedRoleWhereInput
+    none?: CompanySuggestedRoleWhereInput
+  }
+
+  export type CompanySuggestedRoleOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type CompanyCountOrderByAggregateInput = {
+    id?: SortOrder
+    uei?: SortOrder
+    cageCode?: SortOrder
+    legalName?: SortOrder
+    dbaName?: SortOrder
+    ein?: SortOrder
+    ocCompanyNumber?: SortOrder
+    ocJurisdiction?: SortOrder
+    incorporationDate?: SortOrder
+    naicsCodes?: SortOrder
+    naicsPrimary?: SortOrder
+    naicsDescription?: SortOrder
+    businessTypes?: SortOrder
+    sbaDesignations?: SortOrder
+    entityStructure?: SortOrder
+    streetAddress?: SortOrder
+    city?: SortOrder
+    state?: SortOrder
+    zipCode?: SortOrder
+    contactName?: SortOrder
+    contactEmail?: SortOrder
+    website?: SortOrder
+    employeeRange?: SortOrder
+    revenueRange?: SortOrder
+    samRegistered?: SortOrder
+    ocRegistered?: SortOrder
+    isActive?: SortOrder
+    registrationDate?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CompanyMaxOrderByAggregateInput = {
+    id?: SortOrder
+    uei?: SortOrder
+    cageCode?: SortOrder
+    legalName?: SortOrder
+    dbaName?: SortOrder
+    ein?: SortOrder
+    ocCompanyNumber?: SortOrder
+    ocJurisdiction?: SortOrder
+    incorporationDate?: SortOrder
+    naicsPrimary?: SortOrder
+    naicsDescription?: SortOrder
+    entityStructure?: SortOrder
+    streetAddress?: SortOrder
+    city?: SortOrder
+    state?: SortOrder
+    zipCode?: SortOrder
+    contactName?: SortOrder
+    contactEmail?: SortOrder
+    website?: SortOrder
+    employeeRange?: SortOrder
+    revenueRange?: SortOrder
+    samRegistered?: SortOrder
+    ocRegistered?: SortOrder
+    isActive?: SortOrder
+    registrationDate?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CompanyMinOrderByAggregateInput = {
+    id?: SortOrder
+    uei?: SortOrder
+    cageCode?: SortOrder
+    legalName?: SortOrder
+    dbaName?: SortOrder
+    ein?: SortOrder
+    ocCompanyNumber?: SortOrder
+    ocJurisdiction?: SortOrder
+    incorporationDate?: SortOrder
+    naicsPrimary?: SortOrder
+    naicsDescription?: SortOrder
+    entityStructure?: SortOrder
+    streetAddress?: SortOrder
+    city?: SortOrder
+    state?: SortOrder
+    zipCode?: SortOrder
+    contactName?: SortOrder
+    contactEmail?: SortOrder
+    website?: SortOrder
+    employeeRange?: SortOrder
+    revenueRange?: SortOrder
+    samRegistered?: SortOrder
+    ocRegistered?: SortOrder
+    isActive?: SortOrder
+    registrationDate?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CompanyScalarRelationFilter = {
+    is?: CompanyWhereInput
+    isNot?: CompanyWhereInput
+  }
+
+  export type CompanySuggestedRoleCompanyIdTitleCompoundUniqueInput = {
+    companyId: string
+    title: string
+  }
+
+  export type CompanySuggestedRoleCountOrderByAggregateInput = {
+    id?: SortOrder
+    companyId?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    skills?: SortOrder
+    timeCommitment?: SortOrder
+    salaryMin?: SortOrder
+    salaryMax?: SortOrder
+    isAiAugmented?: SortOrder
+    aiTools?: SortOrder
+    source?: SortOrder
+    generatedAt?: SortOrder
+    expiresAt?: SortOrder
+  }
+
+  export type CompanySuggestedRoleAvgOrderByAggregateInput = {
+    salaryMin?: SortOrder
+    salaryMax?: SortOrder
+  }
+
+  export type CompanySuggestedRoleMaxOrderByAggregateInput = {
+    id?: SortOrder
+    companyId?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    skills?: SortOrder
+    timeCommitment?: SortOrder
+    salaryMin?: SortOrder
+    salaryMax?: SortOrder
+    isAiAugmented?: SortOrder
+    aiTools?: SortOrder
+    source?: SortOrder
+    generatedAt?: SortOrder
+    expiresAt?: SortOrder
+  }
+
+  export type CompanySuggestedRoleMinOrderByAggregateInput = {
+    id?: SortOrder
+    companyId?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    skills?: SortOrder
+    timeCommitment?: SortOrder
+    salaryMin?: SortOrder
+    salaryMax?: SortOrder
+    isAiAugmented?: SortOrder
+    aiTools?: SortOrder
+    source?: SortOrder
+    generatedAt?: SortOrder
+    expiresAt?: SortOrder
+  }
+
+  export type CompanySuggestedRoleSumOrderByAggregateInput = {
     salaryMin?: SortOrder
     salaryMax?: SortOrder
   }
@@ -65925,6 +69571,89 @@ export namespace Prisma {
     update?: IrsFilingUpdateWithWhereUniqueWithoutOrganizationInput | IrsFilingUpdateWithWhereUniqueWithoutOrganizationInput[]
     updateMany?: IrsFilingUpdateManyWithWhereWithoutOrganizationInput | IrsFilingUpdateManyWithWhereWithoutOrganizationInput[]
     deleteMany?: IrsFilingScalarWhereInput | IrsFilingScalarWhereInput[]
+  }
+
+  export type CompanyCreatenaicsCodesInput = {
+    set: string[]
+  }
+
+  export type CompanyCreatebusinessTypesInput = {
+    set: string[]
+  }
+
+  export type CompanyCreatesbaDesignationsInput = {
+    set: string[]
+  }
+
+  export type CompanySuggestedRoleCreateNestedManyWithoutCompanyInput = {
+    create?: XOR<CompanySuggestedRoleCreateWithoutCompanyInput, CompanySuggestedRoleUncheckedCreateWithoutCompanyInput> | CompanySuggestedRoleCreateWithoutCompanyInput[] | CompanySuggestedRoleUncheckedCreateWithoutCompanyInput[]
+    connectOrCreate?: CompanySuggestedRoleCreateOrConnectWithoutCompanyInput | CompanySuggestedRoleCreateOrConnectWithoutCompanyInput[]
+    createMany?: CompanySuggestedRoleCreateManyCompanyInputEnvelope
+    connect?: CompanySuggestedRoleWhereUniqueInput | CompanySuggestedRoleWhereUniqueInput[]
+  }
+
+  export type CompanySuggestedRoleUncheckedCreateNestedManyWithoutCompanyInput = {
+    create?: XOR<CompanySuggestedRoleCreateWithoutCompanyInput, CompanySuggestedRoleUncheckedCreateWithoutCompanyInput> | CompanySuggestedRoleCreateWithoutCompanyInput[] | CompanySuggestedRoleUncheckedCreateWithoutCompanyInput[]
+    connectOrCreate?: CompanySuggestedRoleCreateOrConnectWithoutCompanyInput | CompanySuggestedRoleCreateOrConnectWithoutCompanyInput[]
+    createMany?: CompanySuggestedRoleCreateManyCompanyInputEnvelope
+    connect?: CompanySuggestedRoleWhereUniqueInput | CompanySuggestedRoleWhereUniqueInput[]
+  }
+
+  export type CompanyUpdatenaicsCodesInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type CompanyUpdatebusinessTypesInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type CompanyUpdatesbaDesignationsInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type CompanySuggestedRoleUpdateManyWithoutCompanyNestedInput = {
+    create?: XOR<CompanySuggestedRoleCreateWithoutCompanyInput, CompanySuggestedRoleUncheckedCreateWithoutCompanyInput> | CompanySuggestedRoleCreateWithoutCompanyInput[] | CompanySuggestedRoleUncheckedCreateWithoutCompanyInput[]
+    connectOrCreate?: CompanySuggestedRoleCreateOrConnectWithoutCompanyInput | CompanySuggestedRoleCreateOrConnectWithoutCompanyInput[]
+    upsert?: CompanySuggestedRoleUpsertWithWhereUniqueWithoutCompanyInput | CompanySuggestedRoleUpsertWithWhereUniqueWithoutCompanyInput[]
+    createMany?: CompanySuggestedRoleCreateManyCompanyInputEnvelope
+    set?: CompanySuggestedRoleWhereUniqueInput | CompanySuggestedRoleWhereUniqueInput[]
+    disconnect?: CompanySuggestedRoleWhereUniqueInput | CompanySuggestedRoleWhereUniqueInput[]
+    delete?: CompanySuggestedRoleWhereUniqueInput | CompanySuggestedRoleWhereUniqueInput[]
+    connect?: CompanySuggestedRoleWhereUniqueInput | CompanySuggestedRoleWhereUniqueInput[]
+    update?: CompanySuggestedRoleUpdateWithWhereUniqueWithoutCompanyInput | CompanySuggestedRoleUpdateWithWhereUniqueWithoutCompanyInput[]
+    updateMany?: CompanySuggestedRoleUpdateManyWithWhereWithoutCompanyInput | CompanySuggestedRoleUpdateManyWithWhereWithoutCompanyInput[]
+    deleteMany?: CompanySuggestedRoleScalarWhereInput | CompanySuggestedRoleScalarWhereInput[]
+  }
+
+  export type CompanySuggestedRoleUncheckedUpdateManyWithoutCompanyNestedInput = {
+    create?: XOR<CompanySuggestedRoleCreateWithoutCompanyInput, CompanySuggestedRoleUncheckedCreateWithoutCompanyInput> | CompanySuggestedRoleCreateWithoutCompanyInput[] | CompanySuggestedRoleUncheckedCreateWithoutCompanyInput[]
+    connectOrCreate?: CompanySuggestedRoleCreateOrConnectWithoutCompanyInput | CompanySuggestedRoleCreateOrConnectWithoutCompanyInput[]
+    upsert?: CompanySuggestedRoleUpsertWithWhereUniqueWithoutCompanyInput | CompanySuggestedRoleUpsertWithWhereUniqueWithoutCompanyInput[]
+    createMany?: CompanySuggestedRoleCreateManyCompanyInputEnvelope
+    set?: CompanySuggestedRoleWhereUniqueInput | CompanySuggestedRoleWhereUniqueInput[]
+    disconnect?: CompanySuggestedRoleWhereUniqueInput | CompanySuggestedRoleWhereUniqueInput[]
+    delete?: CompanySuggestedRoleWhereUniqueInput | CompanySuggestedRoleWhereUniqueInput[]
+    connect?: CompanySuggestedRoleWhereUniqueInput | CompanySuggestedRoleWhereUniqueInput[]
+    update?: CompanySuggestedRoleUpdateWithWhereUniqueWithoutCompanyInput | CompanySuggestedRoleUpdateWithWhereUniqueWithoutCompanyInput[]
+    updateMany?: CompanySuggestedRoleUpdateManyWithWhereWithoutCompanyInput | CompanySuggestedRoleUpdateManyWithWhereWithoutCompanyInput[]
+    deleteMany?: CompanySuggestedRoleScalarWhereInput | CompanySuggestedRoleScalarWhereInput[]
+  }
+
+  export type CompanyCreateNestedOneWithoutSuggestedRolesInput = {
+    create?: XOR<CompanyCreateWithoutSuggestedRolesInput, CompanyUncheckedCreateWithoutSuggestedRolesInput>
+    connectOrCreate?: CompanyCreateOrConnectWithoutSuggestedRolesInput
+    connect?: CompanyWhereUniqueInput
+  }
+
+  export type CompanyUpdateOneRequiredWithoutSuggestedRolesNestedInput = {
+    create?: XOR<CompanyCreateWithoutSuggestedRolesInput, CompanyUncheckedCreateWithoutSuggestedRolesInput>
+    connectOrCreate?: CompanyCreateOrConnectWithoutSuggestedRolesInput
+    upsert?: CompanyUpsertWithoutSuggestedRolesInput
+    connect?: CompanyWhereUniqueInput
+    update?: XOR<XOR<CompanyUpdateToOneWithWhereWithoutSuggestedRolesInput, CompanyUpdateWithoutSuggestedRolesInput>, CompanyUncheckedUpdateWithoutSuggestedRolesInput>
   }
 
   export type IrsOrganizationCreateNestedOneWithoutFilingsInput = {
@@ -76958,6 +80687,229 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"IrsFiling"> | Date | string
   }
 
+  export type CompanySuggestedRoleCreateWithoutCompanyInput = {
+    id?: string
+    title: string
+    description: string
+    skills: string
+    timeCommitment?: string
+    salaryMin?: number | null
+    salaryMax?: number | null
+    isAiAugmented?: boolean
+    aiTools?: string | null
+    source?: string
+    generatedAt?: Date | string
+    expiresAt: Date | string
+  }
+
+  export type CompanySuggestedRoleUncheckedCreateWithoutCompanyInput = {
+    id?: string
+    title: string
+    description: string
+    skills: string
+    timeCommitment?: string
+    salaryMin?: number | null
+    salaryMax?: number | null
+    isAiAugmented?: boolean
+    aiTools?: string | null
+    source?: string
+    generatedAt?: Date | string
+    expiresAt: Date | string
+  }
+
+  export type CompanySuggestedRoleCreateOrConnectWithoutCompanyInput = {
+    where: CompanySuggestedRoleWhereUniqueInput
+    create: XOR<CompanySuggestedRoleCreateWithoutCompanyInput, CompanySuggestedRoleUncheckedCreateWithoutCompanyInput>
+  }
+
+  export type CompanySuggestedRoleCreateManyCompanyInputEnvelope = {
+    data: CompanySuggestedRoleCreateManyCompanyInput | CompanySuggestedRoleCreateManyCompanyInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CompanySuggestedRoleUpsertWithWhereUniqueWithoutCompanyInput = {
+    where: CompanySuggestedRoleWhereUniqueInput
+    update: XOR<CompanySuggestedRoleUpdateWithoutCompanyInput, CompanySuggestedRoleUncheckedUpdateWithoutCompanyInput>
+    create: XOR<CompanySuggestedRoleCreateWithoutCompanyInput, CompanySuggestedRoleUncheckedCreateWithoutCompanyInput>
+  }
+
+  export type CompanySuggestedRoleUpdateWithWhereUniqueWithoutCompanyInput = {
+    where: CompanySuggestedRoleWhereUniqueInput
+    data: XOR<CompanySuggestedRoleUpdateWithoutCompanyInput, CompanySuggestedRoleUncheckedUpdateWithoutCompanyInput>
+  }
+
+  export type CompanySuggestedRoleUpdateManyWithWhereWithoutCompanyInput = {
+    where: CompanySuggestedRoleScalarWhereInput
+    data: XOR<CompanySuggestedRoleUpdateManyMutationInput, CompanySuggestedRoleUncheckedUpdateManyWithoutCompanyInput>
+  }
+
+  export type CompanySuggestedRoleScalarWhereInput = {
+    AND?: CompanySuggestedRoleScalarWhereInput | CompanySuggestedRoleScalarWhereInput[]
+    OR?: CompanySuggestedRoleScalarWhereInput[]
+    NOT?: CompanySuggestedRoleScalarWhereInput | CompanySuggestedRoleScalarWhereInput[]
+    id?: StringFilter<"CompanySuggestedRole"> | string
+    companyId?: StringFilter<"CompanySuggestedRole"> | string
+    title?: StringFilter<"CompanySuggestedRole"> | string
+    description?: StringFilter<"CompanySuggestedRole"> | string
+    skills?: StringFilter<"CompanySuggestedRole"> | string
+    timeCommitment?: StringFilter<"CompanySuggestedRole"> | string
+    salaryMin?: IntNullableFilter<"CompanySuggestedRole"> | number | null
+    salaryMax?: IntNullableFilter<"CompanySuggestedRole"> | number | null
+    isAiAugmented?: BoolFilter<"CompanySuggestedRole"> | boolean
+    aiTools?: StringNullableFilter<"CompanySuggestedRole"> | string | null
+    source?: StringFilter<"CompanySuggestedRole"> | string
+    generatedAt?: DateTimeFilter<"CompanySuggestedRole"> | Date | string
+    expiresAt?: DateTimeFilter<"CompanySuggestedRole"> | Date | string
+  }
+
+  export type CompanyCreateWithoutSuggestedRolesInput = {
+    id?: string
+    uei?: string | null
+    cageCode?: string | null
+    legalName: string
+    dbaName?: string | null
+    ein?: string | null
+    ocCompanyNumber?: string | null
+    ocJurisdiction?: string | null
+    incorporationDate?: Date | string | null
+    naicsCodes?: CompanyCreatenaicsCodesInput | string[]
+    naicsPrimary?: string | null
+    naicsDescription?: string | null
+    businessTypes?: CompanyCreatebusinessTypesInput | string[]
+    sbaDesignations?: CompanyCreatesbaDesignationsInput | string[]
+    entityStructure?: string | null
+    streetAddress?: string | null
+    city?: string | null
+    state?: string | null
+    zipCode?: string | null
+    contactName?: string | null
+    contactEmail?: string | null
+    website?: string | null
+    employeeRange?: string | null
+    revenueRange?: string | null
+    samRegistered?: boolean
+    ocRegistered?: boolean
+    isActive?: boolean
+    registrationDate?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CompanyUncheckedCreateWithoutSuggestedRolesInput = {
+    id?: string
+    uei?: string | null
+    cageCode?: string | null
+    legalName: string
+    dbaName?: string | null
+    ein?: string | null
+    ocCompanyNumber?: string | null
+    ocJurisdiction?: string | null
+    incorporationDate?: Date | string | null
+    naicsCodes?: CompanyCreatenaicsCodesInput | string[]
+    naicsPrimary?: string | null
+    naicsDescription?: string | null
+    businessTypes?: CompanyCreatebusinessTypesInput | string[]
+    sbaDesignations?: CompanyCreatesbaDesignationsInput | string[]
+    entityStructure?: string | null
+    streetAddress?: string | null
+    city?: string | null
+    state?: string | null
+    zipCode?: string | null
+    contactName?: string | null
+    contactEmail?: string | null
+    website?: string | null
+    employeeRange?: string | null
+    revenueRange?: string | null
+    samRegistered?: boolean
+    ocRegistered?: boolean
+    isActive?: boolean
+    registrationDate?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CompanyCreateOrConnectWithoutSuggestedRolesInput = {
+    where: CompanyWhereUniqueInput
+    create: XOR<CompanyCreateWithoutSuggestedRolesInput, CompanyUncheckedCreateWithoutSuggestedRolesInput>
+  }
+
+  export type CompanyUpsertWithoutSuggestedRolesInput = {
+    update: XOR<CompanyUpdateWithoutSuggestedRolesInput, CompanyUncheckedUpdateWithoutSuggestedRolesInput>
+    create: XOR<CompanyCreateWithoutSuggestedRolesInput, CompanyUncheckedCreateWithoutSuggestedRolesInput>
+    where?: CompanyWhereInput
+  }
+
+  export type CompanyUpdateToOneWithWhereWithoutSuggestedRolesInput = {
+    where?: CompanyWhereInput
+    data: XOR<CompanyUpdateWithoutSuggestedRolesInput, CompanyUncheckedUpdateWithoutSuggestedRolesInput>
+  }
+
+  export type CompanyUpdateWithoutSuggestedRolesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    uei?: NullableStringFieldUpdateOperationsInput | string | null
+    cageCode?: NullableStringFieldUpdateOperationsInput | string | null
+    legalName?: StringFieldUpdateOperationsInput | string
+    dbaName?: NullableStringFieldUpdateOperationsInput | string | null
+    ein?: NullableStringFieldUpdateOperationsInput | string | null
+    ocCompanyNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    ocJurisdiction?: NullableStringFieldUpdateOperationsInput | string | null
+    incorporationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    naicsCodes?: CompanyUpdatenaicsCodesInput | string[]
+    naicsPrimary?: NullableStringFieldUpdateOperationsInput | string | null
+    naicsDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    businessTypes?: CompanyUpdatebusinessTypesInput | string[]
+    sbaDesignations?: CompanyUpdatesbaDesignationsInput | string[]
+    entityStructure?: NullableStringFieldUpdateOperationsInput | string | null
+    streetAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
+    contactName?: NullableStringFieldUpdateOperationsInput | string | null
+    contactEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    employeeRange?: NullableStringFieldUpdateOperationsInput | string | null
+    revenueRange?: NullableStringFieldUpdateOperationsInput | string | null
+    samRegistered?: BoolFieldUpdateOperationsInput | boolean
+    ocRegistered?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    registrationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CompanyUncheckedUpdateWithoutSuggestedRolesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    uei?: NullableStringFieldUpdateOperationsInput | string | null
+    cageCode?: NullableStringFieldUpdateOperationsInput | string | null
+    legalName?: StringFieldUpdateOperationsInput | string
+    dbaName?: NullableStringFieldUpdateOperationsInput | string | null
+    ein?: NullableStringFieldUpdateOperationsInput | string | null
+    ocCompanyNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    ocJurisdiction?: NullableStringFieldUpdateOperationsInput | string | null
+    incorporationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    naicsCodes?: CompanyUpdatenaicsCodesInput | string[]
+    naicsPrimary?: NullableStringFieldUpdateOperationsInput | string | null
+    naicsDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    businessTypes?: CompanyUpdatebusinessTypesInput | string[]
+    sbaDesignations?: CompanyUpdatesbaDesignationsInput | string[]
+    entityStructure?: NullableStringFieldUpdateOperationsInput | string | null
+    streetAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
+    contactName?: NullableStringFieldUpdateOperationsInput | string | null
+    contactEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    employeeRange?: NullableStringFieldUpdateOperationsInput | string | null
+    revenueRange?: NullableStringFieldUpdateOperationsInput | string | null
+    samRegistered?: BoolFieldUpdateOperationsInput | boolean
+    ocRegistered?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    registrationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type IrsOrganizationCreateWithoutFilingsInput = {
     id?: string
     ein: string
@@ -79134,6 +83086,66 @@ export namespace Prisma {
     pdfUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CompanySuggestedRoleCreateManyCompanyInput = {
+    id?: string
+    title: string
+    description: string
+    skills: string
+    timeCommitment?: string
+    salaryMin?: number | null
+    salaryMax?: number | null
+    isAiAugmented?: boolean
+    aiTools?: string | null
+    source?: string
+    generatedAt?: Date | string
+    expiresAt: Date | string
+  }
+
+  export type CompanySuggestedRoleUpdateWithoutCompanyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    skills?: StringFieldUpdateOperationsInput | string
+    timeCommitment?: StringFieldUpdateOperationsInput | string
+    salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
+    salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
+    isAiAugmented?: BoolFieldUpdateOperationsInput | boolean
+    aiTools?: NullableStringFieldUpdateOperationsInput | string | null
+    source?: StringFieldUpdateOperationsInput | string
+    generatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CompanySuggestedRoleUncheckedUpdateWithoutCompanyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    skills?: StringFieldUpdateOperationsInput | string
+    timeCommitment?: StringFieldUpdateOperationsInput | string
+    salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
+    salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
+    isAiAugmented?: BoolFieldUpdateOperationsInput | boolean
+    aiTools?: NullableStringFieldUpdateOperationsInput | string | null
+    source?: StringFieldUpdateOperationsInput | string
+    generatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CompanySuggestedRoleUncheckedUpdateManyWithoutCompanyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    skills?: StringFieldUpdateOperationsInput | string
+    timeCommitment?: StringFieldUpdateOperationsInput | string
+    salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
+    salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
+    isAiAugmented?: BoolFieldUpdateOperationsInput | boolean
+    aiTools?: NullableStringFieldUpdateOperationsInput | string | null
+    source?: StringFieldUpdateOperationsInput | string
+    generatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

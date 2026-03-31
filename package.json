@@ -10,7 +10,9 @@
     "seed:large": "tsx prisma/seed-large.ts",
     "seed:skills": "tsx prisma/seed-skills.ts",
     "import:irs-bmf": "tsx prisma/import-irs-bmf.ts",
-    "import:irs-filings": "cross-env NODE_OPTIONS=--max-old-space-size=4096 tsx prisma/import-irs-filings.ts"
+    "import:irs-filings": "cross-env NODE_OPTIONS=--max-old-space-size=4096 tsx prisma/import-irs-filings.ts",
+    "import:sam-companies": "tsx prisma/import-sam-companies.ts",
+    "sync:oc-companies": "tsx prisma/sync-oc-companies.ts"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.11.1",
