@@ -34,6 +34,11 @@ const NAV_ITEMS = [
     tip: "Browse paid and volunteer roles at verified NGOs — build real career experience, recorded on your credential",
   },
   {
+    href: "/career-compass",
+    label: "Career Compass",
+    tip: "Use your GiveLedger credential at for-profit companies — 60+ AI-augmented roles across 12 high-growth US sectors",
+  },
+  {
     href: "/pricing",
     label: "Pricing",
     tip: "Free to explore. Paid plans unlock role applications and priority listing",

@@ -5,8 +5,9 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
-  Award, CheckCircle2, Briefcase, Users, Heart, Copy, Check, Linkedin, Download,
+  Award, CheckCircle2, Briefcase, Users, Heart, Copy, Check, Linkedin, Download, Compass,
 } from "lucide-react";
+import Link from "next/link";
 
 export type CredentialData = {
   userId: string;
@@ -330,6 +331,31 @@ export default function CredentialClient({ credential: c, isOwner, appUrl }: Pro
           </CardContent>
         </Card>
       )}
+
+      {/* Career Compass CTA */}
+      <div className="mt-6 rounded-2xl bg-gradient-to-r from-violet-950 to-indigo-950 border border-violet-800/40 p-6">
+        <div className="flex items-start gap-4">
+          <div className="w-10 h-10 rounded-xl bg-violet-500/20 flex items-center justify-center shrink-0">
+            <Compass className="w-5 h-5 text-violet-300" />
+          </div>
+          <div className="flex-1 min-w-0">
+            <p className="text-sm font-bold text-white mb-1">
+              Your credential now opens doors at real companies
+            </p>
+            <p className="text-xs text-gray-400 leading-relaxed mb-3">
+              GiveLedger credentials are recognised by for-profit companies hiring AI-augmented generalists.
+              Explore 60+ roles across 12 high-growth US sectors — no specialist background required.
+            </p>
+            <Link
+              href="/career-compass"
+              className="inline-flex items-center gap-2 text-xs font-semibold bg-violet-600 hover:bg-violet-500 text-white px-4 py-2 rounded-lg transition-colors"
+            >
+              <Compass className="w-3.5 h-3.5" />
+              Explore Career Compass →
+            </Link>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
