@@ -24,6 +24,7 @@ export interface TrainingModule {
   accentClass: string;   // Accent for badges
   outcomes: string[];
   lessons: Lesson[];
+  careerCompassRoles?: number; // how many Career Compass roles this module prepares for
 }
 
 export const TRAINING_MODULES: TrainingModule[] = [
@@ -355,6 +356,7 @@ export const TRAINING_MODULES: TrainingModule[] = [
     level: "Intermediate",
     colorClass: "bg-pink-50 border-pink-200",
     accentClass: "bg-pink-100 text-pink-800",
+    careerCompassRoles: 17,
     outcomes: [
       "Generate a 3-month content calendar from a single theme list",
       "Build personalised donor email sequences at scale",
@@ -475,6 +477,7 @@ export const TRAINING_MODULES: TrainingModule[] = [
     level: "Intermediate",
     colorClass: "bg-green-50 border-green-200",
     accentClass: "bg-green-100 text-green-800",
+    careerCompassRoles: 3,
     outcomes: [
       "Build a budget vs actual tracker that auto-generates variance analysis",
       "Create grant financial reports from raw transaction data",
@@ -578,6 +581,7 @@ export const TRAINING_MODULES: TrainingModule[] = [
     level: "Intermediate",
     colorClass: "bg-orange-50 border-orange-200",
     accentClass: "bg-orange-100 text-orange-800",
+    careerCompassRoles: 17,
     outcomes: [
       "Convert meeting notes to action items and project updates automatically",
       "Generate project plans and Gantt-style timelines from a brief",
@@ -681,6 +685,7 @@ export const TRAINING_MODULES: TrainingModule[] = [
     level: "Intermediate",
     colorClass: "bg-violet-50 border-violet-200",
     accentClass: "bg-violet-100 text-violet-800",
+    careerCompassRoles: 6,
     outcomes: [
       "Write job descriptions that attract mission-aligned candidates",
       "Build a structured interview process with scored rubrics",
@@ -764,6 +769,7 @@ export const TRAINING_MODULES: TrainingModule[] = [
     level: "Intermediate",
     colorClass: "bg-red-50 border-red-200",
     accentClass: "bg-red-100 text-red-800",
+    careerCompassRoles: 5,
     outcomes: [
       "Summarise and flag risk clauses in grant agreements and vendor contracts",
       "Generate compliant policy documents for your organisation",
@@ -847,6 +853,7 @@ export const TRAINING_MODULES: TrainingModule[] = [
     level: "Intermediate",
     colorClass: "bg-cyan-50 border-cyan-200",
     accentClass: "bg-cyan-100 text-cyan-800",
+    careerCompassRoles: 10,
     outcomes: [
       "Clean and standardise messy data from multiple sources in minutes",
       "Build an impact dashboard that updates automatically from a spreadsheet",
@@ -930,6 +937,7 @@ export const TRAINING_MODULES: TrainingModule[] = [
     level: "Advanced",
     colorClass: "bg-indigo-50 border-indigo-200",
     accentClass: "bg-indigo-100 text-indigo-800",
+    careerCompassRoles: 2,
     outcomes: [
       "Build a full-stack web application from a plain-English specification",
       "Connect your app to external APIs (Stripe, Mailchimp, Salesforce)",
@@ -1132,6 +1140,126 @@ export const TRAINING_MODULES: TrainingModule[] = [
         ],
         examplePrompt:
           "Create a personalised 12-month AI adoption roadmap for our nonprofit. Our situation: [describe your organisation size, main programmes, current tech stack, staff AI experience level, budget constraints]. Based on everything you've learned in this training programme, generate: (1) a phased 12-month roadmap showing what to implement in each quarter, (2) prioritisation rationale — why these initiatives first?, (3) capacity requirements — how many staff hours does each initiative require?, (4) success metrics for each phase, (5) a change management plan — how to bring sceptical staff along, (6) budget estimate for tools and external support, (7) risk mitigation — what could go wrong and how to prevent it. This is my organisation's strategic AI plan — make it specific, actionable, and realistic.",
+      },
+    ],
+  },
+  /* ─── MODULE 13 ─────────────────────────────────────────── */
+  {
+    slug: "career-compass-prep",
+    number: 13,
+    title: "AI-Augmented Role Preparation",
+    subtitle: "Land your first role at a for-profit company using your GiveLedger credential",
+    description:
+      "You have done the NGO work. You have the credential. Now learn how to present it to for-profit companies and demonstrate the AI fluency they are actually hiring for. This module closes the gap between your GiveLedger record and your first paid role in a commercial context.",
+    category: "Career Development",
+    totalDuration: "2h 30min",
+    level: "Intermediate" as const,
+    colorClass: "bg-violet-50 border-violet-200",
+    accentClass: "bg-violet-100 text-violet-800",
+    careerCompassRoles: 60,
+    outcomes: [
+      "Understand what AI-augmented roles expect and how to position yourself against candidates with traditional backgrounds",
+      "Use Perplexity and Claude for research that replaces domain expertise",
+      "Produce commercial-quality content, proposals, and reports at scale",
+      "Automate a business workflow end-to-end using no-code AI tools",
+      "Present your GiveLedger credential compellingly in applications and interviews",
+    ],
+    lessons: [
+      {
+        id: "13-1",
+        title: "The AI-Augmented Role Landscape",
+        duration: "20 min",
+        type: "guide" as const,
+        description:
+          "What are companies actually hiring for when they say AI-augmented? This lesson breaks down the three AI fluency signals that appear in every job spec, why domain expertise is being unbundled, and how your NGO work maps directly onto commercial expectations.",
+        keyPoints: [
+          "The 3 signals employers test: research speed, content velocity, process automation",
+          "Why your credential beats a CV full of domain titles — verified outcomes vs. self-reported claims",
+          "How NGO project work translates: milestones = deliverables, endorsements = references, skill contributions = portfolio",
+          "The 12 sectors where AI-augmented hiring is fastest and why generalists win there",
+        ],
+        examplePrompt:
+          "I am applying for an AI-augmented [role title] at a company in [sector]. My background is [describe your NGO contributions from GiveLedger credential]. Help me identify: (1) the 5 most relevant skills from my NGO work that map to this role, (2) 3 questions the interviewer is likely to ask about my non-traditional background and strong answers for each, (3) 2 gaps I should address proactively and how to frame them, and (4) a one-paragraph positioning statement I can use in my cover letter.",
+      },
+      {
+        id: "13-2",
+        title: "Research Intelligence: Replacing Domain Expertise",
+        duration: "25 min",
+        type: "exercise" as const,
+        description:
+          "Domain experts are expensive because they know things. AI lets you know things too — instantly, at scale, and for free. Learn to use Perplexity for competitive landscape analysis and Claude for synthesising complex information into actionable briefs that look like the work of a seasoned analyst.",
+        keyPoints: [
+          "Perplexity for live market data: sector trends, company news, competitor intelligence",
+          "Claude for synthesis: turning 10 sources into a 1-page executive brief",
+          "The research brief format that commercial teams actually use",
+          "How to cite and quality-check AI-generated research before presenting it",
+        ],
+        examplePrompt:
+          "I need to produce a competitive landscape brief for [company/sector] as part of my application for an AI-augmented [role title]. Using what you know up to your knowledge cutoff, produce: (1) an overview of the top 5 competitors in this space with their positioning, (2) 3 market trends reshaping this sector over the next 18 months, (3) the key customer pain points this sector is trying to solve, (4) 2 white-space opportunities a new entrant or challenger could exploit. Format this as a 1-page executive brief I could present in an interview. Flag anything I should verify with Perplexity for live data.",
+      },
+      {
+        id: "13-3",
+        title: "Commercial Content at Scale",
+        duration: "25 min",
+        type: "exercise" as const,
+        description:
+          "NGO communications are impact-led. Commercial content is conversion-led. This lesson teaches you to switch registers — and to do it at a velocity that impresses hiring managers. You will produce a full content pack in the time a traditional copywriter spends on one piece.",
+        keyPoints: [
+          "The difference between NGO and commercial writing: tone, call-to-action, metrics",
+          "Adapting your NGO portfolio pieces as commercial writing samples",
+          "Batch content workflows: brief, draft, variations, approve in one session",
+          "Email sequences, LinkedIn posts, landing page copy — templates for each",
+        ],
+        examplePrompt:
+          "I am creating a content pack to demonstrate my writing skills for a commercial [role type] application. Based on this NGO project I worked on: [paste a description of an NGO project from your GiveLedger credential]. Help me adapt and expand it into: (1) a commercial case study (problem, approach, outcome, metrics), (2) a 5-email nurture sequence for a B2B audience, (3) 3 LinkedIn posts at different lengths targeting [target audience], (4) a 200-word landing page hero section. Adjust the tone for a commercial context — benefit-led, metric-grounded, action-oriented.",
+      },
+      {
+        id: "13-4",
+        title: "Business Process Automation",
+        duration: "30 min",
+        type: "project" as const,
+        description:
+          "Your project: document, map, and partially automate a real business workflow using Make.com, Zapier, or Notion AI — then present it as a portfolio piece. This is the deliverable that most reliably impresses hiring managers in operations, marketing, and HR roles.",
+        keyPoints: [
+          "Process mapping: identify the steps, the bottlenecks, and the automation opportunities",
+          "Make.com and Zapier for trigger-action automation without code",
+          "Notion AI for turning unstructured process notes into structured SOPs",
+          "Presenting your automation as a portfolio case: before/after time savings, error reduction",
+        ],
+        examplePrompt:
+          "I want to build a portfolio piece demonstrating business process automation. The process I am automating is: [describe a workflow you handled in your NGO role — e.g. donor acknowledgement emails, volunteer scheduling, grant reporting]. Help me: (1) map the current process step by step, (2) identify which steps can be automated with Make.com or Zapier, (3) write the Make.com scenario description I would use to build this, (4) draft the SOP document that accompanies the automation, (5) write the one-paragraph portfolio description explaining what I built, what it replaces, and the time saved.",
+      },
+      {
+        id: "13-5",
+        title: "Data Synthesis for Business Reporting",
+        duration: "25 min",
+        type: "exercise" as const,
+        description:
+          "Commercial teams make decisions from data. This lesson teaches you to take raw numbers and turn them into an executive-ready report in under an hour, using Claude for narrative and Perplexity for benchmarking.",
+        keyPoints: [
+          "The executive report structure: headline number, trend, context, recommendation",
+          "Using Claude to write the narrative from a CSV or table you paste in",
+          "Benchmarking your numbers against industry data using Perplexity",
+          "Building a one-page dashboard summary that non-analysts can act on",
+        ],
+        examplePrompt:
+          "I have the following data from a project I ran during NGO work: [paste data as a table or describe the key numbers]. Help me turn this into an executive business report with: (1) a headline finding in one sentence, (2) a 3-bullet trend summary, (3) a comparison to industry benchmarks, (4) 3 actionable recommendations based on the data, (5) a visualisation description — tell me exactly what chart type and data points to use for the main slide. Format the whole thing as a clean, scannable one-pager I could present to a leadership team.",
+      },
+      {
+        id: "13-6",
+        title: "Presenting Your Credential",
+        duration: "25 min",
+        type: "guide" as const,
+        description:
+          "Your GiveLedger credential is verifiable, blockchain-backed, and filled with real outcomes. Most candidates have none of that. This final lesson shows you exactly how to use it — in your LinkedIn profile, in your cover letter, and in the interview room.",
+        keyPoints: [
+          "The credential URL as a portfolio link — what it shows and how to frame it",
+          "LinkedIn optimisation: headline, about section, and experience entries for AI-augmented roles",
+          "Cover letter structure for non-traditional backgrounds: lead with outcomes, not titles",
+          "Interview answers: how to turn NGO experience into commercial proof with confidence",
+        ],
+        examplePrompt:
+          "I am applying for an AI-augmented [role title] at [company or company type]. My GiveLedger credential shows: [paste your key credential stats — total donated, NGOs, milestones, skill contributions, endorsements]. Help me write: (1) a LinkedIn headline that positions me as an AI-augmented generalist with verified impact experience under 220 characters, (2) a LinkedIn About section under 2600 characters that leads with my credential outcomes and frames my NGO work as commercial-relevant experience, (3) a 3-paragraph cover letter for this specific role that uses my credential data as proof points, (4) a 2-minute verbal answer to the question: You do not have direct experience in this sector — why should we consider you?",
       },
     ],
   },
