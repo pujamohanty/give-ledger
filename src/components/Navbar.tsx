@@ -39,6 +39,11 @@ const NAV_ITEMS = [
     tip: "Use your GiveLedger credential at for-profit companies — 60+ AI-augmented roles across 12 high-growth US sectors",
   },
   {
+    href: "/companies",
+    label: "Companies",
+    tip: "Browse SAM.gov & OpenCorporates verified US businesses hiring AI-augmented generalists",
+  },
+  {
     href: "/pricing",
     label: "Pricing",
     tip: "Free to explore. Paid plans unlock role applications and priority listing",

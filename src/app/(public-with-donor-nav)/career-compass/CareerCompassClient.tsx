@@ -463,6 +463,12 @@ export default function CareerCompassClient({ bfsTrend, isCredentialed, hasAccou
                 <span className="text-sm font-bold text-white">{selectedSector.growthPct}</span>
                 <span className="text-[11px] text-gray-400">{selectedSector.jobsLabel}</span>
                 <span className="text-[11px] text-gray-400">NAICS {selectedSector.naics}</span>
+                <Link
+                  href={`/companies?naics=${selectedSector.naics.split(",")[0].trim().slice(0, 4)}`}
+                  className="ml-auto text-[11px] font-semibold bg-white/10 hover:bg-white/20 text-white px-3 py-1 rounded-full transition-colors"
+                >
+                  Find companies →
+                </Link>
               </div>
             </div>
 
@@ -495,9 +501,12 @@ export default function CareerCompassClient({ bfsTrend, isCredentialed, hasAccou
                     Expand roles above to build your training path, then start the module that fits your target role.
                   </p>
                 </div>
-                <div className="flex gap-2 shrink-0">
+                <div className="flex flex-wrap gap-2 shrink-0">
                   <Link href="/opportunities" className="text-xs font-semibold bg-emerald-700 text-white px-4 py-2.5 rounded-lg hover:bg-emerald-800 transition-colors">
                     Find NGO roles →
+                  </Link>
+                  <Link href="/companies" className="text-xs font-semibold bg-blue-600 text-white px-4 py-2.5 rounded-lg hover:bg-blue-700 transition-colors">
+                    Browse companies →
                   </Link>
                   <Link href="/donor/training/career-compass-prep" className="text-xs font-semibold border border-violet-200 text-violet-700 bg-violet-50 px-4 py-2.5 rounded-lg hover:bg-violet-100 transition-colors">
                     Role prep training →

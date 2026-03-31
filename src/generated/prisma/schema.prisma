@@ -749,6 +749,74 @@ model SuggestedRole {
   @@index([ein])
 }
 
+// Phase 3: For-profit company directory (SAM.gov + OpenCorporates)
+model Company {
+  id                String                 @id @default(cuid())
+  // SAM.gov identity
+  uei               String?                @unique // Unique Entity Identifier (replaced DUNS in 2022)
+  cageCode          String?
+  legalName         String
+  dbaName           String? // Doing Business As
+  ein               String?
+  // OpenCorporates identity
+  ocCompanyNumber   String? // OpenCorporates company number
+  ocJurisdiction    String? // e.g. "us_de", "us_ca"
+  incorporationDate DateTime?
+  // Classification
+  naicsCodes        String[] // All NAICS codes from SAM.gov
+  naicsPrimary      String? // Primary code for sector filtering
+  naicsDescription  String? // Human-readable primary NAICS description
+  businessTypes     String[] // e.g. ["Limited Liability Company"]
+  sbaDesignations   String[] // e.g. ["Woman Owned", "Veteran Owned", "HUBZone"]
+  entityStructure   String? // e.g. "S Corporation", "Partnership"
+  // Location
+  streetAddress     String?
+  city              String?
+  state             String?
+  zipCode           String?
+  // Contact
+  contactName       String?
+  contactEmail      String?
+  website           String?
+  // Size signals
+  employeeRange     String? // e.g. "50-99"
+  revenueRange      String? // e.g. "$1M-$5M"
+  // Source flags
+  samRegistered     Boolean                @default(false)
+  ocRegistered      Boolean                @default(false)
+  isActive          Boolean                @default(true)
+  registrationDate  DateTime?
+  // Relations
+  suggestedRoles    CompanySuggestedRole[]
+  createdAt         DateTime               @default(now())
+  updatedAt         DateTime               @updatedAt
+
+  @@index([legalName])
+  @@index([state])
+  @@index([naicsPrimary])
+}
+
+// AI-generated role profiles for for-profit companies (cached, 30-day expiry)
+model CompanySuggestedRole {
+  id             String   @id @default(cuid())
+  companyId      String
+  title          String
+  description    String   @db.Text
+  skills         String // comma-separated skill tags
+  timeCommitment String   @default("Full-time")
+  salaryMin      Int?
+  salaryMax      Int?
+  isAiAugmented  Boolean  @default(false)
+  aiTools        String? // comma-sep: "Claude,Gemini"
+  source         String   @default("AI")
+  generatedAt    DateTime @default(now())
+  expiresAt      DateTime
+  company        Company  @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  @@unique([companyId, title])
+  @@index([companyId])
+}
+
 model IrsFiling {
   id                     String          @id @default(cuid())
   ein                    String

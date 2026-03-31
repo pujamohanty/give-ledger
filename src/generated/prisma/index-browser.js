@@ -634,6 +634,55 @@ exports.Prisma.SuggestedRoleScalarFieldEnum = {
   expiresAt: 'expiresAt'
 };
 
+exports.Prisma.CompanyScalarFieldEnum = {
+  id: 'id',
+  uei: 'uei',
+  cageCode: 'cageCode',
+  legalName: 'legalName',
+  dbaName: 'dbaName',
+  ein: 'ein',
+  ocCompanyNumber: 'ocCompanyNumber',
+  ocJurisdiction: 'ocJurisdiction',
+  incorporationDate: 'incorporationDate',
+  naicsCodes: 'naicsCodes',
+  naicsPrimary: 'naicsPrimary',
+  naicsDescription: 'naicsDescription',
+  businessTypes: 'businessTypes',
+  sbaDesignations: 'sbaDesignations',
+  entityStructure: 'entityStructure',
+  streetAddress: 'streetAddress',
+  city: 'city',
+  state: 'state',
+  zipCode: 'zipCode',
+  contactName: 'contactName',
+  contactEmail: 'contactEmail',
+  website: 'website',
+  employeeRange: 'employeeRange',
+  revenueRange: 'revenueRange',
+  samRegistered: 'samRegistered',
+  ocRegistered: 'ocRegistered',
+  isActive: 'isActive',
+  registrationDate: 'registrationDate',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CompanySuggestedRoleScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  title: 'title',
+  description: 'description',
+  skills: 'skills',
+  timeCommitment: 'timeCommitment',
+  salaryMin: 'salaryMin',
+  salaryMax: 'salaryMax',
+  isAiAugmented: 'isAiAugmented',
+  aiTools: 'aiTools',
+  source: 'source',
+  generatedAt: 'generatedAt',
+  expiresAt: 'expiresAt'
+};
+
 exports.Prisma.IrsFilingScalarFieldEnum = {
   id: 'id',
   ein: 'ein',
@@ -802,6 +851,8 @@ exports.Prisma.ModelName = {
   Subscription: 'Subscription',
   IrsOrganization: 'IrsOrganization',
   SuggestedRole: 'SuggestedRole',
+  Company: 'Company',
+  CompanySuggestedRole: 'CompanySuggestedRole',
   IrsFiling: 'IrsFiling'
 };
 
