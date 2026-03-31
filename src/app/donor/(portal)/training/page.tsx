@@ -12,7 +12,7 @@ import TrainingShareButton from "@/components/TrainingShareButton";
 import {
   BookOpen, Clock, Zap, Layers, GraduationCap, ChevronRight,
   Terminal, Wrench, TrendingUp, DollarSign, Settings,
-  Users, Scale, BarChart2, Cpu, GitBranch, Lightbulb, Smartphone, Star,
+  Users, Scale, BarChart2, Cpu, GitBranch, Lightbulb, Smartphone, Star, Compass,
 } from "lucide-react";
 
 const levelConfig = {
@@ -203,6 +203,12 @@ export default async function TrainingHubPage() {
                         <p className="text-[11px] text-gray-400 leading-relaxed flex-1">{mod.subtitle}</p>
 
                         {/* Meta */}
+                        {mod.careerCompassRoles && mod.careerCompassRoles > 0 && (
+                          <div className="mt-3 inline-flex items-center gap-1 text-[10px] font-semibold text-violet-700 bg-violet-50 border border-violet-100 px-2 py-0.5 rounded-full">
+                            <Compass className="w-2.5 h-2.5" />
+                            {mod.careerCompassRoles} Career Compass roles
+                          </div>
+                        )}
                         <div className="flex items-center gap-2 mt-4 pt-3 border-t border-gray-50">
                           <Clock className="w-3 h-3 text-gray-400 shrink-0" />
                           <span className="text-[11px] text-gray-400">{mod.totalDuration}</span>

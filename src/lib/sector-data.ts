@@ -713,3 +713,17 @@ export const US_STATES = [
   { code: "WI", name: "Wisconsin" }, { code: "WY", name: "Wyoming" },
   { code: "DC", name: "Washington D.C." },
 ];
+
+// Lightweight module metadata for Career Compass training path panel
+// (avoids importing the full training-curriculum.ts in a client component)
+export const TRAINING_MODULE_META: Record<string, { title: string; duration: string; emoji: string; number: number }> = {
+  "career-compass-prep":       { title: "AI-Augmented Role Preparation",   duration: "2h 30min", emoji: "🧭", number: 13 },
+  "marketing-workflows":       { title: "Marketing & Growth Workflows",     duration: "3h 20min", emoji: "📣", number: 4  },
+  "operations-workflows":      { title: "Operations & Project Management",  duration: "2h 45min", emoji: "⚙️", number: 6  },
+  "data-impact-measurement":   { title: "Data & Impact Measurement",        duration: "2h 30min", emoji: "📊", number: 9  },
+  "hr-people-workflows":       { title: "HR & People Workflows",            duration: "2h 10min", emoji: "👥", number: 7  },
+  "legal-compliance-workflows":{ title: "Legal & Compliance Workflows",     duration: "2h 15min", emoji: "⚖️", number: 8  },
+  "finance-workflows":         { title: "Finance & Accounting Workflows",   duration: "2h 40min", emoji: "💰", number: 5  },
+  "product-technology":        { title: "Product & Technology Workflows",   duration: "2h 30min", emoji: "💻", number: 10 },
+  "ai-leadership-strategy":    { title: "AI Leadership & Strategy",         duration: "3h 00min", emoji: "🎯", number: 12 },
+};
