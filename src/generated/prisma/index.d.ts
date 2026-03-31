@@ -199,6 +199,11 @@ export type Subscription = $Result.DefaultSelection<Prisma.$SubscriptionPayload>
  */
 export type IrsOrganization = $Result.DefaultSelection<Prisma.$IrsOrganizationPayload>
 /**
+ * Model SuggestedRole
+ * 
+ */
+export type SuggestedRole = $Result.DefaultSelection<Prisma.$SuggestedRolePayload>
+/**
  * Model IrsFiling
  * 
  */
@@ -868,6 +873,16 @@ export class PrismaClient<
   get irsOrganization(): Prisma.IrsOrganizationDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.suggestedRole`: Exposes CRUD operations for the **SuggestedRole** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SuggestedRoles
+    * const suggestedRoles = await prisma.suggestedRole.findMany()
+    * ```
+    */
+  get suggestedRole(): Prisma.SuggestedRoleDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.irsFiling`: Exposes CRUD operations for the **IrsFiling** model.
     * Example usage:
     * ```ts
@@ -1347,6 +1362,7 @@ export namespace Prisma {
     ChallengeAcceptance: 'ChallengeAcceptance',
     Subscription: 'Subscription',
     IrsOrganization: 'IrsOrganization',
+    SuggestedRole: 'SuggestedRole',
     IrsFiling: 'IrsFiling'
   };
 
@@ -1363,7 +1379,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "account" | "session" | "verificationToken" | "user" | "donorApplicationProfile" | "betaTesterProfile" | "ngo" | "project" | "milestone" | "evidenceFile" | "outputMarker" | "donation" | "disbursement" | "expense" | "blockchainRecord" | "rating" | "platformSetting" | "notification" | "spotlightVote" | "campaign" | "campaignContributor" | "ngoSuggestion" | "referral" | "activityEvent" | "boardMember" | "skillContribution" | "skillBlockchainRecord" | "donorEndorsement" | "donorDocument" | "ngoDocument" | "ngoRole" | "roleApplication" | "roleEngagement" | "donorChallenge" | "challengeAcceptance" | "subscription" | "irsOrganization" | "irsFiling"
+      modelProps: "account" | "session" | "verificationToken" | "user" | "donorApplicationProfile" | "betaTesterProfile" | "ngo" | "project" | "milestone" | "evidenceFile" | "outputMarker" | "donation" | "disbursement" | "expense" | "blockchainRecord" | "rating" | "platformSetting" | "notification" | "spotlightVote" | "campaign" | "campaignContributor" | "ngoSuggestion" | "referral" | "activityEvent" | "boardMember" | "skillContribution" | "skillBlockchainRecord" | "donorEndorsement" | "donorDocument" | "ngoDocument" | "ngoRole" | "roleApplication" | "roleEngagement" | "donorChallenge" | "challengeAcceptance" | "subscription" | "irsOrganization" | "suggestedRole" | "irsFiling"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -4105,6 +4121,80 @@ export namespace Prisma {
           }
         }
       }
+      SuggestedRole: {
+        payload: Prisma.$SuggestedRolePayload<ExtArgs>
+        fields: Prisma.SuggestedRoleFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SuggestedRoleFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SuggestedRolePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SuggestedRoleFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SuggestedRolePayload>
+          }
+          findFirst: {
+            args: Prisma.SuggestedRoleFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SuggestedRolePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SuggestedRoleFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SuggestedRolePayload>
+          }
+          findMany: {
+            args: Prisma.SuggestedRoleFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SuggestedRolePayload>[]
+          }
+          create: {
+            args: Prisma.SuggestedRoleCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SuggestedRolePayload>
+          }
+          createMany: {
+            args: Prisma.SuggestedRoleCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SuggestedRoleCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SuggestedRolePayload>[]
+          }
+          delete: {
+            args: Prisma.SuggestedRoleDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SuggestedRolePayload>
+          }
+          update: {
+            args: Prisma.SuggestedRoleUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SuggestedRolePayload>
+          }
+          deleteMany: {
+            args: Prisma.SuggestedRoleDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SuggestedRoleUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SuggestedRoleUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SuggestedRolePayload>[]
+          }
+          upsert: {
+            args: Prisma.SuggestedRoleUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SuggestedRolePayload>
+          }
+          aggregate: {
+            args: Prisma.SuggestedRoleAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSuggestedRole>
+          }
+          groupBy: {
+            args: Prisma.SuggestedRoleGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SuggestedRoleGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SuggestedRoleCountArgs<ExtArgs>
+            result: $Utils.Optional<SuggestedRoleCountAggregateOutputType> | number
+          }
+        }
+      }
       IrsFiling: {
         payload: Prisma.$IrsFilingPayload<ExtArgs>
         fields: Prisma.IrsFilingFieldRefs
@@ -4324,6 +4414,7 @@ export namespace Prisma {
     challengeAcceptance?: ChallengeAcceptanceOmit
     subscription?: SubscriptionOmit
     irsOrganization?: IrsOrganizationOmit
+    suggestedRole?: SuggestedRoleOmit
     irsFiling?: IrsFilingOmit
   }
 
@@ -40386,6 +40477,8 @@ export namespace Prisma {
     openings: number | null
     salaryMin: number | null
     salaryMax: number | null
+    isAiAugmented: boolean | null
+    aiTools: string | null
     status: $Enums.RoleStatus | null
     applicationDeadline: Date | null
     startDate: Date | null
@@ -40410,6 +40503,8 @@ export namespace Prisma {
     openings: number | null
     salaryMin: number | null
     salaryMax: number | null
+    isAiAugmented: boolean | null
+    aiTools: string | null
     status: $Enums.RoleStatus | null
     applicationDeadline: Date | null
     startDate: Date | null
@@ -40434,6 +40529,8 @@ export namespace Prisma {
     openings: number
     salaryMin: number
     salaryMax: number
+    isAiAugmented: number
+    aiTools: number
     status: number
     applicationDeadline: number
     startDate: number
@@ -40474,6 +40571,8 @@ export namespace Prisma {
     openings?: true
     salaryMin?: true
     salaryMax?: true
+    isAiAugmented?: true
+    aiTools?: true
     status?: true
     applicationDeadline?: true
     startDate?: true
@@ -40498,6 +40597,8 @@ export namespace Prisma {
     openings?: true
     salaryMin?: true
     salaryMax?: true
+    isAiAugmented?: true
+    aiTools?: true
     status?: true
     applicationDeadline?: true
     startDate?: true
@@ -40522,6 +40623,8 @@ export namespace Prisma {
     openings?: true
     salaryMin?: true
     salaryMax?: true
+    isAiAugmented?: true
+    aiTools?: true
     status?: true
     applicationDeadline?: true
     startDate?: true
@@ -40633,6 +40736,8 @@ export namespace Prisma {
     openings: number
     salaryMin: number | null
     salaryMax: number | null
+    isAiAugmented: boolean
+    aiTools: string | null
     status: $Enums.RoleStatus
     applicationDeadline: Date | null
     startDate: Date | null
@@ -40676,6 +40781,8 @@ export namespace Prisma {
     openings?: boolean
     salaryMin?: boolean
     salaryMax?: boolean
+    isAiAugmented?: boolean
+    aiTools?: boolean
     status?: boolean
     applicationDeadline?: boolean
     startDate?: boolean
@@ -40704,6 +40811,8 @@ export namespace Prisma {
     openings?: boolean
     salaryMin?: boolean
     salaryMax?: boolean
+    isAiAugmented?: boolean
+    aiTools?: boolean
     status?: boolean
     applicationDeadline?: boolean
     startDate?: boolean
@@ -40730,6 +40839,8 @@ export namespace Prisma {
     openings?: boolean
     salaryMin?: boolean
     salaryMax?: boolean
+    isAiAugmented?: boolean
+    aiTools?: boolean
     status?: boolean
     applicationDeadline?: boolean
     startDate?: boolean
@@ -40756,6 +40867,8 @@ export namespace Prisma {
     openings?: boolean
     salaryMin?: boolean
     salaryMax?: boolean
+    isAiAugmented?: boolean
+    aiTools?: boolean
     status?: boolean
     applicationDeadline?: boolean
     startDate?: boolean
@@ -40763,7 +40876,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type NgoRoleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "ngoId" | "projectId" | "title" | "department" | "roleType" | "description" | "responsibilities" | "skillsRequired" | "timeCommitment" | "durationWeeks" | "isRemote" | "location" | "openings" | "salaryMin" | "salaryMax" | "status" | "applicationDeadline" | "startDate" | "createdAt" | "updatedAt", ExtArgs["result"]["ngoRole"]>
+  export type NgoRoleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "ngoId" | "projectId" | "title" | "department" | "roleType" | "description" | "responsibilities" | "skillsRequired" | "timeCommitment" | "durationWeeks" | "isRemote" | "location" | "openings" | "salaryMin" | "salaryMax" | "isAiAugmented" | "aiTools" | "status" | "applicationDeadline" | "startDate" | "createdAt" | "updatedAt", ExtArgs["result"]["ngoRole"]>
   export type NgoRoleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     ngo?: boolean | NgoDefaultArgs<ExtArgs>
     project?: boolean | NgoRole$projectArgs<ExtArgs>
@@ -40803,6 +40916,8 @@ export namespace Prisma {
       openings: number
       salaryMin: number | null
       salaryMax: number | null
+      isAiAugmented: boolean
+      aiTools: string | null
       status: $Enums.RoleStatus
       applicationDeadline: Date | null
       startDate: Date | null
@@ -41250,6 +41365,8 @@ export namespace Prisma {
     readonly openings: FieldRef<"NgoRole", 'Int'>
     readonly salaryMin: FieldRef<"NgoRole", 'Int'>
     readonly salaryMax: FieldRef<"NgoRole", 'Int'>
+    readonly isAiAugmented: FieldRef<"NgoRole", 'Boolean'>
+    readonly aiTools: FieldRef<"NgoRole", 'String'>
     readonly status: FieldRef<"NgoRole", 'RoleStatus'>
     readonly applicationDeadline: FieldRef<"NgoRole", 'DateTime'>
     readonly startDate: FieldRef<"NgoRole", 'DateTime'>
@@ -49036,6 +49153,1156 @@ export namespace Prisma {
 
 
   /**
+   * Model SuggestedRole
+   */
+
+  export type AggregateSuggestedRole = {
+    _count: SuggestedRoleCountAggregateOutputType | null
+    _avg: SuggestedRoleAvgAggregateOutputType | null
+    _sum: SuggestedRoleSumAggregateOutputType | null
+    _min: SuggestedRoleMinAggregateOutputType | null
+    _max: SuggestedRoleMaxAggregateOutputType | null
+  }
+
+  export type SuggestedRoleAvgAggregateOutputType = {
+    salaryMin: number | null
+    salaryMax: number | null
+  }
+
+  export type SuggestedRoleSumAggregateOutputType = {
+    salaryMin: number | null
+    salaryMax: number | null
+  }
+
+  export type SuggestedRoleMinAggregateOutputType = {
+    id: string | null
+    ein: string | null
+    title: string | null
+    description: string | null
+    skills: string | null
+    roleType: string | null
+    timeCommitment: string | null
+    salaryMin: number | null
+    salaryMax: number | null
+    isAiAugmented: boolean | null
+    aiTools: string | null
+    source: string | null
+    generatedAt: Date | null
+    expiresAt: Date | null
+  }
+
+  export type SuggestedRoleMaxAggregateOutputType = {
+    id: string | null
+    ein: string | null
+    title: string | null
+    description: string | null
+    skills: string | null
+    roleType: string | null
+    timeCommitment: string | null
+    salaryMin: number | null
+    salaryMax: number | null
+    isAiAugmented: boolean | null
+    aiTools: string | null
+    source: string | null
+    generatedAt: Date | null
+    expiresAt: Date | null
+  }
+
+  export type SuggestedRoleCountAggregateOutputType = {
+    id: number
+    ein: number
+    title: number
+    description: number
+    skills: number
+    roleType: number
+    timeCommitment: number
+    salaryMin: number
+    salaryMax: number
+    isAiAugmented: number
+    aiTools: number
+    source: number
+    generatedAt: number
+    expiresAt: number
+    _all: number
+  }
+
+
+  export type SuggestedRoleAvgAggregateInputType = {
+    salaryMin?: true
+    salaryMax?: true
+  }
+
+  export type SuggestedRoleSumAggregateInputType = {
+    salaryMin?: true
+    salaryMax?: true
+  }
+
+  export type SuggestedRoleMinAggregateInputType = {
+    id?: true
+    ein?: true
+    title?: true
+    description?: true
+    skills?: true
+    roleType?: true
+    timeCommitment?: true
+    salaryMin?: true
+    salaryMax?: true
+    isAiAugmented?: true
+    aiTools?: true
+    source?: true
+    generatedAt?: true
+    expiresAt?: true
+  }
+
+  export type SuggestedRoleMaxAggregateInputType = {
+    id?: true
+    ein?: true
+    title?: true
+    description?: true
+    skills?: true
+    roleType?: true
+    timeCommitment?: true
+    salaryMin?: true
+    salaryMax?: true
+    isAiAugmented?: true
+    aiTools?: true
+    source?: true
+    generatedAt?: true
+    expiresAt?: true
+  }
+
+  export type SuggestedRoleCountAggregateInputType = {
+    id?: true
+    ein?: true
+    title?: true
+    description?: true
+    skills?: true
+    roleType?: true
+    timeCommitment?: true
+    salaryMin?: true
+    salaryMax?: true
+    isAiAugmented?: true
+    aiTools?: true
+    source?: true
+    generatedAt?: true
+    expiresAt?: true
+    _all?: true
+  }
+
+  export type SuggestedRoleAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SuggestedRole to aggregate.
+     */
+    where?: SuggestedRoleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SuggestedRoles to fetch.
+     */
+    orderBy?: SuggestedRoleOrderByWithRelationInput | SuggestedRoleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SuggestedRoleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SuggestedRoles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SuggestedRoles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SuggestedRoles
+    **/
+    _count?: true | SuggestedRoleCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: SuggestedRoleAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SuggestedRoleSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SuggestedRoleMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SuggestedRoleMaxAggregateInputType
+  }
+
+  export type GetSuggestedRoleAggregateType<T extends SuggestedRoleAggregateArgs> = {
+        [P in keyof T & keyof AggregateSuggestedRole]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSuggestedRole[P]>
+      : GetScalarType<T[P], AggregateSuggestedRole[P]>
+  }
+
+
+
+
+  export type SuggestedRoleGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SuggestedRoleWhereInput
+    orderBy?: SuggestedRoleOrderByWithAggregationInput | SuggestedRoleOrderByWithAggregationInput[]
+    by: SuggestedRoleScalarFieldEnum[] | SuggestedRoleScalarFieldEnum
+    having?: SuggestedRoleScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SuggestedRoleCountAggregateInputType | true
+    _avg?: SuggestedRoleAvgAggregateInputType
+    _sum?: SuggestedRoleSumAggregateInputType
+    _min?: SuggestedRoleMinAggregateInputType
+    _max?: SuggestedRoleMaxAggregateInputType
+  }
+
+  export type SuggestedRoleGroupByOutputType = {
+    id: string
+    ein: string
+    title: string
+    description: string
+    skills: string
+    roleType: string
+    timeCommitment: string
+    salaryMin: number | null
+    salaryMax: number | null
+    isAiAugmented: boolean
+    aiTools: string | null
+    source: string
+    generatedAt: Date
+    expiresAt: Date
+    _count: SuggestedRoleCountAggregateOutputType | null
+    _avg: SuggestedRoleAvgAggregateOutputType | null
+    _sum: SuggestedRoleSumAggregateOutputType | null
+    _min: SuggestedRoleMinAggregateOutputType | null
+    _max: SuggestedRoleMaxAggregateOutputType | null
+  }
+
+  type GetSuggestedRoleGroupByPayload<T extends SuggestedRoleGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SuggestedRoleGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SuggestedRoleGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SuggestedRoleGroupByOutputType[P]>
+            : GetScalarType<T[P], SuggestedRoleGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SuggestedRoleSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    ein?: boolean
+    title?: boolean
+    description?: boolean
+    skills?: boolean
+    roleType?: boolean
+    timeCommitment?: boolean
+    salaryMin?: boolean
+    salaryMax?: boolean
+    isAiAugmented?: boolean
+    aiTools?: boolean
+    source?: boolean
+    generatedAt?: boolean
+    expiresAt?: boolean
+  }, ExtArgs["result"]["suggestedRole"]>
+
+  export type SuggestedRoleSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    ein?: boolean
+    title?: boolean
+    description?: boolean
+    skills?: boolean
+    roleType?: boolean
+    timeCommitment?: boolean
+    salaryMin?: boolean
+    salaryMax?: boolean
+    isAiAugmented?: boolean
+    aiTools?: boolean
+    source?: boolean
+    generatedAt?: boolean
+    expiresAt?: boolean
+  }, ExtArgs["result"]["suggestedRole"]>
+
+  export type SuggestedRoleSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    ein?: boolean
+    title?: boolean
+    description?: boolean
+    skills?: boolean
+    roleType?: boolean
+    timeCommitment?: boolean
+    salaryMin?: boolean
+    salaryMax?: boolean
+    isAiAugmented?: boolean
+    aiTools?: boolean
+    source?: boolean
+    generatedAt?: boolean
+    expiresAt?: boolean
+  }, ExtArgs["result"]["suggestedRole"]>
+
+  export type SuggestedRoleSelectScalar = {
+    id?: boolean
+    ein?: boolean
+    title?: boolean
+    description?: boolean
+    skills?: boolean
+    roleType?: boolean
+    timeCommitment?: boolean
+    salaryMin?: boolean
+    salaryMax?: boolean
+    isAiAugmented?: boolean
+    aiTools?: boolean
+    source?: boolean
+    generatedAt?: boolean
+    expiresAt?: boolean
+  }
+
+  export type SuggestedRoleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "ein" | "title" | "description" | "skills" | "roleType" | "timeCommitment" | "salaryMin" | "salaryMax" | "isAiAugmented" | "aiTools" | "source" | "generatedAt" | "expiresAt", ExtArgs["result"]["suggestedRole"]>
+
+  export type $SuggestedRolePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SuggestedRole"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      ein: string
+      title: string
+      description: string
+      skills: string
+      roleType: string
+      timeCommitment: string
+      salaryMin: number | null
+      salaryMax: number | null
+      isAiAugmented: boolean
+      aiTools: string | null
+      source: string
+      generatedAt: Date
+      expiresAt: Date
+    }, ExtArgs["result"]["suggestedRole"]>
+    composites: {}
+  }
+
+  type SuggestedRoleGetPayload<S extends boolean | null | undefined | SuggestedRoleDefaultArgs> = $Result.GetResult<Prisma.$SuggestedRolePayload, S>
+
+  type SuggestedRoleCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SuggestedRoleFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SuggestedRoleCountAggregateInputType | true
+    }
+
+  export interface SuggestedRoleDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SuggestedRole'], meta: { name: 'SuggestedRole' } }
+    /**
+     * Find zero or one SuggestedRole that matches the filter.
+     * @param {SuggestedRoleFindUniqueArgs} args - Arguments to find a SuggestedRole
+     * @example
+     * // Get one SuggestedRole
+     * const suggestedRole = await prisma.suggestedRole.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SuggestedRoleFindUniqueArgs>(args: SelectSubset<T, SuggestedRoleFindUniqueArgs<ExtArgs>>): Prisma__SuggestedRoleClient<$Result.GetResult<Prisma.$SuggestedRolePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one SuggestedRole that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SuggestedRoleFindUniqueOrThrowArgs} args - Arguments to find a SuggestedRole
+     * @example
+     * // Get one SuggestedRole
+     * const suggestedRole = await prisma.suggestedRole.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SuggestedRoleFindUniqueOrThrowArgs>(args: SelectSubset<T, SuggestedRoleFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SuggestedRoleClient<$Result.GetResult<Prisma.$SuggestedRolePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SuggestedRole that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SuggestedRoleFindFirstArgs} args - Arguments to find a SuggestedRole
+     * @example
+     * // Get one SuggestedRole
+     * const suggestedRole = await prisma.suggestedRole.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SuggestedRoleFindFirstArgs>(args?: SelectSubset<T, SuggestedRoleFindFirstArgs<ExtArgs>>): Prisma__SuggestedRoleClient<$Result.GetResult<Prisma.$SuggestedRolePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SuggestedRole that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SuggestedRoleFindFirstOrThrowArgs} args - Arguments to find a SuggestedRole
+     * @example
+     * // Get one SuggestedRole
+     * const suggestedRole = await prisma.suggestedRole.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SuggestedRoleFindFirstOrThrowArgs>(args?: SelectSubset<T, SuggestedRoleFindFirstOrThrowArgs<ExtArgs>>): Prisma__SuggestedRoleClient<$Result.GetResult<Prisma.$SuggestedRolePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more SuggestedRoles that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SuggestedRoleFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SuggestedRoles
+     * const suggestedRoles = await prisma.suggestedRole.findMany()
+     * 
+     * // Get first 10 SuggestedRoles
+     * const suggestedRoles = await prisma.suggestedRole.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const suggestedRoleWithIdOnly = await prisma.suggestedRole.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SuggestedRoleFindManyArgs>(args?: SelectSubset<T, SuggestedRoleFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SuggestedRolePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a SuggestedRole.
+     * @param {SuggestedRoleCreateArgs} args - Arguments to create a SuggestedRole.
+     * @example
+     * // Create one SuggestedRole
+     * const SuggestedRole = await prisma.suggestedRole.create({
+     *   data: {
+     *     // ... data to create a SuggestedRole
+     *   }
+     * })
+     * 
+     */
+    create<T extends SuggestedRoleCreateArgs>(args: SelectSubset<T, SuggestedRoleCreateArgs<ExtArgs>>): Prisma__SuggestedRoleClient<$Result.GetResult<Prisma.$SuggestedRolePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many SuggestedRoles.
+     * @param {SuggestedRoleCreateManyArgs} args - Arguments to create many SuggestedRoles.
+     * @example
+     * // Create many SuggestedRoles
+     * const suggestedRole = await prisma.suggestedRole.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SuggestedRoleCreateManyArgs>(args?: SelectSubset<T, SuggestedRoleCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SuggestedRoles and returns the data saved in the database.
+     * @param {SuggestedRoleCreateManyAndReturnArgs} args - Arguments to create many SuggestedRoles.
+     * @example
+     * // Create many SuggestedRoles
+     * const suggestedRole = await prisma.suggestedRole.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SuggestedRoles and only return the `id`
+     * const suggestedRoleWithIdOnly = await prisma.suggestedRole.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SuggestedRoleCreateManyAndReturnArgs>(args?: SelectSubset<T, SuggestedRoleCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SuggestedRolePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a SuggestedRole.
+     * @param {SuggestedRoleDeleteArgs} args - Arguments to delete one SuggestedRole.
+     * @example
+     * // Delete one SuggestedRole
+     * const SuggestedRole = await prisma.suggestedRole.delete({
+     *   where: {
+     *     // ... filter to delete one SuggestedRole
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SuggestedRoleDeleteArgs>(args: SelectSubset<T, SuggestedRoleDeleteArgs<ExtArgs>>): Prisma__SuggestedRoleClient<$Result.GetResult<Prisma.$SuggestedRolePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one SuggestedRole.
+     * @param {SuggestedRoleUpdateArgs} args - Arguments to update one SuggestedRole.
+     * @example
+     * // Update one SuggestedRole
+     * const suggestedRole = await prisma.suggestedRole.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SuggestedRoleUpdateArgs>(args: SelectSubset<T, SuggestedRoleUpdateArgs<ExtArgs>>): Prisma__SuggestedRoleClient<$Result.GetResult<Prisma.$SuggestedRolePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more SuggestedRoles.
+     * @param {SuggestedRoleDeleteManyArgs} args - Arguments to filter SuggestedRoles to delete.
+     * @example
+     * // Delete a few SuggestedRoles
+     * const { count } = await prisma.suggestedRole.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SuggestedRoleDeleteManyArgs>(args?: SelectSubset<T, SuggestedRoleDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SuggestedRoles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SuggestedRoleUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SuggestedRoles
+     * const suggestedRole = await prisma.suggestedRole.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SuggestedRoleUpdateManyArgs>(args: SelectSubset<T, SuggestedRoleUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SuggestedRoles and returns the data updated in the database.
+     * @param {SuggestedRoleUpdateManyAndReturnArgs} args - Arguments to update many SuggestedRoles.
+     * @example
+     * // Update many SuggestedRoles
+     * const suggestedRole = await prisma.suggestedRole.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more SuggestedRoles and only return the `id`
+     * const suggestedRoleWithIdOnly = await prisma.suggestedRole.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SuggestedRoleUpdateManyAndReturnArgs>(args: SelectSubset<T, SuggestedRoleUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SuggestedRolePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one SuggestedRole.
+     * @param {SuggestedRoleUpsertArgs} args - Arguments to update or create a SuggestedRole.
+     * @example
+     * // Update or create a SuggestedRole
+     * const suggestedRole = await prisma.suggestedRole.upsert({
+     *   create: {
+     *     // ... data to create a SuggestedRole
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SuggestedRole we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SuggestedRoleUpsertArgs>(args: SelectSubset<T, SuggestedRoleUpsertArgs<ExtArgs>>): Prisma__SuggestedRoleClient<$Result.GetResult<Prisma.$SuggestedRolePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of SuggestedRoles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SuggestedRoleCountArgs} args - Arguments to filter SuggestedRoles to count.
+     * @example
+     * // Count the number of SuggestedRoles
+     * const count = await prisma.suggestedRole.count({
+     *   where: {
+     *     // ... the filter for the SuggestedRoles we want to count
+     *   }
+     * })
+    **/
+    count<T extends SuggestedRoleCountArgs>(
+      args?: Subset<T, SuggestedRoleCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SuggestedRoleCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SuggestedRole.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SuggestedRoleAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SuggestedRoleAggregateArgs>(args: Subset<T, SuggestedRoleAggregateArgs>): Prisma.PrismaPromise<GetSuggestedRoleAggregateType<T>>
+
+    /**
+     * Group by SuggestedRole.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SuggestedRoleGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SuggestedRoleGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SuggestedRoleGroupByArgs['orderBy'] }
+        : { orderBy?: SuggestedRoleGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SuggestedRoleGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSuggestedRoleGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SuggestedRole model
+   */
+  readonly fields: SuggestedRoleFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SuggestedRole.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SuggestedRoleClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SuggestedRole model
+   */
+  interface SuggestedRoleFieldRefs {
+    readonly id: FieldRef<"SuggestedRole", 'String'>
+    readonly ein: FieldRef<"SuggestedRole", 'String'>
+    readonly title: FieldRef<"SuggestedRole", 'String'>
+    readonly description: FieldRef<"SuggestedRole", 'String'>
+    readonly skills: FieldRef<"SuggestedRole", 'String'>
+    readonly roleType: FieldRef<"SuggestedRole", 'String'>
+    readonly timeCommitment: FieldRef<"SuggestedRole", 'String'>
+    readonly salaryMin: FieldRef<"SuggestedRole", 'Int'>
+    readonly salaryMax: FieldRef<"SuggestedRole", 'Int'>
+    readonly isAiAugmented: FieldRef<"SuggestedRole", 'Boolean'>
+    readonly aiTools: FieldRef<"SuggestedRole", 'String'>
+    readonly source: FieldRef<"SuggestedRole", 'String'>
+    readonly generatedAt: FieldRef<"SuggestedRole", 'DateTime'>
+    readonly expiresAt: FieldRef<"SuggestedRole", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SuggestedRole findUnique
+   */
+  export type SuggestedRoleFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SuggestedRole
+     */
+    select?: SuggestedRoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SuggestedRole
+     */
+    omit?: SuggestedRoleOmit<ExtArgs> | null
+    /**
+     * Filter, which SuggestedRole to fetch.
+     */
+    where: SuggestedRoleWhereUniqueInput
+  }
+
+  /**
+   * SuggestedRole findUniqueOrThrow
+   */
+  export type SuggestedRoleFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SuggestedRole
+     */
+    select?: SuggestedRoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SuggestedRole
+     */
+    omit?: SuggestedRoleOmit<ExtArgs> | null
+    /**
+     * Filter, which SuggestedRole to fetch.
+     */
+    where: SuggestedRoleWhereUniqueInput
+  }
+
+  /**
+   * SuggestedRole findFirst
+   */
+  export type SuggestedRoleFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SuggestedRole
+     */
+    select?: SuggestedRoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SuggestedRole
+     */
+    omit?: SuggestedRoleOmit<ExtArgs> | null
+    /**
+     * Filter, which SuggestedRole to fetch.
+     */
+    where?: SuggestedRoleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SuggestedRoles to fetch.
+     */
+    orderBy?: SuggestedRoleOrderByWithRelationInput | SuggestedRoleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SuggestedRoles.
+     */
+    cursor?: SuggestedRoleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SuggestedRoles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SuggestedRoles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SuggestedRoles.
+     */
+    distinct?: SuggestedRoleScalarFieldEnum | SuggestedRoleScalarFieldEnum[]
+  }
+
+  /**
+   * SuggestedRole findFirstOrThrow
+   */
+  export type SuggestedRoleFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SuggestedRole
+     */
+    select?: SuggestedRoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SuggestedRole
+     */
+    omit?: SuggestedRoleOmit<ExtArgs> | null
+    /**
+     * Filter, which SuggestedRole to fetch.
+     */
+    where?: SuggestedRoleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SuggestedRoles to fetch.
+     */
+    orderBy?: SuggestedRoleOrderByWithRelationInput | SuggestedRoleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SuggestedRoles.
+     */
+    cursor?: SuggestedRoleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SuggestedRoles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SuggestedRoles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SuggestedRoles.
+     */
+    distinct?: SuggestedRoleScalarFieldEnum | SuggestedRoleScalarFieldEnum[]
+  }
+
+  /**
+   * SuggestedRole findMany
+   */
+  export type SuggestedRoleFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SuggestedRole
+     */
+    select?: SuggestedRoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SuggestedRole
+     */
+    omit?: SuggestedRoleOmit<ExtArgs> | null
+    /**
+     * Filter, which SuggestedRoles to fetch.
+     */
+    where?: SuggestedRoleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SuggestedRoles to fetch.
+     */
+    orderBy?: SuggestedRoleOrderByWithRelationInput | SuggestedRoleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SuggestedRoles.
+     */
+    cursor?: SuggestedRoleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SuggestedRoles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SuggestedRoles.
+     */
+    skip?: number
+    distinct?: SuggestedRoleScalarFieldEnum | SuggestedRoleScalarFieldEnum[]
+  }
+
+  /**
+   * SuggestedRole create
+   */
+  export type SuggestedRoleCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SuggestedRole
+     */
+    select?: SuggestedRoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SuggestedRole
+     */
+    omit?: SuggestedRoleOmit<ExtArgs> | null
+    /**
+     * The data needed to create a SuggestedRole.
+     */
+    data: XOR<SuggestedRoleCreateInput, SuggestedRoleUncheckedCreateInput>
+  }
+
+  /**
+   * SuggestedRole createMany
+   */
+  export type SuggestedRoleCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SuggestedRoles.
+     */
+    data: SuggestedRoleCreateManyInput | SuggestedRoleCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SuggestedRole createManyAndReturn
+   */
+  export type SuggestedRoleCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SuggestedRole
+     */
+    select?: SuggestedRoleSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SuggestedRole
+     */
+    omit?: SuggestedRoleOmit<ExtArgs> | null
+    /**
+     * The data used to create many SuggestedRoles.
+     */
+    data: SuggestedRoleCreateManyInput | SuggestedRoleCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SuggestedRole update
+   */
+  export type SuggestedRoleUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SuggestedRole
+     */
+    select?: SuggestedRoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SuggestedRole
+     */
+    omit?: SuggestedRoleOmit<ExtArgs> | null
+    /**
+     * The data needed to update a SuggestedRole.
+     */
+    data: XOR<SuggestedRoleUpdateInput, SuggestedRoleUncheckedUpdateInput>
+    /**
+     * Choose, which SuggestedRole to update.
+     */
+    where: SuggestedRoleWhereUniqueInput
+  }
+
+  /**
+   * SuggestedRole updateMany
+   */
+  export type SuggestedRoleUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SuggestedRoles.
+     */
+    data: XOR<SuggestedRoleUpdateManyMutationInput, SuggestedRoleUncheckedUpdateManyInput>
+    /**
+     * Filter which SuggestedRoles to update
+     */
+    where?: SuggestedRoleWhereInput
+    /**
+     * Limit how many SuggestedRoles to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SuggestedRole updateManyAndReturn
+   */
+  export type SuggestedRoleUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SuggestedRole
+     */
+    select?: SuggestedRoleSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SuggestedRole
+     */
+    omit?: SuggestedRoleOmit<ExtArgs> | null
+    /**
+     * The data used to update SuggestedRoles.
+     */
+    data: XOR<SuggestedRoleUpdateManyMutationInput, SuggestedRoleUncheckedUpdateManyInput>
+    /**
+     * Filter which SuggestedRoles to update
+     */
+    where?: SuggestedRoleWhereInput
+    /**
+     * Limit how many SuggestedRoles to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SuggestedRole upsert
+   */
+  export type SuggestedRoleUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SuggestedRole
+     */
+    select?: SuggestedRoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SuggestedRole
+     */
+    omit?: SuggestedRoleOmit<ExtArgs> | null
+    /**
+     * The filter to search for the SuggestedRole to update in case it exists.
+     */
+    where: SuggestedRoleWhereUniqueInput
+    /**
+     * In case the SuggestedRole found by the `where` argument doesn't exist, create a new SuggestedRole with this data.
+     */
+    create: XOR<SuggestedRoleCreateInput, SuggestedRoleUncheckedCreateInput>
+    /**
+     * In case the SuggestedRole was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SuggestedRoleUpdateInput, SuggestedRoleUncheckedUpdateInput>
+  }
+
+  /**
+   * SuggestedRole delete
+   */
+  export type SuggestedRoleDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SuggestedRole
+     */
+    select?: SuggestedRoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SuggestedRole
+     */
+    omit?: SuggestedRoleOmit<ExtArgs> | null
+    /**
+     * Filter which SuggestedRole to delete.
+     */
+    where: SuggestedRoleWhereUniqueInput
+  }
+
+  /**
+   * SuggestedRole deleteMany
+   */
+  export type SuggestedRoleDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SuggestedRoles to delete
+     */
+    where?: SuggestedRoleWhereInput
+    /**
+     * Limit how many SuggestedRoles to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * SuggestedRole without action
+   */
+  export type SuggestedRoleDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SuggestedRole
+     */
+    select?: SuggestedRoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SuggestedRole
+     */
+    omit?: SuggestedRoleOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Model IrsFiling
    */
 
@@ -51004,6 +52271,8 @@ export namespace Prisma {
     openings: 'openings',
     salaryMin: 'salaryMin',
     salaryMax: 'salaryMax',
+    isAiAugmented: 'isAiAugmented',
+    aiTools: 'aiTools',
     status: 'status',
     applicationDeadline: 'applicationDeadline',
     startDate: 'startDate',
@@ -51125,6 +52394,26 @@ export namespace Prisma {
   };
 
   export type IrsOrganizationScalarFieldEnum = (typeof IrsOrganizationScalarFieldEnum)[keyof typeof IrsOrganizationScalarFieldEnum]
+
+
+  export const SuggestedRoleScalarFieldEnum: {
+    id: 'id',
+    ein: 'ein',
+    title: 'title',
+    description: 'description',
+    skills: 'skills',
+    roleType: 'roleType',
+    timeCommitment: 'timeCommitment',
+    salaryMin: 'salaryMin',
+    salaryMax: 'salaryMax',
+    isAiAugmented: 'isAiAugmented',
+    aiTools: 'aiTools',
+    source: 'source',
+    generatedAt: 'generatedAt',
+    expiresAt: 'expiresAt'
+  };
+
+  export type SuggestedRoleScalarFieldEnum = (typeof SuggestedRoleScalarFieldEnum)[keyof typeof SuggestedRoleScalarFieldEnum]
 
 
   export const IrsFilingScalarFieldEnum: {
@@ -53993,6 +55282,8 @@ export namespace Prisma {
     openings?: IntFilter<"NgoRole"> | number
     salaryMin?: IntNullableFilter<"NgoRole"> | number | null
     salaryMax?: IntNullableFilter<"NgoRole"> | number | null
+    isAiAugmented?: BoolFilter<"NgoRole"> | boolean
+    aiTools?: StringNullableFilter<"NgoRole"> | string | null
     status?: EnumRoleStatusFilter<"NgoRole"> | $Enums.RoleStatus
     applicationDeadline?: DateTimeNullableFilter<"NgoRole"> | Date | string | null
     startDate?: DateTimeNullableFilter<"NgoRole"> | Date | string | null
@@ -54020,6 +55311,8 @@ export namespace Prisma {
     openings?: SortOrder
     salaryMin?: SortOrderInput | SortOrder
     salaryMax?: SortOrderInput | SortOrder
+    isAiAugmented?: SortOrder
+    aiTools?: SortOrderInput | SortOrder
     status?: SortOrder
     applicationDeadline?: SortOrderInput | SortOrder
     startDate?: SortOrderInput | SortOrder
@@ -54050,6 +55343,8 @@ export namespace Prisma {
     openings?: IntFilter<"NgoRole"> | number
     salaryMin?: IntNullableFilter<"NgoRole"> | number | null
     salaryMax?: IntNullableFilter<"NgoRole"> | number | null
+    isAiAugmented?: BoolFilter<"NgoRole"> | boolean
+    aiTools?: StringNullableFilter<"NgoRole"> | string | null
     status?: EnumRoleStatusFilter<"NgoRole"> | $Enums.RoleStatus
     applicationDeadline?: DateTimeNullableFilter<"NgoRole"> | Date | string | null
     startDate?: DateTimeNullableFilter<"NgoRole"> | Date | string | null
@@ -54077,6 +55372,8 @@ export namespace Prisma {
     openings?: SortOrder
     salaryMin?: SortOrderInput | SortOrder
     salaryMax?: SortOrderInput | SortOrder
+    isAiAugmented?: SortOrder
+    aiTools?: SortOrderInput | SortOrder
     status?: SortOrder
     applicationDeadline?: SortOrderInput | SortOrder
     startDate?: SortOrderInput | SortOrder
@@ -54109,6 +55406,8 @@ export namespace Prisma {
     openings?: IntWithAggregatesFilter<"NgoRole"> | number
     salaryMin?: IntNullableWithAggregatesFilter<"NgoRole"> | number | null
     salaryMax?: IntNullableWithAggregatesFilter<"NgoRole"> | number | null
+    isAiAugmented?: BoolWithAggregatesFilter<"NgoRole"> | boolean
+    aiTools?: StringNullableWithAggregatesFilter<"NgoRole"> | string | null
     status?: EnumRoleStatusWithAggregatesFilter<"NgoRole"> | $Enums.RoleStatus
     applicationDeadline?: DateTimeNullableWithAggregatesFilter<"NgoRole"> | Date | string | null
     startDate?: DateTimeNullableWithAggregatesFilter<"NgoRole"> | Date | string | null
@@ -54706,6 +56005,106 @@ export namespace Prisma {
     bmfLastUpdated?: DateTimeNullableWithAggregatesFilter<"IrsOrganization"> | Date | string | null
     createdAt?: DateTimeWithAggregatesFilter<"IrsOrganization"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"IrsOrganization"> | Date | string
+  }
+
+  export type SuggestedRoleWhereInput = {
+    AND?: SuggestedRoleWhereInput | SuggestedRoleWhereInput[]
+    OR?: SuggestedRoleWhereInput[]
+    NOT?: SuggestedRoleWhereInput | SuggestedRoleWhereInput[]
+    id?: StringFilter<"SuggestedRole"> | string
+    ein?: StringFilter<"SuggestedRole"> | string
+    title?: StringFilter<"SuggestedRole"> | string
+    description?: StringFilter<"SuggestedRole"> | string
+    skills?: StringFilter<"SuggestedRole"> | string
+    roleType?: StringFilter<"SuggestedRole"> | string
+    timeCommitment?: StringFilter<"SuggestedRole"> | string
+    salaryMin?: IntNullableFilter<"SuggestedRole"> | number | null
+    salaryMax?: IntNullableFilter<"SuggestedRole"> | number | null
+    isAiAugmented?: BoolFilter<"SuggestedRole"> | boolean
+    aiTools?: StringNullableFilter<"SuggestedRole"> | string | null
+    source?: StringFilter<"SuggestedRole"> | string
+    generatedAt?: DateTimeFilter<"SuggestedRole"> | Date | string
+    expiresAt?: DateTimeFilter<"SuggestedRole"> | Date | string
+  }
+
+  export type SuggestedRoleOrderByWithRelationInput = {
+    id?: SortOrder
+    ein?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    skills?: SortOrder
+    roleType?: SortOrder
+    timeCommitment?: SortOrder
+    salaryMin?: SortOrderInput | SortOrder
+    salaryMax?: SortOrderInput | SortOrder
+    isAiAugmented?: SortOrder
+    aiTools?: SortOrderInput | SortOrder
+    source?: SortOrder
+    generatedAt?: SortOrder
+    expiresAt?: SortOrder
+  }
+
+  export type SuggestedRoleWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    ein_title?: SuggestedRoleEinTitleCompoundUniqueInput
+    AND?: SuggestedRoleWhereInput | SuggestedRoleWhereInput[]
+    OR?: SuggestedRoleWhereInput[]
+    NOT?: SuggestedRoleWhereInput | SuggestedRoleWhereInput[]
+    ein?: StringFilter<"SuggestedRole"> | string
+    title?: StringFilter<"SuggestedRole"> | string
+    description?: StringFilter<"SuggestedRole"> | string
+    skills?: StringFilter<"SuggestedRole"> | string
+    roleType?: StringFilter<"SuggestedRole"> | string
+    timeCommitment?: StringFilter<"SuggestedRole"> | string
+    salaryMin?: IntNullableFilter<"SuggestedRole"> | number | null
+    salaryMax?: IntNullableFilter<"SuggestedRole"> | number | null
+    isAiAugmented?: BoolFilter<"SuggestedRole"> | boolean
+    aiTools?: StringNullableFilter<"SuggestedRole"> | string | null
+    source?: StringFilter<"SuggestedRole"> | string
+    generatedAt?: DateTimeFilter<"SuggestedRole"> | Date | string
+    expiresAt?: DateTimeFilter<"SuggestedRole"> | Date | string
+  }, "id" | "ein_title">
+
+  export type SuggestedRoleOrderByWithAggregationInput = {
+    id?: SortOrder
+    ein?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    skills?: SortOrder
+    roleType?: SortOrder
+    timeCommitment?: SortOrder
+    salaryMin?: SortOrderInput | SortOrder
+    salaryMax?: SortOrderInput | SortOrder
+    isAiAugmented?: SortOrder
+    aiTools?: SortOrderInput | SortOrder
+    source?: SortOrder
+    generatedAt?: SortOrder
+    expiresAt?: SortOrder
+    _count?: SuggestedRoleCountOrderByAggregateInput
+    _avg?: SuggestedRoleAvgOrderByAggregateInput
+    _max?: SuggestedRoleMaxOrderByAggregateInput
+    _min?: SuggestedRoleMinOrderByAggregateInput
+    _sum?: SuggestedRoleSumOrderByAggregateInput
+  }
+
+  export type SuggestedRoleScalarWhereWithAggregatesInput = {
+    AND?: SuggestedRoleScalarWhereWithAggregatesInput | SuggestedRoleScalarWhereWithAggregatesInput[]
+    OR?: SuggestedRoleScalarWhereWithAggregatesInput[]
+    NOT?: SuggestedRoleScalarWhereWithAggregatesInput | SuggestedRoleScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"SuggestedRole"> | string
+    ein?: StringWithAggregatesFilter<"SuggestedRole"> | string
+    title?: StringWithAggregatesFilter<"SuggestedRole"> | string
+    description?: StringWithAggregatesFilter<"SuggestedRole"> | string
+    skills?: StringWithAggregatesFilter<"SuggestedRole"> | string
+    roleType?: StringWithAggregatesFilter<"SuggestedRole"> | string
+    timeCommitment?: StringWithAggregatesFilter<"SuggestedRole"> | string
+    salaryMin?: IntNullableWithAggregatesFilter<"SuggestedRole"> | number | null
+    salaryMax?: IntNullableWithAggregatesFilter<"SuggestedRole"> | number | null
+    isAiAugmented?: BoolWithAggregatesFilter<"SuggestedRole"> | boolean
+    aiTools?: StringNullableWithAggregatesFilter<"SuggestedRole"> | string | null
+    source?: StringWithAggregatesFilter<"SuggestedRole"> | string
+    generatedAt?: DateTimeWithAggregatesFilter<"SuggestedRole"> | Date | string
+    expiresAt?: DateTimeWithAggregatesFilter<"SuggestedRole"> | Date | string
   }
 
   export type IrsFilingWhereInput = {
@@ -57679,6 +59078,8 @@ export namespace Prisma {
     openings?: number
     salaryMin?: number | null
     salaryMax?: number | null
+    isAiAugmented?: boolean
+    aiTools?: string | null
     status?: $Enums.RoleStatus
     applicationDeadline?: Date | string | null
     startDate?: Date | string | null
@@ -57706,6 +59107,8 @@ export namespace Prisma {
     openings?: number
     salaryMin?: number | null
     salaryMax?: number | null
+    isAiAugmented?: boolean
+    aiTools?: string | null
     status?: $Enums.RoleStatus
     applicationDeadline?: Date | string | null
     startDate?: Date | string | null
@@ -57729,6 +59132,8 @@ export namespace Prisma {
     openings?: IntFieldUpdateOperationsInput | number
     salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
     salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
+    isAiAugmented?: BoolFieldUpdateOperationsInput | boolean
+    aiTools?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumRoleStatusFieldUpdateOperationsInput | $Enums.RoleStatus
     applicationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -57756,6 +59161,8 @@ export namespace Prisma {
     openings?: IntFieldUpdateOperationsInput | number
     salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
     salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
+    isAiAugmented?: BoolFieldUpdateOperationsInput | boolean
+    aiTools?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumRoleStatusFieldUpdateOperationsInput | $Enums.RoleStatus
     applicationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -57781,6 +59188,8 @@ export namespace Prisma {
     openings?: number
     salaryMin?: number | null
     salaryMax?: number | null
+    isAiAugmented?: boolean
+    aiTools?: string | null
     status?: $Enums.RoleStatus
     applicationDeadline?: Date | string | null
     startDate?: Date | string | null
@@ -57803,6 +59212,8 @@ export namespace Prisma {
     openings?: IntFieldUpdateOperationsInput | number
     salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
     salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
+    isAiAugmented?: BoolFieldUpdateOperationsInput | boolean
+    aiTools?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumRoleStatusFieldUpdateOperationsInput | $Enums.RoleStatus
     applicationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -57827,6 +59238,8 @@ export namespace Prisma {
     openings?: IntFieldUpdateOperationsInput | number
     salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
     salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
+    isAiAugmented?: BoolFieldUpdateOperationsInput | boolean
+    aiTools?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumRoleStatusFieldUpdateOperationsInput | $Enums.RoleStatus
     applicationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -58500,6 +59913,125 @@ export namespace Prisma {
     bmfLastUpdated?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SuggestedRoleCreateInput = {
+    id?: string
+    ein: string
+    title: string
+    description: string
+    skills: string
+    roleType?: string
+    timeCommitment?: string
+    salaryMin?: number | null
+    salaryMax?: number | null
+    isAiAugmented?: boolean
+    aiTools?: string | null
+    source?: string
+    generatedAt?: Date | string
+    expiresAt: Date | string
+  }
+
+  export type SuggestedRoleUncheckedCreateInput = {
+    id?: string
+    ein: string
+    title: string
+    description: string
+    skills: string
+    roleType?: string
+    timeCommitment?: string
+    salaryMin?: number | null
+    salaryMax?: number | null
+    isAiAugmented?: boolean
+    aiTools?: string | null
+    source?: string
+    generatedAt?: Date | string
+    expiresAt: Date | string
+  }
+
+  export type SuggestedRoleUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ein?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    skills?: StringFieldUpdateOperationsInput | string
+    roleType?: StringFieldUpdateOperationsInput | string
+    timeCommitment?: StringFieldUpdateOperationsInput | string
+    salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
+    salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
+    isAiAugmented?: BoolFieldUpdateOperationsInput | boolean
+    aiTools?: NullableStringFieldUpdateOperationsInput | string | null
+    source?: StringFieldUpdateOperationsInput | string
+    generatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SuggestedRoleUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ein?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    skills?: StringFieldUpdateOperationsInput | string
+    roleType?: StringFieldUpdateOperationsInput | string
+    timeCommitment?: StringFieldUpdateOperationsInput | string
+    salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
+    salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
+    isAiAugmented?: BoolFieldUpdateOperationsInput | boolean
+    aiTools?: NullableStringFieldUpdateOperationsInput | string | null
+    source?: StringFieldUpdateOperationsInput | string
+    generatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SuggestedRoleCreateManyInput = {
+    id?: string
+    ein: string
+    title: string
+    description: string
+    skills: string
+    roleType?: string
+    timeCommitment?: string
+    salaryMin?: number | null
+    salaryMax?: number | null
+    isAiAugmented?: boolean
+    aiTools?: string | null
+    source?: string
+    generatedAt?: Date | string
+    expiresAt: Date | string
+  }
+
+  export type SuggestedRoleUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ein?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    skills?: StringFieldUpdateOperationsInput | string
+    roleType?: StringFieldUpdateOperationsInput | string
+    timeCommitment?: StringFieldUpdateOperationsInput | string
+    salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
+    salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
+    isAiAugmented?: BoolFieldUpdateOperationsInput | boolean
+    aiTools?: NullableStringFieldUpdateOperationsInput | string | null
+    source?: StringFieldUpdateOperationsInput | string
+    generatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SuggestedRoleUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ein?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    skills?: StringFieldUpdateOperationsInput | string
+    roleType?: StringFieldUpdateOperationsInput | string
+    timeCommitment?: StringFieldUpdateOperationsInput | string
+    salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
+    salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
+    isAiAugmented?: BoolFieldUpdateOperationsInput | boolean
+    aiTools?: NullableStringFieldUpdateOperationsInput | string | null
+    source?: StringFieldUpdateOperationsInput | string
+    generatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type IrsFilingCreateInput = {
@@ -60765,6 +62297,8 @@ export namespace Prisma {
     openings?: SortOrder
     salaryMin?: SortOrder
     salaryMax?: SortOrder
+    isAiAugmented?: SortOrder
+    aiTools?: SortOrder
     status?: SortOrder
     applicationDeadline?: SortOrder
     startDate?: SortOrder
@@ -60796,6 +62330,8 @@ export namespace Prisma {
     openings?: SortOrder
     salaryMin?: SortOrder
     salaryMax?: SortOrder
+    isAiAugmented?: SortOrder
+    aiTools?: SortOrder
     status?: SortOrder
     applicationDeadline?: SortOrder
     startDate?: SortOrder
@@ -60820,6 +62356,8 @@ export namespace Prisma {
     openings?: SortOrder
     salaryMin?: SortOrder
     salaryMax?: SortOrder
+    isAiAugmented?: SortOrder
+    aiTools?: SortOrder
     status?: SortOrder
     applicationDeadline?: SortOrder
     startDate?: SortOrder
@@ -61324,6 +62862,72 @@ export namespace Prisma {
     _sum?: NestedBigIntNullableFilter<$PrismaModel>
     _min?: NestedBigIntNullableFilter<$PrismaModel>
     _max?: NestedBigIntNullableFilter<$PrismaModel>
+  }
+
+  export type SuggestedRoleEinTitleCompoundUniqueInput = {
+    ein: string
+    title: string
+  }
+
+  export type SuggestedRoleCountOrderByAggregateInput = {
+    id?: SortOrder
+    ein?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    skills?: SortOrder
+    roleType?: SortOrder
+    timeCommitment?: SortOrder
+    salaryMin?: SortOrder
+    salaryMax?: SortOrder
+    isAiAugmented?: SortOrder
+    aiTools?: SortOrder
+    source?: SortOrder
+    generatedAt?: SortOrder
+    expiresAt?: SortOrder
+  }
+
+  export type SuggestedRoleAvgOrderByAggregateInput = {
+    salaryMin?: SortOrder
+    salaryMax?: SortOrder
+  }
+
+  export type SuggestedRoleMaxOrderByAggregateInput = {
+    id?: SortOrder
+    ein?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    skills?: SortOrder
+    roleType?: SortOrder
+    timeCommitment?: SortOrder
+    salaryMin?: SortOrder
+    salaryMax?: SortOrder
+    isAiAugmented?: SortOrder
+    aiTools?: SortOrder
+    source?: SortOrder
+    generatedAt?: SortOrder
+    expiresAt?: SortOrder
+  }
+
+  export type SuggestedRoleMinOrderByAggregateInput = {
+    id?: SortOrder
+    ein?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    skills?: SortOrder
+    roleType?: SortOrder
+    timeCommitment?: SortOrder
+    salaryMin?: SortOrder
+    salaryMax?: SortOrder
+    isAiAugmented?: SortOrder
+    aiTools?: SortOrder
+    source?: SortOrder
+    generatedAt?: SortOrder
+    expiresAt?: SortOrder
+  }
+
+  export type SuggestedRoleSumOrderByAggregateInput = {
+    salaryMin?: SortOrder
+    salaryMax?: SortOrder
   }
 
   export type IrsOrganizationScalarRelationFilter = {
@@ -67315,6 +68919,8 @@ export namespace Prisma {
     openings?: number
     salaryMin?: number | null
     salaryMax?: number | null
+    isAiAugmented?: boolean
+    aiTools?: string | null
     status?: $Enums.RoleStatus
     applicationDeadline?: Date | string | null
     startDate?: Date | string | null
@@ -67340,6 +68946,8 @@ export namespace Prisma {
     openings?: number
     salaryMin?: number | null
     salaryMax?: number | null
+    isAiAugmented?: boolean
+    aiTools?: string | null
     status?: $Enums.RoleStatus
     applicationDeadline?: Date | string | null
     startDate?: Date | string | null
@@ -67795,6 +69403,8 @@ export namespace Prisma {
     openings?: IntFilter<"NgoRole"> | number
     salaryMin?: IntNullableFilter<"NgoRole"> | number | null
     salaryMax?: IntNullableFilter<"NgoRole"> | number | null
+    isAiAugmented?: BoolFilter<"NgoRole"> | boolean
+    aiTools?: StringNullableFilter<"NgoRole"> | string | null
     status?: EnumRoleStatusFilter<"NgoRole"> | $Enums.RoleStatus
     applicationDeadline?: DateTimeNullableFilter<"NgoRole"> | Date | string | null
     startDate?: DateTimeNullableFilter<"NgoRole"> | Date | string | null
@@ -68201,6 +69811,8 @@ export namespace Prisma {
     openings?: number
     salaryMin?: number | null
     salaryMax?: number | null
+    isAiAugmented?: boolean
+    aiTools?: string | null
     status?: $Enums.RoleStatus
     applicationDeadline?: Date | string | null
     startDate?: Date | string | null
@@ -68226,6 +69838,8 @@ export namespace Prisma {
     openings?: number
     salaryMin?: number | null
     salaryMax?: number | null
+    isAiAugmented?: boolean
+    aiTools?: string | null
     status?: $Enums.RoleStatus
     applicationDeadline?: Date | string | null
     startDate?: Date | string | null
@@ -73880,6 +75494,8 @@ export namespace Prisma {
     openings?: number
     salaryMin?: number | null
     salaryMax?: number | null
+    isAiAugmented?: boolean
+    aiTools?: string | null
     status?: $Enums.RoleStatus
     applicationDeadline?: Date | string | null
     startDate?: Date | string | null
@@ -73906,6 +75522,8 @@ export namespace Prisma {
     openings?: number
     salaryMin?: number | null
     salaryMax?: number | null
+    isAiAugmented?: boolean
+    aiTools?: string | null
     status?: $Enums.RoleStatus
     applicationDeadline?: Date | string | null
     startDate?: Date | string | null
@@ -74070,6 +75688,8 @@ export namespace Prisma {
     openings?: IntFieldUpdateOperationsInput | number
     salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
     salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
+    isAiAugmented?: BoolFieldUpdateOperationsInput | boolean
+    aiTools?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumRoleStatusFieldUpdateOperationsInput | $Enums.RoleStatus
     applicationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -74096,6 +75716,8 @@ export namespace Prisma {
     openings?: IntFieldUpdateOperationsInput | number
     salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
     salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
+    isAiAugmented?: BoolFieldUpdateOperationsInput | boolean
+    aiTools?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumRoleStatusFieldUpdateOperationsInput | $Enums.RoleStatus
     applicationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -76331,6 +77953,8 @@ export namespace Prisma {
     openings?: number
     salaryMin?: number | null
     salaryMax?: number | null
+    isAiAugmented?: boolean
+    aiTools?: string | null
     status?: $Enums.RoleStatus
     applicationDeadline?: Date | string | null
     startDate?: Date | string | null
@@ -76640,6 +78264,8 @@ export namespace Prisma {
     openings?: IntFieldUpdateOperationsInput | number
     salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
     salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
+    isAiAugmented?: BoolFieldUpdateOperationsInput | boolean
+    aiTools?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumRoleStatusFieldUpdateOperationsInput | $Enums.RoleStatus
     applicationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -76665,6 +78291,8 @@ export namespace Prisma {
     openings?: IntFieldUpdateOperationsInput | number
     salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
     salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
+    isAiAugmented?: BoolFieldUpdateOperationsInput | boolean
+    aiTools?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumRoleStatusFieldUpdateOperationsInput | $Enums.RoleStatus
     applicationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -76689,6 +78317,8 @@ export namespace Prisma {
     openings?: IntFieldUpdateOperationsInput | number
     salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
     salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
+    isAiAugmented?: BoolFieldUpdateOperationsInput | boolean
+    aiTools?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumRoleStatusFieldUpdateOperationsInput | $Enums.RoleStatus
     applicationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -76831,6 +78461,8 @@ export namespace Prisma {
     openings?: number
     salaryMin?: number | null
     salaryMax?: number | null
+    isAiAugmented?: boolean
+    aiTools?: string | null
     status?: $Enums.RoleStatus
     applicationDeadline?: Date | string | null
     startDate?: Date | string | null
@@ -77104,6 +78736,8 @@ export namespace Prisma {
     openings?: IntFieldUpdateOperationsInput | number
     salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
     salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
+    isAiAugmented?: BoolFieldUpdateOperationsInput | boolean
+    aiTools?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumRoleStatusFieldUpdateOperationsInput | $Enums.RoleStatus
     applicationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -77129,6 +78763,8 @@ export namespace Prisma {
     openings?: IntFieldUpdateOperationsInput | number
     salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
     salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
+    isAiAugmented?: BoolFieldUpdateOperationsInput | boolean
+    aiTools?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumRoleStatusFieldUpdateOperationsInput | $Enums.RoleStatus
     applicationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -77153,6 +78789,8 @@ export namespace Prisma {
     openings?: IntFieldUpdateOperationsInput | number
     salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
     salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
+    isAiAugmented?: BoolFieldUpdateOperationsInput | boolean
+    aiTools?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumRoleStatusFieldUpdateOperationsInput | $Enums.RoleStatus
     applicationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null

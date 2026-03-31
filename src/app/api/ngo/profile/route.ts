@@ -42,10 +42,12 @@ export async function PATCH(req: NextRequest) {
   if (!ngo) return NextResponse.json({ error: "NGO not found" }, { status: 404 });
 
   const body = await req.json();
-  const { orgName, description, website } = body as {
+  const { orgName, description, website, ein, state } = body as {
     orgName?: string;
     description?: string;
     website?: string;
+    ein?: string;
+    state?: string;
   };
 
   const updated = await prisma.ngo.update({
@@ -54,8 +56,10 @@ export async function PATCH(req: NextRequest) {
       ...(orgName !== undefined && { orgName }),
       ...(description !== undefined && { description }),
       ...(website !== undefined && { website }),
+      ...(ein !== undefined && { ein: ein || null }),
+      ...(state !== undefined && { state: state || null }),
     },
-    select: { id: true, orgName: true, description: true, website: true },
+    select: { id: true, orgName: true, description: true, website: true, ein: true, state: true },
   });
 
   return NextResponse.json(updated);

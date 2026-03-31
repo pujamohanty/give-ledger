@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
-import { Briefcase, Clock, Users, MapPin, Wifi, ChevronRight, Search, DollarSign, GraduationCap, Smartphone, CheckCircle2, XCircle } from "lucide-react";
+import { Briefcase, Clock, Users, MapPin, Wifi, ChevronRight, Search, DollarSign, GraduationCap, Smartphone, CheckCircle2, XCircle, Bot } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import { auth } from "@/lib/auth";
 import { matchTrainingModule } from "@/lib/training-curriculum";
@@ -9,16 +9,18 @@ import { matchTrainingModule } from "@/lib/training-curriculum";
 export default async function OpportunitiesPage({
   searchParams,
 }: {
-  searchParams: Promise<{ compensation?: string }>;
+  searchParams: Promise<{ compensation?: string; augmented?: string }>;
 }) {
   const session = await auth();
-  const { compensation } = await searchParams;
+  const { compensation, augmented } = await searchParams;
+  const showAugmented = augmented === "true";
 
   const roles = await prisma.ngoRole.findMany({
     where: {
       status: "OPEN",
       ...(compensation === "paid" ? { OR: [{ salaryMin: { not: null } }, { salaryMax: { not: null } }] } : {}),
       ...(compensation === "volunteer" ? { salaryMin: null, salaryMax: null } : {}),
+      ...(showAugmented ? { isAiAugmented: true } : {}),
     },
     include: {
       ngo: { select: { id: true, orgName: true, logoUrl: true, trustScore: true, state: true } },
@@ -72,28 +74,45 @@ export default async function OpportunitiesPage({
           <Link href="/pricing" className="ml-auto text-amber-700 font-semibold underline shrink-0">See plans →</Link>
         </div>
 
-        {/* Pay filter */}
-        <div className="flex gap-2 flex-wrap items-center mb-6">
-          <span className="text-[11px] font-semibold text-gray-400 uppercase tracking-wider">Pay:</span>
-          {compensationFilters.map((f) => {
-            const href = f.key === "" ? "/opportunities" : `/opportunities?compensation=${f.key}`;
-            return (
-              <Link key={f.key} href={href}
-                className={`px-3.5 py-1.5 rounded-full text-xs font-medium border transition-colors ${
-                  activeCompensation === f.key
-                    ? "bg-gray-900 text-white border-gray-900"
-                    : "bg-white text-gray-600 border-gray-200 hover:border-gray-400"
-                }`}
-              >
-                {f.label}
-              </Link>
-            );
-          })}
-          {activeCompensation !== "" && (
-            <Link href="/opportunities" className="text-[11px] text-gray-400 hover:text-gray-700 underline ml-1">
-              Clear filters
+
+        {/* Filters */}
+        <div className="space-y-3 mb-6">
+          {/* Pay filter */}
+          <div className="flex gap-2 flex-wrap items-center">
+            <span className="text-[11px] font-semibold text-gray-400 uppercase tracking-wider w-16 shrink-0">Pay:</span>
+            {compensationFilters.map((f) => {
+              const base = showAugmented ? "/opportunities?augmented=true" : "/opportunities";
+              const href = f.key === "" ? base : `${base}${showAugmented ? "&" : "?"}compensation=${f.key}`;
+              return (
+                <Link key={f.key} href={href}
+                  className={`px-3.5 py-1.5 rounded-full text-xs font-medium border transition-colors ${
+                    activeCompensation === f.key
+                      ? "bg-gray-900 text-white border-gray-900"
+                      : "bg-white text-gray-600 border-gray-200 hover:border-gray-400"
+                  }`}
+                >
+                  {f.label}
+                </Link>
+              );
+            })}
+          </div>
+          {/* AI-Augmented filter */}
+          <div className="flex gap-2 flex-wrap items-center">
+            <span className="text-[11px] font-semibold text-gray-400 uppercase tracking-wider w-16 shrink-0">Type:</span>
+            <Link
+              href={showAugmented ? (activeCompensation ? `/opportunities?compensation=${activeCompensation}` : "/opportunities") : (activeCompensation ? `/opportunities?compensation=${activeCompensation}&augmented=true` : "/opportunities?augmented=true")}
+              className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium border transition-colors ${
+                showAugmented
+                  ? "bg-indigo-600 text-white border-indigo-600"
+                  : "bg-white text-gray-600 border-gray-200 hover:border-indigo-300 hover:text-indigo-700"
+              }`}
+            >
+              <Bot className="w-3 h-3" /> AI-Augmented
             </Link>
-          )}
+            <Link href="/opportunities" className="text-[11px] text-gray-400 hover:text-gray-700 underline">
+              All roles
+            </Link>
+          </div>
         </div>
 
         {/* Roles grid */}
@@ -154,6 +173,7 @@ export default async function OpportunitiesPage({
                 </Link>
               ) : null;
               const skills = role.skillsRequired.split(",").map((s) => s.trim()).filter(Boolean);
+              const aiToolList = role.isAiAugmented && role.aiTools ? role.aiTools.split(",").map((s) => s.trim()).filter(Boolean) : [];
               const spotsLeft = Math.max(0, role.openings - role._count.applications);
               const isFilled = spotsLeft === 0;
               const hasApplied = appliedRoleIds.has(role.id);
@@ -215,6 +235,19 @@ export default async function OpportunitiesPage({
                       )}
                     </div>
                   </div>
+
+                  {/* AI-Augmented highlight */}
+                  {role.isAiAugmented && (
+                    <div className="flex items-center gap-2 bg-indigo-50 border border-indigo-100 rounded-lg px-3 py-2">
+                      <Bot className="w-3.5 h-3.5 text-indigo-600 shrink-0" />
+                      <div className="flex-1 min-w-0">
+                        <p className="text-[11px] font-semibold text-indigo-700">AI-Augmented Role — no specialist degree required</p>
+                        {aiToolList.length > 0 && (
+                          <p className="text-[10px] text-indigo-500">Use: {aiToolList.join(", ")}</p>
+                        )}
+                      </div>
+                    </div>
+                  )}
 
                   {/* Salary highlight — paid roles only */}
                   {isPaid && salaryLabel && (

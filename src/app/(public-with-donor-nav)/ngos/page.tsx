@@ -133,7 +133,8 @@ export default async function NgosPage({
   const session = await auth();
 
   const where = {
-    ...(q ? { name: { contains: q, mode: "insensitive" as const } } : {}),
+    // startsWith (not contains) so the btree index on name is used — ILIKE '%q%' causes a full scan on 1.9M rows
+    ...(q ? { name: { startsWith: q, mode: "insensitive" as const } } : {}),
     ...(state ? { state } : {}),
     ...(ntee ? { nteeCode: { startsWith: ntee } } : {}),
   };
@@ -151,9 +152,11 @@ export default async function NgosPage({
         revenueAmount: true,
         ngo: { select: { id: true } },
       },
-      orderBy: state
+      orderBy: q || ntee
         ? [{ name: "asc" as const }]
-        : [{ state: "asc" as const }, { name: "asc" as const }],
+        : state
+          ? [{ revenueAmount: { sort: "desc" as const, nulls: "last" as const } }, { name: "asc" as const }]
+          : [{ revenueAmount: { sort: "desc" as const, nulls: "last" as const } }, { state: "asc" as const }, { name: "asc" as const }],
       skip: page * PER_PAGE,
       take: PER_PAGE,
     }),
@@ -201,7 +204,7 @@ export default async function NgosPage({
             <input
               name="q"
               defaultValue={q}
-              placeholder="Search by organisation name…"
+              placeholder="Type the start of an organisation name…"
               className="w-full pl-9 pr-4 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-400"
             />
           </div>
@@ -241,47 +244,26 @@ export default async function NgosPage({
         {/* Results grid */}
         {orgs.length > 0 ? (
           <>
-            {(() => {
-              // Group orgs by state when no state filter is active
-              if (!state) {
-                const groups: { stateCode: string; items: OrgItem[] }[] = [];
-                for (const org of orgs) {
-                  const key = org.state ?? "";
-                  const last = groups[groups.length - 1];
-                  if (last && last.stateCode === key) {
-                    last.items.push(org);
-                  } else {
-                    groups.push({ stateCode: key, items: [org] });
-                  }
-                }
-                return (
-                  <div className="space-y-8 mb-8">
-                    {groups.map(({ stateCode, items }) => (
-                      <div key={stateCode}>
-                        {stateCode && (
-                          <div className="flex items-center gap-3 mb-4">
-                            <h2 className="text-sm font-semibold text-gray-700 uppercase tracking-wide whitespace-nowrap">
-                              {STATE_LABELS[stateCode] ?? stateCode}
-                            </h2>
-                            <div className="flex-1 h-px bg-gray-200" />
-                            <span className="text-xs text-gray-400 whitespace-nowrap">{items.length} org{items.length !== 1 ? "s" : ""}</span>
-                          </div>
-                        )}
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                          {items.map((org) => <OrgCard key={org.ein} org={org} />)}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                );
-              }
-              // Flat grid when state filter is active
-              return (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+            {state && !q && !ntee ? (
+              // When filtering by state: group by state header
+              <div className="mb-8">
+                <div className="flex items-center gap-3 mb-4">
+                  <h2 className="text-sm font-semibold text-gray-700 uppercase tracking-wide">
+                    {STATE_LABELS[state] ?? state}
+                  </h2>
+                  <div className="flex-1 h-px bg-gray-200" />
+                  <span className="text-xs text-gray-400">{total.toLocaleString()} orgs</span>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   {orgs.map((org) => <OrgCard key={org.ein} org={org} />)}
                 </div>
-              );
-            })()}
+              </div>
+            ) : (
+              // Default: flat grid ordered by revenue
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+                {orgs.map((org) => <OrgCard key={org.ein} org={org} />)}
+              </div>
+            )}
 
             {/* Pagination */}
             {totalPages > 1 && (

@@ -513,6 +513,8 @@ exports.Prisma.NgoRoleScalarFieldEnum = {
   openings: 'openings',
   salaryMin: 'salaryMin',
   salaryMax: 'salaryMax',
+  isAiAugmented: 'isAiAugmented',
+  aiTools: 'aiTools',
   status: 'status',
   applicationDeadline: 'applicationDeadline',
   startDate: 'startDate',
@@ -613,6 +615,23 @@ exports.Prisma.IrsOrganizationScalarFieldEnum = {
   bmfLastUpdated: 'bmfLastUpdated',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SuggestedRoleScalarFieldEnum = {
+  id: 'id',
+  ein: 'ein',
+  title: 'title',
+  description: 'description',
+  skills: 'skills',
+  roleType: 'roleType',
+  timeCommitment: 'timeCommitment',
+  salaryMin: 'salaryMin',
+  salaryMax: 'salaryMax',
+  isAiAugmented: 'isAiAugmented',
+  aiTools: 'aiTools',
+  source: 'source',
+  generatedAt: 'generatedAt',
+  expiresAt: 'expiresAt'
 };
 
 exports.Prisma.IrsFilingScalarFieldEnum = {
@@ -782,6 +801,7 @@ exports.Prisma.ModelName = {
   ChallengeAcceptance: 'ChallengeAcceptance',
   Subscription: 'Subscription',
   IrsOrganization: 'IrsOrganization',
+  SuggestedRole: 'SuggestedRole',
   IrsFiling: 'IrsFiling'
 };
 

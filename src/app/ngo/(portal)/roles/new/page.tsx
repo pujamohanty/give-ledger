@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { ArrowLeft, Plus, X, AlertCircle, CheckCircle } from "lucide-react";
+import { ArrowLeft, Plus, X, AlertCircle, CheckCircle, Bot } from "lucide-react";
 
 const roleTypes = [
   { value: "INTERNSHIP",        label: "Internship",        desc: "Skill showcase for early-career professionals" },
@@ -31,6 +31,8 @@ export default function NewRolePage() {
     openings: "1", applicationDeadline: "", startDate: "",
     salaryMin: "", salaryMax: "",
     isPaid: false,
+    isAiAugmented: false,
+    aiTools: "",
   });
   const [skills, setSkills] = useState<string[]>([]);
   const [skillInput, setSkillInput] = useState("");
@@ -357,6 +359,69 @@ export default function NewRolePage() {
                 </div>
               )}
             </div>
+          </CardContent>
+        </Card>
+
+        {/* AI-Augmented Role toggle */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-sm flex items-center gap-2">
+              <Bot className="w-4 h-4 text-indigo-500" /> AI-Augmented Universal Skill Role
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="bg-indigo-50 border border-indigo-100 rounded-xl p-4 text-xs text-indigo-800 leading-relaxed">
+              <p className="font-semibold mb-1">What is an AI-Augmented role?</p>
+              <p>
+                These are remote, flexible roles designed for people who use AI tools (Claude, Gemini, ChatGPT) to
+                work across domain boundaries — without needing a specialist degree. A generalist who can direct an
+                AI model effectively and apply judgement to its output can fulfil these roles. Marking a role as
+                AI-Augmented significantly widens your applicant pool and opens opportunities to people who would
+                otherwise not apply.
+              </p>
+            </div>
+            <div className="flex gap-3">
+              <button
+                type="button"
+                onClick={() => { set("isAiAugmented", false); set("aiTools", ""); }}
+                className={`flex-1 py-3 rounded-xl border-2 transition-all text-sm font-medium ${
+                  !form.isAiAugmented
+                    ? "border-gray-700 bg-gray-900 text-white"
+                    : "border-gray-200 text-gray-500 hover:border-gray-300"
+                }`}
+              >
+                <div className="font-semibold">Standard role</div>
+                <div className="text-[11px] mt-0.5 opacity-70">Requires domain expertise</div>
+              </button>
+              <button
+                type="button"
+                onClick={() => set("isAiAugmented", true)}
+                className={`flex-1 py-3 rounded-xl border-2 transition-all text-sm font-medium ${
+                  form.isAiAugmented
+                    ? "border-indigo-500 bg-indigo-50 text-indigo-800"
+                    : "border-gray-200 text-gray-500 hover:border-gray-300"
+                }`}
+              >
+                <div className="font-semibold flex items-center justify-center gap-1.5">
+                  <Bot className="w-3.5 h-3.5" /> AI-Augmented
+                </div>
+                <div className="text-[11px] mt-0.5 opacity-70">AI fluency is the qualification</div>
+              </button>
+            </div>
+            {form.isAiAugmented && (
+              <div className="space-y-2">
+                <Label>Recommended AI tools for this role</Label>
+                <Input
+                  placeholder="e.g. Claude, Gemini, ChatGPT, Perplexity"
+                  value={form.aiTools}
+                  onChange={(e) => set("aiTools", e.target.value)}
+                  className="mt-1"
+                />
+                <p className="text-[11px] text-gray-400">
+                  Comma-separated. These are shown to applicants so they know which tools to use.
+                </p>
+              </div>
+            )}
           </CardContent>
         </Card>
 

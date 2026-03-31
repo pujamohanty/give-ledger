@@ -5,7 +5,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  }
+}
 
 model Account {
   id                String  @id @default(cuid())
@@ -21,6 +21,7 @@ model Account {
   id_token          String? @db.Text
   session_state     String?
   user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
   @@unique([provider, providerAccountId])
 }
 
@@ -36,6 +37,7 @@ model VerificationToken {
   identifier String
   token      String   @unique
   expires    DateTime
+
   @@unique([identifier, token])
 }
 
@@ -91,50 +93,50 @@ enum ProjectCategory {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  email         String    @unique
-  emailVerified DateTime?
-  name          String?
-  image         String?
-  password      String?   // hashed — null for Google OAuth users
-  role          Role      @default(DONOR)
-  referralCode  String?   @unique @default(cuid())
-  bio           String?   @db.Text
-  jobTitle      String?
-  company       String?
-  city          String?
-  linkedinUrl   String?
-  twitterUrl    String?
-  portfolioUrl  String?
-  skills        String?   // comma-separated: e.g. "IT,MARKETING,LEGAL"
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-  accounts      Account[]
-  sessions      Session[]
-  ngo           Ngo?
-  donations     Donation[]
-  ratings       Rating[]
-  notifications       Notification[]
-  spotlightVotes      SpotlightVote[]
-  campaignsCreated    Campaign[]
+  id                    String                    @id @default(cuid())
+  email                 String                    @unique
+  emailVerified         DateTime?
+  name                  String?
+  image                 String?
+  password              String? // hashed — null for Google OAuth users
+  role                  Role                      @default(DONOR)
+  referralCode          String?                   @unique @default(cuid())
+  bio                   String?                   @db.Text
+  jobTitle              String?
+  company               String?
+  city                  String?
+  linkedinUrl           String?
+  twitterUrl            String?
+  portfolioUrl          String?
+  skills                String? // comma-separated: e.g. "IT,MARKETING,LEGAL"
+  createdAt             DateTime                  @default(now())
+  updatedAt             DateTime                  @updatedAt
+  accounts              Account[]
+  sessions              Session[]
+  ngo                   Ngo?
+  donations             Donation[]
+  ratings               Rating[]
+  notifications         Notification[]
+  spotlightVotes        SpotlightVote[]
+  campaignsCreated      Campaign[]
   campaignContributions CampaignContributor[]
-  ngoSuggestions      NgoSuggestion[]
-  referralsMade       Referral[]  @relation("ReferralsMade")
-  referralsReceived   Referral[]  @relation("ReferralsReceived")
-  skillContributions  SkillContribution[] @relation("SkillDonor")
-  endorsementsReceived DonorEndorsement[]  @relation("EndorsementsReceived")
-  endorsementsGiven    DonorEndorsement[]  @relation("EndorsementsGiven")
-  documents           DonorDocument[]
-  aiSummary           String?   @db.Text  // AI-generated profile narrative (cached)
-  roleApplications    RoleApplication[]
-  challenges          DonorChallenge[]
-  subscription        Subscription?
-  betaTesterProfile   BetaTesterProfile?
-  impactScore         Int      @default(0)
-  trainingShareCount  Int      @default(0)
-  betaShareCount      Int      @default(0)
-  campaignCount       Int      @default(0)
-  applicationProfiles DonorApplicationProfile[]
+  ngoSuggestions        NgoSuggestion[]
+  referralsMade         Referral[]                @relation("ReferralsMade")
+  referralsReceived     Referral[]                @relation("ReferralsReceived")
+  skillContributions    SkillContribution[]       @relation("SkillDonor")
+  endorsementsReceived  DonorEndorsement[]        @relation("EndorsementsReceived")
+  endorsementsGiven     DonorEndorsement[]        @relation("EndorsementsGiven")
+  documents             DonorDocument[]
+  aiSummary             String?                   @db.Text // AI-generated profile narrative (cached)
+  roleApplications      RoleApplication[]
+  challenges            DonorChallenge[]
+  subscription          Subscription?
+  betaTesterProfile     BetaTesterProfile?
+  impactScore           Int                       @default(0)
+  trainingShareCount    Int                       @default(0)
+  betaShareCount        Int                       @default(0)
+  campaignCount         Int                       @default(0)
+  applicationProfiles   DonorApplicationProfile[]
 }
 
 model DonorApplicationProfile {
@@ -154,7 +156,7 @@ model BetaTesterProfile {
   user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   interests       String[] // BETA_TESTING, UGC_CONTENT
   devices         String[] // iOS, Android, Desktop_Mac, Desktop_Windows
-  followerRange   String   // UNDER_1K, 1K_10K, 10K_50K, 50K_PLUS
+  followerRange   String // UNDER_1K, 1K_10K, 10K_50K, 50K_PLUS
   niches          String[] // Tech, Lifestyle, Finance, Health, Gaming, Food, Travel, Fashion
   instagramHandle String?
   tiktokHandle    String?
@@ -168,62 +170,62 @@ model BetaTesterProfile {
 }
 
 model Ngo {
-  id           String    @id @default(cuid())
-  userId       String    @unique
-  orgName      String
-  ein          String?   // US Employer Identification Number (XX-XXXXXXX)
-  regNumber    String?
-  state        String?   // US state of registration
-  country      String?   @default("United States")
-  website      String?
-  description  String?   @db.Text
-  logoUrl      String?
-  trustScore   Float     @default(0)
-  status       NgoStatus @default(PENDING)
-  approvedAt   DateTime?
-  rejectReason String?
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
-  user              User               @relation(fields: [userId], references: [id], onDelete: Cascade)
-  projects          Project[]
-  expenses          Expense[]
-  ratings           Rating[]
-  boardMembers      BoardMember[]
+  id                 String              @id @default(cuid())
+  userId             String              @unique
+  orgName            String
+  ein                String? // US Employer Identification Number (XX-XXXXXXX)
+  regNumber          String?
+  state              String? // US state of registration
+  country            String?             @default("United States")
+  website            String?
+  description        String?             @db.Text
+  logoUrl            String?
+  trustScore         Float               @default(0)
+  status             NgoStatus           @default(PENDING)
+  approvedAt         DateTime?
+  rejectReason       String?
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
+  user               User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  projects           Project[]
+  expenses           Expense[]
+  ratings            Rating[]
+  boardMembers       BoardMember[]
   skillContributions SkillContribution[]
   donorEndorsements  DonorEndorsement[]
-  documents         NgoDocument[]
-  aiSummary         String?   @db.Text  // AI-generated NGO profile narrative (cached)
-  roles             NgoRole[]
-  challenges        DonorChallenge[]
-  irsOrganization   IrsOrganization?
+  documents          NgoDocument[]
+  aiSummary          String?             @db.Text // AI-generated NGO profile narrative (cached)
+  roles              NgoRole[]
+  challenges         DonorChallenge[]
+  irsOrganization    IrsOrganization?
 }
 
 model Project {
-  id           String          @id @default(cuid())
-  ngoId        String
-  title        String
-  description  String          @db.Text
-  category     ProjectCategory
-  coverImage   String?
-  goalAmount   Float
-  raisedAmount Float           @default(0)
-  currency     String          @default("USD")
-  status       ProjectStatus   @default(DRAFT)
-  startDate    DateTime?
-  endDate      DateTime?
-  featured     Boolean         @default(false)
-  spotlightVoteCount Int       @default(0)
-  createdAt    DateTime        @default(now())
-  updatedAt    DateTime        @updatedAt
-  ngo                Ngo               @relation(fields: [ngoId], references: [id], onDelete: Cascade)
+  id                 String              @id @default(cuid())
+  ngoId              String
+  title              String
+  description        String              @db.Text
+  category           ProjectCategory
+  coverImage         String?
+  goalAmount         Float
+  raisedAmount       Float               @default(0)
+  currency           String              @default("USD")
+  status             ProjectStatus       @default(DRAFT)
+  startDate          DateTime?
+  endDate            DateTime?
+  featured           Boolean             @default(false)
+  spotlightVoteCount Int                 @default(0)
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
+  ngo                Ngo                 @relation(fields: [ngoId], references: [id], onDelete: Cascade)
   milestones         Milestone[]
   donations          Donation[]
   expenses           Expense[]
   spotlightVotes     SpotlightVote[]
   campaigns          Campaign[]
   skillContributions SkillContribution[]
-  roles             NgoRole[]
-  challenges        DonorChallenge[]
+  roles              NgoRole[]
+  challenges         DonorChallenge[]
 }
 
 model Milestone {
@@ -248,14 +250,14 @@ model Milestone {
 }
 
 model EvidenceFile {
-  id          String   @id @default(cuid())
+  id          String    @id @default(cuid())
   milestoneId String
   url         String
   fileType    String
   fileName    String
   fileSize    Int
   hash        String?
-  uploadedAt  DateTime @default(now())
+  uploadedAt  DateTime  @default(now())
   milestone   Milestone @relation(fields: [milestoneId], references: [id], onDelete: Cascade)
 }
 
@@ -270,33 +272,33 @@ model OutputMarker {
 }
 
 model Donation {
-  id              String        @id @default(cuid())
-  userId          String
-  projectId       String
-  amount          Float
-  currency        String        @default("USD")
-  paymentMethod   PaymentMethod @default(CARD)
-  stripePaymentId String?
-  txHash          String?
-  status          String        @default("COMPLETED")
-  createdAt       DateTime      @default(now())
-  user            User          @relation(fields: [userId], references: [id])
-  project         Project       @relation(fields: [projectId], references: [id])
+  id               String            @id @default(cuid())
+  userId           String
+  projectId        String
+  amount           Float
+  currency         String            @default("USD")
+  paymentMethod    PaymentMethod     @default(CARD)
+  stripePaymentId  String?
+  txHash           String?
+  status           String            @default("COMPLETED")
+  createdAt        DateTime          @default(now())
+  user             User              @relation(fields: [userId], references: [id])
+  project          Project           @relation(fields: [projectId], references: [id])
   blockchainRecord BlockchainRecord?
 }
 
 model Disbursement {
-  id              String             @id @default(cuid())
-  milestoneId     String             @unique
-  requestedAmount Float
-  approvedAmount  Float?
-  status          DisbursementStatus @default(PENDING)
-  approvedBy      String?
-  rejectReason    String?
-  txHash          String?
-  processedAt     DateTime?
-  createdAt       DateTime           @default(now())
-  updatedAt       DateTime           @updatedAt
+  id               String             @id @default(cuid())
+  milestoneId      String             @unique
+  requestedAmount  Float
+  approvedAmount   Float?
+  status           DisbursementStatus @default(PENDING)
+  approvedBy       String?
+  rejectReason     String?
+  txHash           String?
+  processedAt      DateTime?
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
   milestone        Milestone          @relation(fields: [milestoneId], references: [id])
   blockchainRecord BlockchainRecord?
 }
@@ -316,14 +318,14 @@ model Expense {
 }
 
 model BlockchainRecord {
-  id             String   @id @default(cuid())
+  id             String        @id @default(cuid())
   entityType     String
-  donationId     String?  @unique
-  disbursementId String?  @unique
-  txHash         String   @unique
+  donationId     String?       @unique
+  disbursementId String?       @unique
+  txHash         String        @unique
   blockNumber    Int?
-  network        String   @default("polygon")
-  timestamp      DateTime @default(now())
+  network        String        @default("polygon")
+  timestamp      DateTime      @default(now())
   donation       Donation?     @relation(fields: [donationId], references: [id])
   disbursement   Disbursement? @relation(fields: [disbursementId], references: [id])
 }
@@ -337,6 +339,7 @@ model Rating {
   createdAt DateTime @default(now())
   donor     User     @relation(fields: [donorId], references: [id])
   ngo       Ngo      @relation(fields: [ngoId], references: [id])
+
   @@unique([donorId, ngoId])
 }
 
@@ -353,7 +356,7 @@ model PlatformSetting {
 model Notification {
   id        String   @id @default(cuid())
   userId    String
-  type      String   // MILESTONE_COMPLETE | CAMPAIGN_UPDATE | SPOTLIGHT_WINNER | REFERRAL_CONVERTED | NEW_PROJECT
+  type      String // MILESTONE_COMPLETE | CAMPAIGN_UPDATE | SPOTLIGHT_WINNER | REFERRAL_CONVERTED | NEW_PROJECT
   title     String
   message   String
   linkUrl   String?
@@ -372,24 +375,25 @@ model SpotlightVote {
   createdAt DateTime @default(now())
   user      User     @relation(fields: [userId], references: [id])
   project   Project  @relation(fields: [projectId], references: [id])
+
   @@unique([userId, month, year])
 }
 
 // Feature 5: Group Fundraising / Campaigns
 model Campaign {
-  id           String   @id @default(cuid())
+  id           String                @id @default(cuid())
   creatorId    String
   projectId    String
   title        String
-  description  String?  @db.Text
+  description  String?               @db.Text
   goalAmount   Float
-  raisedAmount Float    @default(0)
+  raisedAmount Float                 @default(0)
   endsAt       DateTime?
-  active       Boolean  @default(true)
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-  creator      User     @relation(fields: [creatorId], references: [id])
-  project      Project  @relation(fields: [projectId], references: [id])
+  active       Boolean               @default(true)
+  createdAt    DateTime              @default(now())
+  updatedAt    DateTime              @updatedAt
+  creator      User                  @relation(fields: [creatorId], references: [id])
+  project      Project               @relation(fields: [projectId], references: [id])
   contributors CampaignContributor[]
 }
 
@@ -401,6 +405,7 @@ model CampaignContributor {
   createdAt  DateTime @default(now())
   campaign   Campaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
   user       User     @relation(fields: [userId], references: [id])
+
   @@unique([campaignId, userId])
 }
 
@@ -432,17 +437,17 @@ model Referral {
 // Feature 8: Activity Feed
 model ActivityEvent {
   id           String   @id @default(cuid())
-  type         String   // MILESTONE_COMPLETE | DONATION | PROJECT_LAUNCH | CAMPAIGN_CREATED | SPOTLIGHT_WIN | SKILL_APPROVED | NGO_JOINED | NGO_ENDORSEMENT | DONOR_ENDORSEMENT | SKILL_OFFER
+  type         String // MILESTONE_COMPLETE | DONATION | PROJECT_LAUNCH | CAMPAIGN_CREATED | SPOTLIGHT_WIN | SKILL_APPROVED | NGO_JOINED | NGO_ENDORSEMENT | DONOR_ENDORSEMENT | SKILL_OFFER
   projectId    String?
-  ngoId        String?  // always the NGO's id, regardless of who the actor is
+  ngoId        String? // always the NGO's id, regardless of who the actor is
   ngoName      String?
   projectTitle String?
   actorName    String?
-  actorId      String?  // userId or ngoId of the actor
-  actorType    String?  // USER | NGO
-  imageUrl     String?  // optional avatar/logo
+  actorId      String? // userId or ngoId of the actor
+  actorType    String? // USER | NGO
+  imageUrl     String? // optional avatar/logo
   description  String
-  linkUrl      String?  // deep link to relevant page
+  linkUrl      String? // deep link to relevant page
   metadata     String?  @db.Text
   createdAt    DateTime @default(now())
 }
@@ -452,8 +457,8 @@ model BoardMember {
   id          String   @id @default(cuid())
   ngoId       String
   name        String
-  role        String   // e.g. "Chairman", "Trustee", "Secretary", "Co-Founder"
-  memberType  String   @default("BOARD_MEMBER")  // FOUNDER | BOARD_MEMBER
+  role        String // e.g. "Chairman", "Trustee", "Secretary", "Co-Founder"
+  memberType  String   @default("BOARD_MEMBER") // FOUNDER | BOARD_MEMBER
   bio         String?  @db.Text
   linkedinUrl String?
   photoUrl    String?
@@ -465,22 +470,22 @@ model BoardMember {
 
 // Phase 2: Skill & Time Contributions
 model SkillContribution {
-  id              String    @id @default(cuid())
-  donorId         String
-  ngoId           String
-  projectId       String?
-  skillCategory   String    // IT | MARKETING | LEGAL | FUNDRAISING | DESIGN | TRAINING | OTHER
-  description     String    @db.Text
+  id               String                 @id @default(cuid())
+  donorId          String
+  ngoId            String
+  projectId        String?
+  skillCategory    String // IT | MARKETING | LEGAL | FUNDRAISING | DESIGN | TRAINING | OTHER
+  description      String                 @db.Text
   hoursContributed Float?
-  status          String    @default("PENDING")  // PENDING | APPROVED | REJECTED
-  monetaryValue   Float?    // assigned by NGO on approval
-  txHash          String?   // on-chain record once approved
-  submittedAt     DateTime  @default(now())
-  approvedAt      DateTime?
-  updatedAt       DateTime  @updatedAt
-  donor           User      @relation("SkillDonor", fields: [donorId], references: [id])
-  ngo             Ngo       @relation(fields: [ngoId], references: [id])
-  project         Project?  @relation(fields: [projectId], references: [id])
+  status           String                 @default("PENDING") // PENDING | APPROVED | REJECTED
+  monetaryValue    Float? // assigned by NGO on approval
+  txHash           String? // on-chain record once approved
+  submittedAt      DateTime               @default(now())
+  approvedAt       DateTime?
+  updatedAt        DateTime               @updatedAt
+  donor            User                   @relation("SkillDonor", fields: [donorId], references: [id])
+  ngo              Ngo                    @relation(fields: [ngoId], references: [id])
+  project          Project?               @relation(fields: [projectId], references: [id])
   blockchainRecord SkillBlockchainRecord?
 }
 
@@ -496,16 +501,17 @@ model SkillBlockchainRecord {
 
 // Phase 2: Donor Endorsements (NGO field staff recognise donors)
 model DonorEndorsement {
-  id          String   @id @default(cuid())
-  donorId     String
-  ngoId       String
-  endorsedBy  String   // userId of the NGO staff member who endorsed
-  note        String?  @db.Text
-  category    String   @default("GENERAL")  // GENERAL | FINANCIAL | SKILL | COMMUNITY_IMPACT
-  createdAt   DateTime @default(now())
-  donor       User     @relation("EndorsementsReceived", fields: [donorId], references: [id])
-  ngo         Ngo      @relation(fields: [ngoId], references: [id])
-  endorser    User     @relation("EndorsementsGiven", fields: [endorsedBy], references: [id])
+  id         String   @id @default(cuid())
+  donorId    String
+  ngoId      String
+  endorsedBy String // userId of the NGO staff member who endorsed
+  note       String?  @db.Text
+  category   String   @default("GENERAL") // GENERAL | FINANCIAL | SKILL | COMMUNITY_IMPACT
+  createdAt  DateTime @default(now())
+  donor      User     @relation("EndorsementsReceived", fields: [donorId], references: [id])
+  ngo        Ngo      @relation(fields: [ngoId], references: [id])
+  endorser   User     @relation("EndorsementsGiven", fields: [endorsedBy], references: [id])
+
   @@unique([donorId, ngoId, endorsedBy])
 }
 
@@ -514,10 +520,10 @@ model DonorDocument {
   id        String   @id @default(cuid())
   userId    String
   fileName  String
-  category  String   @default("OTHER")  // CV | CERTIFICATE | PORTFOLIO | OTHER
+  category  String   @default("OTHER") // CV | CERTIFICATE | PORTFOLIO | OTHER
   mimeType  String
-  fileSize  Int      // bytes
-  fileData  String   @db.Text  // base64-encoded file content
+  fileSize  Int // bytes
+  fileData  String   @db.Text // base64-encoded file content
   createdAt DateTime @default(now())
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
@@ -527,10 +533,10 @@ model NgoDocument {
   id        String   @id @default(cuid())
   ngoId     String
   fileName  String
-  category  String   @default("OTHER")  // PROJECT | FOUNDER | GALLERY | REPORT | LEGAL | OTHER
+  category  String   @default("OTHER") // PROJECT | FOUNDER | GALLERY | REPORT | LEGAL | OTHER
   mimeType  String
-  fileSize  Int      // bytes
-  fileData  String   @db.Text  // base64-encoded file content
+  fileSize  Int // bytes
+  fileData  String   @db.Text // base64-encoded file content
   caption   String?
   createdAt DateTime @default(now())
   ngo       Ngo      @relation(fields: [ngoId], references: [id], onDelete: Cascade)
@@ -564,45 +570,48 @@ enum EngagementStatus {
 }
 
 model NgoRole {
-  id                  String      @id @default(cuid())
+  id                  String            @id @default(cuid())
   ngoId               String
-  projectId           String?     // optionally tied to a specific project
+  projectId           String? // optionally tied to a specific project
   title               String
   department          String?
-  roleType            RoleType    @default(VOLUNTEER)
-  description         String      @db.Text
-  responsibilities    String      @db.Text
-  skillsRequired      String      // comma-separated: e.g. "Marketing,Design,Fundraising"
-  timeCommitment      String      // e.g. "10 hours/week"
-  durationWeeks       Int         @default(4)
-  isRemote            Boolean     @default(true)
+  roleType            RoleType          @default(VOLUNTEER)
+  description         String            @db.Text
+  responsibilities    String            @db.Text
+  skillsRequired      String // comma-separated: e.g. "Marketing,Design,Fundraising"
+  timeCommitment      String // e.g. "10 hours/week"
+  durationWeeks       Int               @default(4)
+  isRemote            Boolean           @default(true)
   location            String?
-  openings            Int         @default(1)
-  salaryMin           Int?        // USD/year for paid roles; null = volunteer / unpaid
+  openings            Int               @default(1)
+  salaryMin           Int? // USD/year for paid roles; null = volunteer / unpaid
   salaryMax           Int?
-  status              RoleStatus  @default(OPEN)
+  isAiAugmented       Boolean           @default(false) // role designed for AI-fluent generalists
+  aiTools             String? // comma-sep recommended AI tools: "Claude,Gemini,ChatGPT"
+  status              RoleStatus        @default(OPEN)
   applicationDeadline DateTime?
   startDate           DateTime?
-  createdAt           DateTime    @default(now())
-  updatedAt           DateTime    @updatedAt
-  ngo                 Ngo         @relation(fields: [ngoId], references: [id], onDelete: Cascade)
-  project             Project?    @relation(fields: [projectId], references: [id])
+  createdAt           DateTime          @default(now())
+  updatedAt           DateTime          @updatedAt
+  ngo                 Ngo               @relation(fields: [ngoId], references: [id], onDelete: Cascade)
+  project             Project?          @relation(fields: [projectId], references: [id])
   applications        RoleApplication[]
 }
 
 model RoleApplication {
-  id            String            @id @default(cuid())
-  roleId        String
-  applicantId   String
-  coverNote     String            @db.Text
-  linkedinUrl   String?
-  portfolioUrl  String?
-  status        ApplicationStatus @default(PENDING)
-  appliedAt     DateTime          @default(now())
-  reviewedAt    DateTime?
-  role          NgoRole           @relation(fields: [roleId], references: [id], onDelete: Cascade)
-  applicant     User              @relation(fields: [applicantId], references: [id])
-  engagement    RoleEngagement?
+  id           String            @id @default(cuid())
+  roleId       String
+  applicantId  String
+  coverNote    String            @db.Text
+  linkedinUrl  String?
+  portfolioUrl String?
+  status       ApplicationStatus @default(PENDING)
+  appliedAt    DateTime          @default(now())
+  reviewedAt   DateTime?
+  role         NgoRole           @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  applicant    User              @relation(fields: [applicantId], references: [id])
+  engagement   RoleEngagement?
+
   @@unique([roleId, applicantId])
 }
 
@@ -615,38 +624,38 @@ model RoleEngagement {
   workSummary         String?          @db.Text
   status              EngagementStatus @default(ACTIVE)
   ngoFeedback         String?          @db.Text
-  monetaryValue       Float?           // assigned by NGO on completion
-  skillContributionId String?          // linked SkillContribution record once completed
+  monetaryValue       Float? // assigned by NGO on completion
+  skillContributionId String? // linked SkillContribution record once completed
   application         RoleApplication  @relation(fields: [applicationId], references: [id], onDelete: Cascade)
 }
 
 // Donor Challenge — viral giving + skill loop
 model DonorChallenge {
-  id               String    @id @default(cuid())
+  id               String                @id @default(cuid())
   donorId          String
-  challengeType    String    @default("FINANCIAL")  // FINANCIAL | SKILL
+  challengeType    String                @default("FINANCIAL") // FINANCIAL | SKILL
   // Financial challenge fields
   projectId        String?
   amount           Float?
   // Skill challenge fields
   ngoId            String?
-  roleId           String?   // optional: specific NgoRole to apply to
+  roleId           String? // optional: specific NgoRole to apply to
   skillCategory    String?
   hoursContributed Float?
   // Shared
-  message          String?   @db.Text
+  message          String?               @db.Text
   deadline         DateTime?
-  createdAt        DateTime  @default(now())
-  donor            User      @relation(fields: [donorId], references: [id], onDelete: Cascade)
-  project          Project?  @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  ngo              Ngo?      @relation(fields: [ngoId], references: [id], onDelete: Cascade)
+  createdAt        DateTime              @default(now())
+  donor            User                  @relation(fields: [donorId], references: [id], onDelete: Cascade)
+  project          Project?              @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  ngo              Ngo?                  @relation(fields: [ngoId], references: [id], onDelete: Cascade)
   acceptances      ChallengeAcceptance[]
 }
 
 model ChallengeAcceptance {
   id          String         @id @default(cuid())
   challengeId String
-  name        String?        // optional — visitor can say who they are
+  name        String? // optional — visitor can say who they are
   createdAt   DateTime       @default(now())
   challenge   DonorChallenge @relation(fields: [challengeId], references: [id], onDelete: Cascade)
 }
@@ -664,7 +673,7 @@ model Subscription {
   plan             SubscriptionPlan @default(FREE)
   applicationsUsed Int              @default(0)
   stripePaymentId  String?
-  refundEligibleAt DateTime?        // PRO only: purchasedAt + 18 months
+  refundEligibleAt DateTime? // PRO only: purchasedAt + 18 months
   purchasedAt      DateTime?
   createdAt        DateTime         @default(now())
   updatedAt        DateTime         @updatedAt
@@ -674,8 +683,8 @@ model Subscription {
 // ─── IRS Nonprofit Data ───────────────────────────────────────────────────────
 
 model IrsOrganization {
-  id               String    @id @default(cuid())
-  ein              String    @unique
+  id               String      @id @default(cuid())
+  ein              String      @unique
   name             String
   sortName         String?
   ico              String?
@@ -703,11 +712,11 @@ model IrsOrganization {
   revenueAmount    BigInt?
   nteeCode         String?
   groupNumber      String?
-  ngoId            String?   @unique
-  ngo              Ngo?      @relation(fields: [ngoId], references: [id])
+  ngoId            String?     @unique
+  ngo              Ngo?        @relation(fields: [ngoId], references: [id])
   bmfLastUpdated   DateTime?
-  createdAt        DateTime  @default(now())
-  updatedAt        DateTime  @updatedAt
+  createdAt        DateTime    @default(now())
+  updatedAt        DateTime    @updatedAt
   filings          IrsFiling[]
 
   @@index([state])
@@ -719,8 +728,29 @@ model IrsOrganization {
   @@index([revenueAmount])
 }
 
+// AI-generated potential role profiles for any IRS org (cached, 30-day expiry)
+model SuggestedRole {
+  id              String   @id @default(cuid())
+  ein             String
+  title           String
+  description     String   @db.Text
+  skills          String   // comma-separated skill tags
+  roleType        String   @default("VOLUNTEER") // VOLUNTEER | INTERNSHIP | CAREER_TRANSITION | INTERIM
+  timeCommitment  String   @default("5-10 hours/week")
+  salaryMin       Int?     // null = unpaid/volunteer
+  salaryMax       Int?
+  isAiAugmented   Boolean  @default(false) // role designed for AI-fluent generalists
+  aiTools         String?  // comma-sep recommended tools: "Claude,Gemini,ChatGPT"
+  source          String   @default("AI")
+  generatedAt     DateTime @default(now())
+  expiresAt       DateTime // generatedAt + 30 days
+
+  @@unique([ein, title])
+  @@index([ein])
+}
+
 model IrsFiling {
-  id                     String    @id @default(cuid())
+  id                     String          @id @default(cuid())
   ein                    String
   taxYear                Int
   taxPeriodBegin         DateTime?
@@ -747,8 +777,8 @@ model IrsFiling {
   xmlBatchId             String?
   filingType             String?
   pdfUrl                 String?
-  createdAt              DateTime  @default(now())
-  updatedAt              DateTime  @updatedAt
+  createdAt              DateTime        @default(now())
+  updatedAt              DateTime        @updatedAt
   organization           IrsOrganization @relation(fields: [ein], references: [ein])
 
   @@unique([ein, taxYear])
