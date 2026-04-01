@@ -190,9 +190,9 @@ async function fetchSamPage(
     api_key: SAM_API_KEY!,
     naicsCode: naicsPrefix,
     includeSections: "entityRegistration,coreData,assertions,pointsOfContact",
-    limit: String(limit),    // SAM.gov v3 uses "limit" not "pageSize"
-    offset: String(offset),  // SAM.gov v3 uses "offset" not "start"
-    registrationStatus: "A", // Active only
+    page: String(offset / limit),  // SAM.gov v3: 0-indexed page number
+    size: String(limit),           // SAM.gov v3: records per page (max 100)
+    registrationStatus: "A",       // Active only
   });
 
   if (fromDate) {
