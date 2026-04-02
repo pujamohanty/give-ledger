@@ -38,7 +38,9 @@ import { parse } from "csv-parse";
 config({ path: path.join(__dirname, "../.env") });
 
 const { Pool } = pg;
-const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+// Use DIRECT_URL (non-pooled, port 5432) for long-running import scripts
+// DATABASE_URL uses PgBouncer which drops idle connections during bulk imports
+const pool = new Pool({ connectionString: process.env.DIRECT_URL || process.env.DATABASE_URL });
 const prisma = new PrismaClient({
   adapter: new (require("@prisma/adapter-pg").PrismaPg)(pool),
 });
