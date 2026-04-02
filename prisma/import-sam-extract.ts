@@ -44,7 +44,7 @@ const prisma = new PrismaClient({
 });
 
 const SAM_API_KEY = process.env.SAM_GOV_API_KEY;
-const EXTRACTS_BASE = "https://api.sam.gov/entity-information/v3/extracts";
+const EXTRACTS_BASE = "https://api.sam.gov/data-services/v1/extracts";
 const CACHE_DIR = path.join(os.homedir(), ".webcrawler", "sam-extracts");
 
 // NAICS prefixes to keep — one per Career Compass sector (4-digit prefix match)
@@ -75,34 +75,62 @@ interface ExtractFileInfo {
 }
 
 async function getExtractDownloadUrl(): Promise<ExtractFileInfo> {
-  // The Extracts API returns metadata about available extract files
-  const url = `${EXTRACTS_BASE}?api_key=${SAM_API_KEY}&fileType=ENTITY`;
-  const res = await fetch(url);
+  // The Extracts API: fileType=ENTITY, sensitivity=PUBLIC, frequency=MONTHLY
+  // Returns a redirect to the actual download URL
+  const params = new URLSearchParams({
+    api_key: SAM_API_KEY!,
+    fileType: "ENTITY",
+    sensitivity: "PUBLIC",
+    frequency: "MONTHLY",
+  });
+  const url = `${EXTRACTS_BASE}?${params.toString()}`;
+
+  const res = await fetch(url, { redirect: "manual" });
+
+  // API returns 200 with download URL or 302 redirect directly to file
+  if (res.status === 302 || res.status === 301) {
+    const location = res.headers.get("location") ?? "";
+    if (!location) throw new Error("Redirect with no Location header");
+    const fileName = location.split("/").pop()?.split("?")[0] ?? "sam_extract.zip";
+    return { fileName, fileDate: "current", downloadUrl: location };
+  }
+
   if (!res.ok) {
     const text = await res.text();
     throw new Error(`Extracts API error ${res.status}: ${text.slice(0, 300)}`);
   }
-  const data = await res.json() as {
-    extractFiles?: Array<{
+
+  // Some responses return JSON with a download link
+  const contentType = res.headers.get("content-type") ?? "";
+  if (contentType.includes("application/json")) {
+    const data = await res.json() as {
+      extractFiles?: Array<{ fileName?: string; fileDate?: string; _links?: { self?: { href?: string } } }>;
       fileName?: string;
-      fileDate?: string;
-      _links?: { self?: { href?: string } };
-    }>;
-  };
+      fileDownloadLink?: string;
+      s3FileUrl?: string;
+    };
+    // Try various response shapes
+    const files = data.extractFiles ?? [];
+    if (files.length > 0) {
+      const latest = files[0];
+      const downloadUrl = latest._links?.self?.href ?? "";
+      if (!downloadUrl) throw new Error("No download URL in extract response");
+      return {
+        fileName: latest.fileName ?? "sam_extract.zip",
+        fileDate: latest.fileDate ?? "unknown",
+        downloadUrl,
+      };
+    }
+    const directUrl = data.fileDownloadLink ?? data.s3FileUrl ?? "";
+    if (directUrl) {
+      const fileName = data.fileName ?? directUrl.split("/").pop()?.split("?")[0] ?? "sam_extract.zip";
+      return { fileName, fileDate: "current", downloadUrl: directUrl };
+    }
+    throw new Error(`Unexpected JSON response: ${JSON.stringify(data).slice(0, 300)}`);
+  }
 
-  const files = data.extractFiles ?? [];
-  if (files.length === 0) throw new Error("No extract files available");
-
-  // Get the most recent file
-  const latest = files[0];
-  const downloadUrl = latest._links?.self?.href ?? "";
-  if (!downloadUrl) throw new Error("No download URL in extract response");
-
-  return {
-    fileName: latest.fileName ?? "sam_extract.zip",
-    fileDate: latest.fileDate ?? "unknown",
-    downloadUrl,
-  };
+  // If it's the ZIP itself (content-disposition), the URL is the download URL
+  throw new Error(`Unexpected response content-type: ${contentType}`);
 }
 
 async function downloadExtract(downloadUrl: string, fileName: string): Promise<string> {
@@ -119,8 +147,13 @@ async function downloadExtract(downloadUrl: string, fileName: string): Promise<s
   }
 
   console.log(`  Downloading: ${fileName}...`);
-  const fullUrl = downloadUrl.startsWith("http") ? downloadUrl : `https://api.sam.gov${downloadUrl}?api_key=${SAM_API_KEY}`;
-  const res = await fetch(fullUrl);
+  // If URL already has api_key or is a pre-signed S3 URL, use as-is; otherwise append key
+  const fullUrl = (downloadUrl.includes("api_key=") || downloadUrl.includes("X-Amz-"))
+    ? downloadUrl
+    : downloadUrl.startsWith("http")
+      ? `${downloadUrl}${downloadUrl.includes("?") ? "&" : "?"}api_key=${SAM_API_KEY}`
+      : `https://api.sam.gov${downloadUrl}?api_key=${SAM_API_KEY}`;
+  const res = await fetch(fullUrl, { redirect: "follow" });
   if (!res.ok) throw new Error(`Download failed: ${res.status}`);
 
   const fileStream = createWriteStream(localPath);
@@ -130,94 +163,71 @@ async function downloadExtract(downloadUrl: string, fileName: string): Promise<s
   return localPath;
 }
 
-// SAM.gov CSV column indices (from the Entity Extract documentation)
-// The extract is a pipe-delimited (|) CSV with fixed columns
+// SAM.gov Public Monthly Extract V2 column indices (verified against actual extract)
+// Format: pipe-delimited (|), 142 columns, starts with BOF header row
 const COL = {
   UEI: 0,
-  CAGE_CODE: 1,
-  LEGAL_NAME: 2,
-  DBA_NAME: 3,
-  REGISTRATION_DATE: 8,
-  EXPIRATION_DATE: 9,
-  ENTITY_STRUCTURE: 13,
-  STATE: 23,
-  ZIP: 24,
-  CITY: 22,
-  STREET: 21,
-  WEBSITE: 28,
+  CAGE_CODE: 3,
+  LEGAL_NAME: 11,
+  DBA_NAME: 12,
+  REGISTRATION_DATE: 7,
+  EXPIRATION_DATE: 8,
+  ENTITY_STRUCTURE: 27,  // entity structure code (e.g. "ZZ", "2L")
+  CITY: 17,
+  STATE: 18,
+  ZIP: 19,
+  STREET: 15,
+  WEBSITE: 26,
   NAICS_PRIMARY: 32,
-  NAICS_LIST: 33,
-  BUSINESS_TYPES: 34,
-  SBA_TYPES: 35,
-  CONTACT_FIRST: 44,
-  CONTACT_LAST: 45,
-  CONTACT_EMAIL: 47,
-  EIN: 77,
+  NAICS_LIST: 34,     // ~-separated list with type suffix e.g. "541511Y~541512Y"
+  BUSINESS_TYPES: 31, // ~-separated business type codes
+  SBA_TYPES: 36,      // ~-separated SBA designation codes (empty if none)
+  CONTACT_FIRST: 46,  // Electronic Business POC first name
+  CONTACT_LAST: 48,   // Electronic Business POC last name
+  // EIN and contact email not available in public extract (FOUO only)
 } as const;
 
 async function processExtractZip(zipPath: string): Promise<number> {
+  // Phase 1: collect all matching rows synchronously (no async in stream handler)
+  type CompanyRow = Parameters<typeof prisma.company.upsert>[0]["create"];
+  const rows: CompanyRow[] = [];
   let processed = 0;
-  let saved = 0;
-  let batch: Parameters<typeof prisma.company.upsert>[0]["create"][] = [];
-  const BATCH_SIZE = 500;
 
-  const flushBatch = async () => {
-    if (batch.length === 0) return;
-    await Promise.allSettled(
-      batch.map((data) =>
-        prisma.company.upsert({
-          where: { uei: data.uei! },
-          create: data,
-          update: {
-            legalName: data.legalName,
-            dbaName: data.dbaName,
-            city: data.city,
-            state: data.state,
-            zipCode: data.zipCode,
-            website: data.website,
-            contactName: data.contactName,
-            contactEmail: data.contactEmail,
-            naicsCodes: data.naicsCodes,
-            naicsPrimary: data.naicsPrimary,
-            businessTypes: data.businessTypes,
-            sbaDesignations: data.sbaDesignations,
-            entityStructure: data.entityStructure,
-            registrationDate: data.registrationDate,
-            isActive: true,
-          },
-        })
-      )
-    );
-    saved += batch.length;
-    batch = [];
-  };
-
-  return new Promise((resolve, reject) => {
+  await new Promise<void>((resolve, reject) => {
     fs.createReadStream(zipPath)
-      .pipe(unzipper.ParseOne(/\.csv$/i))
+      .pipe(unzipper.ParseOne(/\.(csv|dat|txt)$/i))
       .pipe(
         parse({
           delimiter: "|",
           skip_empty_lines: true,
-          from_line: 2, // skip header row
+          from_line: 2,
           relax_column_count: true,
+          quote: false,
+          relax_quotes: true,
         })
       )
-      .on("data", async (row: string[]) => {
+      .on("data", (row: string[]) => {
         processed++;
 
         const naicsPrimary = row[COL.NAICS_PRIMARY]?.trim();
-        if (!shouldKeep(naicsPrimary)) return; // skip non-target sectors
+        if (!shouldKeep(naicsPrimary)) return;
 
-        const expirationDate = row[COL.EXPIRATION_DATE]?.trim();
-        if (expirationDate && new Date(expirationDate) < new Date()) return; // skip expired
+        // SAM date format: YYYYMMDD → convert to YYYY-MM-DD for reliable parsing
+        const parseSamDate = (s?: string) => {
+          if (!s || s.length < 8) return null;
+          const d = new Date(`${s.slice(0,4)}-${s.slice(4,6)}-${s.slice(6,8)}`);
+          return isNaN(d.getTime()) ? null : d;
+        };
+        const expParsed = parseSamDate(row[COL.EXPIRATION_DATE]?.trim());
+        if (expParsed && expParsed < new Date()) return; // skip expired
 
         const uei = row[COL.UEI]?.trim();
         const legalName = row[COL.LEGAL_NAME]?.trim();
         if (!uei || !legalName) return;
 
         const naicsListRaw = row[COL.NAICS_LIST]?.trim() ?? "";
-        const naicsCodes = naicsListRaw.split("~").map((s) => s.trim()).filter(Boolean);
+        // Strip type suffix: "541511Y" → "541511", "541512E" → "541512"
+        const naicsCodes = naicsListRaw.split("~").map((s) => s.trim().replace(/[A-Z]+$/, "")).filter(Boolean);
 
         const businessTypesRaw = row[COL.BUSINESS_TYPES]?.trim() ?? "";
         const businessTypes = businessTypesRaw.split("~").map((s) => s.trim()).filter(Boolean);
@@ -229,14 +239,13 @@ async function processExtractZip(zipPath: string): Promise<number> {
         const contactLast = row[COL.CONTACT_LAST]?.trim() ?? "";
         const contactName = [contactFirst, contactLast].filter(Boolean).join(" ") || null;
 
-        const regDateRaw = row[COL.REGISTRATION_DATE]?.trim();
-        const registrationDate = regDateRaw ? new Date(regDateRaw) : null;
+        const registrationDate = parseSamDate(row[COL.REGISTRATION_DATE]?.trim());
 
-        batch.push({
+        rows.push({
           uei,
           legalName,
           dbaName: row[COL.DBA_NAME]?.trim() || null,
-          ein: row[COL.EIN]?.trim() || null,
+          ein: null, // not available in public extract
           cageCode: row[COL.CAGE_CODE]?.trim() || null,
           streetAddress: row[COL.STREET]?.trim() || null,
           city: row[COL.CITY]?.trim() || null,
@@ -244,7 +253,7 @@ async function processExtractZip(zipPath: string): Promise<number> {
           zipCode: row[COL.ZIP]?.trim() || null,
           website: row[COL.WEBSITE]?.trim() || null,
           contactName,
-          contactEmail: row[COL.CONTACT_EMAIL]?.trim() || null,
+          contactEmail: null, // not available in public extract
           naicsCodes,
           naicsPrimary,
           naicsDescription: null,
@@ -256,20 +265,60 @@ async function processExtractZip(zipPath: string): Promise<number> {
           ocRegistered: false,
           isActive: true,
         });
-
-        if (batch.length >= BATCH_SIZE) {
-          await flushBatch();
-          if (saved % 5000 === 0 && saved > 0) {
-            console.log(`  Progress: ${processed.toLocaleString()} rows scanned, ${saved.toLocaleString()} saved`);
-          }
-        }
       })
-      .on("end", async () => {
-        await flushBatch();
-        resolve(saved);
-      })
+      .on("end", () => resolve())
       .on("error", reject);
   });
+
+  console.log(`  Scanned ${processed.toLocaleString()} rows, ${rows.length.toLocaleString()} match NAICS filter`);
+
+  // Phase 2: upsert in concurrent micro-batches of 5 (safe for Supabase pooler, ~5x faster than sequential)
+  const CONCURRENCY = 5;
+  const CHUNK = 500;
+  let saved = 0;
+  let firstError = true;
+
+  for (let i = 0; i < rows.length; i += CONCURRENCY) {
+    const micro = rows.slice(i, i + CONCURRENCY);
+    const results = await Promise.allSettled(
+      micro.map((data) =>
+        prisma.company.upsert({
+          where: { uei: data.uei! },
+          create: data,
+          update: {
+            legalName: data.legalName,
+            dbaName: data.dbaName,
+            city: data.city,
+            state: data.state,
+            zipCode: data.zipCode,
+            website: data.website,
+            contactName: data.contactName,
+            naicsCodes: data.naicsCodes,
+            naicsPrimary: data.naicsPrimary,
+            businessTypes: data.businessTypes,
+            sbaDesignations: data.sbaDesignations,
+            entityStructure: data.entityStructure,
+            registrationDate: data.registrationDate,
+            samRegistered: true,
+            isActive: true,
+          },
+        })
+      )
+    );
+    for (const r of results) {
+      if (r.status === "fulfilled") {
+        saved++;
+      } else if (firstError) {
+        console.error("  Upsert error sample:", (r.reason as Error).message);
+        firstError = false;
+      }
+    }
+    if (saved % CHUNK === 0 && saved > 0) {
+      console.log(`  Progress: ${saved.toLocaleString()} / ${rows.length.toLocaleString()} saved`);
+    }
+  }
+
+  return saved;
 }
 
 async function main() {
