@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import Link from "next/link";
 import {
   MapPin, ChevronDown, ChevronRight, Bot, GraduationCap,
   TrendingUp, Briefcase, ExternalLink, Sparkles, X, Search,
-  BookOpen, Clock, Zap,
+  BookOpen, Clock, Zap, Compass,
 } from "lucide-react";
 import {
   SECTORS, US_STATES, GROWTH_COLORS, GROWTH_DOT,
@@ -152,7 +152,7 @@ function TrainingPathPanel({ slugs }: { slugs: string[] }) {
   const isUrgent = count >= 3;
 
   return (
-    <div className={`mt-6 rounded-2xl border p-5 transition-all duration-300 ${
+    <div className={`rounded-2xl border p-5 transition-all duration-300 ${
       isUrgent
         ? "bg-gradient-to-r from-violet-950 to-indigo-950 border-violet-700"
         : "bg-white border-violet-200"
@@ -253,12 +253,82 @@ function TrainingPathPanel({ slugs }: { slugs: string[] }) {
   );
 }
 
+function SectorDetailPanel({
+  sector,
+  onClose,
+  onRoleExpand,
+}: {
+  sector: Sector;
+  onClose: () => void;
+  onRoleExpand: (slug: string) => void;
+}) {
+  return (
+    <div className="rounded-2xl border border-violet-200 bg-white shadow-lg overflow-hidden">
+      <div className="bg-gradient-to-r from-violet-950 to-indigo-950 px-5 py-4">
+        <div className="flex items-start justify-between gap-4">
+          <div>
+            <div className="flex items-center gap-2 mb-1">
+              <span className="text-xl">{sector.emoji}</span>
+              <h2 className="text-base font-black text-white">{sector.name}</h2>
+            </div>
+            <p className="text-xs text-gray-300 leading-relaxed">{sector.description}</p>
+          </div>
+          <button onClick={onClose} className="text-gray-400 hover:text-white mt-0.5 shrink-0">
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+        <div className="mt-3 flex items-center gap-3 flex-wrap">
+          <GrowthBadge level={sector.growthLevel} />
+          <span className="text-sm font-bold text-white">{sector.growthPct}</span>
+          <span className="text-[11px] text-gray-400">{sector.jobsLabel}</span>
+          <Link
+            href={`/companies?naics=${sector.naics.split(",")[0].trim().slice(0, 4)}`}
+            className="ml-auto text-[11px] font-semibold bg-white/10 hover:bg-white/20 text-white px-3 py-1 rounded-full transition-colors"
+          >
+            Find companies →
+          </Link>
+        </div>
+      </div>
+
+      <div className="px-5 py-3 bg-indigo-50 border-b border-indigo-100 flex items-start gap-2">
+        <Bot className="w-3.5 h-3.5 text-indigo-600 mt-0.5 shrink-0" />
+        <p className="text-[11px] text-indigo-800 leading-relaxed">
+          <span className="font-semibold">No prior specialism required.</span> AI fluency is the entry qualification. Expand a role to see how AI removes the experience barrier.
+        </p>
+      </div>
+
+      <div className="px-5 py-4">
+        <div className="flex items-center gap-2 mb-3">
+          <Briefcase className="w-3.5 h-3.5 text-gray-500" />
+          <h3 className="text-xs font-bold text-gray-900">{sector.roles.length} AI-Augmented Roles</h3>
+        </div>
+        <div className="space-y-2">
+          {sector.roles.map((role) => (
+            <RoleCard key={role.title} role={role} sectorName={sector.name} onExpand={onRoleExpand} />
+          ))}
+        </div>
+        <div className="mt-5 pt-4 border-t border-gray-100 flex flex-wrap gap-2">
+          <Link href="/opportunities" className="text-xs font-semibold bg-emerald-700 text-white px-3 py-2 rounded-lg hover:bg-emerald-800 transition-colors">
+            NGO roles →
+          </Link>
+          <Link href="/companies" className="text-xs font-semibold bg-blue-600 text-white px-3 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+            Companies →
+          </Link>
+          <Link href="/donor/training/career-compass-prep" className="text-xs font-semibold border border-violet-200 text-violet-700 bg-violet-50 px-3 py-2 rounded-lg hover:bg-violet-100 transition-colors">
+            Role prep →
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function CareerCompassClient({ bfsTrend, isCredentialed, hasAccount }: Props) {
   const [selectedState, setSelectedState] = useState("");
   const [selectedSectorId, setSelectedSectorId] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [exploredSlugs, setExploredSlugs] = useState<string[]>([]);
-  const detailRef = useRef<HTMLDivElement>(null);
+  const mobileDetailRef = useRef<HTMLDivElement>(null);
   const trainingPanelRef = useRef<HTMLDivElement>(null);
 
   const featuredIds = getFeaturedSectorIds(selectedState);
@@ -275,7 +345,14 @@ export default function CareerCompassClient({ bfsTrend, isCredentialed, hasAccou
   const selectedSector = SECTORS.find((s) => s.id === selectedSectorId) ?? null;
 
   function handleSelectSector(id: string) {
-    setSelectedSectorId((prev) => (prev === id ? null : id));
+    const next = selectedSectorId === id ? null : id;
+    setSelectedSectorId(next);
+    // On mobile: scroll to detail panel
+    if (next) {
+      setTimeout(() => {
+        mobileDetailRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 100);
+    }
   }
 
   function handleRoleExpand(slug: string) {
@@ -291,15 +368,6 @@ export default function CareerCompassClient({ bfsTrend, isCredentialed, hasAccou
     });
   }
 
-  useEffect(() => {
-    if (selectedSectorId && detailRef.current) {
-      const rect = detailRef.current.getBoundingClientRect();
-      if (rect.top < 0 || rect.top > window.innerHeight) {
-        detailRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
-    }
-  }, [selectedSectorId]);
-
   const stateName = US_STATES.find((s) => s.code === selectedState)?.name ?? null;
   const showTrainingPanel = exploredSlugs.length > 0;
 
@@ -307,7 +375,7 @@ export default function CareerCompassClient({ bfsTrend, isCredentialed, hasAccou
     <div className="min-h-screen bg-[#f3f2ef]">
       {/* ── HEADER ────────────────────────────────────────────── */}
       <div className="bg-gradient-to-br from-gray-950 via-violet-950 to-indigo-950 px-6 py-10 sm:py-14">
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           <div className="flex items-center gap-2 mb-3">
             <span className="text-xs font-semibold bg-violet-500/20 text-violet-300 border border-violet-500/30 px-3 py-1 rounded-full">
               Phase 1 · Sector Intelligence
@@ -341,7 +409,7 @@ export default function CareerCompassClient({ bfsTrend, isCredentialed, hasAccou
 
       {/* ── FILTER / SEARCH BAR ───────────────────────────────── */}
       <div className="sticky top-[52px] z-20 bg-white border-b border-gray-200 shadow-sm">
-        <div className="max-w-5xl mx-auto px-6 py-3 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+        <div className="max-w-6xl mx-auto px-6 py-3 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
           <div className="flex items-center gap-2 bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 min-w-[200px]">
             <MapPin className="w-3.5 h-3.5 text-gray-400 shrink-0" />
             <select value={selectedState} onChange={(e) => setSelectedState(e.target.value)} className="bg-transparent text-sm text-gray-700 outline-none w-full">
@@ -381,7 +449,7 @@ export default function CareerCompassClient({ bfsTrend, isCredentialed, hasAccou
       </div>
 
       {/* ── MAIN CONTENT ─────────────────────────────────────── */}
-      <div className="max-w-5xl mx-auto px-6 py-8">
+      <div className="max-w-6xl mx-auto px-6 py-8">
 
         {/* State context banner */}
         {stateName && (
@@ -401,7 +469,7 @@ export default function CareerCompassClient({ bfsTrend, isCredentialed, hasAccou
           <div className="mb-6 flex items-center gap-3 bg-violet-50 border border-violet-100 rounded-xl px-4 py-3">
             <BookOpen className="w-4 h-4 text-violet-500 shrink-0" />
             <p className="text-xs text-violet-800 flex-1">
-              <span className="font-semibold">Tip:</span> Expand any role card to see which AI tools you need — your personalised training path builds automatically as you explore.
+              <span className="font-semibold">Tip:</span> Click a sector card to explore roles in the panel on the right. Expand any role to see required AI tools — your personalised training path builds as you explore.
             </p>
             <Link href="/donor/training/career-compass-prep" className="text-xs font-semibold text-violet-700 hover:underline shrink-0 whitespace-nowrap">
               Role prep module →
@@ -421,108 +489,80 @@ export default function CareerCompassClient({ bfsTrend, isCredentialed, hasAccou
           <span className="text-[10px] text-gray-400 ml-1">— Source: US Census Bureau BFS</span>
         </div>
 
-        {filteredSectors.length === 0 && (
-          <div className="text-center py-16 text-gray-400">
-            <Search className="w-8 h-8 mx-auto mb-3 opacity-40" />
-            <p className="text-sm font-medium">No sectors match your search.</p>
-            <button onClick={() => setSearchQuery("")} className="text-xs text-violet-600 hover:underline mt-1">Clear search</button>
+        {/* ── TWO-COLUMN LAYOUT: cards left, detail right ───── */}
+        <div className="flex flex-col lg:flex-row gap-6 items-start">
+
+          {/* LEFT: sector card grid */}
+          <div className="flex-1 min-w-0">
+            {filteredSectors.length === 0 && (
+              <div className="text-center py-16 text-gray-400">
+                <Search className="w-8 h-8 mx-auto mb-3 opacity-40" />
+                <p className="text-sm font-medium">No sectors match your search.</p>
+                <button onClick={() => setSearchQuery("")} className="text-xs text-violet-600 hover:underline mt-1">Clear search</button>
+              </div>
+            )}
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {filteredSectors.map((sector) => (
+                <SectorCard
+                  key={sector.id}
+                  sector={sector}
+                  isFeatured={!!selectedState && featuredIds.includes(sector.id)}
+                  isSelected={selectedSectorId === sector.id}
+                  onClick={() => handleSelectSector(sector.id)}
+                />
+              ))}
+            </div>
+
+            {/* Mobile: detail panel below cards */}
+            {selectedSector && (
+              <div ref={mobileDetailRef} className="mt-4 lg:hidden">
+                <SectorDetailPanel
+                  sector={selectedSector}
+                  onClose={() => setSelectedSectorId(null)}
+                  onRoleExpand={handleRoleExpand}
+                />
+              </div>
+            )}
+
+            {/* Mobile: training path panel */}
+            {showTrainingPanel && (
+              <div ref={trainingPanelRef} className="mt-6 lg:hidden">
+                <TrainingPathPanel slugs={exploredSlugs} />
+              </div>
+            )}
           </div>
-        )}
 
-        {/* Sector grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-4">
-          {filteredSectors.map((sector) => (
-            <SectorCard
-              key={sector.id}
-              sector={sector}
-              isFeatured={!!selectedState && featuredIds.includes(sector.id)}
-              isSelected={selectedSectorId === sector.id}
-              onClick={() => handleSelectSector(sector.id)}
-            />
-          ))}
-        </div>
-
-        {/* ── SECTOR DETAIL PANEL ───────────────────────────── */}
-        {selectedSector && (
-          <div ref={detailRef} className="mt-2 rounded-2xl border border-violet-200 bg-white shadow-lg overflow-hidden">
-            <div className="bg-gradient-to-r from-violet-950 to-indigo-950 px-6 py-5">
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="text-2xl">{selectedSector.emoji}</span>
-                    <h2 className="text-lg font-black text-white">{selectedSector.name}</h2>
+          {/* RIGHT: sticky detail panel — desktop only */}
+          <div className="hidden lg:block w-[380px] shrink-0">
+            <div className="sticky top-[112px] flex flex-col gap-4 max-h-[calc(100vh-130px)] overflow-y-auto pb-4">
+              {selectedSector ? (
+                <SectorDetailPanel
+                  sector={selectedSector}
+                  onClose={() => setSelectedSectorId(null)}
+                  onRoleExpand={handleRoleExpand}
+                />
+              ) : (
+                <div className="rounded-2xl border-2 border-dashed border-gray-200 bg-white p-8 text-center">
+                  <div className="w-10 h-10 rounded-xl bg-gray-100 flex items-center justify-center mx-auto mb-3">
+                    <Compass className="w-5 h-5 text-gray-400" />
                   </div>
-                  <p className="text-sm text-gray-300 max-w-xl leading-relaxed">{selectedSector.description}</p>
-                </div>
-                <button onClick={() => setSelectedSectorId(null)} className="text-gray-400 hover:text-white mt-1 shrink-0">
-                  <X className="w-5 h-5" />
-                </button>
-              </div>
-              <div className="mt-4 flex items-center gap-3 flex-wrap">
-                <GrowthBadge level={selectedSector.growthLevel} />
-                <span className="text-sm font-bold text-white">{selectedSector.growthPct}</span>
-                <span className="text-[11px] text-gray-400">{selectedSector.jobsLabel}</span>
-                <span className="text-[11px] text-gray-400">NAICS {selectedSector.naics}</span>
-                <Link
-                  href={`/companies?naics=${selectedSector.naics.split(",")[0].trim().slice(0, 4)}`}
-                  className="ml-auto text-[11px] font-semibold bg-white/10 hover:bg-white/20 text-white px-3 py-1 rounded-full transition-colors"
-                >
-                  Find companies →
-                </Link>
-              </div>
-            </div>
-
-            <div className="px-6 py-4 bg-indigo-50 border-b border-indigo-100 flex items-start gap-3">
-              <Bot className="w-4 h-4 text-indigo-600 mt-0.5 shrink-0" />
-              <div>
-                <p className="text-xs font-semibold text-indigo-900">All roles below are AI-Augmented — no prior domain specialism required</p>
-                <p className="text-xs text-indigo-700 mt-0.5">
-                  AI fluency is the entry qualification. Each role description explains exactly how AI removes the traditional experience barrier.
-                  Your GiveLedger credential demonstrates you can apply these tools to real-world tasks.
-                </p>
-              </div>
-            </div>
-
-            <div className="px-6 py-5">
-              <div className="flex items-center gap-2 mb-4">
-                <Briefcase className="w-4 h-4 text-gray-500" />
-                <h3 className="text-sm font-bold text-gray-900">{selectedSector.roles.length} AI-Augmented Roles in {selectedSector.name}</h3>
-                <span className="text-xs text-gray-400">— click to expand each role</span>
-              </div>
-              <div className="space-y-2">
-                {selectedSector.roles.map((role) => (
-                  <RoleCard key={role.title} role={role} sectorName={selectedSector.name} onExpand={handleRoleExpand} />
-                ))}
-              </div>
-              <div className="mt-6 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-5 border-t border-gray-100">
-                <div className="flex-1">
-                  <p className="text-xs font-semibold text-gray-900 mb-0.5">Ready to prepare?</p>
-                  <p className="text-[11px] text-gray-500">
-                    Expand roles above to build your training path, then start the module that fits your target role.
+                  <p className="text-sm font-semibold text-gray-700 mb-1">Select a sector</p>
+                  <p className="text-xs text-gray-400 leading-relaxed">
+                    Click any card on the left to explore AI-augmented roles and build your training path.
                   </p>
                 </div>
-                <div className="flex flex-wrap gap-2 shrink-0">
-                  <Link href="/opportunities" className="text-xs font-semibold bg-emerald-700 text-white px-4 py-2.5 rounded-lg hover:bg-emerald-800 transition-colors">
-                    Find NGO roles →
-                  </Link>
-                  <Link href="/companies" className="text-xs font-semibold bg-blue-600 text-white px-4 py-2.5 rounded-lg hover:bg-blue-700 transition-colors">
-                    Browse companies →
-                  </Link>
-                  <Link href="/donor/training/career-compass-prep" className="text-xs font-semibold border border-violet-200 text-violet-700 bg-violet-50 px-4 py-2.5 rounded-lg hover:bg-violet-100 transition-colors">
-                    Role prep training →
-                  </Link>
+              )}
+
+              {/* Training path panel — desktop */}
+              {showTrainingPanel && (
+                <div ref={trainingPanelRef}>
+                  <TrainingPathPanel slugs={exploredSlugs} />
                 </div>
-              </div>
+              )}
             </div>
           </div>
-        )}
-
-        {/* ── TRAINING PATH PANEL — appears after first role expansion ── */}
-        {showTrainingPanel && (
-          <div ref={trainingPanelRef}>
-            <TrainingPathPanel slugs={exploredSlugs} />
-          </div>
-        )}
+        </div>
 
         {/* ── BOTTOM EXPLAINER ─────────────────────────────── */}
         <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-4">
