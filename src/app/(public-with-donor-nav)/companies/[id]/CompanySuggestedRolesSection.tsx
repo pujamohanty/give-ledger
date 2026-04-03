@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { Briefcase, Sparkles, RefreshCw, DollarSign, Clock, ChevronDown, ChevronUp, Cpu } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Briefcase, RefreshCw, DollarSign, Clock, ChevronDown, ChevronUp, Cpu } from "lucide-react";
 
 type SuggestedRole = {
   id: string;
@@ -120,6 +120,20 @@ function RoleCard({ role }: { role: SuggestedRole }) {
   );
 }
 
+function RoleSkeleton() {
+  return (
+    <div className="rounded-xl border border-gray-100 bg-white p-4 animate-pulse">
+      <div className="flex items-start justify-between gap-3">
+        <div className="flex-1 space-y-2">
+          <div className="h-4 bg-gray-200 rounded w-2/3" />
+          <div className="h-3 bg-gray-100 rounded w-1/3" />
+        </div>
+        <div className="w-4 h-4 bg-gray-100 rounded mt-0.5" />
+      </div>
+    </div>
+  );
+}
+
 type Props = {
   companyId: string;
   initialRoles: SuggestedRole[];
@@ -127,12 +141,12 @@ type Props = {
 
 export default function CompanySuggestedRolesSection({ companyId, initialRoles }: Props) {
   const [roles, setRoles] = useState<SuggestedRole[]>(initialRoles);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(initialRoles.length === 0);
 
   const standardRoles = roles.filter((r) => !r.isAiAugmented);
   const aiRoles = roles.filter((r) => r.isAiAugmented);
 
-  async function regenerate() {
+  async function generate() {
     setLoading(true);
     try {
       const res = await fetch("/api/companies/suggest-roles", {
@@ -149,29 +163,13 @@ export default function CompanySuggestedRolesSection({ companyId, initialRoles }
     }
   }
 
-  if (roles.length === 0 && !loading) {
-    return (
-      <div className="mt-8">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="font-semibold text-gray-900 flex items-center gap-2">
-            <Briefcase className="w-4 h-4 text-blue-500" />
-            AI-Suggested Roles
-          </h2>
-        </div>
-        <div className="text-center py-10 bg-white rounded-xl border border-gray-100">
-          <Sparkles className="w-8 h-8 text-gray-200 mx-auto mb-3" />
-          <p className="text-sm text-gray-500 mb-3">No role suggestions generated yet</p>
-          <button
-            onClick={regenerate}
-            className="inline-flex items-center gap-2 text-xs font-semibold bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors"
-          >
-            <Sparkles className="w-3.5 h-3.5" />
-            Generate AI Role Suggestions
-          </button>
-        </div>
-      </div>
-    );
-  }
+  // Auto-generate on first visit if no cached roles exist
+  useEffect(() => {
+    if (initialRoles.length === 0) {
+      generate();
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="mt-8">
@@ -179,22 +177,26 @@ export default function CompanySuggestedRolesSection({ companyId, initialRoles }
         <h2 className="font-semibold text-gray-900 flex items-center gap-2">
           <Briefcase className="w-4 h-4 text-blue-500" />
           AI-Suggested Roles
-          <span className="text-xs font-normal text-gray-400">({roles.length} roles)</span>
+          {!loading && <span className="text-xs font-normal text-gray-400">({roles.length} roles)</span>}
         </h2>
-        <button
-          onClick={regenerate}
-          disabled={loading}
-          className="flex items-center gap-1.5 text-xs text-gray-400 hover:text-gray-600 transition-colors disabled:opacity-50"
-        >
-          <RefreshCw className={`w-3.5 h-3.5 ${loading ? "animate-spin" : ""}`} />
-          Regenerate
-        </button>
+        {!loading && roles.length > 0 && (
+          <button
+            onClick={generate}
+            className="flex items-center gap-1.5 text-xs text-gray-400 hover:text-gray-600 transition-colors"
+          >
+            <RefreshCw className="w-3.5 h-3.5" />
+            Regenerate
+          </button>
+        )}
       </div>
 
       {loading ? (
-        <div className="text-center py-10">
-          <RefreshCw className="w-6 h-6 text-blue-400 animate-spin mx-auto mb-2" />
-          <p className="text-xs text-gray-400">Generating role suggestions...</p>
+        <div className="space-y-2">
+          <p className="text-xs text-gray-400 mb-3 flex items-center gap-2">
+            <RefreshCw className="w-3 h-3 animate-spin text-blue-400" />
+            Analysing company profile and generating role suggestions…
+          </p>
+          {[...Array(5)].map((_, i) => <RoleSkeleton key={i} />)}
         </div>
       ) : (
         <div className="space-y-6">

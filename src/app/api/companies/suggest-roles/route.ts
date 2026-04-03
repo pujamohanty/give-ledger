@@ -46,6 +46,31 @@ interface GeneratedRole {
   aiTools?: string;
 }
 
+async function fetchWebsiteSnippet(website: string): Promise<string | null> {
+  try {
+    const url = website.startsWith("http") ? website : `https://${website}`;
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 3000);
+    const res = await fetch(url, {
+      signal: controller.signal,
+      headers: { "User-Agent": "Mozilla/5.0 (compatible; GiveLedger/1.0; +https://give-ledger.vercel.app)" },
+    });
+    clearTimeout(timeout);
+    if (!res.ok) return null;
+    const html = await res.text();
+    const text = html
+      .replace(/<script[\s\S]*?<\/script>/gi, "")
+      .replace(/<style[\s\S]*?<\/style>/gi, "")
+      .replace(/<[^>]+>/g, " ")
+      .replace(/\s+/g, " ")
+      .trim()
+      .slice(0, 600);
+    return text || null;
+  } catch {
+    return null;
+  }
+}
+
 export async function POST(req: NextRequest) {
   const { companyId } = await req.json() as { companyId: string };
   if (!companyId) return NextResponse.json({ error: "Missing companyId" }, { status: 400 });
@@ -69,6 +94,9 @@ export async function POST(req: NextRequest) {
   const entityType = company.entityStructure ?? company.businessTypes[0] ?? "company";
   const sbaLabels = company.sbaDesignations.join(", ");
 
+  // Fetch website content in background for richer role generation
+  const websiteSnippet = company.website ? await fetchWebsiteSnippet(company.website) : null;
+
   const groqKey = process.env.GROQ_API_KEY;
   let generated: GeneratedRole[] = [];
 
@@ -84,7 +112,7 @@ Company: ${companyName}
 Sector: ${sector}
 Entity type: ${entityType}
 State: ${state}${sbaLabels ? `\nDesignations: ${sbaLabels}` : ""}
-${company.naicsDescription ? `Primary business: ${company.naicsDescription}` : ""}
+${company.naicsDescription ? `Primary business: ${company.naicsDescription}` : ""}${websiteSnippet ? `\nAbout this company (from their website): ${websiteSnippet}` : ""}
 
 Return ONLY a valid JSON array (no explanation, no markdown) with exactly 8 objects. Each object must have:
 - "title": job title (string, max 60 chars)
