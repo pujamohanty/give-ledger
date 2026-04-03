@@ -715,6 +715,19 @@ exports.Prisma.IrsFilingScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.OutreachContactScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  companyId: 'companyId',
+  ein: 'ein',
+  roleTitleRef: 'roleTitleRef',
+  status: 'status',
+  sentAt: 'sentAt',
+  notes: 'notes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -812,6 +825,13 @@ exports.SubscriptionPlan = exports.$Enums.SubscriptionPlan = {
   PRO: 'PRO'
 };
 
+exports.OutreachStatus = exports.$Enums.OutreachStatus = {
+  SAVED: 'SAVED',
+  REACHED_OUT: 'REACHED_OUT',
+  RESPONDED: 'RESPONDED',
+  IN_CONVERSATION: 'IN_CONVERSATION'
+};
+
 exports.Prisma.ModelName = {
   Account: 'Account',
   Session: 'Session',
@@ -853,7 +873,8 @@ exports.Prisma.ModelName = {
   SuggestedRole: 'SuggestedRole',
   Company: 'Company',
   CompanySuggestedRole: 'CompanySuggestedRole',
-  IrsFiling: 'IrsFiling'
+  IrsFiling: 'IrsFiling',
+  OutreachContact: 'OutreachContact'
 };
 
 /**

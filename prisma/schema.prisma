@@ -137,6 +137,7 @@ model User {
   betaShareCount        Int                       @default(0)
   campaignCount         Int                       @default(0)
   applicationProfiles   DonorApplicationProfile[]
+  outreachContacts      OutreachContact[]
 }
 
 model DonorApplicationProfile {
@@ -788,6 +789,7 @@ model Company {
   registrationDate  DateTime?
   // Relations
   suggestedRoles    CompanySuggestedRole[]
+  outreachContacts  OutreachContact[]
   createdAt         DateTime               @default(now())
   updatedAt         DateTime               @updatedAt
 
@@ -854,4 +856,31 @@ model IrsFiling {
   @@index([totalRevenue])
   @@index([totalAssetsEOY])
   @@index([ein])
+}
+
+// Proactive Outreach Kit — tracks who the donor has reached out to
+enum OutreachStatus {
+  SAVED
+  REACHED_OUT
+  RESPONDED
+  IN_CONVERSATION
+}
+
+model OutreachContact {
+  id           String         @id @default(cuid())
+  userId       String
+  user         User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  companyId    String?
+  company      Company?       @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  ein          String?        // NGO EIN for IRS org / GiveLedger NGO outreach
+  roleTitleRef String?        // the AI-suggested role they referenced in their message
+  status       OutreachStatus @default(REACHED_OUT)
+  sentAt       DateTime       @default(now())
+  notes        String?        @db.Text
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+
+  @@unique([userId, companyId])
+  @@unique([userId, ein])
+  @@index([userId])
 }

@@ -6,7 +6,7 @@ import {
   Leaf, LayoutDashboard, Heart, TrendingUp, Settings,
   Search, Bell, Share2, Gift, Star, Globe, Briefcase, Building2,
   Award, Linkedin, UserCircle, ClipboardList, Crown,
-  GraduationCap, ChevronDown, Smartphone, Compass,
+  GraduationCap, ChevronDown, Smartphone, Compass, SendHorizonal,
 } from "lucide-react";
 
 import { cn } from "@/lib/utils";
@@ -24,10 +24,11 @@ const navGroups: NavGroup[] = [
     label: "My Activity",
     accent: { border: "border-emerald-400", label: "text-emerald-600", dot: "bg-emerald-400" },
     items: [
-      { href: "/donor/donations",     label: "My Donations",        icon: Heart         },
-      { href: "/donor/impact",        label: "My Impact",           icon: TrendingUp    },
-      { href: "/donor/opportunities", label: "My Applications",      icon: ClipboardList },
-      { href: "/donor/skills",        label: "Skill Contributions", icon: Briefcase     },
+      { href: "/donor/donations",     label: "My Donations",        icon: Heart           },
+      { href: "/donor/impact",        label: "My Impact",           icon: TrendingUp      },
+      { href: "/donor/opportunities", label: "My Applications",      icon: ClipboardList   },
+      { href: "/donor/skills",        label: "Skill Contributions", icon: Briefcase       },
+      { href: "/donor/outreach",      label: "Outreach Pipeline",   icon: SendHorizonal   },
     ],
   },
   {

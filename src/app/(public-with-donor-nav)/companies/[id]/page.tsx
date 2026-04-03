@@ -4,6 +4,8 @@ import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import Navbar from "@/components/Navbar";
 import CompanySuggestedRolesSection from "./CompanySuggestedRolesSection";
+import OutreachDrawer from "@/components/OutreachDrawer";
+import type { OutreachTarget, OutreachCandidate, ExistingOutreach } from "@/components/OutreachDrawer";
 import {
   Building2, MapPin, Globe, BadgeCheck, Users,
   Calendar, ChevronLeft, Briefcase, Award, Mail,
@@ -31,19 +33,58 @@ export default async function CompanyPage({
   const { id } = await params;
   const session = await auth();
 
-  const company = await prisma.company.findUnique({
-    where: { id },
-    include: {
-      suggestedRoles: {
-        where: { expiresAt: { gt: new Date() } },
-        orderBy: [{ isAiAugmented: "asc" }, { generatedAt: "desc" }],
+  const [company, candidateUser, existingContact] = await Promise.all([
+    prisma.company.findUnique({
+      where: { id },
+      include: {
+        suggestedRoles: {
+          where: { expiresAt: { gt: new Date() } },
+          orderBy: [{ isAiAugmented: "asc" }, { generatedAt: "desc" }],
+        },
       },
-    },
-  });
+    }),
+    session?.user?.id
+      ? prisma.user.findUnique({
+          where: { id: session.user.id },
+          select: { id: true, name: true, jobTitle: true },
+        })
+      : null,
+    session?.user?.id
+      ? prisma.outreachContact.findFirst({
+          where: { userId: session.user.id, companyId: id },
+          select: { id: true, status: true, sentAt: true, roleTitleRef: true },
+        })
+      : null,
+  ]);
 
   if (!company) notFound();
 
   const displayName = company.dbaName ?? company.legalName;
+
+  const outreachTarget: OutreachTarget = {
+    name: displayName,
+    type: "company",
+    id: company.id,
+    contactEmail: company.contactEmail,
+    contactName: company.contactName,
+    sector: company.naicsDescription ?? "",
+    roleTitles: company.suggestedRoles.map((r) => r.title),
+  };
+  const outreachCandidate: OutreachCandidate | null = candidateUser
+    ? {
+        name: candidateUser.name ?? "You",
+        jobTitle: candidateUser.jobTitle,
+        credentialUserId: candidateUser.id,
+      }
+    : null;
+  const existingOutreach: ExistingOutreach = existingContact
+    ? {
+        id: existingContact.id,
+        status: existingContact.status,
+        sentAt: existingContact.sentAt.toISOString(),
+        roleTitleRef: existingContact.roleTitleRef,
+      }
+    : null;
   const location = [
     company.city,
     company.state ? (STATE_LABELS[company.state] ?? company.state) : null,
@@ -103,6 +144,16 @@ export default async function CompanyPage({
                 Website
               </a>
             )}
+          </div>
+
+          {/* Outreach CTA */}
+          <div className="mt-4 pt-4 border-t border-gray-50 flex items-center justify-between gap-3">
+            <p className="text-xs text-gray-400">Proactively reach out with your GiveLedger credential</p>
+            <OutreachDrawer
+              target={outreachTarget}
+              candidate={outreachCandidate}
+              existing={existingOutreach}
+            />
           </div>
 
           {/* Verification badges */}

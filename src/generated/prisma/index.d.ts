@@ -218,6 +218,11 @@ export type CompanySuggestedRole = $Result.DefaultSelection<Prisma.$CompanySugge
  * 
  */
 export type IrsFiling = $Result.DefaultSelection<Prisma.$IrsFilingPayload>
+/**
+ * Model OutreachContact
+ * 
+ */
+export type OutreachContact = $Result.DefaultSelection<Prisma.$OutreachContactPayload>
 
 /**
  * Enums
@@ -341,6 +346,16 @@ export const SubscriptionPlan: {
 
 export type SubscriptionPlan = (typeof SubscriptionPlan)[keyof typeof SubscriptionPlan]
 
+
+export const OutreachStatus: {
+  SAVED: 'SAVED',
+  REACHED_OUT: 'REACHED_OUT',
+  RESPONDED: 'RESPONDED',
+  IN_CONVERSATION: 'IN_CONVERSATION'
+};
+
+export type OutreachStatus = (typeof OutreachStatus)[keyof typeof OutreachStatus]
+
 }
 
 export type Role = $Enums.Role
@@ -390,6 +405,10 @@ export const EngagementStatus: typeof $Enums.EngagementStatus
 export type SubscriptionPlan = $Enums.SubscriptionPlan
 
 export const SubscriptionPlan: typeof $Enums.SubscriptionPlan
+
+export type OutreachStatus = $Enums.OutreachStatus
+
+export const OutreachStatus: typeof $Enums.OutreachStatus
 
 /**
  * ##  Prisma Client ʲˢ
@@ -921,6 +940,16 @@ export class PrismaClient<
     * ```
     */
   get irsFiling(): Prisma.IrsFilingDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.outreachContact`: Exposes CRUD operations for the **OutreachContact** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more OutreachContacts
+    * const outreachContacts = await prisma.outreachContact.findMany()
+    * ```
+    */
+  get outreachContact(): Prisma.OutreachContactDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -1395,7 +1424,8 @@ export namespace Prisma {
     SuggestedRole: 'SuggestedRole',
     Company: 'Company',
     CompanySuggestedRole: 'CompanySuggestedRole',
-    IrsFiling: 'IrsFiling'
+    IrsFiling: 'IrsFiling',
+    OutreachContact: 'OutreachContact'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1411,7 +1441,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "account" | "session" | "verificationToken" | "user" | "donorApplicationProfile" | "betaTesterProfile" | "ngo" | "project" | "milestone" | "evidenceFile" | "outputMarker" | "donation" | "disbursement" | "expense" | "blockchainRecord" | "rating" | "platformSetting" | "notification" | "spotlightVote" | "campaign" | "campaignContributor" | "ngoSuggestion" | "referral" | "activityEvent" | "boardMember" | "skillContribution" | "skillBlockchainRecord" | "donorEndorsement" | "donorDocument" | "ngoDocument" | "ngoRole" | "roleApplication" | "roleEngagement" | "donorChallenge" | "challengeAcceptance" | "subscription" | "irsOrganization" | "suggestedRole" | "company" | "companySuggestedRole" | "irsFiling"
+      modelProps: "account" | "session" | "verificationToken" | "user" | "donorApplicationProfile" | "betaTesterProfile" | "ngo" | "project" | "milestone" | "evidenceFile" | "outputMarker" | "donation" | "disbursement" | "expense" | "blockchainRecord" | "rating" | "platformSetting" | "notification" | "spotlightVote" | "campaign" | "campaignContributor" | "ngoSuggestion" | "referral" | "activityEvent" | "boardMember" | "skillContribution" | "skillBlockchainRecord" | "donorEndorsement" | "donorDocument" | "ngoDocument" | "ngoRole" | "roleApplication" | "roleEngagement" | "donorChallenge" | "challengeAcceptance" | "subscription" | "irsOrganization" | "suggestedRole" | "company" | "companySuggestedRole" | "irsFiling" | "outreachContact"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -4449,6 +4479,80 @@ export namespace Prisma {
           }
         }
       }
+      OutreachContact: {
+        payload: Prisma.$OutreachContactPayload<ExtArgs>
+        fields: Prisma.OutreachContactFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.OutreachContactFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OutreachContactPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.OutreachContactFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OutreachContactPayload>
+          }
+          findFirst: {
+            args: Prisma.OutreachContactFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OutreachContactPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.OutreachContactFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OutreachContactPayload>
+          }
+          findMany: {
+            args: Prisma.OutreachContactFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OutreachContactPayload>[]
+          }
+          create: {
+            args: Prisma.OutreachContactCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OutreachContactPayload>
+          }
+          createMany: {
+            args: Prisma.OutreachContactCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.OutreachContactCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OutreachContactPayload>[]
+          }
+          delete: {
+            args: Prisma.OutreachContactDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OutreachContactPayload>
+          }
+          update: {
+            args: Prisma.OutreachContactUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OutreachContactPayload>
+          }
+          deleteMany: {
+            args: Prisma.OutreachContactDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.OutreachContactUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.OutreachContactUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OutreachContactPayload>[]
+          }
+          upsert: {
+            args: Prisma.OutreachContactUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OutreachContactPayload>
+          }
+          aggregate: {
+            args: Prisma.OutreachContactAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateOutreachContact>
+          }
+          groupBy: {
+            args: Prisma.OutreachContactGroupByArgs<ExtArgs>
+            result: $Utils.Optional<OutreachContactGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.OutreachContactCountArgs<ExtArgs>
+            result: $Utils.Optional<OutreachContactCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -4598,6 +4702,7 @@ export namespace Prisma {
     company?: CompanyOmit
     companySuggestedRole?: CompanySuggestedRoleOmit
     irsFiling?: IrsFilingOmit
+    outreachContact?: OutreachContactOmit
   }
 
   /* Types for Logging */
@@ -4696,6 +4801,7 @@ export namespace Prisma {
     roleApplications: number
     challenges: number
     applicationProfiles: number
+    outreachContacts: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4717,6 +4823,7 @@ export namespace Prisma {
     roleApplications?: boolean | UserCountOutputTypeCountRoleApplicationsArgs
     challenges?: boolean | UserCountOutputTypeCountChallengesArgs
     applicationProfiles?: boolean | UserCountOutputTypeCountApplicationProfilesArgs
+    outreachContacts?: boolean | UserCountOutputTypeCountOutreachContactsArgs
   }
 
   // Custom InputTypes
@@ -4854,6 +4961,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountApplicationProfilesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: DonorApplicationProfileWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountOutreachContactsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OutreachContactWhereInput
   }
 
 
@@ -5224,10 +5338,12 @@ export namespace Prisma {
 
   export type CompanyCountOutputType = {
     suggestedRoles: number
+    outreachContacts: number
   }
 
   export type CompanyCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     suggestedRoles?: boolean | CompanyCountOutputTypeCountSuggestedRolesArgs
+    outreachContacts?: boolean | CompanyCountOutputTypeCountOutreachContactsArgs
   }
 
   // Custom InputTypes
@@ -5246,6 +5362,13 @@ export namespace Prisma {
    */
   export type CompanyCountOutputTypeCountSuggestedRolesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: CompanySuggestedRoleWhereInput
+  }
+
+  /**
+   * CompanyCountOutputType without action
+   */
+  export type CompanyCountOutputTypeCountOutreachContactsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OutreachContactWhereInput
   }
 
 
@@ -8825,6 +8948,7 @@ export namespace Prisma {
     subscription?: boolean | User$subscriptionArgs<ExtArgs>
     betaTesterProfile?: boolean | User$betaTesterProfileArgs<ExtArgs>
     applicationProfiles?: boolean | User$applicationProfilesArgs<ExtArgs>
+    outreachContacts?: boolean | User$outreachContactsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -8929,6 +9053,7 @@ export namespace Prisma {
     subscription?: boolean | User$subscriptionArgs<ExtArgs>
     betaTesterProfile?: boolean | User$betaTesterProfileArgs<ExtArgs>
     applicationProfiles?: boolean | User$applicationProfilesArgs<ExtArgs>
+    outreachContacts?: boolean | User$outreachContactsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -8958,6 +9083,7 @@ export namespace Prisma {
       subscription: Prisma.$SubscriptionPayload<ExtArgs> | null
       betaTesterProfile: Prisma.$BetaTesterProfilePayload<ExtArgs> | null
       applicationProfiles: Prisma.$DonorApplicationProfilePayload<ExtArgs>[]
+      outreachContacts: Prisma.$OutreachContactPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -9398,6 +9524,7 @@ export namespace Prisma {
     subscription<T extends User$subscriptionArgs<ExtArgs> = {}>(args?: Subset<T, User$subscriptionArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     betaTesterProfile<T extends User$betaTesterProfileArgs<ExtArgs> = {}>(args?: Subset<T, User$betaTesterProfileArgs<ExtArgs>>): Prisma__BetaTesterProfileClient<$Result.GetResult<Prisma.$BetaTesterProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     applicationProfiles<T extends User$applicationProfilesArgs<ExtArgs> = {}>(args?: Subset<T, User$applicationProfilesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DonorApplicationProfilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    outreachContacts<T extends User$outreachContactsArgs<ExtArgs> = {}>(args?: Subset<T, User$outreachContactsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OutreachContactPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -10324,6 +10451,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: DonorApplicationProfileScalarFieldEnum | DonorApplicationProfileScalarFieldEnum[]
+  }
+
+  /**
+   * User.outreachContacts
+   */
+  export type User$outreachContactsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OutreachContact
+     */
+    select?: OutreachContactSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OutreachContact
+     */
+    omit?: OutreachContactOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OutreachContactInclude<ExtArgs> | null
+    where?: OutreachContactWhereInput
+    orderBy?: OutreachContactOrderByWithRelationInput | OutreachContactOrderByWithRelationInput[]
+    cursor?: OutreachContactWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: OutreachContactScalarFieldEnum | OutreachContactScalarFieldEnum[]
   }
 
   /**
@@ -50868,6 +51019,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     suggestedRoles?: boolean | Company$suggestedRolesArgs<ExtArgs>
+    outreachContacts?: boolean | Company$outreachContactsArgs<ExtArgs>
     _count?: boolean | CompanyCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["company"]>
 
@@ -50973,6 +51125,7 @@ export namespace Prisma {
   export type CompanyOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "uei" | "cageCode" | "legalName" | "dbaName" | "ein" | "ocCompanyNumber" | "ocJurisdiction" | "incorporationDate" | "naicsCodes" | "naicsPrimary" | "naicsDescription" | "businessTypes" | "sbaDesignations" | "entityStructure" | "streetAddress" | "city" | "state" | "zipCode" | "contactName" | "contactEmail" | "website" | "employeeRange" | "revenueRange" | "samRegistered" | "ocRegistered" | "isActive" | "registrationDate" | "createdAt" | "updatedAt", ExtArgs["result"]["company"]>
   export type CompanyInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     suggestedRoles?: boolean | Company$suggestedRolesArgs<ExtArgs>
+    outreachContacts?: boolean | Company$outreachContactsArgs<ExtArgs>
     _count?: boolean | CompanyCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type CompanyIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -50982,6 +51135,7 @@ export namespace Prisma {
     name: "Company"
     objects: {
       suggestedRoles: Prisma.$CompanySuggestedRolePayload<ExtArgs>[]
+      outreachContacts: Prisma.$OutreachContactPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -51409,6 +51563,7 @@ export namespace Prisma {
   export interface Prisma__CompanyClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     suggestedRoles<T extends Company$suggestedRolesArgs<ExtArgs> = {}>(args?: Subset<T, Company$suggestedRolesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CompanySuggestedRolePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    outreachContacts<T extends Company$outreachContactsArgs<ExtArgs> = {}>(args?: Subset<T, Company$outreachContactsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OutreachContactPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -51877,6 +52032,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: CompanySuggestedRoleScalarFieldEnum | CompanySuggestedRoleScalarFieldEnum[]
+  }
+
+  /**
+   * Company.outreachContacts
+   */
+  export type Company$outreachContactsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OutreachContact
+     */
+    select?: OutreachContactSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OutreachContact
+     */
+    omit?: OutreachContactOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OutreachContactInclude<ExtArgs> | null
+    where?: OutreachContactWhereInput
+    orderBy?: OutreachContactOrderByWithRelationInput | OutreachContactOrderByWithRelationInput[]
+    cursor?: OutreachContactWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: OutreachContactScalarFieldEnum | OutreachContactScalarFieldEnum[]
   }
 
   /**
@@ -54571,6 +54750,1156 @@ export namespace Prisma {
 
 
   /**
+   * Model OutreachContact
+   */
+
+  export type AggregateOutreachContact = {
+    _count: OutreachContactCountAggregateOutputType | null
+    _min: OutreachContactMinAggregateOutputType | null
+    _max: OutreachContactMaxAggregateOutputType | null
+  }
+
+  export type OutreachContactMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    companyId: string | null
+    ein: string | null
+    roleTitleRef: string | null
+    status: $Enums.OutreachStatus | null
+    sentAt: Date | null
+    notes: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type OutreachContactMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    companyId: string | null
+    ein: string | null
+    roleTitleRef: string | null
+    status: $Enums.OutreachStatus | null
+    sentAt: Date | null
+    notes: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type OutreachContactCountAggregateOutputType = {
+    id: number
+    userId: number
+    companyId: number
+    ein: number
+    roleTitleRef: number
+    status: number
+    sentAt: number
+    notes: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type OutreachContactMinAggregateInputType = {
+    id?: true
+    userId?: true
+    companyId?: true
+    ein?: true
+    roleTitleRef?: true
+    status?: true
+    sentAt?: true
+    notes?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type OutreachContactMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    companyId?: true
+    ein?: true
+    roleTitleRef?: true
+    status?: true
+    sentAt?: true
+    notes?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type OutreachContactCountAggregateInputType = {
+    id?: true
+    userId?: true
+    companyId?: true
+    ein?: true
+    roleTitleRef?: true
+    status?: true
+    sentAt?: true
+    notes?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type OutreachContactAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which OutreachContact to aggregate.
+     */
+    where?: OutreachContactWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OutreachContacts to fetch.
+     */
+    orderBy?: OutreachContactOrderByWithRelationInput | OutreachContactOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: OutreachContactWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OutreachContacts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OutreachContacts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned OutreachContacts
+    **/
+    _count?: true | OutreachContactCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: OutreachContactMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: OutreachContactMaxAggregateInputType
+  }
+
+  export type GetOutreachContactAggregateType<T extends OutreachContactAggregateArgs> = {
+        [P in keyof T & keyof AggregateOutreachContact]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateOutreachContact[P]>
+      : GetScalarType<T[P], AggregateOutreachContact[P]>
+  }
+
+
+
+
+  export type OutreachContactGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OutreachContactWhereInput
+    orderBy?: OutreachContactOrderByWithAggregationInput | OutreachContactOrderByWithAggregationInput[]
+    by: OutreachContactScalarFieldEnum[] | OutreachContactScalarFieldEnum
+    having?: OutreachContactScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: OutreachContactCountAggregateInputType | true
+    _min?: OutreachContactMinAggregateInputType
+    _max?: OutreachContactMaxAggregateInputType
+  }
+
+  export type OutreachContactGroupByOutputType = {
+    id: string
+    userId: string
+    companyId: string | null
+    ein: string | null
+    roleTitleRef: string | null
+    status: $Enums.OutreachStatus
+    sentAt: Date
+    notes: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: OutreachContactCountAggregateOutputType | null
+    _min: OutreachContactMinAggregateOutputType | null
+    _max: OutreachContactMaxAggregateOutputType | null
+  }
+
+  type GetOutreachContactGroupByPayload<T extends OutreachContactGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<OutreachContactGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof OutreachContactGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], OutreachContactGroupByOutputType[P]>
+            : GetScalarType<T[P], OutreachContactGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type OutreachContactSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    companyId?: boolean
+    ein?: boolean
+    roleTitleRef?: boolean
+    status?: boolean
+    sentAt?: boolean
+    notes?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    company?: boolean | OutreachContact$companyArgs<ExtArgs>
+  }, ExtArgs["result"]["outreachContact"]>
+
+  export type OutreachContactSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    companyId?: boolean
+    ein?: boolean
+    roleTitleRef?: boolean
+    status?: boolean
+    sentAt?: boolean
+    notes?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    company?: boolean | OutreachContact$companyArgs<ExtArgs>
+  }, ExtArgs["result"]["outreachContact"]>
+
+  export type OutreachContactSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    companyId?: boolean
+    ein?: boolean
+    roleTitleRef?: boolean
+    status?: boolean
+    sentAt?: boolean
+    notes?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    company?: boolean | OutreachContact$companyArgs<ExtArgs>
+  }, ExtArgs["result"]["outreachContact"]>
+
+  export type OutreachContactSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    companyId?: boolean
+    ein?: boolean
+    roleTitleRef?: boolean
+    status?: boolean
+    sentAt?: boolean
+    notes?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type OutreachContactOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "companyId" | "ein" | "roleTitleRef" | "status" | "sentAt" | "notes" | "createdAt" | "updatedAt", ExtArgs["result"]["outreachContact"]>
+  export type OutreachContactInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    company?: boolean | OutreachContact$companyArgs<ExtArgs>
+  }
+  export type OutreachContactIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    company?: boolean | OutreachContact$companyArgs<ExtArgs>
+  }
+  export type OutreachContactIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    company?: boolean | OutreachContact$companyArgs<ExtArgs>
+  }
+
+  export type $OutreachContactPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "OutreachContact"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      company: Prisma.$CompanyPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      companyId: string | null
+      ein: string | null
+      roleTitleRef: string | null
+      status: $Enums.OutreachStatus
+      sentAt: Date
+      notes: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["outreachContact"]>
+    composites: {}
+  }
+
+  type OutreachContactGetPayload<S extends boolean | null | undefined | OutreachContactDefaultArgs> = $Result.GetResult<Prisma.$OutreachContactPayload, S>
+
+  type OutreachContactCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<OutreachContactFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: OutreachContactCountAggregateInputType | true
+    }
+
+  export interface OutreachContactDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['OutreachContact'], meta: { name: 'OutreachContact' } }
+    /**
+     * Find zero or one OutreachContact that matches the filter.
+     * @param {OutreachContactFindUniqueArgs} args - Arguments to find a OutreachContact
+     * @example
+     * // Get one OutreachContact
+     * const outreachContact = await prisma.outreachContact.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends OutreachContactFindUniqueArgs>(args: SelectSubset<T, OutreachContactFindUniqueArgs<ExtArgs>>): Prisma__OutreachContactClient<$Result.GetResult<Prisma.$OutreachContactPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one OutreachContact that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {OutreachContactFindUniqueOrThrowArgs} args - Arguments to find a OutreachContact
+     * @example
+     * // Get one OutreachContact
+     * const outreachContact = await prisma.outreachContact.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends OutreachContactFindUniqueOrThrowArgs>(args: SelectSubset<T, OutreachContactFindUniqueOrThrowArgs<ExtArgs>>): Prisma__OutreachContactClient<$Result.GetResult<Prisma.$OutreachContactPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first OutreachContact that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OutreachContactFindFirstArgs} args - Arguments to find a OutreachContact
+     * @example
+     * // Get one OutreachContact
+     * const outreachContact = await prisma.outreachContact.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends OutreachContactFindFirstArgs>(args?: SelectSubset<T, OutreachContactFindFirstArgs<ExtArgs>>): Prisma__OutreachContactClient<$Result.GetResult<Prisma.$OutreachContactPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first OutreachContact that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OutreachContactFindFirstOrThrowArgs} args - Arguments to find a OutreachContact
+     * @example
+     * // Get one OutreachContact
+     * const outreachContact = await prisma.outreachContact.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends OutreachContactFindFirstOrThrowArgs>(args?: SelectSubset<T, OutreachContactFindFirstOrThrowArgs<ExtArgs>>): Prisma__OutreachContactClient<$Result.GetResult<Prisma.$OutreachContactPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more OutreachContacts that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OutreachContactFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all OutreachContacts
+     * const outreachContacts = await prisma.outreachContact.findMany()
+     * 
+     * // Get first 10 OutreachContacts
+     * const outreachContacts = await prisma.outreachContact.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const outreachContactWithIdOnly = await prisma.outreachContact.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends OutreachContactFindManyArgs>(args?: SelectSubset<T, OutreachContactFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OutreachContactPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a OutreachContact.
+     * @param {OutreachContactCreateArgs} args - Arguments to create a OutreachContact.
+     * @example
+     * // Create one OutreachContact
+     * const OutreachContact = await prisma.outreachContact.create({
+     *   data: {
+     *     // ... data to create a OutreachContact
+     *   }
+     * })
+     * 
+     */
+    create<T extends OutreachContactCreateArgs>(args: SelectSubset<T, OutreachContactCreateArgs<ExtArgs>>): Prisma__OutreachContactClient<$Result.GetResult<Prisma.$OutreachContactPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many OutreachContacts.
+     * @param {OutreachContactCreateManyArgs} args - Arguments to create many OutreachContacts.
+     * @example
+     * // Create many OutreachContacts
+     * const outreachContact = await prisma.outreachContact.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends OutreachContactCreateManyArgs>(args?: SelectSubset<T, OutreachContactCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many OutreachContacts and returns the data saved in the database.
+     * @param {OutreachContactCreateManyAndReturnArgs} args - Arguments to create many OutreachContacts.
+     * @example
+     * // Create many OutreachContacts
+     * const outreachContact = await prisma.outreachContact.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many OutreachContacts and only return the `id`
+     * const outreachContactWithIdOnly = await prisma.outreachContact.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends OutreachContactCreateManyAndReturnArgs>(args?: SelectSubset<T, OutreachContactCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OutreachContactPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a OutreachContact.
+     * @param {OutreachContactDeleteArgs} args - Arguments to delete one OutreachContact.
+     * @example
+     * // Delete one OutreachContact
+     * const OutreachContact = await prisma.outreachContact.delete({
+     *   where: {
+     *     // ... filter to delete one OutreachContact
+     *   }
+     * })
+     * 
+     */
+    delete<T extends OutreachContactDeleteArgs>(args: SelectSubset<T, OutreachContactDeleteArgs<ExtArgs>>): Prisma__OutreachContactClient<$Result.GetResult<Prisma.$OutreachContactPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one OutreachContact.
+     * @param {OutreachContactUpdateArgs} args - Arguments to update one OutreachContact.
+     * @example
+     * // Update one OutreachContact
+     * const outreachContact = await prisma.outreachContact.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends OutreachContactUpdateArgs>(args: SelectSubset<T, OutreachContactUpdateArgs<ExtArgs>>): Prisma__OutreachContactClient<$Result.GetResult<Prisma.$OutreachContactPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more OutreachContacts.
+     * @param {OutreachContactDeleteManyArgs} args - Arguments to filter OutreachContacts to delete.
+     * @example
+     * // Delete a few OutreachContacts
+     * const { count } = await prisma.outreachContact.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends OutreachContactDeleteManyArgs>(args?: SelectSubset<T, OutreachContactDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more OutreachContacts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OutreachContactUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many OutreachContacts
+     * const outreachContact = await prisma.outreachContact.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends OutreachContactUpdateManyArgs>(args: SelectSubset<T, OutreachContactUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more OutreachContacts and returns the data updated in the database.
+     * @param {OutreachContactUpdateManyAndReturnArgs} args - Arguments to update many OutreachContacts.
+     * @example
+     * // Update many OutreachContacts
+     * const outreachContact = await prisma.outreachContact.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more OutreachContacts and only return the `id`
+     * const outreachContactWithIdOnly = await prisma.outreachContact.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends OutreachContactUpdateManyAndReturnArgs>(args: SelectSubset<T, OutreachContactUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OutreachContactPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one OutreachContact.
+     * @param {OutreachContactUpsertArgs} args - Arguments to update or create a OutreachContact.
+     * @example
+     * // Update or create a OutreachContact
+     * const outreachContact = await prisma.outreachContact.upsert({
+     *   create: {
+     *     // ... data to create a OutreachContact
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the OutreachContact we want to update
+     *   }
+     * })
+     */
+    upsert<T extends OutreachContactUpsertArgs>(args: SelectSubset<T, OutreachContactUpsertArgs<ExtArgs>>): Prisma__OutreachContactClient<$Result.GetResult<Prisma.$OutreachContactPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of OutreachContacts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OutreachContactCountArgs} args - Arguments to filter OutreachContacts to count.
+     * @example
+     * // Count the number of OutreachContacts
+     * const count = await prisma.outreachContact.count({
+     *   where: {
+     *     // ... the filter for the OutreachContacts we want to count
+     *   }
+     * })
+    **/
+    count<T extends OutreachContactCountArgs>(
+      args?: Subset<T, OutreachContactCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], OutreachContactCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a OutreachContact.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OutreachContactAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends OutreachContactAggregateArgs>(args: Subset<T, OutreachContactAggregateArgs>): Prisma.PrismaPromise<GetOutreachContactAggregateType<T>>
+
+    /**
+     * Group by OutreachContact.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OutreachContactGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends OutreachContactGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: OutreachContactGroupByArgs['orderBy'] }
+        : { orderBy?: OutreachContactGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, OutreachContactGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetOutreachContactGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the OutreachContact model
+   */
+  readonly fields: OutreachContactFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for OutreachContact.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__OutreachContactClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    company<T extends OutreachContact$companyArgs<ExtArgs> = {}>(args?: Subset<T, OutreachContact$companyArgs<ExtArgs>>): Prisma__CompanyClient<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the OutreachContact model
+   */
+  interface OutreachContactFieldRefs {
+    readonly id: FieldRef<"OutreachContact", 'String'>
+    readonly userId: FieldRef<"OutreachContact", 'String'>
+    readonly companyId: FieldRef<"OutreachContact", 'String'>
+    readonly ein: FieldRef<"OutreachContact", 'String'>
+    readonly roleTitleRef: FieldRef<"OutreachContact", 'String'>
+    readonly status: FieldRef<"OutreachContact", 'OutreachStatus'>
+    readonly sentAt: FieldRef<"OutreachContact", 'DateTime'>
+    readonly notes: FieldRef<"OutreachContact", 'String'>
+    readonly createdAt: FieldRef<"OutreachContact", 'DateTime'>
+    readonly updatedAt: FieldRef<"OutreachContact", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * OutreachContact findUnique
+   */
+  export type OutreachContactFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OutreachContact
+     */
+    select?: OutreachContactSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OutreachContact
+     */
+    omit?: OutreachContactOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OutreachContactInclude<ExtArgs> | null
+    /**
+     * Filter, which OutreachContact to fetch.
+     */
+    where: OutreachContactWhereUniqueInput
+  }
+
+  /**
+   * OutreachContact findUniqueOrThrow
+   */
+  export type OutreachContactFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OutreachContact
+     */
+    select?: OutreachContactSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OutreachContact
+     */
+    omit?: OutreachContactOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OutreachContactInclude<ExtArgs> | null
+    /**
+     * Filter, which OutreachContact to fetch.
+     */
+    where: OutreachContactWhereUniqueInput
+  }
+
+  /**
+   * OutreachContact findFirst
+   */
+  export type OutreachContactFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OutreachContact
+     */
+    select?: OutreachContactSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OutreachContact
+     */
+    omit?: OutreachContactOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OutreachContactInclude<ExtArgs> | null
+    /**
+     * Filter, which OutreachContact to fetch.
+     */
+    where?: OutreachContactWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OutreachContacts to fetch.
+     */
+    orderBy?: OutreachContactOrderByWithRelationInput | OutreachContactOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for OutreachContacts.
+     */
+    cursor?: OutreachContactWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OutreachContacts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OutreachContacts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of OutreachContacts.
+     */
+    distinct?: OutreachContactScalarFieldEnum | OutreachContactScalarFieldEnum[]
+  }
+
+  /**
+   * OutreachContact findFirstOrThrow
+   */
+  export type OutreachContactFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OutreachContact
+     */
+    select?: OutreachContactSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OutreachContact
+     */
+    omit?: OutreachContactOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OutreachContactInclude<ExtArgs> | null
+    /**
+     * Filter, which OutreachContact to fetch.
+     */
+    where?: OutreachContactWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OutreachContacts to fetch.
+     */
+    orderBy?: OutreachContactOrderByWithRelationInput | OutreachContactOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for OutreachContacts.
+     */
+    cursor?: OutreachContactWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OutreachContacts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OutreachContacts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of OutreachContacts.
+     */
+    distinct?: OutreachContactScalarFieldEnum | OutreachContactScalarFieldEnum[]
+  }
+
+  /**
+   * OutreachContact findMany
+   */
+  export type OutreachContactFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OutreachContact
+     */
+    select?: OutreachContactSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OutreachContact
+     */
+    omit?: OutreachContactOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OutreachContactInclude<ExtArgs> | null
+    /**
+     * Filter, which OutreachContacts to fetch.
+     */
+    where?: OutreachContactWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OutreachContacts to fetch.
+     */
+    orderBy?: OutreachContactOrderByWithRelationInput | OutreachContactOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing OutreachContacts.
+     */
+    cursor?: OutreachContactWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OutreachContacts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OutreachContacts.
+     */
+    skip?: number
+    distinct?: OutreachContactScalarFieldEnum | OutreachContactScalarFieldEnum[]
+  }
+
+  /**
+   * OutreachContact create
+   */
+  export type OutreachContactCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OutreachContact
+     */
+    select?: OutreachContactSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OutreachContact
+     */
+    omit?: OutreachContactOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OutreachContactInclude<ExtArgs> | null
+    /**
+     * The data needed to create a OutreachContact.
+     */
+    data: XOR<OutreachContactCreateInput, OutreachContactUncheckedCreateInput>
+  }
+
+  /**
+   * OutreachContact createMany
+   */
+  export type OutreachContactCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many OutreachContacts.
+     */
+    data: OutreachContactCreateManyInput | OutreachContactCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * OutreachContact createManyAndReturn
+   */
+  export type OutreachContactCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OutreachContact
+     */
+    select?: OutreachContactSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the OutreachContact
+     */
+    omit?: OutreachContactOmit<ExtArgs> | null
+    /**
+     * The data used to create many OutreachContacts.
+     */
+    data: OutreachContactCreateManyInput | OutreachContactCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OutreachContactIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * OutreachContact update
+   */
+  export type OutreachContactUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OutreachContact
+     */
+    select?: OutreachContactSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OutreachContact
+     */
+    omit?: OutreachContactOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OutreachContactInclude<ExtArgs> | null
+    /**
+     * The data needed to update a OutreachContact.
+     */
+    data: XOR<OutreachContactUpdateInput, OutreachContactUncheckedUpdateInput>
+    /**
+     * Choose, which OutreachContact to update.
+     */
+    where: OutreachContactWhereUniqueInput
+  }
+
+  /**
+   * OutreachContact updateMany
+   */
+  export type OutreachContactUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update OutreachContacts.
+     */
+    data: XOR<OutreachContactUpdateManyMutationInput, OutreachContactUncheckedUpdateManyInput>
+    /**
+     * Filter which OutreachContacts to update
+     */
+    where?: OutreachContactWhereInput
+    /**
+     * Limit how many OutreachContacts to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * OutreachContact updateManyAndReturn
+   */
+  export type OutreachContactUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OutreachContact
+     */
+    select?: OutreachContactSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the OutreachContact
+     */
+    omit?: OutreachContactOmit<ExtArgs> | null
+    /**
+     * The data used to update OutreachContacts.
+     */
+    data: XOR<OutreachContactUpdateManyMutationInput, OutreachContactUncheckedUpdateManyInput>
+    /**
+     * Filter which OutreachContacts to update
+     */
+    where?: OutreachContactWhereInput
+    /**
+     * Limit how many OutreachContacts to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OutreachContactIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * OutreachContact upsert
+   */
+  export type OutreachContactUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OutreachContact
+     */
+    select?: OutreachContactSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OutreachContact
+     */
+    omit?: OutreachContactOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OutreachContactInclude<ExtArgs> | null
+    /**
+     * The filter to search for the OutreachContact to update in case it exists.
+     */
+    where: OutreachContactWhereUniqueInput
+    /**
+     * In case the OutreachContact found by the `where` argument doesn't exist, create a new OutreachContact with this data.
+     */
+    create: XOR<OutreachContactCreateInput, OutreachContactUncheckedCreateInput>
+    /**
+     * In case the OutreachContact was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<OutreachContactUpdateInput, OutreachContactUncheckedUpdateInput>
+  }
+
+  /**
+   * OutreachContact delete
+   */
+  export type OutreachContactDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OutreachContact
+     */
+    select?: OutreachContactSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OutreachContact
+     */
+    omit?: OutreachContactOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OutreachContactInclude<ExtArgs> | null
+    /**
+     * Filter which OutreachContact to delete.
+     */
+    where: OutreachContactWhereUniqueInput
+  }
+
+  /**
+   * OutreachContact deleteMany
+   */
+  export type OutreachContactDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which OutreachContacts to delete
+     */
+    where?: OutreachContactWhereInput
+    /**
+     * Limit how many OutreachContacts to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * OutreachContact.company
+   */
+  export type OutreachContact$companyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Company
+     */
+    select?: CompanySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Company
+     */
+    omit?: CompanyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanyInclude<ExtArgs> | null
+    where?: CompanyWhereInput
+  }
+
+  /**
+   * OutreachContact without action
+   */
+  export type OutreachContactDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OutreachContact
+     */
+    select?: OutreachContactSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OutreachContact
+     */
+    omit?: OutreachContactOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OutreachContactInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -55302,6 +56631,22 @@ export namespace Prisma {
   export type IrsFilingScalarFieldEnum = (typeof IrsFilingScalarFieldEnum)[keyof typeof IrsFilingScalarFieldEnum]
 
 
+  export const OutreachContactScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    companyId: 'companyId',
+    ein: 'ein',
+    roleTitleRef: 'roleTitleRef',
+    status: 'status',
+    sentAt: 'sentAt',
+    notes: 'notes',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type OutreachContactScalarFieldEnum = (typeof OutreachContactScalarFieldEnum)[keyof typeof OutreachContactScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -55574,6 +56919,20 @@ export namespace Prisma {
    */
   export type ListBigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BigInt[]'>
     
+
+
+  /**
+   * Reference to a field of type 'OutreachStatus'
+   */
+  export type EnumOutreachStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'OutreachStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'OutreachStatus[]'
+   */
+  export type ListEnumOutreachStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'OutreachStatus[]'>
+    
   /**
    * Deep Input Types
    */
@@ -55813,6 +57172,7 @@ export namespace Prisma {
     subscription?: XOR<SubscriptionNullableScalarRelationFilter, SubscriptionWhereInput> | null
     betaTesterProfile?: XOR<BetaTesterProfileNullableScalarRelationFilter, BetaTesterProfileWhereInput> | null
     applicationProfiles?: DonorApplicationProfileListRelationFilter
+    outreachContacts?: OutreachContactListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -55860,6 +57220,7 @@ export namespace Prisma {
     subscription?: SubscriptionOrderByWithRelationInput
     betaTesterProfile?: BetaTesterProfileOrderByWithRelationInput
     applicationProfiles?: DonorApplicationProfileOrderByRelationAggregateInput
+    outreachContacts?: OutreachContactOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -55910,6 +57271,7 @@ export namespace Prisma {
     subscription?: XOR<SubscriptionNullableScalarRelationFilter, SubscriptionWhereInput> | null
     betaTesterProfile?: XOR<BetaTesterProfileNullableScalarRelationFilter, BetaTesterProfileWhereInput> | null
     applicationProfiles?: DonorApplicationProfileListRelationFilter
+    outreachContacts?: OutreachContactListRelationFilter
   }, "id" | "email" | "referralCode">
 
   export type UserOrderByWithAggregationInput = {
@@ -58993,6 +60355,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Company"> | Date | string
     updatedAt?: DateTimeFilter<"Company"> | Date | string
     suggestedRoles?: CompanySuggestedRoleListRelationFilter
+    outreachContacts?: OutreachContactListRelationFilter
   }
 
   export type CompanyOrderByWithRelationInput = {
@@ -59027,6 +60390,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     suggestedRoles?: CompanySuggestedRoleOrderByRelationAggregateInput
+    outreachContacts?: OutreachContactOrderByRelationAggregateInput
   }
 
   export type CompanyWhereUniqueInput = Prisma.AtLeast<{
@@ -59064,6 +60428,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Company"> | Date | string
     updatedAt?: DateTimeFilter<"Company"> | Date | string
     suggestedRoles?: CompanySuggestedRoleListRelationFilter
+    outreachContacts?: OutreachContactListRelationFilter
   }, "id" | "uei">
 
   export type CompanyOrderByWithAggregationInput = {
@@ -59414,6 +60779,91 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"IrsFiling"> | Date | string
   }
 
+  export type OutreachContactWhereInput = {
+    AND?: OutreachContactWhereInput | OutreachContactWhereInput[]
+    OR?: OutreachContactWhereInput[]
+    NOT?: OutreachContactWhereInput | OutreachContactWhereInput[]
+    id?: StringFilter<"OutreachContact"> | string
+    userId?: StringFilter<"OutreachContact"> | string
+    companyId?: StringNullableFilter<"OutreachContact"> | string | null
+    ein?: StringNullableFilter<"OutreachContact"> | string | null
+    roleTitleRef?: StringNullableFilter<"OutreachContact"> | string | null
+    status?: EnumOutreachStatusFilter<"OutreachContact"> | $Enums.OutreachStatus
+    sentAt?: DateTimeFilter<"OutreachContact"> | Date | string
+    notes?: StringNullableFilter<"OutreachContact"> | string | null
+    createdAt?: DateTimeFilter<"OutreachContact"> | Date | string
+    updatedAt?: DateTimeFilter<"OutreachContact"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    company?: XOR<CompanyNullableScalarRelationFilter, CompanyWhereInput> | null
+  }
+
+  export type OutreachContactOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    companyId?: SortOrderInput | SortOrder
+    ein?: SortOrderInput | SortOrder
+    roleTitleRef?: SortOrderInput | SortOrder
+    status?: SortOrder
+    sentAt?: SortOrder
+    notes?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    company?: CompanyOrderByWithRelationInput
+  }
+
+  export type OutreachContactWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    userId_companyId?: OutreachContactUserIdCompanyIdCompoundUniqueInput
+    userId_ein?: OutreachContactUserIdEinCompoundUniqueInput
+    AND?: OutreachContactWhereInput | OutreachContactWhereInput[]
+    OR?: OutreachContactWhereInput[]
+    NOT?: OutreachContactWhereInput | OutreachContactWhereInput[]
+    userId?: StringFilter<"OutreachContact"> | string
+    companyId?: StringNullableFilter<"OutreachContact"> | string | null
+    ein?: StringNullableFilter<"OutreachContact"> | string | null
+    roleTitleRef?: StringNullableFilter<"OutreachContact"> | string | null
+    status?: EnumOutreachStatusFilter<"OutreachContact"> | $Enums.OutreachStatus
+    sentAt?: DateTimeFilter<"OutreachContact"> | Date | string
+    notes?: StringNullableFilter<"OutreachContact"> | string | null
+    createdAt?: DateTimeFilter<"OutreachContact"> | Date | string
+    updatedAt?: DateTimeFilter<"OutreachContact"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    company?: XOR<CompanyNullableScalarRelationFilter, CompanyWhereInput> | null
+  }, "id" | "userId_companyId" | "userId_ein">
+
+  export type OutreachContactOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    companyId?: SortOrderInput | SortOrder
+    ein?: SortOrderInput | SortOrder
+    roleTitleRef?: SortOrderInput | SortOrder
+    status?: SortOrder
+    sentAt?: SortOrder
+    notes?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: OutreachContactCountOrderByAggregateInput
+    _max?: OutreachContactMaxOrderByAggregateInput
+    _min?: OutreachContactMinOrderByAggregateInput
+  }
+
+  export type OutreachContactScalarWhereWithAggregatesInput = {
+    AND?: OutreachContactScalarWhereWithAggregatesInput | OutreachContactScalarWhereWithAggregatesInput[]
+    OR?: OutreachContactScalarWhereWithAggregatesInput[]
+    NOT?: OutreachContactScalarWhereWithAggregatesInput | OutreachContactScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"OutreachContact"> | string
+    userId?: StringWithAggregatesFilter<"OutreachContact"> | string
+    companyId?: StringNullableWithAggregatesFilter<"OutreachContact"> | string | null
+    ein?: StringNullableWithAggregatesFilter<"OutreachContact"> | string | null
+    roleTitleRef?: StringNullableWithAggregatesFilter<"OutreachContact"> | string | null
+    status?: EnumOutreachStatusWithAggregatesFilter<"OutreachContact"> | $Enums.OutreachStatus
+    sentAt?: DateTimeWithAggregatesFilter<"OutreachContact"> | Date | string
+    notes?: StringNullableWithAggregatesFilter<"OutreachContact"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"OutreachContact"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"OutreachContact"> | Date | string
+  }
+
   export type AccountCreateInput = {
     id?: string
     type: string
@@ -59653,6 +61103,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileCreateNestedOneWithoutUserInput
     applicationProfiles?: DonorApplicationProfileCreateNestedManyWithoutUserInput
+    outreachContacts?: OutreachContactCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -59700,6 +61151,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileUncheckedCreateNestedOneWithoutUserInput
     applicationProfiles?: DonorApplicationProfileUncheckedCreateNestedManyWithoutUserInput
+    outreachContacts?: OutreachContactUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -59747,6 +61199,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUpdateOneWithoutUserNestedInput
     applicationProfiles?: DonorApplicationProfileUpdateManyWithoutUserNestedInput
+    outreachContacts?: OutreachContactUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -59794,6 +61247,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUncheckedUpdateOneWithoutUserNestedInput
     applicationProfiles?: DonorApplicationProfileUncheckedUpdateManyWithoutUserNestedInput
+    outreachContacts?: OutreachContactUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -63195,6 +64649,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     suggestedRoles?: CompanySuggestedRoleCreateNestedManyWithoutCompanyInput
+    outreachContacts?: OutreachContactCreateNestedManyWithoutCompanyInput
   }
 
   export type CompanyUncheckedCreateInput = {
@@ -63229,6 +64684,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     suggestedRoles?: CompanySuggestedRoleUncheckedCreateNestedManyWithoutCompanyInput
+    outreachContacts?: OutreachContactUncheckedCreateNestedManyWithoutCompanyInput
   }
 
   export type CompanyUpdateInput = {
@@ -63263,6 +64719,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     suggestedRoles?: CompanySuggestedRoleUpdateManyWithoutCompanyNestedInput
+    outreachContacts?: OutreachContactUpdateManyWithoutCompanyNestedInput
   }
 
   export type CompanyUncheckedUpdateInput = {
@@ -63297,6 +64754,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     suggestedRoles?: CompanySuggestedRoleUncheckedUpdateManyWithoutCompanyNestedInput
+    outreachContacts?: OutreachContactUncheckedUpdateManyWithoutCompanyNestedInput
   }
 
   export type CompanyCreateManyInput = {
@@ -63732,6 +65190,95 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type OutreachContactCreateInput = {
+    id?: string
+    ein?: string | null
+    roleTitleRef?: string | null
+    status?: $Enums.OutreachStatus
+    sentAt?: Date | string
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutOutreachContactsInput
+    company?: CompanyCreateNestedOneWithoutOutreachContactsInput
+  }
+
+  export type OutreachContactUncheckedCreateInput = {
+    id?: string
+    userId: string
+    companyId?: string | null
+    ein?: string | null
+    roleTitleRef?: string | null
+    status?: $Enums.OutreachStatus
+    sentAt?: Date | string
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type OutreachContactUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ein?: NullableStringFieldUpdateOperationsInput | string | null
+    roleTitleRef?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumOutreachStatusFieldUpdateOperationsInput | $Enums.OutreachStatus
+    sentAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutOutreachContactsNestedInput
+    company?: CompanyUpdateOneWithoutOutreachContactsNestedInput
+  }
+
+  export type OutreachContactUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
+    ein?: NullableStringFieldUpdateOperationsInput | string | null
+    roleTitleRef?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumOutreachStatusFieldUpdateOperationsInput | $Enums.OutreachStatus
+    sentAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OutreachContactCreateManyInput = {
+    id?: string
+    userId: string
+    companyId?: string | null
+    ein?: string | null
+    roleTitleRef?: string | null
+    status?: $Enums.OutreachStatus
+    sentAt?: Date | string
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type OutreachContactUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ein?: NullableStringFieldUpdateOperationsInput | string | null
+    roleTitleRef?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumOutreachStatusFieldUpdateOperationsInput | $Enums.OutreachStatus
+    sentAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OutreachContactUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
+    ein?: NullableStringFieldUpdateOperationsInput | string | null
+    roleTitleRef?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumOutreachStatusFieldUpdateOperationsInput | $Enums.OutreachStatus
+    sentAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -64102,6 +65649,12 @@ export namespace Prisma {
     none?: DonorApplicationProfileWhereInput
   }
 
+  export type OutreachContactListRelationFilter = {
+    every?: OutreachContactWhereInput
+    some?: OutreachContactWhereInput
+    none?: OutreachContactWhereInput
+  }
+
   export type AccountOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -64163,6 +65716,10 @@ export namespace Prisma {
   }
 
   export type DonorApplicationProfileOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type OutreachContactOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -66724,6 +68281,77 @@ export namespace Prisma {
     volunteerCount?: SortOrder
   }
 
+  export type EnumOutreachStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.OutreachStatus | EnumOutreachStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.OutreachStatus[] | ListEnumOutreachStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.OutreachStatus[] | ListEnumOutreachStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumOutreachStatusFilter<$PrismaModel> | $Enums.OutreachStatus
+  }
+
+  export type CompanyNullableScalarRelationFilter = {
+    is?: CompanyWhereInput | null
+    isNot?: CompanyWhereInput | null
+  }
+
+  export type OutreachContactUserIdCompanyIdCompoundUniqueInput = {
+    userId: string
+    companyId: string
+  }
+
+  export type OutreachContactUserIdEinCompoundUniqueInput = {
+    userId: string
+    ein: string
+  }
+
+  export type OutreachContactCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    companyId?: SortOrder
+    ein?: SortOrder
+    roleTitleRef?: SortOrder
+    status?: SortOrder
+    sentAt?: SortOrder
+    notes?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type OutreachContactMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    companyId?: SortOrder
+    ein?: SortOrder
+    roleTitleRef?: SortOrder
+    status?: SortOrder
+    sentAt?: SortOrder
+    notes?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type OutreachContactMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    companyId?: SortOrder
+    ein?: SortOrder
+    roleTitleRef?: SortOrder
+    status?: SortOrder
+    sentAt?: SortOrder
+    notes?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EnumOutreachStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.OutreachStatus | EnumOutreachStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.OutreachStatus[] | ListEnumOutreachStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.OutreachStatus[] | ListEnumOutreachStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumOutreachStatusWithAggregatesFilter<$PrismaModel> | $Enums.OutreachStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumOutreachStatusFilter<$PrismaModel>
+    _max?: NestedEnumOutreachStatusFilter<$PrismaModel>
+  }
+
   export type UserCreateNestedOneWithoutAccountsInput = {
     create?: XOR<UserCreateWithoutAccountsInput, UserUncheckedCreateWithoutAccountsInput>
     connectOrCreate?: UserCreateOrConnectWithoutAccountsInput
@@ -66916,6 +68544,13 @@ export namespace Prisma {
     connect?: DonorApplicationProfileWhereUniqueInput | DonorApplicationProfileWhereUniqueInput[]
   }
 
+  export type OutreachContactCreateNestedManyWithoutUserInput = {
+    create?: XOR<OutreachContactCreateWithoutUserInput, OutreachContactUncheckedCreateWithoutUserInput> | OutreachContactCreateWithoutUserInput[] | OutreachContactUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: OutreachContactCreateOrConnectWithoutUserInput | OutreachContactCreateOrConnectWithoutUserInput[]
+    createMany?: OutreachContactCreateManyUserInputEnvelope
+    connect?: OutreachContactWhereUniqueInput | OutreachContactWhereUniqueInput[]
+  }
+
   export type AccountUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -67058,6 +68693,13 @@ export namespace Prisma {
     connectOrCreate?: DonorApplicationProfileCreateOrConnectWithoutUserInput | DonorApplicationProfileCreateOrConnectWithoutUserInput[]
     createMany?: DonorApplicationProfileCreateManyUserInputEnvelope
     connect?: DonorApplicationProfileWhereUniqueInput | DonorApplicationProfileWhereUniqueInput[]
+  }
+
+  export type OutreachContactUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<OutreachContactCreateWithoutUserInput, OutreachContactUncheckedCreateWithoutUserInput> | OutreachContactCreateWithoutUserInput[] | OutreachContactUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: OutreachContactCreateOrConnectWithoutUserInput | OutreachContactCreateOrConnectWithoutUserInput[]
+    createMany?: OutreachContactCreateManyUserInputEnvelope
+    connect?: OutreachContactWhereUniqueInput | OutreachContactWhereUniqueInput[]
   }
 
   export type NullableDateTimeFieldUpdateOperationsInput = {
@@ -67358,6 +69000,20 @@ export namespace Prisma {
     deleteMany?: DonorApplicationProfileScalarWhereInput | DonorApplicationProfileScalarWhereInput[]
   }
 
+  export type OutreachContactUpdateManyWithoutUserNestedInput = {
+    create?: XOR<OutreachContactCreateWithoutUserInput, OutreachContactUncheckedCreateWithoutUserInput> | OutreachContactCreateWithoutUserInput[] | OutreachContactUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: OutreachContactCreateOrConnectWithoutUserInput | OutreachContactCreateOrConnectWithoutUserInput[]
+    upsert?: OutreachContactUpsertWithWhereUniqueWithoutUserInput | OutreachContactUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: OutreachContactCreateManyUserInputEnvelope
+    set?: OutreachContactWhereUniqueInput | OutreachContactWhereUniqueInput[]
+    disconnect?: OutreachContactWhereUniqueInput | OutreachContactWhereUniqueInput[]
+    delete?: OutreachContactWhereUniqueInput | OutreachContactWhereUniqueInput[]
+    connect?: OutreachContactWhereUniqueInput | OutreachContactWhereUniqueInput[]
+    update?: OutreachContactUpdateWithWhereUniqueWithoutUserInput | OutreachContactUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: OutreachContactUpdateManyWithWhereWithoutUserInput | OutreachContactUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: OutreachContactScalarWhereInput | OutreachContactScalarWhereInput[]
+  }
+
   export type AccountUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -67638,6 +69294,20 @@ export namespace Prisma {
     update?: DonorApplicationProfileUpdateWithWhereUniqueWithoutUserInput | DonorApplicationProfileUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: DonorApplicationProfileUpdateManyWithWhereWithoutUserInput | DonorApplicationProfileUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: DonorApplicationProfileScalarWhereInput | DonorApplicationProfileScalarWhereInput[]
+  }
+
+  export type OutreachContactUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<OutreachContactCreateWithoutUserInput, OutreachContactUncheckedCreateWithoutUserInput> | OutreachContactCreateWithoutUserInput[] | OutreachContactUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: OutreachContactCreateOrConnectWithoutUserInput | OutreachContactCreateOrConnectWithoutUserInput[]
+    upsert?: OutreachContactUpsertWithWhereUniqueWithoutUserInput | OutreachContactUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: OutreachContactCreateManyUserInputEnvelope
+    set?: OutreachContactWhereUniqueInput | OutreachContactWhereUniqueInput[]
+    disconnect?: OutreachContactWhereUniqueInput | OutreachContactWhereUniqueInput[]
+    delete?: OutreachContactWhereUniqueInput | OutreachContactWhereUniqueInput[]
+    connect?: OutreachContactWhereUniqueInput | OutreachContactWhereUniqueInput[]
+    update?: OutreachContactUpdateWithWhereUniqueWithoutUserInput | OutreachContactUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: OutreachContactUpdateManyWithWhereWithoutUserInput | OutreachContactUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: OutreachContactScalarWhereInput | OutreachContactScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutApplicationProfilesInput = {
@@ -69592,11 +71262,25 @@ export namespace Prisma {
     connect?: CompanySuggestedRoleWhereUniqueInput | CompanySuggestedRoleWhereUniqueInput[]
   }
 
+  export type OutreachContactCreateNestedManyWithoutCompanyInput = {
+    create?: XOR<OutreachContactCreateWithoutCompanyInput, OutreachContactUncheckedCreateWithoutCompanyInput> | OutreachContactCreateWithoutCompanyInput[] | OutreachContactUncheckedCreateWithoutCompanyInput[]
+    connectOrCreate?: OutreachContactCreateOrConnectWithoutCompanyInput | OutreachContactCreateOrConnectWithoutCompanyInput[]
+    createMany?: OutreachContactCreateManyCompanyInputEnvelope
+    connect?: OutreachContactWhereUniqueInput | OutreachContactWhereUniqueInput[]
+  }
+
   export type CompanySuggestedRoleUncheckedCreateNestedManyWithoutCompanyInput = {
     create?: XOR<CompanySuggestedRoleCreateWithoutCompanyInput, CompanySuggestedRoleUncheckedCreateWithoutCompanyInput> | CompanySuggestedRoleCreateWithoutCompanyInput[] | CompanySuggestedRoleUncheckedCreateWithoutCompanyInput[]
     connectOrCreate?: CompanySuggestedRoleCreateOrConnectWithoutCompanyInput | CompanySuggestedRoleCreateOrConnectWithoutCompanyInput[]
     createMany?: CompanySuggestedRoleCreateManyCompanyInputEnvelope
     connect?: CompanySuggestedRoleWhereUniqueInput | CompanySuggestedRoleWhereUniqueInput[]
+  }
+
+  export type OutreachContactUncheckedCreateNestedManyWithoutCompanyInput = {
+    create?: XOR<OutreachContactCreateWithoutCompanyInput, OutreachContactUncheckedCreateWithoutCompanyInput> | OutreachContactCreateWithoutCompanyInput[] | OutreachContactUncheckedCreateWithoutCompanyInput[]
+    connectOrCreate?: OutreachContactCreateOrConnectWithoutCompanyInput | OutreachContactCreateOrConnectWithoutCompanyInput[]
+    createMany?: OutreachContactCreateManyCompanyInputEnvelope
+    connect?: OutreachContactWhereUniqueInput | OutreachContactWhereUniqueInput[]
   }
 
   export type CompanyUpdatenaicsCodesInput = {
@@ -69628,6 +71312,20 @@ export namespace Prisma {
     deleteMany?: CompanySuggestedRoleScalarWhereInput | CompanySuggestedRoleScalarWhereInput[]
   }
 
+  export type OutreachContactUpdateManyWithoutCompanyNestedInput = {
+    create?: XOR<OutreachContactCreateWithoutCompanyInput, OutreachContactUncheckedCreateWithoutCompanyInput> | OutreachContactCreateWithoutCompanyInput[] | OutreachContactUncheckedCreateWithoutCompanyInput[]
+    connectOrCreate?: OutreachContactCreateOrConnectWithoutCompanyInput | OutreachContactCreateOrConnectWithoutCompanyInput[]
+    upsert?: OutreachContactUpsertWithWhereUniqueWithoutCompanyInput | OutreachContactUpsertWithWhereUniqueWithoutCompanyInput[]
+    createMany?: OutreachContactCreateManyCompanyInputEnvelope
+    set?: OutreachContactWhereUniqueInput | OutreachContactWhereUniqueInput[]
+    disconnect?: OutreachContactWhereUniqueInput | OutreachContactWhereUniqueInput[]
+    delete?: OutreachContactWhereUniqueInput | OutreachContactWhereUniqueInput[]
+    connect?: OutreachContactWhereUniqueInput | OutreachContactWhereUniqueInput[]
+    update?: OutreachContactUpdateWithWhereUniqueWithoutCompanyInput | OutreachContactUpdateWithWhereUniqueWithoutCompanyInput[]
+    updateMany?: OutreachContactUpdateManyWithWhereWithoutCompanyInput | OutreachContactUpdateManyWithWhereWithoutCompanyInput[]
+    deleteMany?: OutreachContactScalarWhereInput | OutreachContactScalarWhereInput[]
+  }
+
   export type CompanySuggestedRoleUncheckedUpdateManyWithoutCompanyNestedInput = {
     create?: XOR<CompanySuggestedRoleCreateWithoutCompanyInput, CompanySuggestedRoleUncheckedCreateWithoutCompanyInput> | CompanySuggestedRoleCreateWithoutCompanyInput[] | CompanySuggestedRoleUncheckedCreateWithoutCompanyInput[]
     connectOrCreate?: CompanySuggestedRoleCreateOrConnectWithoutCompanyInput | CompanySuggestedRoleCreateOrConnectWithoutCompanyInput[]
@@ -69640,6 +71338,20 @@ export namespace Prisma {
     update?: CompanySuggestedRoleUpdateWithWhereUniqueWithoutCompanyInput | CompanySuggestedRoleUpdateWithWhereUniqueWithoutCompanyInput[]
     updateMany?: CompanySuggestedRoleUpdateManyWithWhereWithoutCompanyInput | CompanySuggestedRoleUpdateManyWithWhereWithoutCompanyInput[]
     deleteMany?: CompanySuggestedRoleScalarWhereInput | CompanySuggestedRoleScalarWhereInput[]
+  }
+
+  export type OutreachContactUncheckedUpdateManyWithoutCompanyNestedInput = {
+    create?: XOR<OutreachContactCreateWithoutCompanyInput, OutreachContactUncheckedCreateWithoutCompanyInput> | OutreachContactCreateWithoutCompanyInput[] | OutreachContactUncheckedCreateWithoutCompanyInput[]
+    connectOrCreate?: OutreachContactCreateOrConnectWithoutCompanyInput | OutreachContactCreateOrConnectWithoutCompanyInput[]
+    upsert?: OutreachContactUpsertWithWhereUniqueWithoutCompanyInput | OutreachContactUpsertWithWhereUniqueWithoutCompanyInput[]
+    createMany?: OutreachContactCreateManyCompanyInputEnvelope
+    set?: OutreachContactWhereUniqueInput | OutreachContactWhereUniqueInput[]
+    disconnect?: OutreachContactWhereUniqueInput | OutreachContactWhereUniqueInput[]
+    delete?: OutreachContactWhereUniqueInput | OutreachContactWhereUniqueInput[]
+    connect?: OutreachContactWhereUniqueInput | OutreachContactWhereUniqueInput[]
+    update?: OutreachContactUpdateWithWhereUniqueWithoutCompanyInput | OutreachContactUpdateWithWhereUniqueWithoutCompanyInput[]
+    updateMany?: OutreachContactUpdateManyWithWhereWithoutCompanyInput | OutreachContactUpdateManyWithWhereWithoutCompanyInput[]
+    deleteMany?: OutreachContactScalarWhereInput | OutreachContactScalarWhereInput[]
   }
 
   export type CompanyCreateNestedOneWithoutSuggestedRolesInput = {
@@ -69668,6 +71380,40 @@ export namespace Prisma {
     upsert?: IrsOrganizationUpsertWithoutFilingsInput
     connect?: IrsOrganizationWhereUniqueInput
     update?: XOR<XOR<IrsOrganizationUpdateToOneWithWhereWithoutFilingsInput, IrsOrganizationUpdateWithoutFilingsInput>, IrsOrganizationUncheckedUpdateWithoutFilingsInput>
+  }
+
+  export type UserCreateNestedOneWithoutOutreachContactsInput = {
+    create?: XOR<UserCreateWithoutOutreachContactsInput, UserUncheckedCreateWithoutOutreachContactsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutOutreachContactsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type CompanyCreateNestedOneWithoutOutreachContactsInput = {
+    create?: XOR<CompanyCreateWithoutOutreachContactsInput, CompanyUncheckedCreateWithoutOutreachContactsInput>
+    connectOrCreate?: CompanyCreateOrConnectWithoutOutreachContactsInput
+    connect?: CompanyWhereUniqueInput
+  }
+
+  export type EnumOutreachStatusFieldUpdateOperationsInput = {
+    set?: $Enums.OutreachStatus
+  }
+
+  export type UserUpdateOneRequiredWithoutOutreachContactsNestedInput = {
+    create?: XOR<UserCreateWithoutOutreachContactsInput, UserUncheckedCreateWithoutOutreachContactsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutOutreachContactsInput
+    upsert?: UserUpsertWithoutOutreachContactsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutOutreachContactsInput, UserUpdateWithoutOutreachContactsInput>, UserUncheckedUpdateWithoutOutreachContactsInput>
+  }
+
+  export type CompanyUpdateOneWithoutOutreachContactsNestedInput = {
+    create?: XOR<CompanyCreateWithoutOutreachContactsInput, CompanyUncheckedCreateWithoutOutreachContactsInput>
+    connectOrCreate?: CompanyCreateOrConnectWithoutOutreachContactsInput
+    upsert?: CompanyUpsertWithoutOutreachContactsInput
+    disconnect?: CompanyWhereInput | boolean
+    delete?: CompanyWhereInput | boolean
+    connect?: CompanyWhereUniqueInput
+    update?: XOR<XOR<CompanyUpdateToOneWithWhereWithoutOutreachContactsInput, CompanyUpdateWithoutOutreachContactsInput>, CompanyUncheckedUpdateWithoutOutreachContactsInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -70134,6 +71880,23 @@ export namespace Prisma {
     _max?: NestedBigIntNullableFilter<$PrismaModel>
   }
 
+  export type NestedEnumOutreachStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.OutreachStatus | EnumOutreachStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.OutreachStatus[] | ListEnumOutreachStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.OutreachStatus[] | ListEnumOutreachStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumOutreachStatusFilter<$PrismaModel> | $Enums.OutreachStatus
+  }
+
+  export type NestedEnumOutreachStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.OutreachStatus | EnumOutreachStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.OutreachStatus[] | ListEnumOutreachStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.OutreachStatus[] | ListEnumOutreachStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumOutreachStatusWithAggregatesFilter<$PrismaModel> | $Enums.OutreachStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumOutreachStatusFilter<$PrismaModel>
+    _max?: NestedEnumOutreachStatusFilter<$PrismaModel>
+  }
+
   export type UserCreateWithoutAccountsInput = {
     id?: string
     email: string
@@ -70178,6 +71941,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileCreateNestedOneWithoutUserInput
     applicationProfiles?: DonorApplicationProfileCreateNestedManyWithoutUserInput
+    outreachContacts?: OutreachContactCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAccountsInput = {
@@ -70224,6 +71988,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileUncheckedCreateNestedOneWithoutUserInput
     applicationProfiles?: DonorApplicationProfileUncheckedCreateNestedManyWithoutUserInput
+    outreachContacts?: OutreachContactUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAccountsInput = {
@@ -70286,6 +72051,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUpdateOneWithoutUserNestedInput
     applicationProfiles?: DonorApplicationProfileUpdateManyWithoutUserNestedInput
+    outreachContacts?: OutreachContactUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -70332,6 +72098,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUncheckedUpdateOneWithoutUserNestedInput
     applicationProfiles?: DonorApplicationProfileUncheckedUpdateManyWithoutUserNestedInput
+    outreachContacts?: OutreachContactUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutSessionsInput = {
@@ -70378,6 +72145,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileCreateNestedOneWithoutUserInput
     applicationProfiles?: DonorApplicationProfileCreateNestedManyWithoutUserInput
+    outreachContacts?: OutreachContactCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSessionsInput = {
@@ -70424,6 +72192,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileUncheckedCreateNestedOneWithoutUserInput
     applicationProfiles?: DonorApplicationProfileUncheckedCreateNestedManyWithoutUserInput
+    outreachContacts?: OutreachContactUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSessionsInput = {
@@ -70486,6 +72255,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUpdateOneWithoutUserNestedInput
     applicationProfiles?: DonorApplicationProfileUpdateManyWithoutUserNestedInput
+    outreachContacts?: OutreachContactUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -70532,6 +72302,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUncheckedUpdateOneWithoutUserNestedInput
     applicationProfiles?: DonorApplicationProfileUncheckedUpdateManyWithoutUserNestedInput
+    outreachContacts?: OutreachContactUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type AccountCreateWithoutUserInput = {
@@ -71215,6 +72986,40 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type OutreachContactCreateWithoutUserInput = {
+    id?: string
+    ein?: string | null
+    roleTitleRef?: string | null
+    status?: $Enums.OutreachStatus
+    sentAt?: Date | string
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    company?: CompanyCreateNestedOneWithoutOutreachContactsInput
+  }
+
+  export type OutreachContactUncheckedCreateWithoutUserInput = {
+    id?: string
+    companyId?: string | null
+    ein?: string | null
+    roleTitleRef?: string | null
+    status?: $Enums.OutreachStatus
+    sentAt?: Date | string
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type OutreachContactCreateOrConnectWithoutUserInput = {
+    where: OutreachContactWhereUniqueInput
+    create: XOR<OutreachContactCreateWithoutUserInput, OutreachContactUncheckedCreateWithoutUserInput>
+  }
+
+  export type OutreachContactCreateManyUserInputEnvelope = {
+    data: OutreachContactCreateManyUserInput | OutreachContactCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type AccountUpsertWithWhereUniqueWithoutUserInput = {
     where: AccountWhereUniqueInput
     update: XOR<AccountUpdateWithoutUserInput, AccountUncheckedUpdateWithoutUserInput>
@@ -71878,6 +73683,38 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"DonorApplicationProfile"> | Date | string
   }
 
+  export type OutreachContactUpsertWithWhereUniqueWithoutUserInput = {
+    where: OutreachContactWhereUniqueInput
+    update: XOR<OutreachContactUpdateWithoutUserInput, OutreachContactUncheckedUpdateWithoutUserInput>
+    create: XOR<OutreachContactCreateWithoutUserInput, OutreachContactUncheckedCreateWithoutUserInput>
+  }
+
+  export type OutreachContactUpdateWithWhereUniqueWithoutUserInput = {
+    where: OutreachContactWhereUniqueInput
+    data: XOR<OutreachContactUpdateWithoutUserInput, OutreachContactUncheckedUpdateWithoutUserInput>
+  }
+
+  export type OutreachContactUpdateManyWithWhereWithoutUserInput = {
+    where: OutreachContactScalarWhereInput
+    data: XOR<OutreachContactUpdateManyMutationInput, OutreachContactUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type OutreachContactScalarWhereInput = {
+    AND?: OutreachContactScalarWhereInput | OutreachContactScalarWhereInput[]
+    OR?: OutreachContactScalarWhereInput[]
+    NOT?: OutreachContactScalarWhereInput | OutreachContactScalarWhereInput[]
+    id?: StringFilter<"OutreachContact"> | string
+    userId?: StringFilter<"OutreachContact"> | string
+    companyId?: StringNullableFilter<"OutreachContact"> | string | null
+    ein?: StringNullableFilter<"OutreachContact"> | string | null
+    roleTitleRef?: StringNullableFilter<"OutreachContact"> | string | null
+    status?: EnumOutreachStatusFilter<"OutreachContact"> | $Enums.OutreachStatus
+    sentAt?: DateTimeFilter<"OutreachContact"> | Date | string
+    notes?: StringNullableFilter<"OutreachContact"> | string | null
+    createdAt?: DateTimeFilter<"OutreachContact"> | Date | string
+    updatedAt?: DateTimeFilter<"OutreachContact"> | Date | string
+  }
+
   export type UserCreateWithoutApplicationProfilesInput = {
     id?: string
     email: string
@@ -71922,6 +73759,7 @@ export namespace Prisma {
     challenges?: DonorChallengeCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileCreateNestedOneWithoutUserInput
+    outreachContacts?: OutreachContactCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutApplicationProfilesInput = {
@@ -71968,6 +73806,7 @@ export namespace Prisma {
     challenges?: DonorChallengeUncheckedCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileUncheckedCreateNestedOneWithoutUserInput
+    outreachContacts?: OutreachContactUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutApplicationProfilesInput = {
@@ -72030,6 +73869,7 @@ export namespace Prisma {
     challenges?: DonorChallengeUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUpdateOneWithoutUserNestedInput
+    outreachContacts?: OutreachContactUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutApplicationProfilesInput = {
@@ -72076,6 +73916,7 @@ export namespace Prisma {
     challenges?: DonorChallengeUncheckedUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUncheckedUpdateOneWithoutUserNestedInput
+    outreachContacts?: OutreachContactUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutBetaTesterProfileInput = {
@@ -72122,6 +73963,7 @@ export namespace Prisma {
     challenges?: DonorChallengeCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     applicationProfiles?: DonorApplicationProfileCreateNestedManyWithoutUserInput
+    outreachContacts?: OutreachContactCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutBetaTesterProfileInput = {
@@ -72168,6 +74010,7 @@ export namespace Prisma {
     challenges?: DonorChallengeUncheckedCreateNestedManyWithoutDonorInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     applicationProfiles?: DonorApplicationProfileUncheckedCreateNestedManyWithoutUserInput
+    outreachContacts?: OutreachContactUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutBetaTesterProfileInput = {
@@ -72230,6 +74073,7 @@ export namespace Prisma {
     challenges?: DonorChallengeUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     applicationProfiles?: DonorApplicationProfileUpdateManyWithoutUserNestedInput
+    outreachContacts?: OutreachContactUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutBetaTesterProfileInput = {
@@ -72276,6 +74120,7 @@ export namespace Prisma {
     challenges?: DonorChallengeUncheckedUpdateManyWithoutDonorNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     applicationProfiles?: DonorApplicationProfileUncheckedUpdateManyWithoutUserNestedInput
+    outreachContacts?: OutreachContactUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutNgoInput = {
@@ -72322,6 +74167,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileCreateNestedOneWithoutUserInput
     applicationProfiles?: DonorApplicationProfileCreateNestedManyWithoutUserInput
+    outreachContacts?: OutreachContactCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutNgoInput = {
@@ -72368,6 +74214,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileUncheckedCreateNestedOneWithoutUserInput
     applicationProfiles?: DonorApplicationProfileUncheckedCreateNestedManyWithoutUserInput
+    outreachContacts?: OutreachContactUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutNgoInput = {
@@ -72867,6 +74714,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUpdateOneWithoutUserNestedInput
     applicationProfiles?: DonorApplicationProfileUpdateManyWithoutUserNestedInput
+    outreachContacts?: OutreachContactUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNgoInput = {
@@ -72913,6 +74761,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUncheckedUpdateOneWithoutUserNestedInput
     applicationProfiles?: DonorApplicationProfileUncheckedUpdateManyWithoutUserNestedInput
+    outreachContacts?: OutreachContactUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ProjectUpsertWithWhereUniqueWithoutNgoInput = {
@@ -74378,6 +76227,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileCreateNestedOneWithoutUserInput
     applicationProfiles?: DonorApplicationProfileCreateNestedManyWithoutUserInput
+    outreachContacts?: OutreachContactCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutDonationsInput = {
@@ -74424,6 +76274,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileUncheckedCreateNestedOneWithoutUserInput
     applicationProfiles?: DonorApplicationProfileUncheckedCreateNestedManyWithoutUserInput
+    outreachContacts?: OutreachContactUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutDonationsInput = {
@@ -74568,6 +76419,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUpdateOneWithoutUserNestedInput
     applicationProfiles?: DonorApplicationProfileUpdateManyWithoutUserNestedInput
+    outreachContacts?: OutreachContactUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDonationsInput = {
@@ -74614,6 +76466,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUncheckedUpdateOneWithoutUserNestedInput
     applicationProfiles?: DonorApplicationProfileUncheckedUpdateManyWithoutUserNestedInput
+    outreachContacts?: OutreachContactUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ProjectUpsertWithoutDonationsInput = {
@@ -75294,6 +77147,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileCreateNestedOneWithoutUserInput
     applicationProfiles?: DonorApplicationProfileCreateNestedManyWithoutUserInput
+    outreachContacts?: OutreachContactCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutRatingsInput = {
@@ -75340,6 +77194,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileUncheckedCreateNestedOneWithoutUserInput
     applicationProfiles?: DonorApplicationProfileUncheckedCreateNestedManyWithoutUserInput
+    outreachContacts?: OutreachContactUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutRatingsInput = {
@@ -75465,6 +77320,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUpdateOneWithoutUserNestedInput
     applicationProfiles?: DonorApplicationProfileUpdateManyWithoutUserNestedInput
+    outreachContacts?: OutreachContactUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRatingsInput = {
@@ -75511,6 +77367,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUncheckedUpdateOneWithoutUserNestedInput
     applicationProfiles?: DonorApplicationProfileUncheckedUpdateManyWithoutUserNestedInput
+    outreachContacts?: OutreachContactUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type NgoUpsertWithoutRatingsInput = {
@@ -75626,6 +77483,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileCreateNestedOneWithoutUserInput
     applicationProfiles?: DonorApplicationProfileCreateNestedManyWithoutUserInput
+    outreachContacts?: OutreachContactCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -75672,6 +77530,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileUncheckedCreateNestedOneWithoutUserInput
     applicationProfiles?: DonorApplicationProfileUncheckedCreateNestedManyWithoutUserInput
+    outreachContacts?: OutreachContactUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -75734,6 +77593,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUpdateOneWithoutUserNestedInput
     applicationProfiles?: DonorApplicationProfileUpdateManyWithoutUserNestedInput
+    outreachContacts?: OutreachContactUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -75780,6 +77640,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUncheckedUpdateOneWithoutUserNestedInput
     applicationProfiles?: DonorApplicationProfileUncheckedUpdateManyWithoutUserNestedInput
+    outreachContacts?: OutreachContactUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutSpotlightVotesInput = {
@@ -75826,6 +77687,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileCreateNestedOneWithoutUserInput
     applicationProfiles?: DonorApplicationProfileCreateNestedManyWithoutUserInput
+    outreachContacts?: OutreachContactCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSpotlightVotesInput = {
@@ -75872,6 +77734,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileUncheckedCreateNestedOneWithoutUserInput
     applicationProfiles?: DonorApplicationProfileUncheckedCreateNestedManyWithoutUserInput
+    outreachContacts?: OutreachContactUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSpotlightVotesInput = {
@@ -75991,6 +77854,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUpdateOneWithoutUserNestedInput
     applicationProfiles?: DonorApplicationProfileUpdateManyWithoutUserNestedInput
+    outreachContacts?: OutreachContactUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSpotlightVotesInput = {
@@ -76037,6 +77901,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUncheckedUpdateOneWithoutUserNestedInput
     applicationProfiles?: DonorApplicationProfileUncheckedUpdateManyWithoutUserNestedInput
+    outreachContacts?: OutreachContactUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ProjectUpsertWithoutSpotlightVotesInput = {
@@ -76146,6 +78011,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileCreateNestedOneWithoutUserInput
     applicationProfiles?: DonorApplicationProfileCreateNestedManyWithoutUserInput
+    outreachContacts?: OutreachContactCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCampaignsCreatedInput = {
@@ -76192,6 +78058,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileUncheckedCreateNestedOneWithoutUserInput
     applicationProfiles?: DonorApplicationProfileUncheckedCreateNestedManyWithoutUserInput
+    outreachContacts?: OutreachContactUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCampaignsCreatedInput = {
@@ -76335,6 +78202,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUpdateOneWithoutUserNestedInput
     applicationProfiles?: DonorApplicationProfileUpdateManyWithoutUserNestedInput
+    outreachContacts?: OutreachContactUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCampaignsCreatedInput = {
@@ -76381,6 +78249,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUncheckedUpdateOneWithoutUserNestedInput
     applicationProfiles?: DonorApplicationProfileUncheckedUpdateManyWithoutUserNestedInput
+    outreachContacts?: OutreachContactUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ProjectUpsertWithoutCampaignsInput = {
@@ -76539,6 +78408,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileCreateNestedOneWithoutUserInput
     applicationProfiles?: DonorApplicationProfileCreateNestedManyWithoutUserInput
+    outreachContacts?: OutreachContactCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCampaignContributionsInput = {
@@ -76585,6 +78455,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileUncheckedCreateNestedOneWithoutUserInput
     applicationProfiles?: DonorApplicationProfileUncheckedCreateNestedManyWithoutUserInput
+    outreachContacts?: OutreachContactUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCampaignContributionsInput = {
@@ -76686,6 +78557,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUpdateOneWithoutUserNestedInput
     applicationProfiles?: DonorApplicationProfileUpdateManyWithoutUserNestedInput
+    outreachContacts?: OutreachContactUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCampaignContributionsInput = {
@@ -76732,6 +78604,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUncheckedUpdateOneWithoutUserNestedInput
     applicationProfiles?: DonorApplicationProfileUncheckedUpdateManyWithoutUserNestedInput
+    outreachContacts?: OutreachContactUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutNgoSuggestionsInput = {
@@ -76778,6 +78651,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileCreateNestedOneWithoutUserInput
     applicationProfiles?: DonorApplicationProfileCreateNestedManyWithoutUserInput
+    outreachContacts?: OutreachContactCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutNgoSuggestionsInput = {
@@ -76824,6 +78698,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileUncheckedCreateNestedOneWithoutUserInput
     applicationProfiles?: DonorApplicationProfileUncheckedCreateNestedManyWithoutUserInput
+    outreachContacts?: OutreachContactUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutNgoSuggestionsInput = {
@@ -76886,6 +78761,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUpdateOneWithoutUserNestedInput
     applicationProfiles?: DonorApplicationProfileUpdateManyWithoutUserNestedInput
+    outreachContacts?: OutreachContactUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNgoSuggestionsInput = {
@@ -76932,6 +78808,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUncheckedUpdateOneWithoutUserNestedInput
     applicationProfiles?: DonorApplicationProfileUncheckedUpdateManyWithoutUserNestedInput
+    outreachContacts?: OutreachContactUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutReferralsMadeInput = {
@@ -76978,6 +78855,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileCreateNestedOneWithoutUserInput
     applicationProfiles?: DonorApplicationProfileCreateNestedManyWithoutUserInput
+    outreachContacts?: OutreachContactCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutReferralsMadeInput = {
@@ -77024,6 +78902,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileUncheckedCreateNestedOneWithoutUserInput
     applicationProfiles?: DonorApplicationProfileUncheckedCreateNestedManyWithoutUserInput
+    outreachContacts?: OutreachContactUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutReferralsMadeInput = {
@@ -77075,6 +78954,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileCreateNestedOneWithoutUserInput
     applicationProfiles?: DonorApplicationProfileCreateNestedManyWithoutUserInput
+    outreachContacts?: OutreachContactCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutReferralsReceivedInput = {
@@ -77121,6 +79001,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileUncheckedCreateNestedOneWithoutUserInput
     applicationProfiles?: DonorApplicationProfileUncheckedCreateNestedManyWithoutUserInput
+    outreachContacts?: OutreachContactUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutReferralsReceivedInput = {
@@ -77183,6 +79064,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUpdateOneWithoutUserNestedInput
     applicationProfiles?: DonorApplicationProfileUpdateManyWithoutUserNestedInput
+    outreachContacts?: OutreachContactUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReferralsMadeInput = {
@@ -77229,6 +79111,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUncheckedUpdateOneWithoutUserNestedInput
     applicationProfiles?: DonorApplicationProfileUncheckedUpdateManyWithoutUserNestedInput
+    outreachContacts?: OutreachContactUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUpsertWithoutReferralsReceivedInput = {
@@ -77286,6 +79169,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUpdateOneWithoutUserNestedInput
     applicationProfiles?: DonorApplicationProfileUpdateManyWithoutUserNestedInput
+    outreachContacts?: OutreachContactUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReferralsReceivedInput = {
@@ -77332,6 +79216,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUncheckedUpdateOneWithoutUserNestedInput
     applicationProfiles?: DonorApplicationProfileUncheckedUpdateManyWithoutUserNestedInput
+    outreachContacts?: OutreachContactUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type NgoCreateWithoutBoardMembersInput = {
@@ -77510,6 +79395,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileCreateNestedOneWithoutUserInput
     applicationProfiles?: DonorApplicationProfileCreateNestedManyWithoutUserInput
+    outreachContacts?: OutreachContactCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSkillContributionsInput = {
@@ -77556,6 +79442,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileUncheckedCreateNestedOneWithoutUserInput
     applicationProfiles?: DonorApplicationProfileUncheckedCreateNestedManyWithoutUserInput
+    outreachContacts?: OutreachContactUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSkillContributionsInput = {
@@ -77757,6 +79644,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUpdateOneWithoutUserNestedInput
     applicationProfiles?: DonorApplicationProfileUpdateManyWithoutUserNestedInput
+    outreachContacts?: OutreachContactUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSkillContributionsInput = {
@@ -77803,6 +79691,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUncheckedUpdateOneWithoutUserNestedInput
     applicationProfiles?: DonorApplicationProfileUncheckedUpdateManyWithoutUserNestedInput
+    outreachContacts?: OutreachContactUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type NgoUpsertWithoutSkillContributionsInput = {
@@ -78086,6 +79975,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileCreateNestedOneWithoutUserInput
     applicationProfiles?: DonorApplicationProfileCreateNestedManyWithoutUserInput
+    outreachContacts?: OutreachContactCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutEndorsementsReceivedInput = {
@@ -78132,6 +80022,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileUncheckedCreateNestedOneWithoutUserInput
     applicationProfiles?: DonorApplicationProfileUncheckedCreateNestedManyWithoutUserInput
+    outreachContacts?: OutreachContactUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutEndorsementsReceivedInput = {
@@ -78246,6 +80137,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileCreateNestedOneWithoutUserInput
     applicationProfiles?: DonorApplicationProfileCreateNestedManyWithoutUserInput
+    outreachContacts?: OutreachContactCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutEndorsementsGivenInput = {
@@ -78292,6 +80184,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileUncheckedCreateNestedOneWithoutUserInput
     applicationProfiles?: DonorApplicationProfileUncheckedCreateNestedManyWithoutUserInput
+    outreachContacts?: OutreachContactUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutEndorsementsGivenInput = {
@@ -78354,6 +80247,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUpdateOneWithoutUserNestedInput
     applicationProfiles?: DonorApplicationProfileUpdateManyWithoutUserNestedInput
+    outreachContacts?: OutreachContactUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutEndorsementsReceivedInput = {
@@ -78400,6 +80294,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUncheckedUpdateOneWithoutUserNestedInput
     applicationProfiles?: DonorApplicationProfileUncheckedUpdateManyWithoutUserNestedInput
+    outreachContacts?: OutreachContactUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type NgoUpsertWithoutDonorEndorsementsInput = {
@@ -78526,6 +80421,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUpdateOneWithoutUserNestedInput
     applicationProfiles?: DonorApplicationProfileUpdateManyWithoutUserNestedInput
+    outreachContacts?: OutreachContactUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutEndorsementsGivenInput = {
@@ -78572,6 +80468,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUncheckedUpdateOneWithoutUserNestedInput
     applicationProfiles?: DonorApplicationProfileUncheckedUpdateManyWithoutUserNestedInput
+    outreachContacts?: OutreachContactUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutDocumentsInput = {
@@ -78618,6 +80515,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileCreateNestedOneWithoutUserInput
     applicationProfiles?: DonorApplicationProfileCreateNestedManyWithoutUserInput
+    outreachContacts?: OutreachContactCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutDocumentsInput = {
@@ -78664,6 +80562,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileUncheckedCreateNestedOneWithoutUserInput
     applicationProfiles?: DonorApplicationProfileUncheckedCreateNestedManyWithoutUserInput
+    outreachContacts?: OutreachContactUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutDocumentsInput = {
@@ -78726,6 +80625,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUpdateOneWithoutUserNestedInput
     applicationProfiles?: DonorApplicationProfileUpdateManyWithoutUserNestedInput
+    outreachContacts?: OutreachContactUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDocumentsInput = {
@@ -78772,6 +80672,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUncheckedUpdateOneWithoutUserNestedInput
     applicationProfiles?: DonorApplicationProfileUncheckedUpdateManyWithoutUserNestedInput
+    outreachContacts?: OutreachContactUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type NgoCreateWithoutDocumentsInput = {
@@ -79309,6 +81210,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileCreateNestedOneWithoutUserInput
     applicationProfiles?: DonorApplicationProfileCreateNestedManyWithoutUserInput
+    outreachContacts?: OutreachContactCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutRoleApplicationsInput = {
@@ -79355,6 +81257,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileUncheckedCreateNestedOneWithoutUserInput
     applicationProfiles?: DonorApplicationProfileUncheckedCreateNestedManyWithoutUserInput
+    outreachContacts?: OutreachContactUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutRoleApplicationsInput = {
@@ -79509,6 +81412,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUpdateOneWithoutUserNestedInput
     applicationProfiles?: DonorApplicationProfileUpdateManyWithoutUserNestedInput
+    outreachContacts?: OutreachContactUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRoleApplicationsInput = {
@@ -79555,6 +81459,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUncheckedUpdateOneWithoutUserNestedInput
     applicationProfiles?: DonorApplicationProfileUncheckedUpdateManyWithoutUserNestedInput
+    outreachContacts?: OutreachContactUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type RoleEngagementUpsertWithoutApplicationInput = {
@@ -79700,6 +81605,7 @@ export namespace Prisma {
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileCreateNestedOneWithoutUserInput
     applicationProfiles?: DonorApplicationProfileCreateNestedManyWithoutUserInput
+    outreachContacts?: OutreachContactCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutChallengesInput = {
@@ -79746,6 +81652,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     betaTesterProfile?: BetaTesterProfileUncheckedCreateNestedOneWithoutUserInput
     applicationProfiles?: DonorApplicationProfileUncheckedCreateNestedManyWithoutUserInput
+    outreachContacts?: OutreachContactUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutChallengesInput = {
@@ -79950,6 +81857,7 @@ export namespace Prisma {
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUpdateOneWithoutUserNestedInput
     applicationProfiles?: DonorApplicationProfileUpdateManyWithoutUserNestedInput
+    outreachContacts?: OutreachContactUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutChallengesInput = {
@@ -79996,6 +81904,7 @@ export namespace Prisma {
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     betaTesterProfile?: BetaTesterProfileUncheckedUpdateOneWithoutUserNestedInput
     applicationProfiles?: DonorApplicationProfileUncheckedUpdateManyWithoutUserNestedInput
+    outreachContacts?: OutreachContactUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ProjectUpsertWithoutChallengesInput = {
@@ -80276,6 +82185,7 @@ export namespace Prisma {
     challenges?: DonorChallengeCreateNestedManyWithoutDonorInput
     betaTesterProfile?: BetaTesterProfileCreateNestedOneWithoutUserInput
     applicationProfiles?: DonorApplicationProfileCreateNestedManyWithoutUserInput
+    outreachContacts?: OutreachContactCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSubscriptionInput = {
@@ -80322,6 +82232,7 @@ export namespace Prisma {
     challenges?: DonorChallengeUncheckedCreateNestedManyWithoutDonorInput
     betaTesterProfile?: BetaTesterProfileUncheckedCreateNestedOneWithoutUserInput
     applicationProfiles?: DonorApplicationProfileUncheckedCreateNestedManyWithoutUserInput
+    outreachContacts?: OutreachContactUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSubscriptionInput = {
@@ -80384,6 +82295,7 @@ export namespace Prisma {
     challenges?: DonorChallengeUpdateManyWithoutDonorNestedInput
     betaTesterProfile?: BetaTesterProfileUpdateOneWithoutUserNestedInput
     applicationProfiles?: DonorApplicationProfileUpdateManyWithoutUserNestedInput
+    outreachContacts?: OutreachContactUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSubscriptionInput = {
@@ -80430,6 +82342,7 @@ export namespace Prisma {
     challenges?: DonorChallengeUncheckedUpdateManyWithoutDonorNestedInput
     betaTesterProfile?: BetaTesterProfileUncheckedUpdateOneWithoutUserNestedInput
     applicationProfiles?: DonorApplicationProfileUncheckedUpdateManyWithoutUserNestedInput
+    outreachContacts?: OutreachContactUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type NgoCreateWithoutIrsOrganizationInput = {
@@ -80727,6 +82640,40 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type OutreachContactCreateWithoutCompanyInput = {
+    id?: string
+    ein?: string | null
+    roleTitleRef?: string | null
+    status?: $Enums.OutreachStatus
+    sentAt?: Date | string
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutOutreachContactsInput
+  }
+
+  export type OutreachContactUncheckedCreateWithoutCompanyInput = {
+    id?: string
+    userId: string
+    ein?: string | null
+    roleTitleRef?: string | null
+    status?: $Enums.OutreachStatus
+    sentAt?: Date | string
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type OutreachContactCreateOrConnectWithoutCompanyInput = {
+    where: OutreachContactWhereUniqueInput
+    create: XOR<OutreachContactCreateWithoutCompanyInput, OutreachContactUncheckedCreateWithoutCompanyInput>
+  }
+
+  export type OutreachContactCreateManyCompanyInputEnvelope = {
+    data: OutreachContactCreateManyCompanyInput | OutreachContactCreateManyCompanyInput[]
+    skipDuplicates?: boolean
+  }
+
   export type CompanySuggestedRoleUpsertWithWhereUniqueWithoutCompanyInput = {
     where: CompanySuggestedRoleWhereUniqueInput
     update: XOR<CompanySuggestedRoleUpdateWithoutCompanyInput, CompanySuggestedRoleUncheckedUpdateWithoutCompanyInput>
@@ -80762,6 +82709,22 @@ export namespace Prisma {
     expiresAt?: DateTimeFilter<"CompanySuggestedRole"> | Date | string
   }
 
+  export type OutreachContactUpsertWithWhereUniqueWithoutCompanyInput = {
+    where: OutreachContactWhereUniqueInput
+    update: XOR<OutreachContactUpdateWithoutCompanyInput, OutreachContactUncheckedUpdateWithoutCompanyInput>
+    create: XOR<OutreachContactCreateWithoutCompanyInput, OutreachContactUncheckedCreateWithoutCompanyInput>
+  }
+
+  export type OutreachContactUpdateWithWhereUniqueWithoutCompanyInput = {
+    where: OutreachContactWhereUniqueInput
+    data: XOR<OutreachContactUpdateWithoutCompanyInput, OutreachContactUncheckedUpdateWithoutCompanyInput>
+  }
+
+  export type OutreachContactUpdateManyWithWhereWithoutCompanyInput = {
+    where: OutreachContactScalarWhereInput
+    data: XOR<OutreachContactUpdateManyMutationInput, OutreachContactUncheckedUpdateManyWithoutCompanyInput>
+  }
+
   export type CompanyCreateWithoutSuggestedRolesInput = {
     id?: string
     uei?: string | null
@@ -80793,6 +82756,7 @@ export namespace Prisma {
     registrationDate?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    outreachContacts?: OutreachContactCreateNestedManyWithoutCompanyInput
   }
 
   export type CompanyUncheckedCreateWithoutSuggestedRolesInput = {
@@ -80826,6 +82790,7 @@ export namespace Prisma {
     registrationDate?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    outreachContacts?: OutreachContactUncheckedCreateNestedManyWithoutCompanyInput
   }
 
   export type CompanyCreateOrConnectWithoutSuggestedRolesInput = {
@@ -80875,6 +82840,7 @@ export namespace Prisma {
     registrationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    outreachContacts?: OutreachContactUpdateManyWithoutCompanyNestedInput
   }
 
   export type CompanyUncheckedUpdateWithoutSuggestedRolesInput = {
@@ -80908,6 +82874,7 @@ export namespace Prisma {
     registrationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    outreachContacts?: OutreachContactUncheckedUpdateManyWithoutCompanyNestedInput
   }
 
   export type IrsOrganizationCreateWithoutFilingsInput = {
@@ -81068,6 +83035,362 @@ export namespace Prisma {
     bmfLastUpdated?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserCreateWithoutOutreachContactsInput = {
+    id?: string
+    email: string
+    emailVerified?: Date | string | null
+    name?: string | null
+    image?: string | null
+    password?: string | null
+    role?: $Enums.Role
+    referralCode?: string | null
+    bio?: string | null
+    jobTitle?: string | null
+    company?: string | null
+    city?: string | null
+    linkedinUrl?: string | null
+    twitterUrl?: string | null
+    portfolioUrl?: string | null
+    skills?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    aiSummary?: string | null
+    impactScore?: number
+    trainingShareCount?: number
+    betaShareCount?: number
+    campaignCount?: number
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    ngo?: NgoCreateNestedOneWithoutUserInput
+    donations?: DonationCreateNestedManyWithoutUserInput
+    ratings?: RatingCreateNestedManyWithoutDonorInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    spotlightVotes?: SpotlightVoteCreateNestedManyWithoutUserInput
+    campaignsCreated?: CampaignCreateNestedManyWithoutCreatorInput
+    campaignContributions?: CampaignContributorCreateNestedManyWithoutUserInput
+    ngoSuggestions?: NgoSuggestionCreateNestedManyWithoutUserInput
+    referralsMade?: ReferralCreateNestedManyWithoutReferrerInput
+    referralsReceived?: ReferralCreateNestedManyWithoutReferredInput
+    skillContributions?: SkillContributionCreateNestedManyWithoutDonorInput
+    endorsementsReceived?: DonorEndorsementCreateNestedManyWithoutDonorInput
+    endorsementsGiven?: DonorEndorsementCreateNestedManyWithoutEndorserInput
+    documents?: DonorDocumentCreateNestedManyWithoutUserInput
+    roleApplications?: RoleApplicationCreateNestedManyWithoutApplicantInput
+    challenges?: DonorChallengeCreateNestedManyWithoutDonorInput
+    subscription?: SubscriptionCreateNestedOneWithoutUserInput
+    betaTesterProfile?: BetaTesterProfileCreateNestedOneWithoutUserInput
+    applicationProfiles?: DonorApplicationProfileCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutOutreachContactsInput = {
+    id?: string
+    email: string
+    emailVerified?: Date | string | null
+    name?: string | null
+    image?: string | null
+    password?: string | null
+    role?: $Enums.Role
+    referralCode?: string | null
+    bio?: string | null
+    jobTitle?: string | null
+    company?: string | null
+    city?: string | null
+    linkedinUrl?: string | null
+    twitterUrl?: string | null
+    portfolioUrl?: string | null
+    skills?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    aiSummary?: string | null
+    impactScore?: number
+    trainingShareCount?: number
+    betaShareCount?: number
+    campaignCount?: number
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    ngo?: NgoUncheckedCreateNestedOneWithoutUserInput
+    donations?: DonationUncheckedCreateNestedManyWithoutUserInput
+    ratings?: RatingUncheckedCreateNestedManyWithoutDonorInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    spotlightVotes?: SpotlightVoteUncheckedCreateNestedManyWithoutUserInput
+    campaignsCreated?: CampaignUncheckedCreateNestedManyWithoutCreatorInput
+    campaignContributions?: CampaignContributorUncheckedCreateNestedManyWithoutUserInput
+    ngoSuggestions?: NgoSuggestionUncheckedCreateNestedManyWithoutUserInput
+    referralsMade?: ReferralUncheckedCreateNestedManyWithoutReferrerInput
+    referralsReceived?: ReferralUncheckedCreateNestedManyWithoutReferredInput
+    skillContributions?: SkillContributionUncheckedCreateNestedManyWithoutDonorInput
+    endorsementsReceived?: DonorEndorsementUncheckedCreateNestedManyWithoutDonorInput
+    endorsementsGiven?: DonorEndorsementUncheckedCreateNestedManyWithoutEndorserInput
+    documents?: DonorDocumentUncheckedCreateNestedManyWithoutUserInput
+    roleApplications?: RoleApplicationUncheckedCreateNestedManyWithoutApplicantInput
+    challenges?: DonorChallengeUncheckedCreateNestedManyWithoutDonorInput
+    subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
+    betaTesterProfile?: BetaTesterProfileUncheckedCreateNestedOneWithoutUserInput
+    applicationProfiles?: DonorApplicationProfileUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutOutreachContactsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutOutreachContactsInput, UserUncheckedCreateWithoutOutreachContactsInput>
+  }
+
+  export type CompanyCreateWithoutOutreachContactsInput = {
+    id?: string
+    uei?: string | null
+    cageCode?: string | null
+    legalName: string
+    dbaName?: string | null
+    ein?: string | null
+    ocCompanyNumber?: string | null
+    ocJurisdiction?: string | null
+    incorporationDate?: Date | string | null
+    naicsCodes?: CompanyCreatenaicsCodesInput | string[]
+    naicsPrimary?: string | null
+    naicsDescription?: string | null
+    businessTypes?: CompanyCreatebusinessTypesInput | string[]
+    sbaDesignations?: CompanyCreatesbaDesignationsInput | string[]
+    entityStructure?: string | null
+    streetAddress?: string | null
+    city?: string | null
+    state?: string | null
+    zipCode?: string | null
+    contactName?: string | null
+    contactEmail?: string | null
+    website?: string | null
+    employeeRange?: string | null
+    revenueRange?: string | null
+    samRegistered?: boolean
+    ocRegistered?: boolean
+    isActive?: boolean
+    registrationDate?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    suggestedRoles?: CompanySuggestedRoleCreateNestedManyWithoutCompanyInput
+  }
+
+  export type CompanyUncheckedCreateWithoutOutreachContactsInput = {
+    id?: string
+    uei?: string | null
+    cageCode?: string | null
+    legalName: string
+    dbaName?: string | null
+    ein?: string | null
+    ocCompanyNumber?: string | null
+    ocJurisdiction?: string | null
+    incorporationDate?: Date | string | null
+    naicsCodes?: CompanyCreatenaicsCodesInput | string[]
+    naicsPrimary?: string | null
+    naicsDescription?: string | null
+    businessTypes?: CompanyCreatebusinessTypesInput | string[]
+    sbaDesignations?: CompanyCreatesbaDesignationsInput | string[]
+    entityStructure?: string | null
+    streetAddress?: string | null
+    city?: string | null
+    state?: string | null
+    zipCode?: string | null
+    contactName?: string | null
+    contactEmail?: string | null
+    website?: string | null
+    employeeRange?: string | null
+    revenueRange?: string | null
+    samRegistered?: boolean
+    ocRegistered?: boolean
+    isActive?: boolean
+    registrationDate?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    suggestedRoles?: CompanySuggestedRoleUncheckedCreateNestedManyWithoutCompanyInput
+  }
+
+  export type CompanyCreateOrConnectWithoutOutreachContactsInput = {
+    where: CompanyWhereUniqueInput
+    create: XOR<CompanyCreateWithoutOutreachContactsInput, CompanyUncheckedCreateWithoutOutreachContactsInput>
+  }
+
+  export type UserUpsertWithoutOutreachContactsInput = {
+    update: XOR<UserUpdateWithoutOutreachContactsInput, UserUncheckedUpdateWithoutOutreachContactsInput>
+    create: XOR<UserCreateWithoutOutreachContactsInput, UserUncheckedCreateWithoutOutreachContactsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutOutreachContactsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutOutreachContactsInput, UserUncheckedUpdateWithoutOutreachContactsInput>
+  }
+
+  export type UserUpdateWithoutOutreachContactsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    referralCode?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    portfolioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    skills?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    impactScore?: IntFieldUpdateOperationsInput | number
+    trainingShareCount?: IntFieldUpdateOperationsInput | number
+    betaShareCount?: IntFieldUpdateOperationsInput | number
+    campaignCount?: IntFieldUpdateOperationsInput | number
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    ngo?: NgoUpdateOneWithoutUserNestedInput
+    donations?: DonationUpdateManyWithoutUserNestedInput
+    ratings?: RatingUpdateManyWithoutDonorNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    spotlightVotes?: SpotlightVoteUpdateManyWithoutUserNestedInput
+    campaignsCreated?: CampaignUpdateManyWithoutCreatorNestedInput
+    campaignContributions?: CampaignContributorUpdateManyWithoutUserNestedInput
+    ngoSuggestions?: NgoSuggestionUpdateManyWithoutUserNestedInput
+    referralsMade?: ReferralUpdateManyWithoutReferrerNestedInput
+    referralsReceived?: ReferralUpdateManyWithoutReferredNestedInput
+    skillContributions?: SkillContributionUpdateManyWithoutDonorNestedInput
+    endorsementsReceived?: DonorEndorsementUpdateManyWithoutDonorNestedInput
+    endorsementsGiven?: DonorEndorsementUpdateManyWithoutEndorserNestedInput
+    documents?: DonorDocumentUpdateManyWithoutUserNestedInput
+    roleApplications?: RoleApplicationUpdateManyWithoutApplicantNestedInput
+    challenges?: DonorChallengeUpdateManyWithoutDonorNestedInput
+    subscription?: SubscriptionUpdateOneWithoutUserNestedInput
+    betaTesterProfile?: BetaTesterProfileUpdateOneWithoutUserNestedInput
+    applicationProfiles?: DonorApplicationProfileUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutOutreachContactsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    referralCode?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    twitterUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    portfolioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    skills?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    impactScore?: IntFieldUpdateOperationsInput | number
+    trainingShareCount?: IntFieldUpdateOperationsInput | number
+    betaShareCount?: IntFieldUpdateOperationsInput | number
+    campaignCount?: IntFieldUpdateOperationsInput | number
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    ngo?: NgoUncheckedUpdateOneWithoutUserNestedInput
+    donations?: DonationUncheckedUpdateManyWithoutUserNestedInput
+    ratings?: RatingUncheckedUpdateManyWithoutDonorNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    spotlightVotes?: SpotlightVoteUncheckedUpdateManyWithoutUserNestedInput
+    campaignsCreated?: CampaignUncheckedUpdateManyWithoutCreatorNestedInput
+    campaignContributions?: CampaignContributorUncheckedUpdateManyWithoutUserNestedInput
+    ngoSuggestions?: NgoSuggestionUncheckedUpdateManyWithoutUserNestedInput
+    referralsMade?: ReferralUncheckedUpdateManyWithoutReferrerNestedInput
+    referralsReceived?: ReferralUncheckedUpdateManyWithoutReferredNestedInput
+    skillContributions?: SkillContributionUncheckedUpdateManyWithoutDonorNestedInput
+    endorsementsReceived?: DonorEndorsementUncheckedUpdateManyWithoutDonorNestedInput
+    endorsementsGiven?: DonorEndorsementUncheckedUpdateManyWithoutEndorserNestedInput
+    documents?: DonorDocumentUncheckedUpdateManyWithoutUserNestedInput
+    roleApplications?: RoleApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+    challenges?: DonorChallengeUncheckedUpdateManyWithoutDonorNestedInput
+    subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+    betaTesterProfile?: BetaTesterProfileUncheckedUpdateOneWithoutUserNestedInput
+    applicationProfiles?: DonorApplicationProfileUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type CompanyUpsertWithoutOutreachContactsInput = {
+    update: XOR<CompanyUpdateWithoutOutreachContactsInput, CompanyUncheckedUpdateWithoutOutreachContactsInput>
+    create: XOR<CompanyCreateWithoutOutreachContactsInput, CompanyUncheckedCreateWithoutOutreachContactsInput>
+    where?: CompanyWhereInput
+  }
+
+  export type CompanyUpdateToOneWithWhereWithoutOutreachContactsInput = {
+    where?: CompanyWhereInput
+    data: XOR<CompanyUpdateWithoutOutreachContactsInput, CompanyUncheckedUpdateWithoutOutreachContactsInput>
+  }
+
+  export type CompanyUpdateWithoutOutreachContactsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    uei?: NullableStringFieldUpdateOperationsInput | string | null
+    cageCode?: NullableStringFieldUpdateOperationsInput | string | null
+    legalName?: StringFieldUpdateOperationsInput | string
+    dbaName?: NullableStringFieldUpdateOperationsInput | string | null
+    ein?: NullableStringFieldUpdateOperationsInput | string | null
+    ocCompanyNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    ocJurisdiction?: NullableStringFieldUpdateOperationsInput | string | null
+    incorporationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    naicsCodes?: CompanyUpdatenaicsCodesInput | string[]
+    naicsPrimary?: NullableStringFieldUpdateOperationsInput | string | null
+    naicsDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    businessTypes?: CompanyUpdatebusinessTypesInput | string[]
+    sbaDesignations?: CompanyUpdatesbaDesignationsInput | string[]
+    entityStructure?: NullableStringFieldUpdateOperationsInput | string | null
+    streetAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
+    contactName?: NullableStringFieldUpdateOperationsInput | string | null
+    contactEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    employeeRange?: NullableStringFieldUpdateOperationsInput | string | null
+    revenueRange?: NullableStringFieldUpdateOperationsInput | string | null
+    samRegistered?: BoolFieldUpdateOperationsInput | boolean
+    ocRegistered?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    registrationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    suggestedRoles?: CompanySuggestedRoleUpdateManyWithoutCompanyNestedInput
+  }
+
+  export type CompanyUncheckedUpdateWithoutOutreachContactsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    uei?: NullableStringFieldUpdateOperationsInput | string | null
+    cageCode?: NullableStringFieldUpdateOperationsInput | string | null
+    legalName?: StringFieldUpdateOperationsInput | string
+    dbaName?: NullableStringFieldUpdateOperationsInput | string | null
+    ein?: NullableStringFieldUpdateOperationsInput | string | null
+    ocCompanyNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    ocJurisdiction?: NullableStringFieldUpdateOperationsInput | string | null
+    incorporationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    naicsCodes?: CompanyUpdatenaicsCodesInput | string[]
+    naicsPrimary?: NullableStringFieldUpdateOperationsInput | string | null
+    naicsDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    businessTypes?: CompanyUpdatebusinessTypesInput | string[]
+    sbaDesignations?: CompanyUpdatesbaDesignationsInput | string[]
+    entityStructure?: NullableStringFieldUpdateOperationsInput | string | null
+    streetAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
+    contactName?: NullableStringFieldUpdateOperationsInput | string | null
+    contactEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    employeeRange?: NullableStringFieldUpdateOperationsInput | string | null
+    revenueRange?: NullableStringFieldUpdateOperationsInput | string | null
+    samRegistered?: BoolFieldUpdateOperationsInput | boolean
+    ocRegistered?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    registrationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    suggestedRoles?: CompanySuggestedRoleUncheckedUpdateManyWithoutCompanyNestedInput
   }
 
   export type AccountCreateManyUserInput = {
@@ -81247,6 +83570,18 @@ export namespace Prisma {
     title: string
     bio: string
     isDefault?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type OutreachContactCreateManyUserInput = {
+    id?: string
+    companyId?: string | null
+    ein?: string | null
+    roleTitleRef?: string | null
+    status?: $Enums.OutreachStatus
+    sentAt?: Date | string
+    notes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -81800,6 +84135,42 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     bio?: StringFieldUpdateOperationsInput | string
     isDefault?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OutreachContactUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ein?: NullableStringFieldUpdateOperationsInput | string | null
+    roleTitleRef?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumOutreachStatusFieldUpdateOperationsInput | $Enums.OutreachStatus
+    sentAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    company?: CompanyUpdateOneWithoutOutreachContactsNestedInput
+  }
+
+  export type OutreachContactUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
+    ein?: NullableStringFieldUpdateOperationsInput | string | null
+    roleTitleRef?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumOutreachStatusFieldUpdateOperationsInput | $Enums.OutreachStatus
+    sentAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OutreachContactUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    companyId?: NullableStringFieldUpdateOperationsInput | string | null
+    ein?: NullableStringFieldUpdateOperationsInput | string | null
+    roleTitleRef?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumOutreachStatusFieldUpdateOperationsInput | $Enums.OutreachStatus
+    sentAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -83103,6 +85474,18 @@ export namespace Prisma {
     expiresAt: Date | string
   }
 
+  export type OutreachContactCreateManyCompanyInput = {
+    id?: string
+    userId: string
+    ein?: string | null
+    roleTitleRef?: string | null
+    status?: $Enums.OutreachStatus
+    sentAt?: Date | string
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type CompanySuggestedRoleUpdateWithoutCompanyInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
@@ -83146,6 +85529,42 @@ export namespace Prisma {
     source?: StringFieldUpdateOperationsInput | string
     generatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OutreachContactUpdateWithoutCompanyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ein?: NullableStringFieldUpdateOperationsInput | string | null
+    roleTitleRef?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumOutreachStatusFieldUpdateOperationsInput | $Enums.OutreachStatus
+    sentAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutOutreachContactsNestedInput
+  }
+
+  export type OutreachContactUncheckedUpdateWithoutCompanyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    ein?: NullableStringFieldUpdateOperationsInput | string | null
+    roleTitleRef?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumOutreachStatusFieldUpdateOperationsInput | $Enums.OutreachStatus
+    sentAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OutreachContactUncheckedUpdateManyWithoutCompanyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    ein?: NullableStringFieldUpdateOperationsInput | string | null
+    roleTitleRef?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumOutreachStatusFieldUpdateOperationsInput | $Enums.OutreachStatus
+    sentAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

@@ -12,6 +12,8 @@ import {
   TrendingUp, DollarSign, Landmark, BarChart3, Building2,
 } from "lucide-react";
 import SuggestedRolesSection from "./SuggestedRolesSection";
+import OutreachDrawer from "@/components/OutreachDrawer";
+import type { OutreachTarget, OutreachCandidate, ExistingOutreach } from "@/components/OutreachDrawer";
 
 const NTEE_CATEGORIES: Record<string, string> = {
   A: "Arts & Culture", B: "Education", C: "Environment", D: "Animal-Related",
@@ -254,12 +256,26 @@ export default async function NgoProfilePage({
   }
 
   // Fetch cached AI-suggested roles for this EIN (non-blocking)
-  const suggestedRoles = canonicalEin
-    ? await prisma.suggestedRole.findMany({
-        where: { ein: canonicalEin, expiresAt: { gt: new Date() } },
-        orderBy: { generatedAt: "desc" },
-      }).catch(() => [])
-    : [];
+  const [suggestedRoles, candidateUser, existingOutreach] = await Promise.all([
+    canonicalEin
+      ? prisma.suggestedRole.findMany({
+          where: { ein: canonicalEin, expiresAt: { gt: new Date() } },
+          orderBy: { generatedAt: "desc" },
+        }).catch(() => [])
+      : Promise.resolve([]),
+    session?.user?.id
+      ? prisma.user.findUnique({
+          where: { id: session.user.id },
+          select: { id: true, name: true, jobTitle: true },
+        }).catch(() => null)
+      : Promise.resolve(null),
+    session?.user?.id && canonicalEin
+      ? prisma.outreachContact.findFirst({
+          where: { userId: session.user.id, ein: canonicalEin },
+          select: { id: true, status: true, sentAt: true, roleTitleRef: true },
+        }).catch(() => null)
+      : Promise.resolve(null),
+  ]);
 
   // GiveLedger platform stats (only when NGO has registered on platform)
   const totalRaised = ngo?.projects.reduce((sum, p) => sum + p.raisedAmount, 0) ?? 0;
@@ -578,24 +594,47 @@ export default async function NgoProfilePage({
         )}
 
         {/* AI-Suggested Potential Roles — shown when we have an EIN */}
-        {canonicalEin && (
-          <SuggestedRolesSection
-            ein={canonicalEin}
-            initialRoles={suggestedRoles.map((r) => ({
-              id: r.id,
-              title: r.title,
-              description: r.description,
-              skills: r.skills,
-              roleType: r.roleType,
-              timeCommitment: r.timeCommitment,
-              salaryMin: r.salaryMin,
-              salaryMax: r.salaryMax,
-              isAiAugmented: r.isAiAugmented,
-              aiTools: r.aiTools,
-              source: r.source,
-            }))}
-          />
-        )}
+        {canonicalEin && (() => {
+          const ngoOutreachTarget: OutreachTarget = {
+            name: orgName,
+            type: "ngo",
+            id: canonicalEin,
+            contactEmail: null,
+            contactName: null,
+            sector: nteeCategory(irsData?.nteeCode),
+            roleTitles: suggestedRoles.map((r) => r.title),
+          };
+          const ngoCandidate: OutreachCandidate | null = candidateUser
+            ? { name: candidateUser.name ?? "You", jobTitle: candidateUser.jobTitle, credentialUserId: candidateUser.id }
+            : null;
+          const ngoExisting: ExistingOutreach = existingOutreach
+            ? { id: existingOutreach.id, status: existingOutreach.status, sentAt: existingOutreach.sentAt.toISOString(), roleTitleRef: existingOutreach.roleTitleRef }
+            : null;
+          return (
+            <>
+              <div className="flex items-center justify-between mb-4">
+                <p className="text-xs text-gray-500">Reach out proactively with your GiveLedger credential</p>
+                <OutreachDrawer target={ngoOutreachTarget} candidate={ngoCandidate} existing={ngoExisting} />
+              </div>
+              <SuggestedRolesSection
+                ein={canonicalEin}
+                initialRoles={suggestedRoles.map((r) => ({
+                  id: r.id,
+                  title: r.title,
+                  description: r.description,
+                  skills: r.skills,
+                  roleType: r.roleType,
+                  timeCommitment: r.timeCommitment,
+                  salaryMin: r.salaryMin,
+                  salaryMax: r.salaryMax,
+                  isAiAugmented: r.isAiAugmented,
+                  aiTools: r.aiTools,
+                  source: r.source,
+                }))}
+              />
+            </>
+          );
+        })()}
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Main column */}
