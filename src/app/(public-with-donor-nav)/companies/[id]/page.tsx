@@ -4,7 +4,6 @@ import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import Navbar from "@/components/Navbar";
 import CompanySuggestedRolesSection from "./CompanySuggestedRolesSection";
-import OutreachDrawer from "@/components/OutreachDrawer";
 import type { OutreachTarget, OutreachCandidate, ExistingOutreach } from "@/components/OutreachDrawer";
 import {
   Building2, MapPin, Globe, BadgeCheck, Users,
@@ -146,16 +145,6 @@ export default async function CompanyPage({
             )}
           </div>
 
-          {/* Outreach CTA */}
-          <div className="mt-4 pt-4 border-t border-gray-50 flex items-center justify-between gap-3">
-            <p className="text-xs text-gray-400">Proactively reach out with your GiveLedger credential</p>
-            <OutreachDrawer
-              target={outreachTarget}
-              candidate={outreachCandidate}
-              existing={existingOutreach}
-            />
-          </div>
-
           {/* Verification badges */}
           <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-gray-50">
             {company.samRegistered && (
@@ -184,6 +173,18 @@ export default async function CompanyPage({
             <CompanySuggestedRolesSection
               companyId={company.id}
               initialRoles={company.suggestedRoles}
+              outreach={{
+                targetBase: {
+                  name: outreachTarget.name,
+                  type: outreachTarget.type,
+                  id: outreachTarget.id,
+                  contactEmail: outreachTarget.contactEmail,
+                  contactName: outreachTarget.contactName,
+                  sector: outreachTarget.sector,
+                },
+                candidate: outreachCandidate,
+                existing: existingOutreach,
+              }}
             />
 
             {/* Credential CTA */}

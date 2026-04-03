@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { Briefcase, RefreshCw, DollarSign, Clock, ChevronDown, ChevronUp, Cpu } from "lucide-react";
+import OutreachDrawer from "@/components/OutreachDrawer";
+import type { OutreachTarget, OutreachCandidate, ExistingOutreach } from "@/components/OutreachDrawer";
 
 type SuggestedRole = {
   id: string;
@@ -16,6 +18,12 @@ type SuggestedRole = {
   source: string;
 };
 
+type OutreachProps = {
+  targetBase: Omit<OutreachTarget, "roleTitles"> | null;
+  candidate: OutreachCandidate | null;
+  existing: ExistingOutreach;
+};
+
 function formatSalary(min: number | null, max: number | null): string | null {
   if (!min && !max) return null;
   const fmt = (n: number) => n >= 1000 ? `$${(n / 1000).toFixed(0)}k` : `$${n}`;
@@ -25,11 +33,21 @@ function formatSalary(min: number | null, max: number | null): string | null {
   return null;
 }
 
-function RoleCard({ role }: { role: SuggestedRole }) {
+function RoleCard({
+  role, outreach,
+}: {
+  role: SuggestedRole;
+  outreach: OutreachProps;
+}) {
   const [open, setOpen] = useState(false);
   const salary = formatSalary(role.salaryMin, role.salaryMax);
   const skills = role.skills.split(",").map((s) => s.trim()).filter(Boolean);
   const aiTools = role.aiTools?.split(",").map((s) => s.trim()).filter(Boolean) ?? [];
+
+  // Build a role-specific target: only this role's title in roleTitles
+  const target: OutreachTarget | null = outreach.targetBase
+    ? { ...outreach.targetBase, roleTitles: [role.title] }
+    : null;
 
   return (
     <div
@@ -95,7 +113,7 @@ function RoleCard({ role }: { role: SuggestedRole }) {
           )}
 
           {role.isAiAugmented && aiTools.length > 0 && (
-            <div className="mt-2">
+            <div className="mt-2 mb-3">
               <p className="text-[10px] font-semibold text-indigo-400 uppercase tracking-wider mb-1.5">AI Tools</p>
               <div className="flex flex-wrap gap-1.5">
                 {aiTools.map((t) => (
@@ -108,10 +126,21 @@ function RoleCard({ role }: { role: SuggestedRole }) {
           )}
 
           {role.isAiAugmented && (
-            <div className="mt-3 p-2.5 bg-indigo-500/10 border border-indigo-500/20 rounded-lg">
+            <div className="mb-3 p-2.5 bg-indigo-500/10 border border-indigo-500/20 rounded-lg">
               <p className="text-[10px] text-indigo-200 leading-relaxed">
                 No specialist background required. AI fluency is the core qualification. Apply with your GiveLedger credential to show verified AI training.
               </p>
+            </div>
+          )}
+
+          {/* Role-specific Express Interest */}
+          {target && (
+            <div className={`pt-3 border-t ${role.isAiAugmented ? "border-indigo-800/40" : "border-gray-100"}`}>
+              <OutreachDrawer
+                target={target}
+                candidate={outreach.candidate}
+                existing={outreach.existing}
+              />
             </div>
           )}
         </div>
@@ -137,9 +166,10 @@ function RoleSkeleton() {
 type Props = {
   companyId: string;
   initialRoles: SuggestedRole[];
+  outreach: OutreachProps;
 };
 
-export default function CompanySuggestedRolesSection({ companyId, initialRoles }: Props) {
+export default function CompanySuggestedRolesSection({ companyId, initialRoles, outreach }: Props) {
   const [roles, setRoles] = useState<SuggestedRole[]>(initialRoles);
   const [loading, setLoading] = useState(initialRoles.length === 0);
 
@@ -204,7 +234,7 @@ export default function CompanySuggestedRolesSection({ companyId, initialRoles }
             <div>
               <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Standard Roles</p>
               <div className="space-y-2">
-                {standardRoles.map((r) => <RoleCard key={r.id} role={r} />)}
+                {standardRoles.map((r) => <RoleCard key={r.id} role={r} outreach={outreach} />)}
               </div>
             </div>
           )}
@@ -218,7 +248,7 @@ export default function CompanySuggestedRolesSection({ companyId, initialRoles }
                 </span>
               </div>
               <div className="space-y-2">
-                {aiRoles.map((r) => <RoleCard key={r.id} role={r} />)}
+                {aiRoles.map((r) => <RoleCard key={r.id} role={r} outreach={outreach} />)}
               </div>
             </div>
           )}

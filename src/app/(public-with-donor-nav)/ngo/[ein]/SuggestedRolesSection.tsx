@@ -2,6 +2,14 @@
 import { useState, useEffect } from "react";
 import { Sparkles, RefreshCw, Clock, Briefcase, Bot, Zap } from "lucide-react";
 import Link from "next/link";
+import OutreachDrawer from "@/components/OutreachDrawer";
+import type { OutreachTarget, OutreachCandidate, ExistingOutreach } from "@/components/OutreachDrawer";
+
+type OutreachProps = {
+  targetBase: Omit<OutreachTarget, "roleTitles"> | null;
+  candidate: OutreachCandidate | null;
+  existing: ExistingOutreach;
+};
 
 interface SuggestedRole {
   id: string;
@@ -33,11 +41,15 @@ function formatSalary(min: number | null, max: number | null): string | null {
   return null;
 }
 
-function RoleCard({ role }: { role: SuggestedRole }) {
+function RoleCard({ role, outreach }: { role: SuggestedRole; outreach: OutreachProps }) {
   const badge = roleTypeBadge[role.roleType] ?? { label: role.roleType, color: "bg-gray-100 text-gray-600" };
   const salary = formatSalary(role.salaryMin, role.salaryMax);
   const skillList = role.skills.split(",").map((s) => s.trim()).filter(Boolean);
   const aiToolList = role.aiTools ? role.aiTools.split(",").map((s) => s.trim()).filter(Boolean) : [];
+
+  const target: OutreachTarget | null = outreach.targetBase
+    ? { ...outreach.targetBase, roleTitles: [role.title] }
+    : null;
 
   return (
     <div className="px-6 py-4 hover:bg-gray-50/50 transition-colors">
@@ -77,6 +89,11 @@ function RoleCard({ role }: { role: SuggestedRole }) {
           ))}
         </div>
       )}
+      {target && (
+        <div className="mt-3 pt-3 border-t border-gray-100">
+          <OutreachDrawer target={target} candidate={outreach.candidate} existing={outreach.existing} />
+        </div>
+      )}
     </div>
   );
 }
@@ -100,9 +117,11 @@ function RoleSkeleton() {
 export default function SuggestedRolesSection({
   ein,
   initialRoles,
+  outreach,
 }: {
   ein: string;
   initialRoles: SuggestedRole[];
+  outreach: OutreachProps;
 }) {
   const [roles, setRoles] = useState<SuggestedRole[]>(initialRoles);
   const [loading, setLoading] = useState(initialRoles.length === 0);
@@ -195,7 +214,7 @@ export default function SuggestedRolesSection({
           </div>
         ) : (
           <div className="divide-y divide-gray-50">
-            {standardRoles.map((role) => <RoleCard key={role.id} role={role} />)}
+            {standardRoles.map((role) => <RoleCard key={role.id} role={role} outreach={outreach} />)}
           </div>
         )}
 
@@ -252,6 +271,9 @@ export default function SuggestedRolesSection({
                 const badge = roleTypeBadge[role.roleType] ?? { label: role.roleType, color: "" };
                 const skillList = role.skills.split(",").map((s) => s.trim()).filter(Boolean);
                 const aiToolList = role.aiTools ? role.aiTools.split(",").map((s) => s.trim()).filter(Boolean) : [];
+                const aiTarget: OutreachTarget | null = outreach.targetBase
+                  ? { ...outreach.targetBase, roleTitles: [role.title] }
+                  : null;
                 return (
                   <div key={role.id} className="px-6 py-4">
                     <div className="flex items-start justify-between gap-3 mb-2">
@@ -285,6 +307,11 @@ export default function SuggestedRolesSection({
                             {tool}
                           </span>
                         ))}
+                      </div>
+                    )}
+                    {aiTarget && (
+                      <div className="mt-3 pt-3 border-t border-white/10">
+                        <OutreachDrawer target={aiTarget} candidate={outreach.candidate} existing={outreach.existing} />
                       </div>
                     )}
                   </div>
