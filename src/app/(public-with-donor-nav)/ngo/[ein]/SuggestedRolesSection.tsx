@@ -91,7 +91,7 @@ function RoleCard({ role, outreach }: { role: SuggestedRole; outreach: OutreachP
       )}
       {target && (
         <div className="mt-3 pt-3 border-t border-gray-100">
-          <OutreachDrawer target={target} candidate={outreach.candidate} existing={outreach.existing} />
+          <OutreachDrawer target={target} candidate={outreach.candidate} existing={outreach.existing} compact />
         </div>
       )}
     </div>
@@ -311,7 +311,7 @@ export default function SuggestedRolesSection({
                     )}
                     {aiTarget && (
                       <div className="mt-3 pt-3 border-t border-white/10">
-                        <OutreachDrawer target={aiTarget} candidate={outreach.candidate} existing={outreach.existing} />
+                        <OutreachDrawer target={aiTarget} candidate={outreach.candidate} existing={outreach.existing} compact />
                       </div>
                     )}
                   </div>

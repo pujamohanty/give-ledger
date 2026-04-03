@@ -140,6 +140,7 @@ function RoleCard({
                 target={target}
                 candidate={outreach.candidate}
                 existing={outreach.existing}
+                compact
               />
             </div>
           )}

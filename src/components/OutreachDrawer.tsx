@@ -40,6 +40,7 @@ type Props = {
   target: OutreachTarget;
   candidate: OutreachCandidate | null;
   existing: ExistingOutreach;
+  compact?: boolean;
 };
 
 function buildEmail(target: OutreachTarget, candidate: OutreachCandidate | null, role: string): string {
@@ -84,7 +85,7 @@ Best regards,
 ${candidateName}`;
 }
 
-export default function OutreachDrawer({ target, candidate, existing }: Props) {
+export default function OutreachDrawer({ target, candidate, existing, compact = false }: Props) {
   const [open, setOpen] = useState(false);
   const [selectedRole, setSelectedRole] = useState(target.roleTitles[0] ?? "");
   const [emailBody, setEmailBody] = useState("");
@@ -202,9 +203,12 @@ export default function OutreachDrawer({ target, candidate, existing }: Props) {
     return (
       <a
         href="/login"
-        className="inline-flex items-center gap-2 text-sm font-semibold bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl transition-colors"
+        className={compact
+          ? "inline-flex items-center gap-1.5 text-xs font-semibold bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-lg transition-colors"
+          : "inline-flex items-center gap-2 text-sm font-semibold bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl transition-colors"
+        }
       >
-        <Send className="w-4 h-4" />
+        <Send className={compact ? "w-3 h-3" : "w-4 h-4"} />
         Express Interest
       </a>
     );
@@ -214,9 +218,12 @@ export default function OutreachDrawer({ target, candidate, existing }: Props) {
     <>
       <button
         onClick={openDrawer}
-        className="inline-flex items-center gap-2 text-sm font-semibold bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl transition-colors"
+        className={compact
+          ? "inline-flex items-center gap-1.5 text-xs font-semibold bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-lg transition-colors"
+          : "inline-flex items-center gap-2 text-sm font-semibold bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl transition-colors"
+        }
       >
-        <Send className="w-4 h-4" />
+        <Send className={compact ? "w-3 h-3" : "w-4 h-4"} />
         Express Interest
       </button>
 
